@@ -1,0 +1,64 @@
+import Mocks from "./Mocks";
+import MockContacts from './mocks/MockContacts'
+import MockContracts from './mocks/MockContracts'
+import configFile from './config';
+const config = configFile.get(process.env.NODE_ENV);
+
+export default class FetchData {
+  constructor(params, onLoaded, onError) {
+    this.params = FetchData.toParams(params);
+    this.scope = params.scope;
+    this.onLoaded = onLoaded;
+    this.onError = onError;
+  }
+
+  static toParams(obj) {
+    let res = [];
+    for (let key in obj) {
+      res.push(`${key}=${encodeURI(obj[key])}`);
+    }
+    return res.join('&');
+  }
+
+  get() {
+    console.log(this.params);
+    return fetch(
+      //`https://ascee.droeftoeters.com/backend/Pullpages/Evidence.php?${this.params}`,
+      config.client.server,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*',
+        },
+        mode: 'no-cors',
+      })
+      .then(function (res) {
+        // TODO: DEV server only
+        if (res.type === "opaque") {
+          console.log('opaque');
+          // it's a CORS problem so we are on the dev server
+          switch (this.scope) {
+            case 'mail':
+              return this.params.search('param1') === -1 ? Mocks.mockMail : Mocks.mockMailBody;
+            case 'linkID':
+              return Mocks.mockLink;
+            case 'wallet':
+              return Mocks.mockWallet;
+            case 'skill':
+              return Mocks.mockSkills;
+            case 'bookmarks':
+              return Mocks.mockBookmarks;
+            case 'contacts':
+              return MockContacts.mock;
+              case 'contract':
+              return MockContracts.mock;
+            default:
+              return null;
+          }
+        };
+        return res.json()
+      }.bind(this));
+  }
+}

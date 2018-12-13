@@ -1,0 +1,29 @@
+{
+  "name": "recruitment-react",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://ascee.droeftoeters.com/testfiles",
+  "dependencies": {
+    "flow": "^0.2.3",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.0.5"
+  },
+  "scripts": {
+    "start": "set PORT=3003 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "postbuild": "rm precache*; rm static/css/*; rm static/js/*; cp -fR build/* .; mv index.html evidence.html"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

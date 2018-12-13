@@ -1,0 +1,10 @@
+# node
+client/node_modules
+server/node_modules
+
+#other
+build
+client/package-lock.json
+server/package-lock.json
+*.log
+*.gz
