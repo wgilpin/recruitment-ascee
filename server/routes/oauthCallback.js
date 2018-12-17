@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const SSO = require('eve-singlesignon');
-const User = require('../model/newUserModel');
+const User = require('../model/UserModel');
 
 const CLIENT_ID = '37de4bba039744c0a4d59cc15c9748c2';
 const SECRET_KEY = 'O0q1KdspI0QRNlpX3nlSgXIGn0WJ9DOxxqj1bHrv';

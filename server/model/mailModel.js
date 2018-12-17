@@ -1,5 +1,5 @@
 const esi = require('eve-swagger');
-const Character = require('./characterModel');
+const Character = require('./CharacterModel');
 
 class mailModel {
   static async getMailList(userId, token) {

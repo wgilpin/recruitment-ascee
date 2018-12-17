@@ -2,16 +2,16 @@ const esi = require('eve-swagger');
 const Character = require('../schema/characterSchema');
 
 
-class characterModel {
+class CharacterModel {
   static get(id, withPortrait = false) {
     // check datastore cache
 
     return Character.get(id)
       .catch(async () => {
         // not in cache, try esi
-        let charData = await characterModel.getInfo(id);
+        let charData = await CharacterModel.getInfo(id);
         if (withPortrait) {
-          const portraitData = await characterModel.getPortrait(id);
+          const portraitData = await CharacterModel.getPortrait(id);
           charData = { ...charData, ...portraitData };
         }
         const entityData = Character.sanitize(charData);
@@ -32,4 +32,4 @@ class characterModel {
   }
 }
 
-module.exports = characterModel;
+module.exports = CharacterModel;

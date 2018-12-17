@@ -66,19 +66,25 @@ class Model {
   }
 
   setFields(newData) {
+    console.log(newData)
     for (const f in this.fields) {
       if (Object.hasOwnProperty.call(this.fields, f)) {
+        console.log(`value ${f}=${newData[f]}`);
         this.values[f] = newData[f];
       }
     }
-    this.validate();
+    const err = this.validate();
+    if (err) {
+      console.log(`Validation Error ${err}`);
+      throw err;
+    }
   }
 
   async get(id) {
     this.key = Store.datastore.key({ path: [this.kind, id] });
     let dbEntity;
     try {
-      dbEntity = Store.datastore.get(this.key);
+      [dbEntity] = await Store.datastore.get(this.key);
       this.setFields(dbEntity);
     } catch (err) {
       console.log(`datastore get not found: ${err}`);
