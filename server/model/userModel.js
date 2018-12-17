@@ -2,47 +2,37 @@ const User = require('../schema/userSchema');
 
 class UserModel {
   static get(id) {
+    // check datastore cache
     return User.get(id)
-      .catch(err => console.error(err));
-  }
-
-  static create(main, name, token, image) {
-    const entityData = User.sanitize({
-      main, name, token, image,
-    });
-    console.log('data', entityData);
-    new User(entityData)
-      .save()
-      .then((entity) => {
-        console.log(`alt ${entity.entityKey} created successfully.`);
-      })
-      .catch((err) => {
-        console.error('ERROR in create :', err);
+      .catch(() => {
+        // not in cache
+        console.error(`user ${id} not in cache`);
+        return null;
       });
   }
 
-  static update({
+  static async update({
     id, main, name, token, image,
   }) {
-    const entityData = User.sanitize({
-      main, name, token, image,
-    });
+    let entityData = typeof image === 'undefined' ? { main, name, token } : { main, name, token, image };
+
+    entityData = User.sanitize(entityData);
     console.log(`update data ${id} = ${token}`);
-    User.update(id, entityData)
-      .then((entity) => {
-        console.log(`alt ${id} updated successfully.`, entity.plain());
-      })
-      .catch(() => {
-        // entity not found
-        new User(entityData, id)
-          .save()
-          .then((entity) => {
-            console.log(`alt ${entity.entityKey} created successfully.`);
-          })
-          .catch((err) => {
-            console.error('ERROR in update/save:', err);
-          });
-      });
+    try {
+      const entity = await User.update(id, entityData);
+      console.log(`alt ${id} updated successfully.`, entity.plain());
+      return entity;
+    } catch (err) {
+      // entity not found
+      try {
+        const entity = await new User(entityData, id).save();
+        console.log(`alt ${entity.entityKey} created successfully.`);
+        return entity;
+      } catch (error) {
+        console.error('ERROR in update/save:', error);
+        return null;
+      }
+    }
   }
 }
 

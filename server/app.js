@@ -7,16 +7,16 @@ const session = require('express-session');
 const lessMiddleware = require('less-middleware');
 const logger = require('morgan');
 
-const gstore = require('gstore-node')();
 const Datastore = require('@google-cloud/datastore');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testEsiRouter = require('./routes/testEsi');
-const apiRouter = require('./routes/api');
+const apiRouter = require('./routes/api/api');
+const scopesRouter = require('./routes/scopesRoute');
 const loginRouter = require('./routes/loginRoute');
 const oauthRouter = require('./routes/oauthCallback');
 const mailRouter = require('./routes/mailRoute');
-
+const Store = require('./model/Store');
 
 const app = express();
 
@@ -37,7 +37,9 @@ const datastore = new Datastore({
   projectId: 'ascee-recruit',
 });
 
-gstore.connect(datastore);
+// app();
+
+Store.connect(datastore);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -46,6 +48,7 @@ app.use('/api', apiRouter);
 app.use('/login', loginRouter);
 app.use('/oauth-callback', oauthRouter);
 app.use('/mail', mailRouter);
+app.use('/scopes', scopesRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -56,7 +59,8 @@ app.use((req, res, next) => {
 app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.err = err;
+  // res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);

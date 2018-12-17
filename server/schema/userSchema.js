@@ -5,8 +5,9 @@ const { Schema } = gstore;
 const userSchema = new Schema({
   name: { type: String },
   token: { type: String },
-  image: { type: String },
-  main: { type: String },
+  image: { type: String, required: false },
+  main: { type: Boolean, default: false },
+  hasScopes: { type: Boolean, required: false },
   createdOn: { type: Date, default: gstore.defaultValues.NOW },
 });
 
