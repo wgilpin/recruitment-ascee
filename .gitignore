@@ -8,3 +8,5 @@ client/package-lock.json
 server/package-lock.json
 *.log
 *.gz
+credentials/*
+credentials/ascee-recruit-f7087935ad03.json
