@@ -13,8 +13,8 @@ router.get('/', async (req, res) => {
   console.log(`get mail for ${req.session.CharacterID}`);
   const user = new User();
   await user.get(req.session.CharacterID);
-  const mails = Mail.getMailList(req.session.CharacterID, user.token);
-  res.render('mail', { mails });
+  const mails = await Mail.getMailList(req.session.CharacterID, user.values.scopeToken);
+  res.render('mail', { mails, session: req.session });
 });
 
 module.exports = router;

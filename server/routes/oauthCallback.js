@@ -16,41 +16,47 @@ router.get('/', async (req, res) => {
   // callback from the Eve Online SSO login screen on login
   // Get an access token for this authorization code
 
-  let accessToken;
   try {
     const result = await sso.getAccessToken(req.query.code);
-    accessToken = result.access_token;
+    const accessToken = result.access_token;
     const now = new Date();
     const expirationTime = now.setSeconds(now.getSeconds() + result.expires_in);
     const verification = await sso.verifyAccessToken(accessToken);
-    req.session.code = req.query.code;
     // TODO: what to do with req.query.state?
     //     http://www.thread-safe.com/2014/05/the-correct-use-of-state-parameter-in.html
     const loginKind = req.query.state.split(':')[0].trim();
+    const userData = {
+      name: verification.CharacterName,
+      expires: expirationTime,
+      main: req.session.CharacterID,
+    };
     if (loginKind === 'main') {
-      console.log('oauth - its a main');
       req.session.CharacterName = verification.CharacterName;
       req.session.CharacterID = verification.CharacterID;
+      userData.accessToken = accessToken;
+    } else {
+      // it's an alt or a main with scopes
+      userData.scopeToken = accessToken;
+      req.session.accessToken = accessToken;
     }
     console.log(`oauth callback ${verification.CharacterName} ${verification.CharacterID}`);
     const user = new User();
     await user.get(verification.CharacterID);
-    await user.update({
-      name: verification.CharacterName,
-      accessToken,
-      refreshToken: result.refresh_token || user.values.refreshToken,
-      expires: expirationTime,
-      main: req.session.CharacterID,
-      hasScopes: user.values.hasScopes || verification.Scopes.length > 0,
+    userData.refreshToken = result.refresh_token || user.values.refreshToken;
+    await user.update(userData);
+    req.session.save((err) => {
+      if (err) {
+        console.error(err);
+      }
     });
-    if (!user.values.hasScopes) {
+    if (!user.values.scopeToken) {
       // need to request scopes
       console.log('fetch scopes');
       res.redirect('/scopes');
       return;
     }
     // We now have some basic info...
-    res.send(`Character ID: ${result.CharacterID}\nCharacter Name: ${result.CharacterName}`);
+    res.render('debug', { CharacterName: req.session.CharacterName, session: req.session });
   } catch (err) {
     // An error occurred
     console.error('oauth error', err);

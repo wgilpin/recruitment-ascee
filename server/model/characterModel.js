@@ -1,24 +1,38 @@
 const esi = require('eve-swagger');
-const Character = require('../schema/characterSchema');
 
+const CachedModel = require('./CachedModel');
 
-class CharacterModel {
-  static get(id, withPortrait = false) {
-    // check datastore cache
+class CharacterModel extends CachedModel {
+  constructor() {
+    super(CharacterModel.getEsi);
+    this.kind = 'Character';
+    this.addField('accessToken', CachedModel.Types.String, false);
+    this.addField('refreshToken', CachedModel.Types.String, false);
+    this.addField('expires', CachedModel.Types.Number, false);
+    this.addField('main', CachedModel.Types.String, false);
 
-    return Character.get(id)
-      .catch(async () => {
-        // not in cache, try esi
-        let charData = await CharacterModel.getInfo(id);
-        if (withPortrait) {
-          const portraitData = await CharacterModel.getPortrait(id);
-          charData = { ...charData, ...portraitData };
-        }
-        const entityData = Character.sanitize(charData);
-        const char = new Character(entityData, id);
-        await char.save();
-        return char;
-      });
+    // from Info()
+    this.addField('ancestry_id', CachedModel.Types.Number, false);
+    this.addField('birthday', CachedModel.Types.String, false);
+    this.addField('bloodline_id', CachedModel.Types.Number, false);
+    this.addField('corporation_id', CachedModel.Types.Number);
+    this.addField('description', CachedModel.Types.String, false);
+    this.addField('gender', CachedModel.Types.String, false);
+    this.addField('name', CachedModel.Types.String);
+    this.addField('race_id', CachedModel.Types.Number, false);
+
+    // from Portrait()
+    this.addField('px128x128', CachedModel.Types.String, false);
+    this.addField('px256x256', CachedModel.Types.String, false);
+    this.addField('px512x512', CachedModel.Types.String, false);
+    this.addField('px64x64', CachedModel.Types.String, false);
+    this.addField('cachedOn', CachedModel.Types.Number, false);
+  }
+
+  static async getEsi(id) {
+    const charData = await CharacterModel.getInfo(id);
+    const portraitData = await CharacterModel.getPortrait(id);
+    return { ...charData, ...portraitData };
   }
 
   static getInfo(userId) {

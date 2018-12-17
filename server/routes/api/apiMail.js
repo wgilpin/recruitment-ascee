@@ -1,6 +1,6 @@
 const express = require('express');
 const Mail = require('../../model/mailModel');
-const User = require('../../model/userModel');
+const User = require('../../model/UserModel');
 
 
 const router = express.Router();
@@ -14,9 +14,10 @@ router.get('/:userId', async (req, res) => {
 
   // Fetch all active alliance ids (could also call 'esi.alliances.all()')
   try {
-    const user = await User.get(req.params.userId);
-    const mails = Mail.getMailList(req.params.userId, user.token);
-    res.render('mail', { mails });
+    const user = new User();
+    await user.get(req.params.userId);
+    const mails = await Mail.getMailList(req.params.userId, user.values.scopeToken);
+    res.send(mails);
   } catch (error) {
     res.send(error);
   }

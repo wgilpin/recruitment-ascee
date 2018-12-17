@@ -1,2 +1,12 @@
 <h1>Mail</h1>
 <p>{{ mail }}</p>
+{{#each mails}}
+<p>{{this.subject}}</p>
+<p>From: {{this.from}}</p>
+<p>To: {{this.to}}</p>
+<hr/>
+{{/each}}
+<p>Session</p>
+{{#each session}}
+<p> {{@key}} : {{this}}</p>
+{{/each}}

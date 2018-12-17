@@ -9,8 +9,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:charId', async (req, res) => {
-  console.log('GET char');
-
   // check the cache
   const char = await Character.get(req.params.charId);
   res.send(char.entityData);

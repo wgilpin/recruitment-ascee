@@ -1,3 +1,7 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
 <a href="/login"><button>Log in</button></a>
+<p>Session</p>
+{{#each session}}
+<p> {{@key}} : {{this}}</p>
+{{/each}}

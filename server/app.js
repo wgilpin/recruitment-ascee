@@ -28,7 +28,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: 'Pnr:CkiUi^tE**K+Qgy&?x&g-Y@7..TG6XK2J4WHxzG3c:b4jpfUC]GFBk*f@8J_' }));
+app.use(session({
+  secret: 'Pnr:CkiUi^tE**K+Qgy&?x&g-Y@7..TG6XK2J4WHxzG3c:b4jpfUC]GFBk*f@8J_',
+  cookie: { secure: false },
+}));
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 

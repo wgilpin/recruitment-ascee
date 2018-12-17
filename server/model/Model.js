@@ -17,9 +17,6 @@ class Model {
     this.fields = {};
     this.values = {};
     this.key = {};
-    this.String = typeof 'asd';
-    this.Boolean = typeof true;
-    this.Date = Date;
     this.kind = 'ABSTRACT';
     for (const f in this) {
       if (f instanceof Field) {
@@ -27,6 +24,14 @@ class Model {
         this.values[f] = null;
       }
     }
+  }
+
+  static get Types() {
+    return {
+      String: typeof 'asd',
+      Boolean: typeof true,
+      Number: typeof 123,
+    };
   }
 
   addField(name, type = 'string', required = true, defaultValue = null) {
@@ -37,18 +42,25 @@ class Model {
 
   validate() {
     // check all fields
+    // returns either false (passes) or an array of error messages
+    const errors = [];
     for (const f in this.fields) {
       if (Object.hasOwnProperty.call(this.fields, f)) {
-        const thisType = typeof this.values[f];
-        if (thisType !== this.fields[f].type) {
-          return false;
-        }
-        if (f.required && this.values[f] == null) {
-          return false;
+        const field = this.fields[f];
+        const value = this.values[f];
+        const thisType = typeof value;
+        if (!value) {
+          if (field.required) {
+            // a required value is missing
+            errors.push(`${f}: ${f.type}, req: ${f.required} Required value not present`);
+          }
+        } else if (thisType !== field.type) {
+          // value present but wrong type
+          errors.push(`${f}: ${f.type}, req: ${f.required} Failed on value ${this.values[f]}`);
         }
       }
     }
-    return true;
+    return errors.length ? errors : false;
   }
 
   checkKey() {
@@ -61,34 +73,47 @@ class Model {
 
   async save() {
     this.checkKey();
-    this.validate();
+    const err = this.validate();
+    if (err) {
+      throw new Error(`Validation Failed ${err.join(' / ')}`);
+    }
     await Store.datastore.save({ key: this.key, data: this.values });
   }
 
   setFields(newData) {
-    console.log(newData)
-    for (const f in this.fields) {
+    for (const f in newData) {
       if (Object.hasOwnProperty.call(this.fields, f)) {
-        console.log(`value ${f}=${newData[f]}`);
         this.values[f] = newData[f];
       }
     }
     const err = this.validate();
     if (err) {
-      console.log(`Validation Error ${err}`);
-      throw err;
+      console.log(`Validation Error ${err.join(' / ')}`);
+      throw new Error(`Validation Error ${err.join(' / ')}`);
     }
   }
 
+
   async get(id) {
-    this.key = Store.datastore.key({ path: [this.kind, id] });
+    /*
+     * get an object from the db and load all fields as per schema
+     *
+     * @param {number} id - datastore key id
+     * @returns boolean "was found" ? true : false
+     */
+    this.key = Store.datastore.key({ path: [this.kind, parseInt(id, 10)] });
     let dbEntity;
     try {
       [dbEntity] = await Store.datastore.get(this.key);
-      this.setFields(dbEntity);
+      if (dbEntity) {
+        this.setFields(dbEntity);
+        return true;
+      }
     } catch (err) {
       console.log(`datastore get not found: ${err}`);
+      return false;
     }
+    return false;
   }
 
   async update(data) {
