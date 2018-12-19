@@ -15,8 +15,11 @@ class WalletModel {
     // load the names
     // eslint-disable-next-line no-restricted-syntax
     for (const trans of wallet) {
-      trans.from = await Character.get(trans.client_id).name;
-      trans.location = await Names.get(trans.location_id).name;
+      const char = new Character();
+      await char.get(trans.client_id);
+      trans.from = char.name;
+      await char.get(trans.location_id);
+      trans.location = char.name;
     }
     return wallet;
   }

@@ -10,8 +10,9 @@ router.get('/', (req, res) => {
 
 router.get('/:charId', async (req, res) => {
   // check the cache
-  const char = await Character.get(req.params.charId);
-  res.send(char.entityData);
+  const char = new Character();
+  await char.get(req.params.charId);
+  res.send(char.values);
 });
 
 module.exports = router;

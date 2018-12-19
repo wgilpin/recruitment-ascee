@@ -27,7 +27,7 @@ class CachedModel extends Model {
     try {
       const entityData = await this.esiParser(this.id);
       this.setFields(entityData);
-      await this.save();
+      this.save();
       return this.values;
     } catch (exc) {
       console.log(`DB entity not found ${exc}`);

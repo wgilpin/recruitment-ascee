@@ -17,11 +17,15 @@ class MailModel {
         msg.from = 'Me';
         // eslint-disable-next-line no-restricted-syntax
         for (const recipient of msg.recipients) {
-          recipient.to = await Character.get(recipient.recipient_id).name;
+          const char = new Character();
+          await char.get(recipient.recipient_id);
+          recipient.to = char.values.name;
         }
       } else {
         msg.to = 'Me';
-        msg.from = await Character.get(msg.from).name;
+        const char = new Character();
+        await char.get(msg.from);
+        msg.from = char.name;
       }
     }
     return mail;

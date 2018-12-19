@@ -101,16 +101,20 @@ class SkillsModel {
     Object.keys(this.skills).map((group_id) => {
       const groupName = this.static.groupList[group_id];
       Object.keys(this.skills[group_id]).map(async (skill_id) => {
-        const { skillpoints_in_skill } = this.skills[group_id];
-        // res[groupName].skillpoints_in_skill = skillpoints_in_skill;
-        const { current_skill_level } = this.skills[group_id][skill_id];
-        const skillName = this.static.skillList[skill_id].name;
-        const item = {
-          skill_id: { groupName, name: skillName },
-          active_skill_level: current_skill_level || 0,
-          skillpoints_in_skill,
-        };
-        res.push(item);
+        try {
+          const { skillpoints_in_skill } = this.skills[group_id];
+          // res[groupName].skillpoints_in_skill = skillpoints_in_skill;
+          const { current_skill_level } = this.skills[group_id][skill_id];
+          const skillName = this.static.skillList[skill_id].name;
+          const item = {
+            skill_id: { groupName, name: skillName },
+            active_skill_level: current_skill_level || 0,
+            skillpoints_in_skill,
+          };
+          res.push(item);
+        } catch (err) {
+          console.error(`addNames ${err.message}`);
+        }
       });
       return true;
     });

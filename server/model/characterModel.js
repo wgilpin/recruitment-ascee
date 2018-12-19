@@ -1,10 +1,10 @@
 const esi = require('eve-swagger');
-const NodeCache = require('node-cache');
 
 const CachedModel = require('./CachedModel');
 
 class CharacterModel extends CachedModel {
-constructor() {
+  // cache of characters from ESI
+  constructor() {
     super(CharacterModel.getEsi);
     this.kind = 'Character';
     this.addField('accessToken', CachedModel.Types.String, false);
@@ -47,31 +47,4 @@ constructor() {
   }
 }
 
-class CharacterCache {
-  constructor() {
-    // create a 1 hour cache
-    this.cache = new NodeCache({ stdTTL: 3600 });
-  }
-
-  add(userId, data) {
-    this.cache.set(userId, data);
-  }
-
-  async get(userId) {
-    try {
-      const value = await this.cache.get(userId);
-      if (value) {
-        return value;
-      }
-      const char = await CharacterModel.getEsi(userId);
-      this.cache.set(userId, char);
-      return char;
-    } catch (err) {
-      return err;
-    }
-  }
-}
-
-const instance = new CharacterCache();
-
-module.exports = instance;
+module.exports = CharacterModel;
