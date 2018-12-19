@@ -44,6 +44,7 @@ export default class Evidence extends React.Component {
   changeTab = (tabId) => {
     console.log('evidence click ');
     this.setState({ activeTab: tabId });
+    this.forceUpdate();
   }
 
   changeAlt = (altId) => {

@@ -40,9 +40,9 @@ export default class Mail extends React.Component {
 
   static jsonToMailList(json) {
     let list = [];
-    if (json && json.info) {
-      for (let we in json.info) {
-        list.push(json.info[we]);
+    if (json) {
+      for (let we in json) {
+        list.push(json[we]);
       }
     }
     return list;
@@ -55,7 +55,7 @@ export default class Mail extends React.Component {
       { id: this.props.alt, scope: 'mail' },
     ).get()
       .then(data => {
-        return newList = Mail.jsonToMailList(data);
+        return newList = Mail.jsonToMailList(data.info);
       })
       .then(() => {
         if (newList.length !== (this.state.mailList || []).length) {
@@ -134,9 +134,9 @@ export default class Mail extends React.Component {
     let newdate = new Date(timestamp);
     formattedDate = newdate.toLocaleDateString() + ' ' + newdate.toLocaleTimeString();
     return (
-      <div style={styles.row} onClick={this.toggleMessage.bind(this, key)}>
+      <div key={key} style={styles.row} onClick={this.toggleMessage.bind(this, key)}>
         <div style={lineStyle}>{formattedDate}</div>
-        <div style={lineStyle}>{from.name}</div>
+        <div style={lineStyle}>{from}</div>
         <div style={lineStyle}>{subject}</div>
       </div>
     );

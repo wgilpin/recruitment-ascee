@@ -20,7 +20,7 @@ class TokenStore {
     let expires;
     let refreshToken;
     let accessToken;
-    if (userId in this.tokens) {
+    if (userId in this.tokens && this.tokens[userId].refreshToken) {
       ({ expires, refreshToken, accessToken } = this.tokens[userId]);
       if (new Date() < expires) {
         return accessToken;
@@ -41,13 +41,18 @@ class TokenStore {
         return false;
       }
     }
-    /* eslint-disable camelcase */
-    const { access_token, expires_in } = await Oauth.refreshToken(refreshToken);
-    this.tokens[userId].accessToken = access_token;
-    const now = new Date();
-    const expirationTime = now.setSeconds(now.getSeconds() + expires_in);
-    this.tokens[userId].expires = expirationTime;
-    return access_token;
+    try {
+      /* eslint-disable camelcase */
+      const { access_token, expires_in } = await Oauth.refreshToken(refreshToken);
+      this.tokens[userId].accessToken = access_token;
+      const now = new Date();
+      const expirationTime = now.setSeconds(now.getSeconds() + expires_in);
+      this.tokens[userId].expires = expirationTime;
+      return access_token;
+    } catch (err) {
+      console.log(`TokenStore ${err.message}`);
+      return null;
+    }
   }
 }
 

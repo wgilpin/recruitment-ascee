@@ -14,8 +14,8 @@ class UserModel extends Model {
   }
 
   async get(id) {
-    const res = super.get(id);
-    this.values.accessToken = TokenStore.get(typeof this, this.id);
+    const res = await super.get(id);
+    this.values.accessToken = await TokenStore.get(this.kind, id);
     return res;
   }
 }

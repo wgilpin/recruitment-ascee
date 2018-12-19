@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
   // Get an access token for this authorization code
 
   try {
-    const result = await oauth.getAccessToken(req.query.code, req.query.state);
+    const result = await Oauth.getAccessToken(req.query.code, req.query.state);
     const { name, userId, expires, accessToken, refreshToken, loginKind } = result;
     TokenStore.add(userId, refreshToken, accessToken, expires);
     const userData = {

@@ -6,8 +6,10 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const lessMiddleware = require('less-middleware');
 const logger = require('morgan');
-
+const cors = require('cors');
 const Datastore = require('@google-cloud/datastore');
+const corsOptions = require('./Cors');
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testEsiRouter = require('./routes/testEsi');
@@ -16,6 +18,7 @@ const scopesRouter = require('./routes/scopesRoute');
 const loginRouter = require('./routes/loginRoute');
 const oauthRouter = require('./routes/oauthCallback');
 const mailRouter = require('./routes/mailRoute');
+const SkillStatic = require('./model/SkillStatic');
 const Store = require('./model/Store');
 
 const app = express();
@@ -31,23 +34,23 @@ app.use(cookieParser());
 app.use(session({
   secret: 'Pnr:CkiUi^tE**K+Qgy&?x&g-Y@7..TG6XK2J4WHxzG3c:b4jpfUC]GFBk*f@8J_',
   cookie: { secure: false },
+  resave: true,
+  saveUninitialized: true,
 }));
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 const datastore = new Datastore({
   projectId: 'ascee-recruit',
 });
 
-// app();
-
 Store.connect(datastore);
 
-app.use('/', indexRouter);
+app.use(cors());
+app.use('/', cors(corsOptions), indexRouter);
 app.use('/users', usersRouter);
 app.use('/esi', testEsiRouter);
-app.use('/api', apiRouter);
+app.use('/api', cors(corsOptions), apiRouter);
 app.use('/login', loginRouter);
 app.use('/oauth-callback', oauthRouter);
 app.use('/mail', mailRouter);
@@ -69,5 +72,7 @@ app.use((err, req, res) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
+SkillStatic.loadFromDb();
 
 module.exports = app;

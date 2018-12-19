@@ -1,17 +1,28 @@
 const esi = require('eve-swagger');
 const Character = require('./CharacterModel');
 
-class mailModel {
+const memCacheUsers = {};
+
+class MailModel {
+  static async getCharNameFromCache(id) {
+    if (id in memCacheUsers) {
+      return memCacheUsers[id];
+    }
+    const user = await Character.get(id);
+    if (user.name) {
+      memCacheUsers[id] = user.name;
+    }
+    return user.name;
+  }
+
   static async getMailList(userId, token) {
     let mail;
     try {
       mail = await esi.characters(parseInt(userId, 10), token).mail();
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
+      return {};
     }
-    // Mail(esi, userId, token);
-    // .Mail.inbox();
-    const memCacheUsers = {};
     // load the names
     // eslint-disable-next-line no-restricted-syntax
     for (const msg of mail) {
@@ -19,33 +30,27 @@ class mailModel {
         msg.from = 'Me';
         // eslint-disable-next-line no-restricted-syntax
         for (const recipient of msg.recipients) {
-          if (recipient.recipient_id in memCacheUsers) {
-            recipient.to = memCacheUsers[recipient.recipient_id];
-          } else {
-            const to = new Character();
-            await to.get(recipient.recipient_id);
-            if (to.values.name) {
-              memCacheUsers[recipient.recipient_id] = to.values.name;
-            }
-            recipient.to = to.values.name;
-          }
+          recipient.to = await Character.get(recipient.recipient_id).name;
         }
       } else {
         msg.to = 'Me';
-        if (msg.from in memCacheUsers) {
-          msg.from = memCacheUsers[msg.from];
-        } else {
-          const from = new Character();
-          await from.get(msg.from);
-          if (from.values.name) {
-            memCacheUsers[msg.from] = from.values.name;
-          }
-          msg.from = from.values.name;
-        }
+        msg.from = await Character.get(msg.from).name;
       }
     }
     return mail;
   }
+
+  static async getMailBody(userId, accessToken, mailId) {
+    try {
+      return await esi
+        .characters(parseInt(userId, 10), accessToken)
+        .mail(parseInt(mailId, 10))
+        .info();
+    } catch (err) {
+      console.error(err.message);
+      return {};
+    }
+  }
 }
 
-module.exports = mailModel;
+module.exports = MailModel;

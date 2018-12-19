@@ -7,6 +7,7 @@ const config = configFile.get(process.env.NODE_ENV);
 export default class FetchData {
   constructor(params, onLoaded, onError) {
     this.params = FetchData.toParams(params);
+    this.originalParams = params;
     this.scope = params.scope;
     this.onLoaded = onLoaded;
     this.onError = onError;
@@ -21,18 +22,22 @@ export default class FetchData {
   }
 
   get() {
-    console.log(this.params);
+    let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id}`;
+    if('param1' in this.originalParams){
+      url += `/${this.originalParams.param1}`;
+    }
+    console.log(`fetch ${url}`);
     return fetch(
       //`https://ascee.droeftoeters.com/backend/Pullpages/Evidence.php?${this.params}`,
-      config.client.server,
+      url,
       {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'http://localhost:3000',
         },
-        mode: 'no-cors',
+        //mode: 'no-cors',
       })
       .then(function (res) {
         // TODO: DEV server only

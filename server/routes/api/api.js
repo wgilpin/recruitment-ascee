@@ -1,6 +1,10 @@
 const express = require('express');
+const cors = require('cors');
+const corsOptions = require('../../Cors');
 const mailRoute = require('./apiMail');
 const charRoute = require('./apiCharacter');
+const skillRoute = require('./apiSkill');
+
 
 const router = express.Router();
 
@@ -12,7 +16,8 @@ router.get('/', (req, res) => {
   res.send('Invalid Api call');
 });
 
-router.use('/mail', mailRoute);
-router.use('/character', charRoute);
+router.use('/mail', cors(corsOptions), mailRoute);
+router.use('/character', cors(corsOptions), charRoute);
+router.use('/skill', cors(corsOptions), skillRoute);
 
 module.exports = router;
