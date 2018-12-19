@@ -41,6 +41,7 @@ class TokenStore {
         return false;
       }
     }
+    // token expired or not found in DB
     try {
       /* eslint-disable camelcase */
       const { access_token, expires_in } = await Oauth.refreshToken(refreshToken);

@@ -1,20 +1,7 @@
 const esi = require('eve-swagger');
 const Character = require('./CharacterModel');
 
-const memCacheUsers = {};
-
 class MailModel {
-  static async getCharNameFromCache(id) {
-    if (id in memCacheUsers) {
-      return memCacheUsers[id];
-    }
-    const user = await Character.get(id);
-    if (user.name) {
-      memCacheUsers[id] = user.name;
-    }
-    return user.name;
-  }
-
   static async getMailList(userId, token) {
     let mail;
     try {

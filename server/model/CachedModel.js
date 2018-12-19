@@ -44,18 +44,18 @@ class CachedModel extends Model {
     return this.getFromEsi();
   }
 
-  get(id) {
+  async get(id) {
     this.id = id;
     // if entity is in memcache, load & return.
-    this.cache.get(id, async (err, data) => {
-      if (err) {
-        // not in cache
-        return this.getFromDb();
-      }
+    try {
+      const data = await this.cache.get(id);
       // found in cache
       this.values = data;
       return data;
-    });
+    } catch (err) {
+      // not in cache
+      return this.getFromDb();
+    }
   }
 }
 

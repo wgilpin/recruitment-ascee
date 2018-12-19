@@ -14,7 +14,7 @@ router.get('/:userId', cors(corsOptions), async (req, res) => {
     const skills = await skillInstance.get(req.params.userId);
     res.json({ info: skills });
   } catch (error) {
-    res.json({ err: error });
+    res.json({ error });
   }
   console.timeEnd('GET user skills');
 });

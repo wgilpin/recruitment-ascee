@@ -11,6 +11,7 @@ class SkillsModel {
   constructor() {
     this.static = SkillStatic;
     this.skills = {};
+    this.queue = [];
     /*
       { group_id : {
         skill_id : current_skill_level,
@@ -43,7 +44,6 @@ class SkillsModel {
     // TODO: need to refresh every 24 hrs
     // esi record: { current_skill_level, skill_id, skillpoints_in_skill }
     try {
-      const tok = await TokenStore.get('User', this.id);
       const esiSkills = await esi.characters(this.id, tok).skills();
       /* eslint-disable guard-for-in  */
       /* eslint-disable  no-restricted-syntax */
@@ -92,6 +92,7 @@ class SkillsModel {
       });
       return true;
     });
+    return true;
   }
 
   addNames() {
@@ -109,16 +110,41 @@ class SkillsModel {
       });
       return true;
     });
+    return true;
+  }
+
+  async getQueue() {
+    try {
+      this.queue = [];
+      const esiSkillQ = await esi.characters(this.id, this.tok).skillqueue();
+      /* eslint-disable  camelcase */
+      esiSkillQ.skills.forEach((esiRecord) => {
+        const {
+          finished_level, finish_date, queue_position, skill_id, start_date,
+        } = esiRecord;
+        const { name } = SkillStatic.skillList[skill_id];
+        this.queue.push({
+          finished_level, finish_date, queue_position, skill_id, start_date, name,
+        });
+        // sort
+        this.queue.sort((a, b) => a.queue_position - b.queue_position);
+        return this.queue;
+      });
+    } catch (err) {
+      console.error(`loadFromEsi ${err.message}`);
+    }
   }
 
   async get(id) {
     this.id = id;
+    this.tok = await TokenStore.get('User', id);
+
     if (await this.loadFromDb()) {
       return this.addNames();
     }
     await this.loadFromEsi();
     await this.saveToDb();
-    return this.addNames();
+    return { skills: this.addNames(), queue: this.getQueue() };
   }
 }
 
