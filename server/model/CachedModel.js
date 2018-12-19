@@ -4,12 +4,13 @@ Model class for items form ESI that need caching
 const NodeCache = require('node-cache');
 const Model = require('./Model');
 
+const cache = new NodeCache({ stdTTL: 3600 });
+
 class CachedModel extends Model {
   constructor(esiParser) {
     super();
     this.id = null;
     this.serverTtl = 3600 * 24;
-    this.cache = new NodeCache({ stdTTL: 3600 });
     // TODO: set esicachetimeout
     this.addField('EsiCacheValidUntil', Model.Types.Number, false, 0);
     if (!esiParser) {
@@ -37,7 +38,7 @@ class CachedModel extends Model {
   async getFromDb() {
     if (await super.get(this.id)) {
       // found in db - add to memcache
-      this.cache.add(this.id, this.values);
+      cache.add(this.id, this.values);
       return this.values;
     }
     // not in db
@@ -48,7 +49,7 @@ class CachedModel extends Model {
     this.id = id;
     // if entity is in memcache, load & return.
     try {
-      const data = await this.cache.get(id);
+      const data = await cache.get(id);
       // found in cache
       this.values = data;
       return data;
