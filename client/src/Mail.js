@@ -87,7 +87,7 @@ export default class Mail extends React.Component {
         { id: this.props.alt, scope: 'mail', param1: thisMail.mail_id },
       ).get()
         .then((data) => {
-          body = this.badlyRemoveFontSizeColor(data);
+          body = this.badlyRemoveFontSizeColor(data.info);
           let matches;
           // eslint-disable-next-line no-cond-assign
           while(matches = regexp.exec(body)){

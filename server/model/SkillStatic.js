@@ -5,6 +5,7 @@ const Store = require('./Store');
 class SkillStatic {
   constructor() {
     this.skillList = {};
+    this.empty = true;
     // skill_id: { name, group_id }
     this.groupList = {};
     // groupId: { name }
@@ -15,21 +16,23 @@ class SkillStatic {
     /* eslint-disable guard-for-in  */
     /* eslint-disable  no-restricted-syntax */
     /* eslint-disable  no-await-in-loop */
-    for (const groupId in category.groups) {
-      const group = await esi.types.groups(category.groups[groupId]).info();
+    for (const gpIdx in category.groups) {
+      const group = await esi.types.groups(category.groups[gpIdx]).info();
       const groupData = {};
-
-      for (const skillId in group.types) {
+      const errors = [];
+      for (const skIdx in group.types) {
         try {
-          const skill = await esi.types(group.types[skillId]).info();
+          const skill = await esi.types(group.types[skIdx]).info();
           /* eslint-disable camelcase */
-          const { name, group_id } = skill;
+          const { name, group_id, type_id } = skill;
           groupData[group_id] = name;
-          this.skillList[group.types[skillId]] = { name, group: group_id };
-          this.groupList[groupId] = { name: group.name };
-          console.log(`ESI read skill ${name}`);
+          this.skillList[type_id] = { name, group: group_id };
+          this.empty = false;
+          this.groupList[group_id] = { name: group.name };
+          console.log(`ESI read skill ${type_id}: ${name}`);
         } catch (err) {
           console.error(err);
+          errors.push(skIdx);
         }
       }
     }
@@ -38,7 +41,7 @@ class SkillStatic {
   async writeSkillsToDb() {
     Object.keys(this.skillList).map(async (skillId) => {
       try {
-        const key = Store.datastore.key({ path: ['Skill', parseInt(skillId, 10)] });
+        const key = Store.datastore.key({ path: ['Skill', `${skillId}`] });
         await Store.datastore.datastore.save({
           key,
           data: this.skillList[skillId],
@@ -49,7 +52,7 @@ class SkillStatic {
     });
     Object.keys(this.groupList).map(async (groupId) => {
       try {
-        const key = Store.datastore.key({ path: ['SkillGroup', parseInt(groupId, 10)] });
+        const key = Store.datastore.key({ path: ['SkillGroup', `${groupId}`] });
         await Store.datastore.datastore.save({
           key,
           data: this.groupList[groupId],
@@ -58,6 +61,7 @@ class SkillStatic {
         console.error(`Error Saving Skill Group ${err}`);
       }
     });
+    console.log('skills written to db');
   }
 
   async loadFromDb() {
@@ -72,13 +76,16 @@ class SkillStatic {
       if (skillArray.length === 0 || groupArray.length === 0) {
         throw new Error('no skills found in db');
       }
-      for (const sk in skillArray) {
-        const { name, group } = skillArray[sk];
-        this.skillList[sk] = { name, group };
+      for (const skIdx in skillArray) {
+        const { name, group } = skillArray[skIdx];
+        const skillId = skillArray[skIdx][Store.datastore.KEY].name;
+        this.skillList[skillId] = { name, group };
       }
-      for (const gp in groupArray) {
-        this.groupList[gp] = groupArray[gp].name;
+      for (const gpIdx in groupArray) {
+        const groupId = groupArray[gpIdx][Store.datastore.KEY].name;
+        this.groupList[groupId] = groupArray[gpIdx].name;
       }
+      this.empty = false;
       console.timeEnd('loadFromDb');
     } catch (err) {
       // Error.
@@ -86,6 +93,13 @@ class SkillStatic {
       await this.loadSkillsfromEsi();
       await this.writeSkillsToDb();
     }
+  }
+
+  async get(skillId) {
+    if (this.empty) {
+      await this.loadFromDb();
+    }
+    return skillId ? this.skillList[skillId] : true;
   }
 }
 

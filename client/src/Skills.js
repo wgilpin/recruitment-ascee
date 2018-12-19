@@ -81,7 +81,7 @@ export default class Skill extends React.Component {
       this.onError
     ).get()
       .then(data => {
-        let { queue, groupedList, trainLevels } = Skill.jsonToskillList(data);
+        let { queue, groupedList, trainLevels } = Skill.jsonToskillList(data.info);
         if (queue.length !== (this.state.skillQueue || []).length) {
           this.setState({ skillQueue: queue, trainLevels });
         };

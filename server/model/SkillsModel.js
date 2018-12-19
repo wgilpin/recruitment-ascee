@@ -4,7 +4,7 @@ const Store = require('./Store');
 const TokenStore = require('../src/TokenStore');
 
 /*
-  Load the skills for a character
+  Load the skills for a character.
 */
 
 class SkillsModel {
@@ -22,7 +22,7 @@ class SkillsModel {
 
   async loadFromDb() {
     // db record: { skill_id, current_skill_level }
-    console.time('load character skills from db');
+    console.time('load skills from db');
     const query = Store.datastore.createQuery('CharacterSkills').filter('User', this.id);
     const entities = await Store.datastore.runQuery(query);
     const skillArray = entities[0];
@@ -30,13 +30,13 @@ class SkillsModel {
     skillArray.forEach((sk) => {
       /* eslint-disable camelcase */
       const { skill_id, current_skill_level } = sk;
-      const { name, group } = this.static.skillList[skill_id];
+      const { name, group } = SkillStatic.get(skill_id);
       this.skills[group] = {
         ...this.skills[group],
         skill_id: { name, level: current_skill_level },
       };
     });
-    console.timeEnd('load character skills from db');
+    console.timeEnd('load skills from db');
     return skillArray.length > 0;
   }
 
@@ -44,22 +44,23 @@ class SkillsModel {
     // TODO: need to refresh every 24 hrs
     // esi record: { current_skill_level, skill_id, skillpoints_in_skill }
     try {
-      const esiSkills = await esi.characters(this.id, tok).skills();
+      const esiSkills = await esi.characters(this.id, this.tok).skills();
       /* eslint-disable guard-for-in  */
       /* eslint-disable  no-restricted-syntax */
       /* eslint-disable  no-await-in-loop */
       esiSkills.skills.forEach((esiRecord) => {
         const { current_skill_level, skill_id, skillpoints_in_skill } = esiRecord;
-        const { group_id, name } = SkillStatic.skillList[skill_id];
+        const statics = this.static.skillList[skill_id];
+        const { group, name } = statics;
         // set up the group if needed
-        if (!this.skills[group_id]) {
-          this.skills[group_id] = {
-            name: SkillStatic.groupList[group_id].name,
+        if (!this.skills[group]) {
+          this.skills[group] = {
+            name: this.static.groupList[group],
             skillpoints_in_skill,
             active_skill_level: current_skill_level,
           };
         }
-        this.skills[group_id][skill_id] = { current_skill_level, name };
+        this.skills[group][skill_id] = { current_skill_level, name };
       });
     } catch (err) {
       console.error(`loadFromEsi ${err.message}`);
@@ -81,7 +82,7 @@ class SkillsModel {
         const { current_skill_level } = this.skills[group_id][skill_id];
         const data = { skill_id, current_skill_level };
         try {
-          const key = Store.datastore.key({ path: ['CharacterSkills', parseInt(skill_id, 10)] });
+          const key = Store.datastore.key({ path: ['CharacterSkills', `${skill_id}`] });
           await Store.datastore.datastore.save({
             key,
             data,
@@ -96,21 +97,24 @@ class SkillsModel {
   }
 
   addNames() {
-    const res = {};
+    const res = [];
     Object.keys(this.skills).map((group_id) => {
-      const groupName = SkillStatic.groupList[group_id].name;
-      res[groupName] = { };
+      const groupName = this.static.groupList[group_id];
       Object.keys(this.skills[group_id]).map(async (skill_id) => {
-        const { current_skill_level, skillpoints_in_skill } = this.skills[group_id][skill_id];
-        const skillName = SkillStatic.skillList[skill_id].name;
-        res[groupName][skillName] = {
-          active_skill_level: current_skill_level,
+        const { skillpoints_in_skill } = this.skills[group_id];
+        // res[groupName].skillpoints_in_skill = skillpoints_in_skill;
+        const { current_skill_level } = this.skills[group_id][skill_id];
+        const skillName = this.static.skillList[skill_id].name;
+        const item = {
+          skill_id: { groupName, name: skillName },
+          active_skill_level: current_skill_level || 0,
           skillpoints_in_skill,
         };
+        res.push(item);
       });
       return true;
     });
-    return true;
+    return res;
   }
 
   async getQueue() {
@@ -122,7 +126,7 @@ class SkillsModel {
         const {
           finished_level, finish_date, queue_position, skill_id, start_date,
         } = esiRecord;
-        const { name } = SkillStatic.skillList[skill_id];
+        const { name } = this.static.skillList[skill_id];
         this.queue.push({
           finished_level, finish_date, queue_position, skill_id, start_date, name,
         });
