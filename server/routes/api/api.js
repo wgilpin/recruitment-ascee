@@ -4,7 +4,7 @@ const corsOptions = require('../../Cors');
 const mailRoute = require('./apiMail');
 const charRoute = require('./apiCharacter');
 const skillRoute = require('./apiSkill');
-
+const walletRoute = require('./apiWallet');
 
 const router = express.Router();
 
@@ -19,5 +19,6 @@ router.get('/', (req, res) => {
 router.use('/mail', cors(corsOptions), mailRoute);
 router.use('/character', cors(corsOptions), charRoute);
 router.use('/skill', cors(corsOptions), skillRoute);
+router.use('/wallet', cors(corsOptions), walletRoute);
 
 module.exports = router;

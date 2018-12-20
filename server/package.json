@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --delay 3 ./bin/www",
-    "debug": "nodemon --delay 3 --inspect ./bin/www"
+    "start": "nodemon --delay 6 ./bin/www",
+    "debug": "nodemon --delay 6 --inspect ./bin/www"
   },
   "engines": {
     "node": ">=8"
@@ -29,7 +29,9 @@
     "http-errors": "~1.6.2",
     "less-middleware": "~2.2.1",
     "morgan": "~1.9.0",
-    "node-cache": "^4.2.0"
+    "node-cache": "^4.2.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5"
   },
   "devDependencies": {
     "@google-cloud/nodejs-repo-tools": "^3.0.0",

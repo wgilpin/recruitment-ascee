@@ -1,27 +1,43 @@
-const esi = require('eve-swagger');
+const request = require('request-promise-native');
 const Character = require('./CharacterModel');
 const Names = require('./NamesModel');
 
 class WalletModel {
   static async getWallet(userId, token) {
-    let wallet;
     try {
       // https://esi.evetech.net/latest/#!/Wallet/get_characters_character_id_wallet_transactions
-      wallet = await esi.characters(parseInt(userId, 10), token).wallet().transactions;
+      // curl -i --compressed -X GET --header  'https://esi.evetech.net/latest/characters/93207621/wallet/?datasource=tranquility&token=lXJwp2lbZH4bmrexqOFnurkmkznjLhE4vDbcfpofFNvKYBn2ygGkS3eQyMHAn77EN129iwRqyr4KXvIWRMZXaQ2'
+      // wallet = await esi.characters(parseInt(userId, 10), token);
+      try {
+        const response = await request({
+          method: 'GET',
+          url: `https://esi.evetech.net/latest/characters/${userId}/wallet/transactions?datasource=tranquility&token=${token}`,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
+        // load the names
+        // eslint-disable-next-line no-restricted-syntax
+        const wallet = JSON.parse(response);
+        for (let i = 0; i < wallet.length; i += 1) {
+          const trans = wallet[i];
+          console.log(trans);
+          const char = new Character();
+          await char.get(trans.client_id);
+          trans.from = char.values.name;
+          const location = await Names.get(trans.location_id);
+          trans.location = location.name;
+        }
+        return wallet;
+      } catch (err) {
+        console.error(`fetch wallet ${err.message}`);
+        return {};
+      }
     } catch (err) {
       console.error(err.message);
       return {};
     }
-    // load the names
-    // eslint-disable-next-line no-restricted-syntax
-    for (const trans of wallet) {
-      const char = new Character();
-      await char.get(trans.client_id);
-      trans.from = char.name;
-      await char.get(trans.location_id);
-      trans.location = char.name;
-    }
-    return wallet;
   }
 }
 

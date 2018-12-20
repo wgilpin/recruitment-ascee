@@ -38,7 +38,7 @@ class CachedModel extends Model {
   async getFromDb() {
     if (await super.get(this.id)) {
       // found in db - add to memcache
-      cache.add(this.id, this.values);
+      cache.set(this.id, this.values);
       return this.values;
     }
     // not in db
@@ -50,6 +50,9 @@ class CachedModel extends Model {
     // if entity is in memcache, load & return.
     try {
       const data = await cache.get(id);
+      if (!data) {
+        return this.getFromDb();
+      }
       // found in cache
       this.values = data;
       return data;

@@ -55,9 +55,9 @@ class SkillsModel {
         // set up the group if needed
         if (!this.skills[group]) {
           this.skills[group] = {
-            name: this.static.groupList[group],
-            skillpoints_in_skill,
-            active_skill_level: current_skill_level,
+            // name: this.static.groupList[group],
+            // skillpoints_in_skill,
+            // active_skill_level: current_skill_level,
           };
         }
         this.skills[group][skill_id] = { current_skill_level, name };
@@ -102,8 +102,10 @@ class SkillsModel {
       const groupName = this.static.groupList[group_id];
       Object.keys(this.skills[group_id]).map(async (skill_id) => {
         try {
+          if (skill_id === 'skillpoints_in_skill') {
+            return;
+          }
           const { skillpoints_in_skill } = this.skills[group_id];
-          // res[groupName].skillpoints_in_skill = skillpoints_in_skill;
           const { current_skill_level } = this.skills[group_id][skill_id];
           const skillName = this.static.skillList[skill_id].name;
           const item = {

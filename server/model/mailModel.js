@@ -25,7 +25,7 @@ class MailModel {
         msg.to = 'Me';
         const char = new Character();
         await char.get(msg.from);
-        msg.from = char.name;
+        msg.from = char.values.name;
       }
     }
     return mail;
