@@ -31,6 +31,7 @@ class Model {
       String: typeof 'asd',
       Boolean: typeof true,
       Number: typeof 123,
+      Any: 'Any',
     };
   }
 
@@ -54,7 +55,7 @@ class Model {
             // a required value is missing
             errors.push(`${f}: ${f.type}, req: ${f.required} Required value not present`);
           }
-        } else if (thisType !== field.type) {
+        } else if (thisType !== field.type && field.type !== Model.Types.Any) {
           // value present but wrong type
           errors.push(`${f}: ${f.type}, req: ${f.required} Failed on value ${this.values[f]}`);
         }
@@ -74,10 +75,8 @@ class Model {
   async save() {
     this.checkKey();
     const err = this.validate();
-    if (err) {
-      throw new Error(`Validation Failed ${err.join(' / ')}`);
-    }
     await Store.datastore.save({ key: this.key, data: this.values });
+    return err;
   }
 
   setFields(newData) {

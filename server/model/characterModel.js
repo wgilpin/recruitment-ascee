@@ -27,7 +27,7 @@ class CharacterModel extends CachedModel {
     this.addField('px256x256', CachedModel.Types.String, false);
     this.addField('px512x512', CachedModel.Types.String, false);
     this.addField('px64x64', CachedModel.Types.String, false);
-    this.addField('cachedOn', CachedModel.Types.Number, false);
+    this.addField('cachedOn', CachedModel.Types.Any, false);
   }
 
   static async getEsi(id) {

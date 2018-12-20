@@ -11,7 +11,7 @@ class WalletModel {
       try {
         const response = await request({
           method: 'GET',
-          url: `https://esi.evetech.net/latest/characters/${userId}/wallet/transactions?datasource=tranquility&token=${token}`,
+          url: `https://esi.evetech.net/latest/characters/${userId}/wallet/journal?datasource=tranquility&token=${token}`,
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -24,10 +24,10 @@ class WalletModel {
           const trans = wallet[i];
           console.log(trans);
           const char = new Character();
-          await char.get(trans.client_id);
-          trans.from = char.values.name;
-          const location = await Names.get(trans.location_id);
-          trans.location = location.name;
+          await char.get(trans.first_party_id);
+          trans.first_party_id = { name: char.values.name };
+          await char.get(trans.second_party_id);
+          trans.second_party_id = { name: char.values.name };
         }
         return wallet;
       } catch (err) {
