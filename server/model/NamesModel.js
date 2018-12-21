@@ -54,6 +54,40 @@ class NamesCache {
     }
     return null;
   }
+
+  async getMulti(itemList) {
+    /*
+     * get names
+     *
+     * @param {Array of int} userIdArray - list of ids to get
+     * @returns dict mapping userId to { name: string, category: string }
+     */
+    const notFound = [];
+    const res = {};
+    itemList.forEach((id) => {
+      try {
+        const itemId = parseInt(id, 10);
+        const cached = this.cache.get(itemId);
+        if (cached && cached.name) {
+          res[itemId] = { itemId, name: cached.name, category: cached.category };
+        }
+        notFound.push(itemId);
+      } catch (err) {
+        console.error(`NamesCache ${err.message}`);
+      }
+    });
+    const name = new NamesModel();
+    const items = await name.get(notFound);
+    items.forEach((id) => {
+      try {
+        const itemId = parseInt(id, 10);
+        this.cache.set(itemId, item);
+        res[itemId] = { itemId, name: cached.name, category: cached.category };
+      } catch (err) {
+        console.error(`NamesCache esi ${err.message}`);
+      }
+    });
+  }
 }
 
 const instance = new NamesCache();

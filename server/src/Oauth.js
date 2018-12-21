@@ -8,6 +8,7 @@ const CALLBACK_URL = 'https://ascee-recruit.appspot.com/oauth-callback';
 const sso = new SSO.SingleSignOn(CLIENT_ID, SECRET_KEY, CALLBACK_URL);
 
 class Oauth {
+  // as we have refresh tokens, this gets the access token
   static async getAccessToken(code, state) {
     try {
       const result = await sso.getAccessToken(code);
@@ -33,6 +34,7 @@ class Oauth {
   }
 
   static async refreshToken(refreshToken) {
+    // refresh the access token given the refresh
     const result = await sso.getAccessToken(refreshToken, true);
     return result;
   }

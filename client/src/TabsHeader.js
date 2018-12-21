@@ -17,9 +17,9 @@ const defaultProps = {};
 
 const styles = {
   div: {
-    width: 50 * 8,
+    width: 50 * 9,
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
     gridTemplateRows: 'auto 32px',
     gridColumnGap: '20px',
     gridRowGap: '10px',
@@ -53,20 +53,22 @@ export default class TabsHeader extends React.Component {
   render() {
     return (
       <div style={styles.div}>
-        <RoundImage style={{ gridColumn: 2, gridRow: 1 }} size={40} src={walletImg} onClick={this.showTab} name="wallet"></RoundImage>
+        <RoundImage style={{ gridColumn: 2, gridRow: 1 }} size={40} src={walletImg} onClick={this.showTab} name="wallet"/>
         <span style={{ gridColumn: 1, ...styles.span }} onClick={this.showTab} name="wallet">Wallet</span>
-        <RoundImage style={{ gridColumn: 3, gridRow: 1 }} size={40} src={assetsImg} onClick={this.showTab} name="contacts"></RoundImage>
+        <RoundImage style={{ gridColumn: 3, gridRow: 1 }} size={40} src={assetsImg} onClick={this.showTab} name="contacts"/>
         <span style={{ gridColumn: 2, ...styles.span }} onClick={this.showTab} name="contacts">Contacts</span>
-        <RoundImage style={{ gridColumn: 4, gridRow: 1 }} size={40} src={skillsImg} onClick={this.showTab} name='skills'></RoundImage>
-        <span style={{ gridColumn: 3, ...styles.span }} onClick={this.showTab} name="skills">Skills</span>
-        <RoundImage style={{ gridColumn: 5, gridRow: 1 }} size={40} src={bookmarkImg} onClick={this.showTab} name='bookmarks'></RoundImage>
-        <span style={{ gridColumn: 4, ...styles.span }} onClick={this.showTab} name="bookmarks">Bookmarks</span>
-        <RoundImage style={{ gridColumn: 6, gridRow: 1 }} size={40} src={blueprintImg} onClick={this.showTab} name='blueprints'></RoundImage>
-        <span style={{ gridColumn: 5, ...styles.span}} onClick={this.showTab} name="blueprints">Blueprints</span>
-        <RoundImage style={{ gridColumn: 7, gridRow: 1 }} size={40} src={mailImg} onClick={this.showTab} name='mail'></RoundImage>
-        <span style={{ gridColumn: 6, ...styles.span }} onClick={this.showTab} name="mail">Mail</span>
-        <RoundImage style={{ gridColumn: 8, gridRow: 1 }} size={40} src={contractsImg} onClick={this.showTab} name='contracts'></RoundImage>
-        <span style={{ gridColumn: 7, ...styles.span }} onClick={this.showTab} name="contracts">Contracts</span>
+        <RoundImage style={{ gridColumn: 4, gridRow: 1 }} size={40} src={assetsImg} onClick={this.showTab} name="assets"/>
+        <span style={{ gridColumn: 3, ...styles.span }} onClick={this.showTab} name="assets">Assets</span>
+        <RoundImage style={{ gridColumn: 5, gridRow: 1 }} size={40} src={skillsImg} onClick={this.showTab} name='skills'/>
+        <span style={{ gridColumn: 4, ...styles.span }} onClick={this.showTab} name="skills">Skills</span>
+        <RoundImage style={{ gridColumn: 6, gridRow: 1 }} size={40} src={bookmarkImg} onClick={this.showTab} name='bookmarks'/>
+        <span style={{ gridColumn: 5, ...styles.span }} onClick={this.showTab} name="bookmarks">Bookmarks</span>
+        <RoundImage style={{ gridColumn: 7, gridRow: 1 }} size={40} src={blueprintImg} onClick={this.showTab} name='blueprints'/>
+        <span style={{ gridColumn: 6, ...styles.span}} onClick={this.showTab} name="blueprints">Blueprints</span>
+        <RoundImage style={{ gridColumn: 8, gridRow: 1 }} size={40} src={mailImg} onClick={this.showTab} name='mail'/>
+        <span style={{ gridColumn: 7, ...styles.span }} onClick={this.showTab} name="mail">Mail</span>
+        <RoundImage style={{ gridColumn: 9, gridRow: 1 }} size={40} src={contractsImg} onClick={this.showTab} name='contracts'/>
+        <span style={{ gridColumn: 8, ...styles.span }} onClick={this.showTab} name="contracts">Contracts</span>
       </div>
     );
   }

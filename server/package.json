@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "debug": "nodemon --inspect --delay 10 ./bin/www"
+    "debug": "nodemon --inspect --delay 6 ./bin/www"
   },
   "engines": {
     "node": ">=8"

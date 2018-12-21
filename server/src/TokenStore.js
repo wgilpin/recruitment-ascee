@@ -2,11 +2,15 @@ const Store = require('../model/Store');
 const Oauth = require('./Oauth');
 
 class TokenStore {
+  /*
+    in-memory cache for users tokens, with auto refresh
+  */
   constructor() {
     this.tokens = {};
   }
 
   add(userId, refreshToken, accessToken, expires) {
+    // put in store
     this.tokens[userId] = { expires, accessToken, rt: refreshToken };
   }
 
@@ -23,14 +27,16 @@ class TokenStore {
     if (userId in this.tokens && this.tokens[userId].refreshToken) {
       ({ expires, refreshToken, accessToken } = this.tokens[userId]);
       if (new Date() < expires) {
+        // the token is still valid
         return accessToken;
       }
     } else {
-      this.tokens[userId] = {};
       console.log(`Token Expired for ${userId}`);
+      this.tokens[userId] = {};
       this.key = Store.datastore.key({ path: [kind, parseInt(userId, 10)] });
       let dbEntity;
       try {
+        // get refresh token from db
         [dbEntity] = await Store.datastore.get(this.key);
         if (dbEntity) {
           ({ refreshToken } = dbEntity);
@@ -58,6 +64,5 @@ class TokenStore {
 }
 
 const instance = new TokenStore();
-// Object.freeze(instance);
 
 module.exports = instance;
