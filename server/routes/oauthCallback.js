@@ -5,9 +5,6 @@ const Oauth = require('../src/Oauth');
 const TokenStore = require('../src/TokenStore');
 const User = require('../model/UserModel');
 
-// Create a new instance with the set parameters
-const oauth = new Oauth();
-
 /* GET users listing. */
 router.get('/', async (req, res) => {
   // callback from the Eve Online SSO login screen on login

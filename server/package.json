@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "./bin/www",
-    "debug": "--inspect ./bin/www"
+    "start": "node ./bin/www",
+    "debug": "nodemon --inspect --delay 10 ./bin/www"
   },
   "engines": {
     "node": ">=8"
