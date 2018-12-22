@@ -1,34 +1,56 @@
 const esi = require('eve-swagger');
 const Character = require('./CharacterModel');
 
+
 class MailModel {
-  static async getMailList(userId, token) {
-    let mail;
-    try {
-      mail = await esi.characters(parseInt(userId, 10), token).mail();
-    } catch (err) {
-      console.error(err.message);
-      return {};
-    }
-    // load the names
-    // eslint-disable-next-line no-restricted-syntax
-    for (const msg of mail) {
-      if (msg.from === userId) {
-        msg.from = 'Me';
-        // eslint-disable-next-line no-restricted-syntax
-        for (const recipient of msg.recipients) {
-          const char = new Character();
-          await char.get(recipient.recipient_id);
-          recipient.to = char.values.name;
-        }
-      } else {
-        msg.to = 'Me';
-        const char = new Character();
-        await char.get(msg.from);
-        msg.from = char.values.name;
+  constructor() {
+    this.userList = {};
+  }
+
+  idToName(id) {
+    const char = new Character();
+    return char
+      .get(id)
+      .then((charData) => {
+        this.userList[id] = charData.name;
+      })
+      .catch((err) => {
+        console.log(`idToName error ${err.message}`);
+      });
+  }
+
+  getMailList(userId, token) {
+    const nUserId = parseInt(userId, 10);
+    return esi.characters(nUserId, token).mail().then((msgList) => {
+      try {
+      // load the names
+      // 1st pass, get id->names mapping
+        this.userList = {
+          [nUserId]: 'Me',
+        };
+
+        // pass 1 - get list of ids
+        msgList.forEach((msg) => {
+          msg.recipients
+            .map(recipient => recipient.recipient_id)
+            .forEach((id) => {
+              this.userList[id] = '';
+            });
+        });
+
+        return Promise.all(Object.keys(this.userList).map(id => this.idToName(id)))
+          .then(() => msgList.map(msg => ({
+            ...msg,
+            from: { id: msg.from, name: this.userList[msg.from] },
+            recipients: msg.recipients.map(recipient => ({
+              name: this.userList[recipient.recipient_id],
+            })),
+          })));
+      } catch (err) {
+        console.error(err.message);
+        return {};
       }
-    }
-    return mail;
+    });
   }
 
   static async getMailBody(userId, accessToken, mailId) {
@@ -44,4 +66,6 @@ class MailModel {
   }
 }
 
-module.exports = MailModel;
+const instance = new MailModel();
+
+module.exports = instance;

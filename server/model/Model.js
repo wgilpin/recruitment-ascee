@@ -41,7 +41,7 @@ class Model {
     // this.types[typeof this] = (this.types[typeof this] || {});
   }
 
-  validate() {
+  isInvalid() {
     // check all fields
     // returns either false (passes) or an array of error messages
     const errors = [];
@@ -72,11 +72,12 @@ class Model {
     return true;
   }
 
-  async save() {
+  save() {
     this.checkKey();
-    const err = this.validate();
-    await Store.datastore.save({ key: this.key, data: this.values });
-    return err;
+    if (this.isInvalid()) {
+      throw new Error(`Validation Error in type ${this.kind}`);
+    }
+    return Store.datastore.save({ key: this.key, data: this.values });
   }
 
   setFields(newData) {
@@ -85,7 +86,7 @@ class Model {
         this.values[f] = newData[f];
       }
     }
-    const err = this.validate();
+    const err = this.isInvalid();
     if (err) {
       console.log(`Validation Error ${err.join(' / ')}`);
       throw new Error(`Validation Error ${err.join(' / ')}`);
@@ -93,29 +94,30 @@ class Model {
   }
 
 
-  async get(id) {
+  get(id) {
     /*
      * get an object from the db and load all fields as per schema
      *
      * @param {number} id - datastore key id
      * @returns boolean "was found" ? true : false
      */
-    this.key = Store.datastore.key({ path: [this.kind, parseInt(id, 10)] });
-    let dbEntity;
     try {
-      [dbEntity] = await Store.datastore.get(this.key);
-      if (dbEntity) {
-        this.setFields(dbEntity);
-        return true;
-      }
+      this.key = Store.datastore.key({ path: [this.kind, parseInt(id, 10)] });
+      return Store.datastore.get(this.key).then((dbEntities) => {
+        const [dbEntity] = dbEntities;
+        if (dbEntity) {
+          this.setFields(dbEntity);
+          return true;
+        }
+        return false;
+      });
     } catch (err) {
-      console.log(`datastore get not found: ${err}`);
+      console.log(`Model get error ${err.message}`);
       return false;
     }
-    return false;
   }
 
-  async update(data) {
+  pUpdate(data) {
     this.setFields(data);
     return this.save();
   }
