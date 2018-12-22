@@ -6,13 +6,14 @@ class LocationModel extends CachedModel {
   constructor() {
     super(LocationModel.getEsi);
     this.kind = 'Location';
-    this.addField('name', CachedModel.Location.String, false);
+    this.addField('name', CachedModel.Types.String, false);
   }
 
   static getEsi(id) {
     // Location requires and returns an array - we only have item
     // returns promise
     try {
+      const nId = parseInt(id, 10);
       let locationType = 'unknown';
       let dataFn;
       if (id === 2004) {
@@ -25,7 +26,10 @@ class LocationModel extends CachedModel {
         dataFn = esi.solarSystems.names;
       } else if (id >= 60000000 && id <= 64000000) {
         locationType = 'Station ';
-        dataFn = esi.stations.names;
+        return esi.stations(nId).info().then((data) => {
+          console.log(`getEsi location station ${id} = ${data}`);
+          return data;
+        });
       } else if (id >= 40000000 && id <= 50000000) {
         locationType = 'Planet ';
       }
@@ -36,7 +40,7 @@ class LocationModel extends CachedModel {
           return data;
         });
       }
-      return Promise(locationType);
+      return Promise.resolve(locationType);
     } catch (err) {
       console.log(`Location ESI error ${err}`);
       return null;

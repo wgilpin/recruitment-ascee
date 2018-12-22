@@ -63,7 +63,7 @@ class CachedModel extends Model {
       }
       // found in cache
       this.values = data;
-      return Promise(data);
+      return Promise.resolve(data);
     } catch (err) {
       // not in cache
       return this.pGetFromDb();

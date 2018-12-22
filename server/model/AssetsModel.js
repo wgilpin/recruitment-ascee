@@ -1,6 +1,6 @@
 const esi = require('eve-swagger');
 const TypeModel = require('../model/TypesModel');
-const EsiRequest = require('../src/EsiRequest');
+const LocationModel = require('../model/LocationModel');
 
 
 class AssetsModel {
@@ -8,6 +8,7 @@ class AssetsModel {
     this.assetTree = {};
     this.assets = {};
     this.typeIds = {};
+    this.locationIds = {};
   }
 
   typeIdToName(id) {
@@ -27,6 +28,24 @@ class AssetsModel {
     }
   }
 
+  locationIdToName(id) {
+    try {
+      const locationRecord = new LocationModel();
+      return locationRecord
+        .get(id)
+        .then((data) => {
+          this.locationIds[id] = data.name;
+          console.log(`locationIdToName data ${data}`)
+        })
+        .catch((err) => {
+          console.log(`locationIdToName error ${id} ${err.message}`);
+        });
+    } catch (err) {
+      console.log(`locationIdToName outer error ${err.message}`);
+      return null;
+    }
+  }
+
   get(userId, tok) {
     this.id = userId;
     this.token = tok;
@@ -37,13 +56,18 @@ class AssetsModel {
         // pass 1 - get list of ids
         assetList.forEach((asset) => {
           this.typeIds[asset.type_id] = '';
+          this.locationIds[asset.location_id] = '';
         });
         // pass 2, build promises
-        return Promise.all(Object.keys(this.typeIds).map(id => this.typeIdToName(id)))
+        const typePromises = Object.keys(this.typeIds).map(id => this.typeIdToName(id));
+        const locationPromises = Object.keys(this.locationIds).map(id => this.locationIdToName(id));
+        return Promise.all(typePromises.concat(locationPromises))
           .then(() => assetList.map((asset) => {
+            console.log(`location: ${this.locationIds[asset.location_id]}`)
             return ({
               ...asset,
               type: this.typeIds[asset.type_id],
+              location: this.locationIds[asset.location_id],
             });
           }));
       } catch (err) {
