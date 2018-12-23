@@ -9,6 +9,8 @@ class AssetsModel {
     this.assets = {};
     this.typeIds = {};
     this.locationIds = {};
+    this.stationList = {};
+    this.containerList = {};
   }
 
   typeIdToName(id) {
@@ -35,7 +37,7 @@ class AssetsModel {
         .get(id)
         .then((data) => {
           this.locationIds[id] = data.name;
-          console.log(`locationIdToName data ${data}`)
+          console.log(`locationIdToName data ${data}`);
         })
         .catch((err) => {
           console.log(`locationIdToName error ${id} ${err.message}`);
@@ -63,13 +65,50 @@ class AssetsModel {
         const locationPromises = Object.keys(this.locationIds).map(id => this.locationIdToName(id));
         return Promise.all(typePromises.concat(locationPromises))
           .then(() => assetList.map((asset) => {
-            console.log(`location: ${this.locationIds[asset.location_id]}`)
+            console.log(`location: ${this.locationIds[asset.location_id]}`);
             return ({
               ...asset,
               type: this.typeIds[asset.type_id],
               location: this.locationIds[asset.location_id],
             });
-          }));
+          })).then((assets) => {
+            this.stationList.other = { type: 'other', items: {} };
+            assets.map((asset) => {
+              if (asset.location_type === 'station') {
+                this.stationList[asset.location_id] = {
+                  ...this.stationList[asset.location_id],
+                  type: 'station',
+                  items: {},
+                };
+              }
+              if (asset.type.search('ontainer') > -1) {
+                this.containerList[asset.item_id] = {
+                  ...this.containerList[asset.item_id],
+                  type: asset.type,
+                  itesm: {},
+                };
+              }
+            });
+            assets.map((asset) => {
+              if (asset.location_id in this.stationList) {
+                this.stationList[asset.location_id].items = {
+                  ...this.stationList[asset.location_id].items,
+                  [asset.item_id]: asset,
+                };
+              } else if (asset.location_id in this.containerList) {
+                this.containerList[asset.location_id].items = {
+                  ...this.containerList[asset.location_id].items,
+                  [asset.item_id]: asset,
+                };
+              } else {
+                this.stationList.other.items = {
+                  ...this.stationList.other.items,
+                  [asset.item_id]: asset,
+                };
+              }
+            });
+            return this.stationList;
+          });
       } catch (err) {
         console.log(`AssetModel get error ${err.message}`);
         return false;
