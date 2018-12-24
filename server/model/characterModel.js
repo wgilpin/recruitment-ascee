@@ -5,7 +5,7 @@ const CachedModel = require('./CachedModel');
 class CharacterModel extends CachedModel {
   // cache of characters from ESI
   constructor() {
-    super(CharacterModel.pGetEsi);
+    super(CharacterModel.getEsi);
     this.kind = 'Character';
     this.addField('accessToken', CachedModel.Types.String, false);
     this.addField('refreshToken', CachedModel.Types.String, false);
@@ -30,10 +30,10 @@ class CharacterModel extends CachedModel {
     this.addField('cachedOn', CachedModel.Types.Any, false);
   }
 
-  static pGetEsi(id) {
-    const pCharData = esi.characters(id).info();
-    const pPortraitData = esi.characters(id).portrait();
-    return Promise.all([pCharData, pPortraitData]).then(([d1, d2]) => ({ ...d1, ...d2 }));
+  static getEsi(id) {
+    const charData = esi.characters(id).info();
+    const portraitData = esi.characters(id).portrait();
+    return Promise.all([charData, portraitData]).then(([d1, d2]) => ({ ...d1, ...d2 }));
   }
 }
 

@@ -1,6 +1,6 @@
 const esi = require('eve-swagger');
 const Character = require('./CharacterModel');
-
+const logging = require('../src/Logging');
 
 class MailModel {
   constructor() {
@@ -15,7 +15,7 @@ class MailModel {
         this.userList[id] = charData.name;
       })
       .catch((err) => {
-        console.log(`idToName error ${err.message}`);
+        logging.error(`idToName error ${err.message}`);
       });
   }
 
@@ -47,7 +47,7 @@ class MailModel {
             })),
           })));
       } catch (err) {
-        console.error(err.message);
+        logging.error(`GetMailList ${err.message}`);
         return {};
       }
     });
@@ -60,7 +60,7 @@ class MailModel {
         .mail(parseInt(mailId, 10))
         .info();
     } catch (err) {
-      console.error(err.message);
+      logging.error(`getMailBody ${err.message}`);
       return {};
     }
   }

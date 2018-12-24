@@ -1,6 +1,7 @@
 const esi = require('eve-swagger');
 const SkillStatic = require('./SkillStatic');
 const TokenStore = require('../src/TokenStore');
+const logging = require('../src/Logging');
 
 /*
   Load the skills for a character.
@@ -43,7 +44,7 @@ class SkillsModel {
         this.skills[group][skill_id] = { current_skill_level, name, skillpoints_in_skill };
       });
     } catch (err) {
-      console.error(`loadFromEsi ${err.message}`);
+      logging.error(`loadFromEsi ${err.message}`);
     }
   }
 
@@ -66,7 +67,7 @@ class SkillsModel {
           };
           res.push(item);
         } catch (err) {
-          console.error(`addNames ${err.message}`);
+          logging.error(`addNames ${err.message}`);
         }
       });
       return true;
@@ -95,7 +96,7 @@ class SkillsModel {
       }
       return {};
     } catch (err) {
-      console.error(`loadFromEsi ${err.message}`);
+      logging.error(`loadFromEsi ${err.message}`);
     }
   }
 

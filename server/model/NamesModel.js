@@ -2,6 +2,7 @@ const esi = require('eve-swagger');
 const NodeCache = require('node-cache');
 
 const CachedModel = require('./CachedModel');
+const logging = require('../src/Logging');
 
 // const getEsi = async (id) => {
 //   const { name, category } = esi.names(id);
@@ -21,7 +22,7 @@ class NamesModel extends CachedModel {
       const [res] = await esi.names([parseInt(id, 10)]);
       return res;
     } catch (err) {
-      console.log(`Names ESI error ${err}`);
+      logging.error(`Names ESI error ${err}`);
       return null;
     }
   }
@@ -50,7 +51,7 @@ class NamesCache {
       this.cache.set(itemId, item);
       return item;
     } catch (err) {
-      console.error(`NamesCache ${err.message}`);
+      logging.error(`NamesCache ${err.message}`);
     }
     return null;
   }
@@ -73,7 +74,7 @@ class NamesCache {
         }
         notFound.push(itemId);
       } catch (err) {
-        console.error(`NamesCache ${err.message}`);
+        logging.error(`NamesCache ${err.message}`);
       }
     });
     const name = new NamesModel();
@@ -84,7 +85,7 @@ class NamesCache {
         this.cache.set(itemId, item);
         res[itemId] = { itemId, name: cached.name, category: cached.category };
       } catch (err) {
-        console.error(`NamesCache esi ${err.message}`);
+        logging.error(`NamesCache esi ${err.message}`);
       }
     });
   }

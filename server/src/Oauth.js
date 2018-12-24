@@ -1,4 +1,5 @@
 const SSO = require('eve-singlesignon');
+const logging = require('./Logging');
 
 const CLIENT_ID = '37de4bba039744c0a4d59cc15c9748c2';
 const SECRET_KEY = 'O0q1KdspI0QRNlpX3nlSgXIGn0WJ9DOxxqj1bHrv';
@@ -28,7 +29,7 @@ class Oauth {
       return res;
     } catch (err) {
       // An error occurred
-      console.error('oauth error', err);
+      logging.error('oauth error', err);
       return null;
     }
   }
@@ -36,6 +37,7 @@ class Oauth {
   static async refreshToken(refreshToken) {
     // refresh the access token given the refresh
     const result = await sso.getAccessToken(refreshToken, true);
+    logging.debug(`refreshToken ${result.access_token}`);
     return result;
   }
 }

@@ -1,6 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 
 const Store = require('./Store');
+const logging = require('../src/Logging');
 
 
 class Field {
@@ -88,7 +89,7 @@ class Model {
     }
     const err = this.isInvalid();
     if (err) {
-      console.log(`Validation Error ${err.join(' / ')}`);
+      logging.error(`Validation Error ${err.join(' / ')}`);
       throw new Error(`Validation Error ${err.join(' / ')}`);
     }
   }
@@ -112,12 +113,12 @@ class Model {
         return false;
       });
     } catch (err) {
-      console.log(`Model get error ${err.message}`);
+      logging.error(`Model get error ${err.message}`);
       return false;
     }
   }
 
-  pUpdate(data) {
+  update(data) {
     this.setFields(data);
     return this.save();
   }

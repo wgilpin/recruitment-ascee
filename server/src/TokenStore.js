@@ -1,5 +1,6 @@
 const Store = require('../model/Store');
 const Oauth = require('./Oauth');
+const logging = require('./Logging');
 
 class TokenStore {
   /*
@@ -31,7 +32,7 @@ class TokenStore {
         return accessToken;
       }
     } else {
-      console.log(`Token Expired for ${userId}`);
+      logging.debug(`Token Expired for ${userId}`);
       this.tokens[userId] = {};
       this.key = Store.datastore.key({ path: [kind, parseInt(userId, 10)] });
       let dbEntity;
@@ -43,7 +44,7 @@ class TokenStore {
           this.tokens[userId].refreshToken = refreshToken;
         }
       } catch (err) {
-        console.log(`datastore token not found: ${err}`);
+        logging.debug(`datastore token not found: ${err}`);
         return false;
       }
     }
@@ -57,7 +58,7 @@ class TokenStore {
       this.tokens[userId].expires = expirationTime;
       return access_token;
     } catch (err) {
-      console.log(`TokenStore ${err.message}`);
+      logging.error(`TokenStore ${err.message}`);
       return null;
     }
   }

@@ -1,5 +1,6 @@
 const esi = require('eve-swagger');
 const Store = require('./Store');
+const logging = require('../src/Logging');
 
 
 class SkillStatic {
@@ -29,9 +30,9 @@ class SkillStatic {
           this.skillList[type_id] = { name, group: group_id };
           this.empty = false;
           this.groupList[group_id] = { name: group.name };
-          console.log(`ESI read skill ${type_id}: ${name}`);
+          logging.debug(`ESI read skill ${type_id}: ${name}`);
         } catch (err) {
-          console.error(err);
+          logging.error(err);
           errors.push(skIdx);
         }
       }
@@ -47,7 +48,7 @@ class SkillStatic {
           data: this.skillList[skillId],
         });
       } catch (err) {
-        console.error(`Error Saving Skill ${err}`);
+        logging.error(`Error Saving Skill ${err}`);
       }
     });
     Object.keys(this.groupList).map(async (groupId) => {
@@ -58,15 +59,14 @@ class SkillStatic {
           data: this.groupList[groupId],
         });
       } catch (err) {
-        console.error(`Error Saving Skill Group ${err}`);
+        logging.error(`Error Saving Skill Group ${err}`);
       }
     });
-    console.log('skills written to db');
+    logging.debug('skills written to db');
   }
 
   async loadFromDb() {
     try {
-      console.time('loadFromDb');
       let query = Store.datastore.createQuery('Skill');
       let entities = await Store.datastore.runQuery(query);
       const skillArray = entities[0];
@@ -86,10 +86,9 @@ class SkillStatic {
         this.groupList[groupId] = groupArray[gpIdx].name;
       }
       this.empty = false;
-      console.timeEnd('loadFromDb');
     } catch (err) {
       // Error.
-      console.log('Skills static data not found in db');
+      logging.error(`Skills static data not found in db ${err}`);
       await this.loadSkillsfromEsi();
       await this.writeSkillsToDb();
     }

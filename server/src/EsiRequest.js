@@ -1,4 +1,5 @@
 const request = require('request-promise-native');
+const logging = require('./Logging');
 
 /*
   this module is for calls to esi that eve-swagger doesn't cover
@@ -11,6 +12,8 @@ const EsiKinds = {
   // supported esi calls
   AssetNames: 'AssetNames',
   WalletJournal: 'WalletJournal',
+  Assets: 'Assets',
+  Structure: 'Structure',
 };
 
 const EsiMaps = {
@@ -19,6 +22,10 @@ const EsiMaps = {
   AssetNames: { method: 'POST', url: 'characters/{0}/assets/names?datasource=tranquility' },
   // WalletJournal 0: userId, 1: token
   WalletJournal: { method: 'GET', url: 'characters/{0}/wallet/journal?datasource=tranquility' },
+  // Assets 0: userId, 1: token, 2: page
+  Assets: { method: 'GET', url: 'characters/{0}/assets?datasource=tranquility&page={2}' },
+  // Structure 0: structureId, 1: token
+  Structure: { method: 'GET', url: 'universe/structures/{0}/?datasource=tranquility' },
 };
 
 function format(formatString, args) {
@@ -44,14 +51,14 @@ function makeUrl(kind, params) {
 }
 
 async function esiRequest(kind, ...rest) {
-  // https://esi.evetech.net/latest/#!/Wallet/get_characters_character_id_wallet_transactions
-  // curl -i --compressed -X GET --header  'https://esi.evetech.net/latest/characters/93207621/wallet/?datasource=tranquility&token=lXJwp2lbZH4bmrexqOFnurkmkznjLhE4vDbcfpofFNvKYBn2ygGkS3eQyMHAn77EN129iwRqyr4KXvIWRMZXaQ2'
-  // wallet = await esi.characters(parseInt(userId, 10), token);
   try {
     const { url, method, params } = makeUrl(kind, rest);
-    const response = await request({
+    logging.debug(`call url ${url}`);
+    logging.debug(`esiRequest tok ${rest[1]}`);
+    return request({
       method,
       url,
+      resolveWithFullResponse: true,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -59,11 +66,8 @@ async function esiRequest(kind, ...rest) {
       body: params ? params[0] : null,
       json: true,
     });
-      // load the names
-      // eslint-disable-next-line no-restricted-syntax
-    return response;
   } catch (err) {
-    console.log(err.message);
+    logging.error(`EsisRequest ${err.message}`);
     return false;
   }
 }

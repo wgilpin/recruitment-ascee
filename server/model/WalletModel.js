@@ -1,4 +1,3 @@
-const request = require('request-promise-native');
 const Character = require('./CharacterModel');
 const EsiRequest = require('../src/EsiRequest');
 
@@ -20,7 +19,7 @@ class WalletModel {
         // });
         // load the names
         // eslint-disable-next-line no-restricted-syntax
-        const wallet = response;
+        const wallet = response.body;
         for (let i = 0; i < wallet.length; i += 1) {
           const trans = wallet[i];
           const char = new Character();

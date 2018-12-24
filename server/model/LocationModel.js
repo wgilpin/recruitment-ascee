@@ -1,11 +1,14 @@
 const esi = require('eve-swagger');
+const esiRequest = require('../src/EsiRequest');
 
 const CachedModel = require('./CachedModel');
+const logging = require('../src/Logging');
 
 class LocationModel extends CachedModel {
-  constructor() {
+  constructor(token) {
     super(LocationModel.getEsi);
     this.kind = 'Location';
+    this.token = token;
     this.addField('name', CachedModel.Types.String, false);
   }
 
@@ -26,23 +29,23 @@ class LocationModel extends CachedModel {
         dataFn = esi.solarSystems.names;
       } else if (id >= 60000000 && id <= 64000000) {
         locationType = 'Station ';
-        return esi.stations(nId).info().then((data) => {
-          console.log(`getEsi location station ${id} = ${data}`);
-          return data;
-        });
+        return esi.stations(nId).info().then(data => data);
       } else if (id >= 40000000 && id <= 50000000) {
         locationType = 'Planet ';
+      } else {
+        locationType = 'Structure';
+        return esiRequest
+          .default(esiRequest.kinds.Structure, nId, this.token);
       }
-      console.log(`location ${id} type ${locationType}`);
       if (dataFn) {
         return dataFn(parseInt(id, 10)).then((data) => {
-          console.log(`getEsi location ${id} = ${data}`);
+          logging.debug(`getEsi location ${id} = ${data}`);
           return data;
         });
       }
       return Promise.resolve(locationType);
     } catch (err) {
-      console.log(`Location ESI error ${err}`);
+      logging.log(`Location ESI error ${err}`);
       return null;
     }
   }
