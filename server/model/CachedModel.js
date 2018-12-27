@@ -28,7 +28,7 @@ class CachedModel extends Model {
     return this.pEsiParser(this.id).then((entityData) => {
       try {
         // allow a null save as it avoids an ESI error
-        this.setFields(entityData.body);
+        this.setFields((entityData || {}).body);
         return this.save().then(() => this.values);
       } catch (exc) {
         logging.log(`DB entity not found ${this.id} ${exc.message}`);
@@ -38,21 +38,37 @@ class CachedModel extends Model {
   }
 
   getFromDb() {
-    return super.get(this.id).then((success) => {
-      try {
-        if (success) {
-          // found in db - add to memcache
-          cache.set(this.id, this.values);
-          return this.values;
-        }
-        // not in db
-        logging.log(`CachedModel: not found in ESI entity ${this.id}`);
-        return this.getFromEsi();
-      } catch (err) {
-        logging.error(`getFromDb ${err}`);
-        return this.getFromEsi();
-      }
-    });
+    try {
+      return super.get(this.id)
+        .then((success) => {
+          try {
+            if (success) {
+            // found in db - add to memcache
+              cache.set(this.id, this.values);
+              return this.values;
+            }
+            // not in db
+            logging.log(`CachedModel: not found in ESI entity ${this.id}`);
+            console.log('cachedModel now getFromEsi');
+            return this.getFromEsi()
+              .then((data) => {
+                console.log('cachedModel got from esi ', this.id, data);
+                return data;
+              });
+          } catch (err) {
+            logging.error(`getFromDb ${this.id} ${err} `);
+            return this.getFromEsi();
+          }
+        })
+        .catch((err) => {
+          logging.error(`getFromDb ${this.id} promise ${err}`);
+          cache.set(this.id, {});
+          return null;
+        });
+    } catch (err) {
+      logging.error(`getFromDb ${this.id} outer ${err}`);
+      return {};
+    }
   }
 
   get(id) {
@@ -68,7 +84,13 @@ class CachedModel extends Model {
       return Promise.resolve(data);
     } catch (err) {
       // not in cache
-      return this.getFromDb();
+      return this.getFromDb()
+        .then((data) => {
+          if (!data) {
+            this.cache.set(id, {});
+          }
+          return data;
+        });
     }
   }
 }

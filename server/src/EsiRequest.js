@@ -14,6 +14,7 @@ const EsiKinds = {
   WalletJournal: 'WalletJournal',
   Assets: 'Assets',
   Structure: 'Structure',
+  System: 'System',
 };
 
 const EsiMaps = {
@@ -26,6 +27,8 @@ const EsiMaps = {
   Assets: { method: 'GET', url: 'characters/{0}/assets?datasource=tranquility&page={2}' },
   // Structure 0: structureId, 1: token
   Structure: { method: 'GET', url: 'universe/structures/{0}/?datasource=tranquility' },
+  // System 0: systemId
+  System: { method: 'GET', url: 'universe/systems/{0}/?datasource=tranquility' },
 };
 
 function format(formatString, args) {

@@ -1,7 +1,6 @@
 const esi = require('eve-swagger');
-const esiRequest = require('../src/EsiRequest');
-
 const CachedModel = require('./CachedModel');
+const esiRequest = require('../src/EsiRequest');
 const logging = require('../src/Logging');
 
 class LocationModel extends CachedModel {
@@ -10,12 +9,14 @@ class LocationModel extends CachedModel {
     this.kind = 'Location';
     this.token = token;
     this.addField('name', CachedModel.Types.String, false);
+    this.addField('system_id', CachedModel.Types.Number, false);
   }
 
   static getEsi(id) {
     // Location requires and returns an array - we only have item
     // returns promise
     try {
+      console.log(`GetFromEsi ${id}`);
       const nId = parseInt(id, 10);
       let locationType = 'unknown';
       let dataFn;
@@ -29,13 +30,23 @@ class LocationModel extends CachedModel {
         dataFn = esi.solarSystems.names;
       } else if (id >= 60000000 && id <= 64000000) {
         locationType = 'Station ';
-        return esi.stations(nId).info().then(data => data);
+        return esi.stations(nId).info()
+          .then((data) => {
+            if (nId === 60003760) {
+              console.log(`getFromEsi return ${locationType}`, data);
+            }
+            return { body: data };
+          });
       } else if (id >= 40000000 && id <= 50000000) {
         locationType = 'Planet ';
       } else {
         locationType = 'Structure';
         return esiRequest
-          .default(esiRequest.kinds.Structure, nId, this.token);
+          .default(esiRequest.kinds.Structure, nId, this.token)
+          .then((data) => {
+            console.log(`getFromEsi return2 ${locationType}`, data);
+            return ({ body: { ...data.body, system_id: data.body.solar_system_id, kind: locationType } });
+          });
       }
       if (dataFn) {
         return dataFn(parseInt(id, 10)).then((data) => {
