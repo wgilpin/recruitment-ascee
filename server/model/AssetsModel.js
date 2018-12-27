@@ -10,7 +10,6 @@ class AssetsModel {
   constructor() {
     this.token = null;
     this.assetTree = {};
-    this.assets = {};
     this.typeIds = {};
     this.locationIds = {};
     this.stationList = {};
@@ -66,6 +65,67 @@ class AssetsModel {
     }
   }
 
+  addLocationDetails(assetList) {
+    // after the details are fetched, add to the items in the list
+    const assetDict = {};
+    assetList.forEach((asset) => {
+      const namedAsset = {
+        ...asset,
+        type: this.typeIds[asset.type_id],
+        location: this.locationIds[asset.location_id],
+        items: {},
+        todo: true,
+      };
+      const assetSystem = (namedAsset.location || {}).system_name;
+      assetDict[namedAsset.item_id] = namedAsset;
+      if (assetSystem && !(asset.location_id in assetDict)) {
+        assetDict[namedAsset.location_id] = { items: {}, name: assetSystem, todo: true };
+      }
+    });
+    return assetDict;
+  }
+
+  static buildTree(assetDict) {
+    /*
+     * iterate items and their locations until they are all in place
+     *
+     * @param {Object} assetDict - items keyed by item_id
+     * @returns json object holding response asset tree
+     */
+    //
+    let changes = true;
+    while (changes) {
+      changes = false;
+      /* eslint-disable no-loop-func */ // why?????
+      Object.keys(assetDict).forEach((key) => {
+        const asset = assetDict[key];
+        if (asset.todo && (asset.location_id in assetDict)) {
+          delete asset.todo;
+          assetDict[asset.location_id].items[asset.item_id] = asset;
+          changes = true;
+        }
+      });
+    }
+    // clean and build result
+    const res = {};
+    Object.keys(assetDict).forEach((key) => {
+      if (assetDict[key].todo) {
+        delete assetDict[key].todo;
+        res[key] = assetDict[key];
+      }
+    });
+    // assets.orphan = assets.filter(item => !!item.todo);
+    return res;
+  }
+
+  buildLocationLists(assetList) {
+    // create lists of things needing lookup - item type & location.
+    assetList.forEach((asset) => {
+      this.typeIds[asset.type_id] = '';
+      this.locationIds[asset.location_id] = '';
+    });
+    return assetList;
+  }
 
   async get(userId) {
     this.id = userId;
@@ -75,21 +135,11 @@ class AssetsModel {
 
     // read the list of assets
     // note ESI needs to point to /latest/ not /v1/
-    // EsiRequest.default(EsiRequest.kinds.Assets, userId, tok, 1).then((response) => {
-    //   logging.log('ok');
-    // });
-
     return EsiRequest.default(EsiRequest.kinds.Assets, userId, this.token, 1).then((response) => {
       try {
         // const assetList = response.body.sort((a, b) => a.location_id - b.location_id);
-        const assetList = response.body;
         // pass 1 - get list of ids
-        assetList.forEach((asset) => {
-          this.typeIds[asset.type_id] = '';
-          this.locationIds[asset.location_id] = '';
-          this.assets[asset.item_id] = asset;
-        });
-
+        const assetList = this.buildLocationLists(response.body);
         // build promises
         const typePromises = Object.keys(this.typeIds).map(id => this.getTypeName(id));
         const locationPromises = Object.keys(this.locationIds)
@@ -98,45 +148,9 @@ class AssetsModel {
         return Promise.all(typePromises.concat(locationPromises))
           .then(() => {
             // pass 2 add the type and location names to each asset
-            const assets = {};
-            assetList.forEach((asset) => {
-              const namedAsset = {
-                ...asset,
-                type: this.typeIds[asset.type_id],
-                location: this.locationIds[asset.location_id],
-                items: {},
-                todo: true,
-              };
-              const assetSystem = (namedAsset.location || {}).system_name;
-              assets[namedAsset.item_id] = namedAsset;
-              if (assetSystem && !(asset.location_id in assets)) {
-                assets[namedAsset.location_id] = { items: {}, name: assetSystem, todo: true };
-              }
-            });
+            const assets = this.addLocationDetails(assetList);
             // pass 3 build the tree
-            // assetTree is an empty dict to hold all top level assets puls children (items)
-            let changes = true;
-            while (changes) {
-              changes = false;
-              /* eslint-disable no-loop-func */ // why?????
-              Object.keys(assets).forEach((key) => {
-                const asset = assets[key];
-                if (asset.todo && (asset.location_id in assets)) {
-                  delete asset.todo;
-                  assets[asset.location_id].items[asset.item_id] = asset;
-                  changes = true;
-                }
-              });
-            }
-            const res = {};
-            Object.keys(assets).forEach((key) => {
-              if (assets[key].todo) {
-                delete assets[key].todo;
-                res[key] = assets[key];
-              }
-            });
-            // assets.orphan = assets.filter(item => !!item.todo);
-            return res;
+            return AssetsModel.buildTree(assets);
           });
       } catch (err) {
         logging.error(`AssetModel get ${err.message}`);
