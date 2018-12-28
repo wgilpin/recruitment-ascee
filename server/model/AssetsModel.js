@@ -78,13 +78,22 @@ class AssetsModel {
       };
       const assetSystem = (namedAsset.location || {}).system_name;
       assetDict[namedAsset.item_id] = namedAsset;
-      if (assetSystem && !(asset.location_id in assetDict)) {
-        assetDict[namedAsset.location_id] = {
-          items: {},
-          name: assetSystem,
-          todo: true,
-          location_type: 'system',
-        };
+      if (assetSystem) {
+        if (!(asset.location_id in assetDict)) {
+          // the system wasn't in the tree
+          assetDict[namedAsset.location_id] = {
+            items: {},
+            name: assetSystem,
+            todo: true,
+            location_type: 'system',
+          };
+        }
+        if (!(namedAsset.location.name in assetDict[namedAsset.location_id].items)) {
+          assetDict[namedAsset.location_id].items[namedAsset.location.name] = {
+            items: {},
+            location_type: 'structure',
+          };
+        }
       }
     });
     return assetDict;
@@ -104,10 +113,18 @@ class AssetsModel {
       /* eslint-disable no-loop-func */ // why?????
       Object.keys(assetDict).forEach((key) => {
         const asset = assetDict[key];
-        if (asset.todo && (asset.location_id in assetDict)) {
-          delete asset.todo;
-          assetDict[asset.location_id].items[asset.item_id] = asset;
-          changes = true;
+        const locId = asset.location_id;
+        if (asset.todo) {
+          if (locId in assetDict) {
+            delete asset.todo;
+            if (asset.location.name in assetDict[locId].items) {
+              // a structure: store asset in system>structure>items
+              assetDict[locId].items[asset.location.name].items[asset.item_id] = asset;
+            } else {
+              assetDict[locId].items[asset.item_id] = asset;
+            }
+            changes = true;
+          }
         }
       });
     }

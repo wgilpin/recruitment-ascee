@@ -21,6 +21,7 @@ export default class mockContacts {
           },
         },
         name: 'Niyabainen',
+        location_type: 'system',
       },
       60002161: {
         items: {
@@ -99,6 +100,7 @@ export default class mockContacts {
           },
         },
         name: 'Hakonen',
+        location_type: 'system',
       },
       60002314: {
         items: {
@@ -144,6 +146,7 @@ export default class mockContacts {
           },
         },
         name: 'Passari',
+        location_type: 'system',
       },
       60003478: {
         items: {
@@ -332,6 +335,7 @@ export default class mockContacts {
           },
         },
         name: 'Zinkon',
+        location_type: 'system',
       },
       60003760: {
         items: {
@@ -643,6 +647,7 @@ export default class mockContacts {
           },
         },
         name: 'Jita',
+        location_type: 'system',
       },
       60003766: {
         items: {
@@ -712,6 +717,7 @@ export default class mockContacts {
           },
         },
         name: 'Niyabainen',
+        location_type: 'system',
       },
       60004042: {
         items: {
@@ -769,6 +775,7 @@ export default class mockContacts {
           },
         },
         name: 'Torrinos',
+        location_type: 'system',
       },
       60004561: {
         items: {
@@ -894,6 +901,7 @@ export default class mockContacts {
           },
         },
         name: 'Egbinger',
+        location_type: 'system',
       },
       60004588: {
         items: {
@@ -914,6 +922,7 @@ export default class mockContacts {
           },
         },
         name: 'Rens',
+        location_type: 'system',
       },
       60007717: {
         items: {
@@ -983,6 +992,7 @@ export default class mockContacts {
           },
         },
         name: 'Hier',
+        location_type: 'system',
       },
       60008494: {
         items: {
@@ -1288,6 +1298,7 @@ export default class mockContacts {
           },
         },
         name: 'Amarr',
+        location_type: 'system',
       },
       60010384: {
         items: {
@@ -1323,6 +1334,7 @@ export default class mockContacts {
           },
         },
         name: 'Faurent',
+        location_type: 'system',
       },
       60010555: {
         items: {
@@ -1374,6 +1386,7 @@ export default class mockContacts {
           },
         },
         name: 'Evuldgenzo',
+        location_type: 'system',
       },
       60011866: {
         items: {
@@ -1529,6 +1542,7 @@ export default class mockContacts {
           },
         },
         name: 'Dodixie',
+        location_type: 'system',
       },
       60012145: {
         items: {
@@ -1634,6 +1648,7 @@ export default class mockContacts {
           },
         },
         name: 'Jarizza',
+        location_type: 'system',
       },
       60012292: {
         items: {
@@ -1654,6 +1669,7 @@ export default class mockContacts {
           },
         },
         name: 'Asabona',
+        location_type: 'system',
       },
       60012424: {
         items: {
@@ -1674,6 +1690,7 @@ export default class mockContacts {
           },
         },
         name: 'Egbinger',
+        location_type: 'system',
       },
       60012673: {
         items: {
@@ -1694,6 +1711,7 @@ export default class mockContacts {
           },
         },
         name: 'Airaken',
+        location_type: 'system',
       },
       60013078: {
         items: {
@@ -1714,6 +1732,7 @@ export default class mockContacts {
           },
         },
         name: 'ROIR-Y',
+        location_type: 'system',
       },
       60013159: {
         items: {
@@ -1847,6 +1866,7 @@ export default class mockContacts {
           },
         },
         name: 'Sakht',
+        location_type: 'system',
       },
       60013825: {
         items: {
@@ -1867,6 +1887,7 @@ export default class mockContacts {
           },
         },
         name: 'Khanid Prime',
+        location_type: 'system',
       },
       60013981: {
         items: {
@@ -1888,6 +1909,7 @@ export default class mockContacts {
           },
         },
         name: 'Badivefi',
+        location_type: 'system',
       },
       60014062: {
         items: {
@@ -1990,6 +2012,7 @@ export default class mockContacts {
           },
         },
         name: 'E02-IK',
+        location_type: 'system',
       },
       60014623: {
         items: {
@@ -2010,6 +2033,7 @@ export default class mockContacts {
           },
         },
         name: 'Nema',
+        location_type: 'system',
       },
       60014632: {
         items: {
@@ -2030,6 +2054,7 @@ export default class mockContacts {
           },
         },
         name: 'Sarum Prime',
+        location_type: 'system',
       },
       60014659: {
         items: {
@@ -2172,6 +2197,7 @@ export default class mockContacts {
           },
         },
         name: 'Kisogo',
+        location_type: 'system',
       },
       60014662: {
         items: {
@@ -2229,6 +2255,7 @@ export default class mockContacts {
           },
         },
         name: 'Piekura',
+        location_type: 'system',
       },
       60014945: {
         items: {
@@ -2249,6 +2276,7 @@ export default class mockContacts {
           },
         },
         name: '1DH-SX',
+        location_type: 'system',
       },
       60015027: {
         items: {
@@ -2269,6 +2297,7 @@ export default class mockContacts {
           },
         },
         name: 'Uitra',
+        location_type: 'system',
       },
       60015052: {
         items: {
@@ -2338,6 +2367,7 @@ export default class mockContacts {
           },
         },
         name: 'Olbra',
+        location_type: 'system',
       },
       1021949508689: {
         items: {
@@ -2446,6 +2476,7 @@ export default class mockContacts {
           },
         },
         name: 'ZXB-VC',
+        location_type: 'system',
       },
       1022098607141: {
         items: {
@@ -2466,6 +2497,7 @@ export default class mockContacts {
           },
         },
         name: 'Y-2ANO',
+        location_type: 'system',
       },
       1022401184176: {
         items: {
@@ -2882,6 +2914,7 @@ export default class mockContacts {
           },
         },
         name: 'D-W7F0',
+        location_type: 'system',
       },
       1022734985679: {
         items: {
@@ -3219,6 +3252,7 @@ export default class mockContacts {
           },
         },
         name: '1DQ1-A',
+        location_type: 'system',
       },
       1022892785437: {
         items: {
@@ -3239,6 +3273,7 @@ export default class mockContacts {
           },
         },
         name: '5BTK-M',
+        location_type: 'system',
       },
       1023774921327: {
         items: {
@@ -3259,6 +3294,7 @@ export default class mockContacts {
           },
         },
         name: '3-DMQT',
+        location_type: 'system',
       },
       1024382827439: {
         items: {
@@ -3279,6 +3315,7 @@ export default class mockContacts {
           },
         },
         name: '5-CQDA',
+        location_type: 'system',
       },
       1026132247574: {
         items: {
@@ -3360,6 +3397,7 @@ export default class mockContacts {
           },
         },
         name: 'S-6HHN',
+        location_type: 'system',
       },
       1026774890719: {
         items: {
@@ -3380,6 +3418,7 @@ export default class mockContacts {
           },
         },
         name: 'LBGI-2',
+        location_type: 'system',
       },
       1027847403278: {
         items: {
@@ -3533,6 +3572,7 @@ export default class mockContacts {
           },
         },
         name: 'F-TE1T',
+        location_type: 'system',
       },
       1027847409691: {
         items: {
@@ -3553,6 +3593,7 @@ export default class mockContacts {
           },
         },
         name: 'J-LPX7',
+        location_type: 'system',
       },
       1028110931198: {
         items: {
@@ -3796,6 +3837,7 @@ export default class mockContacts {
           },
         },
         name: '7-K6UE',
+        location_type: 'system',
       },
       1029057132373: {
         items: {
@@ -4155,6 +4197,7 @@ export default class mockContacts {
           },
         },
         name: 'UEXO-Z',
+        location_type: 'system',
       },
     },
   };
