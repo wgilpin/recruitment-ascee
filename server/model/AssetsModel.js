@@ -79,7 +79,12 @@ class AssetsModel {
       const assetSystem = (namedAsset.location || {}).system_name;
       assetDict[namedAsset.item_id] = namedAsset;
       if (assetSystem && !(asset.location_id in assetDict)) {
-        assetDict[namedAsset.location_id] = { items: {}, name: assetSystem, todo: true };
+        assetDict[namedAsset.location_id] = {
+          items: {},
+          name: assetSystem,
+          todo: true,
+          location_type: 'system',
+        };
       }
     });
     return assetDict;
