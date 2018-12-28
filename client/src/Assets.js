@@ -18,23 +18,27 @@ export default class Assets extends React.Component {
     super(props);
     this.state = {
       scope: 'assets',
-      assetsList: [],
+      assets: {},
+      systems: {},
     };
   }
 
-  static jsonToAssetsList(json) {
-    let list = [];
+  jsonToSystemsList(json) {
     if (json && json.info) {
-      for (let we in json.info) {
-        list.push(json.info[we]);
-      }
+      this.assets = json.info;
+      const keys = Object.keys(this.assets);
+      this.setState({ assetCount: keys.length });
+      keys.forEach((key) => {
+        if (this.assets[key].location_type === 'system'){
+          this.systems[key] = this.assets[key];
+        }
+      });
     }
-    return list;
   }
 
   onLoaded = data => {
-    let newList = Assets.jsonToAssetsList(data);
-    if (newList.length !== (this.state.assetsList || []).length) {
+    this.jsonToSystemsList(data);
+    if (this.state.assetCount !== (this.state.assetsList || []).length) {
       this.setState({ assetsList: newList })
     }
   }
@@ -58,6 +62,18 @@ export default class Assets extends React.Component {
     return (
       <div style={styles.row} key={key}>
         <div style={lineStyle}>{amount.toLocaleString()}</div>
+        <div style={lineStyle}>{balance.toLocaleString()}</div>
+        <div style={lineStyle}>{description}</div>
+        <div style={lineStyle}>{second_party_id.name}</div>
+        <div style={lineStyle}>{theDate}</div>
+      </div>
+    )
+  }  
+  
+  static systemHeading(key, { name }) {
+    return (
+      <div style={styles.row} key={key}>
+        <div style={styles.s}>{amount.toLocaleString()}</div>
         <div style={lineStyle}>{balance.toLocaleString()}</div>
         <div style={lineStyle}>{description}</div>
         <div style={lineStyle}>{second_party_id.name}</div>
