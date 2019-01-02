@@ -13,6 +13,8 @@ const defaultProps = {
 
 const styles = TableStyles.styles;
 
+
+
 export default class Assets extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +41,7 @@ export default class Assets extends React.Component {
   onLoaded = data => {
     this.jsonToSystemsList(data);
     if (this.state.assetCount !== (this.state.assetsList || []).length) {
-      this.setState({ assetsList: newList })
+      this.setState({ assetsList: data })
     }
   }
 
@@ -68,8 +70,8 @@ export default class Assets extends React.Component {
         <div style={lineStyle}>{theDate}</div>
       </div>
     )
-  }  
-  
+  }
+
   static systemHeading(key, { name }) {
     return (
       <div style={styles.row} key={key}>

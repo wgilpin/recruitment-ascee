@@ -1,4 +1,7 @@
-const whitelist = ['http://localhost:3003'];
+const whitelist = [
+  'http://localhost:3003',
+  'http://localhost:3001',
+];
 
 function cb(origin, callback) {
   if (whitelist.indexOf(origin) !== -1 || !origin) {

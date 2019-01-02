@@ -6920,6 +6920,12 @@ react@^16.5.2:
     prop-types "^15.6.2"
     scheduler "^0.12.0"
 
+reactn@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/reactn/-/reactn-0.1.8.tgz#89b7c856edb788ca094328d34249610fa6feb1fe"
+  dependencies:
+    use-force-update "^1.0.0"
+
 read-pkg-up@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-1.0.1.tgz#9d63c13276c065918d57f002a57f40a1b643fb02"
@@ -8194,6 +8200,10 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-force-update@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/use-force-update/-/use-force-update-1.0.0.tgz#8b4c3893575b8246a2d9c785a9921572db50e182"
 
 use@^3.1.0:
   version "3.1.1"
