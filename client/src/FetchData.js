@@ -5,6 +5,16 @@ import configFile from './config';
 const config = configFile.get(process.env.NODE_ENV);
 
 export default class FetchData {
+  /*
+   * fetch() wrapper
+   *
+   * usage:
+   * new FetchData({ id, scope })
+   *  .get()
+   *  .then(data => {
+   *    process(data)
+   *  });
+  */
   constructor(params, onLoaded, onError) {
     this.params = FetchData.toParams(params);
     this.originalParams = params;

@@ -7,7 +7,6 @@ class CharacterModel extends CachedModel {
   constructor() {
     super(CharacterModel.getEsi);
     this.kind = 'Character';
-    this.addField('accessToken', CachedModel.Types.String, false);
     this.addField('refreshToken', CachedModel.Types.String, false);
     this.addField('expires', CachedModel.Types.Number, false);
     this.addField('main', CachedModel.Types.String, false);
