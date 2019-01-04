@@ -29,7 +29,7 @@ export default class AssetItem extends React.Component {
         {!this.props.asset.is_singleton && 
           (<React.Fragment>x {this.props.asset.quantity}&emsp;</React.Fragment>)}
         <span style={this.styles.iskLeft}>
-          {Misc.commarize(this.props.asset.price)} ISK
+          {Misc.commarize(this.props.asset.price * this.props.asset.quantity)} ISK
         </span>
       </span>
     </div>

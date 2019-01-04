@@ -36,6 +36,7 @@ export default class AssetContainer extends React.Component {
     super(props);
     this.state = { collapsed: true };
   }
+  
   getItemLine(item, index) {
     let lineStyle = this.props.index % 2 === 0 ? styles.isOdd : {};
     lineStyle = { ...lineStyle, ...styles.cell };
@@ -54,6 +55,7 @@ export default class AssetContainer extends React.Component {
       </div>
     );
   }
+
   listOfItemLines(items) {
     const orphans = [];
 

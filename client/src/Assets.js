@@ -22,7 +22,7 @@ export default class Assets extends React.Component {
   }
   
   recurseValues(item) {
-    let price = item.price || 0;
+    let price = (item.price || 0) * (item.quantity || 1);
     let value = 0;
     Object.keys(item.items).forEach((key) => {
       value += this.recurseValues(item.items[key])
@@ -66,8 +66,11 @@ export default class Assets extends React.Component {
 
   
   render() {
-    return Object.keys(this.global.assetSystems || {}).map((system, idx) => 
-      (system !== 'value' ? <AssetSystem systemId={system} /> : null ));
+    return Object
+      .keys(this.global.assetSystems || {})
+      .sort((a,b) => this.global.assetSystems[b].value - this.global.assetSystems[a].value)
+      .map((system, idx) => 
+        (system !== 'value' ? <AssetSystem systemId={system} /> : null ));
   }
 }
 
