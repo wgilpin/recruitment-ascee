@@ -15,6 +15,7 @@ const EsiKinds = {
   Assets: 'Assets',
   Structure: 'Structure',
   System: 'System',
+  Prices: 'Prices',
 };
 
 const EsiMaps = {
@@ -29,6 +30,8 @@ const EsiMaps = {
   Structure: { method: 'GET', url: 'universe/structures/{0}/?datasource=tranquility' },
   // System 0: systemId
   System: { method: 'GET', url: 'universe/systems/{0}/?datasource=tranquility' },
+  // System 0: systemId
+  Prices: { method: 'GET', url: 'markets/prices/?datasource=tranquility' },
 };
 
 function format(formatString, args) {

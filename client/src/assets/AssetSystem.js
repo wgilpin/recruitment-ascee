@@ -1,10 +1,15 @@
-import React from 'react';
+import React from 'reactn';
 import PropTypes from 'prop-types';
 import TableStyles from '../TableStyles';
-import AssetContainer from './AssetStructure';
+import AssetContainer from './AssetContainer';
+import AssetItem from './AssetItem';
+import Misc from '../misc';
 
 
-const propTypes = {};
+
+const propTypes = {
+  systemId: PropTypes.number,
+};
 
 const defaultProps = {
   assets: {},
@@ -13,35 +18,46 @@ const defaultProps = {
 
 const styles = {
   ...TableStyles.styles,
+  system: {
+    width: '100%',
+  }
 }
 
 export default class AssetSystem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      assets: props.assets,
-    };
-  }
-
   render() {
-    const system = this.state.assets;
-    const { name, region, items } = system;
+    const { name, region, items, value } = this.global.assetSystems[this.props.systemId];
     return (
-      <React.Fragment>
-        <div style={{...styles.row, ...styles.folderHeader}} key={name}>
-          <div style={styles.cell}>{name}</div>
+      <div style={styles.system}>
+        <div style={{ ...styles.folderHeader, ...styles.system }} key={name}>
+          <div style={styles.cell}>{name}
+            <span style={styles.isk}>{Misc.commarize(value)} ISK</span>
+          </div>
           <div style={styles.cell}>{region}</div>
         </div>
         <div>
         {
           Object.keys(items).map((it, idx) => {
-            if (it.location_type === 'structure') {
-              return (<AssetContainer asset={it} index={idx} depth={0}/>);
+          
+          try {
+              return items[it].location_type === 'structure' ?  
+                (<AssetContainer name={it} asset={items[it]} index={idx} depth={1}/>) :
+                null;
+          } catch (err) {
+            console.log(items[it])
+          }
+          }).concat(
+          Object.keys(items).map((it, idx) => {
+            try {
+              return items[it].location_type !== 'structure' ?
+                (<AssetItem asset={items[it]} index={idx} depth={1}/>) :
+                null;
+            } catch (err) {
+              console.log(items[it])
             }
-          })
+          }))
         }
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

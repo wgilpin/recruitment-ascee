@@ -21,7 +21,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "eve-singlesignon": "0.0.5",
-    "eve-swagger": "^0.3.3",
+    "eve-swagger": "github:lhkbob/eve-swagger-js",
     "express": "~4.16.0",
     "express-session": "^1.15.6",
     "gstore-node": "^4.3.1",

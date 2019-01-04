@@ -25,6 +25,10 @@ export default class TableStyles {
     display: 'table-cell',
     padding: '6px',
   },
+  nonTableCell: {
+    textAlign: 'left',
+    padding: '6px',
+  },
   isOdd: {
     backgroundColor: '#151515',
   },
@@ -37,6 +41,18 @@ export default class TableStyles {
     fontWeight: 'bold',
     textAlign: 'left',
     backgroundColor: '#05313E',
+  },
+  isk: {
+    fontSize: 'small',
+    fontStyle: 'italic',
+    right: '32px',
+    position: 'absolute',
+  },
+  iskLeft: {
+    fontSize: 'small',
+    fontStyle: 'italic',
+    right: '64px',
+    position: 'absolute',
   }
 }
 }

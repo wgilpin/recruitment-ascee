@@ -45,7 +45,9 @@ class LocationModel extends CachedModel {
           .default(esiRequest.kinds.Structure, nId, this.token)
           .then((data) => {
             console.log(`getFromEsi return2 ${locationType}`, data);
-            return ({ body: { ...data.body, system_id: data.body.solar_system_id, kind: locationType } });
+            return ({
+              body: { ...data.body, system_id: data.body.solar_system_id, kind: locationType },
+            });
           });
       }
       if (dataFn) {

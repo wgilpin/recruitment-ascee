@@ -3,6 +3,7 @@ import TabsHeader from './TabsHeader';
 import Alts from './Alts';
 import Wallet from './Wallet';
 import Mail from './Mail';
+import Assets from './Assets';
 import Skills from './Skills';
 import Bookmarks from './Bookmarks';
 import Contacts from './Contacts';
@@ -68,6 +69,8 @@ export default class Evidence extends React.Component {
           <div style={styles.tabBody}>
             {(active === 'wallet') &&
               <Wallet style={styles.tabBody} alt={this.state.currentAlt}></Wallet>}
+            {(active === 'assets') &&
+              <Assets style={styles.tabBody} alt={this.state.currentAlt}></Assets>}
             {(active === 'mail') &&
               <Mail style={styles.tabBody} alt={this.state.currentAlt}></Mail>}
             {(active === 'skills') &&

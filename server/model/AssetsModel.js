@@ -4,7 +4,10 @@ const LocationModel = require('../model/LocationModel');
 const SystemModel = require('../model/SystemModel');
 const logging = require('../src/Logging');
 const User = require('../model/UserModel');
+const getPrice = require('./PricesModel');
 
+// TODO: get prices - esi.types.prices()
+// https://lhkbob.github.io/eve-swagger-js/Types.html#prices
 
 class AssetsModel {
   constructor() {
@@ -99,6 +102,7 @@ class AssetsModel {
     return assetDict;
   }
 
+
   static buildTree(assetDict) {
     /*
      * iterate items and their locations until they are all in place
@@ -116,10 +120,12 @@ class AssetsModel {
         const locId = asset.location_id;
         if (asset.todo) {
           if (locId in assetDict) {
+            asset.price = getPrice(asset.type_id);
             delete asset.todo;
-            if (asset.location.name in assetDict[locId].items) {
+            const locn = asset.location.name;
+            if (locn in assetDict[locId].items) {
               // a structure: store asset in system>structure>items
-              assetDict[locId].items[asset.location.name].items[asset.item_id] = asset;
+              assetDict[locId].items[locn].items[asset.item_id] = asset;
             } else {
               assetDict[locId].items[asset.item_id] = asset;
             }
@@ -151,6 +157,8 @@ class AssetsModel {
 
   async get(userId) {
     this.id = userId;
+    // force price cache load
+    getPrice(0);
     this.user = new User();
     await this.user.get(userId);
     this.token = this.user.values.accessToken;
