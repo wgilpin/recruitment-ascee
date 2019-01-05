@@ -11,6 +11,9 @@ class UserModel extends Model {
     this.addField('expires', Model.Types.Number, false);
     this.addField('image', Model.Types.String, false);
     this.addField('main', Model.Types.Number, false);
+    this.addField('isAdmin', Model.Types.Boolean, false, false);
+    this.addField('isRecruiter', Model.Types.Boolean, false, false);
+    this.addField('isSnrRecruiter', Model.Types.Boolean, false, false);
   }
 
   async get(id) {

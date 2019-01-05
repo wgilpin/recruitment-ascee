@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
   // Get an access token for this authorization code
 
   try {
-    let result = await Oauth.getAccessToken(req.query.code, req.query.state);
+    const result = await Oauth.getAccessToken(req.query.code, req.query.state);
     const {
       name, userId, expires, accessToken, refreshToken, loginKind,
     } = result;
@@ -44,6 +44,12 @@ router.get('/', async (req, res) => {
         console.error(err);
       }
     });
+    if (user.values.isRecruiter || user.values.isSnrRecruiter) {
+      // go to recruiter page
+      console.log('recruiter logged in');
+      res.redirect('/recruits');
+      return;
+    }
     if (!user.values.scopeToken) {
       // need to request scopes
       console.log('fetch scopes');
