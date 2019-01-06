@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import TableStyles from '../TableStyles';
 import AssetContainer from './AssetContainer';
 import AssetItem from './AssetItem';
-import Misc from '../misc';
-
+import Misc from '../Misc';
 
 
 const propTypes = {
@@ -36,25 +35,15 @@ export default class AssetSystem extends React.Component {
         </div>
         <div>
         {
-          Object.keys(items).map((it, idx) => {
-          
-          try {
-              return items[it].location_type === 'structure' ?  
-                (<AssetContainer name={it} asset={items[it]} index={idx} depth={1}/>) :
-                null;
-          } catch (err) {
-            console.log(items[it])
-          }
-          }).concat(
-          Object.keys(items).map((it, idx) => {
-            try {
-              return items[it].location_type !== 'structure' ?
-                (<AssetItem asset={items[it]} index={idx} depth={1}/>) :
-                null;
-            } catch (err) {
-              console.log(items[it])
-            }
-          }))
+          // structures first
+          Object.keys(items).map((it, idx) => 
+            items[it].location_type === 'structure' &&
+              (<AssetContainer name={it} asset={items[it]} index={idx} depth={1}/>)
+          ).concat(
+          Object.keys(items).map((it, idx) => 
+            items[it].location_type !== 'structure' &&
+              (<AssetItem asset={items[it]} index={idx} depth={1}/>)
+          ))
         }
         </div>
       </div>

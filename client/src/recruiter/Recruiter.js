@@ -3,6 +3,7 @@ import FetchData from '../FetchData';
 import ClaimedIcon from 'react-ionicons/lib/MdStar'
 import EscalatedIcon from 'react-ionicons/lib/IosAlertOutline'
 import Evidence from '../Evidence';
+import Misc from '../Misc';
 
 
 const styles = {
@@ -128,11 +129,7 @@ export default class Recruiter extends React.Component {
     );
   }
 
-  static dictLen(dict) {
-    let count = 0;
-    Object.keys(dict).map(key => count += dict.hasOwnProperty(key) ? 1 : 0);
-    return count;
-  }
+  
 
   render() {
     // 3 sections in order: claimed, escalated, unclaimed.
@@ -143,20 +140,20 @@ export default class Recruiter extends React.Component {
     return <React.Fragment>
       Recruits
       <div style={styles.claimed}>
-        {Recruiter.dictLen(claimed) > 0 ?
+        {Misc.dictLen(claimed) > 0 ?
           claimed.map(key => this.recruitLine(key)) :
           'None Claimed'
           }
       </div>
       <hr/>
       <div style={styles.escalated}>
-        {Recruiter.dictLen(escalated) > 0 ?
+        {Misc.dictLen(escalated) > 0 ?
           escalated.map(key => this.recruitLine(key)) :
           'None escalated'}
       </div>
       <hr/>
       <div style={styles.unclaimed}>
-        {Recruiter.dictLen(unclaimed) > 0 ?
+        {Misc.dictLen(unclaimed) > 0 ?
           escalated.map(key => this.recruitLine(key)) :
           'None unclaimed'}
       </div>

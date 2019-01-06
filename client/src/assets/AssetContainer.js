@@ -2,7 +2,7 @@ import React from 'reactn';
 import PropTypes from 'prop-types';
 import TableStyles from '../TableStyles';
 import AssetItem from './AssetItem';
-import Misc from '../misc';
+import Misc from '../Misc';
 import collapsedImg from '../images/collapsed.png';
 import expandedImg from '../images/expanded.png';
 
@@ -38,12 +38,12 @@ export default class AssetContainer extends React.Component {
   }
   
   getItemLine(item, index) {
-    let lineStyle = this.props.index % 2 === 0 ? styles.isOdd : {};
-    lineStyle = { ...lineStyle, ...styles.cell };
     const depthPadding = 40 * this.props.depth + 20;
+    let lineStyle = this.props.index % 2 === 0 ? styles.isOdd : {};
+    lineStyle = { ...lineStyle, ...styles.cell, ...styles.row, paddingLeft: depthPadding };
     return (
       <div
-        style={{ ...styles.row, ...lineStyle, paddingLeft: depthPadding }}
+        style={lineStyle}
         key={item.item_id}
       >
         <div>
@@ -81,23 +81,24 @@ export default class AssetContainer extends React.Component {
     e.preventDefault();
   };
 
+  expansionButton = () => {
+    return <React.Fragment>
+      {!this.state.collapsed && <img src={expandedImg} alt="+" />}
+      {this.state.collapsed && <img src={collapsedImg} alt="-" />}
+    </React.Fragment>
+  }
+
   render() {
-    const { region, items, value } = this.props.asset;
-    let lineStyle = { ...styles.nonTableCell };
-    lineStyle = { ...lineStyle, ...styles.structure };
+    const { item_id, name, asset: { region, items, value, type }} = this.props;
     const depthPadding = 40 * this.props.depth;
+    let lineStyle = { ...styles.nonTableCell, paddingLeft: depthPadding, ...styles.structure };
     // orphans is a list of keys of items which are not containers
     return (
       <div>
-        <div
-          style={{ ...lineStyle, paddingLeft: depthPadding }}
-          key={this.props.item_id || this.props.name}
-          onClick={this.handleClick}
-        >
+        <div style={lineStyle} key={item_id || name} onClick={this.handleClick} >
           <div>
-            {!this.state.collapsed && <img src={expandedImg} alt="+" />}
-            {this.state.collapsed && <img src={collapsedImg} alt="-" />}
-            &emsp;{this.props.name || this.props.asset.type}
+            {this.expansionButton()}&emsp;
+            {name || type}
             {value && (
               <span style={styles.isk}>{`${Misc.commarize(value)} ISK`}</span>
             )}

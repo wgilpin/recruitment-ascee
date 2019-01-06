@@ -16,6 +16,12 @@ export default class Misc {
     // return formatted original number
     return num.toLocaleString();
   }
+
+  static dictLen(dict) {
+    let count = 0;
+    Object.keys(dict).map(key => count += dict.hasOwnProperty(key) ? 1 : 0);
+    return count;
+  }
 }
 
 
