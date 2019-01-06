@@ -75,9 +75,43 @@ export default class Mail extends React.Component {
     return small + '<hr/>';
   }
 
+  findLinks(data, linksList) {
+    let regexp = /showinfo:(\d+)\/\/(\d+)">([\w\s]+)</g
+    let body = this.badlyRemoveFontSizeColor(data.info);
+    let matches;
+    // eslint-disable-next-line no-cond-assign
+    while(matches = regexp.exec(body)){
+      linksList.push({ param1: matches[1], param2: matches[2] });
+    }
+    if (linksList.length === 0){
+      return null;
+    }
+    let encodedList = encodeURIComponent(JSON.stringify(linksList));
+    return new FetchData({ scope: 'linkID', id: this.props.alt, param1: encodedList }).get();
+  }
+
+  processLinks(links, body){
+    if (!links){
+      return body;
+    };
+    let markup;
+    Object.keys(links).forEach(id => {
+      let lookupRegex = new RegExp(`${id}">([\\w\\s]+)<`, 'g');
+      if ('type' in (links[id] || {})){
+        if (links[id].type === 'character'){
+          markup = `${links[id].corporation_id.ticker}`;
+          markup += links[id].alliance_id ? ` / ${links[id].alliance_id.ticker}` : '';
+        }
+      } else {
+        markup = links[id].solarSystemName;
+      };
+      body = body.replace(lookupRegex, `${id}">$1 [${markup}]<`);
+    });
+    return body;
+  }
+
   toggleMessage = (idx) => {
     let linksList = [];
-    let regexp = /showinfo:(\d+)\/\/(\d+)">([\w\s]+)</g
     let { mailList } = this.state;
     let thisMail = mailList[idx];
     let body;
@@ -86,38 +120,8 @@ export default class Mail extends React.Component {
       return new FetchData(
         { id: this.props.alt, scope: 'mail', param1: thisMail.mail_id },
       ).get()
-        .then((data) => {
-          body = this.badlyRemoveFontSizeColor(data.info);
-          let matches;
-          // eslint-disable-next-line no-cond-assign
-          while(matches = regexp.exec(body)){
-            linksList.push({ param1: matches[1], param2: matches[2] });
-          }
-          if (linksList.length === 0){
-            return null;
-          }
-          let encodedList = encodeURIComponent(JSON.stringify(linksList));
-          return new FetchData({ scope: 'linkID', id: this.props.alt, param1: encodedList }).get();
-        })
-        .then((links) => {
-          if (!links){
-            return body;
-          };
-          let markup;
-          Object.keys(links).map(id => {
-            let lookupRegex = new RegExp(`${id}">([\\w\\s]+)<`, 'g');
-            if ('type' in (links[id] || {})){
-              if(links[id].type === 'character'){
-                markup = `${links[id].corporation_id.ticker}`;
-                markup += links[id].alliance_id ? ` / ${links[id].alliance_id.ticker}` : '';
-              }
-            } else {
-              markup = links[id].solarSystemName;
-            };
-            body = body.replace(lookupRegex, `${id}">$1 [${markup}]<`);
-          });
-            return body;
-        })
+        .then(data => this.getLinks(data, linksList))
+        .then(links => this.processLinks(links, body))
         .then((body) => {
           this.setState({ mailList: { ...mailList, [idx]: { ...thisMail, collapsed: false, body } } });
         })
