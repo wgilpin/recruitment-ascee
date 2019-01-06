@@ -38,6 +38,7 @@ app.use(session({
   saveUninitialized: true,
 }));
 app.use(lessMiddleware(path.join(__dirname, 'public')));
+app.use('/app', express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const datastore = new Datastore({
@@ -58,6 +59,7 @@ app.use('/scopes', scopesRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
+  console.log(req.path);
   next(createError(404));
 });
 

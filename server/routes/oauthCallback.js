@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
     if (user.values.isRecruiter || user.values.isSnrRecruiter) {
       // go to recruiter page
       console.log('recruiter logged in');
-      res.redirect('/recruits');
+      res.redirect('/app?showing=recruits');
       return;
     }
     if (!user.values.scopeToken) {

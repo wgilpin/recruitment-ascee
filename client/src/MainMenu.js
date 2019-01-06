@@ -1,14 +1,12 @@
 import React, { Component } from 'reactn';
-import RecruiterImg from './images/recruiter.png';
-import ApplicantImg from './images/applicant.png';
+import queryString from 'query-string';
+import RecruiterImg from './images/titansRec.png';
+import ApplicantImg from './images/Rifter.png';
 import Recruiter from './recruiter/Recruiter';
 
 class MainMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showing: '',
-    };
     this.styles = {
       outer: {
         marginTop: 40,
@@ -26,35 +24,41 @@ class MainMenu extends Component {
     };
   }
 
-  handleRecruiter = (id) => {
+  handleRecruiter = id => {
     console.log('handleRecruiter');
     this.setState({ showing: 'recruiter' });
-  }
+  };
 
-  handleApplicant = (id) => {
+  handleApplicant = id => {
     console.log('handleApplicant');
     this.setState({ showing: 'applicant' });
-  }
+  };
 
   render() {
+    const params = queryString.parse(this.props.location.search);
     return (
       <React.Fragment>
-        {(this.state.showing === '') &&
-        <div style={this.styles.outer}>
-          <img
-            src={RecruiterImg}
-            style={this.styles.image}
-            alt="Recruiters"
-            onClick={this.handleRecruiter}
-          />
-          <img
-            src={ApplicantImg}
-            style={this.styles.image}
-            alt="Applicant"
-            onClick={this.handleApplicant}
-          />
-        </div>}
-        {(this.state.showing === 'recruiter') && <Recruiter />}
+        {params.showing === '' && (
+          <div style={this.styles.outer}>
+            <a href="/login">
+              <img
+                src={RecruiterImg}
+                style={this.styles.image}
+                alt="Recruiters"
+                onClick={this.handleRecruiter}
+              />
+            </a>
+            <a href="/login">
+              <img
+                src={ApplicantImg}
+                style={this.styles.image}
+                alt="Applicant"
+                onClick={this.handleApplicant}
+              />
+            </a>
+          </div>
+        )}
+        {params.showing === 'recruiter' && <Recruiter />}
       </React.Fragment>
     );
   }
