@@ -1,7 +1,7 @@
 import React from 'reactn';
 import FetchData from '../FetchData';
-import ClaimedIcon from './images/claimed.png';
-import EscalatedIcon from './images/escalated.png';
+import ClaimedIcon from 'react-ionicons/lib/MdStar'
+import EscalatedIcon from 'react-ionicons/lib/IosAlertOutline'
 import Evidence from '../Evidence';
 
 
@@ -113,8 +113,8 @@ export default class Recruiter extends React.Component {
   recruitLine(recruit) {
     return (
       <div key={recruit.id}>
-        {recruit.status === 'claimed' && <img alt="Claimed" size={32} src={ClaimedIcon} />}
-        {recruit.status === 'escalated' && <img alt="Escalated" size={32} src={EscalatedIcon} />}
+        {recruit.status === 'claimed' && <ClaimedIcon color="white" fontSize="24px"  />}
+        {recruit.status === 'escalated' && <EscalatedIcon color="white" fontSize="24px"  />}
         <span style={styles.name}>{recruit.name}</span>
         {!recruit.status !== 'claimed' &&
           <button id={recruit.id} onclick={this.handleClaim}>
@@ -128,17 +128,37 @@ export default class Recruiter extends React.Component {
     );
   }
 
+  static dictLen(dict) {
+    let count = 0;
+    Object.keys(dict).map(key => count += dict.hasOwnProperty(key) ? 1 : 0);
+    return count;
+  }
+
   render() {
     // 3 sections in order: claimed, escalated, unclaimed.
+    const claimed = Object.keys(this.global.recruits.claimed || {});
+    const unclaimed = Object.keys(this.global.recruits.unclaimed || {});
+    const escalated = Object.keys(this.global.recruits.escalated || {});
+
     return <React.Fragment>
+      Recruits
       <div style={styles.claimed}>
-        {Object.keys(this.global.recruits.claimed).map(key => this.recruitLine(key))}
+        {Recruiter.dictLen(claimed) > 0 ?
+          claimed.map(key => this.recruitLine(key)) :
+          'None Claimed'
+          }
       </div>
+      <hr/>
       <div style={styles.escalated}>
-        {Object.keys(this.global.recruits.claimed).map(key => this.recruitLine(key))}
+        {Recruiter.dictLen(escalated) > 0 ?
+          escalated.map(key => this.recruitLine(key)) :
+          'None escalated'}
       </div>
+      <hr/>
       <div style={styles.unclaimed}>
-        {Object.keys(this.global.recruits.claimed).map(key => this.recruitLine(key))}
+        {Recruiter.dictLen(unclaimed) > 0 ?
+          escalated.map(key => this.recruitLine(key)) :
+          'None unclaimed'}
       </div>
       {this.global.activeRecruit && <Evidence style={styles.evidence}/>}
     </React.Fragment>

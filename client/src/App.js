@@ -1,7 +1,7 @@
 import React, { Component, setGlobal } from 'reactn';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
-import Evidence from './Evidence';
+import MainMenu from './MainMenu';
 
 // Set an initial global state directly:
 setGlobal({
@@ -24,8 +24,8 @@ class App extends Component {
     return (
       <Router basename="testfiles">
         <div className="App">
-          <Evidence>
-          </Evidence>
+          <MainMenu>
+          </MainMenu>
         </div >
       </Router>
     );
