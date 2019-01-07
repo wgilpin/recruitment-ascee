@@ -24,7 +24,7 @@ class CachedModel extends Model {
     return (this.values.EsiCacheValidUntil || 0) > new Date();
   }
 
-  getFromEsi() {
+  createFromEsi() {
     return this.pEsiParser(this.id).then((entityData) => {
       try {
         // allow a null save as it avoids an ESI error
@@ -50,14 +50,14 @@ class CachedModel extends Model {
             // not in db
             logging.log(`CachedModel: not found in ESI entity ${this.id}`);
             console.log('cachedModel now getFromEsi');
-            return this.getFromEsi()
+            return this.createFromEsi()
               .then((data) => {
                 console.log('cachedModel got from esi ', this.id, data);
                 return data;
               });
           } catch (err) {
             logging.error(`getFromDb ${this.id} ${err} `);
-            return this.getFromEsi();
+            return this.createFromEsi();
           }
         })
         .catch((err) => {

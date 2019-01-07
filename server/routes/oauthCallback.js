@@ -4,6 +4,7 @@ const router = express.Router();
 const Oauth = require('../src/Oauth');
 const TokenStore = require('../src/TokenStore');
 const User = require('../model/UserModel');
+const Character = require('../model/CharacterModel');
 
 /* GET users listing. */
 router.get('/', async (req, res) => {
@@ -28,6 +29,12 @@ router.get('/', async (req, res) => {
       req.session.CharacterName = name;
       req.session.CharacterID = userId;
       userData.accessToken = accessToken;
+    } if (loginKind === 'alt') {
+      const alt = new Character();
+      alt.get(userId);
+      userData.refreshToken = refreshToken || alt.values.refreshToken;
+      userData.main = req.session.CharacterID;
+      await alt.update(userData);
     } else {
       // it's an alt or a main with scopes
       userData.scopeToken = accessToken;
@@ -47,7 +54,7 @@ router.get('/', async (req, res) => {
     if (user.values.isRecruiter || user.values.isSnrRecruiter) {
       // go to recruiter page
       console.log('recruiter logged in');
-      res.redirect('/app?showing=recruits');
+      res.redirect('/app?showing=recruiter');
       return;
     }
     if (!user.values.scopeToken) {
@@ -56,8 +63,7 @@ router.get('/', async (req, res) => {
       res.redirect('/scopes');
       return;
     }
-    // We now have some basic info...
-    res.render('debug', { CharacterName: req.session.CharacterName, session: req.session });
+    res.redirect('/app?showing=applicant');
   } catch (err) {
     // An error occurred
     console.error('oauth error', err);

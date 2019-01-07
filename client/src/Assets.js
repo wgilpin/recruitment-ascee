@@ -47,10 +47,6 @@ export default class Assets extends React.Component {
     }
   }
 
-  onLoaded = data => {
-    this.jsonToSystemsList(data);
-  };
-
   onError = err => {
     console.error(err);
   };
@@ -61,7 +57,7 @@ export default class Assets extends React.Component {
       this.onLoaded,
       this.onError,
     );
-    fetch.get().then(data => this.onLoaded(data));
+    fetch.get().then(data => this.jsonToSystemsList(data));
   }
 
   

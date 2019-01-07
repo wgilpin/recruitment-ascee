@@ -32,7 +32,7 @@ export default class FetchData {
   }
 
   get() {
-    let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id}`;
+    let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id || ''}`;
     if('param1' in this.originalParams){
       url += `/${this.originalParams.param1}`;
     }

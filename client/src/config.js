@@ -14,11 +14,7 @@ const config = {
 };
 
 exports.get = function get(env) {
-  if (env) {
-    return config[env] || config.default;
-  }
-  // no env supplied - might be on client
-  if (process.env.DEV_ENV === 1) {
+  if (window.location.origin.indexOf('localhost') > -1) {
     return config.default;
   }
   return config.production;

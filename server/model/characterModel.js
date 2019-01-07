@@ -9,13 +9,13 @@ class CharacterModel extends CachedModel {
     this.kind = 'Character';
     this.addField('refreshToken', CachedModel.Types.String, false);
     this.addField('expires', CachedModel.Types.Number, false);
-    this.addField('main', CachedModel.Types.String, false);
+    this.addField('main', CachedModel.Types.Any, false);
 
     // from Info()
     this.addField('ancestry_id', CachedModel.Types.Number, false);
     this.addField('birthday', CachedModel.Types.String, false);
     this.addField('bloodline_id', CachedModel.Types.Number, false);
-    this.addField('corporation_id', CachedModel.Types.Number);
+    this.addField('corporation_id', CachedModel.Types.Number, false);
     this.addField('description', CachedModel.Types.String, false);
     this.addField('gender', CachedModel.Types.String, false);
     this.addField('name', CachedModel.Types.String);

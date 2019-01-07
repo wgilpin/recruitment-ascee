@@ -7,6 +7,7 @@ const skillRoute = require('./apiSkill');
 const walletRoute = require('./apiWallet');
 const assetRoute = require('./apiAssets');
 const recruitsRoute = require('./apiRecruits');
+const questionsRoute = require('./apiQuestions');
 
 const router = express.Router();
 
@@ -24,5 +25,6 @@ router.use('/skill', cors(corsOptions), skillRoute);
 router.use('/wallet', cors(corsOptions), walletRoute);
 router.use('/assets', cors(corsOptions), assetRoute);
 router.use('/recruits', cors(corsOptions), recruitsRoute);
+router.use('/questions', cors(corsOptions), questionsRoute);
 
 module.exports = router;
