@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
       userData.accessToken = accessToken;
     } if (loginKind === 'alt') {
       const alt = new Character();
-      alt.get(userId);
+      await alt.get(userId);
       userData.refreshToken = refreshToken || alt.values.refreshToken;
       userData.main = req.session.mainId || alt.values.main;
       req.session.loggedInId = userId;

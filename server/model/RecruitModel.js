@@ -9,18 +9,19 @@ const statuses = {
   claimed: 2,
   accepted: 3,
   rejected: 4,
+  ignore: 5,
 };
 
 class RecruitModel extends Model {
   constructor() {
     super();
 
+    // user Id of the main character is PK
     this.kind = 'Recruit';
     // recruiter who claimed this case
     this.addField('recruiter', Model.Types.Number, false);
     // senior recruiter who case was escalated to
     this.addField('escalatedTo', Model.Types.Number, false);
-    // user Id of the main character
     this.addField('mainId', Model.Types.Number, false);
     // case status
     this.addField('status', Model.Types.Number, false, statuses.unclaimed);
@@ -31,6 +32,14 @@ class RecruitModel extends Model {
   static get statuses() {
     // expose the status kinds
     return statuses;
+  }
+
+  static startWorkflow(applicantId) {
+    // kick off the workflow by assigning unclaimed
+    // TODO: need to check if it's there - without creating it
+    // key should be applicantId
+    const wf = new RecruitModel();
+    return wf.get(applicantId).then(_ => wf.update({ status: statuses.unclaimed }));
   }
 
   static async getRecruitList(recruiterId) {

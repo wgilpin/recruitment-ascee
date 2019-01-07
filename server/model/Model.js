@@ -94,7 +94,6 @@ class Model {
     }
   }
 
-
   get(id) {
     /*
      * get an object from the db and load all fields as per schema

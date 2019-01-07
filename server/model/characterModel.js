@@ -1,7 +1,8 @@
-const esi = require('eve-swagger');
+const EsiRequest = require('../src/EsiRequest');
 
 const CachedModel = require('./CachedModel');
 const Store = require('./Store');
+const RecruitModel = require('./RecruitModel');
 
 
 class CharacterModel extends CachedModel {
@@ -29,12 +30,18 @@ class CharacterModel extends CachedModel {
     this.addField('px512x512', CachedModel.Types.String, false);
     this.addField('px64x64', CachedModel.Types.String, false);
     this.addField('cachedOn', CachedModel.Types.Any, false);
+
+    // workflow
+    this.addField('status', CachedModel.Types.Number, true, RecruitModel.statuses.unclaimed);
+
   }
 
   static getEsi(id) {
-    const charData = esi.characters(id).info();
-    const portraitData = esi.characters(id).portrait();
-    return Promise.all([charData, portraitData]).then(([d1, d2]) => ({ ...d1, ...d2 }));
+    const charData = EsiRequest.default(EsiRequest.kinds.Character, id);
+    const portraitData = EsiRequest.default(EsiRequest.kinds.CharacterPortrait, id);
+    return Promise
+      .all([charData, portraitData])
+      .then(([charInfo, charPics]) => ({ body: { ...charInfo.body, ...charPics.body } }));
   }
 
   static async getAlts(main) {
