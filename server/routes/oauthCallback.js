@@ -23,17 +23,21 @@ router.get('/', async (req, res) => {
     const userData = {
       name,
       expires,
-      main: req.session.CharacterID,
+      main: req.session.mainId,
     };
     if (loginKind === 'main') {
       req.session.CharacterName = name;
-      req.session.CharacterID = userId;
+      // mainId is the main of the current user
+      req.session.mainId = userId;
+      // loggedInId is which character is actually logged in
+      req.session.loggedInId = userId;
       userData.accessToken = accessToken;
     } if (loginKind === 'alt') {
       const alt = new Character();
       alt.get(userId);
       userData.refreshToken = refreshToken || alt.values.refreshToken;
-      userData.main = req.session.CharacterID;
+      userData.main = req.session.mainId || alt.values.main;
+      req.session.loggedInId = userId;
       await alt.update(userData);
     } else {
       // it's an alt or a main with scopes

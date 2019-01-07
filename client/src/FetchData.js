@@ -49,7 +49,7 @@ export default class FetchData {
         },
         //mode: 'no-cors',
       })
-      .then(function (res) {
+      .then((res) => {
         // TODO: DEV server only
         if (res.type === "opaque") {
           console.log('opaque');
@@ -74,6 +74,9 @@ export default class FetchData {
           }
         };
         return res.json()
-      }.bind(this));
+      })
+      .catch((err) => {
+        console.log('fetchData', err)
+      });
   }
 }

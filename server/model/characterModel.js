@@ -1,6 +1,8 @@
 const esi = require('eve-swagger');
 
 const CachedModel = require('./CachedModel');
+const Store = require('./Store');
+
 
 class CharacterModel extends CachedModel {
   // cache of characters from ESI
@@ -33,6 +35,12 @@ class CharacterModel extends CachedModel {
     const charData = esi.characters(id).info();
     const portraitData = esi.characters(id).portrait();
     return Promise.all([charData, portraitData]).then(([d1, d2]) => ({ ...d1, ...d2 }));
+  }
+
+  static async getAlts(main) {
+    const query = Store.datastore.createQuery('Character').filter('main', '=', main);
+    const alts = await Store.datastore.runQuery(query);
+    return alts[0];
   }
 }
 
