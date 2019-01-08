@@ -10,7 +10,10 @@ const router = express.Router();
 router.get('/', cors(corsOptions), async (req, res) => {
   Logging.debug('GET recruits');
   try {
-    const recruits = await Recruits.getRecruitList(req.session.userId);
+    if (req.session.loggedInId === undefined) {
+      return res.json({ error: 'login' });
+    }
+    const recruits = await Recruits.getRecruitList(req.session.loggedInId);
     res.json({ info: recruits });
   } catch (error) {
     res.send({ error });
@@ -30,7 +33,7 @@ const updateRecruit = async (newStatus, req, res) => {
     };
 
     if (newStatus in allowedTransitions[recruit.status]) {
-      recruit.update({ status: newStatus, recruiter: req.session.userId });
+      recruit.update({ status: newStatus, recruiter: req.session.loggedInId });
       res.json({ info: recruit.values });
     } else {
       res.error(`Recruit ${req.params.recruitId} illegal transition to ${newStatus}`);

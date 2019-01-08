@@ -54,7 +54,12 @@ export default class Recruiter extends React.Component {
       new FetchData({ id: this.global.id, scope: 'recruits' })
         .get()
         // Set the global `recruits` list, and set no recruit selected
-        .then(recruits => ({ recruits, activeRecruit: null }))
+        .then(recruits =>{
+          console.log(`fetched ${recruits}`)
+          if (recruits.error && recruits.error === 'login') {
+            return window.location = '/app';
+          }
+          return ({ recruits, activeRecruit: null })})
         // Fail gracefully, set the global `error`
         //   property to the caught error.
         .catch(err => ({ error: err }))
@@ -62,7 +67,8 @@ export default class Recruiter extends React.Component {
   }
 
   handleClaim({currentTarget: {id}}) {
-    // e.currentTarget.id is recruit id
+    // e.currentTarget.id is recruit 
+    console.log(`handleClaim ${id}`);
     new FetchData(id, 'recruits/claim')
       .then(recruit => {
         // need to move from either claimed or escalated to claimed
@@ -86,6 +92,8 @@ export default class Recruiter extends React.Component {
   }
 
   handleEscalate(e) {
+    console.log(`handleClaim ${e.currentTarget.id}`);
+
     // e.currentTarget.id is recruit id
     new FetchData(e.currentTarget.id, 'recruits/escalate')
       .then(recruit => {

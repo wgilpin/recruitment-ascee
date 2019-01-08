@@ -25,8 +25,16 @@ class MainMenu extends Component {
     };
   }
 
+  validParams = {
+    recruiter: 'recruiter',
+    applicant: 'applicant',
+  }
+
   render() {
     const params = queryString.parse(this.props.location.search);
+    if (!(params.showing in this.validParams)) {
+      params.showing = 'error';
+    }
     return (
       <React.Fragment>
         {this.props.location.search === '' && (
@@ -49,6 +57,8 @@ class MainMenu extends Component {
         )}
         {params.showing === 'recruiter' && <Recruiter />}
         {params.showing === 'applicant' && <Applicant />}
+        {params.showing === 'error' && <div>Unknown route</div>}
+
       </React.Fragment>
     );
   }

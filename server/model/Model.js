@@ -102,6 +102,9 @@ class Model {
      * @returns boolean "was found" ? true : false
      */
     try {
+      if (id === undefined) {
+        throw new Error(`${this.kind} get undefined id`);
+      }
       this.key = Store.datastore.key({ path: [this.kind, parseInt(id, 10)] });
       return Store.datastore.get(this.key).then((dbEntities) => {
         const [dbEntity] = dbEntities;

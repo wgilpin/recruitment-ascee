@@ -39,7 +39,7 @@ class RecruitModel extends Model {
     // TODO: need to check if it's there - without creating it
     // key should be applicantId
     const wf = new RecruitModel();
-    return wf.get(applicantId).then(_ => wf.update({ status: statuses.unclaimed }));
+    return wf.get(applicantId).then(() => wf.update({ status: statuses.unclaimed }));
   }
 
   static async getRecruitList(recruiterId) {
