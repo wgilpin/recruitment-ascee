@@ -8,9 +8,10 @@ router.get('/', (req, res) => {
   res.send('no char specified');
 });
 
-router.get('/alts', async (req, res) => {
-  const main = req.session.mainId;
+router.get('/alts/:charId', async (req, res) => {
+  const main = req.params.charId;
   if (main) {
+    // TODO: need access control here
     const alts = await Character.getAlts(main);
     res.json({ info: alts });
     return;

@@ -5,9 +5,12 @@ import FetchData from './FetchData';
 
 const propTypes = {
   onAltSelect: PropTypes.func,
+  main: PropTypes.number,
 };
 
-const defaultProps = {};
+const defaultProps = {
+  main: null,
+};
 
 const styles = {
   outer: {
@@ -35,7 +38,7 @@ export default class Alts extends React.Component {
   };
 
   componentDidMount() {
-    let fetch = new FetchData({ id: this.props.mainId, scope: 'character/alts' });
+    let fetch = new FetchData({ id: this.props.main, scope: 'character/alts' });
     fetch
       .get()
       .then(data => {
@@ -61,8 +64,8 @@ export default class Alts extends React.Component {
             <Alt
               style={styles.div}
               name={alt.name}
-              id={alt.id}
-              selected={this.state.selected === alt.id}
+              id={key}
+              selected={this.state.selected === key}
               src={alt.px64x64}
               onClick={this.handleClick}
             />

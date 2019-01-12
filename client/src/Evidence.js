@@ -59,7 +59,7 @@ export default class Evidence extends React.Component {
     return (
       <div style={styles.outer}>
         <div style={styles.alts}>
-          <Alts mainId={this.props.mainId}
+          <Alts main={this.props.main}
             onAltSelect={this.changeAlt}
           />
         </div>

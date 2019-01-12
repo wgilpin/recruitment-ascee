@@ -171,8 +171,9 @@ export default class Recruiter extends React.Component {
       .catch(err => ({ error: err }));
   };
 
-  handleClick(e) {
-    this.setGlobal({ activeRecruit: e.currentTarget.id });
+  handleClick(id) {
+    console.log(`activate recruit ${id}`);
+    this.setGlobal({ activeRecruit: id });
   }
 
   recruitLine(id, recruit) {
@@ -184,8 +185,10 @@ export default class Recruiter extends React.Component {
         {recruit.status === Recruiter.statuses.escalated && (
           <EscalatedIcon style={styles.icon} fontSize="24px" />
         )}
-        <RoundImage src={recruit.avatar} />
-        <span style={styles.name}>{recruit.name}</span>
+        <span onClick={() => this.handleClick(id)}>
+          <RoundImage src={recruit.avatar} />
+          <span style={styles.name}>{recruit.name}</span>
+        </span>
         <RecruitButtonBar
           status={recruit.status}
           style={styles.buttons}
@@ -242,7 +245,7 @@ export default class Recruiter extends React.Component {
           </div>
         </React.Fragment>
       ),
-      this.global.activeRecruit && <Evidence style={styles.evidence} />,
+      this.global.activeRecruit && <Evidence style={styles.evidence} main={this.global.activeRecruit} />,
     ];
   }
 }

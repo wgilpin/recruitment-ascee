@@ -40,9 +40,13 @@ class CharacterModel extends CachedModel {
   }
 
   static async getAlts(main) {
-    const query = Store.datastore.createQuery('Character').filter('main', '=', main);
+    const query = Store.datastore.createQuery('Character').filter('main', '=', parseInt(main, 10));
     const alts = await Store.datastore.runQuery(query);
-    return alts[0];
+    const altsDict = {};
+    alts[0].forEach((alt) => {
+      altsDict[alt[Store.datastore.KEY].id] = alt;
+    });
+    return altsDict;
   }
 }
 
