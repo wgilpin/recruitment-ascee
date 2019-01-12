@@ -12,7 +12,7 @@ const statuses = {
   ignore: 5,
 };
 
-class RecruitModel extends Model {
+class ApplicationModel extends Model {
   constructor() {
     super();
 
@@ -27,6 +27,10 @@ class RecruitModel extends Model {
     this.addField('status', Model.Types.Number, false, statuses.unclaimed);
     // recruiter notes
     this.addField('notes', Model.Types.String, false);
+    // recruit display name
+    this.addField('name', Model.Types.String, false);
+    // recruit icon
+    this.addField('avatar', Model.Types.String, false);
   }
 
   static get statuses() {
@@ -38,38 +42,32 @@ class RecruitModel extends Model {
     // kick off the workflow by assigning unclaimed
     // TODO: need to check if it's there - without creating it
     // key should be applicantId
-    const wf = new RecruitModel();
+    const wf = new ApplicationModel();
     return wf.get(applicantId).then(() => wf.update({ status: statuses.unclaimed }));
   }
 
   static async getRecruitList(recruiterId) {
-    const res = {
-      claimed: {},
-      unclaimed: {},
-      escalated: {},
-    };
-
     // claimed cases
-    let query = Store.datastore.createQuery('Recruits')
+    let query = Store.datastore.createQuery('Recruit')
       .filter('recruiter', '=', recruiterId)
       .filter('status', '=', statuses.claimed);
-    [res.claimed] = await Store.datastore.runQuery(query);
+    const [claimed] = await Store.datastore.runQuery(query);
 
     // Escalated cases
-    query = Store.datastore.createQuery('Recruits')
+    query = Store.datastore.createQuery('Recruit')
       .filter('recruiter', '=', recruiterId)
       .filter('status', '=', statuses.escalated);
-    [res.escalated] = await Store.datastore.runQuery(query);
+    const [escalated] = await Store.datastore.runQuery(query);
 
 
     // all unclaimed cases
-    query = Store.datastore.createQuery('Recruits')
+    query = Store.datastore.createQuery('Recruit')
       .filter('status', '=', statuses.unclaimed);
-    [res.unclaimed] = await Store.datastore.runQuery(query);
+    const [unclaimed] = await Store.datastore.runQuery(query);
 
     // TODO: all 3 promises could be resolved together
-    return res;
+    return { ...claimed, ...unclaimed, ...escalated };
   }
 }
 
-module.exports = RecruitModel;
+module.exports = ApplicationModel;

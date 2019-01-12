@@ -39,6 +39,7 @@ export default class Evidence extends React.Component {
     super(props);
     this.state = {
       activeTab: null,
+      currentAlt: null,
     };
   }
 
@@ -58,7 +59,7 @@ export default class Evidence extends React.Component {
     return (
       <div style={styles.outer}>
         <div style={styles.alts}>
-          <Alts
+          <Alts mainId={this.props.mainId}
             onAltSelect={this.changeAlt}
           />
         </div>

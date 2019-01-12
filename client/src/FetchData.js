@@ -38,7 +38,6 @@ export default class FetchData {
     }
     console.log(`fetch ${url}`);
     return fetch(
-      //`https://ascee.droeftoeters.com/backend/Pullpages/Evidence.php?${this.params}`,
       url,
       {
         method: 'GET',
@@ -74,6 +73,32 @@ export default class FetchData {
           }
         };
         return res.json()
+      })
+      .catch((err) => {
+        console.log('fetchData', err)
+      });
+  }
+
+  post(payload) {
+    let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id || ''}`;
+    console.log(`fetch post ${url}`);
+    return fetch(url, {  
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ "data": {
+        "qa" : payload,
+      }}),
+  })
+    return fetch(
+      url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'http://localhost:3000',
+        },
+        body: JSON.stringify(payload),
+        mode: 'no-cors',
       })
       .catch((err) => {
         console.log('fetchData', err)

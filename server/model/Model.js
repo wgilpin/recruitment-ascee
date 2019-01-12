@@ -94,6 +94,14 @@ class Model {
     }
   }
 
+  set(key, value) {
+    if (key in this.fields) {
+      this.values[key] = value;
+    } else {
+      throw new Error(`Field not found ${key}`);
+    }
+  }
+
   get(id) {
     /*
      * get an object from the db and load all fields as per schema

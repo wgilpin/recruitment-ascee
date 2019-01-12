@@ -97,6 +97,7 @@ class SkillsModel {
       return {};
     } catch (err) {
       logging.error(`loadFromEsi ${err.message}`);
+      return null;
     }
   }
 

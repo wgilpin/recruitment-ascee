@@ -1,12 +1,29 @@
 import React from 'reactn';
 import FetchData from '../FetchData';
-import ClaimedIcon from 'react-ionicons/lib/MdStar'
-import EscalatedIcon from 'react-ionicons/lib/IosAlertOutline'
+import ClaimedIcon from 'react-ionicons/lib/MdStar';
+import EscalatedIcon from 'react-ionicons/lib/IosAlert';
 import Evidence from '../Evidence';
 import Misc from '../Misc';
+import RoundImage from '../RoundImage';
+import RecruitButtonBar from './RecruitButtonBar';
 
+import TableStyles from '../TableStyles';
 
 const styles = {
+  ...TableStyles.styles,
+  h2: {
+    ...TableStyles.styles.headerText,
+    textAlign: 'left',
+    fontSize: 'larger',
+    paddingLeft: '12px',
+    marginTop: '16px',
+  },
+  noneText: {
+    textAlign: 'left',
+    paddingLeft: '26px',
+    marginBotom: '16px',
+    marginTop: '12px',
+  },
   grid: {
     width: '100%',
     display: 'grid',
@@ -16,33 +33,71 @@ const styles = {
     gridRowGap: '10px',
     margin: 'auto',
     justifyItems: 'left',
+    textAlign: 'left',
   },
   name: {
-    fontWeight: 500
+    fontWeight: 500,
+    verticalAlign: 'super',
+    paddingLeft: '12px',
+    cursor: 'pointer',
   },
   claimed: {
     gridColumn: 1,
-    gridRow: 1
+    gridRow: 1,
   },
   escalated: {
     gridColumn: 1,
-    gridRow: 2
+    gridRow: 2,
   },
   unclaimed: {
     gridColumn: 1,
-    gridRow: 3},
+    gridRow: 3,
+  },
   evidence: {
     gridColumn: 2,
-    gridRow: '1/3'
+    gridRow: '1/3',
   },
-}
-
+  recruit: {
+    justifyItems: 'left',
+    textAlign: 'left',
+    padding: '12px',
+  },
+  recruitButton: {
+    marginLeft: '12px',
+    padding: '6px',
+    backgroundColor: 'black',
+    color: 'darkgrey',
+    borderColor: 'grey',
+    position: 'absolute',
+    left: '350px',
+    marginTop: '8px',
+  },
+  buttons: {
+    position: 'absolute',
+    left: '350px',
+  },
+  icon: {
+    marginRight: '32px',
+    height: '32px',
+    width: '32px',
+    fill: TableStyles.styles.themeColor.color,
+  },
+};
 
 export default class Recruiter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
+  static statuses = {
+    unclaimed: 0,
+    escalated: 1,
+    claimed: 2,
+    accepted: 3,
+    rejected: 4,
+    ignore: 5,
+  };
 
   componentDidMount() {
     // Hydrate the global state with the response from /api/recruits
@@ -54,118 +109,140 @@ export default class Recruiter extends React.Component {
       new FetchData({ id: this.global.id, scope: 'recruits' })
         .get()
         // Set the global `recruits` list, and set no recruit selected
-        .then(recruits =>{
-          console.log(`fetched ${recruits}`)
+        .then(recruits => {
+          console.log(`fetched ${recruits.info}`);
           if (recruits.error && recruits.error === 'login') {
-            return window.location = '/app';
+            console.log('Login required');
+            return (window.location = '/app');
           }
-          return ({ recruits, activeRecruit: null })})
+          // array -> object
+          const recruitDict = {};
+          Object.keys(recruits.info).forEach(rec => {
+            recruitDict[recruits.info[rec].mainId] = recruits.info[rec];
+          });
+          return { recruits: recruitDict, activeRecruit: null };
+        })
         // Fail gracefully, set the global `error`
         //   property to the caught error.
-        .catch(err => ({ error: err }))
+        .catch(err => {
+          console.log('mounting error');
+          return { error: err };
+        }),
     );
   }
 
-  handleClaim({currentTarget: {id}}) {
-    // e.currentTarget.id is recruit 
+  setRecruitStatus(id, status) {
+    this.setGlobal({
+      recruits: {
+        ...this.global.recruits,
+        [id]: {
+          ...this.global.recruits[id],
+          status: status,
+        },
+      },
+    });
+  }
+
+  handleDrop = id => {
+    console.log(`handleDrop ${id}`);
+    const plan =
+      this.global.recruits[id].status === Recruiter.statuses.escalated
+        ? { scope: 'recruits/deescalate', status: Recruiter.statuses.claimed }
+        : { scope: 'recruits/abandon', status: Recruiter.statuses.unclaimed };
+    new FetchData({ id, scope: plan.scope })
+      .post()
+      .then(() => this.setRecruitStatus(id, plan.status))
+      .catch(err => ({ error: err }));
+  };
+
+  handleClaim = id => {
     console.log(`handleClaim ${id}`);
-    new FetchData(id, 'recruits/claim')
-      .then(recruit => {
-        // need to move from either claimed or escalated to claimed
-        // TODO: does delete work if not there?
-        const unclaimed = this.global.recruits.unclaimed;
-        delete unclaimed[id];
-        const escalated = this.global.recruits.escalated;
-        delete escalated[id];
-        this.setGlobal({
-          recruits: {
-            unclaimed,
-            escalated,
-            claimed: {
-              ...this.global.recruits.claimed,
-              [id]: recruit,
-            }
-          }
-        })
-      })
-      .catch(err => ({ error: err }))
-  }
+    new FetchData({ id, scope: 'recruits/drop' })
+      .post()
+      .then(() => this.setRecruitStatus(id, Recruiter.statuses.claimed))
+      .catch(err => ({ error: err }));
+  };
 
-  handleEscalate(e) {
-    console.log(`handleClaim ${e.currentTarget.id}`);
-
-    // e.currentTarget.id is recruit id
-    new FetchData(e.currentTarget.id, 'recruits/escalate')
-      .then(recruit => {
-        // TODO: need to move from claimed to escalated
-        const claimed = this.global.recruits.claimed;
-        delete claimed[e.currentTarget.id];
-        const escalated = {
-          ...this.global.recruits.claimed,
-          [e.currentTarget.id]: recruit,
-        };
-        this.setGlobal({
-          recruits: {
-            ...this.global.recruits,
-            claimed,
-            escalated,
-          }
-        })
-      })
-      .catch(err => ({ error: err }))
-  }
+  handleEscalate = id => {
+    console.log(`handleEscalate ${id}`);
+    new FetchData({ id, scope: 'recruits/escalate' })
+      .post()
+      .then(() => this.setRecruitStatus(id, Recruiter.statuses.escalated))
+      .catch(err => ({ error: err }));
+  };
 
   handleClick(e) {
-    this.setGlobal({ activeRecruit: e.currentTarget.id })
+    this.setGlobal({ activeRecruit: e.currentTarget.id });
   }
 
-  recruitLine(recruit) {
+  recruitLine(id, recruit) {
     return (
-      <div key={recruit.id}>
-        {recruit.status === 'claimed' && <ClaimedIcon color="white" fontSize="24px"  />}
-        {recruit.status === 'escalated' && <EscalatedIcon color="white" fontSize="24px"  />}
+      <div key={id} style={styles.recruit}>
+        {recruit.status === Recruiter.statuses.claimed && (
+          <ClaimedIcon style={styles.icon} fontSize="24px" />
+        )}
+        {recruit.status === Recruiter.statuses.escalated && (
+          <EscalatedIcon style={styles.icon} fontSize="24px" />
+        )}
+        <RoundImage src={recruit.avatar} />
         <span style={styles.name}>{recruit.name}</span>
-        {!recruit.status !== 'claimed' &&
-          <button id={recruit.id} onclick={this.handleClaim}>
-            Claim
-          </button>}
-        {!recruit.status === 'claimed' &&
-          <button id={recruit.id} onclick={this.handleEscalate}>
-            Escalate
-          </button>}
+        <RecruitButtonBar
+          status={recruit.status}
+          style={styles.buttons}
+          id={recruit.mainId}
+          onClaim={this.handleClaim}
+          onDrop={this.handleDrop}
+          onEscalate={this.handleEscalate}
+        />
       </div>
     );
   }
 
-  
+  sectionList(label, list) {
+    return [
+      <div style={styles.h2}>{label}</div>,
+      Misc.dictLen(list) > 0 ? (
+        Object.keys(list).map(key => this.recruitLine(key, list[key]))
+      ) : (
+        <div style={styles.noneText}>None</div>
+      ),
+    ];
+  }
+
+  applyFilter(status) {
+    const res = {};
+    Object.keys(this.global.recruits || {})
+      .filter(key => this.global.recruits[key].status === status)
+      .forEach(key => {
+        res[key] = this.global.recruits[key];
+      });
+    return res;
+  }
 
   render() {
     // 3 sections in order: claimed, escalated, unclaimed.
-    const claimed = Object.keys(this.global.recruits.claimed || {});
-    const unclaimed = Object.keys(this.global.recruits.unclaimed || {});
-    const escalated = Object.keys(this.global.recruits.escalated || {});
+    const claimed = this.applyFilter(Recruiter.statuses.claimed);
+    const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
+    const escalated = this.applyFilter(Recruiter.statuses.escalated);
 
-    return <React.Fragment>
-      Recruits
-      <div style={styles.claimed}>
-        {Misc.dictLen(claimed) > 0 ?
-          claimed.map(key => this.recruitLine(key)) :
-          'None Claimed'
-          }
-      </div>
-      <hr/>
-      <div style={styles.escalated}>
-        {Misc.dictLen(escalated) > 0 ?
-          escalated.map(key => this.recruitLine(key)) :
-          'None escalated'}
-      </div>
-      <hr/>
-      <div style={styles.unclaimed}>
-        {Misc.dictLen(unclaimed) > 0 ?
-          escalated.map(key => this.recruitLine(key)) :
-          'None unclaimed'}
-      </div>
-      {this.global.activeRecruit && <Evidence style={styles.evidence}/>}
-    </React.Fragment>
+    return [
+      !this.global.activeRecruit && (
+        <React.Fragment>
+          <h1 style={styles.headerText}>Applications Pending</h1>
+          <div style={styles.claimed}>
+            {this.sectionList('Claimed', claimed)}
+          </div>
+          <hr />
+          <div style={styles.escalated}>
+            {this.sectionList('Escalated', escalated)}
+          </div>
+          <hr />
+          <div style={styles.unclaimed}>
+            {this.sectionList('Unclaimed', unclaimed)}
+          </div>
+        </React.Fragment>
+      ),
+      this.global.activeRecruit && <Evidence style={styles.evidence} />,
+    ];
   }
 }

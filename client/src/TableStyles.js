@@ -1,11 +1,16 @@
 
 export default class TableStyles {
   static styles = {
+  themeColor: { color: '#01799A' },
   table: {
     // paddingLeft: 12,
     display: 'table',
     width: '100%',
     // padding: '16px',
+  },
+  headerText: {
+    fontWeight: 'bold',
+    color: '#01799A',
   },
   header: {
     display: 'table-header-group',

@@ -8,6 +8,7 @@ const lessMiddleware = require('less-middleware');
 const logger = require('morgan');
 const cors = require('cors');
 const Datastore = require('@google-cloud/datastore');
+const bodyParser = require('body-parser');
 const corsOptions = require('./Cors');
 
 const indexRouter = require('./routes/index');
@@ -31,6 +32,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(session({
   secret: 'Pnr:CkiUi^tE**K+Qgy&?x&g-Y@7..TG6XK2J4WHxzG3c:b4jpfUC]GFBk*f@8J_',
   cookie: { secure: false },

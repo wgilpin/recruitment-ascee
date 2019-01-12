@@ -35,7 +35,7 @@ export default class Alts extends React.Component {
   };
 
   componentDidMount() {
-    let fetch = new FetchData({ scope: 'character/alts' });
+    let fetch = new FetchData({ id: this.props.mainId, scope: 'character/alts' });
     fetch
       .get()
       .then(data => {

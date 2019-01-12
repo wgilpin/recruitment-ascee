@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import RecruiterImg from './images/titansRec.png';
 import ApplicantImg from './images/Rifter.png';
 import Recruiter from './recruiter/Recruiter';
-import Applicant from './Applicant';
+import Applicant from './Applicant/Applicant';
 
 class MainMenu extends Component {
   constructor(props) {

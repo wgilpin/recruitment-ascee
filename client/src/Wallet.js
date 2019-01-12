@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 import PropTypes from 'prop-types';
 import FetchData from './FetchData';
 import TableStyles from './TableStyles';
