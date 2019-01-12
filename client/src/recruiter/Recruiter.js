@@ -157,7 +157,7 @@ export default class Recruiter extends React.Component {
 
   handleClaim = id => {
     console.log(`handleClaim ${id}`);
-    new FetchData({ id, scope: 'recruits/drop' })
+    new FetchData({ id, scope: 'recruits/claim' })
       .post()
       .then(() => this.setRecruitStatus(id, Recruiter.statuses.claimed))
       .catch(err => ({ error: err }));
