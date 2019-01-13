@@ -1,4 +1,4 @@
-const esi = require('eve-swagger');
+const esiRequest = require('../src/EsiRequest');
 
 const CachedModel = require('./CachedModel');
 
@@ -18,10 +18,12 @@ class TypesModel extends CachedModel {
     // Types requires and returns an array - we only have item
     // returns promise
     try {
-      return esi.types(parseInt(id, 10)).info().then((data) => {
-        console.log(`getEsi ${id} = ${data}`);
-        return data;
-      });
+      return esiRequest
+        .default(esiRequest.kinds.Types, id)
+        .then((data) => {
+          console.log(`getEsi Type ${id} = ${data.body.name}`);
+          return data;
+        });
     } catch (err) {
       console.log(`Types ESI error ${err}`);
       return null;

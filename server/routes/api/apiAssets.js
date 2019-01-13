@@ -8,7 +8,7 @@ const TokenStore = require('../../src/TokenStore');
 const router = express.Router();
 
 
-/* GET alts list. */
+/* GET assets list. */
 router.get('/:userId', cors(corsOptions), async (req, res) => {
   console.log('GET Assets');
   // Fetch all assets for user

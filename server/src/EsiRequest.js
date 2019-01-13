@@ -18,6 +18,7 @@ const EsiKinds = {
   Prices: 'Prices',
   Character: 'Character',
   CharacterPortrait: 'CharacterPortrait',
+  Types: 'Types',
 };
 
 const EsiMaps = {
@@ -32,6 +33,8 @@ const EsiMaps = {
   Structure: { method: 'GET', url: 'universe/structures/{0}/?datasource=tranquility' },
   // System 0: systemId
   System: { method: 'GET', url: 'universe/systems/{0}/?datasource=tranquility' },
+  // Types 0: typeId
+  Types: { method: 'GET', url: 'universe/types/{0}/?datasource=tranquility' },
   // Character 0: charId
   Character: { method: 'GET', url: 'characters/{0}/?datasource=tranquility' },
   // Character 0: charId
