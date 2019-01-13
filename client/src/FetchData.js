@@ -89,19 +89,5 @@ export default class FetchData {
         "qa" : payload,
       }}),
   })
-    return fetch(
-      url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://localhost:3000',
-        },
-        body: JSON.stringify(payload),
-        mode: 'no-cors',
-      })
-      .catch((err) => {
-        console.log('fetchData', err)
-      });
   }
 }

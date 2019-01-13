@@ -1,9 +1,9 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner';
 import FetchData from './FetchData';
 import TableStyles from './TableStyles';
 import AssetSystem from './assets/AssetSystem';
-import AssetStructure from './assets/AssetContainer';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -12,13 +12,15 @@ const propTypes = {
 
 const defaultProps = {};
 
-const styles = TableStyles.styles;
 
 export default class Assets extends React.Component {
   constructor(props) {
     super(props);
     this.scope = 'assets';
-    this.setGlobal({ assets: {}, assetSystems: {}})
+    this.setGlobal({ assets: {}, assetSystems: {}});
+    this.state = {
+      loading: true,
+    }
   }
   
   recurseValues(item) {
@@ -44,6 +46,7 @@ export default class Assets extends React.Component {
         systems[sysKey].value = this.recurseValues(systems[sysKey]);
       })
       this.setGlobal({ assets: json.info, assetCount: keys.length, assetSystems: systems });
+      this.setState({ loading: false });
     }
   }
 
@@ -62,6 +65,15 @@ export default class Assets extends React.Component {
 
   
   render() {
+    if (this.state.loading) {
+      return(
+      <Loader 
+        type="Puff"
+        color="#01799A"
+        height="100"	
+        width="100"
+      />)
+    }
     return Object
       .keys(this.global.assetSystems || {})
       .sort((a,b) => this.global.assetSystems[b].value - this.global.assetSystems[a].value)

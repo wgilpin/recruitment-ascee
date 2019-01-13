@@ -54,22 +54,22 @@ class CachedModel extends Model {
                 return data;
               });
           } catch (err) {
-            logging.error(`getFromDb ${this.id} ${err} `);
+            logging.error(`getFromDb 1 ${this.id} ${err} `);
             return this.createFromEsi();
           }
         })
         .catch((err) => {
-          logging.error(`getFromDb ${this.id} promise ${err}`);
+          logging.error(`getFromDb 2 ${this.id} promise ${err}`);
           cache.set(this.id, {});
           return null;
         });
     } catch (err) {
-      logging.error(`getFromDb ${this.id} outer ${err}`);
+      logging.error(`getFromDb 3 ${this.id} outer ${err}`);
       return {};
     }
   }
 
-  get(id) {
+  async get(id) {
     this.id = id;
     // if entity is in memcache, load & return.
     try {

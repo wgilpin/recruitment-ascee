@@ -27,6 +27,6 @@ router.use('/wallet', cors(corsOptions), walletRoute);
 router.use('/assets', cors(corsOptions), assetRoute);
 router.use('/recruits', cors(corsOptions), recruitsRoute);
 router.use('/questions', cors(corsOptions), questionsRoute);
-router.use('/links', cors(corsOptions), linksRoute);
+router.use('/link', cors(corsOptions), linksRoute);
 
 module.exports = router;

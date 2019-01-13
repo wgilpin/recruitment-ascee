@@ -16,8 +16,8 @@ class MainMenu extends Component {
         justifyContent: 'center',
       },
       image: {
-        marginLeft: 12,
-        marginRight: 12,
+        // marginLeft: 12,
+        // marginRight: 12,
         width: '500px',
         height: '500px',
         margins: 'auto',

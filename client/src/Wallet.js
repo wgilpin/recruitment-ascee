@@ -1,5 +1,6 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner';
 import FetchData from './FetchData';
 import TableStyles from './TableStyles';
 
@@ -19,6 +20,7 @@ export default class Wallet extends React.Component {
     this.state = {
       scope: 'wallet',
       walletList: [],
+      loading: true,
     };
   }
 
@@ -39,7 +41,7 @@ export default class Wallet extends React.Component {
       .then(data => {
         let newList = Wallet.jsonToWalletList(data);
         if (newList.length !== (this.state.walletList || []).length) {
-          this.setState({ walletList: newList })
+          this.setState({ walletList: newList, loading: false })
         }
       });
   }
@@ -83,6 +85,15 @@ export default class Wallet extends React.Component {
 
   render() {
     let balance = (this.state.walletList[0] || { balance: 0 }).balance;
+    if (this.state.loading) {
+      return(
+      <Loader 
+        type="Puff"
+        color="#01799A"
+        height="100"	
+        width="100"
+      />)
+    }
     return (
       <div style={styles.div}>
         <div>Balance {Wallet.commarize(Math.round(balance))} ISK</div>

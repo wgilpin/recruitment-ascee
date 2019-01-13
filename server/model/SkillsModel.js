@@ -1,4 +1,4 @@
-const esi = require('eve-swagger');
+const Esi = require('../src/EsiRequest');
 const SkillStatic = require('./SkillStatic');
 const TokenStore = require('../src/TokenStore');
 const logging = require('../src/Logging');
@@ -25,12 +25,12 @@ class SkillsModel {
     // TODO: need to refresh every 24 hrs
     // esi record: { current_skill_level, skill_id, skillpoints_in_skill }
     try {
-      const esiSkills = await esi.characters(this.id, this.tok).skills();
+      const esiSkills = await Esi.get(Esi.kinds.Skills, this.id, this.tok);
       /* eslint-disable guard-for-in  */
       /* eslint-disable  no-restricted-syntax */
       /* eslint-disable  no-await-in-loop */
-      esiSkills.skills.forEach((esiRecord) => {
-        const { current_skill_level, skill_id, skillpoints_in_skill } = esiRecord;
+      esiSkills.body.skills.forEach((esiRecord) => {
+        const { active_skill_level, skill_id, skillpoints_in_skill } = esiRecord;
         const statics = this.static.skillList[skill_id];
         const { group, name } = statics;
         // set up the group if needed
@@ -41,7 +41,7 @@ class SkillsModel {
             // active_skill_level: current_skill_level,
           };
         }
-        this.skills[group][skill_id] = { current_skill_level, name, skillpoints_in_skill };
+        this.skills[group][skill_id] = { active_skill_level, name, skillpoints_in_skill };
       });
     } catch (err) {
       logging.error(`loadFromEsi ${err.message}`);
@@ -57,12 +57,13 @@ class SkillsModel {
           if (skill_id === 'skillpoints_in_skill') {
             return;
           }
-          const { skillpoints_in_skill } = this.skills[group_id];
-          const { current_skill_level } = this.skills[group_id][skill_id];
+          const { skillpoints_in_skill, active_skill_level } = this.skills[group_id][skill_id];
+          this.skills[group_id].skillpoints_in_skill = (
+            this.skills[group_id].skillpoints_in_skill || 0) + skillpoints_in_skill;
           const skillName = this.static.skillList[skill_id].name;
           const item = {
             skill_id: { groupName, name: skillName },
-            active_skill_level: current_skill_level || 0,
+            active_skill_level: active_skill_level || 0,
             skillpoints_in_skill,
           };
           res.push(item);

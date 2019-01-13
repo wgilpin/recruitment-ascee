@@ -18,6 +18,7 @@ const EsiKinds = {
   Prices: 'Prices',
   Character: 'Character',
   CharacterPortrait: 'CharacterPortrait',
+  Skills: 'Skills',
   Types: 'Types',
   MailHeaders: 'MailHeaders',
   MailBody: 'MailBody',
@@ -45,6 +46,8 @@ const EsiMaps = {
   Character: { method: 'GET', url: 'characters/{0}/?datasource=tranquility' },
   // Character 0: charId
   CharacterPortrait: { method: 'GET', url: 'characters/{0}/portrait?datasource=tranquility' },
+  // Character 0: charId
+  Skills: { method: 'GET', url: 'characters/{0}/skills?datasource=tranquility' },
   // System 0: systemId
   Prices: { method: 'GET', url: 'markets/prices/?datasource=tranquility' },
 };

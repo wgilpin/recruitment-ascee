@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner';
 import FetchData from './FetchData';
 import TableStyles from './TableStyles';
 import SkillLights from './SkillLights';
@@ -35,6 +36,7 @@ export default class Skill extends React.Component {
       scope: 'skill',
       skillQueue: [],
       skillList: {},
+      loading: true,
     };
   }
 
@@ -86,7 +88,7 @@ export default class Skill extends React.Component {
           this.setState({ skillQueue: queue, trainLevels });
         };
         if (Object.keys(groupedList).length !== Object.keys(this.state.skillList || {}).length) {
-          this.setState({ skillList: groupedList });
+          this.setState({ skillList: groupedList, loading: false });
         };
       });
   }
@@ -146,6 +148,15 @@ export default class Skill extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return(
+      <Loader 
+        type="Puff"
+        color="#01799A"
+        height="100"	
+        width="100"
+      />)
+    }
     this.skillQueueLinesShown = 0;
     return (
       <div style={styles.div}>

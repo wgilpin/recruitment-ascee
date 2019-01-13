@@ -8,20 +8,27 @@ const Types = require('../../model/TypesModel');
 const router = express.Router();
 
 
-router.get('/:typeId/:otherId', async (req, res) => {
-  const { typeId, otherId } = req.params;
-  if (typeId) {
-    const typeInfo = await Types.get(typeId);
+router.get('/:userId/:list', async (req, res) => {
+  const { list } = req.params;
+  const links = JSON.parse(list);
+  const out = links.map(async ({ typeId, itemId }) => {
+    const typeInfo = await new Types().get(typeId);
     if (typeInfo) {
-      if (typeInfo.values.name.startsWith('Character')) {
+      if (typeInfo.name.startsWith('Character')) {
         const char = new Character();
-        await char.get(otherId);
-        return res.json({ info: char.values.name });
+        const info = await char.get(itemId);
+        console.log(`apiLinks info ${info}`);
+        return ({
+          type: 'character',
+          data: info,
+          typeId,
+          itemId,
+        });
       }
     }
     return res.json({ error: 'unknown' });
-  }
-  res.json({ error: 'params' });
+  });
+  return Promise.all(out).then(info => res.json({ info }));
 });
 
 module.exports = router;

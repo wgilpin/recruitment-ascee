@@ -4,7 +4,6 @@ import RoundImage from './RoundImage';
 
 const propTypes = {
   name: PropTypes.string,
-  src: PropTypes.string,
   id: PropTypes.string,
   onClick: PropTypes.func,
   selected: PropTypes.bool,
@@ -23,7 +22,7 @@ export default class Alt extends React.Component {
   }
 
   render() {
-    const { size, src, name, selected } = this.props;
+    const { size, name, selected } = this.props;
 
     const styles = {
       div: {
@@ -50,7 +49,7 @@ export default class Alt extends React.Component {
 
     return (
       <div style={style} onClick={this.handleClick}>
-        <RoundImage src={src}></RoundImage>
+        <RoundImage src={`https://image.eveonline.com/Character/${this.props.id}_64.jpg`}></RoundImage>
         <span style={styles.span}>{name}</span>
       </div>
     );

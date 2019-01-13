@@ -66,7 +66,6 @@ export default class Alts extends React.Component {
               name={alt.name}
               id={key}
               selected={this.state.selected === key}
-              src={alt.px64x64}
               onClick={this.handleClick}
             />
           );

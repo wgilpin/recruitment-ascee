@@ -2,7 +2,6 @@ import React, { Component, setGlobal } from 'reactn';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import MainMenu from './MainMenu';
-import Recruits from './recruiter/Recruiter';
 
 // Set an initial global state directly:
 setGlobal({

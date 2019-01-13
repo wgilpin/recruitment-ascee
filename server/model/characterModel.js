@@ -32,11 +32,12 @@ class CharacterModel extends CachedModel {
   }
 
   static getEsi(id) {
-    const charData = Esi.get(Esi.kinds.Character, id);
-    const portraitData = Esi.get(Esi.kinds.CharacterPortrait, id);
-    return Promise
-      .all([charData, portraitData])
-      .then(([charInfo, charPics]) => ({ body: { ...charInfo.body, ...charPics.body } }));
+    return Esi.get(Esi.kinds.Character, id)
+      .then((charInfo) => {
+        const res = { body: { ...charInfo.body } };
+        res.px64x64 = `https://image.eveonline.com/Character/${id}_64.jpg`;
+        return res;
+      });
   }
 
   static async getAlts(main) {

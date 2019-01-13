@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner';
 import FetchData from './FetchData';
 import TableStyles from './TableStyles';
 
@@ -25,7 +26,7 @@ const styles = {
     fontStyle: 'italic',
     a: { color: 'white' },
     paddingLeft: '60px',
-    colSpan: 3,
+    width: '120%',
   },
 }
 
@@ -35,6 +36,7 @@ export default class Mail extends React.Component {
     this.state = {
       scope: 'mail',
       mailList: [],
+      loading: true,
     };
   }
 
@@ -51,10 +53,12 @@ export default class Mail extends React.Component {
   componentDidMount() {
     let newList;
 
+    // get the mail headers by API
     new FetchData(
       { id: this.props.alt, scope: 'mail' },
     ).get()
       .then(data => {
+        // got the list of mail headers
         return newList = Mail.jsonToMailList(data.info);
       })
       .then(() => {
@@ -64,7 +68,7 @@ export default class Mail extends React.Component {
             updatedList.push({ ...item, collapsed: true });
           })
           const sortedMailList = updatedList.sort((a,b) => (new Date(b.timestamp) - new Date(a.timestamp)))
-          this.setState({ mailList: sortedMailList })
+          this.setState({ mailList: sortedMailList, loading: false })
         }
       })
       .catch((err) => {
@@ -79,61 +83,76 @@ export default class Mail extends React.Component {
     return small + '<hr/>';
   }
 
-  findLinks(data, linksList) {
+  findLinks(body, linksList) {
+    /* Trawl through the body for CCP links
+     *  These are of the form showinfo:<typeId>//<itemId>
+     *  Then fetch the text from the API for each of them
+     */
     let regexp = /showinfo:(\d+)\/\/(\d+)">([\w\s]+)</g
-    let body = this.badlyRemoveFontSizeColor(data.info);
     let matches;
     // eslint-disable-next-line no-cond-assign
     while(matches = regexp.exec(body)){
-      linksList.push({ param1: matches[1], param2: matches[2] });
+      linksList.push({ typeId: matches[1], itemId: matches[2] });
     }
     if (linksList.length === 0){
       return null;
     }
     let encodedList = encodeURIComponent(JSON.stringify(linksList));
-    return new FetchData({ scope: 'linkID', id: this.props.alt, param1: encodedList }).get();
+    return new FetchData({ scope: 'link', id: this.props.alt, param1: encodedList }).get();
   }
 
   processLinks(links, body){
+    /* Given a list of text values for links, from this.findLinks(),
+     *  replace the links with the text
+     */
     if (!links){
       return body;
     };
     let markup;
-    Object.keys(links).forEach(id => {
-      let lookupRegex = new RegExp(`${id}">([\\w\\s]+)<`, 'g');
-      if ('type' in (links[id] || {})){
-        if (links[id].type === 'character'){
-          markup = `${links[id].corporation_id.ticker}`;
-          markup += links[id].alliance_id ? ` / ${links[id].alliance_id.ticker}` : '';
+    links.info.forEach(link => {
+      let lookupRegex = new RegExp(`${link.itemId}">([\\w\\s]+)<`, 'g');
+      if ('type' in (link || {})){
+        if (link.type === 'character'){
+          markup = `${link.data.corporation_ticker}`;
+          markup += link.data.alliance_ticker ? ` / ${link.data.alliance_ticker}` : '';
         }
       } else {
-        markup = links[id].solarSystemName;
+        markup = link.data.solarSystemName;
       };
-      body = body.replace(lookupRegex, `${id}">$1 [${markup}]<`);
+      body = body.replace(lookupRegex, `${link.itemId}">$1 [${markup}]<`);
     });
     return body;
   }
 
   toggleMessage = (idx) => {
+    // toggle message body visibility, loading if needed
     let linksList = [];
     let { mailList } = this.state;
     let thisMail = mailList[idx];
-    let body;
-    this.setState({ mailList: { ...mailList, [idx]: { ...thisMail, collapsed: !thisMail.collapsed } } });
+    let rawBody;
+    const updatedMailList = mailList.slice(0);
+    updatedMailList[idx] = { ...thisMail, collapsed: !thisMail.collapsed };
+    this.setState({ mailList: updatedMailList });
     if (!thisMail.body) {
       return new FetchData(
         { id: this.props.alt, scope: 'mail', param1: thisMail.mail_id },
       ).get()
-        .then(data => this.findLinks(data, linksList))
-        .then(links => this.processLinks(links, body))
         .then((body) => {
-          this.setState({ mailList: { ...mailList, [idx]: { ...thisMail, collapsed: false, body } } });
+          rawBody = this.badlyRemoveFontSizeColor(body.info);
+          this.findLinks(rawBody, linksList)
+        })
+        .then(links => this.processLinks(links, rawBody))
+        .then((body) => {
+          const updatedMailList = mailList.slice(0);
+          updatedMailList[idx] = { ...thisMail, collapsed: false, body };
+          this.setState({ mailList: updatedMailList });
         })
     }
   };
 
 
   mailItem(key, { timestamp, from, subject, is_read }) {
+    // a react item
     console.log(`from ${from}`);
     let lineStyle, formattedDate;
     let readStyle = is_read ? styles.isRead : styles.isUnread;
@@ -156,7 +175,7 @@ export default class Mail extends React.Component {
       !this.state.mailList[line].collapsed &&
       (<div style={styles.row}>
         <div
-          style={{ ...styles.cell, ...styles.body }}
+          style={styles.body }
           dangerouslySetInnerHTML={{ __html: this.state.mailList[line].body }}
         />
       </div>
@@ -165,6 +184,15 @@ export default class Mail extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return(
+      <Loader 
+        type="Puff"
+        color="#01799A"
+        height="100"	
+        width="100"
+     />)
+    }
     return (
       <div style={styles.table}>
         <div style={styles.header}>

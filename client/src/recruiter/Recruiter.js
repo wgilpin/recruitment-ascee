@@ -186,7 +186,7 @@ export default class Recruiter extends React.Component {
           <EscalatedIcon style={styles.icon} fontSize="24px" />
         )}
         <span onClick={() => this.handleClick(id)}>
-          <RoundImage src={recruit.avatar} />
+          <RoundImage src={`https://image.eveonline.com/Character/${id}_64.jpg`} />
           <span style={styles.name}>{recruit.name}</span>
         </span>
         <RecruitButtonBar
