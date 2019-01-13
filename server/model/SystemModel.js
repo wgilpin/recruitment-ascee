@@ -1,4 +1,4 @@
-const esiRequest = require('../src/EsiRequest');
+const Esi = require('../src/EsiRequest');
 
 const logging = require('../src/Logging');
 const CachedModel = require('./CachedModel');
@@ -15,7 +15,7 @@ class SystemModel extends CachedModel {
      * @returns Promise
      */
     try {
-      return esiRequest.default(esiRequest.kinds.System, parseInt(id, 10))
+      return Esi.get(Esi.kinds.System, parseInt(id, 10))
         .then((data) => {
           logging.debug(`systemmodel getEsi ${id} = ${data}`);
           return data;

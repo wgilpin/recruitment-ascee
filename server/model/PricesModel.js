@@ -1,4 +1,4 @@
-const esiRequest = require('../src/EsiRequest');
+const Esi = require('../src/EsiRequest');
 const logging = require('../src/Logging');
 
 const cache = {};
@@ -8,8 +8,8 @@ const TTL_DAYS = 1;
 function reloadCache() {
   // cache expired
   logging.log('Price cache expired');
-  esiRequest
-    .default(esiRequest.kinds.Prices)
+  Esi
+    .get(Esi.kinds.Prices)
     .then((data) => {
       data.body.forEach((price) => {
         cache[price.type_id] = price.adjusted_price;

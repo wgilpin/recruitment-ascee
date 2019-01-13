@@ -1,4 +1,4 @@
-const EsiRequest = require('../src/EsiRequest');
+const Esi = require('../src/EsiRequest');
 
 const CachedModel = require('./CachedModel');
 const Store = require('./Store');
@@ -32,8 +32,8 @@ class CharacterModel extends CachedModel {
   }
 
   static getEsi(id) {
-    const charData = EsiRequest.default(EsiRequest.kinds.Character, id);
-    const portraitData = EsiRequest.default(EsiRequest.kinds.CharacterPortrait, id);
+    const charData = Esi.get(Esi.kinds.Character, id);
+    const portraitData = Esi.get(Esi.kinds.CharacterPortrait, id);
     return Promise
       .all([charData, portraitData])
       .then(([charInfo, charPics]) => ({ body: { ...charInfo.body, ...charPics.body } }));

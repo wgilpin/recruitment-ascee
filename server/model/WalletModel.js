@@ -1,5 +1,5 @@
 const Character = require('./CharacterModel');
-const EsiRequest = require('../src/EsiRequest');
+const Esi = require('../src/EsiRequest');
 
 class WalletModel {
   static async getWallet(userId, token) {
@@ -8,7 +8,7 @@ class WalletModel {
       // curl -i --compressed -X GET --header  'https://esi.evetech.net/latest/characters/93207621/wallet/?datasource=tranquility&token=lXJwp2lbZH4bmrexqOFnurkmkznjLhE4vDbcfpofFNvKYBn2ygGkS3eQyMHAn77EN129iwRqyr4KXvIWRMZXaQ2'
       // wallet = await esi.characters(parseInt(userId, 10), token);
       try {
-        const response = await EsiRequest.default(EsiRequest.kinds.WalletJournal, userId, token);
+        const response = await Esi.get(Esi.kinds.WalletJournal, userId, token);
         // const response = await request({
         //   method: 'GET',
         //   url: `https://esi.evetech.net/latest/characters/${userId}/wallet/journal?datasource=tranquility&token=${token}`,

@@ -1,4 +1,5 @@
-const esi = require('eve-swagger');
+const Esi = require('../src/EsiRequest');
+
 const Character = require('./CharacterModel');
 const logging = require('../src/Logging');
 
@@ -21,7 +22,9 @@ class MailModel {
 
   getMailList(userId, token) {
     const nUserId = parseInt(userId, 10);
-    return esi.characters(nUserId, token).mail().then((msgList) => {
+    // TODO: esi.characters is not a function
+    return Esi.get(Esi.kinds.MailHeaders, nUserId, token).then((data) => {
+      const msgList = data.body;
       try {
       // load the names
       // 1st pass, get id->names mapping
@@ -31,6 +34,7 @@ class MailModel {
 
         // pass 1 - get list of ids
         msgList.forEach((msg) => {
+          this.userList[msg.from] = '';
           msg.recipients
             .map(recipient => recipient.recipient_id)
             .forEach((id) => {
@@ -53,12 +57,19 @@ class MailModel {
     });
   }
 
-  static async getMailBody(userId, accessToken, mailId) {
+  /* eslint-disable class-methods-use-this */
+  async getMailBody(userId, mailId, accessToken) {
     try {
-      return await esi
-        .characters(parseInt(userId, 10), accessToken)
-        .mail(parseInt(mailId, 10))
-        .info();
+      return Esi.get(
+        Esi.kinds.MailBody,
+        parseInt(userId, 10),
+        accessToken,
+        parseInt(mailId, 10),
+      )
+        .then((data) => {
+          console.log(`mail body ${data}`);
+          return data.body;
+        });
     } catch (err) {
       logging.error(`getMailBody ${err.message}`);
       return {};

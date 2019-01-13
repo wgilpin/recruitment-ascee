@@ -59,12 +59,16 @@ export default class Mail extends React.Component {
       })
       .then(() => {
         if (newList.length !== (this.state.mailList || []).length) {
-          let updatedList = {};
-          Object.keys(newList).map(idx => {
-            updatedList[idx] = { ...newList[idx], collapsed: true };
+          const updatedList = [];
+          newList.map(item => {
+            updatedList.push({ ...item, collapsed: true });
           })
-          this.setState({ mailList: updatedList })
+          const sortedMailList = updatedList.sort((a,b) => (new Date(b.timestamp) - new Date(a.timestamp)))
+          this.setState({ mailList: sortedMailList })
         }
+      })
+      .catch((err) => {
+        console.error(err);
       })
   }
 
@@ -120,7 +124,7 @@ export default class Mail extends React.Component {
       return new FetchData(
         { id: this.props.alt, scope: 'mail', param1: thisMail.mail_id },
       ).get()
-        .then(data => this.getLinks(data, linksList))
+        .then(data => this.findLinks(data, linksList))
         .then(links => this.processLinks(links, body))
         .then((body) => {
           this.setState({ mailList: { ...mailList, [idx]: { ...thisMail, collapsed: false, body } } });
@@ -130,6 +134,7 @@ export default class Mail extends React.Component {
 
 
   mailItem(key, { timestamp, from, subject, is_read }) {
+    console.log(`from ${from}`);
     let lineStyle, formattedDate;
     let readStyle = is_read ? styles.isRead : styles.isUnread;
 
@@ -138,9 +143,9 @@ export default class Mail extends React.Component {
     let newdate = new Date(timestamp);
     formattedDate = newdate.toLocaleDateString() + ' ' + newdate.toLocaleTimeString();
     return (
-      <div key={key} style={styles.row} onClick={this.toggleMessage.bind(this, key)}>
+      <div key={key} style={styles.row} onClick={() => this.toggleMessage(key)}>
         <div style={lineStyle}>{formattedDate}</div>
-        <div style={lineStyle}>{from}</div>
+        <div style={lineStyle}>{from ? from.name : null}</div>
         <div style={lineStyle}>{subject}</div>
       </div>
     );

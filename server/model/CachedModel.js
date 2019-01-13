@@ -51,7 +51,6 @@ class CachedModel extends Model {
             logging.log(`CachedModel: not found in ESI entity ${this.id}`);
             return this.createFromEsi()
               .then((data) => {
-                console.log('cachedModel got from esi ', this.id, data);
                 return data;
               });
           } catch (err) {

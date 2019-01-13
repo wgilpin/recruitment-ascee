@@ -8,6 +8,7 @@ const walletRoute = require('./apiWallet');
 const assetRoute = require('./apiAssets');
 const recruitsRoute = require('./apiRecruits');
 const questionsRoute = require('./apiQuestions');
+const linksRoute = require('./apiLinks');
 
 const router = express.Router();
 
@@ -26,5 +27,6 @@ router.use('/wallet', cors(corsOptions), walletRoute);
 router.use('/assets', cors(corsOptions), assetRoute);
 router.use('/recruits', cors(corsOptions), recruitsRoute);
 router.use('/questions', cors(corsOptions), questionsRoute);
+router.use('/links', cors(corsOptions), linksRoute);
 
 module.exports = router;

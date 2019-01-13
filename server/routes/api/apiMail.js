@@ -27,7 +27,7 @@ router.get('/:userId/:mailId', cors(corsOptions), async (req, res) => {
   try {
     console.log(`get mail body ${req.params.mailId} for ${req.params.userId}`);
     const tok = await TokenStore.get('User', req.params.userId);
-    const mail = await Mail.getMailBody(req.params.userId, tok, req.params.mailId);
+    const mail = await Mail.getMailBody(req.params.userId, req.params.mailId, tok);
     res.json({ info: mail.body });
   } catch (error) {
     res.send({ error });

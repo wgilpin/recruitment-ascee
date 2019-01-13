@@ -19,6 +19,8 @@ const EsiKinds = {
   Character: 'Character',
   CharacterPortrait: 'CharacterPortrait',
   Types: 'Types',
+  MailHeaders: 'MailHeaders',
+  MailBody: 'MailBody',
 };
 
 const EsiMaps = {
@@ -27,6 +29,10 @@ const EsiMaps = {
   AssetNames: { method: 'POST', url: 'characters/{0}/assets/names?datasource=tranquility' },
   // WalletJournal 0: userId, 1: token
   WalletJournal: { method: 'GET', url: 'characters/{0}/wallet/journal?datasource=tranquility' },
+  // MailHeaders 0: userId, 1: token
+  MailHeaders: { method: 'GET', url: 'characters/{0}/mail?datasource=tranquility' },
+  // MailBody 0: userId, 1: token, 2 mailId
+  MailBody: { method: 'GET', url: 'characters/{0}/mail/{2}?datasource=tranquility' },
   // Assets 0: userId, 1: token, 2: page
   Assets: { method: 'GET', url: 'characters/{0}/assets?datasource=tranquility&page={2}' },
   // Structure 0: structureId, 1: token
@@ -87,5 +93,5 @@ async function esiRequest(kind, ...rest) {
   }
 }
 
-module.exports.default = esiRequest;
+module.exports.get = esiRequest;
 module.exports.kinds = EsiKinds;

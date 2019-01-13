@@ -1,4 +1,4 @@
-const EsiRequest = require('../src/EsiRequest');
+const Esi = require('../src/EsiRequest');
 const TypeModel = require('../model/TypesModel');
 const LocationModel = require('../model/LocationModel');
 const SystemModel = require('../model/SystemModel');
@@ -165,7 +165,7 @@ class AssetsModel {
 
     // read the list of assets
     // note ESI needs to point to /latest/ not /v1/
-    return EsiRequest.default(EsiRequest.kinds.Assets, userId, this.token, 1).then((response) => {
+    return Esi.get(Esi.kinds.Assets, userId, this.token, 1).then((response) => {
       try {
         // const assetList = response.body.sort((a, b) => a.location_id - b.location_id);
         // pass 1 - get list of ids

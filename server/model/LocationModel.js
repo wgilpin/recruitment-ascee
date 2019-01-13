@@ -1,6 +1,6 @@
 const esi = require('eve-swagger');
 const CachedModel = require('./CachedModel');
-const esiRequest = require('../src/EsiRequest');
+const Esi = require('../src/EsiRequest');
 const logging = require('../src/Logging');
 
 class LocationModel extends CachedModel {
@@ -41,8 +41,8 @@ class LocationModel extends CachedModel {
         locationType = 'Planet ';
       } else {
         locationType = 'Structure';
-        return esiRequest
-          .default(esiRequest.kinds.Structure, nId, this.token)
+        return Esi
+          .get(Esi.kinds.Structure, nId, this.token)
           .then((data) => {
             console.log(`getFromEsi return2 ${locationType}`, data);
             return ({
