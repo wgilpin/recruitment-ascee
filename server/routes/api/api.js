@@ -9,6 +9,7 @@ const assetRoute = require('./apiAssets');
 const recruitsRoute = require('./apiRecruits');
 const questionsRoute = require('./apiQuestions');
 const linksRoute = require('./apiLinks');
+const contactsRoute = require('./apiContacts');
 
 const router = express.Router();
 
@@ -28,5 +29,6 @@ router.use('/assets', cors(corsOptions), assetRoute);
 router.use('/recruits', cors(corsOptions), recruitsRoute);
 router.use('/questions', cors(corsOptions), questionsRoute);
 router.use('/link', cors(corsOptions), linksRoute);
+router.use('/contacts', cors(corsOptions), contactsRoute);
 
 module.exports = router;

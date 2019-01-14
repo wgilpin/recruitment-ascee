@@ -18,6 +18,7 @@ class CharacterModel extends CachedModel {
     this.addField('birthday', CachedModel.Types.String, false);
     this.addField('bloodline_id', CachedModel.Types.Number, false);
     this.addField('corporation_id', CachedModel.Types.Number, false);
+    this.addField('corporation', CachedModel.Types.Number, false);
     this.addField('description', CachedModel.Types.String, false);
     this.addField('gender', CachedModel.Types.String, false);
     this.addField('name', CachedModel.Types.String);

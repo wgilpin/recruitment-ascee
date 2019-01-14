@@ -6,7 +6,7 @@ import Mail from './Mail';
 import Assets from './Assets';
 import Skills from './Skills';
 import Bookmarks from './Bookmarks';
-import Contacts from './Contacts';
+import TableContacts from './TableContacts';
 import Contracts from './Contracts';
 
 const styles = {
@@ -79,7 +79,7 @@ export default class Evidence extends React.Component {
             {(active === 'bookmarks') &&
               <Bookmarks style={styles.tabBody} alt={this.state.currentAlt}></Bookmarks>}
             {(active === 'contacts') &&
-              <Contacts style={styles.tabBody} alt={this.state.currentAlt}></Contacts>}
+              <TableContacts style={styles.tabBody} alt={this.state.currentAlt}></TableContacts>}
             {(active === 'contracts') &&
               <Contracts style={styles.tabBody} alt={this.state.currentAlt}></Contracts>}
           </div>
