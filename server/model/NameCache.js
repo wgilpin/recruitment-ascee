@@ -51,7 +51,7 @@ class NameCache {
     return NameCache.getEsi(id, type).then((data) => {
       try {
         // truncate long descriptions
-        const values = { type, ...data, id, description: data.description.substring(0, 200) };
+        const values = { type, ...data, id, description: (data.description || '').substring(0, 200) };
         const key = Store.datastore.key({ path: [NameCache.datastoreKind(), parseInt(id, 10)] });
         return Store.datastore.save(
           {
@@ -101,7 +101,7 @@ class NameCache {
         return NameCache.getFromDb(id, type);
       }
       // found in cache
-      return Promise.resolve(data);
+      return data;
     } catch (err) {
       // not in cache
       return NameCache.getFromDb(id, type)

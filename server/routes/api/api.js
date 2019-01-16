@@ -10,6 +10,8 @@ const recruitsRoute = require('./apiRecruits');
 const questionsRoute = require('./apiQuestions');
 const linksRoute = require('./apiLinks');
 const contactsRoute = require('./apiContacts');
+const bookmarksRoute = require('./apiBookmarks');
+
 
 const router = express.Router();
 
@@ -30,5 +32,6 @@ router.use('/recruits', cors(corsOptions), recruitsRoute);
 router.use('/questions', cors(corsOptions), questionsRoute);
 router.use('/link', cors(corsOptions), linksRoute);
 router.use('/contacts', cors(corsOptions), contactsRoute);
+router.use('/bookmarks', cors(corsOptions), bookmarksRoute);
 
 module.exports = router;

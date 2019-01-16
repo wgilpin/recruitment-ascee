@@ -11,12 +11,15 @@ const logging = require('./Logging');
 const EsiKinds = {
   // supported esi calls
   AssetNames: 'AssetNames',
+  Bookmarks: 'Bookmarks',
+  BookmarkFolders: 'BookmarkFolders',
   WalletJournal: 'WalletJournal',
   Assets: 'Assets',
   Structure: 'Structure',
   System: 'System',
   Prices: 'Prices',
   Character: 'Character',
+  Location: 'Location',
   CharacterPortrait: 'CharacterPortrait',
   Skills: 'Skills',
   Contacts: 'Contacts',
@@ -31,6 +34,12 @@ const EsiMaps = {
   // map the params to the url format
   // AssetNames 0: userId, 1: token, 2: [asset_ids]
   AssetNames: { method: 'POST', url: 'characters/{0}/assets/names?' },
+  // Bookmarks 0: userId, 1: token
+  Bookmarks: { method: 'GET', url: 'characters/{0}/bookmarks?' },
+  // BookmarkFolders 0: userId, 1: token
+  BookmarkFolders: { method: 'GET', url: 'characters/{0}/bookmarks/folders/?' },
+  // Location 0: locationId
+  Location: { method: 'GET', url: 'characters/{0}/bookmarks?' },
   // WalletJournal 0: userId, 1: token
   WalletJournal: { method: 'GET', url: 'characters/{0}/wallet/journal?' },
   // MailHeaders 0: userId, 1: token

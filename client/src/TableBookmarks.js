@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import TableStyles from './TableStyles';
 import TableBase from './TableBase';
 
 const propTypes = {
@@ -11,11 +10,13 @@ const defaultProps = {};
 export default class TableBookmarks extends TableBase {
   constructor(props) {
     super(props);
-    this.scope = 'abstract';
-    this.addTextField('name');
-    this.addTextField('location');
-    this.addNumberField('note');
-    this.addGroupBy(['region', 'location'])
+    this.scope = 'bookmarks';
+    this.groupSortField = 'label';
+    this.addTextField('folder');
+    this.addTextField('system');
+    this.addTextField('label');
+    this.addTextField('note');
+    this.addGroupBy(['folder', 'system'])
   }
 }
 

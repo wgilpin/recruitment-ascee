@@ -46,6 +46,8 @@ export default class TableStyles {
     fontWeight: 'bold',
     textAlign: 'left',
     backgroundColor: '#05313E',
+    paddingTop: '12px',
+    paddingBottom: '12px',
   },
   isk: {
     fontSize: 'small',

@@ -11,12 +11,13 @@ const defaultProps = {};
 export default class TableContacts extends TableBase {
   constructor(props) {
     super(props);
+    this.state.sortBy = 'name';
     this.scope = 'contacts';
     this.addTextField('name');
     this.addTextField('corp');
     this.addTextField('alliance');
     // this.addTextField('type');
-    this.addNumberField('standing');
+    this.addStandingField('standing');
     this.addTextField('labels');
   }
 }
