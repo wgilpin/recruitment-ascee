@@ -4,7 +4,7 @@
 
 Getting started:
 
-1. You'll need the app engine datastore keys to run it live
+1. You'll need the app engine datastore keys to run it live, or your own service account on GAE in this project.
 
 2. cd /server
    npm install
@@ -16,3 +16,4 @@ or
    yarn install
    yarn start
 
+The front end url is /app
