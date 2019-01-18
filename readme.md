@@ -8,7 +8,7 @@ Getting started:
 
 2. cd /server
    npm install
-   mpm start
+   npm start
    
 or
 
