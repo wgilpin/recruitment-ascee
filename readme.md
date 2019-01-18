@@ -14,6 +14,6 @@ or
 
 3. cd /client
    yarn install
-   yarn start
+   yarn build
 
 The front end url is /app
