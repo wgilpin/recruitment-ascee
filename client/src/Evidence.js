@@ -7,7 +7,8 @@ import Assets from './Assets';
 import Skills from './Skills';
 import TableBookmarks from './TableBookmarks';
 import TableContacts from './TableContacts';
-import Contracts from './Contracts';
+import TableCalendar from './TableCalendar';
+import TableContracts from './TableContracts';
 
 const styles = {
   outer: {
@@ -81,7 +82,9 @@ export default class Evidence extends React.Component {
             {(active === 'contacts') &&
               <TableContacts style={styles.tabBody} alt={this.state.currentAlt}></TableContacts>}
             {(active === 'contracts') &&
-              <Contracts style={styles.tabBody} alt={this.state.currentAlt}></Contracts>}
+              <TableContracts style={styles.tabBody} alt={this.state.currentAlt}></TableContracts>}
+            {(active === 'calendar') &&
+              <TableCalendar style={styles.tabBody} alt={this.state.currentAlt}></TableCalendar>}
           </div>
         </div>
       </div>

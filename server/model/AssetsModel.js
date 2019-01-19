@@ -3,7 +3,6 @@ const TypeModel = require('../model/TypesModel');
 const LocationModel = require('../model/LocationModel');
 const SystemModel = require('../model/SystemModel');
 const logging = require('../src/Logging');
-const User = require('../model/UserModel');
 const getPrice = require('./PricesModel');
 
 // TODO: get prices - esi.types.prices()
@@ -155,13 +154,11 @@ class AssetsModel {
     return assetList;
   }
 
-  async get(userId) {
+  async get(userId, tok) {
     this.id = userId;
     // force price cache load
     getPrice(0);
-    this.user = new User();
-    await this.user.get(userId);
-    this.token = this.user.values.accessToken;
+    this.token = tok;
 
     // read the list of assets
     // note ESI needs to point to /latest/ not /v1/

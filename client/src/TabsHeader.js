@@ -8,6 +8,7 @@ import skillsImg from './images/skills.png';
 import blueprintImg from './images/blueprints.png';
 import bookmarkImg from './images/bookmarks.png';
 import contractsImg from './images/contracts.png';
+import calendarImg from './images/eve_calendar.png';
 
 const propTypes = {
   onTabChange: PropTypes.func,
@@ -17,9 +18,9 @@ const defaultProps = {};
 
 const styles = {
   div: {
-    width: 50 * 9,
+    width: 50 * 10,
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
     gridTemplateRows: 'auto 32px',
     gridColumnGap: '20px',
     gridRowGap: '10px',
@@ -69,6 +70,8 @@ export default class TabsHeader extends React.Component {
         <span style={{ gridColumn: 7, ...styles.span }} onClick={this.showTab} name="mail">Mail</span>
         <RoundImage style={{ gridColumn: 9, gridRow: 1 }} size={40} src={contractsImg} onClick={this.showTab} name='contracts'/>
         <span style={{ gridColumn: 8, ...styles.span }} onClick={this.showTab} name="contracts">Contracts</span>
+        <RoundImage style={{ gridColumn: 10, gridRow: 1 }} size={40} src={calendarImg} onClick={this.showTab} name='calendar'/>
+        <span style={{ gridColumn: 9, ...styles.span }} onClick={this.showTab} name="calendar">Calendar</span>
       </div>
     );
   }

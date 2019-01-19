@@ -10,24 +10,30 @@ const logging = require('./Logging');
 
 const EsiKinds = {
   // supported esi calls
+  Alliance: 'Alliance',
+  Assets: 'Assets',
   AssetNames: 'AssetNames',
   Bookmarks: 'Bookmarks',
   BookmarkFolders: 'BookmarkFolders',
-  WalletJournal: 'WalletJournal',
-  Assets: 'Assets',
-  Structure: 'Structure',
-  System: 'System',
-  Prices: 'Prices',
+  Calendar: 'Calendar',
+  CalendarAttendees: 'CalendarAttendees',
+  CalendarDetails: 'CalendarDetails',
   Character: 'Character',
-  Location: 'Location',
   CharacterPortrait: 'CharacterPortrait',
-  Skills: 'Skills',
   Contacts: 'Contacts',
-  Types: 'Types',
+  Contracts: 'Contracts',
+  Constellation: 'Constellation',
+  Corporation: 'Corporation',
+  Location: 'Location',
   MailHeaders: 'MailHeaders',
   MailBody: 'MailBody',
-  Alliance: 'Alliance',
-  Corporation: 'Corporation',
+  MarketHistory: 'MarketHistory',
+  Prices: 'Prices',
+  Skills: 'Skills',
+  Structure: 'Structure',
+  System: 'System',
+  Types: 'Types',
+  WalletJournal: 'WalletJournal',
 };
 
 const EsiMaps = {
@@ -38,14 +44,26 @@ const EsiMaps = {
   Bookmarks: { method: 'GET', url: 'characters/{0}/bookmarks?' },
   // BookmarkFolders 0: userId, 1: token
   BookmarkFolders: { method: 'GET', url: 'characters/{0}/bookmarks/folders/?' },
+  // Calendar 0: userId, 1: token
+  Calendar: { method: 'GET', url: 'characters/{0}/calendar/?' },
+  // Location 0: userId, 1: event id
+  CalendarDetails: { method: 'GET', url: 'characters/{0}/calendar/{2}?' },
+  // Location 0: userId, 1: event id
+  CalendarAttendees: { method: 'GET', url: 'characters/{0}/calendar/{2}/attendees?' },
+  // Character 0: charId
+  Contacts: { method: 'GET', url: 'characters/{0}/contacts?' },
+  // Character 0: charId
+  Contracts: { method: 'GET', url: 'characters/{0}/contracts?' },
   // Location 0: locationId
-  Location: { method: 'GET', url: 'characters/{0}/bookmarks?' },
+  Constellation: { method: 'GET', url: 'universe/constellations/{0}?' },
   // WalletJournal 0: userId, 1: token
   WalletJournal: { method: 'GET', url: 'characters/{0}/wallet/journal?' },
   // MailHeaders 0: userId, 1: token
   MailHeaders: { method: 'GET', url: 'characters/{0}/mail?' },
   // MailBody 0: userId, 1: token, 2 mailId
   MailBody: { method: 'GET', url: 'characters/{0}/mail/{2}?' },
+  // MarketHistory 0: userId, 1: token
+  MarketHistory: { method: 'GET', url: 'characters/{0}/orders/?' },
   // Assets 0: userId, 1: token, 2: page
   Assets: { method: 'GET', url: 'characters/{0}/assets?page={2}&' },
   // Structure 0: structureId, 1: token
@@ -64,8 +82,6 @@ const EsiMaps = {
   Corporation: { method: 'GET', url: 'corporations/{0}?' },
   // Character 0: charId
   Skills: { method: 'GET', url: 'characters/{0}/skills?' },
-  // Character 0: charId
-  Contacts: { method: 'GET', url: 'characters/{0}/contacts?' },
   // System 0: systemId
   Prices: { method: 'GET', url: 'markets/prices/?' },
 };

@@ -79,7 +79,7 @@ class SkillsModel {
   async getQueue() {
     try {
       this.queue = [];
-      const esiSkillQ = await esi.characters(this.id, this.tok).skillqueue();
+      const esiSkillQ = await Esi.characters(this.id, this.tok).skillqueue();
       if (esiSkillQ.length > 0) {
         esiSkillQ.forEach((esiRecord) => {
           const { skill_id, level_end_sp, level_start_sp } = esiRecord;
@@ -104,7 +104,7 @@ class SkillsModel {
 
   async get(id) {
     this.id = parseInt(id, 10);
-    this.tok = await TokenStore.get('User', id);
+    this.tok = await TokenStore.get('Character', id);
     await this.loadFromEsi();
     return { skills: this.addNames(), queue: await this.getQueue() };
   }

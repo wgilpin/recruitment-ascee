@@ -21,15 +21,18 @@ class BookmarksModel {
         const lookupSystems = {};
         bms.forEach((bm) => {
           if (bm.location_id >= 30000000 && bm.location_id <= 32000000) {
-            lookupSystems[bm.location_id] = '';
+            lookupSystems[bm.location_id] = NameCache.getKinds().System;
             // a system
+          } else if (bm.location_id >= 20000000 && bm.location_id < 30000000) {
+            // constellation
+            lookupSystems[bm.location_id] = NameCache.getKinds().Constellation;
           } else {
             logging.error(`Bookmark location not a system ${bm.location_id}`);
           }
-          namePromises = Object.keys(lookupSystems).map(
-            key => NameCache.get(key, NameCache.getKinds().System),
-          );
         });
+        namePromises = Object.keys(lookupSystems).map(
+          key => NameCache.get(key, lookupSystems[key]),
+        );
         const bmDict = {};
         bms.forEach((bm) => {
           // needs an id field
@@ -40,13 +43,24 @@ class BookmarksModel {
           const systemNames = {};
           names.forEach((name) => { systemNames[name.id] = name; });
           Object.keys(bmDict).forEach((bmKey) => {
-            // add folder name
-            bmDict[bmKey].folder = folders[bmDict[bmKey].folder_id].name;
-            // add systems name
-            bmDict[bmKey].system = systemNames[bmDict[bmKey].location_id].name;
+            try {
+              if (bmDict[bmKey].folder_id) {
+                // add folder name
+                bmDict[bmKey].folder = folders[bmDict[bmKey].folder_id].name;
+              }
+              // add systems name
+              bmDict[bmKey].system = systemNames[bmDict[bmKey].location_id]
+                ? systemNames[bmDict[bmKey].location_id].name
+                : `Location ${bmDict[bmKey].location_id}`;
+            } catch (err) {
+              console.log(err);
+            }
           });
           return bmDict;
-        });
+        })
+          .catch((err) => {
+            console.log('>>>>>>>>>>>>>>>>>>>', err);
+          });
       } catch (err) {
         logging.error(`fetch contacts ${err.message}`);
         return {};

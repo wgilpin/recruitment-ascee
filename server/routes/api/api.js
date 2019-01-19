@@ -10,7 +10,10 @@ const recruitsRoute = require('./apiRecruits');
 const questionsRoute = require('./apiQuestions');
 const linksRoute = require('./apiLinks');
 const contactsRoute = require('./apiContacts');
+const contractRoute = require('./apiContract');
 const bookmarksRoute = require('./apiBookmarks');
+const calendarRoute = require('./apiCalendar');
+const marketRoute = require('./apiMarket');
 
 
 const router = express.Router();
@@ -32,6 +35,9 @@ router.use('/recruits', cors(corsOptions), recruitsRoute);
 router.use('/questions', cors(corsOptions), questionsRoute);
 router.use('/link', cors(corsOptions), linksRoute);
 router.use('/contacts', cors(corsOptions), contactsRoute);
+router.use('/contract', cors(corsOptions), contractRoute);
 router.use('/bookmarks', cors(corsOptions), bookmarksRoute);
+router.use('/calendar', cors(corsOptions), calendarRoute);
+router.use('/market', cors(corsOptions), marketRoute);
 
 module.exports = router;

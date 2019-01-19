@@ -12,7 +12,6 @@ const bodyParser = require('body-parser');
 const corsOptions = require('./Cors');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const testEsiRouter = require('./routes/testEsi');
 const apiRouter = require('./routes/api/api');
 const scopesRouter = require('./routes/scopesRoute');
@@ -52,7 +51,6 @@ Store.connect(datastore);
 
 app.use(cors());
 app.use('/', cors(corsOptions), indexRouter);
-app.use('/users', usersRouter);
 app.use('/esi', testEsiRouter);
 app.use('/api', cors(corsOptions), apiRouter);
 app.use('/login', loginRouter);

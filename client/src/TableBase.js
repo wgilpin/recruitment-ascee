@@ -32,7 +32,7 @@ const styles = {
     paddingBottom: '12px',
     textAlign: 'left',
     color: TableStyles.styles.themeColor.color,
-  }
+  },
 };
 
 export default class TableBase extends React.Component {
@@ -46,6 +46,9 @@ export default class TableBase extends React.Component {
     this.scope = 'abstract';
     this.fields = [];
     this.groupBy = [];
+    this.detailScope = null;
+    this.detailFormatter = null;
+    this.keyField = null;
   }
 
   kinds() {
@@ -63,23 +66,49 @@ export default class TableBase extends React.Component {
   }
 
   addTextField(id, header) {
-    this.fields.push({ id, kind: this.kinds().text, header });
+    this.fields.push({
+      id,
+      kind: this.kinds().text,
+      header: header || this.titleise(id),
+    });
   }
 
   addNumberField(id, header) {
-    this.fields.push({ id, kind: this.kinds().number, header });
+    this.fields.push({
+      id,
+      kind: this.kinds().number,
+      header: header || this.titleise(id),
+    });
   }
 
   addStandingField(id, header) {
-    this.fields.push({ id, kind: this.kinds().standing, header });
+    this.fields.push({
+      id,
+      kind: this.kinds().standing,
+      header: header || this.titleise(id),
+    });
   }
 
   addISKField(id, header) {
-    this.fields.push({ id, kind: this.kinds().ISK, header });
+    this.fields.push({
+      id,
+      kind: this.kinds().ISK,
+      header: header || this.titleise(id),
+    });
   }
 
   addDateField(id, header) {
-    this.fields.push({ id, kind: this.kinds().date, header });
+    this.fields.push({
+      id,
+      kind: this.kinds().date,
+      header: header || this.titleise(id),
+    });
+  }
+
+  setDetailer(scope, formatter, keyField) {
+    this.detailScope = scope;
+    this.detailFormatter = formatter;
+    this.keyField = keyField;
   }
 
   jsonToList(json) {
@@ -97,25 +126,43 @@ export default class TableBase extends React.Component {
       .get()
       .then(data => {
         let newList = this.jsonToList(data);
+        this.setState({ data: newList, loading: false });
         if (newList.length !== (this.state.data || []).length) {
-          this.setState({ data: newList, loading: false }, () => {
-            // after state set
-            if (!!this.state.sortBy) {
-              const found = this.fields.filter(f => f.id === this.state.sortBy);
-              if (found.length > 0) {
-                this.sortColumn(found[0]);
-              }
+          // after state set
+          if (!!this.state.sortBy) {
+            const found = this.fields.filter(f => f.id === this.state.sortBy);
+            if (found.length > 0) {
+              this.sortColumn(found[0]);
             }
-          });
-          if (!!this.groupBy.length) {
-            this.buildGroups();
           }
+        }
+        if (!!this.groupBy.length) {
+          this.buildGroups();
         }
       });
   }
 
+  async fetchDetails(forId) {
+    if (!this.detailScope || !this.detailFormatter) {
+      console.error('fetchDetails: Either Scope or Formatter missing');
+      return null;
+    }
+    return new FetchData({
+      id: this.props.alt,
+      scope: this.detailScope,
+      param1: forId,
+    })
+      .get()
+      .then(data => {
+        return this.detailFormatter(
+          data,
+          this.state.data.find(it => it[this.keyField] === forId),
+        );
+      });
+  }
+
   makeDateField(date, field, final) {
-    let style = {...styles.cell};
+    let style = { ...styles.cell };
     if (final) {
       style = { ...style, width: '100%' };
     }
@@ -128,8 +175,8 @@ export default class TableBase extends React.Component {
   makeTextField(text, field, final) {
     let style = { paddingLeft: INDENT, ...styles.cell, whiteSpace: 'nowrap' };
     if (final) {
-      style = { ...style, width: '99%'};
-    } 
+      style = { ...style, width: '99%' };
+    }
     if (!text) {
       return <div style={style}>&ensp;</div>;
     }
@@ -137,7 +184,7 @@ export default class TableBase extends React.Component {
   }
 
   makeISKField(value, field, final) {
-    let style = {...styles.cell};
+    let style = { ...styles.cell };
     if (final) {
       style = { ...style, width: '100%' };
     }
@@ -145,7 +192,7 @@ export default class TableBase extends React.Component {
   }
 
   makeNumberField(value, field, final) {
-    let style = {...styles.cell};
+    let style = { ...styles.cell };
     if (final) {
       style = { ...style, width: '100%' };
     }
@@ -153,10 +200,10 @@ export default class TableBase extends React.Component {
   }
 
   makeStandingField(value, field, final) {
-    let style = {...styles.cell};
+    let style = { ...styles.cell };
     if (value === 0) {
-      style={ ...style, ...styles.standing.neutral };
-    } else if (value < 0){
+      style = { ...style, ...styles.standing.neutral };
+    } else if (value < 0) {
       style = { ...style, ...styles.standing.poor };
     }
     if (final) {
@@ -168,7 +215,7 @@ export default class TableBase extends React.Component {
   makeField(field, value, final) {
     // ignore fields in grouping -= they are headers
     // if (this.groupBy.slice(0, this.groupBy.length-1).indexOf(field.id) > -1){
-    if (this.groupBy.indexOf(field.id) > -1){
+    if (this.groupBy.indexOf(field.id) > -1) {
       return this.makeTextField(null, field, final);
     }
     switch (field.kind) {
@@ -190,39 +237,69 @@ export default class TableBase extends React.Component {
     }
   }
 
+  async handleClickLine(values) {
+    console.log(values);
+    // TODO: HELP. Toggle details visibility
+    let key = values[this.keyField];
+    console.log(key);
+    const details = await this.fetchDetails(key);
+    const copyData = this.state.data.slice(0);
+    console.log(copyData);
+    const idx = copyData.findIndex(el => el[this.keyField] === key);
+    console.log(idx);
+
+    copyData[idx].details = details;
+    console.log(copyData);
+
+    this.setState({ data: copyData });
+  }
+
   makeLine(values, idx, depth) {
     depth = `${INDENT * (depth || 0)}px`;
-    const lineStyle = { ...(idx % 2 === 0 ? styles.isOdd : {}),  marginLeft: depth, ...styles.row };
-    return (
-      <div style={lineStyle} key={idx}>
-        {this.fields.map((field, i) => this.makeField(
-          field,
-          values[field.id],
-          i === this.fields.length-1,
-        ))}
-      </div>
-    );
+    const lineStyle = {
+      ...(idx % 2 === 0 ? styles.isOdd : {}),
+      marginLeft: depth,
+      ...styles.row,
+    };
+    return [
+      <div
+        style={lineStyle}
+        key={idx}
+        onClick={() => this.handleClickLine(values)}
+      >
+        {this.fields.map((field, i) =>
+          this.makeField(field, values[field.id], i === this.fields.length - 1),
+        )}
+      </div>,
+      values.details && <div>{values.details}</div>,
+    ];
   }
 
   makeSection(lines, heading, collapsible, depth) {
     const depthPx = `${INDENT * (depth || 0)}px`;
-    return <React.Fragment>
-    {heading && <div style={{...styles.groupRow, marginLeft: depthPx}}>&ensp;{heading}</div>}
-    {lines.map((line, idx) => {
-      if (line === 'leaf') {
-        return null;
-      }
-      return this.makeLine(line, idx, depth+1);
-    })}
-    </React.Fragment>
+    return (
+      <React.Fragment>
+        {heading && (
+          <div style={{ ...styles.groupRow, marginLeft: depthPx }}>
+            &ensp;{heading}
+          </div>
+        )}
+        {lines.map((line, idx) => {
+          if (line === 'leaf') {
+            return null;
+          }
+          return this.makeLine(line, idx, depth + 1);
+        })}
+      </React.Fragment>
+    );
   }
 
   titleise(text) {
-    return text[0].toUpperCase() + text.slice(1);
+    return (text[0].toUpperCase() + text.slice(1)).replace(/_/g, ' ');
   }
 
-  stringSortFn (a, b) {
-    return a > b ? 1 : (a < b ? -1 : 0);
+  stringSortFn(a, b) {
+    return a > b ? 1 : a < b ? -1 : 0;
   }
 
   sortColumn(field) {
@@ -233,7 +310,7 @@ export default class TableBase extends React.Component {
     }
     let sortFn;
     if (field.kind === this.kinds().text) {
-      sortFn =this.stringSortFn;
+      sortFn = this.stringSortFn;
     } else {
       sortFn = (a, b) => b - a;
     }
@@ -245,25 +322,27 @@ export default class TableBase extends React.Component {
 
   toggleGroup(folderName) {
     let current = this.state.groups[folderName].collapsed;
-    this.setState({ groups: {
-      ...this.state.groups,
-      [folderName]: {
-        ...this.state.groups[folderName],
-        collapsed: !current,
-      }
-    } 
-  })}
+    this.setState({
+      groups: {
+        ...this.state.groups,
+        [folderName]: {
+          ...this.state.groups[folderName],
+          collapsed: !current,
+        },
+      },
+    });
+  }
 
   makeFolderLine(name) {
     const group = this.state.groups[name];
     return (
       <div
-        style={styles.folderHeader }
+        style={styles.folderHeader}
         key={name}
         onClick={() => this.toggleGroup(name)}
       >
-        {!group.collapsed && <img src={expandedImg} alt="+"></img>}
-        {group.collapsed && <img src={collapsedImg} alt="-"></img>}
+        {!group.collapsed && <img src={expandedImg} alt="+" />}
+        {group.collapsed && <img src={collapsedImg} alt="-" />}
         {' ' + name.toUpperCase()}
       </div>
     );
@@ -272,21 +351,22 @@ export default class TableBase extends React.Component {
   makeHeader() {
     return (
       <div style={styles.header} key="header">
-        {this.fields.map(field => (
+        {this.fields.map(field =>
           // ignore fields in grouping -= they are headers
-          this.groupBy.slice(0, this.groupBy.length-1).indexOf(field.id) > -1 ?
-            null :
+          this.groupBy.slice(0, this.groupBy.length - 1).indexOf(field.id) >
+          -1 ? null : (
             <div
               style={{ ...styles.cell, ...styles.sortHeader }}
               onClick={() => this.sortColumn(field)}
             >
-              {this.titleise(field.header || field.id)}
+              {field.header}
             </div>
-        ))}
+          ),
+        )}
       </div>
     );
   }
-  
+
   makeGroupLines(key, tree, depth) {
     if (!tree) {
       return null;
@@ -302,18 +382,18 @@ export default class TableBase extends React.Component {
     return (
       <React.Fragment>
         {tree.level !== 'root' && this.makeFolderLine(tree.level)}
-        {!tree.collapsed &&
+        {!tree.collapsed && (
           <div>
             {Object.keys(tree)
               .sort()
-              .map((key) => {
+              .map(key => {
                 if (key === 'level' || key === 'collapsed') {
                   return null;
                 }
-                return this.makeGroupLines(key, tree[key], depth+1);
+                return this.makeGroupLines(key, tree[key], depth + 1);
               })}
           </div>
-        }
+        )}
       </React.Fragment>
     );
   }
@@ -324,7 +404,7 @@ export default class TableBase extends React.Component {
     this.state.data.forEach(item => {
       let node = grouped;
       for (let i = 0; i < this.groupBy.length; i++) {
-        const level = item[this.groupBy[i]];
+        const level = item[this.groupBy[i]] || 'Other';
         node[level] = node[level] || {};
         node[level].level = level;
         if (i === this.groupBy.length - 1) {
@@ -336,29 +416,33 @@ export default class TableBase extends React.Component {
       }
     });
     // top level collapsible
-    Object.keys(grouped).forEach((key) => {
+    Object.keys(grouped).forEach(key => {
       if (key !== 'level') {
         grouped[key].collapsed = false;
       }
-    })
-    this.setState({ groups: grouped })
+    });
+    this.setState({ groups: grouped });
   }
-
 
   render() {
     if (this.state.loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
+    if (this.state.data.length === 0) {
+      return <div>None found</div>
+    }
     return (
       <div style={styles.div}>
         <div style={styles.table}>
           {}
-          {!this.groupBy.length
-            ? <React.Fragment>
-                {this.makeHeader()}
-                {this.makeSection(this.state.data)}
-              </React.Fragment>
-            : this.makeGroupLines(null, this.state.groups, 0)}
+          {!this.groupBy.length ? (
+            <React.Fragment>
+              {this.makeHeader()}
+              {this.makeSection(this.state.data)}
+            </React.Fragment>
+          ) : (
+            this.makeGroupLines(null, this.state.groups, 0)
+          )}
         </div>
       </div>
     );

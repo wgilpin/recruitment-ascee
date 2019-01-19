@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const Oauth = require('../src/Oauth');
 const TokenStore = require('../src/TokenStore');
-const User = require('../model/UserModel');
 const Character = require('../model/CharacterModel');
 
 /* GET users listing. */
@@ -37,7 +36,7 @@ router.get('/', async (req, res) => {
       await alt.get(userId);
       userData.refreshToken = refreshToken || alt.values.refreshToken;
       userData.main = req.session.mainId || alt.values.main;
-      req.session.loggedInId = userId;
+      // req.session.loggedInId = userId;
       await alt.update(userData);
     } else {
       // it's an alt or a main with scopes
@@ -46,27 +45,27 @@ router.get('/', async (req, res) => {
     }
 
     console.log(`oauth callback ${name} ${userId}`);
-    const user = new User();
-    await user.get(userId);
-    userData.refreshToken = refreshToken || user.values.refreshToken;
-    await user.update(userData);
+    const char = new Character();
+    await char.get(userId);
+    char.values.refreshToken = refreshToken || char.values.refreshToken;
+    await char.save();
     req.session.save((err) => {
       if (err) {
         console.error(err);
       }
     });
-    if (user.values.isRecruiter || user.values.isSnrRecruiter) {
+    if (char.values.isRecruiter || char.values.isSnrRecruiter) {
       // go to recruiter page
       console.log('recruiter logged in');
       res.redirect('/app?showing=recruiter');
       return;
     }
-    if (!user.values.scopeToken) {
-      // need to request scopes
-      console.log('fetch scopes');
-      res.redirect('/scopes');
-      return;
-    }
+    // if (!char.values.scopeToken) {
+    //   // need to request scopes
+    //   console.log('fetch scopes');
+    //   res.redirect('/scopes');
+    //   return;
+    // }
     res.redirect('/app?showing=applicant');
   } catch (err) {
     // An error occurred

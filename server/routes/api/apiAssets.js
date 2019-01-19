@@ -13,7 +13,7 @@ router.get('/:userId', cors(corsOptions), async (req, res) => {
   console.log('GET Assets');
   // Fetch all assets for user
   try {
-    const tok = await TokenStore.get('User', req.params.userId);
+    const tok = await TokenStore.get('Character', req.params.userId);
     const assetsModel = new Assets();
     const info = await assetsModel.get(parseInt(req.params.userId, 10), tok);
     res.json({ info });

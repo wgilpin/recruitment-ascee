@@ -12,6 +12,10 @@ class CharacterModel extends CachedModel {
     this.addField('refreshToken', CachedModel.Types.String, false);
     this.addField('expires', CachedModel.Types.Number, false);
     this.addField('main', CachedModel.Types.Any, false);
+    this.addField('scopeToken', CachedModel.Types.String, false);
+    this.addField('isAdmin', CachedModel.Types.Boolean, false, false);
+    this.addField('isRecruiter', CachedModel.Types.Boolean, false, false);
+    this.addField('isSnrRecruiter', CachedModel.Types.Boolean, false, false);
 
     // from Info()
     this.addField('ancestry_id', CachedModel.Types.Number, false);

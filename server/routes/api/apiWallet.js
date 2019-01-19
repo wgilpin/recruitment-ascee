@@ -13,7 +13,7 @@ router.get('/:userId', cors(corsOptions), async (req, res) => {
   console.log('GET wallet');
   // Fetch wallet for user
   try {
-    const tok = await TokenStore.get('User', req.params.userId);
+    const tok = await TokenStore.get('Character', req.params.userId);
     const wallet = await Wallet.getWallet(req.params.userId, tok);
     res.json({ info: wallet });
   } catch (error) {

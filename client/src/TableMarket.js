@@ -7,17 +7,19 @@ const propTypes = {
 
 const defaultProps = {};
 
-export default class TableContacts extends TableBase {
+export default class TableMarket extends TableBase {
   constructor(props) {
     super(props);
     this.state.sortBy = 'name';
-    this.scope = 'contacts';
-    this.addTextField('name');
-    this.addTextField('corp');
-    this.addTextField('alliance');
-    // this.addTextField('type');
-    this.addStandingField('standing');
+    this.scope = 'market';
+    this.addTextField('type');
+    this.addNumberField('volume');
+    this.addNumberField('volume_remain');
+    this.addTextField('system');
+    this.addTextField('region');
     this.addTextField('labels');
+    this.addTextField('is_buy_order');
+    this.addISKField('price');
   }
 }
 

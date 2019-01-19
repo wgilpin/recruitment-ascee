@@ -11,13 +11,31 @@ class NameCache {
   static datastoreKind() { return 'NameCache'; }
 
   static getKinds() {
-    return Esi.kinds;
+    return { ...Esi.kinds, CharacterPlusCorp: 'CharacterPlusCorp' };
+  }
+
+  static async getCorp(corpId) {
+    const res = {};
+    const esiCorp = await Esi.get(Esi.kinds.Corporation, corpId);
+    if (esiCorp.body.alliance_id) {
+      const esiAlliance = await Esi.get(Esi.kinds.Alliance, esiCorp.alliance_id);
+      res.alliance = esiAlliance.body.name;
+    }
+    res.corporation = esiCorp.body.name;
   }
 
   static async getEsi(id, type) {
     // returns promise
     try {
-      const esiData = await Esi.get(Esi.kinds[type], id);
+      const kind = type === 'CharacterPlusCorp' ? 'Character' : type;
+      if (type === 'Corporation') {
+        return NameCache.getCorp(id);
+      }
+      const esiData = await Esi.get(kind, id);
+      if (type === 'CharacterPlusCorp') {
+        const corpData = NameCache.getCorp(esiData.body.corporation_id);
+        esiData.body = { ...esiData.body, ...corpData };
+      }
       return esiData.body || {};
     } catch (err) {
       logging.error(`Types ESI error ${err}`);
@@ -51,7 +69,9 @@ class NameCache {
     return NameCache.getEsi(id, type).then((data) => {
       try {
         // truncate long descriptions
-        const values = { type, ...data, id, description: (data.description || '').substring(0, 200) };
+        const values = {
+          type, ...data, id, description: (data.description || '').substring(0, 200),
+        };
         const key = Store.datastore.key({ path: [NameCache.datastoreKind(), parseInt(id, 10)] });
         return Store.datastore.save(
           {
@@ -59,6 +79,7 @@ class NameCache {
             data: values,
           },
         ).then(() => {
+          logging.debug(`NameCache createFromEsi ${id}: ${values.name}`);
           cache.set(id, values);
           return values;
         });
@@ -71,6 +92,7 @@ class NameCache {
 
   static async getFromDb(id, type) {
     try {
+      logging.debug(`NameCache getFromDb ${id}`);
       return NameCache.dbRead(id)
         .then((data) => {
           if (data) {
