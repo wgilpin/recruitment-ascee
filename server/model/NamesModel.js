@@ -83,7 +83,7 @@ class NamesCache {
       try {
         const itemId = parseInt(id, 10);
         this.cache.set(itemId, items[id]);
-        res[itemId] = { itemId, name: cached.name, category: cached.category };
+        res[itemId] = { itemId, name: items[id].name, category: items[id].category };
       } catch (err) {
         logging.error(`NamesCache esi ${err.message}`);
       }

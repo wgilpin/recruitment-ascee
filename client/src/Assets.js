@@ -34,6 +34,7 @@ export default class Assets extends React.Component {
   }
 
   jsonToSystemsList(json) {
+    this.setState({ loading: false });
     if (json && json.info) {
       const keys = Object.keys(json.info);
       const systems = {};
@@ -46,7 +47,6 @@ export default class Assets extends React.Component {
         systems[sysKey].value = this.recurseValues(systems[sysKey]);
       })
       this.setGlobal({ assets: json.info, assetCount: keys.length, assetSystems: systems });
-      this.setState({ loading: false });
     }
   }
 

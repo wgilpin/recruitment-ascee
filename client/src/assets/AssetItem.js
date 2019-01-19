@@ -2,7 +2,6 @@ import React from 'reactn';
 import PropTypes from 'prop-types';
 import TableStyles from '../TableStyles';
 import Misc from '../Misc';
-import { emptyScheduled } from 'rxjs/internal/observable/empty';
 
 const propTypes = {
   asset: PropTypes.object,

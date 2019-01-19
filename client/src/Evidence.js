@@ -9,6 +9,7 @@ import TableBookmarks from './TableBookmarks';
 import TableContacts from './TableContacts';
 import TableCalendar from './TableCalendar';
 import TableContracts from './TableContracts';
+import TableBlueprints from './TableBlueprints';
 
 const styles = {
   outer: {
@@ -85,6 +86,8 @@ export default class Evidence extends React.Component {
               <TableContracts style={styles.tabBody} alt={this.state.currentAlt}></TableContracts>}
             {(active === 'calendar') &&
               <TableCalendar style={styles.tabBody} alt={this.state.currentAlt}></TableCalendar>}
+            {(active === 'blueprints') &&
+              <TableBlueprints style={styles.tabBody} alt={this.state.currentAlt}></TableBlueprints>}
           </div>
         </div>
       </div>

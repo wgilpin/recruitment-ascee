@@ -30,9 +30,11 @@ const EsiKinds = {
   MarketHistory: 'MarketHistory',
   Prices: 'Prices',
   Skills: 'Skills',
+  Station: 'Station',
   Structure: 'Structure',
   System: 'System',
   Types: 'Types',
+  TypeStatic: 'TypeStatic',
   WalletJournal: 'WalletJournal',
 };
 
@@ -66,12 +68,16 @@ const EsiMaps = {
   MarketHistory: { method: 'GET', url: 'characters/{0}/orders/?' },
   // Assets 0: userId, 1: token, 2: page
   Assets: { method: 'GET', url: 'characters/{0}/assets?page={2}&' },
+  // Station 0: structureId
+  Station: { method: 'GET', url: 'universe/stations/{0}/?' },
   // Structure 0: structureId, 1: token
   Structure: { method: 'GET', url: 'universe/structures/{0}/?' },
   // System 0: systemId
   System: { method: 'GET', url: 'universe/systems/{0}/?' },
   // Types 0: typeId
   Types: { method: 'GET', url: 'universe/types/{0}/?' },
+  // TypeStatic
+  TypeStatic: { method: 'GET', url: 'universe/types/?' },
   // Character 0: charId
   Character: { method: 'GET', url: 'characters/{0}/?' },
   // Character 0: charId

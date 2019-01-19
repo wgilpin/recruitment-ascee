@@ -19,6 +19,7 @@ const loginRouter = require('./routes/loginRoute');
 const oauthRouter = require('./routes/oauthCallback');
 const mailRouter = require('./routes/mailRoute');
 const SkillStatic = require('./model/SkillStatic');
+const TypesModel = require('./model/TypesModel');
 const Store = require('./model/Store');
 
 const app = express();

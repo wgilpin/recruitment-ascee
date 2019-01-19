@@ -4,6 +4,7 @@ Model class for items form ESI that need caching
 const NodeCache = require('node-cache');
 const Model = require('./Model');
 const logging = require('../src/Logging');
+const Store = require('../model/Store');
 
 const cache = new NodeCache({ stdTTL: 3600 });
 
@@ -57,8 +58,13 @@ class CachedModel extends Model {
         })
         .catch((err) => {
           logging.error(`getFromDb 2 ${this.id} promise ${err}`);
-          cache.set(this.id, {});
-          return null;
+          if (err.cause.code === 'ETIMEDOUT') {
+            console.error('TIMEOUT');
+            cache.set(this.id, {});
+            return {};
+          }
+          cache.set(this.id, { name: 'Unavailable Structure' });
+          return { name: 'Unavailable Structure' };
         });
     } catch (err) {
       logging.error(`getFromDb 3 ${this.id} outer ${err}`);
@@ -76,6 +82,7 @@ class CachedModel extends Model {
       }
       // found in cache
       this.values = data;
+      // this.key = Store.datastore.key({ path: [this.kind, parseInt(id, 10)] });
       return Promise.resolve(data);
     } catch (err) {
       // not in cache

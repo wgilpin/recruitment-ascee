@@ -16,7 +16,7 @@ class MailModel {
         this.userList[id] = charData.name;
       })
       .catch((err) => {
-        logging.error(`idToName error ${err.message}`);
+        logging.error(`idToName error ${err.message} for id ${id}`);
       });
   }
 

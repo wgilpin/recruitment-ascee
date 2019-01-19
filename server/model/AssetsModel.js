@@ -28,7 +28,7 @@ class AssetsModel {
           this.typeIds[id] = data.name;
         })
         .catch((err) => {
-          logging.error(`typeIdToName error ${err.message}`);
+          logging.error(`typeIdToName error ${err.message} for id ${id}`);
         });
     } catch (err) {
       logging.error(`typeIdToName outer error ${err.message}`);
@@ -162,6 +162,46 @@ class AssetsModel {
 
     // read the list of assets
     // note ESI needs to point to /latest/ not /v1/
+    let allPagesLoaded = false;
+    let allResponses = [];
+    let page = 1;
+    while (!allPagesLoaded) {
+      // eslint-disable-next-line no-await-in-loop
+      const response = await Esi.get(Esi.kinds.Assets, userId, this.token, page);
+      allResponses = allResponses.concat(response.body);
+      page += 1;
+      if (page >= parseInt(response.headers['x-pages'], 10)) {
+        allPagesLoaded = true;
+      }
+    }
+    try {
+      // const assetList = response.body.sort((a, b) => a.location_id - b.location_id);
+      // pass 1 - get list of ids
+      const assetList = this.buildLocationLists(allResponses);
+      // build promises
+      const typePromises = Object.keys(this.typeIds).map(id => this.getTypeName(id));
+      const locationPromises = Object.keys(this.locationIds)
+        .map(id => this.getLocationInfo(id));
+      // resolve all the promises
+      return Promise.all(typePromises.concat(locationPromises))
+        .then(() => {
+          // pass 2 add the type and location names to each asset
+          const assets = this.addLocationDetails(assetList);
+          // pass 3 build the tree
+          return AssetsModel.buildTree(assets);
+        });
+    } catch (err) {
+      logging.error(`AssetModel get ${err.message}`);
+      return false;
+    }
+  }
+
+  async getBlueprints(userId, tok) {
+    this.id = userId;
+    this.token = tok;
+
+    // read the list of assets
+    // note ESI needs to point to /latest/ not /v1/
     return Esi.get(Esi.kinds.Assets, userId, this.token, 1).then((response) => {
       try {
         // const assetList = response.body.sort((a, b) => a.location_id - b.location_id);
@@ -177,10 +217,10 @@ class AssetsModel {
             // pass 2 add the type and location names to each asset
             const assets = this.addLocationDetails(assetList);
             // pass 3 build the tree
-            return AssetsModel.buildTree(assets);
+            return assets.filter(asset => asset.name.indexOf('lueprint') > -1);
           });
       } catch (err) {
-        logging.error(`AssetModel get ${err.message}`);
+        logging.error(`AssetModel Blueprints get ${err.message}`);
         return false;
       }
     });

@@ -17,7 +17,9 @@ class ContactsModel {
   static processPromises(names, contactDict) {
     const lookup = {};
     names.forEach((data) => {
-      lookup[data.id] = data;
+      if (data) {
+        lookup[data.id] = data;
+      }
     });
     Object.keys(contactDict).forEach((key) => {
       // contactDict[key].name = lookup[contactDict[key].character_id];
@@ -45,16 +47,20 @@ class ContactsModel {
         return Promise.all(namePromises).then((names) => {
           const corpPromises = [];
           names.forEach((nameRecord) => {
-            const { id, name, corporation_id, alliance_id } = nameRecord;
-            contactDict[id] = {
-              ...contactDict[id],
-              name,
-              corporation_id,
-              alliance_id,
-            };
-            corpPromises.push(NameCache.get(corporation_id, NameCache.getKinds().Corporation));
-            if (alliance_id) {
-              corpPromises.push(NameCache.get(alliance_id, NameCache.getKinds().Alliance));
+            if (nameRecord) {
+              const {
+                id, name, corporation_id, alliance_id,
+              } = nameRecord;
+              contactDict[id] = {
+                ...contactDict[id],
+                name,
+                corporation_id,
+                alliance_id,
+              };
+              corpPromises.push(NameCache.get(corporation_id, NameCache.getKinds().Corporation));
+              if (alliance_id) {
+                corpPromises.push(NameCache.get(alliance_id, NameCache.getKinds().Alliance));
+              }
             }
           });
           return Promise

@@ -42,6 +42,9 @@ class CharacterModel extends CachedModel {
         const res = { body: { ...charInfo.body } };
         res.px64x64 = `https://image.eveonline.com/Character/${id}_64.jpg`;
         return res;
+      })
+      .catch((err) => {
+        console.log(`getEsi err ${id} ${err}`);
       });
   }
 
