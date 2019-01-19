@@ -69,7 +69,7 @@ class Model {
     if (this.key) {
       return true;
     }
-    this.key = Store.datastore.key(this.kind);
+    this.key = Store.datastore.key(this.kind, this.id || undefined);
     return true;
   }
 

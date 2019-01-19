@@ -3,22 +3,29 @@ const Esi = require('../src/EsiRequest');
 const logging = require('../src/Logging');
 const Store = require('./Store');
 
-
 const cache = new NodeCache({ stdTTL: 3600 });
 
-
 class NameCache {
-  static datastoreKind() { return 'NameCache'; }
+  static datastoreKind() {
+    return 'NameCache';
+  }
 
   static getKinds() {
-    return { ...Esi.kinds, CharacterPlusCorp: 'CharacterPlusCorp' };
+    return {
+      ...Esi.kinds,
+      CharacterPlusCorp: 'CharacterPlusCorp',
+      CharacterOrCorp: 'CharacterOrCorp',
+    };
   }
 
   static async getCorp(corpId) {
     const res = {};
     const esiCorp = await Esi.get(Esi.kinds.Corporation, corpId);
     if (esiCorp.body.alliance_id) {
-      const esiAlliance = await Esi.get(Esi.kinds.Alliance, esiCorp.alliance_id);
+      const esiAlliance = await Esi.get(
+        Esi.kinds.Alliance,
+        esiCorp.body.alliance_id,
+      );
       res.alliance = esiAlliance.body.name;
     }
     res.corporation = esiCorp.body.name;
@@ -27,6 +34,23 @@ class NameCache {
   static async getEsi(id, type) {
     // returns promise
     try {
+      if (type === 'CharacterOrCorp') {
+        try {
+          const esiData = await Esi.get(Esi.kinds.Character, id);
+          if (esiData.body) {
+            return esiData.body;
+          }
+        } catch (err) {
+          let corpData;
+          try {
+            corpData = await Esi.get(Esi.kinds.Corporation, id);
+          } catch (cerr) {
+            console.log(cerr);
+            return {};
+          }
+          return corpData.body;
+        }
+      }
       const kind = type === 'CharacterPlusCorp' ? 'Character' : type;
       if (type === 'Corporation') {
         return NameCache.getCorp(id);
@@ -54,7 +78,9 @@ class NameCache {
       if (id === undefined) {
         throw new Error('NameCache get undefined id');
       }
-      const key = Store.datastore.key({ path: [NameCache.datastoreKind(), parseInt(id, 10)] });
+      const key = Store.datastore.key({
+        path: [NameCache.datastoreKind(), parseInt(id, 10)],
+      });
       return Store.datastore.get(key).then((dbEntities) => {
         const [dbEntity] = dbEntities;
         return dbEntity;
@@ -68,23 +94,32 @@ class NameCache {
   static createFromEsi(id, type) {
     return NameCache.getEsi(id, type).then((data) => {
       try {
+        if (!data) {
+          console.log(`createFromEsi ${id} ${type} => null`);
+          return null;
+        }
         // truncate long descriptions
         const values = {
-          type, ...data, id, description: (data.description || '').substring(0, 200),
+          type,
+          ...data,
+          id,
+          description: (data.description || '').substring(0, 200),
         };
-        const key = Store.datastore.key({ path: [NameCache.datastoreKind(), parseInt(id, 10)] });
-        return Store.datastore.save(
-          {
+        const key = Store.datastore.key({
+          path: [NameCache.datastoreKind(), parseInt(id, 10)],
+        });
+        return Store.datastore
+          .save({
             key,
             data: values,
-          },
-        ).then(() => {
-          logging.debug(`NameCache createFromEsi ${id}: ${values.name}`);
-          cache.set(id, values);
-          return values;
-        });
+          })
+          .then(() => {
+            logging.debug(`NameCache createFromEsi ${id}: ${values.name}`);
+            cache.set(id, values);
+            return values;
+          });
       } catch (exc) {
-        logging.log(`DB entity not found ${id} ${exc.message}`);
+        logging.log(`Named entity not found ${id} ${exc.message}`);
         return null;
       }
     });
@@ -106,6 +141,10 @@ class NameCache {
         })
         .catch((err) => {
           logging.error(`getFromDb 2 ${id} promise ${err}`);
+          if (err.statusCode === 502) {
+            // bad gateway
+            return null;
+          }
           cache.set(id, {});
           return null;
         });
@@ -126,14 +165,13 @@ class NameCache {
       return data;
     } catch (err) {
       // not in cache
-      return NameCache.getFromDb(id, type)
-        .then((data) => {
-          if (!data) {
-            // not found in db or ESI - don't esi again
-            cache.set(id, { type });
-          }
-          return data || {};
-        });
+      return NameCache.getFromDb(id, type).then((data) => {
+        if (!data) {
+          // not found in db or ESI - don't esi again
+          cache.set(id, { type });
+        }
+        return data || {};
+      });
     }
   }
 }

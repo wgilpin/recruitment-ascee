@@ -22,7 +22,6 @@ class App extends Component {
 
   render() {
     const showing = this.props;
-    console.log(showing);
     return (
       <Router basename="app">
         <div className="App">

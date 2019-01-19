@@ -299,7 +299,14 @@ export default class TableBase extends React.Component {
   }
 
   stringSortFn(a, b) {
-    return a > b ? 1 : a < b ? -1 : 0;
+    const res = a > b ? 1 : (a < b ? -1 : 0);
+    if (a === undefined){
+      return 1;
+    }
+    if (b === undefined) {
+      return -1;
+    }
+    console.log(`${a}=${b}->${res}`)
   }
 
   sortColumn(field) {

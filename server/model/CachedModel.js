@@ -28,11 +28,16 @@ class CachedModel extends Model {
   createFromEsi() {
     return this.pEsiParser(this.id).then((entityData) => {
       try {
+        if (!entityData) {
+          throw new Error('entity null');
+        }
         // allow a null save as it avoids an ESI error
         this.setFields((entityData || {}).body);
         return this.save().then(() => this.values);
       } catch (exc) {
         logging.log(`DB entity not found ${this.id} ${exc.message}`);
+        this.values = {};
+        this.id = null;
         return null;
       }
     });
