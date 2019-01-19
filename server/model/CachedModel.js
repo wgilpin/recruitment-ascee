@@ -79,6 +79,7 @@ class CachedModel extends Model {
 
   async get(id) {
     this.id = id;
+    this.values = {};
     // if entity is in memcache, load & return.
     try {
       const data = cache.get(id);
