@@ -298,15 +298,22 @@ export default class TableBase extends React.Component {
     return (text[0].toUpperCase() + text.slice(1)).replace(/_/g, ' ');
   }
 
-  stringSortFn(a, b) {
-    const res = a > b ? 1 : (a < b ? -1 : 0);
-    if (a === undefined){
-      return 1;
+  sortFn(property, numeric) {
+    const defaultVal = numeric ? 0 : 'zzzz';
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
     }
-    if (b === undefined) {
-      return -1;
+    const fn = (a,b) => {
+        var result = ((a[property] || defaultVal) < (b[property] || defaultVal)) 
+          ? -1 
+          : ((a[property] || defaultVal) > (b[property] || defaultVal))
+            ? 1
+            : 0;
+        return result * sortOrder;
     }
-    console.log(`${a}=${b}->${res}`)
+    return fn.bind(defaultVal);
   }
 
   sortColumn(field) {
@@ -315,15 +322,8 @@ export default class TableBase extends React.Component {
       // can't sort if grouped
       return;
     }
-    let sortFn;
-    if (field.kind === this.kinds().text) {
-      sortFn = this.stringSortFn;
-    } else {
-      sortFn = (a, b) => b - a;
-    }
-    const resorted = this.state.data.sort((a, b) =>
-      sortFn(a[field.id], b[field.id]),
-    );
+    let sortFn = this.sortFn(field.id, field.kind === 'standing');
+    const resorted = this.state.data.sort(sortFn);
     this.setState({ data: resorted });
   }
 
