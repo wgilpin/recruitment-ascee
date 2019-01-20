@@ -33,6 +33,12 @@ const styles = {
     textAlign: 'left',
     color: TableStyles.styles.themeColor.color,
   },
+  ISKnegative: {
+    color: 'red',
+  },
+  ISKpositive: {
+    color: 'lightblue',
+  }
 };
 
 export default class TableBase extends React.Component {
@@ -58,6 +64,7 @@ export default class TableBase extends React.Component {
       ISK: 'ISK',
       number: 'number',
       standing: 'standing',
+      bool: 'YN',
     };
   }
 
@@ -69,6 +76,14 @@ export default class TableBase extends React.Component {
     this.fields.push({
       id,
       kind: this.kinds().text,
+      header: header || this.titleise(id),
+    });
+  }
+  
+  addBoolField(id, header) {
+    this.fields.push({
+      id,
+      kind: this.kinds().bool,
       header: header || this.titleise(id),
     });
   }
@@ -125,12 +140,15 @@ export default class TableBase extends React.Component {
     new FetchData({ id: this.props.alt, scope: this.scope })
       .get()
       .then(data => {
+        if (data && data.error) {
+          this.setState({ ...data, loading: false });
+        }
         let newList = this.jsonToList(data);
         this.setState({ data: newList, loading: false });
         if (newList.length !== (this.state.data || []).length) {
           // after state set
-          if (!!this.state.sortBy) {
-            const found = this.fields.filter(f => f.id === this.state.sortBy);
+          if (!!this.sortBy) {
+            const found = this.fields.filter(f => f.id === this.sortBy);
             if (found.length > 0) {
               this.sortColumn(found[0]);
             }
@@ -162,9 +180,9 @@ export default class TableBase extends React.Component {
   }
 
   makeDateField(date, field, final) {
-    let style = { ...styles.cell };
+    let style = { ...styles.cell, whiteSpace: 'nowrap' };
     if (final) {
-      style = { ...style, width: '100%' };
+      style = { ...style, width: '100%'};
     }
     const newdate = new Date(date);
     const theDate =
@@ -183,10 +201,26 @@ export default class TableBase extends React.Component {
     return <div style={style}>{text}</div>;
   }
 
+  makeBoolField(value, field, final) {
+    let style = { paddingLeft: INDENT, ...styles.cell, whiteSpace: 'nowrap' };
+    if (final) {
+      style = { ...style, width: '99%' };
+    }
+    if (!value) {
+      return <div style={style}>N</div>;
+    }
+    return <div style={style}>{!!value ? 'Y' : 'N'}</div>;
+  }
+
   makeISKField(value, field, final) {
     let style = { ...styles.cell };
     if (final) {
       style = { ...style, width: '100%' };
+    }
+    if (value < 0) {
+      style = { ...style, ...styles.ISKnegative };
+    } else {
+      style = { ...style, ...styles.ISKpositive };
     }
     return <div style={style}>{Math.round(value).toLocaleString()}</div>;
   }
@@ -221,6 +255,9 @@ export default class TableBase extends React.Component {
     switch (field.kind) {
       case this.kinds().date: {
         return this.makeDateField(value, field, final);
+      }
+      case this.kinds().bool: {
+        return this.makeBoolField(value, field, final);
       }
       case this.kinds().number: {
         return this.makeNumberField(value, field, final);
@@ -322,7 +359,13 @@ export default class TableBase extends React.Component {
       // can't sort if grouped
       return;
     }
-    let sortFn = this.sortFn(field.id, field.kind === 'standing');
+    const isCurrentFieldIdx = (this.sortBy || '').indexOf(field.id);
+    this.sortBy = isCurrentFieldIdx === -1 ? field.id : (
+      isCurrentFieldIdx === 0
+        ? `-${field.id}`
+        : field.id
+    )
+    let sortFn = this.sortFn(this.sortBy, field.kind === 'standing');
     const resorted = this.state.data.sort(sortFn);
     this.setState({ data: resorted });
   }
@@ -432,6 +475,13 @@ export default class TableBase extends React.Component {
   }
 
   render() {
+    if (this.state.error) {
+      return <div>
+          {this.state.error}
+          <br/>
+          Error {this.state.status}
+        </div>
+    }
     if (this.state.loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }

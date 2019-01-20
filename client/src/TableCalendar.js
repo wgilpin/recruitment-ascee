@@ -11,7 +11,7 @@ const defaultProps = {};
 export default class TableCalendar extends TableBase {
   constructor(props) {
     super(props);
-    this.state.sortBy = 'event_date';
+    this.sortBy = 'event_date';
     this.scope = 'calendar';
     this.addTextField('title');
     this.addDateField('event_date', 'Date');

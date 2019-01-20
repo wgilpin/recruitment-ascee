@@ -1,3 +1,3 @@
-cd client
 Function prompt {"client > "}
+cd client
 

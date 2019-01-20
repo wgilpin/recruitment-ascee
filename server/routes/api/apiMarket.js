@@ -15,9 +15,13 @@ router.get('/:userId', cors(corsOptions), async (req, res) => {
   try {
     const tok = await TokenStore.get('Character', req.params.userId);
     const trans = await MarketModel.getHistory(req.params.userId, tok);
-    res.json({ info: trans });
+    if (trans) {
+      res.json({ info: trans });
+    }
+    res.json({ error: 'Market fetch error' });
+    res.send(500);
   } catch (error) {
-    res.send({ error });
+    res.send(500);
   }
 });
 

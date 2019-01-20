@@ -9,6 +9,7 @@ import blueprintImg from './images/blueprints.png';
 import bookmarkImg from './images/bookmarks.png';
 import contractsImg from './images/contracts.png';
 import calendarImg from './images/eve_calendar.png';
+import marketImg from './images/eve_market.png';
 
 const propTypes = {
   onTabChange: PropTypes.func,
@@ -20,7 +21,7 @@ const styles = {
   div: {
     width: 50 * 10,
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
     gridTemplateRows: 'auto 32px',
     gridColumnGap: '20px',
     gridRowGap: '10px',
@@ -72,6 +73,8 @@ export default class TabsHeader extends React.Component {
         <span style={{ gridColumn: 8, ...styles.span }} onClick={this.showTab} name="contracts">Contracts</span>
         <RoundImage style={{ gridColumn: 10, gridRow: 1 }} size={40} src={calendarImg} onClick={this.showTab} name='calendar'/>
         <span style={{ gridColumn: 9, ...styles.span }} onClick={this.showTab} name="calendar">Calendar</span>
+        <RoundImage style={{ gridColumn: 11, gridRow: 1 }} size={40} src={marketImg} onClick={this.showTab} name='market'/>
+        <span style={{ gridColumn: 10, ...styles.span }} onClick={this.showTab} name="market">Market</span>
       </div>
     );
   }

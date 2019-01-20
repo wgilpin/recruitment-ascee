@@ -10,16 +10,14 @@ const defaultProps = {};
 export default class TableMarket extends TableBase {
   constructor(props) {
     super(props);
-    this.state.sortBy = 'name';
+    this.sortBy = 'issued';
     this.scope = 'market';
+    this.addDateField('issued', 'Date');
     this.addTextField('type');
-    this.addNumberField('volume');
-    this.addNumberField('volume_remain');
-    this.addTextField('system');
-    this.addTextField('region');
-    this.addTextField('labels');
-    this.addTextField('is_buy_order');
     this.addISKField('price');
+    this.addNumberField('volume_total', 'Volume');
+    this.addTextField('location');
+    this.addTextField('region');
   }
 }
 

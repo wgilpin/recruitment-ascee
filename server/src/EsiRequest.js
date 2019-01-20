@@ -6,40 +6,12 @@ const logging = require('./Logging');
 
   Asset Names
   Wallet Journal
-*/
+  */
 
 const EsiKinds = {
-  // supported esi calls
-  Alliance: 'Alliance',
-  Assets: 'Assets',
-  AssetNames: 'AssetNames',
-  Bookmarks: 'Bookmarks',
-  BookmarkFolders: 'BookmarkFolders',
-  Calendar: 'Calendar',
-  CalendarAttendees: 'CalendarAttendees',
-  CalendarDetails: 'CalendarDetails',
-  Character: 'Character',
-  CharacterPortrait: 'CharacterPortrait',
-  Contacts: 'Contacts',
-  Contracts: 'Contracts',
-  Constellation: 'Constellation',
-  Corporation: 'Corporation',
-  Location: 'Location',
-  MailHeaders: 'MailHeaders',
-  MailBody: 'MailBody',
-  MarketHistory: 'MarketHistory',
-  Prices: 'Prices',
-  Skills: 'Skills',
-  Station: 'Station',
-  Structure: 'Structure',
-  System: 'System',
-  Types: 'Types',
-  TypeStatic: 'TypeStatic',
-  WalletJournal: 'WalletJournal',
-};
-
-const EsiMaps = {
   // map the params to the url format
+  // Assets 0: userId, 1: token, 2: page
+  Assets: { method: 'GET', url: 'characters/{0}/assets?page={2}&' },
   // AssetNames 0: userId, 1: token, 2: [asset_ids]
   AssetNames: { method: 'POST', url: 'characters/{0}/assets/names?' },
   // Bookmarks 0: userId, 1: token
@@ -52,9 +24,9 @@ const EsiMaps = {
   CalendarDetails: { method: 'GET', url: 'characters/{0}/calendar/{2}?' },
   // Location 0: userId, 1: event id
   CalendarAttendees: { method: 'GET', url: 'characters/{0}/calendar/{2}/attendees?' },
-  // Character 0: charId
+  // Character 0: charId, 1: token
   Contacts: { method: 'GET', url: 'characters/{0}/contacts?' },
-  // Character 0: charId
+  // Character 0: charId, 1: token
   Contracts: { method: 'GET', url: 'characters/{0}/contracts?' },
   // Location 0: locationId
   Constellation: { method: 'GET', url: 'universe/constellations/{0}?' },
@@ -65,9 +37,11 @@ const EsiMaps = {
   // MailBody 0: userId, 1: token, 2 mailId
   MailBody: { method: 'GET', url: 'characters/{0}/mail/{2}?' },
   // MarketHistory 0: userId, 1: token
-  MarketHistory: { method: 'GET', url: 'characters/{0}/orders/?' },
-  // Assets 0: userId, 1: token, 2: page
-  Assets: { method: 'GET', url: 'characters/{0}/assets?page={2}&' },
+  Market: { method: 'GET', url: 'characters/{0}/orders/?' },
+  // MarketHistory 0: userId, 1: token
+  MarketHistory: { method: 'GET', url: 'characters/{0}/orders/history/?' },
+  // Region 0: id
+  Region: { method: 'GET', url: 'universe/regions/{0}/?' },
   // Station 0: structureId
   Station: { method: 'GET', url: 'universe/stations/{0}/?' },
   // Structure 0: structureId, 1: token
@@ -100,16 +74,15 @@ function format(formatString, args) {
 }
 
 function makeUrl(kind, params) {
-  const frag = EsiMaps[kind];
   // eslint-disable-next-line prefer-template
-  const newFrag = format(frag.url, params) + 'datasource=tranquility';
+  const newFrag = format(kind.url, params) + 'datasource=tranquility';
   const [, token, ...rest] = params;
   let url = `https://esi.evetech.net/latest/${newFrag}`;
   if (token) {
     url = `${url}&token=${token}`;
   }
-  const res = { method: frag.method, url };
-  if (frag.method === 'POST') {
+  const res = { method: kind.method, url };
+  if (kind.method === 'POST') {
     res.params = rest;
   }
   return res;

@@ -31,7 +31,7 @@ class NameCache {
     res.corporation = esiCorp.body.name;
   }
 
-  static async getEsi(id, type) {
+  static async getEsi(id, type, tok) {
     // returns promise
     try {
       if (type === 'CharacterOrCorp') {
@@ -51,11 +51,11 @@ class NameCache {
           return corpData.body;
         }
       }
-      const kind = type === 'CharacterPlusCorp' ? 'Character' : type;
-      if (type === 'Corporation') {
+      const kind = type === 'CharacterPlusCorp' ? Esi.kinds.Character : type;
+      if (type === Esi.kinds.Corporation) {
         return NameCache.getCorp(id);
       }
-      const esiData = await Esi.get(kind, id);
+      const esiData = await Esi.get(kind, id, tok);
       if (type === 'CharacterPlusCorp') {
         const corpData = NameCache.getCorp(esiData.body.corporation_id);
         esiData.body = { ...esiData.body, ...corpData };
@@ -91,8 +91,8 @@ class NameCache {
     }
   }
 
-  static createFromEsi(id, type) {
-    return NameCache.getEsi(id, type).then((data) => {
+  static createFromEsi(id, type, tok) {
+    return NameCache.getEsi(id, type, tok).then((data) => {
       try {
         if (!data) {
           console.log(`createFromEsi ${id} ${type} => null`);
@@ -125,19 +125,19 @@ class NameCache {
     });
   }
 
-  static async getFromDb(id, type) {
+  static async getFromDb(id, type, tok) {
     try {
       logging.debug(`NameCache getFromDb ${id}`);
       return NameCache.dbRead(id)
         .then((data) => {
-          if (data) {
+          if (data && data.name) {
             // found in db - add to memcache
             cache.set(id, data);
             return data;
           }
           // not in db
           logging.log(`NameCache: not found in ESI entity ${id}`);
-          return NameCache.createFromEsi(id, type);
+          return NameCache.createFromEsi(id, type, tok);
         })
         .catch((err) => {
           logging.error(`getFromDb 2 ${id} promise ${err}`);
@@ -154,18 +154,18 @@ class NameCache {
     }
   }
 
-  static async get(id, type) {
+  static async get(id, type, tok) {
     // if entity is in memcache, load & return.
     try {
       const data = cache.get(id);
       if (data === undefined || data.type === undefined) {
-        return NameCache.getFromDb(id, type);
+        return NameCache.getFromDb(id, type, tok);
       }
       // found in cache
       return data;
     } catch (err) {
       // not in cache
-      return NameCache.getFromDb(id, type).then((data) => {
+      return NameCache.getFromDb(id, type, tok).then((data) => {
         if (!data) {
           // not found in db or ESI - don't esi again
           cache.set(id, { type });
@@ -173,6 +173,24 @@ class NameCache {
         return data || {};
       });
     }
+  }
+
+  static async getLocation(id, tok) {
+    let kind;
+    if (id >= 30000000 && id < 32000000) {
+      // locationType = 'System';
+      kind = Esi.kinds.System;
+    } else if (id >= 32000000 && id <= 33000000) {
+      // locationType = 'Abyssal System';
+      kind = Esi.kinds.System;
+    } else if (id >= 60000000 && id <= 64000000) {
+      kind = Esi.kinds.Station;
+    } else if (id >= 40000000 && id <= 50000000) {
+      // locationType = 'Planet ';
+    } else {
+      kind = Esi.kinds.Structure;
+    }
+    return NameCache.get(id, kind, tok);
   }
 }
 

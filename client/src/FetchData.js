@@ -72,6 +72,11 @@ export default class FetchData {
               return null;
           }
         };
+        console.log(res.status, res.status > 400);
+        if (res.status > 400) {
+          console.log('error', res.statusText);
+          return ({ 'error': res.statusText, status: res.status })
+        }
         return res.json()
       })
       .catch((err) => {

@@ -10,6 +10,7 @@ import TableContacts from './TableContacts';
 import TableCalendar from './TableCalendar';
 import TableContracts from './TableContracts';
 import TableBlueprints from './TableBlueprints';
+import TableMarket from './TableMarket';
 
 const styles = {
   outer: {
@@ -67,7 +68,7 @@ export default class Evidence extends React.Component {
         </div>
         <div style={styles.right} >
           <div style={styles.tabHeader}>
-            <TabsHeader onTabChange={this.changeTab} />
+            {this.state.currentAlt && <TabsHeader onTabChange={this.changeTab} />}
           </div>
           <div style={styles.tabBody}>
             {(active === 'wallet') &&
@@ -88,6 +89,8 @@ export default class Evidence extends React.Component {
               <TableCalendar style={styles.tabBody} alt={this.state.currentAlt}></TableCalendar>}
             {(active === 'blueprints') &&
               <TableBlueprints style={styles.tabBody} alt={this.state.currentAlt}></TableBlueprints>}
+            {(active === 'market') &&
+              <TableMarket style={styles.tabBody} alt={this.state.currentAlt}></TableMarket>}
           </div>
         </div>
       </div>

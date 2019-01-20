@@ -4,7 +4,6 @@ Model class for items form ESI that need caching
 const NodeCache = require('node-cache');
 const Model = require('./Model');
 const logging = require('../src/Logging');
-const Store = require('../model/Store');
 
 const cache = new NodeCache({ stdTTL: 3600 });
 
@@ -50,8 +49,9 @@ class CachedModel extends Model {
           try {
             if (success) {
             // found in db - add to memcache
-              cache.set(this.id, this.values);
-              return this.values;
+              const data = { ...this.values, id: this.id };
+              cache.set(this.id, data);
+              return data;
             }
             // not in db
             logging.log(`CachedModel: not found in ESI entity ${this.id}`);
@@ -87,7 +87,7 @@ class CachedModel extends Model {
         return this.getFromDb();
       }
       // found in cache
-      this.values = data;
+      this.values = { ...data, id };
       // this.key = Store.datastore.key({ path: [this.kind, parseInt(id, 10)] });
       return Promise.resolve(data);
     } catch (err) {
