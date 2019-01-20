@@ -92,7 +92,7 @@ export default class SkillLights extends React.Component {
   render() {
     let { currentLevel, trainLevel} = this.props;
     let states = [];
-    for (let i in [1,2,3,4,5]){
+    for (let i=1; i<6; i++){
       if (i <= currentLevel){
         states.push(sqStates.trained);
       } else if (i <= trainLevel){

@@ -141,7 +141,7 @@ export default class TableBase extends React.Component {
       .get()
       .then(data => {
         if (data && data.error) {
-          this.setState({ ...data, loading: false });
+          return this.setState({ ...data.error, loading: false });
         }
         let newList = this.jsonToList(data);
         this.setState({ data: newList, loading: false });

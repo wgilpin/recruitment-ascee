@@ -176,6 +176,9 @@ class NameCache {
   }
 
   static async getLocation(id, tok) {
+    if (id === undefined) {
+      return null;
+    }
     let kind;
     if (id >= 30000000 && id < 32000000) {
       // locationType = 'System';

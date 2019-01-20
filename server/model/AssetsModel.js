@@ -1,6 +1,7 @@
 const Esi = require('../src/EsiRequest');
 const TypeModel = require('../model/TypesModel');
 const LocationModel = require('../model/LocationModel');
+const NameCache = require('../model/NameCache');
 const SystemModel = require('../model/SystemModel');
 const logging = require('../src/Logging');
 const getPrice = require('./PricesModel');
@@ -90,7 +91,9 @@ class AssetsModel {
             location_type: 'system',
           };
         }
-        if (!(namedAsset.location.name in assetDict[namedAsset.location_id].items)) {
+        if (
+          !(namedAsset.location.name in assetDict[namedAsset.location_id].items)
+        ) {
           assetDict[namedAsset.location_id].items[namedAsset.location.name] = {
             items: {},
             location_type: 'structure',
@@ -100,7 +103,6 @@ class AssetsModel {
     });
     return assetDict;
   }
-
 
   static buildTree(assetDict) {
     /*
@@ -112,9 +114,8 @@ class AssetsModel {
     //
     let changes = true;
     while (changes) {
-      changes = false;
-      /* eslint-disable no-loop-func */ // why?????
-      Object.keys(assetDict).forEach((key) => {
+      changes = false; // why?????
+      /* eslint-disable no-loop-func */ Object.keys(assetDict).forEach((key) => {
         const asset = assetDict[key];
         const locId = asset.location_id;
         if (asset.todo) {
@@ -160,7 +161,12 @@ class AssetsModel {
     let page = 1;
     while (!allPagesLoaded) {
       // eslint-disable-next-line no-await-in-loop
-      const response = await Esi.get(Esi.kinds.Assets, this.id, this.token, page);
+      const response = await Esi.get(
+        Esi.kinds.Assets,
+        this.id,
+        this.token,
+        page,
+      );
       allResponses = allResponses.concat(response.body);
       page += 1;
       if (page >= parseInt(response.headers['x-pages'], 10)) {
@@ -170,7 +176,7 @@ class AssetsModel {
     return allResponses;
   }
 
-  async get(userId, tok, filterString) {
+  async get(userId, tok) {
     this.id = userId;
     // force price cache load
     getPrice(0);
@@ -185,16 +191,14 @@ class AssetsModel {
       const assetList = this.buildLocationLists(allResponses);
       // build promises
       const typePromises = Object.keys(this.typeIds).map(id => this.getTypeName(id));
-      const locationPromises = Object.keys(this.locationIds)
-        .map(id => this.getLocationInfo(id));
+      const locationPromises = Object.keys(this.locationIds).map(id => this.getLocationInfo(id));
       // resolve all the promises
-      return Promise.all(typePromises.concat(locationPromises))
-        .then(() => {
-          // pass 2 add the type and location names to each asset
-          const assets = this.addLocationDetails(assetList, true);
-          // pass 3 build the tree
-          return AssetsModel.buildTree(assets);
-        });
+      return Promise.all(typePromises.concat(locationPromises)).then(() => {
+        // pass 2 add the type and location names to each asset
+        const assets = this.addLocationDetails(assetList, true);
+        // pass 3 build the tree
+        return AssetsModel.buildTree(assets);
+      });
     } catch (err) {
       logging.error(`AssetModel get ${err.message}`);
       return false;
@@ -209,9 +213,11 @@ class AssetsModel {
     // note ESI needs to point to /latest/ not /v1/
     const response = await this.getAllPages();
     try {
+      const assetNodes = {};
       const typesNeeded = {};
       response.forEach((asset) => {
         typesNeeded[asset.type_id] = '';
+        assetNodes[asset.item_id] = asset;
       });
       const typePromises = Object.keys(typesNeeded).map((id) => {
         const typeRecord = new TypeModel();
@@ -224,33 +230,61 @@ class AssetsModel {
             this.typeIds[item.id] = item.name;
           }
         });
-        const bps = response.filter(asset => (asset.type_id in this.typeIds));
+        const bps = response.filter(asset => asset.type_id in this.typeIds);
         // pass 1 - get list of ids
         bps.forEach((asset) => {
+          console.log('item', asset.item_id)
+          let node = asset;
+          while (node) {
+            asset.system_id = node.location_id;
+            node = assetNodes[node.location_id];
+            console.log('up', asset.location_id)
+
+          }
           this.locationIds[asset.location_id] = '';
+          this.locationIds[asset.system_id] = '';
+          console.log('location', asset.system_id)
         });
         // build promises
-        const locationPromises = Object.keys(this.locationIds)
-          .map(id => this.getLocationInfo(id));
+        const locationPromises = Object
+          .keys(this.locationIds)
+          .map(id => NameCache.getLocation(id, this.token));
         // resolve all the promises
         return Promise.all(locationPromises)
-          .then(() => {
-            // pass 2 add the type and location names to each asset
-            const namedAssets = bps.map(asset => (
-              {
-                ...asset,
-                type: this.typeIds[asset.type_id],
-                system: (this.locationIds[asset.location_id] || {}).system_name,
-                location: (this.locationIds[asset.location_id] || {}).name,
-                location_full: this.locationIds[asset.location_id],
-              }
-            ));
-            return namedAssets;
+          .then((locations) => {
+            const lookupSystems = {};
+            locations.forEach((location) => {
+              lookupSystems[(location || {}).system_id] = '';
+              this.locationIds[(location || {}).id] = location;
+            });
+            const systemPromises = Object
+              .keys(lookupSystems)
+              .map(key => NameCache.getLocation(key, this.token));
+            return Promise.all(systemPromises)
+              .then((systems) => {
+                systems.forEach((system) => {
+                  this.locationIds[(system || {}).id] = system;
+                });
+                // pass 2 add the type and location names to each asset
+                const namedAssets = bps.map((asset) => {
+                  let location = (this.locationIds[asset.location_id] || {}).name;
+                  if (!location) {
+                    location = (this.locationIds[asset.system_id] || {}).name;
+                  }
+                  return {
+                    ...asset,
+                    type: this.typeIds[asset.type_id],
+                    location,
+                    location_full: this.locationIds[asset.location_id],
+                  };
+                });
+                return namedAssets;
+              });
           });
       });
     } catch (err) {
       logging.error(`AssetModel Blueprints get ${err.message}`);
-      return false;
+      return { error: err.message };
     }
 
     // add to the tree
