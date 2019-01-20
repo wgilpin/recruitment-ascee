@@ -79,15 +79,16 @@ class SkillsModel {
   async getQueue() {
     try {
       this.queue = [];
-      const esiSkillQ = await Esi.characters(this.id, this.tok).skillqueue();
+      const esiRes = await Esi.get(Esi.kinds.SkillQueue, this.id, this.tok);
+      const esiSkillQ = esiRes.body;
       if (esiSkillQ.length > 0) {
         esiSkillQ.forEach((esiRecord) => {
           const { skill_id, level_end_sp, level_start_sp } = esiRecord;
           const { name } = this.static.skillList[skill_id];
           this.queue.push({
             ...esiRecord,
-            finish_date: level_end_sp,
-            start_date: level_start_sp,
+            // finish_date: level_end_sp,
+            // start_date: level_start_sp,
             skill_id: { name, id: skill_id },
           });
         });

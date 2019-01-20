@@ -60,8 +60,10 @@ const EsiKinds = {
   Alliance: { method: 'GET', url: 'alliances/{0}?' },
   // Corporation 0: corp_id
   Corporation: { method: 'GET', url: 'corporations/{0}?' },
-  // Character 0: charId
+  // Character 0: charId, 1: token
   Skills: { method: 'GET', url: 'characters/{0}/skills?' },
+  // Character 0: charId, 1: token
+  SkillQueue: { method: 'GET', url: 'characters/{0}/skillqueue?' },
   // System 0: systemId
   Prices: { method: 'GET', url: 'markets/prices/?' },
 };

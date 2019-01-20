@@ -67,7 +67,7 @@ class AssetsModel {
     }
   }
 
-  addLocationDetails(assetList) {
+  addLocationDetails(assetList, addSystems) {
     // after the details are fetched, add to the items in the list
     const assetDict = {};
     assetList.forEach((asset) => {
@@ -80,7 +80,7 @@ class AssetsModel {
       };
       const assetSystem = (namedAsset.location || {}).system_name;
       assetDict[namedAsset.item_id] = namedAsset;
-      if (assetSystem) {
+      if (assetSystem && addSystems) {
         if (!(asset.location_id in assetDict)) {
           // the system wasn't in the tree
           assetDict[namedAsset.location_id] = {
@@ -154,7 +154,23 @@ class AssetsModel {
     return assetList;
   }
 
-  async get(userId, tok) {
+  async getAllPages() {
+    let allPagesLoaded = false;
+    let allResponses = [];
+    let page = 1;
+    while (!allPagesLoaded) {
+      // eslint-disable-next-line no-await-in-loop
+      const response = await Esi.get(Esi.kinds.Assets, this.id, this.token, page);
+      allResponses = allResponses.concat(response.body);
+      page += 1;
+      if (page >= parseInt(response.headers['x-pages'], 10)) {
+        allPagesLoaded = true;
+      }
+    }
+    return allResponses;
+  }
+
+  async get(userId, tok, filterString) {
     this.id = userId;
     // force price cache load
     getPrice(0);
@@ -162,18 +178,7 @@ class AssetsModel {
 
     // read the list of assets
     // note ESI needs to point to /latest/ not /v1/
-    let allPagesLoaded = false;
-    let allResponses = [];
-    let page = 1;
-    while (!allPagesLoaded) {
-      // eslint-disable-next-line no-await-in-loop
-      const response = await Esi.get(Esi.kinds.Assets, userId, this.token, page);
-      allResponses = allResponses.concat(response.body);
-      page += 1;
-      if (page >= parseInt(response.headers['x-pages'], 10)) {
-        allPagesLoaded = true;
-      }
-    }
+    const allResponses = await this.getAllPages();
     try {
       // const assetList = response.body.sort((a, b) => a.location_id - b.location_id);
       // pass 1 - get list of ids
@@ -186,7 +191,7 @@ class AssetsModel {
       return Promise.all(typePromises.concat(locationPromises))
         .then(() => {
           // pass 2 add the type and location names to each asset
-          const assets = this.addLocationDetails(assetList);
+          const assets = this.addLocationDetails(assetList, true);
           // pass 3 build the tree
           return AssetsModel.buildTree(assets);
         });
@@ -202,28 +207,51 @@ class AssetsModel {
 
     // read the list of assets
     // note ESI needs to point to /latest/ not /v1/
-    return Esi.get(Esi.kinds.Assets, userId, this.token, 1).then((response) => {
-      try {
-        // const assetList = response.body.sort((a, b) => a.location_id - b.location_id);
+    const response = await this.getAllPages();
+    try {
+      const typesNeeded = {};
+      response.forEach((asset) => {
+        typesNeeded[asset.type_id] = '';
+      });
+      const typePromises = Object.keys(typesNeeded).map((id) => {
+        const typeRecord = new TypeModel();
+        return typeRecord.get(id);
+      });
+      return Promise.all(typePromises).then((data) => {
+        data.forEach((item) => {
+          // only save blueprints
+          if (item.name.indexOf('lueprint') > -1) {
+            this.typeIds[item.id] = item.name;
+          }
+        });
+        const bps = response.filter(asset => (asset.type_id in this.typeIds));
         // pass 1 - get list of ids
-        const assetList = this.buildLocationLists(response.body);
+        bps.forEach((asset) => {
+          this.locationIds[asset.location_id] = '';
+        });
         // build promises
-        const typePromises = Object.keys(this.typeIds).map(id => this.getTypeName(id));
         const locationPromises = Object.keys(this.locationIds)
           .map(id => this.getLocationInfo(id));
         // resolve all the promises
-        return Promise.all(typePromises.concat(locationPromises))
+        return Promise.all(locationPromises)
           .then(() => {
             // pass 2 add the type and location names to each asset
-            const assets = this.addLocationDetails(assetList);
-            // pass 3 build the tree
-            return assets.filter(asset => asset.name.indexOf('lueprint') > -1);
+            const namedAssets = bps.map(asset => (
+              {
+                ...asset,
+                type: this.typeIds[asset.type_id],
+                system: (this.locationIds[asset.location_id] || {}).system_name,
+                location: (this.locationIds[asset.location_id] || {}).name,
+                location_full: this.locationIds[asset.location_id],
+              }
+            ));
+            return namedAssets;
           });
-      } catch (err) {
-        logging.error(`AssetModel Blueprints get ${err.message}`);
-        return false;
-      }
-    });
+      });
+    } catch (err) {
+      logging.error(`AssetModel Blueprints get ${err.message}`);
+      return false;
+    }
 
     // add to the tree
   }

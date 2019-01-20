@@ -10,6 +10,7 @@ import bookmarkImg from './images/bookmarks.png';
 import contractsImg from './images/contracts.png';
 import calendarImg from './images/eve_calendar.png';
 import marketImg from './images/eve_market.png';
+import contactsImg from './images/eve_people.png';
 
 const propTypes = {
   onTabChange: PropTypes.func,
@@ -57,7 +58,7 @@ export default class TabsHeader extends React.Component {
       <div style={styles.div}>
         <RoundImage style={{ gridColumn: 2, gridRow: 1 }} size={40} src={walletImg} onClick={this.showTab} name="wallet"/>
         <span style={{ gridColumn: 1, ...styles.span }} onClick={this.showTab} name="wallet">Wallet</span>
-        <RoundImage style={{ gridColumn: 3, gridRow: 1 }} size={40} src={assetsImg} onClick={this.showTab} name="contacts"/>
+        <RoundImage style={{ gridColumn: 3, gridRow: 1 }} size={40} src={contactsImg} onClick={this.showTab} name="contacts"/>
         <span style={{ gridColumn: 2, ...styles.span }} onClick={this.showTab} name="contacts">Contacts</span>
         <RoundImage style={{ gridColumn: 4, gridRow: 1 }} size={40} src={assetsImg} onClick={this.showTab} name="assets"/>
         <span style={{ gridColumn: 3, ...styles.span }} onClick={this.showTab} name="assets">Assets</span>

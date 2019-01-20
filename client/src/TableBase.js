@@ -154,7 +154,7 @@ export default class TableBase extends React.Component {
             }
           }
         }
-        if (!!this.groupBy.length) {
+        if (this.groupBy.length > 0) {
           this.buildGroups();
         }
       });
