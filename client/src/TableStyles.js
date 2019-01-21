@@ -25,6 +25,9 @@ export default class TableStyles {
     display: 'table-row',
     padding: '6px',
   },
+  nowrap: {
+    whiteSpace: 'nowrap',
+  },
   cell: {
     textAlign: 'left',
     display: 'table-cell',

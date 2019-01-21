@@ -57,11 +57,11 @@ export default class Wallet extends React.Component {
 
     return (
       <div style={styles.row} key={key}>
+        <div style={{...lineStyle, ...styles.nowrap }}>{theDate}</div>
         <div style={lineStyle}>{Math.round(amount).toLocaleString()}</div>
         <div style={lineStyle}>{Math.round(balance).toLocaleString()}</div>
         <div style={lineStyle}>{description}</div>
         <div style={lineStyle}>{second_party_id.name}</div>
-        <div style={lineStyle}>{theDate}</div>
       </div>
     );
   }
