@@ -2,19 +2,21 @@ from .esi import get_op, get_paged_op
 from .universe import get_location_name, get_corporation_name, get_alliance_name
 import cachetools
 
-character_cache = cachetools.LRUCache(maxsize=1000)
-
 # leaving apiCharacter.js, apiLinks.js for now
 
+SECONDS_TO_CACHE = 10 * 60
 
+
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_calendar(character_id):
     calendar_data = get_op(
         'get_characters_character_id_calendar',
         auth_id=character_id, character_id=character_id
     )
-    return calendar_data
+    return {'info': calendar_data}
 
 
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_wallet(character_id):
     wallet_data = get_paged_op(
         'get_characters_character_id_wallet_journal',
@@ -30,11 +32,12 @@ def get_character_wallet(character_id):
     return {'info': wallet_data}
 
 
-@cachetools.cached(character_cache)
+@cachetools.cached(cachetools.LRUCache(maxsize=1000))
 def get_character_name(character_id):
     return get_op('get_characters_character_id', character_id=character_id)['name']
 
 
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_contacts(character_id):
     contacts_list = get_paged_op(
         'get_characters_character_id_contacts',
@@ -53,6 +56,7 @@ def get_character_contacts(character_id):
     return contacts_dict
 
 
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_contracts(character_id):
     contract_list = get_paged_op(
         'get_characters_character_id_contracts',
@@ -71,10 +75,17 @@ def get_character_market_contracts(character_id):
     return {'info': contract_list}
 
 
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_assets(character_id):
+    asset_list = get_paged_op(
+        'get_characters_character_id_assets',
+        auth_id=character_id,
+        character_id=character_id,
+    )
     pass
 
 
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_bookmarks(character_id):
     bookmarks_list = get_paged_op(
         'get_characters_character_id_bookmarks',
@@ -85,6 +96,7 @@ def get_character_bookmarks(character_id):
     return bookmarks_dict
 
 
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_mail(character_id):
     mail_list = get_paged_op(
         'get_characters_character_id_mail',
@@ -92,8 +104,10 @@ def get_character_mail(character_id):
         character_id=character_id,
     )
     mail_dict = {entry['mail_id']: entry for entry in mail_list}
+    return mail_dict
 
 
+@cachetools.cached(cachetools.LRUCache(maxsize=500))
 def get_mail_body(character_id, mail_id):
     mail_data = get_op(
         'get_characters_character_id_mail_mail_id',
@@ -104,6 +118,7 @@ def get_mail_body(character_id, mail_id):
     return mail_data
 
 
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_history(character_id):
     order_list = get_paged_op(
         'get_characters_character_id_orders_history',
@@ -113,6 +128,16 @@ def get_character_market_history(character_id):
     return order_list
 
 
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_skills(character_id):
-    pass
-
+    skill_data = get_op(
+        'get_characters_character_id_skills',
+        auth_id=character_id,
+        character_id=character_id,
+    )
+    queue_data = get_op(
+        'get_characters_character_id_skillqueue',
+        auth_id=character_id,
+        character_id=character_id,
+    )
+    return {'skills': skill_data, 'queue': queue_data}
