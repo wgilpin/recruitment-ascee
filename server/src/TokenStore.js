@@ -25,6 +25,7 @@ class TokenStore {
     let expires;
     let refreshToken;
     let accessToken;
+    // have we got a token?
     if (userId in this.tokens && this.tokens[userId].refreshToken) {
       ({ expires, refreshToken, accessToken } = this.tokens[userId]);
       if (new Date() < expires) {
@@ -34,6 +35,7 @@ class TokenStore {
     } else {
       logging.debug(`Token Expired for ${userId}`);
       this.tokens[userId] = {};
+      // generate the key for the datastore
       this.key = Store.datastore.key({ path: [kind, parseInt(userId, 10)] });
       let dbEntity;
       try {
@@ -54,6 +56,7 @@ class TokenStore {
       const { access_token, expires_in } = await Oauth.refreshToken(refreshToken);
       this.tokens[userId].accessToken = access_token;
       const now = new Date();
+      // calc expiration time
       const expirationTime = now.setSeconds(now.getSeconds() + expires_in);
       this.tokens[userId].expires = expirationTime;
       return access_token;

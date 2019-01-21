@@ -28,7 +28,7 @@ class Oauth {
         expires: expirationTime,
         accessToken: access_token,
         refreshToken: refresh_token,
-        loginKind: state.split(':')[0].trim(),
+        loginKind: state.split(':')[0].trim(), // we added 'main' or 'alt to the state. Strip it.
       };
       return res;
     } catch (err) {
