@@ -1,5 +1,8 @@
 from .esi import get_op, get_paged_op
 from .universe import get_location_name, get_corporation_name, get_alliance_name
+import cachetools
+
+character_cache = cachetools.LRUCache(maxsize=1000)
 
 # leaving apiCharacter.js, apiLinks.js for now
 
@@ -27,6 +30,7 @@ def get_character_wallet(character_id):
     return {'info': wallet_data}
 
 
+@cachetools.cached(character_cache)
 def get_character_name(character_id):
     return get_op('get_characters_character_id', character_id=character_id)['name']
 
