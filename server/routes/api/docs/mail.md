@@ -1,4 +1,9 @@
-# Mail API
+# Mail APIs
+
+1. Mail API
+2. Mail Body API
+
+# 1. Mail List API
 
 ## Request Params
 
@@ -65,7 +70,7 @@ API adds to each item:
 }
 ````
 
-# Mail Item API
+# 2. Mail Item API
 
 ## Request Params
 
