@@ -47,17 +47,13 @@ export default class Skill extends React.Component {
       for (let idx in json.queue) {
         queue.push(json.queue[idx]);
         let { finished_level, skill_id: { name } } = json.queue[idx];
-        console.log('added', idx, name, finished_level)
         // store the level being trained to for later
         if (trainLevels[name]) {
-          console.log('update', name, finished_level)
           trainLevels[name].finish = finished_level;
         } else {
           // it only doesn't have this prop the first time
-          console.log('start is ', finished_level - 1)
           trainLevels[name] = { start: finished_level - 1, finish: finished_level };
         }
-        console.log('end iter', trainLevels[name])
       }
     }
     let groupedList = {};
