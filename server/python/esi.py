@@ -47,8 +47,8 @@ class ESIError(Exception):
     pass
 
 
-def get_op(op_name, user_id=None, **kwargs):
-    esiClient = get_esi_client(user_id)
+def get_op(op_name, auth_id=None, **kwargs):
+    esiClient = get_esi_client(auth_id)
     response = esiClient.request(esi_app.op[op_name](**kwargs))
     if isinstance(response, dict) and 'error' in response.keys():
         raise ESIError(response['error'])
@@ -56,8 +56,8 @@ def get_op(op_name, user_id=None, **kwargs):
         return response.data
 
 
-def get_paged_op(op_name, user_id, **kwargs):
-    esi_client = get_esi_client(user_id)
+def get_paged_op(op_name, auth_id=None, **kwargs):
+    esi_client = get_esi_client(auth_id)
     response = esi_client.request(esi_app.op[op_name](page=1, **kwargs))
     return_list = []
     return_list.extend(response.data)
