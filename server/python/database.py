@@ -10,7 +10,6 @@ class User(ndb.Model):
     is_admin = ndb.BooleanProperty(default=False)
     is_recruiter = ndb.BooleanProperty(default=False)
     is_senior_recruiter = ndb.BooleanProperty(default=False)
-    character_ids = ndb.IntegerProperty(repeated=True)
 
 
 class Type(ndb.Model):
@@ -53,10 +52,11 @@ class Recruit(ndb.Model):
 
 
 class Character(ndb.Model):
-    id = ndb.IntegerProperty()
-    name = ndb.StringProperty()
-    corporation_id = ndb.IntegerProperty()
-    is_male = ndb.BooleanProperty()
+    id = ndb.IntegerProperty(required=True)
+    user_id = ndb.IntegerProperty(required=True)
+    name = ndb.StringProperty(required=True)
+    corporation_id = ndb.IntegerProperty(required=True)
+    is_male = ndb.BooleanProperty(required=True)
     refreshToken = ndb.StringProperty()
     px64x64 = ndb.StringProperty()
     px128x128 = ndb.StringProperty()

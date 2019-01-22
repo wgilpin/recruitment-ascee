@@ -14,9 +14,9 @@
 
 ### Enrichment
 
-Added `groupname` and `name` to skill list
+Added `group_name` and `skill_name` to skill list
 
-Added `name` to queue
+Added `group_name` and `skill_name` to queue
 
 
 ```

@@ -46,7 +46,7 @@ API adds to each item:
       "from": { "id": 299590276, "name": "Major Sniper" },
       "labels": [4],
       "mail_id": 374341459,
-      "recipients": [{ "name": "" }],
+      "recipients": ["", "", ...],
       "subject": "A gentle reminder",
       "timestamp": "2019-01-21T14:11:00Z"
     },
@@ -54,7 +54,7 @@ API adds to each item:
       "from": { "id": 299590276, "name": "Major Sniper" },
       "labels": [4],
       "mail_id": 374302352,
-      "recipients": [{ "name": "" }],
+      "recipients": [""],
       "subject": "December 2018 PVP for Prizes and stuff",
       "timestamp": "2019-01-18T18:11:00Z"
     },
@@ -62,7 +62,7 @@ API adds to each item:
       "from": { "id": 299590276, "name": "Major Sniper" },
       "labels": [4],
       "mail_id": 374279690,
-      "recipients": [{ "name": "" }],
+      "recipients": [""],
       "subject": "1DQ1, Hostiles and your mentality of Safe Space",
       "timestamp": "2019-01-16T19:20:00Z"
     }
