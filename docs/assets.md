@@ -25,7 +25,25 @@ ESI returns
   "quantity": 1,
   "type_id": 3516
 ```
-API builds a tree based on location id. Note the top level items are all systems, and subsequent nodes of the tree arranged such that if item X has location_d=Y, then location=Y has items containing X.
+API builds a tree based on location id. Note the top level items are all regions, second level items are all systems, third level items are stations or structures, and subsequent nodes of the tree arranged such that if item X has location_d=Y, then location=Y has items containing X.
+
+Some examples of the tree structure:
+```
+# an attribute of an item:
+data[region_id]['items'][system_id]['items'][structure_id]['items'][item_id][attribute_name]
+
+# an attribute of an item in a container (e.g. Hangar)
+data[region_id]['items'][system_id]['items'][structure_id]['items'][container_name]['items'][item_name][attribute_name]
+
+# whether a region is redlisted:
+data[region_id]['redlisted']  # True/False
+
+# name of a region:
+data[region_id]['name']
+
+# name of a structure:
+data[region_id]['items'][system_id]['items'][structure_id]['name']
+```
 
 API also adds to each item
 
