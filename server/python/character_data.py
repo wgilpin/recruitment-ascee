@@ -1,5 +1,10 @@
 from .esi import get_op, get_paged_op
-from .universe import get_location_name, get_corporation_name, get_alliance_name
+from .universe import (
+    get_corporation_name,
+    get_alliance_name, get_type_name, get_type_price, get_region_name,
+    get_skill_name, get_skill_group_name, get_station_system, get_station_name,
+    get_structure_system, get_structure_name
+)
 import cachetools
 
 # leaving apiCharacter.js, apiLinks.js for now
@@ -52,7 +57,10 @@ def get_character_contacts(character_id):
             character_id=contact_id
         )
         entry['corporation_id'] = more_contact_data['corporation_id']
-        entry['alliance_id'] = more_contact_data.get('alliance_id', None)
+        entry['corporation_name'] = get_corporation_name(entry['corporation_id'])
+        if 'alliance_id' in more_contact_data:
+            entry['alliance_id'] = more_contact_data['alliance_id']
+            entry['alliance_name'] = get_alliance_name(entry['alliance_id'])
     return contacts_dict
 
 
@@ -82,7 +90,48 @@ def get_character_assets(character_id):
         auth_id=character_id,
         character_id=character_id,
     )
-    pass
+    for entry in asset_list:
+        entry['type_name'] = get_type_name(entry['type_id'])
+        entry['price'] = get_type_price(entry['type_id']) * entry['quantity']
+    return organize_assets_by_location(asset_list)
+
+
+def organize_assets_by_location(asset_list):
+    asset_dict = {
+        entry['item_id']: entry for entry in asset_list
+    }
+    location_set = set(entry['location_id'] for entry in asset_list)
+    location_dict = {id: [] for id in location_set}
+    for entry in asset_list:
+        location_dict[entry['location_id']].append(entry)
+    for item_id, entry in asset_dict.items():
+        if item_id in location_dict:
+            entry['items'] = location_dict[item_id]
+
+    system_names = {}
+    location_names = {}
+    id_dict = {}
+    for location_id in location_dict:
+        if 60000000 <= location_id < 64000000:  # station
+            system_id, system_name = get_station_system(location_id)
+            location_names[location_id] = get_station_name(location_id)
+            system_names[system_id] = system_name
+            id_dict[system_id] = id_dict.get(system_id, {})
+            id_dict[system_id][location_id] = location_dict[location_id]
+        elif location_id > 50000000:  # structure
+            system_id, system_name = get_structure_system(location_id)
+            location_names[location_id] = get_structure_name(location_id)
+            system_names[system_id] = system_name
+            id_dict[system_id] = id_dict.get(system_id, {})
+            id_dict[system_id][location_id] = location_dict[location_id]
+    return_dict = {
+        system_names[system_id]: {
+            location_names[location_id]: id_dict[system_id][location_id]
+            for location_id in id_dict[system_id].keys()
+        } for system_id in id_dict.keys()
+    }
+
+    return return_dict
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
@@ -93,7 +142,16 @@ def get_character_bookmarks(character_id):
         character_id=character_id,
     )
     bookmarks_dict = {entry['bookmark_id']: entry for entry in bookmarks_list}
-    return bookmarks_dict
+    for bookmark_id, entry in bookmarks_dict.items():
+        if 'folder_id' in entry.keys():
+            entry['folder_name'] = get_op(
+                'get_characters_character_id_bookmarks_folder',
+                auth_id=character_id,
+                character_id=character_id,
+                folder_id=entry['folder_id']
+            )['name']
+            entry['system_id'], entry['system_name'] = get_location_system(entry['location_id'])
+    return {'info': bookmarks_dict}
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
@@ -104,6 +162,15 @@ def get_character_mail(character_id):
         character_id=character_id,
     )
     mail_dict = {entry['mail_id']: entry for entry in mail_list}
+    for mail_id, entry in mail_dict:
+        from_id = entry['from']
+        entry['from'] = {
+            'id': from_id,
+            'name': get_character_name(from_id)
+        }
+        entry['recipients'] = [
+            get_character_name(item['recipient_id'] for item in entry['recipients'])
+        ]
     return mail_dict
 
 
@@ -121,10 +188,21 @@ def get_mail_body(character_id, mail_id):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_history(character_id):
     order_list = get_paged_op(
-        'get_characters_character_id_orders_history',
+        'get_characters_character_id_orders',
         auth_id=character_id,
         character_id=character_id,
     )
+    order_list.extend(get_paged_op(
+        'get_characters_character_id_orders_history',
+        auth_id=character_id,
+        character_id=character_id,
+    ))
+    for order in order_list:
+        if order['is_buy_order']:
+            order['price'] *= -1
+        order['location_name'] = get_location_name(order['location_id'])
+        order['region_name'] = get_region_name(order['region_id'])
+        order['type_name'] = get_type_name(order['type_id'])
     return order_list
 
 
@@ -140,4 +218,11 @@ def get_character_skills(character_id):
         auth_id=character_id,
         character_id=character_id,
     )
-    return {'skills': skill_data, 'queue': queue_data}
+    for skill_list in skill_data, queue_data:
+        for entry in skill_list:
+            skill_id = entry['skill_id']
+            entry['skill_id'] = {
+                'group_name': get_skill_group_name(skill_id),
+                'skill_name': get_skill_name(skill_id),
+            }
+    return {'info': {'skills': skill_data, 'queue': queue_data}}

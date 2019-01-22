@@ -22,9 +22,9 @@ API
   + buy order -ve
   + sell order +ve
   + from `is_buy_order`
-* `location`
-* `region`
-* `type`
+* `location_name`
+* `region_name`
+* `type_name`
 
 
 ```json

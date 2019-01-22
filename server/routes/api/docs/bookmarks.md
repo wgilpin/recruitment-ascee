@@ -16,8 +16,9 @@
 
 API adds
 
-* folder (from ESI bookmark folders API)
-* system
+* folder_name (from ESI bookmark folders API), only if folder_id is present
+* system_id
+* system_name
 
 
 ```json
@@ -37,8 +38,8 @@ API adds
       "location_id": 30045305,
       "notes": "",
       "id": 767404088,
-      "folder": "Empire",
-      "system": "Clellinon"
+      "folder_name": "Empire",
+      "system_name": "Clellinon"
     },
     "768429729": {
       "bookmark_id": 768429729,
@@ -50,8 +51,8 @@ API adds
       "location_id": 30005305,
       "notes": "",
       "id": 768429729,
-      "folder": "Empire",
-      "system": "Cistuvaert"
+      "folder_name": "Empire",
+      "system_name": "Cistuvaert"
     },
     "773400605": {
       "bookmark_id": 773400605,
@@ -67,8 +68,8 @@ API adds
       "location_id": 30005306,
       "notes": "",
       "id": 773400605,
-      "folder": "Empire",
-      "system": "Vaere"
+      "folder_name": "Empire",
+      "system_name": "Vaere"
     },
     "773830966": {
       "bookmark_id": 773830966,
@@ -84,8 +85,8 @@ API adds
       "location_id": 30002053,
       "notes": "",
       "id": 773830966,
-      "folder": "Empire",
-      "system": "Hek"
+      "folder_name": "Empire",
+      "system_name": "Hek"
     }
   }
 }
