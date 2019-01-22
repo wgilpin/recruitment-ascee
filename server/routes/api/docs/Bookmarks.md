@@ -2,7 +2,7 @@
 
 ## Request Params
 
-`userId` {int} 
+`userId` {int}
 
     ESI id for alt
 
@@ -15,11 +15,12 @@
 ### Enrichment
 
 API adds
+
 * folder (from ESI bookmark folders API)
 * system
 
 
-```
+```json
 {
   "info": {
     "767404088": {

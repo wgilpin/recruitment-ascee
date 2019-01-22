@@ -2,7 +2,7 @@
 
 ## Request Params
 
-`userId` {int} 
+`userId` {int}
 
     ESI id for alt
 
@@ -12,7 +12,8 @@
 
 ## Sample Output
 
-```{
+```json
+{
   "info": [
     {
       "event_date": "2019-02-03T22:00:00Z",

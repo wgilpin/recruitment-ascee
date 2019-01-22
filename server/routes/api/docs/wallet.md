@@ -2,7 +2,7 @@
 
 ## Request Params
 
-`userId` {int} 
+`userId` {int}
 
     ESI id for alt
 
@@ -18,8 +18,7 @@ first_party_id is enriched with `name`
 
 second_party_id is enriched with `name`
 
-
-```
+```json
 {
   "info": [
     {
@@ -281,7 +280,7 @@ second_party_id is enriched with `name`
         "name": "Billy Antollarenti",
         "id": 92900739
       }
-    },
-  },
+    }
+  ]
 }
 ```

@@ -2,7 +2,7 @@
 
 ## Request Params
 
-`userId` {int} 
+`userId` {int}
 
     ESI id for alt
 
@@ -15,7 +15,8 @@
 ### Enrichment
 
 ESI only supplies
-```
+
+```json
   [
     {
       "contact_id": 2112625428,
@@ -24,15 +25,16 @@ ESI only supplies
     }
   ]
 ```
+
 API adds
+
 * name
-* corporation_id
-* corp
-* alliance_id
-* alliance
+* `corporation_id`
+* `corp`
+* `alliance_id`
+* `alliance`
 
-
-```
+```json
 {
   "info": [
     {
@@ -73,6 +75,6 @@ API adds
       "name": "Alene Guirmeranes",
       "corporation_id": 1000122
     },
-  },
+  ],
 }
 ```

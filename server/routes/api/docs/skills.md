@@ -2,7 +2,7 @@
 
 ## Request Params
 
-`userId` {int} 
+`userId` {int}
 
     ESI id for alt
 
@@ -18,8 +18,7 @@ Added `groupname` and `name` to skill list
 
 Added `name` to queue
 
-
-```
+```json
 {
   "info": {
     "skills": [

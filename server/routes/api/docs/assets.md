@@ -25,14 +25,15 @@ ESI returns
   "quantity": 1,
   "type_id": 3516
 ```
-API builds a tree based on locattion id. Note the top level items are all systems, and subsequent nodes of the tree arranged such that if item X has location_d=Y, then location=Y has items containing X.
+API builds a tree based on location id. Note the top level items are all systems, and subsequent nodes of the tree arranged such that if item X has location_d=Y, then location=Y has items containing X.
 
-API also adds to each item:
+API also adds to each item
+
 * Location name {string}
 * type {string name}
 * price {float} from prices ESI endpoint
 
-```
+```json
 {
   "info":
   {
@@ -50,8 +51,9 @@ API also adds to each item:
             "1029463346514":
             {
               "is_singleton":true,
-              "item_id":1029463346514
-              location_flag":"AssetSafety","location_id":60000085,
+              "item_id":1029463346514,
+              "location_flag":"AssetSafety",
+              "location_id":60000085,
               "location_type":"station",
               "quantity":1,
               "type_id":60,
@@ -217,7 +219,7 @@ API also adds to each item:
         },
       },
     },
-  } ,
+  ] ,
 },
 
 ````

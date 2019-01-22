@@ -4,7 +4,7 @@ This is a filtered view of the assets tree, with blueprints and locations includ
 
 ## Request Params
 
-`userId` {int} 
+`userId` {int}
 
     ESI id for alt
 
@@ -17,7 +17,7 @@ This is a filtered view of the assets tree, with blueprints and locations includ
 ### Enrichment
 
 ESI returns 
-```
+```json
   "is_blueprint_copy": true,
   "is_singleton": true,
   "item_id": 1000000016835,
@@ -27,13 +27,13 @@ ESI returns
   "quantity": 1,
   "type_id": 3516
 ```
-API builds a tree based on locattion id. Note the top level items are all systems, and subsequent nodes of the tree arranged such that if item X has location_d=Y, then location=Y has items containing X.
+API builds a tree based on location id. Note the top level items are all systems, and subsequent nodes of the tree arranged such that if item X has location_d=Y, then location=Y has items containing X.
 
 API also adds to each item:
 * `name` Location name {string}
 * `type` {string name}
 
-```
+```json
 {
   "info": [
     {
@@ -80,4 +80,4 @@ API also adds to each item:
     }
   ]
 }
-````
+```
