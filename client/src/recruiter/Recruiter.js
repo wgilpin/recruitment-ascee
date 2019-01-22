@@ -3,7 +3,7 @@ import FetchData from '../FetchData';
 import ClaimedIcon from 'react-ionicons/lib/MdStar';
 import EscalatedIcon from 'react-ionicons/lib/IosAlert';
 import Evidence from '../Evidence';
-import Misc from '../Misc';
+import Misc from '../common/Misc';
 import RoundImage from '../common/RoundImage';
 import RecruitButtonBar from './RecruitButtonBar';
 

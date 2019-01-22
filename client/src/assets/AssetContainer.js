@@ -2,7 +2,7 @@ import React from 'reactn';
 import PropTypes from 'prop-types';
 import TableStyles from '../TableStyles';
 import AssetItem from './AssetItem';
-import Misc from '../Misc';
+import Misc from '../common/Misc';
 import collapsedImg from '../images/collapsed.png';
 import expandedImg from '../images/expanded.png';
 

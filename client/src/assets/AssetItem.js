@@ -1,7 +1,7 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
 import TableStyles from '../TableStyles';
-import Misc from '../Misc';
+import Misc from '../common/Misc';
 
 const propTypes = {
   asset: PropTypes.object,

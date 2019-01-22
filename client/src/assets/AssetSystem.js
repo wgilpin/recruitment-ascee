@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TableStyles from '../TableStyles';
 import AssetContainer from './AssetContainer';
 import AssetItem from './AssetItem';
-import Misc from '../Misc';
+import Misc from '../common/Misc';
 
 
 const propTypes = {
