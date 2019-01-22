@@ -1,8 +1,8 @@
 from .esi import get_op, get_paged_op
 from .universe import (
-    get_location_name, get_location_system, get_corporation_name,
+    get_corporation_name,
     get_alliance_name, get_type_name, get_type_price, get_region_name,
-    get_skill_name, get_skill_group, get_station_system, get_station_name,
+    get_skill_name, get_skill_group_name, get_station_system, get_station_name,
     get_structure_system, get_structure_name
 )
 import cachetools
@@ -222,7 +222,7 @@ def get_character_skills(character_id):
         for entry in skill_list:
             skill_id = entry['skill_id']
             entry['skill_id'] = {
-                'group_name': get_skill_group(skill_id),
+                'group_name': get_skill_group_name(skill_id),
                 'skill_name': get_skill_name(skill_id),
             }
     return {'info': {'skills': skill_data, 'queue': queue_data}}
