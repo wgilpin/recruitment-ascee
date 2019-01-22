@@ -4,7 +4,7 @@ import ClaimedIcon from 'react-ionicons/lib/MdStar';
 import EscalatedIcon from 'react-ionicons/lib/IosAlert';
 import Evidence from '../Evidence';
 import Misc from '../Misc';
-import RoundImage from '../RoundImage';
+import RoundImage from '../common/RoundImage';
 import RecruitButtonBar from './RecruitButtonBar';
 
 import TableStyles from '../TableStyles';

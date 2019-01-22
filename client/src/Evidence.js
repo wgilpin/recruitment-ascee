@@ -35,6 +35,14 @@ const styles = {
   tabBody: {
     paddingTop: '50px',
   },
+  button: {
+    marginBottom: '6px',
+    height: '32px',
+    width: '90%',
+    backgroundColor: '#111',
+    color: 'lightgray',
+    borderWidth: 0,
+  }
 };
 
 export default class Evidence extends React.Component {
@@ -57,6 +65,10 @@ export default class Evidence extends React.Component {
     this.setState({ currentAlt: altId, activeTab: null });
   }
 
+  doLogout() {
+    window.location = '/app/';
+  }
+
   render() {
     let active = (this.state || {}).activeTab;
     return (
@@ -65,6 +77,7 @@ export default class Evidence extends React.Component {
           <Alts main={this.props.main}
             onAltSelect={this.changeAlt}
           />
+          <button style={styles.button} onClick={this.doLogout}>Sign out</button>
         </div>
         <div style={styles.right} >
           <div style={styles.tabHeader}>

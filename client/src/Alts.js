@@ -6,6 +6,7 @@ import FetchData from './FetchData';
 const propTypes = {
   onAltSelect: PropTypes.func,
   main: PropTypes.number,
+  style: {},
 };
 
 const defaultProps = {
@@ -15,6 +16,7 @@ const defaultProps = {
 const styles = {
   outer: {
     height: '100%',
+    position: 'relative',
   },
   div: {
     display: 'block',
@@ -56,7 +58,7 @@ export default class Alts extends React.Component {
 
   render() {
     return (
-      <div style={styles.outer}>
+      <div style={{...styles.outer, ...this.props.style }}>
         <hr style={styles.hr} />
         {Object.keys(this.state.alts || {}).map(key => {
           const alt = this.state.alts[key];
@@ -70,6 +72,7 @@ export default class Alts extends React.Component {
             />
           );
         })}
+        {this.props.children}
         <hr style={styles.hr} />
       </div>
     );

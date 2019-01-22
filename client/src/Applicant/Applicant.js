@@ -4,6 +4,8 @@ import 'react-tabs/style/react-tabs.css';
 import Alts from '../Alts';
 import FetchData from '../FetchData';
 import styles from './ApplicantStyles';
+import AsceeImg from '../images/ascee_logo.png';
+import FabButton from '../common/fabButton';
 
 export default class Applicant extends Component {
   constructor(props) {
@@ -17,7 +19,9 @@ export default class Applicant extends Component {
   }
 
   applicationStatus() {
-    return 'Application not completed';
+    return <div style={{ ...styles.padded, ...styles.heading }}>
+      Application not completed
+    </div>
   }
 
   questionsToState = data => {
@@ -84,7 +88,7 @@ export default class Applicant extends Component {
           return (
             <React.Fragment>
               <div style={styles.padded}>{q.q}</div>
-              <textarea id={q.q} onChange={this.handleAnswerChanged}>
+              <textarea style={styles.answer} id={q.q} onChange={this.handleAnswerChanged}>
                 {q.a}
               </textarea>
               <hr style={styles.hr} />
@@ -98,13 +102,19 @@ export default class Applicant extends Component {
   buildHeader = () => {
     return (
       <React.Fragment>
-        <div style={styles.padded}>
+        <div style={styles.header}>
+          <h1 style={styles.h1}>
+            <img src={AsceeImg} style={styles.logo} alt="Ascendance" />
+            Applying to Ascendance
+          </h1>
+        </div>
+        <div style={styles.paddedHeavily}>
           Start with your alts, add them all. Once that's done, move on to the
           questions.
         </div>
-        <div style={styles.submit}>
+        <div >
           {this.state.ready && (
-            <button style={styles.submit} onClick={this.submit}>
+            <button style={{ ...styles.submit, ...styles.padded }} onClick={this.submit}>
               Submit Application
             </button>
           )}
@@ -117,12 +127,7 @@ export default class Applicant extends Component {
   buildAltsPanel = () => {
     return (
       <TabPanel>
-        <h2 style={styles.heading}>My Alts</h2>
-        <div style={styles.padded}>
-          <a href="/login/alt">
-            <button style={styles.padded}>Add another alt</button>
-          </a>
-        </div>
+        <h2 style={styles.headingLeft}>My Alts</h2>
         <div style={styles.padded}>
           <label>
             I have no more alts
@@ -133,7 +138,11 @@ export default class Applicant extends Component {
             />
           </label>
         </div>
-        <Alts />
+        <Alts style={styles.alts}>
+          <a href="/login/alt">
+            {!this.state.ready && <FabButton icon="add" color="#c00" size="40px"/>}
+          </a>
+        </Alts>
       </TabPanel>
     );
   };

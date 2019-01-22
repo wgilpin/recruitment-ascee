@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RoundImage from './RoundImage';
+import RoundImage from './common/RoundImage';
 
 const propTypes = {
   name: PropTypes.string,

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RoundImage from './RoundImage';
+import RoundImage from './common/RoundImage';
 import walletImg from './images/wallet.png';
 import assetsImg from './images/assets.png';
 import mailImg from './images/mail.png';

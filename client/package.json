@@ -6,6 +6,7 @@
   "dependencies": {
     "cross-env": "^5.2.0",
     "flow": "^0.2.3",
+    "material-ui-icons": "^1.0.0-beta.36",
     "query-string": "^6.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
