@@ -1,3 +1,3 @@
-Function prompt {"client > "}
+Function global:prompt {"client > "}
 cd client
 

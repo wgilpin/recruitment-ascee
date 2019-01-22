@@ -17,7 +17,7 @@
 API adds
 
 * folder_name (from ESI bookmark folders API)
-  + only if folder_id is present
+  * only if folder_id is present
 * system_id
 * system_name
 

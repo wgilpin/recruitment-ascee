@@ -172,7 +172,7 @@ API also adds to each item
                         "price":355050.24},
                         "1022756248431":
                         {
-                          `"is_singleton":true,
+                          "is_singleton":true,
                           "item_id":1022756248431,
                           "location_flag":"MedSlot2",
                           "location_id":1022756248413,
