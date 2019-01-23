@@ -14,8 +14,9 @@
 
 ### Enrichment
 
-ESI returns 
-```
+ESI returns
+
+```json
   "is_blueprint_copy": true,
   "is_singleton": true,
   "item_id": 1000000016835,
@@ -25,6 +26,7 @@ ESI returns
   "quantity": 1,
   "type_id": 3516
 ```
+
 API builds a tree based on location id. Note the top level items are all systems, and subsequent nodes of the tree arranged such that if item X has location_d=Y, then location=Y has items containing X.
 
 API also adds to each item
