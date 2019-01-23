@@ -85,7 +85,7 @@ class Recruit(ndb.Model):
 
 class Character(ndb.Model):
     id = ndb.IntegerProperty(required=True)
-    user_id = ndb.IntegerProperty(required=True)
+    user_id = ndb.IntegerProperty()
     name = ndb.StringProperty(required=True)
     corporation_id = ndb.IntegerProperty(required=True)
     is_male = ndb.BooleanProperty(required=True)

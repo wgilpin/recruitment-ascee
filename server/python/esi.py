@@ -5,6 +5,7 @@ import pickle
 import os
 from concurrent.futures import ThreadPoolExecutor
 from database import Character
+from esi_config import client_id, secret_key, callback_url, client_name
 
 #  Cache in a file because it takes a while to load
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -16,8 +17,16 @@ esi_app = App.create('https://esi.evetech.net/latest/swagger.json')
 # else:
 #     esi_app = pickle.load(open(app_data_filename, 'rb'))
 
+client_dict = {}
+
 
 def get_esi_client(auth_id=None):
+    if auth_id not in client_dict:
+        client_dict[auth_id] = initialize_esi_client(auth_id)
+    return client_dict[auth_id]
+
+
+def initialize_esi_client(auth_id=None):
     """
     Retrieves a public or authorized ESI client.
 
@@ -29,10 +38,10 @@ def get_esi_client(auth_id=None):
         esi_client (EsiClient): Client object from esipy.
     """
     auth = EsiSecurity(
-        headers={'User-Agent': ''},
+        headers={'User-Agent': client_name},
         redirect_uri='https://localhost/callback',
-        client_id='',
-        secret_key='',
+        client_id=client_id,
+        secret_key=secret_key,
     )
     if auth_id is not None:
         auth.refresh_token = Character.get_by_id(auth_id).refresh_token
@@ -40,7 +49,7 @@ def get_esi_client(auth_id=None):
         auth,
         retry_requests=True,
         cache=DictCache(),
-        headers={'User-Agent': ''},
+        headers={'User-Agent': client_name},
     )
     return esi_client
 

@@ -25,6 +25,7 @@ from character_data import (
 )
 from recruitment import get_questions, get_answers
 from admin import get_users
+from auth import process_oauth
 
 # [START create_app]
 app = Flask(__name__)
@@ -94,6 +95,13 @@ def answers(user_id):
 def users():
     return jsonify(get_users())
 
+
+@app.route('/oauth_callback', methods=['GET'])
+def oauth_callback():
+    code = request.args.get('code')
+    state = request.args.get('state')
+    character_id = process_oauth(code, save_refresh_token=True)
+    
 
 @app.errorhandler(500)
 def server_error(e):
