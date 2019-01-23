@@ -1,5 +1,5 @@
-from .esi import get_op, get_paged_op
-from .universe import (
+from esi import get_op, get_paged_op
+from universe import (
     get_corporation_name,
     get_alliance_name, get_type_name, get_type_price, get_region_name,
     get_skill_name, get_skill_group_name, get_station_system, get_station_name,
@@ -10,6 +10,23 @@ import cachetools
 # leaving apiCharacter.js, apiLinks.js for now
 
 SECONDS_TO_CACHE = 10 * 60
+
+
+@cachetools.cached(cachetools.LRUCache(maxsize=10000))
+def get_character(character_id):
+    character = Character.get_by_id(character_id)
+    if character is None:
+        character_data = get_op(
+            'get_characters_character_id',
+            character_id=character_id
+        )
+        character = Character(
+            id=character_id,
+            name=character_data['name'],
+            is_male=character_data['gender'] == 'male',
+            corporation_id=character_data['corporation_id'],
+        )
+    return character
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
@@ -39,7 +56,7 @@ def get_character_wallet(character_id):
 
 @cachetools.cached(cachetools.LRUCache(maxsize=1000))
 def get_character_name(character_id):
-    return get_op('get_characters_character_id', character_id=character_id)['name']
+    return get_character(character_id).name
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))

@@ -25,14 +25,14 @@ question in case the question was changed since it was answered.
 {
   "info": [
     {
-      "a": "5 years plus",
-      "userId": 2114725334,
-      "q": "How long have you been playing Eve?"
+      "answer_text": "5 years plus",
+      "user_id": 2114725334,
+      "question_text": "How long have you been playing Eve?"
     },
     {
-      "a": "",
-      "userId": 2114725334,
-      "q": "PVP or PVE? Why"
+      "answer_text": "",
+      "user_id": 2114725334,
+      "question_text": "PVP or PVE? Why"
     }
   ]
 }

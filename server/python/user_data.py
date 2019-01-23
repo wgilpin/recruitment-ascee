@@ -1,14 +1,22 @@
-from .character_data import (
+from character_data import (
     get_character_wallet, get_character_name, get_character_contacts,
     get_character_calendar, get_character_market_contracts,
     get_character_bookmarks, get_character_mail,
 )
+from database import Character
 import cachetools
 
 
 @cachetools.cached(cachetools.LRUCache(maxsize=1000))
 def get_character_id_list(user_id):
-    return []
+    query = Character.query(Character.user_id == user_id)
+    character_dict = {}
+    for character in query:
+        character_dict[character.character_id] = {
+            'name': character.name,
+            'corporation_id': character.corporation_id
+        }
+    return {'info': character_dict}
 
 
 def get_user_wallet(user_id):

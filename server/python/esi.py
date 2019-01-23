@@ -4,18 +4,29 @@ from pyswagger import App
 import pickle
 import os
 from concurrent.futures import ThreadPoolExecutor
+from database import Character
+from esi_config import client_id, secret_key, callback_url, client_name
 
+#  Cache in a file because it takes a while to load
+current_dir = os.path.dirname(os.path.abspath(__file__))
+app_data_filename = os.path.join(current_dir, 'esi_app.pkl')
 
-app_data_filename = 'esi_app.pkl'
+# if os.path.isfile(app_data_filename):
+esi_app = App.create('https://esi.evetech.net/latest/swagger.json')
+    # pickle.dump(esi_app, open(app_data_filename, 'wb'))
+# else:
+#     esi_app = pickle.load(open(app_data_filename, 'rb'))
 
-if os.path.isfile(app_data_filename):
-    esi_app = App.create('https://esi.evetech.net/latest/swagger.json')
-    pickle.dump(esi_app, open(app_data_filename, 'wb'))
-else:
-    esi_app = pickle.load(open(app_data_filename, 'rb'))
+client_dict = {}
 
 
 def get_esi_client(auth_id=None):
+    if auth_id not in client_dict:
+        client_dict[auth_id] = initialize_esi_client(auth_id)
+    return client_dict[auth_id]
+
+
+def initialize_esi_client(auth_id=None):
     """
     Retrieves a public or authorized ESI client.
 
@@ -27,18 +38,18 @@ def get_esi_client(auth_id=None):
         esi_client (EsiClient): Client object from esipy.
     """
     auth = EsiSecurity(
-        headers={'User-Agent': ''},
+        headers={'User-Agent': client_name},
         redirect_uri='https://localhost/callback',
-        client_id='',
-        secret_key='',
+        client_id=client_id,
+        secret_key=secret_key,
     )
     if auth_id is not None:
-        auth.refresh_token = ''
+        auth.refresh_token = Character.get_by_id(auth_id).refresh_token
     esi_client = EsiClient(
         auth,
         retry_requests=True,
         cache=DictCache(),
-        headers={'User-Agent': ''},
+        headers={'User-Agent': client_name},
     )
     return esi_client
 
@@ -75,7 +86,7 @@ def get_paged_op(op_name, auth_id=None, **kwargs):
                 pool.submit(
                     lambda *args, **kw: esi_client.request(esi_app.op[op_name](**kw)),
                     page=page,
-                    **kwargs,
+                    **kwargs
                 )
             )
         for result in result_list:
