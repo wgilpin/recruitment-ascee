@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Alt from './Alt';
-import FetchData from './FetchData';
+import FetchData from './common/FetchData';
 
 const propTypes = {
   onAltSelect: PropTypes.func,

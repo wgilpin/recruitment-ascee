@@ -1,5 +1,5 @@
 import React from 'reactn';
-import FetchData from '../FetchData';
+import FetchData from '../common/FetchData';
 import ClaimedIcon from 'react-ionicons/lib/MdStar';
 import EscalatedIcon from 'react-ionicons/lib/IosAlert';
 import Evidence from '../Evidence';

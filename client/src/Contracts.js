@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FetchData from './FetchData';
+import FetchData from './common/FetchData';
 import TableStyles from './TableStyles';
 
 const propTypes = {

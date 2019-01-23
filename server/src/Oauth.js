@@ -3,7 +3,6 @@ const configFile = require('../config');
 const logging = require('./Logging');
 
 const config = configFile.get(process.env.NODE_ENV);
-console.log(config);
 
 // Create a new instance with the set parameters
 const sso = new SSO.SingleSignOn(

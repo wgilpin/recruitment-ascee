@@ -53,13 +53,13 @@ class BookmarksModel {
                 ? systemNames[bmDict[bmKey].location_id].name
                 : `Location ${bmDict[bmKey].location_id}`;
             } catch (err) {
-              console.log(err);
+              logging.log('adding names to BMs', err);
             }
           });
           return bmDict;
         })
           .catch((err) => {
-            console.log('>>>>>>>>>>>>>>>>>>>', err);
+            logging.error('Bookmarks error', err);
           });
       } catch (err) {
         logging.error(`fetch contacts ${err.message}`);

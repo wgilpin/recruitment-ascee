@@ -8,5 +8,10 @@
   "rules": {
     "linebreak-style": 0,
     "no-param-reassign": [2, { "props": false }]
-  }
+  },
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ]
 }

@@ -1,4 +1,4 @@
-import Mocks from "./Mocks";
+import Mocks from "./mocks/Mocks";
 import MockContacts from './mocks/MockContacts'
 import MockContracts from './mocks/MockContracts'
 import configFile from './config';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import Alts from '../Alts';
-import FetchData from '../FetchData';
+import FetchData from '../common/FetchData';
 import styles from './ApplicantStyles';
 import AsceeImg from '../images/ascee_logo.png';
 import FabButton from '../common/fabButton';
