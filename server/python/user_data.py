@@ -11,7 +11,7 @@ import cachetools
 def get_character_id_list(user_id):
     query = Character.query(Character.user_id == user_id)
     character_dict = {}
-    for character in query:
+    for character in query.run():
         character_dict[character.character_id] = {
             'name': character.name,
             'corporation_id': character.corporation_id

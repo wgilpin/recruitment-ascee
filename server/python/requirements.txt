@@ -1,3 +1,4 @@
 ESIPy==1.0.0
 Flask==1.0.2
 cachetools==3.0.0
+anom==0.8.0

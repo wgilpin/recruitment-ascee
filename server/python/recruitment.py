@@ -1,4 +1,5 @@
-from database import Question, Answer
+from database import Question, Answer, Recruit, User
+from character_data import get_character_name
 
 
 def get_questions():
@@ -20,3 +21,83 @@ def get_answers(user_id):
             'answer_text': answer.text,
         })
     return {'info': return_list}
+
+
+def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
+    recruiter = User.get(recruiter_user_id)
+    if not recruiter.is_recruiter:
+        recruiter_name = get_character_name(recruiter_user_id)
+        return {'error': 'User {} is not a recruiter'.format(recruiter_name)}
+    applicant = Recruit.get(applicant_user_id)
+    if applicant is None:
+        applicant_name = get_character_name(applicant_user_id)
+        return {'error': 'User {} is not an applicant'.format(applicant_name)}
+    applicant.recruiter_id = recruiter_user_id
+    applicant.put()
+    return {'status': 'ok'}
+
+
+def recruiter_release_applicant(recruiter_user_id, applicant_user_id):
+    recruiter = User.get(recruiter_user_id)
+    applicant = Recruit.get(applicant_user_id)
+    if not recruiter.is_recruiter:
+        recruiter_name = get_character_name(recruiter_user_id)
+        return {'error': 'User {} is not a recruiter'.format(recruiter_name)}
+    elif applicant is None:
+        applicant_name = get_character_name(applicant_user_id)
+        return {'error': 'User {} is not an applicant'.format(applicant_name)}
+    elif applicant.recruiter_id != recruiter_user_id:
+        applicant_name = get_character_name(applicant_user_id)
+        recruiter_name = get_character_name(recruiter_user_id)
+        return {'error': 'Recruiter {} is not recruiter for applicant {}'.format(
+            recruiter_name, applicant_name)}
+    else:
+        applicant.recruiter_id = None
+        applicant.put()
+        return {'status': 'ok'}
+
+
+def escalate_applicant(applicant_user_id):
+    applicant = Recruit.get(applicant_user_id)
+    if applicant is None:
+        applicant_name = get_character_name(applicant_user_id)
+        return {'error': 'User {} is not an applicant'.format(applicant_name)}
+    else:
+        applicant.status += 1
+        applicant.put()
+        return {'new_applicant_status': applicant.status}
+
+
+def reject_applicant(applicant_user_id):
+    pass
+
+
+def edit_applicant_notes(applicant_user_id, text):
+    applicant = Recruit.get(applicant_user_id)
+    if applicant is None:
+        applicant_name = get_character_name(applicant_user_id)
+        return {'error': 'User {} is not an applicant'.format(applicant_name)}
+    else:
+        applicant.notes = text
+        return {'status': 'ok'}
+
+
+def get_applicant_list():
+    return_list = []
+    for applicant in Recruit.query().run():
+        return_list.append({
+            'user_id': applicant.user_id,
+            'recruiter_id': applicant.recruiter_id,
+            'recruiter_name': get_character_name(applicant.recruiter_id),
+            'status': applicant.status,
+        })
+    return {'info': return_list}
+
+
+def get_applicant_notes(applicant_user_id):
+    applicant = Recruit.get(applicant_user_id)
+    if applicant is None:
+        applicant_name = get_character_name(applicant_user_id)
+        return {'error': 'User {} is not an applicant'.format(applicant_name)}
+    else:
+        return {'info': applicant.notes}

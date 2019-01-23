@@ -1,5 +1,4 @@
 import requests
-import request
 from esi_config import client_id, secret_key
 import json
 from character_data import get_character

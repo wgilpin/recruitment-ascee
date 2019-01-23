@@ -1,92 +1,104 @@
-from google.appengine.ext import ndb
+from anom import Model, props
 
 
-class Recruiter(ndb.Model):
-    user_id = ndb.IntegerProperty(required=True)
+import os
+
+print('ENV {}'.format(os.environ['GOOGLE_APPLICATION_CREDENTIALS']))
+
+class Recruiter(Model):
+    user_id = props.Integer(indexed=True)
 
 
-class User(ndb.Model):
-    main_character_id = ndb.IntegerProperty(required=True)
-    is_admin = ndb.BooleanProperty(default=False)
-    is_recruiter = ndb.BooleanProperty(default=False)
-    is_senior_recruiter = ndb.BooleanProperty(default=False)
+class User(Model):
+    id = props.Integer(indexed=True)
+    is_admin = props.Bool(default=False)
+    is_recruiter = props.Bool(default=False)
+    is_senior_recruiter = props.Bool(default=False)
+    is_applicant = props.Bool()
 
 
-class Type(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    group_id = ndb.IntegerProperty(required=True)
-    name = ndb.StringProperty(required=True)
+class Type(Model):
+    id = props.Integer(indexed=True)
+    group_id = props.Integer(indexed=True)
+    name = props.String()
 
 
-class Group(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    name = ndb.StringProperty(required=True)
+class Group(Model):
+    id = props.Integer(indexed=True)
+    name = props.String(optional=True)
 
 
-class TypePrice(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    price = ndb.FloatProperty(required=True)
+class TypePrice(Model):
+    id = props.Integer(indexed=True)
+    price = props.Float(optional=True)
 
 
-class Region(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    name = ndb.StringProperty(required=True)
-    redlisted = ndb.StringProperty(default=False)
+class Region(Model):
+    id = props.Integer(indexed=True)
+    name = props.String()
+    redlisted = props.Bool(default=False)
 
 
-class System(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    name = ndb.StringProperty(required=True)
+class System(Model):
+    id = props.Integer(indexed=True)
+    region_id = props.Integer(indexed=True)
+    name = props.String()
 
 
-class Station(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    name = ndb.StringProperty(required=True)
-    system_id = ndb.IntegerProperty(required=True)
+class Constellation(Model):
+    id = props.Integer(indexed=True)
+    region_id=props.Integer(indexed=True)
+    name = props.String()
 
 
-class Structure(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    name = ndb.StringProperty(required=True)
-    system_id = ndb.IntegerProperty(required=True)
-    corporation_id = ndb.IntegerProperty(required=True)
+class Station(Model):
+    id = props.Integer(indexed=True)
+    name = props.String()
+    system_id = props.Integer(indexed=True)
 
 
-class Corporation(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    name = ndb.StringProperty(required=True)
-    ticker = ndb.StringProperty(required=True)
-    alliance_id = ndb.StringProperty()
+class Structure(Model):
+    id = props.Integer(indexed=True)
+    name = props.String()
+    system_id = props.Integer(indexed=True)
+    corporation_id = props.Integer(indexed=True)
 
 
-class Question(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    text = ndb.StringProperty(required=True)
+class Corporation(Model):
+    id = props.Integer(indexed=True)
+    name = props.String()
+    ticker = props.String()
+    alliance_id = props.Integer(indexed=True, optional=True)
 
 
-class Answer(ndb.Model):
-    question_id = ndb.IntegerProperty(required=True)
-    user_id = ndb.IntegerProperty(required=True)
-    text = ndb.StringProperty(required=True)
+class Question(Model):
+    id = props.Integer(indexed=True)
+    text = props.String()
 
 
-class Alliance(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    name = ndb.StringProperty(required=True)
-    ticker = ndb.StringProperty(required=True)
+class Answer(Model):
+    question_id = props.Integer(indexed=True)
+    user_id = props.Integer(indexed=True)
+    text = props.Text()
 
 
-class Recruit(ndb.Model):
-    user_id = ndb.IntegerProperty(required=True)
-    recruiter_id = ndb.IntegerProperty()
-    status = ndb.IntegerProperty()
-    notes = ndb.StringProperty(default='')
+class Alliance(Model):
+    id = props.Integer(indexed=True)
+    name = props.String()
+    ticker = props.String()
 
 
-class Character(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
-    user_id = ndb.IntegerProperty()
-    name = ndb.StringProperty(required=True)
-    corporation_id = ndb.IntegerProperty(required=True)
-    is_male = ndb.BooleanProperty(required=True)
-    refresh_token = ndb.StringProperty()
+class Recruit(Model):
+    user_id = props.Integer(indexed=True)
+    recruiter_id = props.Integer(indexed=True, optional=True)
+    status = props.Integer(indexed=True, default=0)
+    notes = props.String(default='')
+
+
+class Character(Model):
+    id = props.Integer(indexed=True)
+    user_id = props.Integer(indexed=True, optional=True)
+    name = props.String()
+    corporation_id = props.Integer(indexed=True)
+    is_male = props.Bool()
+    refresh_token = props.String(optional=True)

@@ -3,8 +3,10 @@ from universe import (
     get_corporation_name,
     get_alliance_name, get_type_name, get_type_price, get_region_name,
     get_skill_name, get_skill_group_name, get_station_system, get_station_name,
-    get_structure_system, get_structure_name
+    get_structure_system, get_structure_name, get_location_name, get_system_name,
+    system_is_redlisted,
 )
+from database import Character
 import cachetools
 
 # leaving apiCharacter.js, apiLinks.js for now
@@ -14,7 +16,7 @@ SECONDS_TO_CACHE = 10 * 60
 
 @cachetools.cached(cachetools.LRUCache(maxsize=10000))
 def get_character(character_id):
-    character = Character.get_by_id(character_id)
+    character = Character.get(character_id)
     if character is None:
         character_data = get_op(
             'get_characters_character_id',
@@ -79,6 +81,28 @@ def get_character_contacts(character_id):
             entry['alliance_id'] = more_contact_data['alliance_id']
             entry['alliance_name'] = get_alliance_name(entry['alliance_id'])
     return contacts_dict
+
+
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
+def get_character_mining(character_id):
+    mining_data = get_op(
+        'get_characters_character_id_mining',
+        auth_id=character_id,
+        character_id=character_id,
+    )
+    return_list = []
+    for entry in mining_data:
+        return_list.append({
+            'date': entry['date'],
+            'quantity': entry['quantity'],
+            'system_id': entry['solar_system_id'],
+            'system_name': get_system_name(entry['solar_system_id']),
+            'type_id': entry['type_id'],
+            'type_name': get_type_name(entry['type_id']),
+            'value': entry['quantity'] * get_type_price(entry['type_id']),
+            'system_redlisted': system_is_redlisted(entry['solar_system_id'])
+        })
+    return {'info': return_list}
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
