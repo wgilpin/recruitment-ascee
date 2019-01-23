@@ -14,7 +14,24 @@ class User(ndb.Model):
 
 class Type(ndb.Model):
     id = ndb.IntegerProperty(required=True)
+    group_id = ndb.IntegerProperty(required=True)
     name = ndb.StringProperty(required=True)
+
+
+class Group(ndb.Model):
+    id = ndb.IntegerProperty(required=True)
+    name = ndb.StringProperty(required=True)
+
+
+class TypePrice(ndb.Model):
+    id = ndb.IntegerProperty(required=True)
+    price = ndb.FloatProperty(required=True)
+
+
+class Region(ndb.Model):
+    id = ndb.IntegerProperty(required=True)
+    name = ndb.StringProperty(required=True)
+    redlisted = ndb.StringProperty(default=False)
 
 
 class System(ndb.Model):
@@ -22,9 +39,23 @@ class System(ndb.Model):
     name = ndb.StringProperty(required=True)
 
 
+class Station(ndb.Model):
+    id = ndb.IntegerProperty(required=True)
+    name = ndb.StringProperty(required=True)
+    system_id = ndb.IntegerProperty(required=True)
+
+
+class Structure(ndb.Model):
+    id = ndb.IntegerProperty(required=True)
+    name = ndb.StringProperty(required=True)
+    system_id = ndb.IntegerProperty(required=True)
+    corporation_id = ndb.IntegerProperty(required=True)
+
+
 class Corporation(ndb.Model):
     id = ndb.IntegerProperty(required=True)
     name = ndb.StringProperty(required=True)
+    ticker = ndb.StringProperty(required=True)
     alliance_id = ndb.StringProperty()
 
 
@@ -34,7 +65,7 @@ class Question(ndb.Model):
 
 
 class Answer(ndb.Model):
-    id = ndb.IntegerProperty(required=True)
+    question_id = ndb.IntegerProperty(required=True)
     user_id = ndb.IntegerProperty(required=True)
     text = ndb.StringProperty(required=True)
 
@@ -42,6 +73,7 @@ class Answer(ndb.Model):
 class Alliance(ndb.Model):
     id = ndb.IntegerProperty(required=True)
     name = ndb.StringProperty(required=True)
+    ticker = ndb.StringProperty(required=True)
 
 
 class Recruit(ndb.Model):
@@ -57,8 +89,4 @@ class Character(ndb.Model):
     name = ndb.StringProperty(required=True)
     corporation_id = ndb.IntegerProperty(required=True)
     is_male = ndb.BooleanProperty(required=True)
-    refreshToken = ndb.StringProperty()
-    px64x64 = ndb.StringProperty()
-    px128x128 = ndb.StringProperty()
-    px256x256 = ndb.StringProperty()
-    px512x512 = ndb.StringProperty()
+    refresh_token = ndb.StringProperty()

@@ -4,15 +4,17 @@ from pyswagger import App
 import pickle
 import os
 from concurrent.futures import ThreadPoolExecutor
+from database import Character
 
+#  Cache in a file because it takes a while to load
+current_dir = os.path.dirname(os.path.abspath(__file__))
+app_data_filename = os.path.join(current_dir, 'esi_app.pkl')
 
-app_data_filename = 'esi_app.pkl'
-
-if os.path.isfile(app_data_filename):
-    esi_app = App.create('https://esi.evetech.net/latest/swagger.json')
-    pickle.dump(esi_app, open(app_data_filename, 'wb'))
-else:
-    esi_app = pickle.load(open(app_data_filename, 'rb'))
+# if os.path.isfile(app_data_filename):
+esi_app = App.create('https://esi.evetech.net/latest/swagger.json')
+    # pickle.dump(esi_app, open(app_data_filename, 'wb'))
+# else:
+#     esi_app = pickle.load(open(app_data_filename, 'rb'))
 
 
 def get_esi_client(auth_id=None):
@@ -33,7 +35,7 @@ def get_esi_client(auth_id=None):
         secret_key='',
     )
     if auth_id is not None:
-        auth.refresh_token = ''
+        auth.refresh_token = Character.get_by_id(auth_id).refresh_token
     esi_client = EsiClient(
         auth,
         retry_requests=True,
@@ -75,7 +77,7 @@ def get_paged_op(op_name, auth_id=None, **kwargs):
                 pool.submit(
                     lambda *args, **kw: esi_client.request(esi_app.op[op_name](**kw)),
                     page=page,
-                    **kwargs,
+                    **kwargs
                 )
             )
         for result in result_list:

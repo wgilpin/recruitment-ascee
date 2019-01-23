@@ -1,5 +1,5 @@
-from .esi import get_op, get_paged_op
-from .universe import (
+from esi import get_op, get_paged_op
+from universe import (
     get_corporation_name,
     get_alliance_name, get_type_name, get_type_price, get_region_name,
     get_skill_name, get_skill_group_name, get_station_system, get_station_name,
