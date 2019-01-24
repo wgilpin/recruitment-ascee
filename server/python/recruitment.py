@@ -1,5 +1,4 @@
-from database import Question, Answer, Recruit, User
-from character_data import get_character_name
+from database import Question, Answer, Recruit, User, Character
 
 
 def get_questions():
@@ -26,11 +25,11 @@ def get_answers(user_id):
 def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
     recruiter = User.get(recruiter_user_id)
     if not recruiter.is_recruiter:
-        recruiter_name = get_character_name(recruiter_user_id)
+        recruiter_name = Character.get(recruiter_user_id).name
         return {'error': 'User {} is not a recruiter'.format(recruiter_name)}
     applicant = Recruit.get(applicant_user_id)
     if applicant is None:
-        applicant_name = get_character_name(applicant_user_id)
+        applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     applicant.recruiter_id = recruiter_user_id
     applicant.put()
@@ -41,14 +40,14 @@ def recruiter_release_applicant(recruiter_user_id, applicant_user_id):
     recruiter = User.get(recruiter_user_id)
     applicant = Recruit.get(applicant_user_id)
     if not recruiter.is_recruiter:
-        recruiter_name = get_character_name(recruiter_user_id)
+        recruiter_name = Character.get(recruiter_user_id).name
         return {'error': 'User {} is not a recruiter'.format(recruiter_name)}
     elif applicant is None:
-        applicant_name = get_character_name(applicant_user_id)
+        applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     elif applicant.recruiter_id != recruiter_user_id:
-        applicant_name = get_character_name(applicant_user_id)
-        recruiter_name = get_character_name(recruiter_user_id)
+        applicant_name = Character.get(applicant_user_id).name
+        recruiter_name = Character.get(recruiter_user_id).name
         return {'error': 'Recruiter {} is not recruiter for applicant {}'.format(
             recruiter_name, applicant_name)}
     else:
@@ -60,7 +59,7 @@ def recruiter_release_applicant(recruiter_user_id, applicant_user_id):
 def escalate_applicant(applicant_user_id):
     applicant = Recruit.get(applicant_user_id)
     if applicant is None:
-        applicant_name = get_character_name(applicant_user_id)
+        applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
         applicant.status += 1
@@ -75,7 +74,7 @@ def reject_applicant(applicant_user_id):
 def edit_applicant_notes(applicant_user_id, text):
     applicant = Recruit.get(applicant_user_id)
     if applicant is None:
-        applicant_name = get_character_name(applicant_user_id)
+        applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
         applicant.notes = text
@@ -88,7 +87,7 @@ def get_applicant_list():
         return_list.append({
             'user_id': applicant.user_id,
             'recruiter_id': applicant.recruiter_id,
-            'recruiter_name': get_character_name(applicant.recruiter_id),
+            'recruiter_name': Character.get(applicant.recruiter_id).name,
             'status': applicant.status,
         })
     return {'info': return_list}
@@ -97,7 +96,7 @@ def get_applicant_list():
 def get_applicant_notes(applicant_user_id):
     applicant = Recruit.get(applicant_user_id)
     if applicant is None:
-        applicant_name = get_character_name(applicant_user_id)
+        applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
         return {'info': applicant.notes}
