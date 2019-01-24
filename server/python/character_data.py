@@ -4,7 +4,7 @@ from universe import (
     get_alliance_name, get_type_name, get_type_price, get_region_name,
     get_skill_name, get_skill_group_name, get_station_system, get_station_name,
     get_structure_system, get_structure_name, get_location_name, get_system_name,
-    get_location_system, organize_assets_by_location,
+    get_location_system, organize_assets_by_location, get_location
 )
 from redlist import (
     system_is_redlisted, type_is_redlisted, character_is_redlisted,
@@ -193,6 +193,7 @@ def get_character_bookmarks(character_id):
                 folder_id=entry['folder_id']
             )['name']
             entry['system_id'], entry['system_name'] = get_location_system(entry['location_id'])
+            entry['redlisted'] = system_is_redlisted(entry['system_name'])
     return {'info': bookmarks_dict}
 
 
@@ -210,9 +211,12 @@ def get_character_mail(character_id):
             'id': from_id,
             'name': get_character_name(from_id)
         }
-        entry['recipients'] = [
-            get_character_name(item['recipient_id'] for item in entry['recipients'])
+        recipient_ids = list(item['recipient_id'] for item in entry['recipients'])
+        entry['recipient_names'] = [
+            get_character_name(item) for item in recipient_ids
         ]
+        if any(character_is_redlisted[item] for item in [from_id] + recipient_ids):
+            entry['redlisted'] = True
     return mail_dict
 
 
