@@ -4,7 +4,7 @@ from universe import (
     get_alliance_name, get_type_name, get_type_price, get_region_name,
     get_skill_name, get_skill_group_name, get_station_system, get_station_name,
     get_structure_system, get_structure_name, get_location_name, get_system_name,
-    get_location_system,
+    get_location_system, organize_assets_by_location,
 )
 from redlist import (
     system_is_redlisted, type_is_redlisted, character_is_redlisted,
@@ -174,44 +174,6 @@ def get_character_assets(character_id):
         if type_is_redlisted(entry['type_id']):
             entry['redlisted'] = True
     return organize_assets_by_location(asset_list)
-
-
-def organize_assets_by_location(asset_list):
-    asset_dict = {
-        entry['item_id']: entry for entry in asset_list
-    }
-    location_set = set(entry['location_id'] for entry in asset_list)
-    location_dict = {id: [] for id in location_set}
-    for entry in asset_list:
-        location_dict[entry['location_id']].append(entry)
-    for item_id, entry in asset_dict.items():
-        if item_id in location_dict:
-            entry['items'] = location_dict[item_id]
-
-    system_names = {}
-    location_names = {}
-    id_dict = {}
-    for location_id in location_dict:
-        if 60000000 <= location_id < 64000000:  # station
-            system_id, system_name = get_station_system(location_id)
-            location_names[location_id] = get_station_name(location_id)
-            system_names[system_id] = system_name
-            id_dict[system_id] = id_dict.get(system_id, {})
-            id_dict[system_id][location_id] = location_dict[location_id]
-        elif location_id > 50000000:  # structure
-            system_id, system_name = get_structure_system(location_id)
-            location_names[location_id] = get_structure_name(location_id)
-            system_names[system_id] = system_name
-            id_dict[system_id] = id_dict.get(system_id, {})
-            id_dict[system_id][location_id] = location_dict[location_id]
-    return_dict = {
-        system_names[system_id]: {
-            location_names[location_id]: id_dict[system_id][location_id]
-            for location_id in id_dict[system_id].keys()
-        } for system_id in id_dict.keys()
-    }
-
-    return return_dict
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
