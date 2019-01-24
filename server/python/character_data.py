@@ -4,31 +4,19 @@ from universe import (
     get_alliance_name, get_type_name, get_type_price, get_region_name,
     get_skill_name, get_skill_group_name, get_station_system, get_station_name,
     get_structure_system, get_structure_name, get_location_name, get_system_name,
-    system_is_redlisted,
+    get_location_system,
 )
-from database import Character
+from redlist import (
+    system_is_redlisted, type_is_redlisted, character_is_redlisted,
+    corporation_is_redlisted
+)
+from database import get_character, get_corporation
 import cachetools
 
 # leaving apiCharacter.js, apiLinks.js for now
+from server.python.database import get_character
 
 SECONDS_TO_CACHE = 10 * 60
-
-
-@cachetools.cached(cachetools.LRUCache(maxsize=10000))
-def get_character(character_id):
-    character = Character.get(character_id)
-    if character is None:
-        character_data = get_op(
-            'get_characters_character_id',
-            character_id=character_id
-        )
-        character = Character(
-            id=character_id,
-            name=character_data['name'],
-            is_male=character_data['gender'] == 'male',
-            corporation_id=character_data['corporation_id'],
-        )
-    return character
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
@@ -40,6 +28,30 @@ def get_character_calendar(character_id):
     return {'info': calendar_data}
 
 
+def get_transaction_party(party_id):
+    try:
+        character = get_character(party_id)
+        corporation = get_corporation(character.corporation_id)
+        redlisted = character_is_redlisted(party_id)
+        return_dict = {
+            'id': party_id,
+            'name': character.name,
+            'corporation_name': corporation.name,
+            'corporation_ticker': corporation.ticker,
+        }
+        return redlisted, return_dict
+    except IOError:  # change to the correct exception when you know it
+        corporation = get_corporation(party_id)
+        redlisted = corporation_is_redlisted(party_id)
+        return_dict = {
+            'id': party_id,
+            'name': corporation.name,
+            'corporation_name': corporation.name,
+            'corporation_ticker': corporation.ticker,
+        }
+        return redlisted, return_dict
+
+
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_wallet(character_id):
     wallet_data = get_paged_op(
@@ -47,12 +59,17 @@ def get_character_wallet(character_id):
         auth_id=character_id, character_id=character_id
     )
     for wallet_entry in wallet_data:
-        wallet_entry['first_party_id']['name'] = get_character_name(
-            wallet_entry['first_party_id']['id']
-        )
-        wallet_entry['second_party_id']['name'] = get_character_name(
-            wallet_entry['second_party_id']['id']
-        )
+        redlisted = wallet_entry['amount'] == 0
+        if 'first_party_id' in wallet_entry:
+            result = get_transaction_party(wallet_entry['first_party_id'])
+            redlisted |= result[0]
+            wallet_entry['first_party'] = result[1]
+        if 'second_party_id' in wallet_entry:
+            result = get_transaction_party(wallet_entry['second_party_id'])
+            redlisted |= result[0],
+            wallet_entry['second_party'] = result[1]
+        if redlisted:
+            wallet_entry['redlisted'] = True
     return {'info': wallet_data}
 
 
@@ -80,6 +97,8 @@ def get_character_contacts(character_id):
         if 'alliance_id' in more_contact_data:
             entry['alliance_id'] = more_contact_data['alliance_id']
             entry['alliance_name'] = get_alliance_name(entry['alliance_id'])
+        if character_is_redlisted(contact_id):
+            entry['redlisted'] = True
     return contacts_dict
 
 
@@ -100,7 +119,7 @@ def get_character_mining(character_id):
             'type_id': entry['type_id'],
             'type_name': get_type_name(entry['type_id']),
             'value': entry['quantity'] * get_type_price(entry['type_id']),
-            'system_redlisted': system_is_redlisted(entry['solar_system_id'])
+            'redlisted': system_is_redlisted(entry['solar_system_id']),
         })
     return {'info': return_list}
 
@@ -113,14 +132,32 @@ def get_character_market_contracts(character_id):
         character_id=character_id
     )
     # issuer_corporation, acceptor, issuer, end_location, start_location
-    for contract_entry in contract_list:
-        contract_entry['issuer_corporation'] = get_corporation_name(contract_entry['corporation_id'])
-        contract_entry['acceptor'] = get_character_name(contract_entry['acceptor_id'])
-        contract_entry['issuer'] = get_character_name(contract_entry['issuer_id'])
-        if 'start_location_id' in contract_entry:
-            contract_entry['start_location'] = get_location_name(contract_entry['start_location_id'])
-        if 'end_location_id' in contract_entry:
-            contract_entry['end_location'] = get_location_name(contract_entry['end_location_id'])
+    for entry in contract_list:
+        entry['items'] = get_op(
+            'get_characters_character_id_contracts_contract_id_items',
+            auth_id=character_id,
+            character_id=character_id,
+            contract_id=entry['contract_id'],
+        )
+        entry['issuer_corporation'] = get_corporation_name(entry['corporation_id'])
+        entry['acceptor_name'] = get_character_name(entry['acceptor_id'])
+        entry['issuer_name'] = get_character_name(entry['issuer_id'])
+        if 'start_location_id' in entry:
+            entry['start_location'] = get_location_name(entry['start_location_id'])
+        if 'end_location_id' in entry:
+            entry['end_location'] = get_location_name(entry['end_location_id'])
+        if (character_is_redlisted(entry['issuer_id']) or
+            character_is_redlisted(entry['acceptor_id'])):
+            entry['redlisted'] = True
+        elif any(type_is_redlisted(item['type_id']) for item in entry['items']):
+            entry['redlisted'] = True
+        elif (('start_location_id' in entry) and
+              system_is_redlisted(get_location_system(entry['start_location_id']))):
+            entry['redlisted'] = True
+        elif (('end_location_id' in entry) and
+              system_is_redlisted(get_location_system(entry['end_location_id']))):
+            entry['redlisted'] = True
+
     return {'info': contract_list}
 
 
@@ -134,6 +171,8 @@ def get_character_assets(character_id):
     for entry in asset_list:
         entry['type_name'] = get_type_name(entry['type_id'])
         entry['price'] = get_type_price(entry['type_id']) * entry['quantity']
+        if type_is_redlisted(entry['type_id']):
+            entry['redlisted'] = True
     return organize_assets_by_location(asset_list)
 
 

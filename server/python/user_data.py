@@ -16,7 +16,7 @@ def get_character_id_list(user_id):
             'name': character.name,
             'corporation_id': character.corporation_id
         }
-    return {'info': character_dict}
+    return {'info': character_dict
 
 
 def get_user_wallet(user_id):

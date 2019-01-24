@@ -1,3 +1,5 @@
+import cachetools
+from esi import get_op
 from anom import Model, props
 
 
@@ -43,6 +45,7 @@ class System(Model):
     id = props.Integer(indexed=True)
     region_id = props.Integer(indexed=True)
     name = props.String()
+    redlisted = props.Bool(default=False)
 
 
 class Constellation(Model):
@@ -62,6 +65,7 @@ class Structure(Model):
     name = props.String()
     system_id = props.Integer(indexed=True)
     corporation_id = props.Integer(indexed=True)
+    redlisted = props.Bool(default=False)
 
 
 class Corporation(Model):
@@ -69,6 +73,7 @@ class Corporation(Model):
     name = props.String()
     ticker = props.String()
     alliance_id = props.Integer(indexed=True, optional=True)
+    redlisted = props.Bool(default=False)
 
 
 class Question(Model):
@@ -86,6 +91,7 @@ class Alliance(Model):
     id = props.Integer(indexed=True)
     name = props.String()
     ticker = props.String()
+    redlisted = props.Bool(default=False)
 
 
 class Recruit(Model):
@@ -102,3 +108,57 @@ class Character(Model):
     corporation_id = props.Integer(indexed=True)
     is_male = props.Bool()
     refresh_token = props.String(optional=True)
+    redlisted = props.Bool(default=False)
+
+
+@cachetools.cached(cachetools.LRUCache(maxsize=10000))
+def get_character(character_id):
+    character = Character.get(character_id)
+    if character is None:
+        character_data = get_op(
+            'get_characters_character_id',
+            character_id=character_id
+        )
+        character = Character(
+            id=character_id,
+            name=character_data['name'],
+            is_male=character_data['gender'] == 'male',
+            corporation_id=character_data['corporation_id'],
+        )
+    return character
+
+
+@cachetools.cached(cachetools.LRUCache(maxsize=1000))
+def get_corporation(corporation_id):
+    corporation = Corporation.get(corporation_id)
+    if corporation is None:
+        corporation_data = get_op(
+            'get_corporations_corporation_id',
+            corporation_id=corporation_id,
+        )
+        corporation = Corporation(
+            id=corporation_id,
+            name=corporation_data['name'],
+            ticker=corporation_data['ticker']
+        )
+        if 'alliance_id' in corporation_data:
+            corporation.alliance_id = corporation_data['alliance_id']
+        corporation.put()
+    return corporation
+
+
+@cachetools.cached(cachetools.LRUCache(maxsize=1000))
+def get_alliance(alliance_id):
+    alliance = Alliance.get(alliance_id)
+    if alliance is None:
+        alliance_data = get_op(
+            'get_alliances_alliance_id',
+            alliance_id=alliance_id,
+        )
+        alliance = Alliance(
+            id=alliance_id,
+            name=alliance_data['name'],
+            ticker=alliance_data['ticker']
+        )
+        alliance.put()
+    return alliance

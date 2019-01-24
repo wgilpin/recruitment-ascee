@@ -4,7 +4,7 @@ import json
 import os
 from database import (
     Type, Corporation, System, Alliance, TypePrice, Region, Group, Station,
-    Structure, Constellation
+    Structure, Constellation, get_corporation, get_alliance
 )
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -35,6 +35,15 @@ sde_group_data = json.load(
 )
 
 
+def get_location_system(location_id):
+    if 60000000 <= location_id < 64000000:  # station
+        return get_station_system(location_id)
+    elif location_id > 50000000:  # structure
+        return get_structure_system(location_id)
+    else:
+        raise ValueError()
+
+
 def get_location_name(location_id):
     if 60000000 <= location_id < 64000000:  # station
         return get_station_name(location_id)
@@ -46,78 +55,38 @@ def get_location_name(location_id):
 
 @cachetools.cached(cachetools.LFUCache(maxsize=10000))
 def get_corporation_name(corporation_id):
-    corporation = Corporation.get(corporation_id)
-    if corporation is None:
-        corporation_data = get_op(
-            'get_corporations_corporation_id',
-            corporation_id=corporation_id,
-        )
-        corporation = Corporation(
-            id=corporation_id,
-            name=corporation_data['name'],
-            ticker=corporation_data['ticker']
-        )
-        if 'alliance_id' in corporation_data:
-            corporation.alliance_id = corporation_data['alliance_id']
-        corporation.put()
-    return corporation.name
+    return get_corporation(corporation_id).name
 
 
 @cachetools.cached(cachetools.LFUCache(maxsize=10000))
 def get_alliance_name(alliance_id):
-    alliance = Alliance.get(alliance_id)
-    if alliance is None:
-        alliance_data = get_op(
-            'get_alliances_alliance_id',
-            alliance_id=alliance_id,
+    return get_alliance(alliance_id).name
+
+
+def get_type(type_id):
+    type = Type.get(type_id)
+    if type is None:
+        type_dict = get_op(
+            'get_universe_types_type_id',
+            type_id=type_id,
         )
-        alliance = Alliance(
-            id=alliance_id,
-            name=alliance_data['name'],
-            ticker=alliance_data['ticker']
+        type = Type(
+            id=type_id,
+            name=type_dict['name'],
+            group_id=type_dict['group_id']
         )
-        alliance.put()
-    return alliance.name
+        type.put()
+    return type
 
 
 @cachetools.cached(cachetools.LFUCache(40000))
 def get_type_name(type_id):
-    if type_id in sde_type_data:
-        return sde_type_data[type_id]['name']
-    else:
-        type = Type.get(type_id)
-        if type is None:
-            type_dict = get_op(
-                'get_universe_types_type_id',
-                type_id=type_id,
-            )
-            type = Type(
-                id=type_id,
-                name=type_dict['name'],
-                group_id=type_dict['group_id']
-            )
-            type.put()
-        return type.name
+    return get_type(type_id).name
 
 
 @cachetools.cached(cachetools.LFUCache(40000))
 def get_type_group(type_id):
-    if type_id in sde_type_data:
-        return sde_type_data[type_id]['group_id']
-    else:
-        type = Type.get(type_id)
-        if type is None:
-            type_dict = get_op(
-                'get_universe_types_type_id',
-                type_id=type_id,
-            )
-            type = Type(
-                id=type_id,
-                name=type_dict['name'],
-                group_id=type_dict['group_id']
-            )
-            type.put()
-        return type.group_id
+    return get_type(type_id).group_id
 
 
 @cachetools.cached(cachetools.LFUCache(40000))
@@ -280,15 +249,6 @@ def get_structure_system(structure_id):
         structure.put()
     system_name = get_system_name(structure.system_id)
     return structure.system_id, system_name
-
-
-
-@cachetools.cached(cachetools.LRUCache(10000))
-def system_is_redlisted(system_id):
-    system = get_system(system_id)
-    constellation = get_constellation(system.constellation_id)
-    region = get_region(constellation.region_id)
-    return region.is_redlisted
 
 
 @cachetools.cached(cachetools.LRUCache(5000))
