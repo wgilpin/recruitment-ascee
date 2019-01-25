@@ -1,14 +1,11 @@
 from esi import get_op, get_paged_op
 from database import (
     Character, Corporation, Alliance, Type, TypePrice, Region, Group,
-    Station, Structure, get_location, System, Constellation
+    Station, Structure, get_location, System
 )
-from universe import organize_assets_by_location
-from database import get_character, get_corporation
 import cachetools
 
 # leaving apiCharacter.js, apiLinks.js for now
-from server.python.database import get_character
 
 SECONDS_TO_CACHE = 10 * 60
 

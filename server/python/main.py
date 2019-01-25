@@ -40,7 +40,7 @@ app = Flask(__name__)
 
 @app.route(
     '/api/recruiter/<int:recruiter_id>/<int:applicant_id>/claim', methods=['GET'])
-def claim_applicant(recruiter_id, applicant_id):
+def api_claim_applicant(recruiter_id, applicant_id):
     # in addition to auth, be sure to check that the applicant is in fact
     # an unclaimed applicant
     return jsonify(recruiter_claim_applicant(recruiter_id, applicant_id))
@@ -48,113 +48,107 @@ def claim_applicant(recruiter_id, applicant_id):
 
 @app.route(
     '/api/recruiter/<int:recruiter_id>/<int:applicant_id>/release', methods=['GET'])
-def release_applicant(recruiter_id, applicant_id):
-    return release_applicant(recruiter_id, applicant_id)
+def api_release_applicant(recruiter_id, applicant_id):
+    return recruiter_release_applicant(recruiter_id, applicant_id)
 
 
 @app.route(
     '/api/applicant/<int:applicant_id>/escalate', methods=['GET'])
-def escalate_applicant(applicant_id):
+def api_escalate_applicant(applicant_id):
     return jsonify(escalate_applicant(applicant_id))
 
 
 @app.route(
     '/api/applicant/<int:applicant_id>/reject', methods=['GET'])
-def reject_applicant(applicant_id):
+def api_reject_applicant(applicant_id):
     return jsonify(reject_applicant(applicant_id))
 
 
 @app.route(
-    'api/applicant/<int:applicant_id>/edit_notes', methods=['PUT'])
-def edit_applicant_notes(applicant_id):
+    '/api/applicant/<int:applicant_id>/edit_notes', methods=['PUT'])
+def api_edit_applicant_notes(applicant_id):
     return jsonify(edit_applicant_notes(applicant_id, text=request.form['text']))
 
 
-@app.route(
-    'api/applicant/<int:applicant_id>/notes', methods=['GET'])
-def edit_applicant_notes(applicant_id):
-    return jsonify(get_applicant_notes(applicant_id))
-
-
 @app.route('/api/applicant_list', methods=['GET'])
-def get_applicant_list():
+def api_get_applicant_list():
     return jsonify(get_applicant_list())
 
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])
-def character_assets(character_id):
+def api_character_assets(character_id):
     return jsonify(get_character_assets(character_id))
 
 
 @app.route('/api/character/<int:character_id>/bookmarks', methods=['GET'])
-def character_bookmarks(character_id):
+def api_character_bookmarks(character_id):
     return jsonify(get_character_bookmarks(character_id))
 
 
 @app.route('/api/character/<int:character_id>/calendar', methods=['GET'])
-def character_calendar(character_id):
+def api_character_calendar(character_id):
     return jsonify(get_character_calendar(character_id))
 
 
 @app.route('/api/character/<int:character_id>/contacts', methods=['GET'])
-def character_contacts(character_id):
+def api_character_contacts(character_id):
     return jsonify(get_character_contacts(character_id))
 
 
 @app.route('/api/character/<int:character_id>/mail', methods=['GET'])
-def character_mail(character_id):
+def api_character_mail(character_id):
     return jsonify(get_character_mail(character_id))
 
 
 @app.route('/api/character/<int:character_id>/market_contracts', methods=['GET'])
-def character_market_contracts(character_id):
+def api_character_market_contracts(character_id):
     return jsonify(get_character_market_contracts(character_id))
 
 
 @app.route('/api/character/<int:character_id>/market_history', methods=['GET'])
-def character_market_history(character_id):
+def api_character_market_history(character_id):
     return jsonify(get_character_market_history(character_id))
 
 
 @app.route('/api/character/<int:character_id>/skills', methods=['GET'])
-def character_skills(character_id):
+def api_character_skills(character_id):
     return jsonify(get_character_skills(character_id))
 
 
 @app.route('/api/character/<int:character_id>/wallet', methods=['GET'])
-def character_wallet(character_id):
+def api_character_wallet(character_id):
     return jsonify(get_character_wallet(character_id))
 
 
 @app.route('/api/mail/<int:mail_id>', methods=['GET'])
-def mail_body(mail_id):
+def api_mail_body(mail_id):
     return jsonify(get_mail_body(mail_id))
 
 
 @app.route('/api/questions', methods=['GET'])
-def questions():
+def api_questions():
     return jsonify(get_questions())
 
 
 @app.route('/api/answers/<int:user_id>')
-def answers(user_id):
+def api_user_answers(user_id):
     return jsonify(get_answers(user_id))
 
 
 @app.route('/api/admin/users')
-def users():
+def api_users():
     return jsonify(asyncio.run(get_users()))
 
 
 @app.route('/oauth_callback', methods=['GET'])
-def oauth_callback():
+def api_oauth_callback():
     code = request.args.get('code')
     state = request.args.get('state')
     character_id = process_oauth(code, save_refresh_token=True)
 
 
 @app.errorhandler(500)
-def server_error(e):
+def api_server_error(e):
     # Log the error and stacktrace.
     logging.exception('An error occurred during a request.')
     return 'An internal error occurred.', 500

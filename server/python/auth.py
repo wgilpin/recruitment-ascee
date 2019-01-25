@@ -1,7 +1,7 @@
 import requests
 from esi_config import client_id, secret_key
 import json
-from character_data import get_character
+from database import Character
 
 
 def process_oauth(code, save_refresh_token=True):
@@ -27,6 +27,7 @@ def process_oauth(code, save_refresh_token=True):
     user_data = json.loads(result.text)
     if save_refresh_token:
         refresh_token, character_id = token_data['refresh_token'], user_data['CharacterID']
-        character = get_character(character_id)
+        character = Character.get(character_id)
         character.refresh_token = refresh_token
-    return character_id
+        character.put()
+    return user_data['CharacterID']
