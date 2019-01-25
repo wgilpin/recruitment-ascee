@@ -59,9 +59,13 @@ class QandA {
     // get the SOP list, in form [{ q: 'aaaa', a: 'bbbb' }]
     const query = Store.datastore
       .createQuery('Question');
-    return Store.datastore.runQuery(query).then(qs => (
-      qs[0].map(q => ({ q: q.q, a: '' }))
-    ));
+    return Store.datastore.runQuery(query).then(qs => qs[0].reduce((acc, obj) => {
+      return ({
+        ...acc,
+        [obj[Store.datastore.KEY].id]: obj.q,
+      });
+    },
+    {}));
   }
 
   static getQuestions(applicantId) {

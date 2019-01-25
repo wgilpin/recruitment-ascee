@@ -7,6 +7,7 @@ const propTypes = {
   id: PropTypes.string,
   onClick: PropTypes.func,
   selected: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 const defaultProps = {};
@@ -36,13 +37,15 @@ export default class Alt extends React.Component {
       span: {
         size: 14,
         textAlign: 'left',
+        top: '7px',
+        position: 'relative',
       },
       selected: {
         backgroundColor: '#222',
       }
     };
 
-    let style = styles.div;
+    let style = { ...styles.div, ...this.props.style };
     if (selected){
       style = {...style, ...styles.selected};
     }

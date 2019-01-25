@@ -67,11 +67,11 @@ class CharacterModel extends CachedModel {
       const { id } = alt[Store.datastore.KEY];
       if (
         id === alt.main
-        || alt.values.isAdmin
-        || alt.values.isRecruiter
-        || alt.values.isSnrRecruiter
+        || alt.isAdmin
+        || alt.isRecruiter
+        || alt.isSnrRecruiter
       ) {
-        users[id] = alt;
+        users[id] = { ...alt, id };
       }
     });
     return users;
