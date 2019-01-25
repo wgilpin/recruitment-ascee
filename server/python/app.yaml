@@ -1,11 +1,13 @@
-runtime: python27
-api_version: 1
-threadsafe: true
+runtime: python37
+#api_version: 1
+#threadsafe: true
 
+env_variables:
+  GOOGLE_APPLICATION_CREDENTIALS: "/home/twine/.google/ascee-recruit-ee5d51793ba2.json"
 
-libraries:
-- name: ssl
-  version: latest
+#libraries:
+#- name: ssl
+#  version: latest
 
 handlers:
 - url: /.*

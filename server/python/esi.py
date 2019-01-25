@@ -44,7 +44,7 @@ def initialize_esi_client(auth_id=None):
         secret_key=secret_key,
     )
     if auth_id is not None:
-        auth.refresh_token = Character.get_by_id(auth_id).refresh_token
+        auth.refresh_token = Character.get(auth_id).refresh_token
     esi_client = EsiClient(
         auth,
         retry_requests=True,
@@ -79,16 +79,13 @@ def get_paged_op(op_name, auth_id=None, **kwargs):
         print('No page numbers given in getPagedOp, request {}, {}'.format(op_name, kwargs))
         print('Response: {}'.format(response))
         return []
+
+    operations = [
+        esi_app.op[op_name](page=page, **kwargs) for page in range(2, pages+1)
+    ]
+
     result_list = []
-    with ThreadPoolExecutor(max_workers=20) as pool:
-        for page in range(2, pages+1):
-            result_list.append(
-                pool.submit(
-                    lambda *args, **kw: esi_client.request(esi_app.op[op_name](**kw)),
-                    page=page,
-                    **kwargs
-                )
-            )
-        for result in result_list:
-            return_list.extend(result.result().data)
+    for request, response in esi_client.multi_request(operations):
+        result_list.extend(response.data)
+
     return return_list

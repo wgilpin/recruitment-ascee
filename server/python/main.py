@@ -23,13 +23,63 @@ from character_data import (
     get_character_market_history, get_character_skills,
     get_character_wallet, get_mail_body
 )
-from recruitment import get_questions, get_answers
+from recruitment import (
+    get_questions, get_answers, recruiter_claim_applicant,
+    recruiter_release_applicant, escalate_applicant, reject_applicant,
+    edit_applicant_notes, get_applicant_notes, get_applicant_list
+)
 from admin import get_users
 from auth import process_oauth
+import asyncio
+
 
 # [START create_app]
 app = Flask(__name__)
 # [END create_app]
+
+
+@app.route(
+    '/api/recruiter/<int:recruiter_id>/<int:applicant_id>/claim', methods=['GET'])
+def claim_applicant(recruiter_id, applicant_id):
+    # in addition to auth, be sure to check that the applicant is in fact
+    # an unclaimed applicant
+    return jsonify(recruiter_claim_applicant(recruiter_id, applicant_id))
+
+
+@app.route(
+    '/api/recruiter/<int:recruiter_id>/<int:applicant_id>/release', methods=['GET'])
+def release_applicant(recruiter_id, applicant_id):
+    return release_applicant(recruiter_id, applicant_id)
+
+
+@app.route(
+    '/api/applicant/<int:applicant_id>/escalate', methods=['GET'])
+def escalate_applicant(applicant_id):
+    return jsonify(escalate_applicant(applicant_id))
+
+
+@app.route(
+    '/api/applicant/<int:applicant_id>/reject', methods=['GET'])
+def reject_applicant(applicant_id):
+    return jsonify(reject_applicant(applicant_id))
+
+
+@app.route(
+    'api/applicant/<int:applicant_id>/edit_notes', methods=['PUT'])
+def edit_applicant_notes(applicant_id):
+    return jsonify(edit_applicant_notes(applicant_id, text=request.form['text']))
+
+
+@app.route(
+    'api/applicant/<int:applicant_id>/notes', methods=['GET'])
+def edit_applicant_notes(applicant_id):
+    return jsonify(get_applicant_notes(applicant_id))
+
+
+@app.route('/api/applicant_list', methods=['GET'])
+def get_applicant_list():
+    return jsonify(get_applicant_list())
+
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])
 def character_assets(character_id):
@@ -93,7 +143,7 @@ def answers(user_id):
 
 @app.route('/api/admin/users')
 def users():
-    return jsonify(get_users())
+    return jsonify(asyncio.run(get_users()))
 
 
 @app.route('/oauth_callback', methods=['GET'])
@@ -101,7 +151,7 @@ def oauth_callback():
     code = request.args.get('code')
     state = request.args.get('state')
     character_id = process_oauth(code, save_refresh_token=True)
-    
+
 
 @app.errorhandler(500)
 def server_error(e):
