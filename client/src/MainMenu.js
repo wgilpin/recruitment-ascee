@@ -4,7 +4,7 @@ import RecruiterImg from './images/titansRec.png';
 import ApplicantImg from './images/Rifter.png';
 import Recruiter from './recruiter/Recruiter';
 import Applicant from './Applicant/Applicant';
-
+import Admin from './admin/Admin';
 class MainMenu extends Component {
   constructor(props) {
     super(props);
@@ -28,16 +28,19 @@ class MainMenu extends Component {
   validParams = {
     recruiter: 'recruiter',
     applicant: 'applicant',
+    admin: 'admin',
   }
 
   render() {
     const params = queryString.parse(this.props.location.search);
     if (!(params.showing in this.validParams)) {
       params.showing = 'error';
+      console.error(`invalid route showing=${params.showing}`)
     }
     return (
       <React.Fragment>
-        {this.props.location.search === '' && (
+        {(this.props.location.search === '' ||
+          params.showing === 'error') && (
           <div style={this.styles.outer}>
             <a href="/login">
               <img
@@ -57,6 +60,7 @@ class MainMenu extends Component {
         )}
         {params.showing === 'recruiter' && <Recruiter />}
         {params.showing === 'applicant' && <Applicant />}
+        {params.showing === 'admin' && <Admin />}
         {params.showing === 'error' && <div>Unknown route</div>}
 
       </React.Fragment>

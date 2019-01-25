@@ -8,10 +8,21 @@ const ApplicationModel = require('../../model/ApplicationModel');
 
 const router = express.Router();
 
-/* GET questions list. */
+/* GET questions for recruiters. */
 router.get('/', cors(corsOptions), async (req, res) => {
-  logging.debug('GET questions');
-  return QandA.getQuestions(req.session.loggedInId)
+  logging.debug('GET question list');
+  return QandA.getCurrentQuestionList()
+    .then((info) => {
+      res.json({ info });
+    }).catch((error) => {
+      res.send({ error });
+    });
+});
+
+/* GET questions for an applicant. */
+router.get('/:userId', cors(corsOptions), async (req, res) => {
+  logging.debug('GET questions and answers');
+  return QandA.getQuestions(req.params.userId)
     .then((info) => {
       res.json({ info });
     }).catch((error) => {
