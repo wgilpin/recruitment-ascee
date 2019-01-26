@@ -10,5 +10,7 @@ client/package-lock.json
 server/package-lock.json
 *.log
 *.gz
+*.pyc
 credentials/*
 credentials/ascee-recruit-f7087935ad03.json
+server/python/__pycache__/*
