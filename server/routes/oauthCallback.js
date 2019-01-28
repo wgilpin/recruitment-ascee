@@ -7,11 +7,19 @@ const Character = require('../model/CharacterModel');
 
 /* GET users listing. */
 router.get('/', async (req, res) => {
-  // callback from the Eve Online SSO login screen on login
-  // Get an access token for this authorization code
+  /* callback from the Eve Online SSO login screen on login
+    * we get an access code, and the state variable we passed to it in the callback URL
+    * note the state token we supplied to the eve oauth via the url is in two parts:
+    *    either 'main:' or 'alt:'
+    *    plus a random token string
+    * main for when this was a main char login (eg from the homepage)
+    * alt for an alt - eg when applicant clicks 'add alt'
+    * We need to know so we can redirect the user to the right but of the app after
+    */
 
+  // Get an access token for this authorization code
   try {
-    // get access token from callback params
+    // get access token & other data from callback code 7 state
     const result = await Oauth.getAccessToken(req.query.code, req.query.state);
     const {
       name, userId, expires, accessToken, refreshToken, loginKind,
@@ -24,14 +32,15 @@ router.get('/', async (req, res) => {
       main: req.session.mainId,
     };
     if (loginKind === 'main') {
-      // this character was loggin in as a main, not just adding an alt
+      // this character was logging in as a main, not just adding an alt
+      // store useful data in session
       req.session.CharacterName = name;
       // mainId is the main of the current user
       req.session.mainId = userId;
       // loggedInId is which character is actually logged in
       req.session.loggedInId = userId;
       userData.accessToken = accessToken;
-    } if (loginKind === 'alt') {
+    } else if (loginKind === 'alt') {
       // update the alt record
       const alt = new Character();
       await alt.get(userId);
