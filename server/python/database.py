@@ -16,10 +16,6 @@ memcache_adapter = MemcacheAdapter(memcache_client, datastore_adapter)
 set_adapter(memcache_adapter)
 
 
-class Recruiter(Model):
-    user_id = props.Integer(indexed=True)
-
-
 class User(Model, UserMixin):
 
     id = props.Integer(indexed=True)
@@ -27,6 +23,8 @@ class User(Model, UserMixin):
     is_recruiter = props.Bool(default=False)
     is_senior_recruiter = props.Bool(default=False)
     is_applicant = props.Bool()
+    recruiter_id = props.Integer(indexed=True, optional=True)
+    status = props.Integer(indexed=True, default=0)
 
     @classmethod
     def get(cls, id, *args, **kwargs):
@@ -306,13 +304,6 @@ class Alliance(Model):
 
     def is_redlisted(self):
         return self.redlisted
-
-
-class Recruit(Model):
-    user_id = props.Integer(indexed=True)
-    recruiter_id = props.Integer(indexed=True, optional=True)
-    status = props.Integer(indexed=True, default=0)
-    notes = props.String(default='')
 
 
 class Character(Model):

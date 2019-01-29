@@ -14,6 +14,26 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
+def ensure_has_access(user_id, target_user_id, self_access=False):
+    if not has_access(user_id, target_user_id, self_access=self_access):
+        raise AssertionError
+
+
+def has_access(user_id, target_user_id, self_access=False):
+    user = User.get(user_id)
+    target_user = User.get(target_user_id)
+    if user.is_admin:
+        return True
+    elif self_access and (user_id == target_user_id):
+        return True
+    elif user.is_senior_recruiter and target_user.is_applicant:
+        return True
+    elif user.is_recruiter and target_user.is_applicant and (target_user.recruiter_id == user.id):
+        return True
+    else:
+        return False
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
