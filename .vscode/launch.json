@@ -1,15 +1,16 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "Python: Terminal (integrated)",
       "type": "python",
       "request": "launch",
       "program": "${file}",
-      "console": "integratedTerminal"
+      "console": "integratedTerminal",
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "/Users/will/Projects/ascee/credentials/ascee-recruit-95a50ceae351.json"
+      }
     },
     {
       "name": "Attach (Remote Debug)",
@@ -33,14 +34,7 @@
       "--no-debugger",
       "--no-reload"
     ],
-    "jinja": true
   },
-    // {
-    //   "type": "node",
-    //   "request": "launch",
-    //   "name": "Launch Program",
-    //   "program": "${workspaceFolder}\\server\\bin\\www"
-    // }
     {
       "type": "node",
       "request": "attach",
