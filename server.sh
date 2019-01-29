@@ -1,3 +1,4 @@
 #!/bin/bash
 cd server/python
-source activate env37
+conda activate env37
+dev_appserver.py will.yaml
