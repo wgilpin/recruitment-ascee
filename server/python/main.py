@@ -33,15 +33,14 @@ from admin import get_users
 import asyncio
 from auth import login_manager, login, ensure_has_access
 from flask_login import login_required, current_user
+from user_data import get_character_list
 
 
 @app.route(
     '/api/recruiter/<int:recruiter_id>/<int:applicant_id>/claim', methods=['GET'])
 @login_required
 def api_claim_applicant(recruiter_id, applicant_id):
-    # in addition to auth, be sure to check that the applicant is in fact
-    # an unclaimed applicant
-    ensure_has_access(current_user.id, applicant_id)
+    # TODO: be sure to check that the applicant is in fact an unclaimed applicant
     return jsonify(recruiter_claim_applicant(recruiter_id, applicant_id))
 
 
@@ -59,8 +58,7 @@ def api_escalate_applicant(applicant_id):
     return jsonify(escalate_applicant(applicant_id))
 
 
-@app.route(
-    '/api/applicant/<int:applicant_id>/reject', methods=['GET'])
+@app.route('/api/applicant/<int:applicant_id>/reject', methods=['GET'])
 def api_reject_applicant(applicant_id):
     ensure_has_access(current_user.id, applicant_id)
     return jsonify(reject_applicant(applicant_id))
@@ -76,6 +74,12 @@ def api_edit_applicant_notes(applicant_id):
 @app.route('/api/applicant_list')
 def api_get_applicant_list():
     return jsonify(get_applicant_list())
+
+
+@app.route('/api/user/<int:user_id>/characters')
+def api_get_user_character_list(user_id):
+    ensure_has_access(current_user.id, user_id)
+    return jsonify(get_character_list(user_id))
 
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])

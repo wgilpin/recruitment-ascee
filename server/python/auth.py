@@ -19,12 +19,13 @@ def ensure_has_access(user_id, target_user_id, self_access=False):
         raise AssertionError
 
 
-def has_access(user_id, target_user_id, self_access=False):
+def has_access(user_id, target_character_id, self_access=False):
+    target_character = Character.get(target_character_id)
     user = User.get(user_id)
-    target_user = User.get(target_user_id)
+    target_user = User.get(target_character.user_id)
     if user.is_admin:
         return True
-    elif self_access and (user_id == target_user_id):
+    elif self_access and (user_id == target_character.user_id):
         return True
     elif user.is_senior_recruiter and target_user.is_applicant:
         return True
@@ -74,7 +75,7 @@ def login_helper(login_type):
     return redirect(eve_login_url)
 
 
-@app.route('/auth/oauth_callback', methods=['GET'])
+@app.route('/auth/oauth-callback', methods=['GET'])
 def api_oauth_callback():
     code = request.args.get('code')
     token = request.args.get('state')

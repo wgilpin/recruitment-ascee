@@ -8,15 +8,15 @@ import cachetools
 
 
 @cachetools.cached(cachetools.LRUCache(maxsize=1000))
-def get_character_id_list(user_id):
-    query = Character.query(Character.user_id == user_id)
+def get_character_list(user_id):
+    query = Character.get(Character.user_id == user_id)
     character_dict = {}
     for character in query.run():
         character_dict[character.character_id] = {
             'name': character.name,
             'corporation_id': character.corporation_id
         }
-    return {'info': character_dict
+    return {'info': character_dict}
 
 
 def get_user_wallet(user_id):
