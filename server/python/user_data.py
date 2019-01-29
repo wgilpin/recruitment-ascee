@@ -7,11 +7,15 @@ from database import Character
 import cachetools
 
 
-@cachetools.cached(cachetools.LRUCache(maxsize=1000))
 def get_character_list(user_id):
     query = Character.get(Character.user_id == user_id)
+    return list(query.run())
+
+
+@cachetools.cached(cachetools.LRUCache(maxsize=1000))
+def get_character_data_list(user_id):
     character_dict = {}
-    for character in query.run():
+    for character in get_character_list(user_id):
         character_dict[character.character_id] = {
             'name': character.name,
             'corporation_id': character.corporation_id
@@ -29,22 +33,22 @@ def get_user_market_contracts(user_id):
 
 def get_user_info_list(user_id, character_function):
     return_dict = {'info': []}
-    for character_id in get_character_id_list(user_id):
-        entry_list = character_function(character_id)
+    for character in get_character_list(user_id):
+        entry_list = character_function(character.id)
         for entry in entry_list:
-            entry['character_id'] = character_id
-            entry['character_name'] = get_character_name(character_id)
+            entry['character_id'] = character.id
+            entry['character_name'] = character.name
             return_dict['info'].append(entry)
     return return_dict
 
 
 def get_user_calendar(user_id):
     calendar_dict = {}
-    for character_id in get_character_id_list(user_id):
-        new_calendar_data = get_character_calendar(character_id)['info']
+    for character in get_character_list(user_id):
+        new_calendar_data = get_character_calendar(character.id)['info']
         for entry in new_calendar_data:
-            entry['character_id'] = character_id
-            entry['character_name'] = get_character_name(character_id)
+            entry['character_id'] = character.id
+            entry['character_name'] = character.name
             calendar_dict[entry['event_id']] = entry
     return {'info': list(calendar_dict.values())}
 
@@ -63,10 +67,10 @@ def get_user_mail(user_id):
 
 def get_user_dict(user_id, character_function):
     return_dict = {}
-    for character_id in get_character_id_list(user_id):
-        for key, entry in character_function(character_id).items():
+    for character in get_character_list(user_id):
+        for key, entry in character_function(character.id).items():
             if key not in return_dict:
-                entry['character_id'] = character_id
-                entry['character_name'] = get_character_name(character_id)
+                entry['character_id'] = character.id
+                entry['character_name'] = character.name
                 return_dict[key] = entry
     return return_dict
