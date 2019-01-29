@@ -6,6 +6,7 @@ from esipy import EsiClient, EsiSecurity
 from esipy.cache import DictCache
 from pyswagger import App
 from esi_config import client_id, secret_key, callback_url, client_name
+from flask_login import UserMixin
 
 
 memcache_client = pylibmc.Client(
@@ -19,13 +20,23 @@ class Recruiter(Model):
     user_id = props.Integer(indexed=True)
 
 
-class User(Model):
+class User(Model, UserMixin):
 
     id = props.Integer(indexed=True)
     is_admin = props.Bool(default=False)
     is_recruiter = props.Bool(default=False)
     is_senior_recruiter = props.Bool(default=False)
     is_applicant = props.Bool()
+
+    @classmethod
+    def get(cls, id, *args, **kwargs):
+        user = super(Type, cls).get(id, *args, **kwargs)
+        if user is None:
+            user = User(id=id)
+        return user
+
+    def get_id(self):
+        return str(self.id)
 
 
 class Type(Model):
@@ -304,10 +315,9 @@ class Recruit(Model):
     notes = props.String(default='')
 
 
-
 class Character(Model):
     id = props.Integer(indexed=True)
-    user_id = props.Integer(indexed=True, optional=True)
+    user_id = props.Integer(indexed=True)
     name = props.String()
     corporation_id = props.Integer(indexed=True)
     is_male = props.Bool()
@@ -324,6 +334,7 @@ class Character(Model):
             )
             character = Character(
                 id=id,
+                user_id=id,
                 name=character_data['name'],
                 is_male=character_data['gender'] == 'male',
                 corporation_id=character_data['corporation_id'],

@@ -29,13 +29,8 @@ from recruitment import (
     edit_applicant_notes, get_applicant_notes, get_applicant_list
 )
 from admin import get_users
-from auth import process_oauth
 import asyncio
-
-
-# [START create_app]
-app = Flask(__name__)
-# [END create_app]
+from flask_app import app
 
 
 @app.route(
@@ -138,13 +133,6 @@ def api_user_answers(user_id):
 @app.route('/api/admin/users')
 def api_users():
     return jsonify(asyncio.run(get_users()))
-
-
-@app.route('/oauth_callback', methods=['GET'])
-def api_oauth_callback():
-    code = request.args.get('code')
-    state = request.args.get('state')
-    character_id = process_oauth(code, save_refresh_token=True)
 
 
 @app.errorhandler(500)
