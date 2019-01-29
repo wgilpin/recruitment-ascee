@@ -2,6 +2,9 @@ runtime: python37
 #api_version: 1
 #threadsafe: true
 
+env_variables:
+  GOOGLE_APPLICATION_CREDENTIALS: "/Users/will/Projects/ascee/credentials/ascee-recruit-95a50ceae351.json"
+
 #libraries:
 #- name: ssl
 #  version: latest
