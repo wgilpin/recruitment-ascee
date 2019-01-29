@@ -31,6 +31,7 @@ class User(Model, UserMixin):
         user = super(User, cls).get(id, *args, **kwargs)
         if user is None:
             user = User(id=id)
+            user.put()
         return user
 
     def get_id(self):
@@ -331,8 +332,6 @@ class Character(Model):
                 corporation_id=character_data['corporation_id'],
             )
             character.put()
-        else:
-            print(character)
         return character
 
     def is_redlisted(self):
