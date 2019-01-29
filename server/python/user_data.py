@@ -1,5 +1,5 @@
 from character_data import (
-    get_character_wallet, get_character_name, get_character_contacts,
+    get_character_wallet, get_character_contacts,
     get_character_calendar, get_character_market_contracts,
     get_character_bookmarks, get_character_mail,
 )
