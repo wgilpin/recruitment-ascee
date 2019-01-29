@@ -22,8 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prebuild": "del /S /q  \"..\\server\\public\"",
-    "postbuild": "xcopy /eFy \".\\build\\*\" \"..\\server\\public\""
+    "prebuild": "rm -rf  ../server/public",
+    "postbuild": "cp -R ./build/ ../server/python/public/"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -12,5 +12,7 @@ env_variables:
 #  version: latest
 
 handlers:
+- url: /app
+  static_dir: public
 - url: /.*
   script: main.app

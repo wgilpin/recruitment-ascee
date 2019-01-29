@@ -7,5 +7,7 @@ runtime: python37
 #  version: latest
 
 handlers:
+- url: /app
+  static_dir: public
 - url: /.*
   script: main.app
