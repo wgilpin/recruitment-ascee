@@ -330,6 +330,9 @@ class Character(Model):
                 is_male=character_data['gender'] == 'male',
                 corporation_id=character_data['corporation_id'],
             )
+            character.put()
+        else:
+            print(character)
         return character
 
     def is_redlisted(self):
