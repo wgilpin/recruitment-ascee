@@ -75,7 +75,7 @@ def login_helper(login_type):
     return redirect(eve_login_url)
 
 
-@app.route('/auth/oauth-callback', methods=['GET'])
+@app.route('/auth/oauth_callback', methods=['GET'])
 def api_oauth_callback():
     code = request.args.get('code')
     token = request.args.get('state')
@@ -129,6 +129,7 @@ def process_oauth(code):
     user_data = json.loads(result.text)
 
     refresh_token, character_id = token_data['refresh_token'], user_data['CharacterID']
+    print('process_oauth: character',character_id)
     character = Character.get(character_id)
     character.refresh_token = refresh_token
     character.put()
