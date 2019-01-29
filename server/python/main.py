@@ -16,6 +16,7 @@
 import logging
 
 # [START imports]
+from flask_app import app
 from flask import Flask, render_template, request, jsonify
 from character_data import (
     get_character_assets, get_character_bookmarks, get_character_calendar,
@@ -30,7 +31,7 @@ from recruitment import (
 )
 from admin import get_users
 import asyncio
-from flask_app import app
+from auth import login_manager, login
 
 
 @app.route(
@@ -65,7 +66,7 @@ def api_edit_applicant_notes(applicant_id):
     return jsonify(edit_applicant_notes(applicant_id, text=request.form['text']))
 
 
-@app.route('/api/applicant_list', methods=['GET'])
+@app.route('/api/applicant_list')
 def api_get_applicant_list():
     return jsonify(get_applicant_list())
 
@@ -120,7 +121,7 @@ def api_mail_body(mail_id):
     return jsonify(get_mail_body(mail_id))
 
 
-@app.route('/api/questions', methods=['GET'])
+@app.route('/api/questions')
 def api_questions():
     return jsonify(get_questions())
 

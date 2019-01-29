@@ -4,9 +4,8 @@ import json
 from database import Character, User
 from flask_app import app
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
-from flask import session, redirect
+from flask import session, redirect, request
 from esi_config import callback_url, client_id, scopes, login_url, app_url
-import request
 import random
 import hmac
 import hashlib
@@ -25,11 +24,18 @@ def login():
     return login_helper('login')
 
 
+@app.route('/auth/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(app_url)
+
+
 login_manager.login_view = login
 
 
-@login_required
 @app.route('/auth/link_alt')
+@login_required
 def link_alt():
     return login_helper('link')
 
@@ -73,7 +79,7 @@ def generate_token():
     rand = random.SystemRandom()
     random_string = ''.join(rand.choice(chars) for _ in range(40))
     return hmac.new(
-        app.secret_key.encode('utf-8'),
+        app.secret_key,
         random_string.encode('utf-8'),
         hashlib.sha256
     ).hexdigest()

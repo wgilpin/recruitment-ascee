@@ -30,7 +30,7 @@ class User(Model, UserMixin):
 
     @classmethod
     def get(cls, id, *args, **kwargs):
-        user = super(Type, cls).get(id, *args, **kwargs)
+        user = super(User, cls).get(id, *args, **kwargs)
         if user is None:
             user = User(id=id)
         return user
