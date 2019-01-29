@@ -9,5 +9,7 @@ runtime: python37
 handlers:
 - url: /app
   static_dir: public
+- url: /static
+  static_dir: public/static
 - url: /.*
   script: main.app
