@@ -3,7 +3,7 @@ runtime: python37
 #threadsafe: true
 
 env_variables:
-  GOOGLE_APPLICATION_CREDENTIALS: "/Users/will/Projects/ascee/credentials/ascee-recruit-95a50ceae351.json"
+  GOOGLE_APPLICATION_CREDENTIALS: "/home/twine/.google/ascee-recruit-ee5d51793ba2.json"
 
 #libraries:
 #- name: ssl

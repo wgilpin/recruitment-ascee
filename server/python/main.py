@@ -33,7 +33,7 @@ from admin import get_users
 import asyncio
 from auth import login_manager, login, ensure_has_access
 from flask_login import login_required, current_user
-from user_data import get_character_list
+from user_data import get_character_data_list
 
 
 @app.route(
@@ -79,7 +79,7 @@ def api_get_applicant_list():
 @app.route('/api/user/<int:user_id>/characters')
 def api_get_user_character_list(user_id):
     ensure_has_access(current_user.id, user_id)
-    return jsonify(get_character_list(user_id))
+    return jsonify(get_character_data_list(user_id))
 
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])
