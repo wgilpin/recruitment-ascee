@@ -22,7 +22,6 @@ class User(Model, UserMixin):
     is_admin = props.Bool(default=False)
     is_recruiter = props.Bool(default=False)
     is_senior_recruiter = props.Bool(default=False)
-    is_applicant = props.Bool()
     recruiter_id = props.Integer(indexed=True, optional=True)
     status = props.Integer(indexed=True, default=0)
 
@@ -33,6 +32,9 @@ class User(Model, UserMixin):
             user = User(id=id)
             user.put()
         return user
+
+    def is_applicant(self):
+        return not (self.is_recruiter or self.is_senior_recruiter or self.is_admin)
 
     def get_id(self):
         return str(self.id)

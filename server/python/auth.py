@@ -27,9 +27,9 @@ def has_access(user_id, target_character_id, self_access=False):
         return True
     elif self_access and (user_id == target_character.user_id):
         return True
-    elif user.is_senior_recruiter and target_user.is_applicant:
+    elif user.is_senior_recruiter and target_user.is_applicant():
         return True
-    elif user.is_recruiter and target_user.is_applicant and (target_user.recruiter_id == user.id):
+    elif user.is_recruiter and target_user.is_applicant() and (target_user.recruiter_id == user.id):
         return True
     else:
         return False
