@@ -62,13 +62,19 @@ def escalate_applicant(applicant_user_id):
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
-        applicant.status += 1
+        applicant.status = 'escalated'
         applicant.put()
         return {'new_applicant_status': applicant.status}
 
 
 def reject_applicant(applicant_user_id):
-    pass
+    applicant = User.get(applicant_user_id)
+    if applicant is None:
+        applicant_name = Character.get(applicant_user_id).name
+        return {'error': 'User {} is not an applicant'.format(applicant_name)}
+    else:
+        applicant.status = 'rejected'
+        applicant.put()
 
 
 def edit_applicant_notes(applicant_user_id, text):
@@ -83,7 +89,7 @@ def edit_applicant_notes(applicant_user_id, text):
 
 def get_applicant_list():
     return_list = []
-    for applicant in Recruit.query().run():
+    for applicant in User.query(User.is_applicant).run():
         return_list.append({
             'user_id': applicant.user_id,
             'recruiter_id': applicant.recruiter_id,

@@ -22,9 +22,22 @@ class User(Model, UserMixin):
     is_admin = props.Bool(default=False)
     is_recruiter = props.Bool(default=False)
     is_senior_recruiter = props.Bool(default=False)
-    is_applicant = props.Bool()
     recruiter_id = props.Integer(indexed=True, optional=True)
-    status = props.Integer(indexed=True, default=0)
+    status_level = props.Integer(indexed=True, default=0)
+
+    STATUS_LIST = ('new', 'escalated', 'accepted', 'rejected', 'other')
+
+    @property
+    def status(self):
+        return User.STATUS_LIST[self.status_level]
+
+    @property
+    def is_applicant(self):
+        return not (self.is_recruiter or self.is_senior_recruiter or self.is_admin)
+
+    @status.setter
+    def status(self, value):
+        self.status_level = User.STATUS_LIST.index(value)
 
     @classmethod
     def get(cls, id, *args, **kwargs):

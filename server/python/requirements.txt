@@ -3,3 +3,4 @@ Flask==1.0.2
 cachetools==3.0.0
 anom[memcache]==0.8.0
 flask_login==0.4.1
+backoff==1.8.0
