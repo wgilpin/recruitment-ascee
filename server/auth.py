@@ -108,9 +108,9 @@ def api_oauth_callback():
 
 def generate_token():
     """Generates a non-guessable OAuth token"""
-    chars = ('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+    chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     rand = random.SystemRandom()
-    random_string = ''.join(rand.choice(chars) for _ in range(40))
+    random_string = ''.join(rand.choice(chars) for _ in range(len(chars)))
     return hmac.new(
         app.secret_key,
         random_string.encode('utf-8'),
