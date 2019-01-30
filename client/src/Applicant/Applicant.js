@@ -32,7 +32,7 @@ export default class Applicant extends Component {
   };
 
   componentDidMount() {
-    let fetch = new FetchData({ scope: 'questions' });
+    let fetch = new FetchData({ scope: 'api/questions' });
     fetch.get().then(this.questionsToState);
   }
 
@@ -139,7 +139,7 @@ export default class Applicant extends Component {
           </label>
         </div>
         <Alts style={styles.alts}>
-          <a href="/login/alt">
+          <a href="/auth/link_alt">
             {!this.state.ready && <FabButton icon="add" color="#c00" size="40px"/>}
           </a>
         </Alts>
