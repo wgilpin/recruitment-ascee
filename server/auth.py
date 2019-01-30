@@ -32,9 +32,9 @@ def has_access(user_id, target_character_id, self_access=False):
         return True
     elif self_access and (user_id == target_character.user_id):
         return True
-    elif user.is_senior_recruiter and target_user.is_applicant():
+    elif user.is_senior_recruiter and target_user.is_applicant:
         return True
-    elif user.is_recruiter and target_user.is_applicant() and (target_user.recruiter_id == user.id):
+    elif user.is_recruiter and target_user.is_applicant and (target_user.recruiter_id == user.id):
         return True
     else:
         return False
@@ -93,7 +93,7 @@ def api_oauth_callback():
     if login_type == 'login':
         user = User.get(character.user_id)
         login_user(user)
-        if user.is_applicant():
+        if user.is_applicant:
             print ('redirect to applicant')
             return redirect(f'{react_app_url}?showing=applicant')
         print ('redirect to recruiter')
