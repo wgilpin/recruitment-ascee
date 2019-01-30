@@ -47,6 +47,9 @@ class User(Model, UserMixin):
             user.put()
         return user
 
+    def is_applicant(self):
+        return not (self.is_recruiter or self.is_senior_recruiter or self.is_admin)
+
     def get_id(self):
         return str(self.id)
 

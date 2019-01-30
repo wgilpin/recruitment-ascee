@@ -4,8 +4,8 @@ import json
 from database import Character, User
 from flask_app import app
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
-from flask import session, redirect, request, jsonify
-from esi_config import callback_url, client_id, scopes, login_url, app_url
+from flask import session, redirect, request
+from esi_config import callback_url, client_id, scopes, login_url, app_url, react_app_url
 import random
 import hmac
 import hashlib
@@ -32,9 +32,9 @@ def has_access(user_id, target_character_id, self_access=False):
         return True
     elif self_access and (user_id == target_character.user_id):
         return True
-    elif user.is_senior_recruiter and target_user.is_applicant:
+    elif user.is_senior_recruiter and target_user.is_applicant():
         return True
-    elif user.is_recruiter and target_user.is_applicant and (target_user.recruiter_id == user.id):
+    elif user.is_recruiter and target_user.is_applicant() and (target_user.recruiter_id == user.id):
         return True
     else:
         return False
@@ -54,7 +54,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(app_url)
+    return redirect(react_app_url)
 
 
 login_manager.login_view = login
@@ -93,12 +93,17 @@ def api_oauth_callback():
     if login_type == 'login':
         user = User.get(character.user_id)
         login_user(user)
+        if user.is_applicant():
+            print ('redirect to applicant')
+            return redirect(f'{react_app_url}?showing=applicant')
+        print ('redirect to recruiter')
+        return redirect(f'{react_app_url}?showing=recruiter')
     elif login_type == 'link':
         character.user_id = current_user.id
     else:
         return AppException(
             'OAuth callback state specified invalid login type {}.'.format(login_type))
-    return redirect(app_url)
+    return redirect(react_app_url)
 
 
 def generate_token():

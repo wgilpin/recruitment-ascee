@@ -42,14 +42,14 @@ class MainMenu extends Component {
         {(this.props.location.search === '' ||
           params.showing === 'error') && (
           <div style={this.styles.outer}>
-            <a href="/login">
+            <a href="/auth/login">
               <img
                 src={RecruiterImg}
                 style={this.styles.image}
                 alt="Recruiters"
               />
             </a>
-            <a href="/login">
+            <a href="/auth/login">
               <img
                 src={ApplicantImg}
                 style={this.styles.image}
