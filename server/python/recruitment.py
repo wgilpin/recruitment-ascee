@@ -83,13 +83,14 @@ def edit_applicant_notes(applicant_user_id, text):
 
 def get_applicant_list():
     return_list = []
-    for applicant in Recruit.query().run():
-        return_list.append({
-            'user_id': applicant.user_id,
-            'recruiter_id': applicant.recruiter_id,
-            'recruiter_name': Character.get(applicant.recruiter_id).name,
-            'status': applicant.status,
-        })
+    for applicant in User.query().run():
+        if applicant.is_applicant():
+            return_list.append({
+                'user_id': applicant.user_id,
+                'recruiter_id': applicant.recruiter_id,
+                'recruiter_name': Character.get(applicant.recruiter_id).name,
+                'status': applicant.status,
+            })
     return {'info': return_list}
 
 
