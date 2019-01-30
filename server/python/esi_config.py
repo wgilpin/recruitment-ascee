@@ -3,6 +3,7 @@
 client_id = 'd42741ceaf7140049db95ec65dda5742'
 secret_key = 'XkkgTu89W1diw2OjrwGlav5T2koud7TPQoePbjoE'
 app_url = 'http://localhost:8080/'
+react_app_url = app_url + 'app/index.html'
 # app_url = 'https://ascee-recruit.appspot.com/'
 callback_url = app_url + 'auth/oauth_callback'
 client_name = 'ascee-recruit'
