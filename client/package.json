@@ -23,7 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prebuild": "rm -rf  ../server/public",
-    "postbuild": "cp -R ./build/ ../server/python/public/"
+    "postbuild": "cp -R ./build/ ../server/public/"
   },
   "eslintConfig": {
     "extends": "react-app"
