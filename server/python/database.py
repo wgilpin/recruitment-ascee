@@ -31,6 +31,10 @@ class User(Model, UserMixin):
     def status(self):
         return User.STATUS_LIST[self.status_level]
 
+    @classmethod
+    def is_applicant_query(cls):
+        return not (cls.is_recruiter or cls.is_senior_recruiter or cls.is_admin)
+
     @property
     def is_applicant(self):
         return not (self.is_recruiter or self.is_senior_recruiter or self.is_admin)

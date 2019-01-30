@@ -89,7 +89,7 @@ def edit_applicant_notes(applicant_user_id, text):
 
 def get_applicant_list():
     return_list = []
-    for applicant in User.query(User.is_applicant).run():
+    for applicant in User.query(User.is_applicant_query()).run():
         return_list.append({
             'user_id': applicant.user_id,
             'recruiter_id': applicant.recruiter_id,
