@@ -1,4 +1,4 @@
-from anom import Model, props, set_adapter
+from anom import Model, props, set_adapter, Key
 from anom.adapters import DatastoreAdapter, MemcacheAdapter
 import os
 import pylibmc
@@ -17,31 +17,43 @@ set_adapter(memcache_adapter)
 
 
 class User(Model, UserMixin):
-
-    id = props.Integer(indexed=True)
     is_admin = props.Bool(default=False)
     is_recruiter = props.Bool(default=False)
     is_senior_recruiter = props.Bool(default=False)
     recruiter_id = props.Integer(indexed=True, optional=True)
-    status = props.Integer(indexed=True, default=0)
+    status_level = props.Integer(indexed=True, default=0)
+
+    STATUS_LIST = ('new', 'escalated', 'accepted', 'rejected', 'other')
+
+    @property
+    def status(self):
+        return User.STATUS_LIST[self.status_level]
+
+    @classmethod
+    def is_applicant_query(cls):
+        return not (cls.is_recruiter or cls.is_senior_recruiter or cls.is_admin)
+
+    @property
+    def is_applicant(self):
+        return not (self.is_recruiter or self.is_senior_recruiter or self.is_admin)
+
+    @status.setter
+    def status(self, value):
+        self.status_level = User.STATUS_LIST.index(value)
 
     @classmethod
     def get(cls, id, *args, **kwargs):
         user = super(User, cls).get(id, *args, **kwargs)
         if user is None:
-            user = User(id=id)
+            user = User(key=Key(User, id))
             user.put()
         return user
 
-    def is_applicant(self):
-        return not (self.is_recruiter or self.is_senior_recruiter or self.is_admin)
-
     def get_id(self):
-        return str(self.id)
+        return Key(self).int_id
 
 
 class Type(Model):
-    id = props.Integer(indexed=True)
     group_id = props.Integer(indexed=True)
     name = props.String()
     redlisted = props.Bool(default=False)
@@ -55,7 +67,7 @@ class Type(Model):
                 type_id=id,
             )
             type = Type(
-                id=id,
+                key=Key(Type, id),
                 name=type_dict['name'],
                 group_id=type_dict['group_id']
             )
@@ -68,7 +80,6 @@ class Type(Model):
 
 
 class Group(Model):
-    id = props.Integer(indexed=True)
     name = props.String(optional=True)
 
     @classmethod
@@ -79,13 +90,12 @@ class Group(Model):
                 'get_universe_groups_group_id',
                 group_id=id,
             )
-            group = Group(id=id, name=group_data['name'])
+            group = Group(key=Key(Group, id), name=group_data['name'])
             group.put()
         return group
 
 
 class TypePrice(Model):
-    id = props.Integer(indexed=True)
     price = props.Float(default=0.)
 
     @classmethod
@@ -93,7 +103,7 @@ class TypePrice(Model):
         type_price = super(TypePrice, cls).get(id, *args, **kwargs)
         if type_price is None:
             type_price = TypePrice(
-                id=id,
+                key=Key(TypePrice, id),
                 price=0.
             )
             type_price.put()
@@ -101,7 +111,6 @@ class TypePrice(Model):
 
 
 class Region(Model):
-    id = props.Integer(indexed=True)
     name = props.String()
     redlisted = props.Bool(default=False)
 
@@ -114,7 +123,7 @@ class Region(Model):
                 region_id=id
             )
             region = Region(
-                id=id,
+                key=Key(Region, id),
                 name=region_data['name'],
             )
             region.put()
@@ -126,7 +135,6 @@ class Region(Model):
 
 
 class System(Model):
-    id = props.Integer(indexed=True)
     region_id = props.Integer(indexed=True)
     name = props.String()
     redlisted = props.Bool(default=False)
@@ -144,7 +152,7 @@ class System(Model):
                 constellation_id=system_data['constellation_id'],
             )
             system = System(
-                id=id,
+                key=Key(System, id),
                 region_id=constellation_data['region_id'],
                 name=system_data['name'],
             )
@@ -161,7 +169,6 @@ class System(Model):
 
 
 class Station(Model):
-    id = props.Integer(indexed=True)
     name = props.String()
     system_id = props.Integer(indexed=True)
     redlisted = props.Bool(default=False)
@@ -175,7 +182,7 @@ class Station(Model):
                 station_id=id,
             )['system_id']
             station = Station(
-                id=id,
+                key=Key(Station, id),
                 system_id=station_data['system_id'],
                 name=station_data['name'],
             )
@@ -208,7 +215,7 @@ class Structure(Model):
             # Will also need code here to return "unknown" structure if no access
             # it should probably be located in "unknown" system and region? add to DB?
             structure = Structure(
-                id=id,
+                key=Key(Structure, id),
                 name=structure_data['name'],
                 system_id=structure_data['solar_system_id'],
                 corporation_id=structure_data['owner_id']
@@ -237,7 +244,6 @@ def get_location(location_id):
 
 
 class Corporation(Model):
-    id = props.Integer(indexed=True)
     name = props.String()
     ticker = props.String()
     alliance_id = props.Integer(indexed=True, optional=True)
@@ -252,7 +258,7 @@ class Corporation(Model):
                 corporation_id=id,
             )
             corporation = Corporation(
-                id=id,
+                key=key(Corporation, id),
                 name=corporation_data['name'],
                 ticker=corporation_data['ticker']
             )
@@ -273,7 +279,6 @@ class Corporation(Model):
 
 
 class Question(Model):
-    id = props.Integer(indexed=True)
     text = props.String()
 
 
@@ -284,7 +289,6 @@ class Answer(Model):
 
 
 class Alliance(Model):
-    id = props.Integer(indexed=True)
     name = props.String()
     ticker = props.String()
     redlisted = props.Bool(default=False)
@@ -298,7 +302,7 @@ class Alliance(Model):
                 alliance_id=id,
             )
             alliance = Alliance(
-                id=id,
+                key=Key(Alliance, id),
                 name=alliance_data['name'],
                 ticker=alliance_data['ticker']
             )
@@ -310,7 +314,6 @@ class Alliance(Model):
 
 
 class Character(Model):
-    id = props.Integer(indexed=True)
     user_id = props.Integer(indexed=True)
     name = props.String()
     corporation_id = props.Integer(indexed=True)
@@ -327,7 +330,7 @@ class Character(Model):
                 character_id=id
             )
             character = Character(
-                id=id,
+                key=Key(Character, id),
                 user_id=id,
                 name=character_data['name'],
                 is_male=character_data['gender'] == 'male',

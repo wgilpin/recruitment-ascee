@@ -9,6 +9,8 @@ from esi_config import callback_url, client_id, scopes, login_url, app_url, reac
 import random
 import hmac
 import hashlib
+from exceptions import ForbiddenException, AppException
+import backoff
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -16,7 +18,10 @@ login_manager.init_app(app)
 
 def ensure_has_access(user_id, target_user_id, self_access=False):
     if not has_access(user_id, target_user_id, self_access=self_access):
-        raise AssertionError
+        raise ForbiddenException(
+            'User {} does not have access to target user {}'.format(
+                user_id, target_user_id)
+        )
 
 
 def has_access(user_id, target_character_id, self_access=False):
@@ -81,7 +86,8 @@ def api_oauth_callback():
     token = request.args.get('state')
     session_token = session.pop('token', None)
     if (token is None) or (session_token is None) or token != session_token:
-        return 'Login Eve Online SSO failed: Session Token Mismatch', 403
+        return ForbiddenException(
+            'Login to Eve Online SSO failed: Session Token Mismatch')
     login_type = session_token.split(':')[0]
     character = process_oauth(code)
     if login_type == 'login':
@@ -93,9 +99,10 @@ def api_oauth_callback():
         print ('redirect to recruiter')
         return redirect(f'{react_app_url}?showing=recruiter')
     elif login_type == 'link':
-        character.user_id = current_user.id
+        character.user_id = current_user.get_id()
     else:
-        return 'OAuth callback does not specify login type.', 500
+        return AppException(
+            'OAuth callback state specified invalid login type {}.'.format(login_type))
     return redirect(react_app_url)
 
 
@@ -111,6 +118,9 @@ def generate_token():
     ).hexdigest()
 
 
+@backoff.on_exception(
+    backoff.expo, requests.exceptions.RequestException, max_time=10,
+)
 def process_oauth(code):
     result = requests.post(
         'https://login.eveonline.com/oauth/token',
@@ -134,7 +144,7 @@ def process_oauth(code):
     user_data = json.loads(result.text)
 
     refresh_token, character_id = token_data['refresh_token'], user_data['CharacterID']
-    print('process_oauth: character',character_id)
+    print('process_oauth: character', character_id)
     character = Character.get(character_id)
     character.refresh_token = refresh_token
     character.put()
