@@ -47,27 +47,27 @@ def api_claim_applicant(recruiter_id, applicant_id):
 @app.route(
     '/api/recruiter/<int:recruiter_id>/<int:applicant_id>/release', methods=['GET'])
 def api_release_applicant(recruiter_id, applicant_id):
-    ensure_has_access(current_user.id, applicant_id)
+    ensure_has_access(current_user.get_id(), applicant_id)
     return recruiter_release_applicant(recruiter_id, applicant_id)
 
 
 @app.route(
     '/api/applicant/<int:applicant_id>/escalate', methods=['GET'])
 def api_escalate_applicant(applicant_id):
-    ensure_has_access(current_user.id, applicant_id)
+    ensure_has_access(current_user.get_id(), applicant_id)
     return jsonify(escalate_applicant(applicant_id))
 
 
 @app.route('/api/applicant/<int:applicant_id>/reject', methods=['GET'])
 def api_reject_applicant(applicant_id):
-    ensure_has_access(current_user.id, applicant_id)
+    ensure_has_access(current_user.get_id(), applicant_id)
     return jsonify(reject_applicant(applicant_id))
 
 
 @app.route(
     '/api/applicant/<int:applicant_id>/edit_notes', methods=['PUT'])
 def api_edit_applicant_notes(applicant_id):
-    ensure_has_access(current_user.id, applicant_id)
+    ensure_has_access(current_user.get_id(), applicant_id)
     return jsonify(edit_applicant_notes(applicant_id, text=request.form['text']))
 
 
@@ -78,67 +78,67 @@ def api_get_applicant_list():
 
 @app.route('/api/user/<int:user_id>/characters')
 def api_get_user_character_list(user_id):
-    ensure_has_access(current_user.id, user_id)
+    ensure_has_access(current_user.get_id(), user_id)
     return jsonify(get_character_data_list(user_id))
 
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])
 def api_character_assets(character_id):
-    ensure_has_access(current_user.id, character_id)
+    ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_assets(character_id))
 
 
 @app.route('/api/character/<int:character_id>/bookmarks', methods=['GET'])
 def api_character_bookmarks(character_id):
-    ensure_has_access(current_user.id, character_id)
+    ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_bookmarks(character_id))
 
 
 @app.route('/api/character/<int:character_id>/calendar', methods=['GET'])
 def api_character_calendar(character_id):
-    ensure_has_access(current_user.id, character_id)
+    ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_calendar(character_id))
 
 
 @app.route('/api/character/<int:character_id>/contacts', methods=['GET'])
 def api_character_contacts(character_id):
-    ensure_has_access(current_user.id, character_id)
+    ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_contacts(character_id))
 
 
 @app.route('/api/character/<int:character_id>/mail', methods=['GET'])
 def api_character_mail(character_id):
-    ensure_has_access(current_user.id, character_id)
+    ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_mail(character_id))
 
 
 @app.route('/api/character/<int:character_id>/market_contracts', methods=['GET'])
 def api_character_market_contracts(character_id):
-    ensure_has_access(current_user.id, character_id)
+    ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_market_contracts(character_id))
 
 
 @app.route('/api/character/<int:character_id>/market_history', methods=['GET'])
 def api_character_market_history(character_id):
-    ensure_has_access(current_user.id, character_id)
+    ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_market_history(character_id))
 
 
 @app.route('/api/character/<int:character_id>/skills', methods=['GET'])
 def api_character_skills(character_id):
-    ensure_has_access(current_user.id, character_id)
+    ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_skills(character_id))
 
 
 @app.route('/api/character/<int:character_id>/wallet', methods=['GET'])
 def api_character_wallet(character_id):
-    ensure_has_access(current_user.id, character_id)
+    ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_wallet(character_id))
 
 
 @app.route('/api/character/<int:character_id>/mail/<int:mail_id>', methods=['GET'])
 def api_mail_body(character_id, mail_id):
-    ensure_has_access(current_user.id, character_id)
+    ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_mail_body(character_id, mail_id))
 
 
@@ -149,7 +149,7 @@ def api_questions():
 
 @app.route('/api/answers/<int:user_id>')
 def api_user_answers(user_id):
-    ensure_has_access(current_user.id, user_id, self_access=True)
+    ensure_has_access(current_user.get_id(), user_id, self_access=True)
     return jsonify(get_answers(user_id))
 
 

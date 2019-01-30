@@ -99,7 +99,7 @@ def api_oauth_callback():
         print ('redirect to recruiter')
         return redirect(f'{react_app_url}?showing=recruiter')
     elif login_type == 'link':
-        character.user_id = current_user.id
+        character.user_id = current_user.get_id()
     else:
         return AppException(
             'OAuth callback state specified invalid login type {}.'.format(login_type))
