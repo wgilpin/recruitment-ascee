@@ -32,7 +32,7 @@ export default class Applicant extends Component {
   };
 
   componentDidMount() {
-    let fetch = new FetchData({ scope: 'api/questions' });
+    let fetch = new FetchData({ scope: 'questions' });
     fetch.get().then(this.questionsToState);
   }
 

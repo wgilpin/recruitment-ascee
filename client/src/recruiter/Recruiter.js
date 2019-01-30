@@ -106,7 +106,7 @@ export default class Recruiter extends React.Component {
     //   escalated: recruits I claimed then escalated
     //   unclaimed: all unclaimed
     this.setGlobal(
-      new FetchData({ id: this.global.id, scope: 'recruits' })
+      new FetchData({ id: this.global.id, scope: 'applicant_list' })
         .get()
         // Set the global `recruits` list, and set no recruit selected
         .then(recruits => {

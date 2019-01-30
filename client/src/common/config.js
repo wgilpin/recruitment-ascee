@@ -8,7 +8,7 @@ const config = {
   },
   default: {
     client: {
-      server: 'http://localhost:3000',
+      server: 'http://localhost:8080',
     },
   },
 };
