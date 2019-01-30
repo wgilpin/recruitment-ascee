@@ -21,7 +21,9 @@
 
 ## Route `/api/character/all`
 
-Returns a list of all users (not alts)
+Returns a list of all users (not alts).
+This is used for the management screens, to promote or demote between roles
+(eg user -> recruiter)
 
 ```json
 {
