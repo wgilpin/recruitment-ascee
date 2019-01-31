@@ -23,7 +23,7 @@ class User(Model, UserMixin):
     recruiter_id = props.Integer(indexed=True, optional=True)
     status_level = props.Integer(indexed=True, default=0)
 
-    STATUS_LIST = ('new', 'escalated', 'accepted', 'rejected', 'other')
+    STATUS_LIST = ('new', 'escalated', 'accepted', 'rejected')
 
     @property
     def status(self):
