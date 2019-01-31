@@ -27,7 +27,7 @@ export default class Applicant extends Component {
   questionsToState = qsAndAs => {
     this.setState({ questions: qsAndAs });
     Object.keys(qsAndAs).forEach(key => {
-      this.answers[key] = qsAndAs[key].text;
+      this.answers[key] = qsAndAs[key].answer;
     });
   };
 
@@ -84,15 +84,16 @@ export default class Applicant extends Component {
     return (
       <TabPanel>
         <h2 style={styles.heading}>Recruitment Questions</h2>
-        {Object.keys(this.state.questions || {}).map(q => {
+        {Object.keys(this.state.questions || {}).map(key => {
+          const { question, answer } = this.state.questions[key];
           return (
-            <React.Fragment>
-              <div style={styles.padded}>{q.question}</div>
-              <textarea style={styles.answer} id={q.question} onChange={this.handleAnswerChanged}>
-                {q.answer}
+            <div key={key}>
+              <div style={styles.padded}>{question}</div>
+              <textarea style={styles.answer} id={question} onChange={this.handleAnswerChanged}>
+                {answer}
               </textarea>
               <hr style={styles.hr} />
-            </React.Fragment>
+            </div>
           );
         })}
       </TabPanel>

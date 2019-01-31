@@ -8,6 +8,7 @@ def get_questions():
     for question in Question.query().run():
         print(question)
         question_dict[question.get_id()] = question.text
+    print(question_dict)
     return question_dict
 
 
@@ -15,12 +16,26 @@ def get_answers(user_id):
     questions = get_questions()
     answers = {}
     answer_query = Answer.query().where(Answer.user_id == user_id)
-    for answer in answer_query.run():
+    answer_list = answer_query.run()
+    print('answer_list has_more', answer_list)
+    for answer in answer_list:
+        print('answer', answer)
         answers[answer.question_id] = {
             "question": questions[answer.question_id],
             "question_id": answer.question_id,
             "answer": answer.text,
         }
+    print('get_answers', answers)
+    if not answers:
+        # user has no answer
+        for q in questions:
+            print('question', questions[q])
+            answers[q] = {
+                "question": questions[q],
+                "question_id": q,
+                "answer": "",
+            }
+        print('get_answers new ', answers)
     return answers
 
 
