@@ -1,4 +1,5 @@
-from anom import Model, props, set_adapter, Key
+from anom import props, set_adapter, Key
+from anom import Model as AnomModel
 from anom.adapters import DatastoreAdapter, MemcacheAdapter
 import os
 import pylibmc
@@ -14,6 +15,12 @@ memcache_client = pylibmc.Client(
 datastore_adapter = DatastoreAdapter()
 memcache_adapter = MemcacheAdapter(memcache_client, datastore_adapter)
 set_adapter(memcache_adapter)
+
+
+class Model(AnomModel):
+
+    def get_id(self):
+        return Key(self).int_id
 
 
 class User(Model, UserMixin):
@@ -48,9 +55,6 @@ class User(Model, UserMixin):
             user = User(key=Key(User, id))
             user.put()
         return user
-
-    def get_id(self):
-        return Key(self).int_id
 
 
 class Type(Model):
