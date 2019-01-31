@@ -8,7 +8,7 @@ import cachetools
 
 
 def get_character_list(user_id):
-    query = Character.get(Character.user_id == user_id)
+    query = Character.query().where(Character.user_id == user_id)
     return list(query.run())
 
 
@@ -16,10 +16,11 @@ def get_character_list(user_id):
 def get_character_data_list(user_id):
     character_dict = {}
     for character in get_character_list(user_id):
-        character_dict[character.character_id] = {
+        corp_id = character.corporation_id
+        character_dict[character.get_id()] = {
             'name': character.name,
-            'corporation_id': character.corporation_id,
-            'corporation_name': Corporation.get(character.corporation_id).name
+            'corporation_id': corp_id,
+            'corporation_name': Corporation.get(corp_id).name if corp_id else None
         }
     return {'info': character_dict}
 

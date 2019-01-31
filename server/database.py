@@ -18,9 +18,8 @@ set_adapter(memcache_adapter)
 
 
 class DatastoreModel(AnomModel):
-
     def get_id(self):
-        return Key(self).int_id
+        return self.key.int_id
 
 
 class User(DatastoreModel, UserMixin):
@@ -262,7 +261,7 @@ class Corporation(DatastoreModel):
                 corporation_id=id,
             )
             corporation = Corporation(
-                key=key(Corporation, id),
+                key=Key(Corporation, id),
                 name=corporation_data['name'],
                 ticker=corporation_data['ticker']
             )

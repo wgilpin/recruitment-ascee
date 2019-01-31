@@ -1,18 +1,27 @@
 from database import Question, Answer, User, Character
+from anom import Query
 
 
 def get_questions():
     question_dict = {}
+    print("get_questions")
     for question in Question.query().run():
+        print(question)
         question_dict[question.get_id()] = question.text
     return question_dict
 
 
 def get_answers(user_id):
-    return {
-        answer.question_id: answer.text
-        for answer in Answer.query(user_id=user_id).run()
-    }
+    questions = get_questions()
+    answers = {}
+    answer_query = Answer.query().where(Answer.user_id == user_id)
+    for answer in answer_query.run():
+        answers[answer.question_id] = {
+            "question": questions[answer.question_id],
+            "question_id": answer.question_id,
+            "answer": answer.text,
+        }
+    return answers
 
 
 def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
@@ -82,7 +91,7 @@ def edit_applicant_notes(applicant_user_id, text):
 
 def get_applicant_list():
     return_list = []
-    for applicant in User.query(User.is_applicant_query()).run():
+    for applicant in Query(User).where(User.is_applicant_query()).run():
         return_list.append({
             'user_id': applicant.user_id,
             'recruiter_id': applicant.recruiter_id,

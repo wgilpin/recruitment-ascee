@@ -17,7 +17,7 @@ import logging
 
 # [START imports]
 from flask_app import app
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify
 from character_data import (
     get_character_assets, get_character_bookmarks, get_character_calendar,
     get_character_contacts, get_character_mail, get_character_market_contracts,
@@ -193,9 +193,10 @@ def api_get_user_character_list():
         Forbidden (403): If logged in user is not a senior recruiter,
             a recruiter who has claimed the given user, or the user themself
     """
-    user_id = session.get('user_id', 'not set')
-    ensure_has_access(current_user.get_id(), user_id)
-    return jsonify(get_character_data_list(user_id))
+    current_user_id = current_user.get_id()
+    print("api_get_user_character_list", current_user_id)
+    ensure_has_access(current_user_id, current_user_id, self_access=True)
+    return jsonify(get_character_data_list(current_user_id))
 
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])
@@ -511,9 +512,10 @@ def api_questions():
     return jsonify(get_questions())
 
 
+@app.route('/api/answers')
 @app.route('/api/answers/<int:user_id>')
 @login_required
-def api_user_answers(user_id):
+def api_user_answers(user_id=None):
     """
     Get question answers for a given user.
 
@@ -528,6 +530,9 @@ def api_user_answers(user_id):
         Forbidden (403): If logged in user is not a senior recruiter,
             a recruiter who has claimed the given user, or the user themself
     """
+    if not user_id:
+        user_id = current_user.get_id()
+    print('api_user_answers', user_id)
     ensure_has_access(current_user.get_id(), user_id, self_access=True)
     return jsonify(get_answers(user_id))
 
