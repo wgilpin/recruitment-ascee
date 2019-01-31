@@ -1,5 +1,4 @@
-from anom import props, set_adapter, Key
-from anom import Model as AnomModel
+from anom import props, set_adapter, Key, Model
 from anom.adapters import DatastoreAdapter, MemcacheAdapter
 import os
 import pylibmc
@@ -17,13 +16,13 @@ memcache_adapter = MemcacheAdapter(memcache_client, datastore_adapter)
 set_adapter(memcache_adapter)
 
 
-class Model(AnomModel):
+class AsceeModel(Model):
 
     def get_id(self):
         return Key(self).int_id
 
 
-class User(Model, UserMixin):
+class User(AsceeModel, UserMixin):
     is_admin = props.Bool(default=False)
     is_recruiter = props.Bool(default=False)
     is_senior_recruiter = props.Bool(default=False)
@@ -57,7 +56,7 @@ class User(Model, UserMixin):
         return user
 
 
-class Type(Model):
+class Type(AsceeModel):
     group_id = props.Integer(indexed=True)
     name = props.String()
     redlisted = props.Bool(default=False)
@@ -83,7 +82,7 @@ class Type(Model):
         return self.redlisted
 
 
-class Group(Model):
+class Group(AsceeModel):
     name = props.String(optional=True)
 
     @classmethod
@@ -99,7 +98,7 @@ class Group(Model):
         return group
 
 
-class TypePrice(Model):
+class TypePrice(AsceeModel):
     price = props.Float(default=0.)
 
     @classmethod
@@ -114,7 +113,7 @@ class TypePrice(Model):
         return type_price
 
 
-class Region(Model):
+class Region(AsceeModel):
     name = props.String()
     redlisted = props.Bool(default=False)
 
@@ -138,7 +137,7 @@ class Region(Model):
         return self.redlisted
 
 
-class System(Model):
+class System(AsceeModel):
     region_id = props.Integer(indexed=True)
     name = props.String()
     redlisted = props.Bool(default=False)
@@ -172,7 +171,7 @@ class System(Model):
             return region.is_redlisted
 
 
-class Station(Model):
+class Station(AsceeModel):
     name = props.String()
     system_id = props.Integer(indexed=True)
     redlisted = props.Bool(default=False)
@@ -201,7 +200,7 @@ class Station(Model):
             return System.get(self.system_id).is_redlisted
 
 
-class Structure(Model):
+class Structure(AsceeModel):
     id = props.Integer(indexed=True)
     name = props.String()
     system_id = props.Integer(indexed=True)
@@ -247,7 +246,7 @@ def get_location(location_id):
         )
 
 
-class Corporation(Model):
+class Corporation(AsceeModel):
     name = props.String()
     ticker = props.String()
     alliance_id = props.Integer(indexed=True, optional=True)
@@ -282,17 +281,17 @@ class Corporation(Model):
             return False
 
 
-class Question(Model):
+class Question(AsceeModel):
     text = props.String()
 
 
-class Answer(Model):
+class Answer(AsceeModel):
     question_id = props.Integer(indexed=True)
     user_id = props.Integer(indexed=True)
     text = props.Text()
 
 
-class Alliance(Model):
+class Alliance(AsceeModel):
     name = props.String()
     ticker = props.String()
     redlisted = props.Bool(default=False)
@@ -317,7 +316,7 @@ class Alliance(Model):
         return self.redlisted
 
 
-class Character(Model):
+class Character(AsceeModel):
     user_id = props.Integer(indexed=True)
     name = props.String()
     corporation_id = props.Integer(indexed=True)

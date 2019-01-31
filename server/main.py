@@ -132,20 +132,6 @@ def api_edit_applicant_notes(applicant_id):
     return jsonify(edit_applicant_notes(applicant_id, text=request.form['text']))
 
 
-response = {
-    'info': [
-        {
-            'user_id': 1937622137,  # int character ID of user's main
-            'recruiter_id': 201837771,  # int character ID of recruiter's main
-            'recruiter_name': 'Rekit Ralph',  # string name of recruiter
-            'status': 'new',  # one of 'new', 'escalated', 'accepted', 'rejected'
-        },
-        {
-            [...]
-        }
-    ]
-}
-
 @app.route('/api/applicant_list')
 @login_required
 def api_get_applicant_list():
