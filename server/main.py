@@ -35,6 +35,7 @@ from auth import login_manager, login, ensure_has_access
 from flask_login import login_required, current_user
 from user_data import get_character_data_list
 
+app.url_map.strict_slashes = False
 
 @app.route(
     '/api/recruiter/<int:recruiter_id>/<int:applicant_id>/claim', methods=['GET'])

@@ -14,7 +14,7 @@ import backoff
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
+login_manager.login_view = "/app/index.html"
 
 def ensure_has_access(user_id, target_user_id, self_access=False):
     if not has_access(user_id, target_user_id, self_access=self_access):
@@ -60,11 +60,8 @@ def logout():
     Logs out the current user.
     """
     logout_user()
-    session['user_id' = None
+    session['user_id'] = None
     return redirect(react_app_url)
-
-
-login_manager.login_view = login
 
 
 @app.route('/auth/link_alt')
