@@ -3,7 +3,7 @@ from character_data import (
     get_character_calendar, get_character_market_contracts,
     get_character_bookmarks, get_character_mail,
 )
-from database import Character
+from database import Character, Corporation
 import cachetools
 
 
@@ -19,6 +19,7 @@ def get_character_data_list(user_id):
         character_dict[character.character_id] = {
             'name': character.name,
             'corporation_id': character.corporation_id
+            'corporation_name': Corporation.get(character.corporation_id).name
         }
     return {'info': character_dict}
 
