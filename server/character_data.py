@@ -28,6 +28,7 @@ def get_transaction_party(party_id):
         return_dict = {
             'id': party_id,
             'name': character.name,
+            'party_type': 'character',
             'corporation_name': corporation.name,
             'corporation_ticker': corporation.ticker,
         }
@@ -37,6 +38,7 @@ def get_transaction_party(party_id):
         return_dict = {
             'id': party_id,
             'name': corporation.name,
+            'party_type': 'corporation',
             'corporation_name': corporation.name,
             'corporation_ticker': corporation.ticker,
         }
@@ -127,7 +129,7 @@ def get_character_market_contracts(character_id):
             character_id=character_id,
             contract_id=entry['contract_id'],
         )
-        entry['issuer_corporation'] = Corporation.get(entry['corporation_id']).name
+        entry['issuer_corporation_name'] = Corporation.get(entry['corporation_id']).name
         issuer = Character.get(entry['issuer_id'])
         acceptor = Character.get(entry['acceptor_id'])
         entry['issuer_name'] = issuer.name
@@ -237,6 +239,7 @@ def get_character_market_history(character_id):
     for order in order_list:
         if order['is_buy_order']:
             order['price'] *= -1
+        order['value'] = order['price'] * order['volume_total']
         location = get_location(order['location_id'])
         system = System.get(location.system_id)
         region = Region.get(system.region_id)
