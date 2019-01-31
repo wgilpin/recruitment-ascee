@@ -1,0 +1,20 @@
+runtime: python37
+#api_version: 1
+#threadsafe: true
+
+env_variables:
+  GOOGLE_APPLICATION_CREDENTIALS: "/Users/will/Projects/ascee/credentials/ascee-recruit-95a50ceae351.json"
+  GOOGLE_CLOUD_PROJECT: "ascee-recruit"
+  CLOUDSDK_PYTHON: "python2.7"
+
+#libraries:
+#- name: ssl
+#  version: latest
+
+handlers:
+- url: /app
+  static_dir: public
+- url: /static
+  static_dir: public/static
+- url: /.*
+  script: main.app
