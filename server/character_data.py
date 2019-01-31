@@ -12,6 +12,8 @@ SECONDS_TO_CACHE = 10 * 60
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_calendar(character_id):
+    # TODO: Need to return not just data from this endpoint, but also
+    # the get_characters_character_id_calendar_event_id endpoint
     calendar_data = get_op(
         'get_characters_character_id_calendar',
         auth_id=character_id, character_id=character_id
