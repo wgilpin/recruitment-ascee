@@ -16,8 +16,8 @@
 import logging
 
 # [START imports]
-from flask_app import app, session
-from flask import Flask, render_template, request, jsonify
+from flask_app import app
+from flask import Flask, render_template, request, jsonify, session
 from character_data import (
     get_character_assets, get_character_bookmarks, get_character_calendar,
     get_character_contacts, get_character_mail, get_character_market_contracts,
