@@ -2,24 +2,17 @@ from database import Question, Answer, User, Character
 
 
 def get_questions():
-    question_list = []
-    for question in Question.query():
-        question_list.append(question.text)
-    return {'info': question_list}
+    question_dict = {}
+    for question in Question.query().run():
+        question_dict[question.get_id()] = question.text
+    return question_dict
 
 
 def get_answers(user_id):
-    question_dict = {}
-    for question in Question.query():
-        question_dict[question.id] = question.text
-    return_list = []
-    for answer in Answer.query(user_id=user_id):
-        return_list.append({
-            'question_text': question_dict[answer.question_id],
-            'user_id': user_id,
-            'answer_text': answer.text,
-        })
-    return {'info': return_list}
+    return {
+        answer.question_id: answer.text
+        for answer in Answer.query(user_id=user_id).run()
+    }
 
 
 def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
