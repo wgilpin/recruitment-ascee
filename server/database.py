@@ -17,13 +17,13 @@ memcache_adapter = MemcacheAdapter(memcache_client, datastore_adapter)
 set_adapter(memcache_adapter)
 
 
-class Model(AnomModel):
+class DatastoreModel(AnomModel):
 
     def get_id(self):
         return Key(self).int_id
 
 
-class User(Model, UserMixin):
+class User(DatastoreModel, UserMixin):
     is_admin = props.Bool(default=False)
     is_recruiter = props.Bool(default=False)
     is_senior_recruiter = props.Bool(default=False)
@@ -57,7 +57,7 @@ class User(Model, UserMixin):
         return user
 
 
-class Type(Model):
+class Type(DatastoreModel):
     group_id = props.Integer(indexed=True)
     name = props.String()
     redlisted = props.Bool(default=False)
@@ -83,7 +83,7 @@ class Type(Model):
         return self.redlisted
 
 
-class Group(Model):
+class Group(DatastoreModel):
     name = props.String(optional=True)
 
     @classmethod
@@ -99,7 +99,7 @@ class Group(Model):
         return group
 
 
-class TypePrice(Model):
+class TypePrice(DatastoreModel):
     price = props.Float(default=0.)
 
     @classmethod
@@ -114,7 +114,7 @@ class TypePrice(Model):
         return type_price
 
 
-class Region(Model):
+class Region(DatastoreModel):
     name = props.String()
     redlisted = props.Bool(default=False)
 
@@ -138,7 +138,7 @@ class Region(Model):
         return self.redlisted
 
 
-class System(Model):
+class System(DatastoreModel):
     region_id = props.Integer(indexed=True)
     name = props.String()
     redlisted = props.Bool(default=False)
@@ -172,7 +172,7 @@ class System(Model):
             return region.is_redlisted
 
 
-class Station(Model):
+class Station(DatastoreModel):
     name = props.String()
     system_id = props.Integer(indexed=True)
     redlisted = props.Bool(default=False)
@@ -201,7 +201,7 @@ class Station(Model):
             return System.get(self.system_id).is_redlisted
 
 
-class Structure(Model):
+class Structure(DatastoreModel):
     id = props.Integer(indexed=True)
     name = props.String()
     system_id = props.Integer(indexed=True)
@@ -247,7 +247,7 @@ def get_location(location_id):
         )
 
 
-class Corporation(Model):
+class Corporation(DatastoreModel):
     name = props.String()
     ticker = props.String()
     alliance_id = props.Integer(indexed=True, optional=True)
@@ -282,17 +282,17 @@ class Corporation(Model):
             return False
 
 
-class Question(Model):
+class Question(DatastoreModel):
     text = props.String()
 
 
-class Answer(Model):
+class Answer(DatastoreModel):
     question_id = props.Integer(indexed=True)
     user_id = props.Integer(indexed=True)
     text = props.Text()
 
 
-class Alliance(Model):
+class Alliance(DatastoreModel):
     name = props.String()
     ticker = props.String()
     redlisted = props.Bool(default=False)
@@ -317,7 +317,7 @@ class Alliance(Model):
         return self.redlisted
 
 
-class Character(Model):
+class Character(DatastoreModel):
     user_id = props.Integer(indexed=True)
     name = props.String()
     corporation_id = props.Integer(indexed=True)
