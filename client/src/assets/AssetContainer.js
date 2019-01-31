@@ -36,7 +36,7 @@ export default class AssetContainer extends React.Component {
     super(props);
     this.state = { collapsed: true };
   }
-  
+
   getItemLine(item, index) {
     const depthPadding = 40 * this.props.depth + 20;
     let lineStyle = this.props.index % 2 === 0 ? styles.isOdd : {};
@@ -82,10 +82,10 @@ export default class AssetContainer extends React.Component {
   };
 
   expansionButton = () => {
-    return <React.Fragment>
+    return < >
       {!this.state.collapsed && <img src={expandedImg} alt="+" />}
       {this.state.collapsed && <img src={collapsedImg} alt="-" />}
-    </React.Fragment>
+    </>
   }
 
   render() {

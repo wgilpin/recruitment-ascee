@@ -12,9 +12,9 @@ export default class TableBlueprints extends TableBase {
     super(props);
     this.state.sortBy = 'name';
     this.scope = 'assets/blueprints';
-    this.addTextField('type');
-    this.addBoolField('is_blueprint_copy', 'BPC');
-    this.addStandingField('location');
+    this.addField(TableBase.kinds().text,'type');
+    this.addField(TableBase.kinds().bool, 'is_blueprint_copy', 'BPC');
+    this.addField(TableBase.kinds().standing, 'location');
   }
 }
 

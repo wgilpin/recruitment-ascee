@@ -44,12 +44,7 @@ export default class Alts extends React.Component {
     fetch
       .get()
       .then(data => {
-        console.log(data);
-        if (data.error === 'login') {
-          window.location = '/app';
-          return;
-        }
-        this.setState({ alts: data.info });
+        this.setState({ alts: data });
       })
       .catch(err => {
         console.log(err);

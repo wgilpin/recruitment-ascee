@@ -13,16 +13,16 @@ export default class TableContracts extends TableBase {
     this.state.sortBy = 'name';
     this.scope = 'contract';
     this.addNumberField('acceptor');
-    this.addTextField('assignee');
-    this.addTextField('availability');
-    this.addDateField('date_issued');
-    this.addNumberField('end_location');
-    this.addTextField('for_corporation');
-    this.addNumberField('issuer_corporation');
-    this.addNumberField('issuer');
-    this.addTextField('price');
-    this.addNumberField('start_location');
-    this.addTextField('status');
+    this.addField(TableBase.kinds().text, 'assignee');
+    this.addField(TableBase.kinds().text, 'availability');
+    this.addField(TableBase.kinds().date,'date_issued');
+    this.addField(TableBase.kinds().number, 'end_location');
+    this.addField(TableBase.kinds().text,'for_corporation');
+    this.addField(TableBase.kinds().number,'issuer_corporation');
+    this.addField(TableBase.kinds().number,'issuer');
+    this.addField(TableBase.kinds().ISK,'price');
+    this.addField(TableBase.kinds().number,'start_location');
+    this.addField(TableBase.kinds().text,'status');
   }
 }
 

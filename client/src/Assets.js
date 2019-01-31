@@ -2,7 +2,6 @@ import React from 'reactn';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import FetchData from './common/FetchData';
-import TableStyles from './TableStyles';
 import AssetSystem from './assets/AssetSystem';
 
 const propTypes = {
@@ -22,7 +21,7 @@ export default class Assets extends React.Component {
       loading: true,
     }
   }
-  
+
   recurseValues(item) {
     let price = (item.price || 0) * (item.quantity || 1);
     let value = 0;
@@ -33,20 +32,20 @@ export default class Assets extends React.Component {
     return price + value;
   }
 
-  jsonToSystemsList(json) {
+  jsonToSystemsList(data) {
     this.setState({ loading: false });
-    if (json && json.info) {
-      const keys = Object.keys(json.info);
+    if (data) {
+      const keys = Object.keys(data);
       const systems = {};
       keys.forEach(key => {
-        if (json.info[key].location_type === 'system') {
-          systems[key] = json.info[key];
+        if (data[key].location_type === 'system') {
+          systems[key] = data[key];
         }
       });
       Object.keys(systems).forEach((sysKey) => {
         systems[sysKey].value = this.recurseValues(systems[sysKey]);
       })
-      this.setGlobal({ assets: json.info, assetCount: keys.length, assetSystems: systems });
+      this.setGlobal({ assets: data, assetCount: keys.length, assetSystems: systems });
     }
   }
 
@@ -63,21 +62,21 @@ export default class Assets extends React.Component {
     fetch.get().then(data => this.jsonToSystemsList(data));
   }
 
-  
+
   render() {
     if (this.state.loading) {
       return(
-      <Loader 
+      <Loader
         type="Puff"
         color="#01799A"
-        height="100"	
+        height="100"
         width="100"
       />)
     }
     return Object
       .keys(this.global.assetSystems || {})
       .sort((a,b) => this.global.assetSystems[b].value - this.global.assetSystems[a].value)
-      .map((system, idx) => 
+      .map((system, idx) =>
         (system !== 'value' ? <AssetSystem systemId={system} /> : null ));
   }
 }

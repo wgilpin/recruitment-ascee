@@ -75,6 +75,10 @@ export default class FetchData {
         console.log(res.status, res.status > 400);
         if (res.status > 400) {
           console.log('error', res.statusText);
+          if (res.status === 401){
+            console.log('redirect to /login')
+            window.location = '/login';
+          }
           return ({ 'error': res.statusText, status: res.status })
         }
         return res.json()
@@ -87,7 +91,7 @@ export default class FetchData {
   post(payload) {
     let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id || ''}`;
     console.log(`fetch post ${url}`);
-    return fetch(url, {  
+    return fetch(url, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ "data": {

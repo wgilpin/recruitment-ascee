@@ -57,7 +57,7 @@ export default class TableBase extends React.Component {
     this.keyField = null;
   }
 
-  kinds() {
+  static kinds() {
     return {
       text: 'text',
       date: 'date',
@@ -72,50 +72,10 @@ export default class TableBase extends React.Component {
     this.groupBy = groups;
   }
 
-  addTextField(id, header) {
+  addField(kind, id, header) {
     this.fields.push({
       id,
-      kind: this.kinds().text,
-      header: header || this.titleise(id),
-    });
-  }
-  
-  addBoolField(id, header) {
-    this.fields.push({
-      id,
-      kind: this.kinds().bool,
-      header: header || this.titleise(id),
-    });
-  }
-
-  addNumberField(id, header) {
-    this.fields.push({
-      id,
-      kind: this.kinds().number,
-      header: header || this.titleise(id),
-    });
-  }
-
-  addStandingField(id, header) {
-    this.fields.push({
-      id,
-      kind: this.kinds().standing,
-      header: header || this.titleise(id),
-    });
-  }
-
-  addISKField(id, header) {
-    this.fields.push({
-      id,
-      kind: this.kinds().ISK,
-      header: header || this.titleise(id),
-    });
-  }
-
-  addDateField(id, header) {
-    this.fields.push({
-      id,
-      kind: this.kinds().date,
+      kind,
       header: header || this.titleise(id),
     });
   }
@@ -315,7 +275,7 @@ export default class TableBase extends React.Component {
   makeSection(lines, heading, collapsible, depth) {
     const depthPx = `${INDENT * (depth || 0)}px`;
     return (
-      <React.Fragment>
+      < >
         {heading && (
           <div style={{ ...styles.groupRow, marginLeft: depthPx }}>
             &ensp;{heading}
@@ -327,7 +287,7 @@ export default class TableBase extends React.Component {
           }
           return this.makeLine(line, idx, depth + 1);
         })}
-      </React.Fragment>
+      </>
     );
   }
 
@@ -343,8 +303,8 @@ export default class TableBase extends React.Component {
         property = property.substr(1);
     }
     const fn = (a,b) => {
-        var result = ((a[property] || defaultVal) < (b[property] || defaultVal)) 
-          ? -1 
+        var result = ((a[property] || defaultVal) < (b[property] || defaultVal))
+          ? -1
           : ((a[property] || defaultVal) > (b[property] || defaultVal))
             ? 1
             : 0;
@@ -430,7 +390,7 @@ export default class TableBase extends React.Component {
     }
     // not a leaf node
     return (
-      <React.Fragment>
+      < >
         {tree.level !== 'root' && this.makeFolderLine(tree.level)}
         {!tree.collapsed && (
           <div>
@@ -444,7 +404,7 @@ export default class TableBase extends React.Component {
               })}
           </div>
         )}
-      </React.Fragment>
+      </>
     );
   }
 
@@ -493,10 +453,10 @@ export default class TableBase extends React.Component {
         <div style={styles.table}>
           {}
           {!this.groupBy.length ? (
-            <React.Fragment>
+            < >
               {this.makeHeader()}
               {this.makeSection(this.state.data)}
-            </React.Fragment>
+            </>
           ) : (
             this.makeGroupLines(null, this.state.groups, 0)
           )}

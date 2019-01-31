@@ -70,9 +70,9 @@ class Admin extends Component {
 
   componentWillMount() {
     let fetchQs = new FetchData({ scope: 'questions' });
-    fetchQs.get().then(data => this.setState({ questions: data.info }));
+    fetchQs.get().then(data => this.setState({ questions: data }));
     let fetchStaff = new FetchData({ scope: 'character/all' });
-    fetchStaff.get().then(data => this.setState({ staff: data.info }));
+    fetchStaff.get().then(data => this.setState({ staff: data }));
   }
 
   buildQuestionsPanel = () => {
@@ -81,7 +81,7 @@ class Admin extends Component {
         <h2 style={styles.heading}>Applicant Questions</h2>
         {Object.keys(this.state.questions).map(id => {
           return (
-            <React.Fragment>
+            < >
               <textarea
                 style={styles.answer}
                 id={id}
@@ -90,7 +90,7 @@ class Admin extends Component {
                 {this.state.questions[id]}
               </textarea>
               <hr style={styles.hr} />
-            </React.Fragment>
+            </>
           );
         })}
       </TabPanel>
@@ -129,12 +129,12 @@ class Admin extends Component {
   recruitLine(id, recruiter) {
     return (
       <div key={id} style={styles.userLine}>
-        <Alt 
+        <Alt
           onClick={() => this.handleClick(id)}
           name={recruiter.name}
-          id={recruiter.id} 
+          id={recruiter.id}
           style={{float: 'left', width: '250px'}}/>
-        <img 
+        <img
           style={styles.moveButtons}
           src={UpImg}
           alt="up"
@@ -161,7 +161,7 @@ class Admin extends Component {
   }
 
   sectionList(label, list) {
-    /* 
+    /*
      * create a list of users for display
      *
      * @param {label} string - text lable for the section
@@ -206,7 +206,7 @@ class Admin extends Component {
     new FetchData({ scope: 'character/find', param1: this.state.searchText })
       .get()
       .then(res => {
-        this.setState({ searchResults: res.info });
+        this.setState({ searchResults: res });
       });
   }
 
@@ -263,13 +263,13 @@ class Admin extends Component {
   };
 
   buildConfigPanel() {
-    return <React.Fragment>
-    </React.Fragment>
+    return < >
+    </>
   }
 
   render() {
     return (
-      <React.Fragment>
+      < >
       <h1 style={styles.h1}>Admin</h1>
         <Tabs>
           <TabList>
@@ -281,7 +281,7 @@ class Admin extends Component {
           {this.buildRolesPanel()}
           {this.buildConfigPanel()}
         </Tabs>
-      </React.Fragment>
+      </>
     );
   }
 }

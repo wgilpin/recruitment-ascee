@@ -34,14 +34,14 @@ export default class RoundImage extends React.Component<Props> {
 
     };
     return (
-      <React.Fragment>
+      < >
         <img
           src={this.props.src}
           alt={this.props.altText || 'Avatar'}
           style={imgStyle}
           onClick={this.handleClick}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

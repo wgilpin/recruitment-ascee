@@ -12,10 +12,10 @@ export default class TableStandings extends TableBase {
     super(props);
     this.state.sortBy = 'name';
     this.scope = 'standings';
-    this.addTextField('name');
-    this.addTextField('corp');
-    this.addTextField('alliance');
-    this.addStandingField('standing');
+    this.addField(TableBase.kinds().text,'name');
+    this.addField(TableBase.kinds().text,'corp');
+    this.addField(TableBase.kinds().text,'alliance');
+    this.addField(TableBase.kinds().standing,'standing');
   }
 }
 

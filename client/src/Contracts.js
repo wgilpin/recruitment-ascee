@@ -27,8 +27,8 @@ export default class Contracts extends React.Component {
       { id: this.props.alt, scope: this.state.scope },
     ).get()
       .then(data => {
-        console.log('contract', data.info)
-        this.setState({ contracts: data.info, people: data.list })
+        console.log('contract', data)
+        this.setState({ contracts: data.contracts, people: data.people })
       });
   }
 
@@ -44,7 +44,8 @@ export default class Contracts extends React.Component {
     let acceptor = this.state.people[contract.acceptor_id.id];
     let acceptorCorp = acceptor.corporation_id.ticker;
     let acceptorAlliance = (acceptor.alliance_id || {}).ticker;
-    let endLocation = {structureName: contract.end_location_id.StructureName,
+    let endLocation = {
+      structureName: contract.end_location_id.StructureName,
       solarSystemID: contract.end_location_id.solarSystemID.solarSystemName,
       corpTicker: contract.end_location_id.corporation_id.ticker,
       allianceTicker: (contract.end_location_id.alliance_id || {}).ticker,
