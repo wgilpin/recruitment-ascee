@@ -18,7 +18,7 @@ def get_character_data_list(user_id):
     for character in get_character_list(user_id):
         character_dict[character.character_id] = {
             'name': character.name,
-            'corporation_id': character.corporation_id
+            'corporation_id': character.corporation_id,
             'corporation_name': Corporation.get(character.corporation_id).name
         }
     return {'info': character_dict}
