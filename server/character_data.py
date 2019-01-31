@@ -202,16 +202,11 @@ def get_character_mail(character_id):
     )
     mail_dict = {entry['mail_id']: entry for entry in mail_list}
     for mail_id, entry in mail_dict:
-        from_id = entry['from']
-        entry['from'] = {
-            'id': from_id,
-            'name': Character.get(from_id).name
-        }
-        recipient_ids = list(item['recipient_id'] for item in entry['recipients'])
-        entry['recipient_names'] = [
-            Character.get(item).name for item in recipient_ids
-        ]
-        if any(Character.get(item).is_redlisted for item in [from_id] + recipient_ids):
+        entry['from_name'] = Character.get(entry['from']).name
+        for recipient in entry['recipients']:
+            recipient['recipient_name'] = Character.get(recipient['recipient_id']).name
+        recipient_ids = [r['recipient_id'] for r in entry['recipients']]
+        if any(Character.get(item).is_redlisted for item in [entry['from']] + recipient_ids):
             entry['redlisted'] = True
     return mail_dict
 
