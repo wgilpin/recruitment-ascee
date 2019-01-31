@@ -261,7 +261,7 @@ class Corporation(AsceeModel):
                 corporation_id=id,
             )
             corporation = Corporation(
-                key=key(Corporation, id),
+                key=Key(Corporation, id),
                 name=corporation_data['name'],
                 ticker=corporation_data['ticker']
             )
