@@ -16,7 +16,7 @@
 import logging
 
 # [START imports]
-from flask_app import app
+from flask_app import app, session
 from flask import Flask, render_template, request, jsonify
 from character_data import (
     get_character_assets, get_character_bookmarks, get_character_calendar,
@@ -161,9 +161,9 @@ def api_get_applicant_list():
     return jsonify(get_applicant_list())
 
 
-@app.route('/api/user/<int:user_id>/characters')
+@app.route('/api/user/characters')
 @login_required
-def api_get_user_character_list(user_id):
+def api_get_user_character_list():
     """
     Gets a list of all characters for a given user.
 
@@ -192,6 +192,7 @@ def api_get_user_character_list(user_id):
         Forbidden (403): If logged in user is not a senior recruiter,
             a recruiter who has claimed the given user, or the user themself
     """
+    user_id = session.get('user_id', 'not set')
     ensure_has_access(current_user.get_id(), user_id)
     return jsonify(get_character_data_list(user_id))
 
