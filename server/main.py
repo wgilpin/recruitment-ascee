@@ -264,7 +264,9 @@ def api_character_assets(character_id):
 @login_required
 def api_character_bookmarks(character_id):
     """
-    Get bookmarks for a given character. Returned dictionary is of the form
+    Get bookmarks for a given character.
+
+    Returned dictionary is of the form
     {'info': [bookmark_1, bookmark_2, ...]}. Each bookmark is as returned by
     ESI, with the additional keys `folder_name` (if `folder_id` is present),
     `system_id`, and `system_name`.
@@ -290,7 +292,9 @@ def api_character_bookmarks(character_id):
 @login_required
 def api_character_calendar(character_id):
     """
-    Get calendar entries for a given character. Returned dictionary is of the form
+    Get calendar entries for a given character.
+
+    Returned dictionary is of the form
     {'info': [entry_1, entry_2, ...]}. Each entry is as returned by
     ESI, with the additional key `redlisted` whose value is True if the entry
     is owned by a redlisted entity.
@@ -313,7 +317,9 @@ def api_character_calendar(character_id):
 @login_required
 def api_character_contacts(character_id):
     """
-    Get contacts for a given character. Returned dictionary is of the form
+    Get contacts for a given character.
+
+    Returned dictionary is of the form
     {'info': [contact_1, contact_2, ...]}. Each contact is as returned by
     ESI, with the additional keys `name`, `corporation_id`, `corporation_name`,
     if in an alliance then `alliance_id` and `alliance_name`, and if
@@ -337,9 +343,12 @@ def api_character_contacts(character_id):
 
 
 @app.route('/api/character/<int:character_id>/mail', methods=['GET'])
+@login_required
 def api_character_mail(character_id):
     """
-    Get mail headers for a given character. Returned dictionary is of the form
+    Get mail headers for a given character.
+
+    Returned dictionary is of the form
     {'info': [mail_1, mail_2, ...]}. Each mail is as returned by
     ESI, with the additional key `from_name`, and if
     redlisted then `redlisted` whose value is True. Recipients have the
@@ -362,48 +371,196 @@ def api_character_mail(character_id):
 
 
 @app.route('/api/character/<int:character_id>/market_contracts', methods=['GET'])
+@login_required
 def api_character_market_contracts(character_id):
+    """
+    Get contracts for a given character.
+
+    Returned dictionary is of the form
+    {'info': [contract_1, contract_2, ...]}. Each contract is as returned by
+    ESI, with the additional keys `items` (containing a list of item data, as
+    returned by the contracts items endpoint with the additional key `type_name`),
+    `issuer_corporation_name`, `issuer_name`, and `acceptor_name`. If
+    `start_location_id` and `end_location_id` are present, will also include
+    `start_location_name` and `end_location_name`. If redlisted then will
+    include `redlisted` whose value is True.
+
+    A contract is redlisted if it includes participants or items that are
+    redlisted, or if it starts or ends at a redlisted location.
+
+    Args:
+        character_id (int)
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or
+            a recruiter who has claimed the given user
+    """
     ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_market_contracts(character_id))
 
 
 @app.route('/api/character/<int:character_id>/market_history', methods=['GET'])
+@login_required
 def api_character_market_history(character_id):
+    """
+    Get open and historical market orders for a given character.
+
+    Returned dictionary is of the form
+    {'info': [order_1, order_2, ...]}. Each order is as returned by
+    ESI, with the additional keys `location_name`, `region_name`, `value`, and
+    `type_name`. If redlisted then will include `redlisted` whose value is True.
+    If the order is a buy order, `price` and `value` will be negative.
+
+    An order is redlisted if it includes items that are redlisted, or is
+    at a redlisted location.
+
+    Args:
+        character_id (int)
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or
+            a recruiter who has claimed the given user
+    """
     ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_market_history(character_id))
 
 
 @app.route('/api/character/<int:character_id>/skills', methods=['GET'])
+@login_required
 def api_character_skills(character_id):
+    """
+    Get current and queued skills for a given character.
+
+    Returned dictionary is of the form
+    {'skills': skill_list, 'queue': queue_list}. skill_list is a list of
+    skill dictionaries as returned by ESI, and queue_list is a list of
+    queued skill dictionaries as returned by ESI. All skill dictionaries
+    have the additional keys `skill_name` and `group_name`.
+
+    Skills will not be redlisted.
+
+    Args:
+        character_id (int)
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or
+            a recruiter who has claimed the given user
+    """
     ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_skills(character_id))
 
 
 @app.route('/api/character/<int:character_id>/wallet', methods=['GET'])
+@login_required
 def api_character_wallet(character_id):
+    """
+    Get wallet journal for a given character.
+
+    Returned dictionary is of the form
+    {'info': [entry_1, entry_2, ...]}. Each entry is as returned by ESI. If
+    `first_party_id` and/or `second_party_id` are present, the entry will also
+    have the key `first_party` and/or `second_party` whose value is a dict with
+    keys `id`, `name`, `party_type` ('corporation' or 'character'),
+    `corporation_name`, and `corporation_ticker`. If an entry is redlisted, it
+    will have the key `redlisted` with value True.
+
+    Entries are redlisted if first_party or second_party is redlisted.
+
+    Args:
+        character_id (int)
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or
+            a recruiter who has claimed the given user
+    """
     ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_character_wallet(character_id))
 
 
 @app.route('/api/character/<int:character_id>/mail/<int:mail_id>', methods=['GET'])
+@login_required
 def api_mail_body(character_id, mail_id):
+    """
+    Get body for a given mail.
+
+    Returned data is as returned by ESI.
+
+    Args:
+        character_id (int): A character who sent or received the mail.
+        mail_id (int)
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or
+            a recruiter who has claimed the given user
+    """
     ensure_has_access(current_user.get_id(), character_id)
     return jsonify(get_mail_body(character_id, mail_id))
 
 
 @app.route('/api/questions')
 def api_questions():
+    """
+    Get questions asked to applicants.
+
+    Returns:
+        response (dict): A dictionary whose keys are integer question ids and
+            values are question text.
+    """
     return jsonify(get_questions())
 
 
 @app.route('/api/answers/<int:user_id>')
+@login_required
 def api_user_answers(user_id):
+    """
+    Get question answers for a given user.
+
+    Args:
+        user_id (int)
+
+    Returns:
+        response (dict): A dictionary whose keys are integer question ids and
+            values are answer text.
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter,
+            a recruiter who has claimed the given user, or the user themself
+    """
     ensure_has_access(current_user.get_id(), user_id, self_access=True)
     return jsonify(get_answers(user_id))
 
 
 @app.route('/api/admin/users')
+@login_required
 def api_users():
+    """
+    Get information on all registered users.
+
+    Returned data is of the form {'info': [user_1, user_2, ...]}. Each user
+    dictionary has the keys `id`, `name`, `is_admin`, `is_senior_recruiter`,
+    and `is_recruiter`.
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or admin.
+    """
     return jsonify(asyncio.run(get_users()))
 
 
