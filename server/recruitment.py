@@ -17,7 +17,7 @@ def get_answers(user_id):
     for answer in answer_list:
         answers[answer.question_id] = {
             "question": questions[answer.question_id],
-            "question_id": answer.question_id,
+            "user_id": user_id,
             "answer": answer.text,
         }
     if not answers:
@@ -25,7 +25,7 @@ def get_answers(user_id):
         for q in questions:
             answers[q] = {
                 "question": questions[q],
-                "question_id": q,
+                "user_id": user_id,
                 "answer": "",
             }
     return answers

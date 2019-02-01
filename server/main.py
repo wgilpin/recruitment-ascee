@@ -523,10 +523,11 @@ def api_user_answers(user_id=None):
 
     Args:
         user_id (int)
+            if missing/None uses the logged in user
 
     Returns:
         response (dict): A dictionary whose keys are integer question ids and
-            values are answer text.
+            values are answer text, question text & user id.
 
     Error codes:
         Forbidden (403): If logged in user is not a senior recruiter,
