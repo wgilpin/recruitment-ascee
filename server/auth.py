@@ -69,7 +69,6 @@ login_manager.login_view = login
 @app.route('/auth/link_alt')
 @login_required
 def link_alt():
-def login():
     """
     Redirects user to ESI SSO login for the purposes of linking an alt.
     """
