@@ -163,9 +163,9 @@ def api_get_applicant_list():
 
 
 @app.route('/api/user/characters')
-@app.route('/api/user/characters/<int:character_id>')
+@app.route('/api/user/characters/<int:user_id>')
 @login_required
-def api_get_user_character_list(target_char_id=None):
+def api_get_user_character_list(user_id=None):
     """
     Gets a list of all characters for a given user.
 
@@ -195,10 +195,10 @@ def api_get_user_character_list(target_char_id=None):
             a recruiter who has claimed the given user, or the user themself
     """
     current_user_id = current_user.get_id()
-    if not target_char_id:
-        target_char_id = current_user_id
-    ensure_has_access(current_user_id, target_char_id, self_access=True)
-    return jsonify(get_character_data_list(target_char_id))
+    if not user_id:
+        user_id = current_user_id
+    ensure_has_access(current_user_id, user_id, self_access=True)
+    return jsonify(get_character_data_list(user_id))
 
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])
