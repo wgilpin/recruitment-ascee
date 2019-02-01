@@ -25,6 +25,11 @@ def get_character_data_list(user_id):
             }
         except:
             logging.debug('get_character_data_list Exception: %d', character.get_id())
+            character_dict[character.get_id()] = {
+                'name': character.name,
+                'corporation_id': character.corporation_id,
+                'corporation_name': None,
+            }
     return {'info': character_dict}
 
 
