@@ -13,9 +13,9 @@ Gets the list of default questions as configured
 }
 ```
 
-## Route `/api/questions/:userId`
+## Route `/api/answers/:userId` or `/api/answers`
 
-`userId` {int} id of the applicant main
+`userId` {int} id of the applicant main. If None assume current session user
 
 Gets the questions and answers for the given applicant.
 If not a main, find the main first. The data is stored denormalised with the full
@@ -23,16 +23,18 @@ question in case the question was changed since it was answered.
 
 ```json
 {
-  "info": [
+  "info": {
+    "876876232":
     {
-      "answer_text": "5 years plus",
+      "answer": "5 years plus",
       "user_id": 2114725334,
-      "question_text": "How long have you been playing Eve?"
+      "question": "How long have you been playing Eve?"
     },
+    "762576257":
     {
-      "answer_text": "",
+      "answer": "",
       "user_id": 2114725334,
-      "question_text": "PVP or PVE? Why"
+      "question": "PVP or PVE? Why"
     }
   ]
 }
