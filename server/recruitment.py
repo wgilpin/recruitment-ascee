@@ -10,25 +10,19 @@ def get_questions():
 
 
 def get_answers(user_id):
+    # get a dict keyed by question id of questions & answers
+    response = {}
     questions = get_questions()
-    answers = {}
     answer_query = Answer.query().where(Answer.user_id == user_id)
-    answer_list = answer_query.run()
-    for answer in answer_list:
-        answers[answer.question_id] = {
-            "question": questions[answer.question_id],
+    answers = {a.question_id: a for a in answer_query.run()}
+    for question_id in questions:
+        answer = answers[question_id].text if question_id in answers else ""
+        response[question_id] = {
+            "question": questions[question_id],
             "user_id": user_id,
-            "answer": answer.text,
+            "answer": answer,
         }
-    if not answers:
-        # user has no answer
-        for q in questions:
-            answers[q] = {
-                "question": questions[q],
-                "user_id": user_id,
-                "answer": "",
-            }
-    return answers
+    return response
 
 
 def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
