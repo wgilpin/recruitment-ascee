@@ -38,9 +38,9 @@ from user_data import get_character_data_list
 app.url_map.strict_slashes = False
 
 @app.route(
-    '/api/recruiter/<int:recruiter_id>/<int:applicant_id>/claim', methods=['GET'])
+    '/api/recruits/claim/<int:applicant_id>', methods=['GET'])
 @login_required
-def api_claim_applicant(recruiter_id, applicant_id):
+def api_claim_applicant(applicant_id):
     """
     Assigns recruiter as the recruiter for a given unclaimed applicant.
 
@@ -57,7 +57,7 @@ def api_claim_applicant(recruiter_id, applicant_id):
         Bad Request (400): If applicant_id is not an unclaimed applicant
     """
     # TODO: be sure to check that the applicant is in fact an unclaimed applicant
-    return jsonify(recruiter_claim_applicant(recruiter_id, applicant_id))
+    return jsonify(recruiter_claim_applicant(current_user.get_id(), applicant_id))
 
 
 @app.route(

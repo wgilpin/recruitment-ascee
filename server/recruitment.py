@@ -35,6 +35,7 @@ def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     applicant.recruiter_id = recruiter_user_id
+    applicant.status_level = 1
     applicant.put()
     return {'status': 'ok'}
 

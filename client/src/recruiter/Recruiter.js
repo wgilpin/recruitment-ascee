@@ -157,7 +157,7 @@ export default class Recruiter extends React.Component {
   handleClaim = id => {
     console.log(`handleClaim ${id}`);
     new FetchData({ id, scope: 'recruits/claim' })
-      .post()
+      .get()
       .then(() => this.setRecruitStatus(id, Recruiter.statuses.claimed))
       .catch(err => ({ error: err }));
   };
@@ -192,7 +192,7 @@ export default class Recruiter extends React.Component {
         <RecruitButtonBar
           status={recruit.status}
           style={styles.buttons}
-          id={recruit.mainId}
+          id={id}
           onClaim={this.handleClaim}
           onDrop={this.handleDrop}
           onEscalate={this.handleEscalate}
