@@ -5,7 +5,8 @@ from database import Character, User
 from flask_app import app
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask import session, redirect, request
-from esi_config import callback_url, client_id, scopes, login_url, app_url, react_app_url
+from esi_config import \
+    callback_url, client_id, scopes, login_url, app_url, react_app_url, applicant_url, recruiter_url
 import random
 import hmac
 import hashlib
@@ -97,13 +98,16 @@ def api_oauth_callback():
     login_type = session_token.split(':')[0]
     character = process_oauth(code)
     if login_type == 'login':
-        user = User.get(character.user_id)
+        print('char', character)
+        user = User.get(character.user_id, name=character.name)
         login_user(user)
         if user.is_applicant:
             return redirect(f'{react_app_url}?showing=applicant')
-        return redirect(f'{react_app_url}?showing=recruiter')
+        return redirect(recruiter_url)
     elif login_type == 'link':
         character.user_id = current_user.get_id()
+        character.put()
+        return redirect(applicant_url)
     else:
         return AppException(
             'OAuth callback state specified invalid login type {}.'.format(login_type))

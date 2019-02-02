@@ -22,9 +22,9 @@ class AsceeModel(Model):
 
 
 class User(AsceeModel, UserMixin):
-    is_admin = props.Bool(default=False)
-    is_recruiter = props.Bool(default=False)
-    is_senior_recruiter = props.Bool(default=False)
+    is_admin = props.Bool(indexed=True, default=False)
+    is_recruiter = props.Bool(indexed=True, default=False)
+    is_senior_recruiter = props.Bool(indexed=True, default=False)
     recruiter_id = props.Integer(indexed=True, optional=True)
     status_level = props.Integer(indexed=True, default=0)
 
@@ -32,7 +32,10 @@ class User(AsceeModel, UserMixin):
 
     @property
     def status(self):
-        return User.STATUS_LIST[self.status_level]
+        if self.status_level == 0 and (self.recruiter_id != None):
+            return 'claimed'
+        else:
+            return User.STATUS_LIST[self.status_level]
 
     @classmethod
     def is_applicant_query(cls):

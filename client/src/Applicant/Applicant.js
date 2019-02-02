@@ -130,7 +130,7 @@ export default class Applicant extends Component {
       <TabPanel>
         <h2 style={styles.headingLeft}>My Alts</h2>
         <div style={styles.padded}>
-          <label>
+          <label style={styles.label}>
             I have no more alts
             <input
               type="checkbox"

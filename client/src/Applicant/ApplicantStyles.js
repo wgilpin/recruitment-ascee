@@ -14,6 +14,9 @@ const styles = {
   padded: {
     padding: 6,
   },
+  label: {
+    textAlign: 'left',
+  },
   paddedHeavily: {
     padding: 24,
   },
@@ -53,6 +56,7 @@ const styles = {
   },
   alts: {
     backgroundColor: '#333',
+    textAlign: 'left',
   }
 };
 
