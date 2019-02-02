@@ -4,39 +4,25 @@ from anom import Query
 
 def get_questions():
     question_dict = {}
-    print("get_questions")
     for question in Question.query().run():
-        print(question)
         question_dict[question.get_id()] = question.text
-    print(question_dict)
     return question_dict
 
 
 def get_answers(user_id):
+    # get a dict keyed by question id of questions & answers
+    response = {}
     questions = get_questions()
-    answers = {}
     answer_query = Answer.query().where(Answer.user_id == user_id)
-    answer_list = answer_query.run()
-    print('answer_list has_more', answer_list)
-    for answer in answer_list:
-        print('answer', answer)
-        answers[answer.question_id] = {
-            "question": questions[answer.question_id],
-            "question_id": answer.question_id,
-            "answer": answer.text,
+    answers = {a.question_id: a for a in answer_query.run()}
+    for question_id in questions:
+        answer = answers[question_id].text if question_id in answers else ""
+        response[question_id] = {
+            "question": questions[question_id],
+            "user_id": user_id,
+            "answer": answer,
         }
-    print('get_answers', answers)
-    if not answers:
-        # user has no answer
-        for q in questions:
-            print('question', questions[q])
-            answers[q] = {
-                "question": questions[q],
-                "question_id": q,
-                "answer": "",
-            }
-        print('get_answers new ', answers)
-    return answers
+    return response
 
 
 def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):

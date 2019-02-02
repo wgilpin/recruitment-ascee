@@ -163,8 +163,9 @@ def api_get_applicant_list():
 
 
 @app.route('/api/user/characters')
+@app.route('/api/user/characters/<int:user_id>')
 @login_required
-def api_get_user_character_list():
+def api_get_user_character_list(user_id=None):
     """
     Gets a list of all characters for a given user.
 
@@ -194,9 +195,10 @@ def api_get_user_character_list():
             a recruiter who has claimed the given user, or the user themself
     """
     current_user_id = current_user.get_id()
-    print("api_get_user_character_list", current_user_id)
-    ensure_has_access(current_user_id, current_user_id, self_access=True)
-    return jsonify(get_character_data_list(current_user_id))
+    if not user_id:
+        user_id = current_user_id
+    ensure_has_access(current_user_id, user_id, self_access=True)
+    return jsonify(get_character_data_list(user_id))
 
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])
@@ -521,10 +523,11 @@ def api_user_answers(user_id=None):
 
     Args:
         user_id (int)
+            if missing/None uses the logged in user
 
     Returns:
         response (dict): A dictionary whose keys are integer question ids and
-            values are answer text.
+            values are answer text, question text & user id.
 
     Error codes:
         Forbidden (403): If logged in user is not a senior recruiter,
@@ -532,7 +535,6 @@ def api_user_answers(user_id=None):
     """
     if not user_id:
         user_id = current_user.get_id()
-    print('api_user_answers', user_id)
     ensure_has_access(current_user.get_id(), user_id, self_access=True)
     return jsonify(get_answers(user_id))
 

@@ -60,7 +60,6 @@ def logout():
     Logs out the current user.
     """
     logout_user()
-    session['user_id'] = None
     return redirect(react_app_url)
 
 
@@ -96,15 +95,12 @@ def api_oauth_callback():
         return ForbiddenException(
             'Login to Eve Online SSO failed: Session Token Mismatch')
     login_type = session_token.split(':')[0]
-    character, user_id = process_oauth(code)
-    session['user_id'] = user_id
+    character = process_oauth(code)
     if login_type == 'login':
         user = User.get(character.user_id)
         login_user(user)
         if user.is_applicant:
-            print ('redirect to applicant')
             return redirect(f'{react_app_url}?showing=applicant')
-        print ('redirect to recruiter')
         return redirect(f'{react_app_url}?showing=recruiter')
     elif login_type == 'link':
         character.user_id = current_user.get_id()
@@ -152,9 +148,8 @@ def process_oauth(code):
     user_data = json.loads(result.text)
 
     refresh_token, character_id = token_data['refresh_token'], user_data['CharacterID']
-    print('process_oauth: character', character_id)
     character = Character.get(character_id)
     character.refresh_token = refresh_token
     character.put()
 
-    return character, character_id
+    return character
