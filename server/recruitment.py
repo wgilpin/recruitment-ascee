@@ -16,7 +16,7 @@ def get_answers(user_id):
     answer_query = Answer.query().where(Answer.user_id == user_id)
     answers = {a.question_id: a for a in answer_query.run()}
     for question_id in questions:
-        answer = answers[question_id].text if question_id in answers else ""
+        answer = answers[question_id].get("text", "")
         response[question_id] = {
             "question": questions[question_id],
             "user_id": user_id,
