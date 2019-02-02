@@ -5,10 +5,11 @@ from character_data import (
 )
 from database import Character, Corporation
 import cachetools
+import logging
 
 
 def get_character_list(user_id):
-    query = Character.get(Character.user_id == user_id)
+    query = Character.query().where(Character.user_id == user_id)
     return list(query.run())
 
 
@@ -16,11 +17,19 @@ def get_character_list(user_id):
 def get_character_data_list(user_id):
     character_dict = {}
     for character in get_character_list(user_id):
-        character_dict[character.character_id] = {
-            'name': character.name,
-            'corporation_id': character.corporation_id,
-            'corporation_name': Corporation.get(character.corporation_id).name
-        }
+        try:
+            character_dict[character.get_id()] = {
+                'name': character.name,
+                'corporation_id': character.corporation_id,
+                'corporation_name': Corporation.get(character.corporation_id).name,
+            }
+        except:
+            logging.debug('get_character_data_list Exception: %d', character.get_id())
+            character_dict[character.get_id()] = {
+                'name': character.name,
+                'corporation_id': character.corporation_id,
+                'corporation_name': None,
+            }
     return {'info': character_dict}
 
 

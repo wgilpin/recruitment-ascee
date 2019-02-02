@@ -17,9 +17,8 @@ set_adapter(memcache_adapter)
 
 
 class AsceeModel(Model):
-
     def get_id(self):
-        return Key(self).int_id
+        return self.key.int_id
 
 
 class User(AsceeModel, UserMixin):
@@ -98,6 +97,7 @@ class Group(AsceeModel):
         return group
 
 
+
 class TypePrice(AsceeModel):
     price = props.Float(default=0.)
 
@@ -111,6 +111,7 @@ class TypePrice(AsceeModel):
             )
             type_price.put()
         return type_price
+
 
 
 class Region(AsceeModel):

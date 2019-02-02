@@ -14,7 +14,7 @@ import backoff
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
+login_manager.login_view = "/app/index.html"
 
 def ensure_has_access(user_id, target_user_id, self_access=False):
     if not has_access(user_id, target_user_id, self_access=self_access):
@@ -63,9 +63,6 @@ def logout():
     return redirect(react_app_url)
 
 
-login_manager.login_view = login
-
-
 @app.route('/auth/link_alt')
 @login_required
 def link_alt():
@@ -103,9 +100,7 @@ def api_oauth_callback():
         user = User.get(character.user_id)
         login_user(user)
         if user.is_applicant:
-            print ('redirect to applicant')
             return redirect(f'{react_app_url}?showing=applicant')
-        print ('redirect to recruiter')
         return redirect(f'{react_app_url}?showing=recruiter')
     elif login_type == 'link':
         character.user_id = current_user.get_id()
@@ -153,7 +148,6 @@ def process_oauth(code):
     user_data = json.loads(result.text)
 
     refresh_token, character_id = token_data['refresh_token'], user_data['CharacterID']
-    print('process_oauth: character', character_id)
     character = Character.get(character_id)
     character.refresh_token = refresh_token
     character.put()

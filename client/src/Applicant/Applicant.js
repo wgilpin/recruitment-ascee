@@ -24,15 +24,15 @@ export default class Applicant extends Component {
     </div>
   }
 
-  questionsToState = data => {
-    this.setState({ questions: data.info });
-    data.info.forEach(q => {
-      this.answers[q.q] = q.a;
+  questionsToState = qsAndAs => {
+    this.setState({ questions: qsAndAs });
+    Object.keys(qsAndAs).forEach(key => {
+      this.answers[key] = qsAndAs[key].answer;
     });
   };
 
   componentDidMount() {
-    let fetch = new FetchData({ scope: 'questions' });
+    let fetch = new FetchData({ scope: 'answers' });
     fetch.get().then(this.questionsToState);
   }
 
@@ -84,15 +84,16 @@ export default class Applicant extends Component {
     return (
       <TabPanel>
         <h2 style={styles.heading}>Recruitment Questions</h2>
-        {(this.state.questions || []).map(q => {
+        {Object.keys(this.state.questions || {}).map(key => {
+          const { question, answer } = this.state.questions[key];
           return (
-            <React.Fragment>
-              <div style={styles.padded}>{q.q}</div>
-              <textarea style={styles.answer} id={q.q} onChange={this.handleAnswerChanged}>
-                {q.a}
+            <div key={key}>
+              <div style={styles.padded}>{question}</div>
+              <textarea style={styles.answer} id={question} onChange={this.handleAnswerChanged}>
+                {answer}
               </textarea>
               <hr style={styles.hr} />
-            </React.Fragment>
+            </div>
           );
         })}
       </TabPanel>
