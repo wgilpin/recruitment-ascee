@@ -25,8 +25,8 @@ export default class AssetItem extends React.Component {
     return <div style={this.styles.row}>
       <span style={this.styles.cell}>
         {this.props.asset.type}&ensp;
-        {!this.props.asset.is_singleton && 
-          (<React.Fragment>x {this.props.asset.quantity}&emsp;</React.Fragment>)}
+        {!this.props.asset.is_singleton &&
+          (< >x {this.props.asset.quantity}&emsp;</>)}
         <span style={this.styles.iskLeft}>
           {Misc.commarize(this.props.asset.price * this.props.asset.quantity)} ISK
         </span>
