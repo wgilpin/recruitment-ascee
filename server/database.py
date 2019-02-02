@@ -49,11 +49,10 @@ class User(AsceeModel, UserMixin):
         self.status_level = User.STATUS_LIST.index(value)
 
     @classmethod
-    def get(cls, id, name="Unknown", *args, **kwargs):
+    def get(cls, id, *args, **kwargs):
         user = super(User, cls).get(id, *args, **kwargs)
         if user is None:
             user = User(key=Key(User, id))
-            user.name = name
             user.put()
         return user
 
