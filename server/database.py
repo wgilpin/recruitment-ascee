@@ -27,13 +27,15 @@ class User(AsceeModel, UserMixin):
     is_senior_recruiter = props.Bool(indexed=True, default=False)
     recruiter_id = props.Integer(indexed=True, optional=True)
     status_level = props.Integer(indexed=True, default=0)
-    name = props.String(default="Unknown")
 
-    STATUS_LIST = ('new', 'claimed', 'escalated', 'accepted', 'rejected')
+    STATUS_LIST = ('new', 'escalated', 'accepted', 'rejected')
 
     @property
     def status(self):
-        return User.STATUS_LIST[self.status_level]
+        if self.status_level == 0 and (self.recruiter_id != None):
+            return 'claimed'
+        else:
+            return User.STATUS_LIST[self.status_level]
 
     @classmethod
     def is_applicant_query(cls):
@@ -48,12 +50,10 @@ class User(AsceeModel, UserMixin):
         self.status_level = User.STATUS_LIST.index(value)
 
     @classmethod
-    def get(cls, id, name="Unknown", *args, **kwargs):
+    def get(cls, id, *args, **kwargs):
         user = super(User, cls).get(id, *args, **kwargs)
         if user is None:
             user = User(key=Key(User, id))
-            print('CREATE USER', name)
-            user.name = name
             user.put()
         return user
 
