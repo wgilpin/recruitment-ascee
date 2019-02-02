@@ -133,7 +133,7 @@ def api_edit_applicant_notes(applicant_id):
 
     Args:
         applicant_id (int): User key of applicant
-        text (in body): The note
+        text (string): The note (in body)
 
     Returns:
         {'status': 'ok'} if note is successfully updated
