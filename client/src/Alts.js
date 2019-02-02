@@ -44,7 +44,7 @@ export default class Alts extends React.Component {
     fetch
       .get()
       .then(data => {
-        this.setState({ alts: data });
+        this.setState({ alts: data.info });
       })
       .catch(err => {
         console.log(err);

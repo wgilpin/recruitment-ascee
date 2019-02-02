@@ -42,9 +42,9 @@ export default class Mail extends React.Component {
 
   static jsonToMailList(json) {
     let list = [];
-    if (json) {
-      for (let we in json) {
-        list.push(json[we]);
+    if (json && json.info) {
+      for (let we in json.info) {
+        list.push(json.info[we]);
       }
     }
     return list;

@@ -113,7 +113,7 @@ export default class Recruiter extends React.Component {
           console.log(`fetched ${recruits}`);
           // array -> object
           const recruitDict = {};
-          Object.keys(recruits).forEach(rec => {
+          Object.keys(recruits.info).forEach(rec => {
             recruitDict[recruits[rec].mainId] = recruits[rec];
           });
           return { recruits: recruitDict, activeRecruit: null };

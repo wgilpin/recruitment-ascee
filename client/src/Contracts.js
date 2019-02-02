@@ -18,17 +18,16 @@ export default class Contracts extends React.Component {
     this.state = {
       scope: 'contract',
       contracts: {},
-      people: {},
     };
   }
 
   componentDidMount() {
     new FetchData(
-      { id: this.props.alt, scope: this.state.scope },
+      { id: this.props.alt, scope: 'character', param1: 'market_contracts' },
     ).get()
       .then(data => {
         console.log('contract', data)
-        this.setState({ contracts: data.contracts, people: data.people })
+        this.setState({ contracts: data.info.contracts })
       });
   }
 
@@ -41,38 +40,24 @@ export default class Contracts extends React.Component {
     let newdate = new Date(contract.date_issued);
     let theDate = newdate.toLocaleDateString() + ' ' + newdate.toLocaleTimeString();
 
-    let acceptor = this.state.people[contract.acceptor_id.id];
-    let acceptorCorp = acceptor.corporation_id.ticker;
-    let acceptorAlliance = (acceptor.alliance_id || {}).ticker;
-    let endLocation = {
-      structureName: contract.end_location_id.StructureName,
-      solarSystemID: contract.end_location_id.solarSystemID.solarSystemName,
-      corpTicker: contract.end_location_id.corporation_id.ticker,
-      allianceTicker: (contract.end_location_id.alliance_id || {}).ticker,
-    };
     let issuerCorp = this.state.people[contract.issuer_corporation_id.id];
-    let issuerTicker = issuerCorp.ticker;
-    let issuerAlliance = (issuerCorp.alliance_id || {}).ticker;
     let availability = contract.availability.charAt(0).toUpperCase() + contract.availability.slice(1);
     return (
       <div style={styles.row} key={idx}>
         <div style={lineStyle}>
-          {contract.issuer_id.name}<br/>
-          {issuerTicker} / {issuerAlliance}
+          {contract.issuer_name}<br/>
+          {contract.issuer_corporation_ticker} / {contract.issuer_lliance}
         </div>
         <div style={lineStyle}>
-          {contract.acceptor_id.name}<br/>
-          {acceptorCorp} / {acceptorAlliance}
+          {contract.acceptor_name}<br/>
+          {contract.acceptor_corporation_ticker} / {contract.acceptor_alliance}
           </div>
         <div style={lineStyle}>{availability}</div>
         <div style={lineStyle}>???</div>
         <div style={lineStyle}>{theDate}</div>
         <div style={lineStyle}>
-          {endLocation.structureName}<br/>
-          {endLocation.solarSystemID} / {endLocation.corpTicker} / {endLocation.allianceTicker}
+          {contract.end_location_name}<br/>
         </div>
-        <div style={lineStyle}>{theDate}</div>
-
       </div>
     )}
     catch(e) {

@@ -103,7 +103,7 @@ export default class TableBase extends React.Component {
         if (data && data.error) {
           return this.setState({ ...data.error, loading: false });
         }
-        let newList = this.jsonToList(data);
+        let newList = this.jsonToList(data.info);
         this.setState({ data: newList, loading: false });
         if (newList.length !== (this.state.data || []).length) {
           // after state set
@@ -133,7 +133,7 @@ export default class TableBase extends React.Component {
       .get()
       .then(data => {
         return this.detailFormatter(
-          data,
+          data.info,
           this.state.data.find(it => it[this.keyField] === forId),
         );
       });

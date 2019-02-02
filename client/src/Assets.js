@@ -55,7 +55,7 @@ export default class Assets extends React.Component {
 
   componentDidMount() {
     let fetch = new FetchData(
-      { id: this.props.alt, scope: this.scope },
+      { id: this.props.alt, scope: 'character', param1: 'assets' },
       this.onLoaded,
       this.onError,
     );
