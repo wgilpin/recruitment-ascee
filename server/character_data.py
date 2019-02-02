@@ -205,7 +205,6 @@ def get_character_mail(character_id):
     mail_dict = {entry['mail_id']: entry for entry in mail_list}
     for key in mail_dict:
         entry = mail_dict[key]
-        print('entry', entry)
         entry['from_name'] = Character.get(entry['from']).name
         for recipient in entry['recipients']:
             recipient['recipient_name'] = Character.get(recipient['recipient_id']).name

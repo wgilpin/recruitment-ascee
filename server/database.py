@@ -53,7 +53,6 @@ class User(AsceeModel, UserMixin):
         user = super(User, cls).get(id, *args, **kwargs)
         if user is None:
             user = User(key=Key(User, id))
-            print('CREATE USER', name)
             user.name = name
             user.put()
         return user
