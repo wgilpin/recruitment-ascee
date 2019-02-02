@@ -91,12 +91,11 @@ export default class Recruiter extends React.Component {
   }
 
   static statuses = {
-    unclaimed: 0,
-    escalated: 1,
-    claimed: 2,
-    accepted: 3,
-    rejected: 4,
-    ignore: 5,
+    unclaimed: 'new',
+    escalated: 'escalated',
+    claimed: 'claimed',
+    accepted: 'accepted',
+    rejected: 'rejected',
   };
 
   componentDidMount() {
@@ -117,8 +116,8 @@ export default class Recruiter extends React.Component {
           }
           // array -> object
           const recruitDict = {};
-          Object.keys(recruits.info).forEach(rec => {
-            recruitDict[recruits.info[rec].mainId] = recruits.info[rec];
+          recruits.info.forEach(rec => {
+            recruitDict[rec.user_id] = rec;
           });
           return { recruits: recruitDict, activeRecruit: null };
         })
@@ -177,6 +176,7 @@ export default class Recruiter extends React.Component {
   }
 
   recruitLine(id, recruit) {
+    const avatarImg = `https://image.eveonline.com/Character/${id}_64.jpg`;
     return (
       <div key={id} style={styles.recruit}>
         {recruit.status === Recruiter.statuses.claimed && (
@@ -186,7 +186,7 @@ export default class Recruiter extends React.Component {
           <EscalatedIcon style={styles.icon} fontSize="24px" />
         )}
         <span onClick={() => this.handleClick(id)}>
-          <RoundImage src={`https://image.eveonline.com/Character/${id}_64.jpg`} />
+          <RoundImage src={avatarImg} />
           <span style={styles.name}>{recruit.name}</span>
         </span>
         <RecruitButtonBar
