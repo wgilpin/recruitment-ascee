@@ -89,7 +89,6 @@ class Admin extends Component {
       </TabPanel>
     );
   };
-
   buildConfigPanel() {
     return < >
     </>

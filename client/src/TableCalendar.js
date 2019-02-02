@@ -13,8 +13,8 @@ export default class TableCalendar extends TableBase {
     super(props);
     this.sortBy = 'event_date';
     this.scope = 'calendar';
-    this.addTextField('title');
-    this.addDateField('event_date', 'Date');
+    this.addField(TableBase.kinds().text, 'title');
+    this.addField(TableBase.kinds().date, 'event_date', 'Date');
     this.setDetailer(
       'calendar',
       this.formatEvent,
@@ -24,13 +24,13 @@ export default class TableCalendar extends TableBase {
   formatEvent(data, parent) {
     const toStyle={ marginLeft: '40px', textAlign: 'left' };
     const topStyle={ marginLeft: '20px', textAlign: 'left' };
-    return <React.Fragment>
+    return < >
         <div style={topStyle}>From: {parent.sender}</div>
         <div style={topStyle}>  To:</div>
         <div>
-          {data.info.map(name => <div style={toStyle}>{name}</div>)}
+          {data.map(name => <div style={toStyle}>{name}</div>)}
         </div>
-      </React.Fragment>
+      </>
   }
 }
 

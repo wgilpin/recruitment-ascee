@@ -31,6 +31,31 @@ export default class FetchData {
     return res.join('&');
   }
 
+  getMockData(res) {
+    console.log('opaque');
+    // it's a CORS problem so we are on the dev server
+    // return the appropriate mock
+    // TODO: all broken by python
+    switch (this.scope) {
+      case 'mail':
+        return this.params.search('param1') === -1 ? Mocks.mockMail : Mocks.mockMailBody;
+      case 'linkID':
+        return Mocks.mockLink;
+      case 'wallet':
+        return Mocks.mockWallet;
+      case 'skill':
+        return Mocks.mockSkills;
+      case 'bookmarks':
+        return Mocks.mockBookmarks;
+      case 'contacts':
+        return MockContacts.mock;
+        case 'contract':
+        return MockContracts.mock;
+      default:
+        return null;
+    }
+  }
+
   get() {
     let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id || ''}`;
     if('param1' in this.originalParams){
@@ -46,35 +71,18 @@ export default class FetchData {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': 'http://localhost:3000',
         },
-        //mode: 'no-cors',
       })
       .then((res) => {
-        // TODO: DEV server only
         if (res.type === "opaque") {
-          console.log('opaque');
-          // it's a CORS problem so we are on the dev server
-          switch (this.scope) {
-            case 'mail':
-              return this.params.search('param1') === -1 ? Mocks.mockMail : Mocks.mockMailBody;
-            case 'linkID':
-              return Mocks.mockLink;
-            case 'wallet':
-              return Mocks.mockWallet;
-            case 'skill':
-              return Mocks.mockSkills;
-            case 'bookmarks':
-              return Mocks.mockBookmarks;
-            case 'contacts':
-              return MockContacts.mock;
-              case 'contract':
-              return MockContracts.mock;
-            default:
-              return null;
-          }
+          return this.getMockData(res);
         };
         console.log(res.status, res.status > 400);
         if (res.status > 400) {
           console.log('error', res.statusText);
+          if (res.status === 401){
+            console.log('redirect to /login')
+            window.location = '/login';
+          }
           return ({ 'error': res.statusText, status: res.status })
         }
         return res.json()
@@ -87,7 +95,7 @@ export default class FetchData {
   post(payload) {
     let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id || ''}`;
     console.log(`fetch post ${url}`);
-    return fetch(url, {  
+    return fetch(url, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ "data": {

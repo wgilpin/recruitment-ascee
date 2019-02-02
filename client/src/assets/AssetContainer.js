@@ -6,7 +6,12 @@ import Misc from '../common/Misc';
 import collapsedImg from '../images/collapsed.png';
 import expandedImg from '../images/expanded.png';
 
-const propTypes = {};
+const propTypes = {
+  assets: PropTypes.object,
+  onClickHeader: PropTypes.func,
+  index: PropTypes.number,
+  depth: PropTypes.number,
+};
 
 const defaultProps = {
   assets: {},
@@ -36,7 +41,7 @@ export default class AssetContainer extends React.Component {
     super(props);
     this.state = { collapsed: true };
   }
-  
+
   getItemLine(item, index) {
     const depthPadding = 40 * this.props.depth + 20;
     let lineStyle = this.props.index % 2 === 0 ? styles.isOdd : {};
@@ -67,6 +72,7 @@ export default class AssetContainer extends React.Component {
         );
       } else {
         orphans.push(it);
+        return null;
       }
     });
     const sortedOrphans = orphans.sort((a, b) => (items[b].price - items[a].price));
@@ -82,10 +88,10 @@ export default class AssetContainer extends React.Component {
   };
 
   expansionButton = () => {
-    return <React.Fragment>
+    return < >
       {!this.state.collapsed && <img src={expandedImg} alt="+" />}
       {this.state.collapsed && <img src={collapsedImg} alt="-" />}
-    </React.Fragment>
+    </>
   }
 
   render() {
