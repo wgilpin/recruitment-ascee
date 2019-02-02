@@ -211,6 +211,7 @@ def get_character_mail(character_id):
         recipient_ids = [r['recipient_id'] for r in entry['recipients']]
         if any(Character.get(item).is_redlisted for item in [entry['from']] + recipient_ids):
             entry['redlisted'] = True
+        entry.timestamp = entry.timestamp.to_json()
     return mail_dict
 
 

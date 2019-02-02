@@ -151,9 +151,8 @@ export default class Mail extends React.Component {
   };
 
 
-  mailItem(key, { timestamp, from, subject, is_read }) {
+  mailItem(key, { timestamp, from_name, subject, is_read }) {
     // a react item
-    console.log(`from ${from}`);
     let lineStyle, formattedDate;
     let readStyle = is_read ? styles.isRead : styles.isUnread;
 
@@ -164,7 +163,7 @@ export default class Mail extends React.Component {
     return (
       <div key={key} style={styles.row} onClick={() => this.toggleMessage(key)}>
         <div style={lineStyle}>{formattedDate}</div>
-        <div style={lineStyle}>{from ? from.name : null}</div>
+        <div style={lineStyle}>{from_name}</div>
         <div style={lineStyle}>{subject}</div>
       </div>
     );
