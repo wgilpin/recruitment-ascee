@@ -55,7 +55,7 @@ export default class Mail extends React.Component {
 
     // get the mail headers by API
     new FetchData(
-      { id: this.props.alt, scope: 'mail' },
+      { id: this.props.alt, scope: 'character', param1: 'mail' },
     ).get()
       .then(data => {
         // got the list of mail headers
@@ -135,7 +135,7 @@ export default class Mail extends React.Component {
     this.setState({ mailList: updatedMailList });
     if (!thisMail.body) {
       return new FetchData(
-        { id: this.props.alt, scope: 'mail', param1: thisMail.mail_id },
+        { id: this.props.alt, scope: 'character', param1: 'mail', param2: thisMail.mail_id },
       ).get()
         .then((body) => {
           rawBody = this.badlyRemoveFontSizeColor(body.info);
@@ -186,10 +186,10 @@ export default class Mail extends React.Component {
   render() {
     if (this.state.loading) {
       return(
-      <Loader 
+      <Loader
         type="Puff"
         color="#01799A"
-        height="100"	
+        height="100"
         width="100"
      />)
     }

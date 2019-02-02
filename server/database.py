@@ -2,6 +2,7 @@ from anom import props, set_adapter, Key, Model
 from anom.adapters import DatastoreAdapter, MemcacheAdapter
 import os
 import pylibmc
+import datetime
 from esipy import EsiClient, EsiSecurity
 from esipy.cache import DictCache
 from pyswagger import App
@@ -319,7 +320,6 @@ class Alliance(AsceeModel):
     def is_redlisted(self):
         return self.redlisted
 
-
 class Character(AsceeModel):
     user_id = props.Integer(indexed=True)
     name = props.String()
@@ -339,9 +339,9 @@ class Character(AsceeModel):
             character = Character(
                 key=Key(Character, id),
                 user_id=id,
-                name=character_data['name'],
-                is_male=character_data['gender'] == 'male',
-                corporation_id=character_data['corporation_id'],
+                name=character_data.get('name', f'unknown {id}'),
+                is_male=character_data.get('gender', '') == 'male',
+                corporation_id=character_data.get('corporation_id', 0),
             )
             character.put()
         return character

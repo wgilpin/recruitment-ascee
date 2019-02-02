@@ -197,13 +197,15 @@ def get_character_bookmarks(character_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_mail(character_id):
-    mail_list = get_paged_op(
+    mail_list = get_op(
         'get_characters_character_id_mail',
         auth_id=character_id,
         character_id=character_id,
     )
     mail_dict = {entry['mail_id']: entry for entry in mail_list}
-    for mail_id, entry in mail_dict:
+    for key in mail_dict:
+        entry = mail_dict[key]
+        print('entry', entry)
         entry['from_name'] = Character.get(entry['from']).name
         for recipient in entry['recipients']:
             recipient['recipient_name'] = Character.get(recipient['recipient_id']).name

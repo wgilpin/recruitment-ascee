@@ -14,6 +14,8 @@
 
 # [START app]
 import logging
+import json
+import datetime
 
 # [START imports]
 from flask_app import app
@@ -347,6 +349,11 @@ def api_character_contacts(character_id):
     return jsonify(get_character_contacts(character_id))
 
 
+def DateTimeJsonCOnverter(o):
+    if isinstance(o, datetime.datetime):
+        return o.__str__()
+
+
 @app.route('/api/character/<int:character_id>/mail', methods=['GET'])
 @login_required
 def api_character_mail(character_id):
@@ -372,7 +379,7 @@ def api_character_mail(character_id):
             a recruiter who has claimed the given user
     """
     ensure_has_access(current_user.get_id(), character_id)
-    return jsonify(get_character_mail(character_id))
+    return json.dumps({ "info": get_character_mail(character_id)}, default=DateTimeJsonCOnverter)
 
 
 @app.route('/api/character/<int:character_id>/market_contracts', methods=['GET'])

@@ -36,6 +36,9 @@ export default class FetchData {
     if('param1' in this.originalParams){
       url += `/${this.originalParams.param1}`;
     }
+    if('param2' in this.originalParams){
+      url += `/${this.originalParams.param2}`;
+    }
     console.log(`fetch ${url}`);
     return fetch(
       url,
@@ -87,7 +90,7 @@ export default class FetchData {
   post(payload) {
     let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id || ''}`;
     console.log(`fetch post ${url}`);
-    return fetch(url, {  
+    return fetch(url, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ "data": {
