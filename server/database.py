@@ -30,11 +30,14 @@ class User(AsceeModel, UserMixin):
     status_level = props.Integer(indexed=True, default=0)
     name = props.String(default="Unknown")
 
-    STATUS_LIST = ('new', 'claimed', 'escalated', 'accepted', 'rejected')
+    STATUS_LIST = ('new', 'escalated', 'accepted', 'rejected')
 
     @property
     def status(self):
-        return User.STATUS_LIST[self.status_level]
+        if self.status_level == 0 and (self.recruiter_id != None):
+            return 'claimed'
+        else:
+            return User.STATUS_LIST[self.status_level]
 
     @classmethod
     def is_applicant_query(cls):
