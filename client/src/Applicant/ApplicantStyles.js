@@ -57,6 +57,11 @@ const styles = {
   alts: {
     backgroundColor: '#333',
     textAlign: 'left',
+  },
+  logout: {
+    position: 'absolute',
+    right: '16px',
+    top: '8px',
   }
 };
 
