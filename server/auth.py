@@ -45,6 +45,26 @@ def has_access(user_id, target_character_id, self_access=False):
 def load_user(user_id):
     return User.get(user_id)
 
+# Decorator for admin access
+def admin_required(something):
+    @wraps(something)
+    def wrap(*args, **kwargs):
+        if current_user.is_admin or current_user.is_senior_recruiter:
+            return something(*args, **kwargs)
+        else:
+            return redirect(login_manager.login_view)
+    return wrap
+
+# Decorator for roled access
+def roles_required(something):
+    @wraps(something)
+    def wrap(*args, **kwargs):
+        if not current_user.is_applicant:
+            return something(*args, **kwargs)
+        else:
+            return redirect(login_manager.login_view)
+    return wrap
+
 
 @app.route('/auth/login')
 def login():
@@ -102,7 +122,7 @@ def api_oauth_callback():
         user = User.get(character.user_id)
         login_user(user)
         if user.is_applicant:
-            print('login', character.user_id, 'is_applicant')
+            print('login', character.user_id, 'is_applicant recruiter? >', user.is_recruiter)
             return redirect(f'{react_app_url}?showing=applicant')
         return redirect(recruiter_url)
     elif login_type == 'link':

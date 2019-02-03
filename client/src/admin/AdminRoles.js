@@ -81,7 +81,7 @@ export default class AdminRoles extends React.Component {
   filterStaff(role) {
     return Object
       .keys(this.state.staff || {})
-      .filter(c => !!(this.state.staff[c][`is${role}`]))
+      .filter(c => !!(this.state.staff[c][`is_${role}`]))
       .map(id => this.state.staff[id]);
   }
 
@@ -206,9 +206,9 @@ export default class AdminRoles extends React.Component {
   }
 
   buildRolesPanel = () => {
-    const admins = this.filterStaff('Admin');
-    const recruiters = this.filterStaff('Recruiter');
-    const snrRecruiters = this.filterStaff('SnrRecruiter');
+    const admins = this.filterStaff('admin');
+    const recruiters = this.filterStaff('recruiter');
+    const snrRecruiters = this.filterStaff('snr_recruiter');
     return [
       <TabPanel>
         <h2 style={styles.h2}>Recruiters</h2>

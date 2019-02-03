@@ -26,6 +26,7 @@ class User(AsceeModel, UserMixin):
     is_admin = props.Bool(indexed=True, default=False)
     is_recruiter = props.Bool(indexed=True, default=False)
     is_senior_recruiter = props.Bool(indexed=True, default=False)
+    is_submitted = props.Bool(indexed=True, default=False)
     recruiter_id = props.Integer(indexed=True, optional=True)
     status_level = props.Integer(indexed=True, default=0)
     name = props.String(default="Unknown")

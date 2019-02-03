@@ -79,7 +79,7 @@ export default class TableBase extends React.Component {
       header: header || this.titleise(id),
     });
   }
-  
+
   addBoolField(id, header) {
     this.fields.push({
       id,
@@ -137,7 +137,7 @@ export default class TableBase extends React.Component {
   }
 
   componentDidMount() {
-    new FetchData({ id: this.props.alt, scope: this.scope })
+    new FetchData({ id: this.props.alt, scope: 'character', param1: this.scope })
       .get()
       .then(data => {
         if (data && data.error) {
@@ -343,8 +343,8 @@ export default class TableBase extends React.Component {
         property = property.substr(1);
     }
     const fn = (a,b) => {
-        var result = ((a[property] || defaultVal) < (b[property] || defaultVal)) 
-          ? -1 
+        var result = ((a[property] || defaultVal) < (b[property] || defaultVal))
+          ? -1
           : ((a[property] || defaultVal) > (b[property] || defaultVal))
             ? 1
             : 0;

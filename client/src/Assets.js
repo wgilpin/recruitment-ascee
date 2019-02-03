@@ -16,13 +16,12 @@ const defaultProps = {};
 export default class Assets extends React.Component {
   constructor(props) {
     super(props);
-    this.scope = 'assets';
     this.setGlobal({ assets: {}, assetSystems: {}});
     this.state = {
       loading: true,
     }
   }
-  
+
   recurseValues(item) {
     let price = (item.price || 0) * (item.quantity || 1);
     let value = 0;
@@ -56,28 +55,28 @@ export default class Assets extends React.Component {
 
   componentDidMount() {
     let fetch = new FetchData(
-      { id: this.props.alt, scope: this.scope },
+      { id: this.props.alt, scope: 'character', param1: 'assets' },
       this.onLoaded,
       this.onError,
     );
     fetch.get().then(data => this.jsonToSystemsList(data));
   }
 
-  
+
   render() {
     if (this.state.loading) {
       return(
-      <Loader 
+      <Loader
         type="Puff"
         color="#01799A"
-        height="100"	
+        height="100"
         width="100"
       />)
     }
     return Object
       .keys(this.global.assetSystems || {})
       .sort((a,b) => this.global.assetSystems[b].value - this.global.assetSystems[a].value)
-      .map((system, idx) => 
+      .map((system, idx) =>
         (system !== 'value' ? <AssetSystem systemId={system} /> : null ));
   }
 }
