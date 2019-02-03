@@ -97,14 +97,17 @@ def get_applicant_list():
             and_where(User.is_senior_recruiter.is_false).\
             and_where(User.is_admin.is_false).\
             run():
+        applicant_id = applicant.get_id()
         recruiter_name = \
             Character.get(applicant.recruiter_id).name if applicant.recruiter_id else None
+        applicant_name = \
+            Character.get(applicant_id).name if applicant_id else None
         return_list.append({
-            'user_id': applicant.get_id(),
+            'user_id': applicant_id,
             'recruiter_id': applicant.recruiter_id,
             'recruiter_name': recruiter_name,
             'status': applicant.status,
-            'name': applicant.name,
+            'name': applicant_name,
         })
     return {'info': return_list}
 
