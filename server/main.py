@@ -233,7 +233,7 @@ def api_get_user_list():
     """
     return jsonify(get_user_list())
 
-@app.route('/api/user/characters/search/<string:search_text>')
+@app.route('/api/character/search/<string:search_text>')
 @login_required
 @roles_required
 def api_find_user(search_text):
