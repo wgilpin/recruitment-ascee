@@ -25,9 +25,9 @@ export default class Wallet extends React.Component {
 
   static jsonToWalletList(json) {
     let list = [];
-    if (json && json.info) {
-      for (let we in json.info) {
-        list.push(json.info[we]);
+    if (json) {
+      for (let we in json) {
+        list.push(json[we]);
       }
     }
     return list;
