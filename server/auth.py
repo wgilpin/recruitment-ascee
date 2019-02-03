@@ -12,6 +12,7 @@ import hmac
 import hashlib
 from exceptions import ForbiddenException, AppException
 import backoff
+from functools import wraps
 
 login_manager = LoginManager()
 login_manager.init_app(app)
