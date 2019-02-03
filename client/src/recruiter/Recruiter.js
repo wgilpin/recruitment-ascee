@@ -110,9 +110,9 @@ export default class Recruiter extends React.Component {
         // Set the global `recruits` list, and set no recruit selected
         .then(recruits => {
           console.log(`fetched ${recruits.info}`);
-          if (recruits.error && recruits.error === 'login') {
+          if (recruits.status && recruits.status >= 400) {
             console.log('Login required');
-            return (window.location = '/app');
+            return (window.location = '/app/index.html');
           }
           // array -> object
           const recruitDict = {};
