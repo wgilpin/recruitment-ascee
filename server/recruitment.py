@@ -90,7 +90,8 @@ def edit_applicant_notes(applicant_user_id, text):
         return {'status': 'ok'}
 
 
-def get_applicant_list():
+def get_applicant_list(current_user):
+    current_user_id = current_user.get_id()
     return_list = []
     for applicant in User.query().\
             where(User.is_recruiter.is_false).\
@@ -102,13 +103,36 @@ def get_applicant_list():
             Character.get(applicant.recruiter_id).name if applicant.recruiter_id else None
         applicant_name = \
             Character.get(applicant_id).name if applicant_id else None
-        return_list.append({
-            'user_id': applicant_id,
-            'recruiter_id': applicant.recruiter_id,
-            'recruiter_name': recruiter_name,
-            'status': applicant.status,
-            'name': applicant_name,
-        })
+
+        print('applicant', applicant_name)
+        # everyone sees new applicants
+        applicant_visible = applicant.status == 'new'
+        print('initial', applicant_visible)
+        # recruiters see their own
+        if applicant.recruiter_id == current_user_id:
+            applicant_visible = True
+            print('recruiter', applicant_visible)
+
+
+        # senior recruiters see all
+        if current_user.is_senior_recruiter:
+            applicant_visible = True
+            print('senior', applicant_visible)
+
+        # admins see all
+        if current_user.is_admin:
+            applicant_visible = True
+            print('admin', applicant_visible)
+
+        if applicant_visible:
+            print('final', applicant_visible)
+            return_list.append({
+                'user_id': applicant_id,
+                'recruiter_id': applicant.recruiter_id,
+                'recruiter_name': recruiter_name,
+                'status': applicant.status,
+                'name': applicant_name,
+            })
     return {'info': return_list}
 
 

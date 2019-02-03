@@ -176,7 +176,7 @@ def api_get_applicant_list():
     Error codes:
         Forbidden (403): If logged in user is not a recruiter or senior recruiter
     """
-    return jsonify(get_applicant_list())
+    return jsonify(get_applicant_list(current_user=current_user))
 
 
 @app.route('/api/user/characters')
