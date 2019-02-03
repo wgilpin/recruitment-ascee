@@ -98,8 +98,7 @@ def api_oauth_callback():
     login_type = session_token.split(':')[0]
     character = process_oauth(code)
     if login_type == 'login':
-        print('char', character)
-        user = User.get(character.user_id, name=character.name)
+        user = User.get(character.user_id)
         login_user(user)
         if user.is_applicant:
             return redirect(f'{react_app_url}?showing=applicant')
