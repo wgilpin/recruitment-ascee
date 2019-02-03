@@ -197,19 +197,19 @@ def get_character_bookmarks(character_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_mail(character_id):
-    character = Character.get(character_id)
-    mail_list = character.get_paged_op(
+    mail_list = get_op(
         'get_characters_character_id_mail',
         character_id=character_id,
     )
     mail_dict = {entry['mail_id']: entry for entry in mail_list}
-    for mail_id, entry in mail_dict:
+    for entry in mail_dict.values():
         entry['from_name'] = Character.get(entry['from']).name
         for recipient in entry['recipients']:
             recipient['recipient_name'] = Character.get(recipient['recipient_id']).name
         recipient_ids = [r['recipient_id'] for r in entry['recipients']]
         if any(Character.get(item).is_redlisted for item in [entry['from']] + recipient_ids):
             entry['redlisted'] = True
+        entry.timestamp = entry.timestamp.to_json()
     return mail_dict
 
 

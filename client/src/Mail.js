@@ -55,7 +55,7 @@ export default class Mail extends React.Component {
 
     // get the mail headers by API
     new FetchData(
-      { id: this.props.alt, scope: 'mail' },
+      { id: this.props.alt, scope: 'character', param1: 'mail' },
     ).get()
       .then(data => {
         // got the list of mail headers
@@ -135,7 +135,7 @@ export default class Mail extends React.Component {
     this.setState({ mailList: updatedMailList });
     if (!thisMail.body) {
       return new FetchData(
-        { id: this.props.alt, scope: 'mail', param1: thisMail.mail_id },
+        { id: this.props.alt, scope: 'character', param1: 'mail', param2: thisMail.mail_id },
       ).get()
         .then((body) => {
           rawBody = this.badlyRemoveFontSizeColor(body);
@@ -151,9 +151,8 @@ export default class Mail extends React.Component {
   };
 
 
-  mailItem(key, { timestamp, from, subject, is_read }) {
+  mailItem(key, { timestamp, from_name, subject, is_read }) {
     // a react item
-    console.log(`from ${from}`);
     let lineStyle, formattedDate;
     let readStyle = is_read ? styles.isRead : styles.isUnread;
 
@@ -164,7 +163,7 @@ export default class Mail extends React.Component {
     return (
       <div key={key} style={styles.row} onClick={() => this.toggleMessage(key)}>
         <div style={lineStyle}>{formattedDate}</div>
-        <div style={lineStyle}>{from ? from.name : null}</div>
+        <div style={lineStyle}>{from_name}</div>
         <div style={lineStyle}>{subject}</div>
       </div>
     );

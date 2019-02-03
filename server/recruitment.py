@@ -97,7 +97,6 @@ def get_applicant_list():
             and_where(User.is_senior_recruiter.is_false).\
             and_where(User.is_admin.is_false).\
             run():
-        print(applicant)
         recruiter_name = \
             Character.get(applicant.recruiter_id).name if applicant.recruiter_id else None
         return_list.append({

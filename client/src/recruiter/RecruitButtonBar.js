@@ -5,12 +5,11 @@ import DropIcon from 'react-ionicons/lib/MdUndo';
 import EscalateIcon from 'react-ionicons/lib/IosAlertOutline';
 
 const statuses = {
-  unclaimed: 0,
-  escalated: 1,
-  claimed: 2,
-  accepted: 3,
-  rejected: 4,
-  ignore: 5,
+  unclaimed: 'new',
+  escalated: 'escalated',
+  claimed: 'claimed',
+  accepted: 'accepted',
+  rejected: 'rejected',
 };
 
 const styles = {

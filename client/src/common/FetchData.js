@@ -61,6 +61,9 @@ export default class FetchData {
     if('param1' in this.originalParams){
       url += `/${this.originalParams.param1}`;
     }
+    if('param2' in this.originalParams){
+      url += `/${this.originalParams.param2}`;
+    }
     console.log(`fetch ${url}`);
     return fetch(
       url,
