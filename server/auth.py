@@ -97,10 +97,12 @@ def api_oauth_callback():
             'Login to Eve Online SSO failed: Session Token Mismatch')
     login_type = session_token.split(':')[0]
     character = process_oauth(code)
+    print('login', character.user_id, login_type)
     if login_type == 'login':
         user = User.get(character.user_id)
         login_user(user)
         if user.is_applicant:
+            print('login', character.user_id, 'is_applicant')
             return redirect(f'{react_app_url}?showing=applicant')
         return redirect(recruiter_url)
     elif login_type == 'link':
