@@ -341,7 +341,7 @@ class Character(AsceeModel):
             character = Character(
                 key=Key(Character, id),
                 user_id=id,
-                name=character_data.get('name', f'unknown {id}'),
+                name=character_data.get('name', ''),
                 is_male=character_data.get('gender', '') == 'male',
                 corporation_id=character_data.get('corporation_id', 0),
             )

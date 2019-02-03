@@ -40,9 +40,6 @@ def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
 
 def submit_application(applicant_user_id):
     applicant = User.get(applicant_user_id)
-    if applicant is None:
-        applicant_name = Character.get(applicant_user_id).name
-        return {'error': 'User {} is not an applicant'.format(applicant_name)}
     applicant.is_submitted = True
     applicant.put()
     return {'status': 'ok'}
@@ -98,21 +95,6 @@ def edit_applicant_notes(applicant_user_id, text):
         applicant.notes = text
         return {'status': 'ok'}
 
-def get_user_list():
-    # list of all Users with roles
-    result = {}
-    for user in User.query().run():
-        id = user.get_id()
-        user_name = Character.get(id).name if id else None
-        result[id] = {
-            'user_id': id,
-            'is_recruiter': user.is_recruiter,
-            'is_snr_recruiter': user.is_senior_recruiter,
-            'is_admin': user.is_admin,
-            'name': user_name,
-        }
-    return result
-
 def get_character_search_list(search_text):
     # list of all chars with name beggining with search_text
     result = {}
@@ -141,28 +123,22 @@ def get_applicant_list(current_user):
         applicant_name = \
             Character.get(applicant_id).name if applicant_id else None
 
-        print('applicant', applicant_name)
         # everyone sees new applicants
         applicant_visible = applicant.status == 'new'
-        print('initial', applicant_visible)
+        
         # recruiters see their own
         if applicant.recruiter_id == current_user_id:
             applicant_visible = True
-            print('recruiter', applicant_visible)
-
 
         # senior recruiters see all
         if current_user.is_senior_recruiter:
             applicant_visible = True
-            print('senior', applicant_visible)
 
         # admins see all
         if current_user.is_admin:
             applicant_visible = True
-            print('admin', applicant_visible)
 
         if applicant_visible:
-            print('final', applicant_visible)
             return_list.append({
                 'user_id': applicant_id,
                 'recruiter_id': applicant.recruiter_id,
