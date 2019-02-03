@@ -15,7 +15,8 @@ import backoff
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "/app/index.html"
+login_manager.login_view = "/auth/login"
+
 
 def ensure_has_access(user_id, target_user_id, self_access=False):
     if not has_access(user_id, target_user_id, self_access=self_access):
@@ -99,7 +100,7 @@ def api_oauth_callback():
     character = process_oauth(code)
     if login_type == 'login':
         print('char', character)
-        user = User.get(character.user_id, name=character.name)
+        user = User.get(character.user_id)
         login_user(user)
         if user.is_applicant:
             return redirect(f'{react_app_url}?showing=applicant')

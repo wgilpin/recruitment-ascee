@@ -14,9 +14,10 @@ SECONDS_TO_CACHE = 10 * 60
 def get_character_calendar(character_id):
     # TODO: Need to return not just data from this endpoint, but also
     # the get_characters_character_id_calendar_event_id endpoint
-    calendar_data = get_op(
+    character = Character.get(character_id)
+    calendar_data = character.get_op(
         'get_characters_character_id_calendar',
-        auth_id=character_id, character_id=character_id
+        character_id=character_id
     )
     return {'info': calendar_data}
 
@@ -47,9 +48,10 @@ def get_transaction_party(party_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_wallet(character_id):
-    wallet_data = get_paged_op(
+    character = Character.get(character_id)
+    wallet_data = character.get_paged_op(
         'get_characters_character_id_wallet_journal',
-        auth_id=character_id, character_id=character_id
+        character_id=character_id
     )
     for wallet_entry in wallet_data:
         redlisted = wallet_entry['amount'] == 0
@@ -68,9 +70,9 @@ def get_character_wallet(character_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_contacts(character_id):
-    contacts_list = get_paged_op(
+    character = Character.get(character_id)
+    contacts_list = character.get_paged_op(
         'get_characters_character_id_contacts',
-        auth_id=character_id,
         character_id=character_id
     )
     contacts_dict = {entry['contact_id']: entry for entry in contacts_list}
@@ -91,9 +93,9 @@ def get_character_contacts(character_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_mining(character_id):
-    mining_data = get_op(
+    character = Character.get(character_id)
+    mining_data = character.get_op(
         'get_characters_character_id_mining',
-        auth_id=character_id,
         character_id=character_id,
     )
     return_list = []
@@ -116,16 +118,15 @@ def get_character_mining(character_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_contracts(character_id):
-    contract_list = get_paged_op(
+    character = Character.get(character_id)
+    contract_list = character.get_paged_op(
         'get_characters_character_id_contracts',
-        auth_id=character_id,
         character_id=character_id
     )
     # issuer_corporation, acceptor, issuer, end_location, start_location
     for entry in contract_list:
         entry['items'] = get_op(
             'get_characters_character_id_contracts_contract_id_items',
-            auth_id=character_id,
             character_id=character_id,
             contract_id=entry['contract_id'],
         )
@@ -156,9 +157,9 @@ def get_character_market_contracts(character_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_assets(character_id):
-    asset_list = get_paged_op(
+    character = Character.get(character_id)
+    asset_list = character.get_paged_op(
         'get_characters_character_id_assets',
-        auth_id=character_id,
         character_id=character_id,
     )
     for entry in asset_list:
@@ -172,17 +173,16 @@ def get_character_assets(character_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_bookmarks(character_id):
-    bookmarks_list = get_paged_op(
+    character = Character.get(character_id)
+    bookmarks_list = character.get_paged_op(
         'get_characters_character_id_bookmarks',
-        auth_id=character_id,
         character_id=character_id,
     )
     bookmarks_dict = {entry['bookmark_id']: entry for entry in bookmarks_list}
     for bookmark_id, entry in bookmarks_dict.items():
         if 'folder_id' in entry.keys():
-            entry['folder_name'] = get_op(
+            entry['folder_name'] = character.get_op(
                 'get_characters_character_id_bookmarks_folder',
-                auth_id=character_id,
                 character_id=character_id,
                 folder_id=entry['folder_id']
             )['name']
@@ -197,9 +197,9 @@ def get_character_bookmarks(character_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_mail(character_id):
-    mail_list = get_paged_op(
+    character = Character.get(character_id)
+    mail_list = character.get_paged_op(
         'get_characters_character_id_mail',
-        auth_id=character_id,
         character_id=character_id,
     )
     mail_dict = {entry['mail_id']: entry for entry in mail_list}
@@ -215,9 +215,9 @@ def get_character_mail(character_id):
 
 @cachetools.cached(cachetools.LRUCache(maxsize=500))
 def get_mail_body(character_id, mail_id):
-    mail_data = get_op(
+    character = Character.get(character_id)
+    mail_data = character.get_op(
         'get_characters_character_id_mail_mail_id',
-        auth_id=character_id,
         character_id=character_id,
         mail_id=mail_id,
     )
@@ -226,14 +226,13 @@ def get_mail_body(character_id, mail_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_history(character_id):
-    order_list = get_paged_op(
+    character = Character.get(character_id)
+    order_list = character.get_paged_op(
         'get_characters_character_id_orders',
-        auth_id=character_id,
         character_id=character_id,
     )
-    order_list.extend(get_paged_op(
+    order_list.extend(character.get_paged_op(
         'get_characters_character_id_orders_history',
-        auth_id=character_id,
         character_id=character_id,
     ))
     for order in order_list:
@@ -254,14 +253,13 @@ def get_character_market_history(character_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_skills(character_id):
-    skill_data = get_op(
+    character = Character.get(character_id)
+    skill_data = character.get_op(
         'get_characters_character_id_skills',
-        auth_id=character_id,
         character_id=character_id,
     )
-    queue_data = get_op(
+    queue_data = character.get_op(
         'get_characters_character_id_skillqueue',
-        auth_id=character_id,
         character_id=character_id,
     )
     for skill_list in skill_data, queue_data:
