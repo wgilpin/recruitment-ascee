@@ -2,7 +2,6 @@ import React from 'reactn';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import FetchData from './common/FetchData';
-import TableStyles from './TableStyles';
 import AssetSystem from './assets/AssetSystem';
 
 const propTypes = {
@@ -32,20 +31,20 @@ export default class Assets extends React.Component {
     return price + value;
   }
 
-  jsonToSystemsList(json) {
+  jsonToSystemsList(data) {
     this.setState({ loading: false });
-    if (json && json.info) {
-      const keys = Object.keys(json.info);
+    if (data) {
+      const keys = Object.keys(data);
       const systems = {};
       keys.forEach(key => {
-        if (json.info[key].location_type === 'system') {
-          systems[key] = json.info[key];
+        if (data[key].location_type === 'system') {
+          systems[key] = data[key];
         }
       });
       Object.keys(systems).forEach((sysKey) => {
         systems[sysKey].value = this.recurseValues(systems[sysKey]);
       })
-      this.setGlobal({ assets: json.info, assetCount: keys.length, assetSystems: systems });
+      this.setGlobal({ assets: data, assetCount: keys.length, assetSystems: systems });
     }
   }
 

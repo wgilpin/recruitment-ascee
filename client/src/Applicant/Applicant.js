@@ -102,7 +102,7 @@ export default class Applicant extends Component {
 
   buildHeader = () => {
     return (
-      <React.Fragment>
+      < >
         <div style={styles.header}>
           <h1 style={styles.h1}>
             <img src={AsceeImg} style={styles.logo} alt="Ascendance" />
@@ -121,7 +121,7 @@ export default class Applicant extends Component {
           )}
           {!this.state.ready && this.applicationStatus()}
         </div>
-      </React.Fragment>
+      </>
     );
   };
 
@@ -150,8 +150,7 @@ export default class Applicant extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <div style={styles.logout}><a href="/auth/logout">Sign out</a></div>
+      < >
         {this.buildHeader()}
         <Tabs>
           <TabList>
@@ -161,7 +160,7 @@ export default class Applicant extends Component {
           {this.buildAltsPanel()}
           {this.buildQuestionsPanel()}
         </Tabs>
-      </React.Fragment>
+      </>
     );
   }
 }

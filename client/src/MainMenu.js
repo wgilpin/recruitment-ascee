@@ -38,7 +38,7 @@ class MainMenu extends Component {
       console.error(`invalid route showing=${params.showing}`)
     }
     return (
-      <React.Fragment>
+      < >
         {(this.props.location.search === '' ||
           params.showing === 'error') && (
           <div style={this.styles.outer}>
@@ -63,7 +63,7 @@ class MainMenu extends Component {
         {params.showing === 'admin' && <Admin />}
         {params.showing === 'error' && <div>Unknown route</div>}
 
-      </React.Fragment>
+      </>
     );
   }
 }

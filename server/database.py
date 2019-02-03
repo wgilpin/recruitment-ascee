@@ -1,13 +1,8 @@
 from anom import props, set_adapter, Key, Model
 from anom.adapters import DatastoreAdapter, MemcacheAdapter
-import os
 import pylibmc
-import datetime
-from esipy import EsiClient, EsiSecurity
-from esipy.cache import DictCache
-from pyswagger import App
-from esi_config import client_id, secret_key, callback_url, client_name
 from flask_login import UserMixin
+from esi import get_op, get_paged_op
 
 
 memcache_client = pylibmc.Client(
@@ -29,7 +24,6 @@ class User(AsceeModel, UserMixin):
     is_submitted = props.Bool(indexed=True, default=False)
     recruiter_id = props.Integer(indexed=True, optional=True)
     status_level = props.Integer(indexed=True, default=0)
-    name = props.String(default="Unknown")
 
     STATUS_LIST = ('new', 'escalated', 'accepted', 'rejected')
 
@@ -103,7 +97,6 @@ class Group(AsceeModel):
         return group
 
 
-
 class TypePrice(AsceeModel):
     price = props.Float(default=0.)
 
@@ -117,7 +110,6 @@ class TypePrice(AsceeModel):
             )
             type_price.put()
         return type_price
-
 
 
 class Region(AsceeModel):
@@ -327,7 +319,7 @@ class Character(AsceeModel):
     name = props.String()
     corporation_id = props.Integer(indexed=True)
     is_male = props.Bool()
-    refresh_token = props.String(optional=True)
+    refresh_token = props.Text(optional=True)
     redlisted = props.Bool(default=False)
 
     @classmethod
@@ -348,91 +340,14 @@ class Character(AsceeModel):
             character.put()
         return character
 
+    def get_op(self, op_name, **kwargs):
+        return get_op(op_name, refresh_token=self.refresh_token, **kwargs)
+
+    def get_paged_op(self, op_name, **kwargs):
+        return get_paged_op(op_name, refresh_token=self.refresh_token, **kwargs)
+
     def is_redlisted(self):
         if self.redlisted:
             return True
         else:
             return Corporation.get(self.corporation_id).is_redlisted
-
-#  Cache in a file because it takes a while to load
-current_dir = os.path.dirname(os.path.abspath(__file__))
-app_data_filename = os.path.join(current_dir, 'esi_app.pkl')
-
-# if os.path.isfile(app_data_filename):
-esi_app = App.create('https://esi.evetech.net/latest/swagger.json')
-    # pickle.dump(esi_app, open(app_data_filename, 'wb'))
-# else:
-#     esi_app = pickle.load(open(app_data_filename, 'rb'))
-
-client_dict = {}
-
-
-def get_esi_client(auth_id=None):
-    if auth_id not in client_dict:
-        client_dict[auth_id] = initialize_esi_client(auth_id)
-    return client_dict[auth_id]
-
-
-def initialize_esi_client(auth_id=None):
-    """
-    Retrieves a public or authorized ESI client.
-
-    Args:
-        auth_id (optional): character_id of the user whose client we want to
-            retrieve. By default, a public ESI client is returned.
-
-    Returns:
-        esi_client (EsiClient): Client object from esipy.
-    """
-    auth = EsiSecurity(
-        headers={'User-Agent': client_name},
-        redirect_uri='https://localhost/callback',
-        client_id=client_id,
-        secret_key=secret_key,
-    )
-    if auth_id is not None:
-        auth.refresh_token = Character.get(auth_id).refresh_token
-    esi_client = EsiClient(
-        auth,
-        retry_requests=True,
-        cache=DictCache(),
-        headers={'User-Agent': client_name},
-    )
-    return esi_client
-
-
-class ESIError(Exception):
-    pass
-
-
-def get_op(op_name, auth_id=None, **kwargs):
-    esiClient = get_esi_client(auth_id)
-    response = esiClient.request(esi_app.op[op_name](**kwargs))
-    if isinstance(response, dict) and 'error' in response.keys():
-        raise ESIError(response['error'])
-    else:
-        return response.data
-
-
-def get_paged_op(op_name, auth_id=None, **kwargs):
-    esi_client = get_esi_client(auth_id)
-    response = esi_client.request(esi_app.op[op_name](page=1, **kwargs))
-    return_list = []
-    return_list.extend(response.data)
-    try:
-        assert len(response.header['X-Pages']) == 1
-        pages = int(response.header['X-Pages'][0])
-    except KeyError:
-        print('No page numbers given in getPagedOp, request {}, {}'.format(op_name, kwargs))
-        print('Response: {}'.format(response))
-        return []
-
-    operations = [
-        esi_app.op[op_name](page=page, **kwargs) for page in range(2, pages+1)
-    ]
-
-    result_list = []
-    for request, response in esi_client.multi_request(operations):
-        result_list.extend(response.data)
-
-    return return_list

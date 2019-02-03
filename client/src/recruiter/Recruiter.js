@@ -117,12 +117,7 @@ export default class Recruiter extends React.Component {
         .get()
         // Set the global `recruits` list, and set no recruit selected
         .then(recruits => {
-          console.log(`fetched ${recruits.info}`);
-          this.setState({ loading: false });
-          if (recruits.status && recruits.status >= 400) {
-            console.log('Login required');
-            return (window.location = '/app/index.html');
-          }
+          console.log(`fetched ${recruits}`);
           // array -> object
           const recruitDict = {};
           recruits.info.forEach(rec => {
@@ -245,7 +240,7 @@ export default class Recruiter extends React.Component {
 
     return [
       !this.global.activeRecruit && (
-        <React.Fragment>
+        < >
           <h1 style={styles.headerText}>Applications Pending</h1>
           <div style={styles.logout}><a href="/auth/logout">Sign out</a></div>
           <div style={styles.claimed}>
@@ -259,7 +254,7 @@ export default class Recruiter extends React.Component {
           <div style={styles.unclaimed}>
             {this.sectionList('Unclaimed', unclaimed)}
           </div>
-        </React.Fragment>
+        </>
       ),
       this.global.activeRecruit && <Evidence style={styles.evidence} main={this.global.activeRecruit} />,
     ];

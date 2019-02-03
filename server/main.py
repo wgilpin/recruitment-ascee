@@ -646,4 +646,6 @@ def api_user_answers(user_id=None):
     ensure_has_access(current_user.get_id(), user_id, self_access=True)
     return jsonify(get_answers(user_id))
 
+if __name__ == '__main__':
+    app.run()
 # [END app]

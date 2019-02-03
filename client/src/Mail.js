@@ -41,9 +41,9 @@ export default class Mail extends React.Component {
 
   static jsonToMailList(json) {
     let list = [];
-    if (json) {
-      for (let we in json) {
-        list.push(json[we]);
+    if (json && json.info) {
+      for (let we in json.info) {
+        list.push(json.info[we]);
       }
     }
     return list;
@@ -58,12 +58,12 @@ export default class Mail extends React.Component {
     ).get()
       .then(data => {
         // got the list of mail headers
-        return newList = Mail.jsonToMailList(data.info);
+        return newList = Mail.jsonToMailList(data);
       })
       .then(() => {
         if (newList.length !== (this.state.mailList || []).length) {
           const updatedList = [];
-          newList.map(item => {
+          newList.forEach(item => {
             updatedList.push({ ...item, collapsed: true });
           })
           const sortedMailList = updatedList.sort((a,b) => (new Date(b.timestamp) - new Date(a.timestamp)))
@@ -108,7 +108,7 @@ export default class Mail extends React.Component {
       return body;
     };
     let markup;
-    links.info.forEach(link => {
+    links.forEach(link => {
       let lookupRegex = new RegExp(`${link.itemId}">([\\w\\s]+)<`, 'g');
       if ('type' in (link || {})){
         if (link.type === 'character'){
@@ -137,7 +137,7 @@ export default class Mail extends React.Component {
         { id: this.props.alt, scope: 'character', param1: 'mail', param2: thisMail.mail_id },
       ).get()
         .then((body) => {
-          rawBody = this.badlyRemoveFontSizeColor(body.info);
+          rawBody = this.badlyRemoveFontSizeColor(body);
           this.findLinks(rawBody, linksList)
         })
         .then(links => this.processLinks(links, rawBody))
@@ -200,10 +200,10 @@ export default class Mail extends React.Component {
         </div>
         {Object.keys(this.state.mailList).map((line, idx) => {
           return (
-            <React.Fragment>
+            < >
               {this.mailItem(idx, this.state.mailList[line])}
               {this.mailBody(line)}
-            </React.Fragment>
+            </>
           );
         })
         }

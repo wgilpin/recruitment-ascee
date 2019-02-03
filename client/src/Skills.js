@@ -78,7 +78,7 @@ export default class Skill extends React.Component {
       this.onError
     ).get()
       .then(data => {
-        let { queue, groupedList, trainLevels } = Skill.jsonToskillList(data.info);
+        let { queue, groupedList, trainLevels } = Skill.jsonToskillList(data);
         if (queue.length !== (this.state.skillQueue || []).length) {
           this.setState({ skillQueue: queue, trainLevels });
         };
@@ -142,63 +142,71 @@ export default class Skill extends React.Component {
     this.setState({ skillList: { ...this.state.skillList } })
   }
 
+  renderSkillQueue() {
+    return <div style={styles.table}>
+      <div style={styles.header} key='header'>
+        <div style={styles.cell}>SKILL QUEUE (ROLLED UP)</div>
+        <div style={styles.cell}>LEVEL</div>
+        <div style={styles.cell}>PROGRESS</div>
+      </div>
+      {this.state.skillQueue.map((line, idx) => {
+        return this.skillQLine(idx, line)
+      })}
+    </div>
+  }
+
+  renderSkillsList() {
+    return <div style={styles.table}>
+      <div style={styles.header} key='header'>
+        <div style={styles.cell}>GROUP</div>
+        <div style={styles.cell}>SKILL</div>
+        <div style={styles.cell}>LVL</div>
+      </div>
+      {Object.keys(this.state.skillList).sort().map((groupName) => {
+        let group = this.state.skillList[groupName];
+        return (
+          < >
+            <div
+              style={{ ...styles.row, ...styles.folderHeader }}
+              key={groupName}
+              onClick={this.toggleGroup.bind(this, groupName)}
+            >
+              <div style={styles.cell}>
+                {!group.collapsed && <img src={expandedImg} alt="+"></img>}
+                {group.collapsed && <img src={collapsedImg} alt="-"></img>}
+                {' ' + groupName.toUpperCase()} ({group.summary.count})
+            </div>
+              <div style={{ ...styles.cell, textAlign: 'right' }}>{(group.summary.spTotal.toLocaleString())} SP</div>
+              <div style={styles.cell}></div>
+            </div>
+            {!(group.collapsed) && Object.keys(group.items).sort().map((line, idx) => {
+              return this.skillLine(idx, line, group.items[line])
+            })}
+          </>
+        )
+      })}
+    </div>
+  }
+
   render() {
     if (this.state.loading) {
-      return(
-      <Loader
-        type="Puff"
-        color="#01799A"
-        height="100"
-        width="100"
-      />)
+      return (
+        <Loader
+          type="Puff"
+          color="#01799A"
+          height="100"
+          width="100"
+        />)
     }
     this.skillQueueLinesShown = 0;
     return (
       <div style={styles.div}>
-        <div style={styles.table}>
-          <div style={styles.header} key='header'>
-            <div style={styles.cell}>SKILL QUEUE (ROLLED UP)</div>
-            <div style={styles.cell}>LEVEL</div>
-            <div style={styles.cell}>PROGRESS</div>
-          </div>
-          {this.state.skillQueue.map((line, idx) => {
-            return this.skillQLine(idx, line)
-          })}
-        </div>
+        {this.renderSkillQueue()}
         <br />
         <br />
         <br />
         <hr />
-        <div style={styles.table}>
-          <div style={styles.header} key='header'>
-            <div style={styles.cell}>GROUP</div>
-            <div style={styles.cell}>SKILL</div>
-            <div style={styles.cell}>LVL</div>
-          </div>
-          {Object.keys(this.state.skillList).sort().map((groupName) => {
-            let group = this.state.skillList[groupName];
-            return (
-              <React.Fragment>
-                <div
-                  style={{ ...styles.row, ...styles.folderHeader }}
-                  key={groupName}
-                  onClick={this.toggleGroup.bind(this, groupName)}
-                >
-                  <div style={styles.cell}>
-                    {!group.collapsed && <img src={expandedImg} alt="+"></img>}
-                    {group.collapsed && <img src={collapsedImg} alt="-"></img>}
-                    {' ' + groupName.toUpperCase()} ({group.summary.count})
-                  </div>
-                  <div style={{ ...styles.cell, textAlign: 'right' }}>{(group.summary.spTotal.toLocaleString())} SP</div>
-                  <div style={styles.cell}></div>
-                </div>
-                {!(group.collapsed) && Object.keys(group.items).sort().map((line, idx) => {
-                  return this.skillLine(idx, line, group.items[line])
-                })}
-              </React.Fragment>
-            )
-          })}
-        </div>
+        {this.renderSkillsList()}
       </div>
     );
   }
