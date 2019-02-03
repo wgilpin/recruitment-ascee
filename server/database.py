@@ -21,6 +21,7 @@ class User(AsceeModel, UserMixin):
     is_admin = props.Bool(indexed=True, default=False)
     is_recruiter = props.Bool(indexed=True, default=False)
     is_senior_recruiter = props.Bool(indexed=True, default=False)
+    is_submitted = props.Bool(indexed=True, default=False)
     recruiter_id = props.Integer(indexed=True, optional=True)
     status_level = props.Integer(indexed=True, default=0)
 
@@ -332,7 +333,7 @@ class Character(AsceeModel):
             character = Character(
                 key=Key(Character, id),
                 user_id=id,
-                name=character_data.get('name', f'unknown {id}'),
+                name=character_data.get('name', ''),
                 is_male=character_data.get('gender', '') == 'male',
                 corporation_id=character_data.get('corporation_id', 0),
             )

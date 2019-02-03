@@ -17,7 +17,6 @@ export default class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      scope: 'wallet',
       walletList: [],
       loading: true,
     };
@@ -34,7 +33,11 @@ export default class Wallet extends React.Component {
   }
 
   componentDidMount() {
-    new FetchData({ id: this.props.alt, scope: 'wallet' }).get().then(data => {
+    new FetchData({
+      id: this.props.alt,
+      scope: 'character',
+      param1: 'wallet'
+    }).get().then(data => {
       let newList = Wallet.jsonToWalletList(data);
       this.setState({ loading: false });
       if (newList.length !== (this.state.walletList || []).length) {

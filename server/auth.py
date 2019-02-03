@@ -12,6 +12,7 @@ import hmac
 import hashlib
 from exceptions import ForbiddenException, AppException
 import backoff
+from functools import wraps
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -45,6 +46,26 @@ def has_access(user_id, target_character_id, self_access=False):
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
+
+# Decorator for admin access
+def admin_required(something):
+    @wraps(something)
+    def wrap(*args, **kwargs):
+        if current_user.is_admin or current_user.is_senior_recruiter:
+            return something(*args, **kwargs)
+        else:
+            raise ForbiddenException("Insufficient privileges")
+    return wrap
+
+# Decorator for roled access
+def roles_required(something):
+    @wraps(something)
+    def wrap(*args, **kwargs):
+        if not current_user.is_applicant:
+            return something(*args, **kwargs)
+        else:
+            raise ForbiddenException("Insufficient roles")
+    return wrap
 
 
 @app.route('/auth/login')

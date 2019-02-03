@@ -33,7 +33,6 @@ export default class Skill extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      scope: 'skill',
       skillQueue: [],
       skillList: {},
       loading: true,
@@ -74,7 +73,7 @@ export default class Skill extends React.Component {
 
   componentDidMount() {
     new FetchData(
-      { id: this.props.alt, scope: 'skill' },
+      { id: this.props.alt, scope: 'character', param1: 'skills' },
       this.onLoaded,
       this.onError
     ).get()

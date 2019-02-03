@@ -38,6 +38,12 @@ def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
     applicant.put()
     return {'status': 'ok'}
 
+def submit_application(applicant_user_id):
+    applicant = User.get(applicant_user_id)
+    applicant.is_submitted = True
+    applicant.put()
+    return {'status': 'ok'}
+
 
 def recruiter_release_applicant(recruiter_user_id, applicant_user_id):
     recruiter = User.get(recruiter_user_id)
@@ -89,23 +95,57 @@ def edit_applicant_notes(applicant_user_id, text):
         applicant.notes = text
         return {'status': 'ok'}
 
+def get_character_search_list(search_text):
+    # list of all chars with name beggining with search_text
+    result = {}
+    for character in Character.query().\
+            where(Character.name >= search_text).\
+            and_where(Character.name < search_text + u'\ufffd').\
+            run():
+        id = character.get_id()
+        result[id] = {
+            'user_id': id,
+            'name': character.name,
+        }
+    return result
 
-def get_applicant_list():
+def get_applicant_list(current_user):
+    current_user_id = current_user.get_id()
     return_list = []
     for applicant in User.query().\
             where(User.is_recruiter.is_false).\
             and_where(User.is_senior_recruiter.is_false).\
             and_where(User.is_admin.is_false).\
             run():
+        applicant_id = applicant.get_id()
         recruiter_name = \
             Character.get(applicant.recruiter_id).name if applicant.recruiter_id else None
-        return_list.append({
-            'user_id': applicant.get_id(),
-            'recruiter_id': applicant.recruiter_id,
-            'recruiter_name': recruiter_name,
-            'status': applicant.status,
-            'name': applicant.name,
-        })
+        applicant_name = \
+            Character.get(applicant_id).name if applicant_id else None
+
+        # everyone sees new applicants
+        applicant_visible = applicant.status == 'new'
+        
+        # recruiters see their own
+        if applicant.recruiter_id == current_user_id:
+            applicant_visible = True
+
+        # senior recruiters see all
+        if current_user.is_senior_recruiter:
+            applicant_visible = True
+
+        # admins see all
+        if current_user.is_admin:
+            applicant_visible = True
+
+        if applicant_visible:
+            return_list.append({
+                'user_id': applicant_id,
+                'recruiter_id': applicant.recruiter_id,
+                'recruiter_name': recruiter_name,
+                'status': applicant.status,
+                'name': applicant_name,
+            })
     return {'info': return_list}
 
 

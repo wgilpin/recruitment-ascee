@@ -15,7 +15,6 @@ const defaultProps = {};
 export default class Assets extends React.Component {
   constructor(props) {
     super(props);
-    this.scope = 'assets';
     this.setGlobal({ assets: {}, assetSystems: {}});
     this.state = {
       loading: true,

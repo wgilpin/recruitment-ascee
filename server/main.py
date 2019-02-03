@@ -20,6 +20,8 @@ import datetime
 # [START imports]
 from flask_app import app
 from flask import Flask, render_template, request, jsonify
+from exceptions import ForbiddenException
+
 from character_data import (
     get_character_assets, get_character_bookmarks, get_character_calendar,
     get_character_contacts, get_character_mail, get_character_market_contracts,
@@ -29,15 +31,37 @@ from character_data import (
 from recruitment import (
     get_questions, get_answers, recruiter_claim_applicant,
     recruiter_release_applicant, escalate_applicant, reject_applicant,
-    edit_applicant_notes, get_applicant_notes, get_applicant_list
+    edit_applicant_notes, get_applicant_notes, get_applicant_list,
+    get_character_search_list, submit_application
 )
-from admin import get_users
+from admin import get_user_list
 import asyncio
-from auth import login_manager, login, ensure_has_access
+from auth import login_manager, login, ensure_has_access, roles_required, admin_required
 from flask_login import login_required, current_user
 from user_data import get_character_data_list
 
 app.url_map.strict_slashes = False
+
+
+@app.route(
+    '/api/recruits/submit', methods=['GET'])
+@login_required
+def api_submit_application(applicant_id):
+    """
+    Marks the application of the logged in useras submitted and thus ready for review.
+
+    Returns:
+        {'status': 'ok'} if application is successfully submitted
+
+    Error codes:
+        Forbidden (403): If logged in user is not applicant, or aleady
+            accepted/rejected
+    """
+    if (current_user.status == 'rejected' or current_user.station == 'accepted'):
+        raise ForbiddenException(
+            f'User {current_user.get_id()} has been processed already'
+        )
+    return jsonify(submit_application(current_user.get_id()))
 
 @app.route(
     '/api/recruits/claim/<int:applicant_id>', methods=['GET'])
@@ -176,7 +200,69 @@ def api_get_applicant_list():
     Error codes:
         Forbidden (403): If logged in user is not a recruiter or senior recruiter
     """
-    return jsonify(get_applicant_list())
+    return jsonify(get_applicant_list(current_user=current_user))
+
+@app.route('/api/user/all')
+@login_required
+@admin_required
+def api_get_user_list():
+    """
+    Gets the list of all users, including accepted and rejected applicants.
+
+    Returns:
+        response (dict)
+
+    Example:
+        response = {
+            'info': [
+                {
+                    'user_id': 1937622137,  # int character ID of user's main
+                    'is_recruiter': true,
+                    'is_snr_recruiter': true,
+                    'is_admin': true,
+                    'name': 'Smith, J'
+                },
+                {
+                    [...]
+                }
+            ]
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not a recruiter or senior recruiter
+    """
+    return jsonify(get_user_list())
+
+@app.route('/api/character/search/<string:search_text>')
+@login_required
+@roles_required
+def api_find_user(search_text):
+    """
+    Gets a list of all characters with names beginning with the string.
+
+    Args:
+        search_text: partial name
+
+    Returns:
+        response (dict)
+
+    Example:
+        response = {
+            'info': {
+                1937622137: {  # Character ID
+                    'name': 'Applicant Abigail',  # character name
+                    'corporation_name': 'Corporation Calico',  # corporation name
+                    'redlisted': True,  # might only be present if redlisted.
+                },
+                [...]
+            }
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter,
+            a recruiter who has claimed the given user, or the user themself
+    """
+    return jsonify(get_character_search_list(search_text))
 
 
 @app.route('/api/user/characters')
@@ -560,32 +646,6 @@ def api_user_answers(user_id=None):
     ensure_has_access(current_user.get_id(), user_id, self_access=True)
     return jsonify(get_answers(user_id))
 
-
-@app.route('/api/admin/users')
-@login_required
-def api_users():
-    """
-    Get information on all registered users.
-
-    Returned data is of the form {'info': [user_1, user_2, ...]}. Each user
-    dictionary has the keys `id`, `name`, `is_admin`, `is_senior_recruiter`,
-    and `is_recruiter`.
-
-    Returns:
-        response (dict)
-
-    Error codes:
-        Forbidden (403): If logged in user is not a senior recruiter or admin.
-    """
-    return jsonify(asyncio.run(get_users()))
-
-
-@app.errorhandler(500)
-def api_server_error(e):
-    # Log the error and stacktrace.
-    logging.exception('An error occurred during a request.')
-    return 'An internal error occurred.', 500
-# [END app]
-
 if __name__ == '__main__':
     app.run()
+# [END app]

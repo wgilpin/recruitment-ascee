@@ -1,4 +1,5 @@
 import React from 'reactn';
+import Loader from 'react-loader-spinner';
 import FetchData from '../common/FetchData';
 import ClaimedIcon from 'react-ionicons/lib/MdStar';
 import EscalatedIcon from 'react-ionicons/lib/IosAlert';
@@ -82,12 +83,19 @@ const styles = {
     width: '32px',
     fill: TableStyles.styles.themeColor.color,
   },
+  logout: {
+    position: 'absolute',
+    right: '16px',
+    top: '8px',
+  }
 };
 
 export default class Recruiter extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      loading: true,
+    };
   }
 
   static statuses = {
@@ -219,6 +227,12 @@ export default class Recruiter extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      console.log('loading')
+      return <Loader type="Puff" color="#01799A" height="100" width="100" />;
+    }
+    console.log('loaded')
+
     // 3 sections in order: claimed, escalated, unclaimed.
     const claimed = this.applyFilter(Recruiter.statuses.claimed);
     const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
@@ -228,6 +242,7 @@ export default class Recruiter extends React.Component {
       !this.global.activeRecruit && (
         < >
           <h1 style={styles.headerText}>Applications Pending</h1>
+          <div style={styles.logout}><a href="/auth/logout">Sign out</a></div>
           <div style={styles.claimed}>
             {this.sectionList('Claimed', claimed)}
           </div>

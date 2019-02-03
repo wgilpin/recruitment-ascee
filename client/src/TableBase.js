@@ -97,7 +97,7 @@ export default class TableBase extends React.Component {
   }
 
   componentDidMount() {
-    new FetchData({ id: this.props.alt, scope: this.scope })
+    new FetchData({ id: this.props.alt, scope: 'character', param1: this.scope })
       .get()
       .then(data => {
         if (data && data.error) {

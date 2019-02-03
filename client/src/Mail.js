@@ -34,7 +34,6 @@ export default class Mail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      scope: 'mail',
       mailList: [],
       loading: true,
     };
