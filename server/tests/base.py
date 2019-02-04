@@ -58,6 +58,19 @@ class AsceeTestCase(VCRTestCase):
         )
         db.session.add(self.recruiter)
 
+
+        other_recruiter_character = Character(
+            id=1003,
+            user_id=1003,
+            name='OtherRecruiter Oswald',
+            corporation_id=self.ascee_corp_id,
+        )
+        db.session.add(other_recruiter_character)
+        self.other_recruiter = Recruiter(
+            id=1003,
+        )
+        db.session.add(self.other_recruiter)
+
         test_applicant_id = 2114496483
         applicant_character = Character.get(
             test_applicant_id,

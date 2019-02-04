@@ -1,10 +1,11 @@
 from models import Corporation, Question, Answer, User, Character, db, Application
 from flask import jsonify, request
 from flask_login import login_required, current_user
-from security import ensure_has_access
+from security import has_applicant_access
 import cachetools
 import asyncio
 from flask_app import app
+from exceptions import BadRequestException, ForbiddenException
 
 
 @app.route(
@@ -26,8 +27,7 @@ def api_edit_applicant_notes(applicant_id):
             recruiter who has claimed this applicant
         Bad request (400): If the given user is not an applicant
     """
-    ensure_has_access(current_user.get_id(), applicant_id)
-    return jsonify(edit_applicant_notes(applicant_id, text=request.form['text']))
+    return jsonify(edit_applicant_notes(applicant_id, text=request.form['text'], current_user=current_user))
 
 
 @app.route('/api/applicant_list')
@@ -57,13 +57,13 @@ def api_get_applicant_list():
     Error codes:
         Forbidden (403): If logged in user is not a recruiter or senior recruiter
     """
-    return jsonify(get_applicant_list())
+    return jsonify(get_applicant_list(current_user=current_user))
 
 
 @app.route('/api/user/characters')
 @app.route('/api/user/characters/<int:user_id>')
 @login_required
-def api_get_user_character_list(user_id=None):
+def api_get_user_characters(user_id=None):
     """
     Gets a list of all characters for a given user.
 
@@ -92,12 +92,9 @@ def api_get_user_character_list(user_id=None):
         Forbidden (403): If logged in user is not a senior recruiter,
             a recruiter who has claimed the given user, or the user themself
     """
-    current_user_id = current_user.get_id()
     if not user_id:
-        user_id = current_user_id
-    ensure_has_access(current_user_id, user_id, self_access=True)
-    return jsonify(get_character_data_list(user_id))
-
+        user_id = current_user.get_id()
+    return jsonify(get_user_characters(user_id, current_user=current_user))
 
 
 @app.route('/api/questions')
@@ -109,7 +106,7 @@ def api_questions():
         response (dict): A dictionary whose keys are integer question ids and
             values are question text.
     """
-    return jsonify(get_questions())
+    return jsonify(get_questions(current_user=current_user))
 
 
 @app.route('/api/answers')
@@ -131,10 +128,7 @@ def api_user_answers(user_id=None):
         Forbidden (403): If logged in user is not a senior recruiter,
             a recruiter who has claimed the given user, or the user themself
     """
-    if not user_id:
-        user_id = current_user.get_id()
-    ensure_has_access(current_user.get_id(), user_id, self_access=True)
-    return jsonify(get_answers(user_id))
+    return jsonify(get_answers(user_id, current_user=current_user))
 
 
 @app.route('/api/admin/users')
@@ -153,10 +147,10 @@ def api_users():
     Error codes:
         Forbidden (403): If logged in user is not a senior recruiter or admin.
     """
-    return jsonify(asyncio.run(get_users()))
+    return jsonify(asyncio.run(get_users(current_user=current_user)))
 
 
-async def get_users():
+async def get_users(current_user=None):
     return_list = []
     for user in db.session.Query(User).all():
         return_list.append({
@@ -169,7 +163,7 @@ async def get_users():
     return {'info': return_list}
 
 
-def get_questions():
+def get_questions(current_user=None):
     question_dict = {}
     for question in db.session.query(Question).filter(Question.enabled):
         question_dict[question.id] = question.text
@@ -185,7 +179,13 @@ def get_user_application(user_id):
     return application
 
 
-def get_answers(user_id):
+def get_answers(user_id, current_user=None):
+    if not db.session.query(db.exists().where(User.id==user_id)).scalar():
+        raise BadRequestException('User with id={} does not exist.'.format(user_id))
+    user = User.get(user_id)
+    if not has_applicant_access(current_user, user, self_access=True):
+        raise ForbiddenException('User {} does not have access to user {}'.format(current_user, user_id))
+
     application_id = get_user_application(user_id).id
     # get a dict keyed by question id of questions & answers
     response = {}
@@ -202,7 +202,7 @@ def get_answers(user_id):
     return response
 
 
-def edit_applicant_notes(applicant_user_id, text):
+def edit_applicant_notes(applicant_user_id, text, current_user=None):
     applicant = User.get(applicant_user_id)
     if applicant is None:
         applicant_name = Character.get(applicant_user_id).name
@@ -213,7 +213,7 @@ def edit_applicant_notes(applicant_user_id, text):
         return {'status': 'ok'}
 
 
-def get_applicant_list():
+def get_applicant_list(current_user=None):
     return_list = []
     for applicant in db.session.Query(Application).filter(not Application.is_concluded).all():
         recruiter_name = \
@@ -228,7 +228,7 @@ def get_applicant_list():
     return {'info': return_list}
 
 
-def get_applicant_notes(applicant_user_id):
+def get_applicant_notes(applicant_user_id, current_user=None):
     applicant = User.get(applicant_user_id)
     if applicant is None:
         applicant_name = Character.get(applicant_user_id).name
@@ -237,18 +237,18 @@ def get_applicant_notes(applicant_user_id):
         return {'info': applicant.notes}
 
 
-def get_character_list(user_id):
-    query = Character.query().where(Character.user_id == user_id)
-    return list(query.run())
-
-
 @cachetools.cached(cachetools.LRUCache(maxsize=1000))
-def get_character_data_list(user_id):
+def get_user_characters(user_id, current_user=None):
+    if not db.session.query(db.exists().where(User.id==user_id)).scalar():
+        raise BadRequestException('User with id={} does not exist.'.format(user_id))
+    user = User.get(user_id)
+    if not has_applicant_access(current_user, user, self_access=True):
+        raise ForbiddenException('User {} does not have access to user {}'.format(current_user, user_id))
     character_dict = {}
-    for character in get_character_list(user_id):
-        character_dict[character.get_id()] = {
+    for character in db.session.query(Character).filter(Character.user_id==user_id):
+        character_dict[character.id] = {
             'name': character.name,
             'corporation_id': character.corporation_id,
-            'corporation_name': Corporation.get(character.corporation_id).name,
+            'corporation_name': character.corporation.name,
         }
     return {'info': character_dict}
