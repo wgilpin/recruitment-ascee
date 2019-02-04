@@ -3,7 +3,6 @@ from flask import jsonify, request
 from flask_login import login_required, current_user
 from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter
 import cachetools
-import asyncio
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
 

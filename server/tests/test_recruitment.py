@@ -12,7 +12,6 @@ from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
-import asyncio
 
 
 class QuestionAnswerTests(AsceeTestCase):
