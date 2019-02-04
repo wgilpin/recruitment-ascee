@@ -85,10 +85,8 @@ class AsceeTestCase(VCRTestCase):
         not_applicant_character = Character.get(
             test_not_applicant_id,
         )
+        self.not_applicant = not_applicant_character
         db.session.add(not_applicant_character)
-
-        self.not_applicant = User.get(id=test_not_applicant_id)
-        db.session.add(self.not_applicant)
 
         self.application = Application(
             user_id=self.applicant.id,

@@ -7,7 +7,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from recruitment import (
     get_questions, get_answers, get_user_characters, get_users, get_user_application,\
-    edit_applicant_notes)
+    edit_applicant_notes, get_character_search_list)
 from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
 from flask_app import app
@@ -208,15 +208,24 @@ class MiscRecruitmentTests(AsceeTestCase):
     def test_edit_applicant_notes(self):
         response = edit_applicant_notes(self.applicant.id, "A note", current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
-        response = edit_applicant_notes(self.not_applicant.id, "A note", current_user=self.recruiter)
+
+    def test_edit_not_an_applicant_notes(self):
+        response = edit_applicant_notes(
+            self.not_applicant.id,
+            "A note",
+            current_user=self.recruiter
+        )
         self.assertIn('error', response)
 
+    def test_get_character_search_list(self):
+        response = get_character_search_list('Kovacs')
+        print(response)
 
     def test_get_users_as_admin(self):
         response = get_users(current_user=self.admin)
         assert 'info' in response
         data = response['info']
-        self.assertEqual(len(data), 6, data)
+        self.assertEqual(len(data), 5, data)
         for user in data:
             self.assertTrue(isinstance(user['id'], int))
             self.assertTrue(isinstance(user['name'], str))
@@ -244,11 +253,6 @@ class MiscRecruitmentTests(AsceeTestCase):
                 self.assertEqual(user['is_recruiter'], False, user)
                 self.assertEqual(user['is_senior_recruiter'], False, user)
                 self.assertEqual(user['name'], self.applicant.character.name, user)
-            elif user['id'] == self.not_applicant.id:
-                self.assertEqual(user['is_admin'], False, user)
-                self.assertEqual(user['is_recruiter'], False, user)
-                self.assertEqual(user['is_senior_recruiter'], False, user)
-                self.assertEqual(user['name'], self.not_applicant.character.name, user)
 
     def test_get_users_as_recruiter(self):
         with self.assertRaises(ForbiddenException):
