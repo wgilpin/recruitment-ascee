@@ -7,9 +7,9 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
 from recruitment import get_questions, get_answers
-from database import Character, User, Key, Question, Answer
-from admin import get_users
+from models import Character, User, Question, Answer, db
 from base import AsceeTestCase
+from flask_app import app
 
 
 class QuestionAnswerTests(AsceeTestCase):
@@ -21,7 +21,8 @@ class QuestionAnswerTests(AsceeTestCase):
 
     def test_one_question(self):
         question = Question(text='Question 1?')
-        question.put()
+        db.session.add(question)
+        db.session.commit()
         result = get_questions()
         self.assertIsInstance(result, dict)
         self.assertEquals(len(result), 1)
@@ -30,7 +31,8 @@ class QuestionAnswerTests(AsceeTestCase):
     def test_multiple_questions(self):
         for i in range(3):
             question = Question(text='Question {}?'.format(i))
-            question.put()
+            db.session.add(question)
+            db.session.commit()
         result = get_questions()
         self.assertIsInstance(result, dict)
         self.assertEquals(len(result), 3)
@@ -43,7 +45,8 @@ class QuestionAnswerTests(AsceeTestCase):
     def test_three_questions_no_answers(self):
         for i in range(3):
             question = Question(text='Question {}?'.format(i))
-            question.put()
+            db.session.add(question)
+            db.session.commit()
         result = get_answers(self.applicant.get_id())
         self.assertIsInstance(result, dict)
         self.assertEquals(len(result), 0)
@@ -58,7 +61,8 @@ class QuestionAnswerTests(AsceeTestCase):
     def test_three_questions_one_answer(self):
         for i in range(3):
             question = Question(text='Question {}?'.format(i))
-            question.put()
+            db.session.add(question)
+            db.session.commit()
         answer = Answer(
             question_id=question.get_id(),
             text='My answer.'
@@ -78,4 +82,9 @@ class QuestionAnswerTests(AsceeTestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+    app.config['TESTING'] = True
+    with app.app_context():
+        db.init_app(app)
+        db.create_all()
+        unittest.main()

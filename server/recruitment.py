@@ -1,4 +1,4 @@
-from models import Corporation, Question, Answer, User, Character, db
+from models import Corporation, Question, Answer, User, Character, db, Application
 from flask import jsonify, request
 from flask_login import login_required, current_user
 from security import ensure_has_access
@@ -156,9 +156,23 @@ def api_users():
     return jsonify(asyncio.run(get_users()))
 
 
+
+async def get_users():
+    return_list = []
+    for user in db.session.Query(User).all():
+        return_list.append({
+            'id': user.get_id(),
+            'is_admin': user.is_admin,
+            'is_recruiter': user.is_recruiter,
+            'is_senior_recruiter': user.is_senior_recruiter,
+            'name': Character.get(user.get_id()).name,
+        })
+    return {'info': return_list}
+
+
 def get_questions():
     question_dict = {}
-    for question in Question.query().run():
+    for question in db.session.query(Question.is_enabled).all():
         question_dict[question.get_id()] = question.text
     return question_dict
 
@@ -167,8 +181,8 @@ def get_answers(user_id):
     # get a dict keyed by question id of questions & answers
     response = {}
     questions = get_questions()
-    answer_query = Answer.query().where(Answer.user_id == user_id)
-    answers = {a.question_id: a for a in answer_query.run()}
+    answer_query = db.session.query(Answer.user_id == user_id)
+    answers = {a.question_id: a for a in answer_query.all()}
     for question_id in questions:
         answer = answers[question_id].text if question_id in answers else ""
         response[question_id] = {
@@ -192,11 +206,7 @@ def edit_applicant_notes(applicant_user_id, text):
 
 def get_applicant_list():
     return_list = []
-    for applicant in User.query().\
-            where(User.is_recruiter.is_false).\
-            and_where(User.is_senior_recruiter.is_false).\
-            and_where(User.is_admin.is_false).\
-            run():
+    for applicant in db.session.Query(Application).filter(not Application.is_concluded).all():
         recruiter_name = \
             Character.get(applicant.recruiter_id).name if applicant.recruiter_id else None
         return_list.append({
@@ -231,4 +241,5 @@ def get_character_data_list(user_id):
             'name': character.name,
             'corporation_id': character.corporation_id,
             'corporation_name': Corporation.get(character.corporation_id).name,
+        }
     return {'info': character_dict}
