@@ -1,4 +1,4 @@
-from models import Corporation, Question, Answer, User, Character, db, Application, Admin, Recruiter
+from models import Corporation, Note, Question, Answer, User, Character, db, Application, Admin, Recruiter
 from flask import jsonify, request
 from flask_login import login_required, current_user
 from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter
@@ -208,13 +208,13 @@ def get_answers(user_id, current_user=None):
     return response
 
 
-def edit_applicant_notes(applicant_user_id, text, current_user=None):
+def add_applicant_note(applicant_user_id, text, current_user=None):
     applicant = User.get(applicant_user_id)
     if applicant is None:
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
-        applicant.notes = text
+        applicant.notes.append(Note(text=text, author_id=current_user))
         db.session.commit()
         return {'status': 'ok'}
 
@@ -246,7 +246,7 @@ def get_applicant_list(current_user=None):
 
         # everyone sees new applicants
         applicant_visible = applicant.status == 'new'
-        
+
         # recruiters see their own
         if applicant.recruiter_id == current_user_id:
             applicant_visible = True
