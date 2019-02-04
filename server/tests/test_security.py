@@ -32,6 +32,9 @@ class AdminSecurityTests(AsceeTestCase):
     def test_has_applicant_access(self):
         self.assertFalse(has_applicant_access(self.user, self.applicant))
 
+    def test_has_applicant_self_access(self):
+        self.assertFalse(has_applicant_access(self.user, self.applicant, self_access=True))
+
 
 class RecruiterSecurityTests(AsceeTestCase):
 
@@ -54,6 +57,9 @@ class RecruiterSecurityTests(AsceeTestCase):
     def test_has_applicant_access(self):
         self.assertTrue(has_applicant_access(self.user, self.applicant))
 
+    def test_has_applicant_self_access(self):
+        self.assertTrue(has_applicant_access(self.user, self.applicant, self_access=True))
+
 
 class OtherRecruiterSecuurityTests(RecruiterSecurityTests):
 
@@ -64,6 +70,9 @@ class OtherRecruiterSecuurityTests(RecruiterSecurityTests):
     def test_has_applicant_access(self):
         self.assertFalse(has_applicant_access(self.user, self.applicant))
 
+    def test_has_applicant_self_access(self):
+        self.assertFalse(has_applicant_access(self.user, self.applicant, self_access=True))
+
 
 class SeniorRecruiterSecurityTests(RecruiterSecurityTests):
 
@@ -73,6 +82,33 @@ class SeniorRecruiterSecurityTests(RecruiterSecurityTests):
 
     def test_is_senior_recruiter(self):
         self.assertTrue(is_senior_recruiter(self.user))
+
+
+
+class ApplicantSecurityTests(AsceeTestCase):
+
+    def setUp(self):
+        super(ApplicantSecurityTests, self).setUp()
+        self.user = self.applicant
+
+    def test_is_admin(self):
+        self.assertFalse(is_admin(self.user))
+
+    def test_is_recruiter(self):
+        self.assertFalse(is_recruiter(self.user))
+
+    def test_is_senior_recruiter(self):
+        self.assertFalse(is_senior_recruiter(self.user))
+
+    def test_is_applicant(self):
+        self.assertTrue(is_applicant_character_id(self.user.id))
+
+    def test_has_applicant_access(self):
+        self.assertFalse(has_applicant_access(self.user, self.applicant))
+
+    def test_has_applicant_self_access(self):
+        self.assertTrue(has_applicant_access(self.user, self.applicant, self_access=True))
+
 
 
 if __name__ == '__main__':
