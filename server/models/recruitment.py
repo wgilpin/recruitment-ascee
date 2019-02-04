@@ -5,7 +5,7 @@ from models.user import User, Recruiter
 class Application(db.Model):
     __tablename__ = 'application'
     id = db.Column(db.Integer, primary_key=True)
-    applicant_id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     recruiter_id = db.Column(db.Integer, db.ForeignKey(Recruiter.id), nullable=True)
     is_escalated = db.Column(db.Boolean, default=False)
     is_submitted = db.Column(db.Boolean, default=False)

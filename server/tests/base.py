@@ -6,7 +6,7 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 from vcr_unittest import VCRTestCase
-from models import Character, User, Admin, Recruiter, Question, Answer, db
+from models import Character, User, Admin, Recruiter, Question, Answer, Application, db
 
 
 class AsceeTestCase(VCRTestCase):
@@ -18,7 +18,6 @@ class AsceeTestCase(VCRTestCase):
 
     def tearDown(self):
         self.clearDB()
-        self.emulator.stop()
 
     def initDB(self):
         self.clearDB()
@@ -67,12 +66,17 @@ class AsceeTestCase(VCRTestCase):
         db.session.add(applicant_character)
 
         self.applicant = User.get(id=test_applicant_id)
-        self.applicant.recruiter_id = self.recruiter.get_id()
         db.session.add(self.applicant)
+
+        self.application = Application(
+            user_id=self.applicant.id,
+            recruiter_id=self.recruiter.id,
+        )
+        db.session.add(self.application)
 
         db.session.commit()
 
     def clearDB(self):
-        for model in Character, User:
+        for model in Character, User, Recruiter, Admin, Application, Question, Answer:
             db.session.query(model).delete()
         db.session.commit()

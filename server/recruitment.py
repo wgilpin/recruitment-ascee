@@ -156,7 +156,6 @@ def api_users():
     return jsonify(asyncio.run(get_users()))
 
 
-
 async def get_users():
     return_list = []
     for user in db.session.Query(User).all():
@@ -172,19 +171,29 @@ async def get_users():
 
 def get_questions():
     question_dict = {}
-    for question in db.session.query(Question.is_enabled).all():
-        question_dict[question.get_id()] = question.text
+    for question in db.session.query(Question).filter(Question.enabled):
+        question_dict[question.id] = question.text
     return question_dict
 
 
+def get_user_application(user_id):
+    application = db.session.query(Application).filter(
+        Application.user_id == user_id
+    ).filter(
+        db.not_(Application.is_concluded)
+    ).one()
+    return application
+
+
 def get_answers(user_id):
+    application_id = get_user_application(user_id).id
     # get a dict keyed by question id of questions & answers
     response = {}
     questions = get_questions()
-    answer_query = db.session.query(Answer.user_id == user_id)
-    answers = {a.question_id: a for a in answer_query.all()}
+    answer_query = db.session.query(Answer.question_id, Answer.text).filter(Answer.application_id==application_id)
+    answers = {item[0]: item[1] for item in answer_query}
     for question_id in questions:
-        answer = answers[question_id].text if question_id in answers else ""
+        answer = answers[question_id] if question_id in answers else ""
         response[question_id] = {
             "question": questions[question_id],
             "user_id": user_id,

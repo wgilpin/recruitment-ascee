@@ -283,8 +283,6 @@ class Character(db.Model):
     redlisted = db.Column(db.Boolean, default=False)
 
     def __init__(self, *args, **kwargs):
-        print('CHARACTER INIT', args, kwargs)
-        assert len(kwargs) > 2
         super(Character, self).__init__(*args, **kwargs)
 
     @classmethod
