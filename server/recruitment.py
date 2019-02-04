@@ -1,7 +1,7 @@
-from models import Corporation, Question, Answer, User, Character, db, Application
+from models import Corporation, Question, Answer, User, Character, db, Application, Admin, Recruiter
 from flask import jsonify, request
 from flask_login import login_required, current_user
-from security import has_applicant_access
+from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter
 import cachetools
 import asyncio
 from flask_app import app
@@ -146,20 +146,26 @@ def api_users():
         response (dict)
 
     Error codes:
-        Forbidden (403): If logged in user is not a senior recruiter or admin.
+        Forbidden (403): If logged in user is not an admin.
     """
-    return jsonify(asyncio.run(get_users(current_user=current_user)))
+    return jsonify(get_users(current_user=current_user))
 
 
-async def get_users(current_user=None):
+def get_users(current_user=None):
+    if not is_admin(current_user):
+        raise ForbiddenException('Only admin have access to user list.')
     return_list = []
-    for user in db.session.Query(User).all():
+    admin_ids = db.session.query(Admin.id).all()
+    recruiter_ids = db.session.query(Recruiter.id).all()
+    senior_recruiter_ids = db.session.query(Recruiter.id).filter(Recruiter.is_senior).all()
+
+    for user in db.session.query(User).all():
         return_list.append({
             'id': user.get_id(),
-            'is_admin': user.is_admin,
-            'is_recruiter': user.is_recruiter,
-            'is_senior_recruiter': user.is_senior_recruiter,
-            'name': Character.get(user.get_id()).name,
+            'is_admin': (user.id,) in admin_ids,
+            'is_recruiter': (user.id,) in recruiter_ids,
+            'is_senior_recruiter': (user.id,) in senior_recruiter_ids,
+            'name': user.character.name,
         })
     return {'info': return_list}
 

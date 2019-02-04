@@ -1,17 +1,17 @@
 import sys
 import os
 from config import server_dir
-print(sys.version)
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
 from recruitment import (
-    get_questions, get_answers, get_user_characters)
+    get_questions, get_answers, get_user_characters, get_users)
 from models import Character, User, Question, Answer, db
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
+import asyncio
 
 
 class QuestionAnswerTests(AsceeTestCase):
@@ -200,6 +200,53 @@ class QuestionAnswerTests(AsceeTestCase):
 
 
 class MiscRecruitmentTests(AsceeTestCase):
+
+    def test_get_users_as_admin(self):
+        response = get_users(current_user=self.admin)
+        assert 'info' in response
+        data = response['info']
+        self.assertEqual(len(data), 5, data)
+        for user in data:
+            self.assertTrue(isinstance(user['id'], int))
+            self.assertTrue(isinstance(user['name'], str))
+            self.assertTrue(isinstance(user['is_admin'], bool))
+            self.assertTrue(isinstance(user['is_recruiter'], bool))
+            self.assertTrue(isinstance(user['is_senior_recruiter'], bool))
+            assert len(user) == 5
+            if user['id'] == self.recruiter.id:
+                self.assertEqual(user['is_admin'], False, user)
+                self.assertEqual(user['is_recruiter'], True, user)
+                self.assertEqual(user['is_senior_recruiter'], False, user)
+                self.assertEqual(user['name'], self.recruiter.user.character.name, user)
+            elif user['id'] == self.admin.id:
+                self.assertEqual(user['is_admin'], True, user)
+                self.assertEqual(user['is_recruiter'], False, user)
+                self.assertEqual(user['is_senior_recruiter'], False, user)
+                self.assertEqual(user['name'], self.admin.user.character.name, user)
+            elif user['id'] == self.senior_recruiter.id:
+                self.assertEqual(user['is_admin'], False, user)
+                self.assertEqual(user['is_recruiter'], True, user)
+                self.assertEqual(user['is_senior_recruiter'], True, user)
+                self.assertEqual(user['name'], self.senior_recruiter.user.character.name, user)
+            elif user['id'] == self.applicant.id:
+                self.assertEqual(user['is_admin'], False, user)
+                self.assertEqual(user['is_recruiter'], False, user)
+                self.assertEqual(user['is_senior_recruiter'], False, user)
+                self.assertEqual(user['name'], self.applicant.character.name, user)
+
+    def test_get_users_as_recruiter(self):
+        with self.assertRaises(ForbiddenException):
+            get_users(current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            get_users(current_user=self.other_recruiter)
+
+    def test_get_users_as_senior_recruiter(self):
+        with self.assertRaises(ForbiddenException):
+            get_users(current_user=self.senior_recruiter)
+
+    def test_get_users_as_applicant(self):
+        with self.assertRaises(ForbiddenException):
+            get_users(current_user=self.applicant)
 
     def test_user_character_list_as_recruiter(self):
         result = get_user_characters(self.applicant.id, current_user=self.recruiter.user)

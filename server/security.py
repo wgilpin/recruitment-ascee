@@ -10,6 +10,18 @@ def ensure_has_access(user_id, target_user_id, self_access=False):
         )
 
 
+def is_admin(user):
+    return db.session.query(db.exists().where(Admin.user_id == user.id)).scalar()
+
+
+def is_recruiter(user):
+    return db.session.query(db.exists().where(Recruiter.user_id == user.id)).scalar()
+
+
+def is_senior_recruiter(user):
+    return db.session.query(db.exists().where(db.and_(Recruiter.user_id == user.id, Recruiter.is_senior))).scalar()
+
+
 def has_applicant_access(user, target_user, self_access=False):
     if self_access and (user.id == target_user.id):
         return_value = True
