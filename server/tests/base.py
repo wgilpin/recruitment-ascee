@@ -81,6 +81,15 @@ class AsceeTestCase(VCRTestCase):
         self.applicant = User.get(id=test_applicant_id)
         db.session.add(self.applicant)
 
+        test_not_applicant_id = 2112166943
+        not_applicant_character = Character.get(
+            test_not_applicant_id,
+        )
+        db.session.add(not_applicant_character)
+
+        self.not_applicant = User.get(id=test_not_applicant_id)
+        db.session.add(self.not_applicant)
+
         self.application = Application(
             user_id=self.applicant.id,
             recruiter_id=self.recruiter.id,
