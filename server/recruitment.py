@@ -1,4 +1,159 @@
-from models import Question, Answer, User, Character, db
+from models import Corporation, Question, Answer, User, Character, db
+from flask import jsonify, request
+from flask_login import login_required, current_user
+from security import ensure_has_access
+import cachetools
+import asyncio
+from flask_app import app
+
+
+@app.route(
+    '/api/recruits/edit_notes/<int:applicant_id>', methods=['PUT'])
+@login_required
+def api_edit_applicant_notes(applicant_id):
+    """
+    Update the notes for an applicant
+
+    Args:
+        applicant_id (int): User key of applicant
+        text (in body): The note
+
+    Returns:
+        {'status': 'ok'} if note is successfully updated
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or a
+            recruiter who has claimed this applicant
+        Bad request (400): If the given user is not an applicant
+    """
+    ensure_has_access(current_user.get_id(), applicant_id)
+    return jsonify(edit_applicant_notes(applicant_id, text=request.form['text']))
+
+
+@app.route('/api/applicant_list')
+@login_required
+def api_get_applicant_list():
+    """
+    Gets the list of all applicants, including accepted and rejected applicants.
+
+    Returns:
+        response (dict)
+
+    Example:
+        response = {
+            'info': [
+                {
+                    'user_id': 1937622137,  # int character ID of user's main
+                    'recruiter_id': 201837771,  # int character ID of recruiter's main
+                    'recruiter_name': 'Recruiter Ralph',  # string name of recruiter
+                    'status': 'new',  # one of 'new', 'escalated', 'accepted', 'rejected'
+                },
+                {
+                    [...]
+                }
+            ]
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not a recruiter or senior recruiter
+    """
+    return jsonify(get_applicant_list())
+
+
+@app.route('/api/user/characters')
+@app.route('/api/user/characters/<int:user_id>')
+@login_required
+def api_get_user_character_list(user_id=None):
+    """
+    Gets a list of all characters for a given user.
+
+    Characters are redlisted if they are directly redlisted, or if they are
+    in a corporation or alliance that is redlisted.
+
+    Args:
+        user_id: User key of a user
+
+    Returns:
+        response (dict)
+
+    Example:
+        response = {
+            'info': {
+                1937622137: {  # Character ID
+                    'name': 'Applicant Abigail',  # character name
+                    'corporation_name': 'Corporation Calico',  # corporation name
+                    'redlisted': True,  # might only be present if redlisted.
+                },
+                [...]
+            }
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter,
+            a recruiter who has claimed the given user, or the user themself
+    """
+    current_user_id = current_user.get_id()
+    if not user_id:
+        user_id = current_user_id
+    ensure_has_access(current_user_id, user_id, self_access=True)
+    return jsonify(get_character_data_list(user_id))
+
+
+
+@app.route('/api/questions')
+def api_questions():
+    """
+    Get questions asked to applicants.
+
+    Returns:
+        response (dict): A dictionary whose keys are integer question ids and
+            values are question text.
+    """
+    return jsonify(get_questions())
+
+
+@app.route('/api/answers')
+@app.route('/api/answers/<int:user_id>')
+@login_required
+def api_user_answers(user_id=None):
+    """
+    Get question answers for a given user.
+
+    Args:
+        user_id (int)
+            if missing/None uses the logged in user
+
+    Returns:
+        response (dict): A dictionary whose keys are integer question ids and
+            values are answer text, question text & user id.
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter,
+            a recruiter who has claimed the given user, or the user themself
+    """
+    if not user_id:
+        user_id = current_user.get_id()
+    ensure_has_access(current_user.get_id(), user_id, self_access=True)
+    return jsonify(get_answers(user_id))
+
+
+@app.route('/api/admin/users')
+@login_required
+def api_users():
+    """
+    Get information on all registered users.
+
+    Returned data is of the form {'info': [user_1, user_2, ...]}. Each user
+    dictionary has the keys `id`, `name`, `is_admin`, `is_senior_recruiter`,
+    and `is_recruiter`.
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or admin.
+    """
+    return jsonify(asyncio.run(get_users()))
 
 
 def get_questions():
@@ -22,62 +177,6 @@ def get_answers(user_id):
             "answer": answer,
         }
     return response
-
-
-def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
-    recruiter = User.get(recruiter_user_id)
-    if not recruiter.is_recruiter:
-        recruiter_name = Character.get(recruiter_user_id).name
-        return {'error': 'User {} is not a recruiter'.format(recruiter_name)}
-    applicant = User.get(applicant_user_id)
-    if applicant is None:
-        applicant_name = Character.get(applicant_user_id).name
-        return {'error': 'User {} is not an applicant'.format(applicant_name)}
-    applicant.recruiter_id = recruiter_user_id
-    db.session.commit()
-    return {'status': 'ok'}
-
-
-def recruiter_release_applicant(recruiter_user_id, applicant_user_id):
-    recruiter = User.get(recruiter_user_id)
-    applicant = User.get(applicant_user_id)
-    if not recruiter.is_recruiter:
-        recruiter_name = Character.get(recruiter_user_id).name
-        return {'error': 'User {} is not a recruiter'.format(recruiter_name)}
-    elif applicant is None:
-        applicant_name = Character.get(applicant_user_id).name
-        return {'error': 'User {} is not an applicant'.format(applicant_name)}
-    elif applicant.recruiter_id != recruiter_user_id:
-        applicant_name = Character.get(applicant_user_id).name
-        recruiter_name = Character.get(recruiter_user_id).name
-        return {'error': 'Recruiter {} is not recruiter for applicant {}'.format(
-            recruiter_name, applicant_name)}
-    else:
-        applicant.recruiter_id = None
-        db.session.commit()
-        return {'status': 'ok'}
-
-
-def escalate_applicant(applicant_user_id):
-    applicant = User.get(applicant_user_id)
-    if applicant is None:
-        applicant_name = Character.get(applicant_user_id).name
-        return {'error': 'User {} is not an applicant'.format(applicant_name)}
-    else:
-        applicant.status = 'escalated'
-        db.session.commit()
-        return {'new_applicant_status': applicant.status}
-
-
-def reject_applicant(applicant_user_id):
-    applicant = User.get(applicant_user_id)
-    if applicant is None:
-        applicant_name = Character.get(applicant_user_id).name
-        return {'error': 'User {} is not an applicant'.format(applicant_name)}
-    else:
-        applicant.status = 'rejected'
-        db.session.commit()
-        return {'status': 'ok'}
 
 
 def edit_applicant_notes(applicant_user_id, text):
@@ -117,3 +216,19 @@ def get_applicant_notes(applicant_user_id):
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
         return {'info': applicant.notes}
+
+
+def get_character_list(user_id):
+    query = Character.query().where(Character.user_id == user_id)
+    return list(query.run())
+
+
+@cachetools.cached(cachetools.LRUCache(maxsize=1000))
+def get_character_data_list(user_id):
+    character_dict = {}
+    for character in get_character_list(user_id):
+        character_dict[character.get_id()] = {
+            'name': character.name,
+            'corporation_id': character.corporation_id,
+            'corporation_name': Corporation.get(character.corporation_id).name,
+    return {'info': character_dict}
