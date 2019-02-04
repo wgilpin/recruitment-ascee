@@ -131,6 +131,129 @@ def api_user_answers(user_id=None):
     return jsonify(get_answers(user_id, current_user=current_user))
 
 
+@app.route(
+    '/api/recruits/edit_notes/<int:applicant_id>', methods=['PUT'])
+@login_required
+def api_edit_applicant_notes(applicant_id):
+    """
+    Update the notes for an applicant
+
+    Args:
+        applicant_id (int): User key of applicant
+        text (in body): The note
+
+    Returns:
+        {'status': 'ok'} if note is successfully updated
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or a
+            recruiter who has claimed this applicant
+        Bad request (400): If the given user is not an applicant
+    """
+    return jsonify(edit_applicant_notes(applicant_id, text=request.form['text'], current_user=current_user))
+
+
+@app.route('/api/applicant_list')
+@login_required
+def api_get_applicant_list():
+    """
+    Gets the list of all applicants, including accepted and rejected applicants.
+
+    Returns:
+        response (dict)
+
+    Example:
+        response = {
+            'info': [
+                {
+                    'user_id': 1937622137,  # int character ID of user's main
+                    'recruiter_id': 201837771,  # int character ID of recruiter's main
+                    'recruiter_name': 'Recruiter Ralph',  # string name of recruiter
+                    'status': 'new',  # one of 'new', 'escalated', 'accepted', 'rejected'
+                },
+                {
+                    [...]
+                }
+            ]
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not a recruiter or senior recruiter
+    """
+    return jsonify(get_applicant_list(current_user=current_user))
+
+
+@app.route('/api/user/characters')
+@app.route('/api/user/characters/<int:user_id>')
+@login_required
+def api_get_user_characters(user_id=None):
+    """
+    Gets a list of all characters for a given user.
+
+    Characters are redlisted if they are directly redlisted, or if they are
+    in a corporation or alliance that is redlisted.
+
+    Args:
+        user_id: User key of a user
+
+    Returns:
+        response (dict)
+
+    Example:
+        response = {
+            'info': {
+                1937622137: {  # Character ID
+                    'name': 'Applicant Abigail',  # character name
+                    'corporation_name': 'Corporation Calico',  # corporation name
+                    'redlisted': True,  # might only be present if redlisted.
+                },
+                [...]
+            }
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter,
+            a recruiter who has claimed the given user, or the user themself
+    """
+    if not user_id:
+        user_id = current_user.get_id()
+    return jsonify(get_user_characters(user_id, current_user=current_user))
+
+
+@app.route('/api/questions')
+def api_questions():
+    """
+    Get questions asked to applicants.
+
+    Returns:
+        response (dict): A dictionary whose keys are integer question ids and
+            values are question text.
+    """
+    return jsonify(get_questions(current_user=current_user))
+
+
+@app.route('/api/answers')
+@app.route('/api/answers/<int:user_id>')
+@login_required
+def api_user_answers(user_id=None):
+    """
+    Get question answers for a given user.
+
+    Args:
+        user_id (int)
+            if missing/None uses the logged in user
+
+    Returns:
+        response (dict): A dictionary whose keys are integer question ids and
+            values are answer text, question text & user id.
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter,
+            a recruiter who has claimed the given user, or the user themself
+    """
+    return jsonify(get_answers(user_id, current_user=current_user))
+
+
 @app.route('/api/admin/users')
 @login_required
 def api_users():
@@ -232,6 +355,7 @@ def get_applicant_list(current_user=None):
     current_user_id = current_user.get_id()
     return_list = []
     for applicant in db.session.Query(Application).filter(not Application.is_concluded).all():
+        applicant_id = applicant.id
         recruiter_name = \
             Character.get(applicant.recruiter_id).name if applicant.recruiter_id else None
         applicant_name = \
@@ -260,6 +384,7 @@ def get_applicant_list(current_user=None):
                 'status': applicant.status,
                 'name': applicant_name,
             })
+
     return {'info': return_list}
 
 
