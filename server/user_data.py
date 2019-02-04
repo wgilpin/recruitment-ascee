@@ -3,7 +3,7 @@ from character_data import (
     get_character_calendar, get_character_market_contracts,
     get_character_bookmarks, get_character_mail,
 )
-from database import Character, Corporation
+from models import Character, Corporation
 import cachetools
 import logging
 

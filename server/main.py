@@ -39,6 +39,7 @@ import asyncio
 from auth import login_manager, login, ensure_has_access, roles_required, admin_required
 from flask_login import login_required, current_user
 from user_data import get_character_data_list
+from models import db, init_db
 
 app.url_map.strict_slashes = False
 
@@ -646,6 +647,36 @@ def api_user_answers(user_id=None):
     ensure_has_access(current_user.get_id(), user_id, self_access=True)
     return jsonify(get_answers(user_id))
 
-if __name__ == '__main__':
-    app.run()
+@app.route('/api/admin/users')
+@login_required
+def api_users():
+    """
+    Get information on all registered users.
+
+    Returned data is of the form {'info': [user_1, user_2, ...]}. Each user
+    dictionary has the keys `id`, `name`, `is_admin`, `is_senior_recruiter`,
+    and `is_recruiter`.
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or admin.
+    """
+    return jsonify(asyncio.run(get_users()))
+
+
+@app.errorhandler(500)
+def api_server_error(e):
+    # Log the error and stacktrace.
+    logging.exception('An error occurred during a request.')
+    return 'An internal error occurred.', 500
 # [END app]
+
+
+if __name__ == '__main__':
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+    with app.app_context():
+        db.init_app(app)
+        db.create_all()
+        app.run(host='localhost', port='8080')
