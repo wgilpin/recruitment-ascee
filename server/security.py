@@ -1,4 +1,4 @@
-from models import User, Character
+from models import User, Character, Admin, Recruiter, Application, db
 from exceptions import ForbiddenException
 
 
@@ -8,6 +8,30 @@ def ensure_has_access(user_id, target_user_id, self_access=False):
             'User {} does not have access to target user {}'.format(
                 user_id, target_user_id)
         )
+
+
+def has_applicant_access(user, target_user, self_access=False):
+    if self_access and (user.id == target_user.id):
+        return_value = True
+    elif db.session.query(
+            db.exists().where(db.and_(
+                Recruiter.user==user, Recruiter.is_senior)
+            )
+            ).scalar():
+        # Requesting user is senior recruiter
+        return_value = True
+    elif db.session.query(
+            db.exists().where(db.and_(
+                Application.user_id==target_user.id,
+                Application.recruiter_id==user.id,
+                Application.is_concluded==False)
+            )
+            ).scalar():
+        # Requesting user is recruiter who claimed application
+        return_value = True
+    else:
+        return_value = False
+    return return_value
 
 
 def has_access(user_id, target_character_id, self_access=False):
