@@ -1,13 +1,25 @@
 from esi import get_op, get_paged_op
-from database import (
-    Character, Corporation, Alliance, Type, TypePrice, Region, Group,
-    Station, Structure, get_location, System
+from models import (
+    Character, Corporation, Alliance, Type, Priced, Region, Group,
+    Station, Structure, System
 )
 import cachetools
 
 # leaving apiCharacter.js, apiLinks.js for now
 
 SECONDS_TO_CACHE = 10 * 60
+
+
+def get_location(location_id):
+    if 60000000 <= location_id < 64000000:  # station
+        return Station.get(location_id)
+    elif location_id > 50000000:  # structure
+        return Structure.get(location_id)
+    else:
+        raise ValueError(
+            'location_id {} does not correspond to station'
+            ' or structure'.format(location_id)
+        )
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))

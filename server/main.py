@@ -36,6 +36,7 @@ import asyncio
 from auth import login_manager, login, ensure_has_access
 from flask_login import login_required, current_user
 from user_data import get_character_data_list
+from models import db, init_db
 
 app.url_map.strict_slashes = False
 
@@ -587,5 +588,10 @@ def api_server_error(e):
     return 'An internal error occurred.', 500
 # [END app]
 
+
 if __name__ == '__main__':
-    app.run()
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+    with app.app_context():
+        db.init_app(app)
+        db.create_all()
+        app.run(host='localhost', port='8080')

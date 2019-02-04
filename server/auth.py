@@ -1,7 +1,7 @@
 import requests
 from esi_config import client_id, secret_key
 import json
-from database import Character, User
+from models import Character, User, db
 from flask_app import app
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask import session, redirect, request
@@ -94,7 +94,7 @@ def api_oauth_callback():
     token = request.args.get('state')
     session_token = session.pop('token', None)
     if (token is None) or (session_token is None) or token != session_token:
-        return ForbiddenException(
+        raise ForbiddenException(
             'Login to Eve Online SSO failed: Session Token Mismatch')
     login_type = session_token.split(':')[0]
     character = process_oauth(code)
@@ -107,12 +107,11 @@ def api_oauth_callback():
         return redirect(recruiter_url)
     elif login_type == 'link':
         character.user_id = current_user.get_id()
-        character.put()
+        db.session.commit()
         return redirect(applicant_url)
     else:
-        return AppException(
+        raise AppException(
             'OAuth callback state specified invalid login type {}.'.format(login_type))
-    return redirect(react_app_url)
 
 
 def generate_token():
@@ -155,6 +154,6 @@ def process_oauth(code):
     refresh_token, character_id = token_data['refresh_token'], user_data['CharacterID']
     character = Character.get(character_id)
     character.refresh_token = refresh_token
-    character.put()
+    db.session.commit()
 
     return character

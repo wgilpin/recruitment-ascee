@@ -1,5 +1,4 @@
-from database import Question, Answer, User, Character
-from anom import Query
+from models import Question, Answer, User, Character, db
 
 
 def get_questions():
@@ -35,7 +34,7 @@ def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     applicant.recruiter_id = recruiter_user_id
-    applicant.put()
+    db.session.commit()
     return {'status': 'ok'}
 
 
@@ -55,7 +54,7 @@ def recruiter_release_applicant(recruiter_user_id, applicant_user_id):
             recruiter_name, applicant_name)}
     else:
         applicant.recruiter_id = None
-        applicant.put()
+        db.session.commit()
         return {'status': 'ok'}
 
 
@@ -66,7 +65,7 @@ def escalate_applicant(applicant_user_id):
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
         applicant.status = 'escalated'
-        applicant.put()
+        db.session.commit()
         return {'new_applicant_status': applicant.status}
 
 
@@ -77,7 +76,8 @@ def reject_applicant(applicant_user_id):
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
         applicant.status = 'rejected'
-        applicant.put()
+        db.session.commit()
+        return {'status': 'ok'}
 
 
 def edit_applicant_notes(applicant_user_id, text):
@@ -87,6 +87,7 @@ def edit_applicant_notes(applicant_user_id, text):
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
         applicant.notes = text
+        db.session.commit()
         return {'status': 'ok'}
 
 

@@ -1,4 +1,4 @@
-from database import User, Character
+from models import User, Character
 
 
 async def get_users():
