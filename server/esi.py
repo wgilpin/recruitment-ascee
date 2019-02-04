@@ -4,6 +4,8 @@ from esipy import EsiClient, EsiSecurity
 from esipy.cache import DictCache
 from pyswagger import App
 from esi_config import client_id, secret_key, callback_url, client_name
+import pickle
+import os
 
 
 @backoff.on_exception(
@@ -12,7 +14,14 @@ from esi_config import client_id, secret_key, callback_url, client_name
 def get_esi_app():
     return App.create('https://esi.evetech.net/latest/swagger.json')
 
-esi_app = get_esi_app()
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+esi_app_filename = os.path.join(dir_path, 'esi_app.pkl')
+if os.path.isfile(esi_app_filename):
+    esi_app = pickle.load(open(esi_app_filename, 'rb'))
+else:
+    esi_app = get_esi_app()
+    pickle.dump(esi_app, open(esi_app_filename, 'wb'))
 
 client_dict = {}
 

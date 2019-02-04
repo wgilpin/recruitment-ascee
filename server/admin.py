@@ -1,17 +1,5 @@
-from database import User, Character
+from models import User, Character
+<<<<<<< HEAD
 
-
-def get_user_list():
-    # list of all Users with roles
-    result = {}
-    for user in User.query().run():
-        id = user.get_id()
-        user_name = Character.get(id).name if id else None
-        result[id] = {
-            'user_id': id,
-            'is_recruiter': user.is_recruiter,
-            'is_snr_recruiter': user.is_senior_recruiter,
-            'is_admin': user.is_admin,
-            'name': user_name,
-        }
-    return result
+=======
+>>>>>>> d732282f93141d1bb7ae2236f550573883d2a847

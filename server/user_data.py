@@ -3,34 +3,12 @@ from character_data import (
     get_character_calendar, get_character_market_contracts,
     get_character_bookmarks, get_character_mail,
 )
-from database import Character, Corporation
+from models import Character, Corporation
 import cachetools
 import logging
 
 
-def get_character_list(user_id):
-    query = Character.query().where(Character.user_id == user_id)
-    return list(query.run())
 
-
-@cachetools.cached(cachetools.LRUCache(maxsize=1000))
-def get_character_data_list(user_id):
-    character_dict = {}
-    for character in get_character_list(user_id):
-        try:
-            character_dict[character.get_id()] = {
-                'name': character.name,
-                'corporation_id': character.corporation_id,
-                'corporation_name': Corporation.get(character.corporation_id).name,
-            }
-        except:
-            logging.debug('get_character_data_list Exception: %d', character.get_id())
-            character_dict[character.get_id()] = {
-                'name': character.name,
-                'corporation_id': character.corporation_id,
-                'corporation_name': None,
-            }
-    return {'info': character_dict}
 
 
 def get_user_wallet(user_id):
