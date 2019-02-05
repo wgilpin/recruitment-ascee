@@ -1,13 +1,16 @@
 from esi import get_op, get_paged_op
 from models import (
     Character, Corporation, Alliance, Type, Priced, Region, Group,
-    Station, Structure, System
+    Station, Structure, System, db
 )
 from flask import jsonify
 from flask_login import login_required, current_user
 from flask_app import app
-from security import ensure_has_access
+from security import is_applicant_character_id, has_applicant_access
+from exceptions import ForbiddenException, BadRequestException
 import cachetools
+import asyncio
+from asgiref.sync import async_to_sync
 
 
 SECONDS_TO_CACHE = 10 * 60
@@ -58,8 +61,7 @@ def api_character_assets(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    ensure_has_access(current_user.get_id(), character_id)
-    return jsonify(get_character_assets(character_id))
+    return jsonify(get_character_assets(character_id, current_user=current_user))
 
 
 @app.route('/api/character/<int:character_id>/bookmarks', methods=['GET'])
@@ -86,8 +88,7 @@ def api_character_bookmarks(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    ensure_has_access(current_user.get_id(), character_id)
-    return jsonify(get_character_bookmarks(character_id))
+    return jsonify(get_character_bookmarks(character_id, current_user=current_user))
 
 
 @app.route('/api/character/<int:character_id>/calendar', methods=['GET'])
@@ -111,8 +112,7 @@ def api_character_calendar(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    ensure_has_access(current_user.get_id(), character_id)
-    return jsonify(get_character_calendar(character_id))
+    return jsonify(get_character_calendar(character_id, current_user=current_user))
 
 
 @app.route('/api/character/<int:character_id>/contacts', methods=['GET'])
@@ -140,13 +140,7 @@ def api_character_contacts(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    ensure_has_access(current_user.get_id(), character_id)
-    return jsonify(get_character_contacts(character_id))
-
-
-def DateTimeJsonCOnverter(o):
-    if isinstance(o, datetime.datetime):
-        return o.__str__()
+    return jsonify(get_character_contacts(character_id, current_user=current_user))
 
 
 @app.route('/api/character/<int:character_id>/mail', methods=['GET'])
@@ -173,8 +167,7 @@ def api_character_mail(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    ensure_has_access(current_user.get_id(), character_id)
-    return json.dumps({ "info": get_character_mail(character_id)}, default=DateTimeJsonCOnverter)
+    return jsonify(get_character_mail(character_id, current_user=current_user))
 
 
 @app.route('/api/character/<int:character_id>/market_contracts', methods=['GET'])
@@ -205,8 +198,7 @@ def api_character_market_contracts(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    ensure_has_access(current_user.get_id(), character_id)
-    return jsonify(get_character_market_contracts(character_id))
+    return jsonify(get_character_market_contracts(character_id, current_user=current_user))
 
 
 @app.route('/api/character/<int:character_id>/market_history', methods=['GET'])
@@ -234,8 +226,7 @@ def api_character_market_history(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    ensure_has_access(current_user.get_id(), character_id)
-    return jsonify(get_character_market_history(character_id))
+    return jsonify(get_character_market_history(character_id, current_user=current_user))
 
 
 @app.route('/api/character/<int:character_id>/skills', methods=['GET'])
@@ -262,8 +253,7 @@ def api_character_skills(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    ensure_has_access(current_user.get_id(), character_id)
-    return jsonify(get_character_skills(character_id))
+    return jsonify(get_character_skills(character_id, current_user=current_user))
 
 
 @app.route('/api/character/<int:character_id>/wallet', methods=['GET'])
@@ -292,8 +282,7 @@ def api_character_wallet(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    ensure_has_access(current_user.get_id(), character_id)
-    return jsonify(get_character_wallet(character_id))
+    return jsonify(get_character_wallet(character_id, current_user=current_user))
 
 
 @app.route('/api/character/<int:character_id>/mail/<int:mail_id>', methods=['GET'])
@@ -315,8 +304,7 @@ def api_mail_body(character_id, mail_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    ensure_has_access(current_user.get_id(), character_id)
-    return jsonify(get_mail_body(character_id, mail_id))
+    return jsonify(get_mail_body(character_id, mail_id, current_user=current_user))
 
 
 
@@ -333,7 +321,7 @@ def get_location(location_id):
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
-def get_character_calendar(character_id):
+def get_character_calendar(character_id, current_user=None):
     # TODO: Need to return not just data from this endpoint, but also
     # the get_characters_character_id_calendar_event_id endpoint
     character = Character.get(character_id)
@@ -369,7 +357,7 @@ def get_transaction_party(party_id):
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
-def get_character_wallet(character_id):
+def get_character_wallet(character_id, current_user=None):
     character = Character.get(character_id)
     wallet_data = character.get_paged_op(
         'get_characters_character_id_wallet_journal',
@@ -391,7 +379,7 @@ def get_character_wallet(character_id):
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
-def get_character_contacts(character_id):
+def get_character_contacts(character_id, current_user=None):
     character = Character.get(character_id)
     contacts_list = character.get_paged_op(
         'get_characters_character_id_contacts',
@@ -414,7 +402,7 @@ def get_character_contacts(character_id):
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
-def get_character_mining(character_id):
+def get_character_mining(character_id, current_user=None):
     character = Character.get(character_id)
     mining_data = character.get_op(
         'get_characters_character_id_mining',
@@ -439,7 +427,7 @@ def get_character_mining(character_id):
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
-def get_character_market_contracts(character_id):
+def get_character_market_contracts(character_id, current_user=None):
     character = Character.get(character_id)
     contract_list = character.get_paged_op(
         'get_characters_character_id_contracts',
@@ -478,7 +466,7 @@ def get_character_market_contracts(character_id):
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
-def get_character_assets(character_id):
+def get_character_assets(character_id, current_user=None):
     character = Character.get(character_id)
     asset_list = character.get_paged_op(
         'get_characters_character_id_assets',
@@ -494,7 +482,7 @@ def get_character_assets(character_id):
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
-def get_character_bookmarks(character_id):
+def get_character_bookmarks(character_id, current_user=None):
     character = Character.get(character_id)
     bookmarks_list = character.get_paged_op(
         'get_characters_character_id_bookmarks',
@@ -518,25 +506,55 @@ def get_character_bookmarks(character_id):
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
-def get_character_mail(character_id):
-    mail_list = get_op(
+def get_character_mail(character_id, current_user=None):
+    target_character = Character.get(character_id)
+    if not is_applicant_character_id(character_id):
+        raise ForbiddenException('Characer {} is not in an open application.'.format(character_id))
+    elif not has_applicant_access(current_user, target_character.user):
+        raise ForbiddenException('User {} does not have access to character {}'.format(current_user.id, character_id))
+    mail_list = target_character.get_op(
         'get_characters_character_id_mail',
         character_id=character_id,
     )
-    mail_dict = {entry['mail_id']: entry for entry in mail_list}
-    for entry in mail_dict.values():
-        entry['from_name'] = Character.get(entry['from']).name
+
+    from_ids = set(entry['from'] for entry in mail_list)
+    character_ids = set()
+    corp_ids = set()
+    alliance_ids = set()
+    id_set_dict = {
+        'character': character_ids,
+        'corporation': corp_ids,
+        'alliance': alliance_ids
+    }
+    name_data = get_op(
+        'post_universe_names', ids=list(from_ids)
+    )
+    for entry in name_data:
+        id_set_dict[entry['category']].add(entry['id'])
+    for entry in mail_list:
         for recipient in entry['recipients']:
-            recipient['recipient_name'] = Character.get(recipient['recipient_id']).name
+            id_set_dict[recipient['recipient_type']].add(recipient['recipient_id'])
+    characters = Character.get_multi(character_ids)
+    corporations = Corporation.get_multi(corp_ids)
+    alliances = Alliance.get_multi(alliance_ids)
+    all_parties = {}
+    all_parties.update(characters)
+    all_parties.update(corporations)
+    all_parties.update(alliances)
+
+    for entry in mail_list:
+        entry['from_name'] = all_parties[entry['from']].name
+        for recipient in entry['recipients']:
+            recipient['recipient_name'] = all_parties[recipient['recipient_id']].name
         recipient_ids = [r['recipient_id'] for r in entry['recipients']]
-        if any(Character.get(item).is_redlisted for item in [entry['from']] + recipient_ids):
+        if any(all_parties[party_id].is_redlisted for party_id in [entry['from']] + recipient_ids):
             entry['redlisted'] = True
-        entry.timestamp = entry.timestamp.to_json()
-    return mail_dict
+        entry['timestamp'] = str(entry['timestamp'].to_json())
+    return {'info': mail_list}
 
 
 @cachetools.cached(cachetools.LRUCache(maxsize=500))
-def get_mail_body(character_id, mail_id):
+def get_mail_body(character_id, mail_id, current_user=None):
     character = Character.get(character_id)
     mail_data = character.get_op(
         'get_characters_character_id_mail_mail_id',
@@ -547,7 +565,7 @@ def get_mail_body(character_id, mail_id):
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
-def get_character_market_history(character_id):
+def get_character_market_history(character_id, current_user=None):
     character = Character.get(character_id)
     order_list = character.get_paged_op(
         'get_characters_character_id_orders',
@@ -574,7 +592,7 @@ def get_character_market_history(character_id):
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
-def get_character_skills(character_id):
+def get_character_skills(character_id, current_user=None):
     character = Character.get(character_id)
     skill_data = character.get_op(
         'get_characters_character_id_skills',

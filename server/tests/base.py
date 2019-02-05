@@ -7,6 +7,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 from vcr_unittest import VCRTestCase
 from models import Character, User, Admin, Recruiter, Question, Answer, Application, db
+import warnings
 
 
 class AsceeTestCase(VCRTestCase):
@@ -15,6 +16,8 @@ class AsceeTestCase(VCRTestCase):
 
     def setUp(self):
         self.initDB()
+        warnings.simplefilter("ignore", ResourceWarning)
+        warnings.simplefilter("ignore", UserWarning)
 
     def tearDown(self):
         self.clearDB()
@@ -97,6 +100,7 @@ class AsceeTestCase(VCRTestCase):
         db.session.commit()
 
     def clearDB(self):
+        db.session.rollback()
         for model in Character, User, Recruiter, Admin, Application, Question, Answer:
             db.session.query(model).delete()
         db.session.commit()

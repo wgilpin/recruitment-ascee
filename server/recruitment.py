@@ -164,7 +164,7 @@ def get_users(current_user=None):
             'is_admin': (user.id,) in admin_ids,
             'is_recruiter': (user.id,) in recruiter_ids,
             'is_senior_recruiter': (user.id,) in senior_recruiter_ids,
-            'name': user.character.name,
+            'name': user.name,
         })
     return {'info': return_list}
 

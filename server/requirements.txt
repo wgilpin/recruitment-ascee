@@ -9,3 +9,5 @@ mock
 contextlib2
 SQLAlchemy==1.2.17
 flask-sqlalchemy==2.3.2
+asgiref
+
