@@ -9,8 +9,6 @@ from flask_app import app
 from security import is_applicant_character_id, has_applicant_access
 from exceptions import ForbiddenException, BadRequestException
 import cachetools
-import asyncio
-from asgiref.sync import async_to_sync
 
 
 SECONDS_TO_CACHE = 10 * 60
