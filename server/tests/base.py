@@ -33,6 +33,7 @@ class AsceeTestCase(VCRTestCase):
         db.session.add(admin_character)
         self.admin = Admin(
             id=1000,
+            name='Admin Alice',
         )
         db.session.add(self.admin)
 
@@ -46,6 +47,7 @@ class AsceeTestCase(VCRTestCase):
         self.senior_recruiter = Recruiter(
             id=1001,
             is_senior=True,
+            name='Senior Sam',
         )
         db.session.add(self.senior_recruiter)
 
@@ -58,9 +60,9 @@ class AsceeTestCase(VCRTestCase):
         db.session.add(recruiter_character)
         self.recruiter = Recruiter(
             id=1002,
+            name='Recruiter Randy',
         )
         db.session.add(self.recruiter)
-
 
         other_recruiter_character = Character(
             id=1003,
@@ -71,6 +73,7 @@ class AsceeTestCase(VCRTestCase):
         db.session.add(other_recruiter_character)
         self.other_recruiter = Recruiter(
             id=1003,
+            name='OtherRecruiter Oswald',
         )
         db.session.add(self.other_recruiter)
 
@@ -88,8 +91,10 @@ class AsceeTestCase(VCRTestCase):
         not_applicant_character = Character.get(
             test_not_applicant_id,
         )
-        self.not_applicant = not_applicant_character
         db.session.add(not_applicant_character)
+
+        self.not_applicant = User.get(id=test_not_applicant_id)
+        db.session.add(self.not_applicant)
 
         self.application = Application(
             user_id=self.applicant.id,

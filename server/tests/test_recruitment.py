@@ -231,11 +231,11 @@ class MiscRecruitmentTests(AsceeTestCase):
         data = response['info']
         self.assertEqual(len(data), 5, data)
         for user in data:
-            self.assertTrue(isinstance(user['id'], int))
-            self.assertTrue(isinstance(user['name'], str))
-            self.assertTrue(isinstance(user['is_admin'], bool))
-            self.assertTrue(isinstance(user['is_recruiter'], bool))
-            self.assertTrue(isinstance(user['is_senior_recruiter'], bool))
+            self.assertIsInstance(user['id'], int)
+            self.assertIsInstance(user['name'], str)
+            self.assertIsInstance(user['is_admin'], bool)
+            self.assertIsInstance(user['is_recruiter'], bool)
+            self.assertIsInstance(user['is_senior_recruiter'], bool)
             assert len(user) == 5
             if user['id'] == self.recruiter.id:
                 self.assertEqual(user['is_admin'], False, user)
