@@ -6,7 +6,7 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 from vcr_unittest import VCRTestCase
-from models import Character, User, Admin, Recruiter, Question, Answer, Application, db
+from models import Character, User, Admin, Recruiter, Question, Answer, Application, db, Note
 import warnings
 
 
@@ -106,6 +106,6 @@ class AsceeTestCase(VCRTestCase):
 
     def clearDB(self):
         db.session.rollback()
-        for model in Character, User, Recruiter, Admin, Application, Question, Answer:
+        for model in Character, User, Recruiter, Admin, Application, Question, Answer, Note:
             db.session.query(model).delete()
         db.session.commit()
