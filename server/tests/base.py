@@ -7,6 +7,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 from vcr_unittest import VCRTestCase
 from models import Character, User, Admin, Recruiter, Question, Answer, Application, db
+import warnings
 
 
 class AsceeTestCase(VCRTestCase):
@@ -15,6 +16,8 @@ class AsceeTestCase(VCRTestCase):
 
     def setUp(self):
         self.initDB()
+        warnings.simplefilter("ignore", ResourceWarning)
+        warnings.simplefilter("ignore", UserWarning)
 
     def tearDown(self):
         self.clearDB()
@@ -30,6 +33,7 @@ class AsceeTestCase(VCRTestCase):
         db.session.add(admin_character)
         self.admin = Admin(
             id=1000,
+            name='Admin Alice',
         )
         db.session.add(self.admin)
 
@@ -43,6 +47,7 @@ class AsceeTestCase(VCRTestCase):
         self.senior_recruiter = Recruiter(
             id=1001,
             is_senior=True,
+            name='Senior Sam',
         )
         db.session.add(self.senior_recruiter)
 
@@ -55,9 +60,9 @@ class AsceeTestCase(VCRTestCase):
         db.session.add(recruiter_character)
         self.recruiter = Recruiter(
             id=1002,
+            name='Recruiter Randy',
         )
         db.session.add(self.recruiter)
-
 
         other_recruiter_character = Character(
             id=1003,
@@ -68,6 +73,7 @@ class AsceeTestCase(VCRTestCase):
         db.session.add(other_recruiter_character)
         self.other_recruiter = Recruiter(
             id=1003,
+            name='OtherRecruiter Oswald',
         )
         db.session.add(self.other_recruiter)
 
@@ -81,6 +87,15 @@ class AsceeTestCase(VCRTestCase):
         self.applicant = User.get(id=test_applicant_id)
         db.session.add(self.applicant)
 
+        test_not_applicant_id = 2112166943
+        not_applicant_character = Character.get(
+            test_not_applicant_id,
+        )
+        db.session.add(not_applicant_character)
+
+        self.not_applicant = User.get(id=test_not_applicant_id)
+        db.session.add(self.not_applicant)
+
         self.application = Application(
             user_id=self.applicant.id,
             recruiter_id=self.recruiter.id,
@@ -90,6 +105,7 @@ class AsceeTestCase(VCRTestCase):
         db.session.commit()
 
     def clearDB(self):
+        db.session.rollback()
         for model in Character, User, Recruiter, Admin, Application, Question, Answer:
             db.session.query(model).delete()
         db.session.commit()

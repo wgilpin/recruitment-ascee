@@ -15,6 +15,10 @@ class Application(db.Model):
     answers = db.relationship("Answer", uselist=True, back_populates="application")
     notes = db.relationship("Note", uselist=True, back_populates="application")
 
+    @classmethod
+    def get_for_user(cls, user_id):
+        return  db.session.query(cls).filter_by(user_id=user_id).first()
+
 
 class Question(db.Model):
     __tablename__ = 'question'
@@ -35,5 +39,7 @@ class Answer(db.Model):
 class Note(db.Model):
     __tablename__ = 'note'
     id = db.Column(db.Integer, primary_key=True)
+    text=db.Column(db.Text)
+    is_chat_log=db.Column(db.Boolean)
     application_id = db.Column(db.Integer, db.ForeignKey(Application.id))
     application = db.relationship("Application", uselist=False, back_populates="notes")

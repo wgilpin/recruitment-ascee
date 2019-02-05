@@ -65,12 +65,37 @@ class ESIError(Exception):
 
 
 def get_op(op_name, refresh_token=None, **kwargs):
-    esiClient = get_esi_client(refresh_token)
-    response = esiClient.request(esi_app.op[op_name](**kwargs))
-    if isinstance(response, dict) and 'error' in response.keys():
-        raise ESIError(response['error'])
+    esi_client = get_esi_client(refresh_token)
+    multi_kwarg = None
+    for name, value in kwargs.items():
+        if isinstance(value, (list, tuple)):
+            if multi_kwarg is not None:
+                raise RuntimeError('Tried to call with multiple kwargs for both {} and {}'.format(name, multi_kwarg))
+            else:
+                multi_kwarg = name
+    if multi_kwarg is None or op_name[:4] == 'post':
+        response = esi_client.request(esi_app.op[op_name](**kwargs))
+        if isinstance(response.data, dict) and 'error' in response.data.keys():
+            raise ESIError(response.data['error'])
+        else:
+            return response.data
     else:
-        return response.data
+        operations = []
+        value_list = kwargs.pop(multi_kwarg)
+        for value in value_list:
+            current_kwargs = {multi_kwarg: value}
+            current_kwargs.update(kwargs)
+            operations.append(esi_app.op[op_name](**current_kwargs))
+        result_dict = {}
+        for request, response in esi_client.multi_request(operations):
+            if isinstance(response.data, dict) and 'error' in response.data.keys():
+                raise ESIError(str(request._p['path']) + response.data['error'])
+            else:
+                current_kwarg = request._p['path'][multi_kwarg]
+                if current_kwarg.isdigit():
+                    current_kwarg = int(current_kwarg)
+                result_dict[current_kwarg] = response.data
+        return result_dict
 
 
 def get_paged_op(op_name, refresh_token=None, **kwargs):
@@ -92,6 +117,9 @@ def get_paged_op(op_name, refresh_token=None, **kwargs):
 
     result_list = []
     for request, response in esi_client.multi_request(operations):
-        result_list.extend(response.data)
+        if isinstance(response.data, dict) and 'error' in response.data.keys():
+            raise ESIError(response.data['error'])
+        else:
+            result_list.extend(response.data)
 
     return return_list

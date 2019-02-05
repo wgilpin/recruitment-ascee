@@ -191,6 +191,28 @@ class Alliance(db.Model):
             db.session.commit()
         return alliance
 
+    @classmethod
+    def get_multi(cls, id_list):
+        existing_items = db.session.query(Alliance).filter(
+            Alliance.id.in_(id_list))
+        return_items = {item.id: item for item in existing_items}
+        missing_ids = set(id_list).difference(
+            [item.id for item in existing_items])
+        new_data_dict = get_op(
+            'get_alliances_alliance_id',
+            alliance_id=list(missing_ids)
+        )
+        for alliance_id, data in new_data_dict.items():
+            alliance = Alliance(
+                id=alliance_id,
+                name=data['name'],
+                ticker=data['ticker']
+            )
+            db.session.add(alliance)
+            return_items[alliance_id] = alliance
+        db.session.commit()
+        return return_items
+
     def is_redlisted(self):
         return self.redlisted
 
@@ -223,6 +245,35 @@ class Corporation(db.Model):
             db.session.add(corporation)
             db.session.commit()
         return corporation
+
+    @classmethod
+    def get_multi(cls, id_list):
+        existing_items = db.session.query(Corporation).filter(
+            Corporation.id.in_(id_list))
+        return_items = {item.id: item for item in existing_items}
+        missing_ids = set(id_list).difference(
+            [item.id for item in existing_items])
+        new_data_dict = get_op(
+            'get_corporations_corporation_id',
+            corporation_id=list(missing_ids)
+        )
+        alliance_ids = set()
+        for corp_data in new_data_dict.values():
+            if 'alliance_id' in corp_data:
+                alliance_ids.add(corp_data['alliance_id'])
+        alliances = Alliance.get_multi(list(alliance_ids))
+        for corporation_id, corporation_data in new_data_dict.items():
+            corporation = Corporation(
+                id=corporation_id,
+                name=corporation_data['name'],
+                ticker=corporation_data['ticker']
+            )
+            if corporation_data.get('alliance_id', None) is not None:
+                corporation.alliance_id = corporation_data['alliance_id']
+            db.session.add(corporation)
+            return_items[corporation_id] = corporation
+        db.session.commit()
+        return return_items
 
     @property
     def is_redlisted(self):
@@ -275,7 +326,8 @@ class Structure(db.Model):
 class Character(db.Model):
     __tablename__ = 'character'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("character.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
+    user = db.relationship("User", uselist=False, back_populates='characters')
     name = db.Column(db.String(100))
     corporation_id = db.Column(db.Integer, db.ForeignKey(Corporation.id))
     corporation = db.relationship(Corporation, uselist=False)
@@ -303,6 +355,30 @@ class Character(db.Model):
             db.session.add(character)
             db.session.commit()
         return character
+
+    @classmethod
+    def get_multi(cls, id_list):
+        existing_items = db.session.query(Character).filter(
+            Character.id.in_(id_list))
+        return_items = {item.id: item for item in existing_items}
+        missing_ids = set(id_list).difference(
+            [item.id for item in existing_items])
+        new_data_dict = get_op(
+            'get_characters_character_id',
+            character_id=list(missing_ids)
+        )
+        corporation_ids = set(char['corporation_id'] for char in new_data_dict.values())
+        corporations = Corporation.get_multi(list(corporation_ids))
+        for character_id, character_data in new_data_dict.items():
+            character = Character(
+                id=character_id,
+                name=character_data['name'],
+                corporation_id=character_data['corporation_id'],
+            )
+            db.session.add(character)
+            return_items[character_id] = character
+        db.session.commit()
+        return return_items
 
     def get_op(self, op_name, **kwargs):
         return get_op(op_name, refresh_token=self.refresh_token, **kwargs)

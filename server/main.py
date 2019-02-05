@@ -16,10 +16,15 @@
 # [START imports]
 import logging
 from flask_app import app
+from flask import render_template
 from models import db, init_db
+from login import login_manager
 
 app.url_map.strict_slashes = False
 
+@app.route("/app")
+def index():
+    return render_template("index.html")
 
 @app.errorhandler(500)
 def api_server_error(e):

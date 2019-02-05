@@ -23,26 +23,6 @@ login_manager.login_view = "/auth/login"
 def load_user(user_id):
     return User.get(user_id)
 
-# Decorator for admin access
-def admin_required(something):
-    @wraps(something)
-    def wrap(*args, **kwargs):
-        if current_user.is_admin or current_user.is_senior_recruiter:
-            return something(*args, **kwargs)
-        else:
-            raise ForbiddenException("Insufficient privileges")
-    return wrap
-
-# Decorator for roled access
-def roles_required(something):
-    @wraps(something)
-    def wrap(*args, **kwargs):
-        if not current_user.is_applicant:
-            return something(*args, **kwargs)
-        else:
-            raise ForbiddenException("Insufficient roles")
-    return wrap
-
 
 @app.route('/auth/login')
 def login():
@@ -95,6 +75,10 @@ def api_oauth_callback():
             'Login to Eve Online SSO failed: Session Token Mismatch')
     login_type = session_token.split(':')[0]
     character = process_oauth(code)
+    return route_login(login_type, character)
+
+
+def route_login(login_type, character):
     if login_type == 'login':
         print('char', character)
         user = User.get(character.user_id)
