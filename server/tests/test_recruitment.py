@@ -255,7 +255,7 @@ class MiscRecruitmentTests(AsceeTestCase):
         response = add_applicant_note(self.applicant.id, "Another note", current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
         notes = self.application.notes
-        self.assertEqual(len(notes), 1)
+        self.assertEqual(len(notes), 2)
 
     def test_add_applicant_note_as_senior_recruiter(self):
         response = add_applicant_note(self.applicant.id, "A note", current_user=self.recruiter)
@@ -266,7 +266,7 @@ class MiscRecruitmentTests(AsceeTestCase):
         response = add_applicant_note(self.applicant.id, "Another note", current_user=self.senior_recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
         notes = self.application.notes
-        self.assertEqual(len(notes), 1)
+        self.assertEqual(len(notes), 2)
 
     def test_add_applicant_note_as_other_recruiter(self):
         with self.assertRaises(ForbiddenException):
