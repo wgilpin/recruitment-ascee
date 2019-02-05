@@ -8,25 +8,46 @@ from exceptions import BadRequestException, ForbiddenException
 
 
 @app.route(
-    '/api/recruits/edit_notes/<int:applicant_id>', methods=['PUT'])
+    '/api/recruits/add_note/<int:applicant_id>', methods=['PUT'])
 @login_required
-def api_edit_applicant_notes(applicant_id):
+def api_add_applicant_note(applicant_id):
     """
-    Update the notes for an applicant
+    Add a note for an applicant
 
     Args:
         applicant_id (int): User key of applicant
         text (in body): The note
 
     Returns:
-        {'status': 'ok'} if note is successfully updated
+        {'status': 'ok'} if note is successfully added
 
     Error codes:
         Forbidden (403): If logged in user is not a senior recruiter or a
             recruiter who has claimed this applicant
         Bad request (400): If the given user is not an applicant
     """
-    return jsonify(edit_applicant_notes(applicant_id, text=request.form['text'], current_user=current_user))
+    return jsonify(add_applicant_note(applicant_id, text=request.form['text'], current_user=current_user))
+
+@app.route(
+    '/api/recruits/add_chat_log/<int:applicant_id>', methods=['PUT'])
+@login_required
+def api_add_applicant_chat(applicant_id):
+    """
+    Add a partial chat log for an applicant
+
+    Args:
+        applicant_id (int): User key of applicant
+        text (in body): The chat log
+
+    Returns:
+        {'status': 'ok'} if log is successfully added
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or a
+            recruiter who has claimed this applicant
+        Bad request (400): If the given user is not an applicant
+    """
+    return jsonify(add_applicant_note(applicant_id, text=request.form['text'], is_chat_log=True, current_user=current_user))
 
 
 @app.route('/api/applicant_list')
@@ -40,14 +61,18 @@ def api_get_applicant_list():
 
     Example:
         response = {
-            'info': [
-                {
+            'info': {
+                '1937622137': {
                     'user_id': 1937622137,  # int character ID of user's main
                     'recruiter_id': 201837771,  # int character ID of recruiter's main
                     'recruiter_name': 'Recruiter Ralph',  # string name of recruiter
-                    'status': 'new',  # one of 'new', 'escalated', 'accepted', 'rejected'
+                    'is_escalated': False,
+                    'is_submitted': False,
+                    'is_concluded': False,
+                    'is_accepted': False,
+                    'is_invited': False,
                 },
-                {
+                '876876876': {
                     [...]
                 }
             ]
@@ -208,13 +233,18 @@ def get_answers(user_id, current_user=None):
     return response
 
 
-def add_applicant_note(applicant_user_id, text, current_user=None):
-    applicant = User.get(applicant_user_id)
-    if applicant is None:
+def add_applicant_note(applicant_user_id, text, is_chat_log=False, current_user=None):
+    application = Application.query.filter_by(user_id=applicant_user_id).one_or_none()
+    print('APP', application)
+    if application is None:
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
-        applicant.notes.append(Note(text=text, author_id=current_user))
+        application.notes.append(Note(
+            text=text,
+            application_id=applicant_user_id,
+            is_chat_log=is_chat_log
+        ))
         db.session.commit()
         return {'status': 'ok'}
 
@@ -222,53 +252,56 @@ def add_applicant_note(applicant_user_id, text, current_user=None):
 def get_character_search_list(search_text):
     # list of all chars with name beggining with search_text
     result = {}
-    for character in Character.query().\
-            where(Character.name >= search_text).\
-            and_where(Character.name < search_text + u'\ufffd').\
-            run():
-        id = character.get_id()
-        result[id] = {
-            'user_id': id,
+    for character in Character.query.\
+            filter(Character.name.ilike(f'%{search_text}%')):
+        result[character.id] = {
+            'user_id': character.id,
             'name': character.name,
         }
     return result
 
 
 def get_applicant_list(current_user=None):
-    current_user_id = current_user.get_id()
-    return_list = []
-    for applicant in db.session.Query(Application).filter(not Application.is_concluded).all():
-        applicant_id = applicant.id
+    result = {}
+    for application in Application.query.filter(Application.is_concluded==False).all():
+        applicant_id = application.user_id
+        recruiter = User.get(application.recruiter_id) if application.recruiter_id else None
         recruiter_name = \
-            Character.get(applicant.recruiter_id).name if applicant.recruiter_id else None
+            recruiter.name if application.recruiter_id else None
         applicant_name = \
             Character.get(applicant_id).name if applicant_id else None
 
-        # everyone sees new applicants
-        applicant_visible = applicant.status == 'new'
+        if application.is_concluded:
+            continue
 
-        # recruiters see their own
-        if applicant.recruiter_id == current_user_id:
-            applicant_visible = True
+        application.status = 'new'
+        if application.is_escalated:
+            application.status = 'escalated'
 
+        applicant_visible = False
         # senior recruiters see all
-        if current_user.is_senior_recruiter:
+        if is_senior_recruiter(current_user) or is_admin(current_user):
             applicant_visible = True
-
-        # admins see all
-        if current_user.is_admin:
-            applicant_visible = True
+        elif is_recruiter(current_user):
+            if application.recruiter_id == current_user.id:
+                applicant_visible = True
+            else:
+                applicant_visible = application.status == 'new'
 
         if applicant_visible:
-            return_list.append({
+            result[applicant_id]= {
                 'user_id': applicant_id,
-                'recruiter_id': applicant.recruiter_id,
+                'recruiter_id': application.recruiter_id,
                 'recruiter_name': recruiter_name,
-                'status': applicant.status,
+                'is_escalated': application.is_escalated,
+                'is_submitted': application.is_submitted,
+                'is_concluded': application.is_concluded,
+                'is_accepted': application.is_accepted,
+                'is_invited': application.is_invited,
                 'name': applicant_name,
-            })
+            }
 
-    return {'info': return_list}
+    return {'info': result}
 
 
 def get_applicant_notes(applicant_user_id, current_user=None):
