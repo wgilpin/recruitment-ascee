@@ -15,6 +15,10 @@ class Application(db.Model):
     answers = db.relationship("Answer", uselist=True, back_populates="application")
     notes = db.relationship("Note", uselist=True, back_populates="application")
 
+    @classmethod
+    def get_for_user(cls, user_id):
+        return  db.session.query(cls).filter_by(user_id=user_id).first()
+
 
 class Question(db.Model):
     __tablename__ = 'question'

@@ -1,8 +1,9 @@
 from flask_app import app
 from flask_login import login_required, current_user
 from flask import jsonify
-from security import ensure_has_access
-from models import User, Character
+from security import ensure_has_access, is_recruiter
+from models import User, Character, Application
+from models.database import db
 
 
 @app.route(
@@ -93,36 +94,42 @@ def api_reject_applicant(applicant_id):
 
 
 
-def recruiter_claim_applicant(recruiter_user_id, applicant_user_id):
+def claim_applicant(recruiter_user_id, applicant_user_id):
     recruiter = User.get(recruiter_user_id)
-    if not recruiter.is_recruiter:
+    if not is_recruiter(recruiter):
         recruiter_name = Character.get(recruiter_user_id).name
         return {'error': 'User {} is not a recruiter'.format(recruiter_name)}
     applicant = User.get(applicant_user_id)
     if applicant is None:
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
-    applicant.recruiter_id = recruiter_user_id
+    application = Application.get_for_user(applicant_user_id)
+    application.recruiter_id = recruiter_user_id
+    application.is_escalated = False
+    application.is_concluded = False
+    application.is_accepted = False
+    application.is_invited = False
     db.session.commit()
     return {'status': 'ok'}
 
 
-def recruiter_release_applicant(recruiter_user_id, applicant_user_id):
+def release_applicant(recruiter_user_id, applicant_user_id):
     recruiter = User.get(recruiter_user_id)
     applicant = User.get(applicant_user_id)
-    if not recruiter.is_recruiter:
+    if not is_recruiter(recruiter):
         recruiter_name = Character.get(recruiter_user_id).name
         return {'error': 'User {} is not a recruiter'.format(recruiter_name)}
     elif applicant is None:
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
-    elif applicant.recruiter_id != recruiter_user_id:
+    application = Application.get_for_user(applicant_user_id)
+    if application.recruiter_id != recruiter_user_id:
         applicant_name = Character.get(applicant_user_id).name
         recruiter_name = Character.get(recruiter_user_id).name
         return {'error': 'Recruiter {} is not recruiter for applicant {}'.format(
             recruiter_name, applicant_name)}
     else:
-        applicant.recruiter_id = None
+        application.recruiter_id = None
         db.session.commit()
         return {'status': 'ok'}
 
@@ -132,10 +139,10 @@ def escalate_applicant(applicant_user_id):
     if applicant is None:
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
-    else:
-        applicant.status = 'escalated'
-        db.session.commit()
-        return {'new_applicant_status': applicant.status}
+    application = Application.get_for_user(applicant_user_id)
+    application.is_escalated = True
+    db.session.commit()
+    return {'status': 'ok'}
 
 
 def reject_applicant(applicant_user_id):
@@ -143,7 +150,8 @@ def reject_applicant(applicant_user_id):
     if applicant is None:
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
-    else:
-        applicant.status = 'rejected'
-        db.session.commit()
-        return {'status': 'ok'}
+    application = Application.get_for_user(applicant_user_id)
+    application.is_concluded = True
+    application.is_accepted = False
+    db.session.commit()
+    return {'status': 'ok'}
