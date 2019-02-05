@@ -7,7 +7,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from recruitment import (
     get_questions, get_answers, get_user_characters, get_users, get_user_application,\
-    edit_applicant_notes, get_character_search_list)
+    add_applicant_note, get_character_search_list)
 from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
 from flask_app import app
@@ -205,12 +205,15 @@ class MiscRecruitmentTests(AsceeTestCase):
         response = get_user_application(self.applicant.id)
         self.assertEqual(response.user_id, self.applicant.id)
 
-    def test_edit_applicant_notes(self):
-        response = edit_applicant_notes(self.applicant.id, "A note", current_user=self.recruiter)
+    def test_add_applicant_note(self):
+        response = add_applicant_note(self.applicant.id, "A note", current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
+        notes = User.get(self.applicant.id).notes
+        self.assertEqual(len(notes), 1)
+        self.assertEqual(notes[0].text, "A note")
 
     def test_edit_not_an_applicant_notes(self):
-        response = edit_applicant_notes(
+        response = add_applicant_note(
             self.not_applicant.id,
             "A note",
             current_user=self.recruiter
@@ -219,7 +222,8 @@ class MiscRecruitmentTests(AsceeTestCase):
 
     def test_get_character_search_list(self):
         response = get_character_search_list('Kovacs')
-        print(response)
+        self.assertIn(self.not_applicant.id, response)
+        self.assertEqual(response[self.not_applicant.id].name, self.not_applicant.name)
 
     def test_get_users_as_admin(self):
         response = get_users(current_user=self.admin)
