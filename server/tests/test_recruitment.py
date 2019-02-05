@@ -262,6 +262,25 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.assertIn(self.not_applicant.id, response)
         self.assertEqual(response[self.not_applicant.id]['name'], self.not_applicant.name)
 
+    def test_get_character_search_empty(self):
+        response = get_character_search_list('')
+        self.assertEqual(len(response), 0)
+
+    def test_get_character_search_long(self):
+        response = get_character_search_list('dslkjdh aiudhaso iduhas liduhas lidu gasoidug '+\
+            'asdliudfg asiduyg alsiudg alsidughas liduha liduh asliduhas liduh asliduhas ilduhas '+\
+            'asdliudfg asiduyg alsiudg alsidughas liduha liduh asliduhas liduh asliduhas ilduhas '+\
+            'asdliudfg asiduyg alsiudg alsidughas liduha liduh asliduhas liduh asliduhas ilduhas '+\
+            'asdliudfg asiduyg alsiudg alsidughas liduha liduh asliduhas liduh asliduhas ilduhas '+\
+            'asdliudfg asiduyg alsiudg alsidughas liduha liduh asliduhas liduh asliduhas ilduhas '+\
+            'asdliudfg asiduyg alsiudg alsidughas liduha liduh asliduhas liduh asliduhas ilduhas '+\
+                'liduhas liudh laisudha lisudh  iuyg iuytf dutrd cjuygfOIUYT FIYTf iuky')
+        self.assertEqual(len(response), 0)
+
+    def test_get_character_search_unicode(self):
+        response = get_character_search_list('\u0495\u7463\u0004')
+        self.assertEqual(len(response), 0)
+
     def test_get_users_as_admin(self):
         response = get_users(current_user=self.admin)
         assert 'info' in response

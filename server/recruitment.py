@@ -252,6 +252,8 @@ def add_applicant_note(applicant_user_id, text, is_chat_log=False, current_user=
 def get_character_search_list(search_text):
     # list of all chars with name beggining with search_text
     result = {}
+    if len(search_text) == 0:
+        return result
     for character in Character.query.\
             filter(Character.name.ilike(f'%{search_text}%')):
         result[character.id] = {
