@@ -1,4 +1,4 @@
-import sys
+ximport sys
 import os
 from config import server_dir
 sys.path.insert(1, server_dir)
