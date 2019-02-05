@@ -25,7 +25,7 @@ def api_claim_applicant(applicant_id):
         Bad Request (400): If applicant_id is not an unclaimed applicant
     """
     # TODO: be sure to check that the applicant is in fact an unclaimed applicant
-    return jsonify(recruiter_claim_applicant(current_user.get_id(), applicant_id))
+    return jsonify(claim_applicant(applicant_id, current_user=current_user))
 
 
 @app.route(
@@ -47,8 +47,7 @@ def api_release_applicant(applicant_id):
         Bad Request (400): If applicant_id
             is not an applicant claimed by the recruiter
     """
-    ensure_has_access(current_user.get_id(), applicant_id)
-    return recruiter_release_applicant(current_user.get_id(), applicant_id)
+    return jsonify(release_applicant(applicant_id, current_user=current_user))
 
 
 @app.route(
@@ -69,8 +68,7 @@ def api_escalate_applicant(applicant_id):
             recruiter who has claimed this applicant
         Bad request (400): If the given user is not an applicant with "new" status
     """
-    ensure_has_access(current_user.get_id(), applicant_id)
-    return jsonify(escalate_applicant(applicant_id))
+    return jsonify(escalate_applicant(applicant_id, current_user=current_user))
 
 
 @app.route('/api/recruits/reject/<int:applicant_id>', methods=['GET'])
@@ -89,22 +87,18 @@ def api_reject_applicant(applicant_id):
             recruiter who has claimed this applicant
         Bad request (400): If the given user is not an applicant
     """
-    ensure_has_access(current_user.get_id(), applicant_id)
-    return jsonify(reject_applicant(applicant_id))
+    return jsonify(reject_applicant(applicant_id, current_user=current_user))
 
 
-
-def claim_applicant(recruiter_user_id, applicant_user_id):
-    recruiter = User.get(recruiter_user_id)
+def claim_applicant(applicant_user_id, current_user=current_user):
+    recruiter = current_user
     if not is_recruiter(recruiter):
-        recruiter_name = Character.get(recruiter_user_id).name
-        return {'error': 'User {} is not a recruiter'.format(recruiter_name)}
+        return {'error': 'User {} is not a recruiter'.format(recruiter.name)}
     applicant = User.get(applicant_user_id)
     if applicant is None:
-        applicant_name = Character.get(applicant_user_id).name
-        return {'error': 'User {} is not an applicant'.format(applicant_name)}
+        return {'error': 'User {} is not an applicant'.format(applicant.name)}
     application = Application.get_for_user(applicant_user_id)
-    application.recruiter_id = recruiter_user_id
+    application.recruiter_id = recruiter.id
     application.is_escalated = False
     application.is_concluded = False
     application.is_accepted = False
@@ -113,28 +107,24 @@ def claim_applicant(recruiter_user_id, applicant_user_id):
     return {'status': 'ok'}
 
 
-def release_applicant(recruiter_user_id, applicant_user_id):
-    recruiter = User.get(recruiter_user_id)
+def release_applicant(applicant_user_id, current_user=current_user):
+    recruiter = current_user
     applicant = User.get(applicant_user_id)
     if not is_recruiter(recruiter):
-        recruiter_name = Character.get(recruiter_user_id).name
-        return {'error': 'User {} is not a recruiter'.format(recruiter_name)}
+        return {'error': 'User {} is not a recruiter'.format(recruiter.name)}
     elif applicant is None:
-        applicant_name = Character.get(applicant_user_id).name
-        return {'error': 'User {} is not an applicant'.format(applicant_name)}
+        return {'error': 'User {} is not an applicant'.format(applicant.name)}
     application = Application.get_for_user(applicant_user_id)
-    if application.recruiter_id != recruiter_user_id:
-        applicant_name = Character.get(applicant_user_id).name
-        recruiter_name = Character.get(recruiter_user_id).name
+    if application.recruiter_id != recruiter.id:
         return {'error': 'Recruiter {} is not recruiter for applicant {}'.format(
-            recruiter_name, applicant_name)}
+            recruiter.name, applicant.name)}
     else:
         application.recruiter_id = None
         db.session.commit()
         return {'status': 'ok'}
 
 
-def escalate_applicant(applicant_user_id):
+def escalate_applicant(applicant_user_id, current_user=current_user):
     applicant = User.get(applicant_user_id)
     if applicant is None:
         applicant_name = Character.get(applicant_user_id).name
@@ -145,7 +135,7 @@ def escalate_applicant(applicant_user_id):
     return {'status': 'ok'}
 
 
-def reject_applicant(applicant_user_id):
+def reject_applicant(applicant_user_id, current_user=current_user):
     applicant = User.get(applicant_user_id)
     if applicant is None:
         applicant_name = Character.get(applicant_user_id).name

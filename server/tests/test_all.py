@@ -10,6 +10,7 @@ from models import db
 from test_recruitment import *
 from test_character_data import *
 from test_security import *
+from test_status import *
 
 
 if __name__ == '__main__':
