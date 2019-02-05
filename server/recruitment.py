@@ -206,7 +206,7 @@ def get_user_application(user_id):
         Application.user_id == user_id
     ).filter(
         db.not_(Application.is_concluded)
-    ).one()
+    ).first()
     return application
 
 

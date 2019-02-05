@@ -205,12 +205,12 @@ class MiscRecruitmentTests(AsceeTestCase):
 
     def test_get_applicant_list_as_recruiter(self):
         response = get_applicant_list(current_user=self.recruiter)
-        self.assertIn('info', response)
-        self.assertEqual(len(response['info']), 1)
+        self.applicant_list_helper(response)
 
     def applicant_list_helper(self, response):
         response = get_applicant_list(current_user=User.get(self.recruiter.id))
         self.assertIn('info', response)
+        self.assertEqual(len(response['info']), 1)
         self.assertIn(self.applicant.id, response['info'])
         record = response['info'][self.applicant.id]
         self.assertEqual(record['user_id'], self.applicant.id)
@@ -232,30 +232,81 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.applicant_list_helper(response)
 
     def test_get_applicant_list_as_applicant(self):
-        response = get_applicant_list(current_user=User.get(self.applicant.id))
-        self.assertIn('info', response)
-        self.assertEqual(len(response['info']), 0)
+        with self.assertRaises(ForbiddenException):
+            get_applicant_list(current_user=self.applicant)
 
     # end of applicant list
 
     def test_get_user_application(self):
-        response = get_user_application(self.applicant.id)
-        self.assertEqual(response.user_id, self.applicant.id)
+        result = get_user_application(self.applicant.id)
+        self.assertEqual(result.user_id, self.applicant.id)
+        self.assertEqual(result, self.application)
+
+    def test_get_user_application_on_non_applicant(self):
+        result = get_user_application(self.not_applicant.id)
+        self.assertEqual(result, None)
 
     def test_add_applicant_note(self):
         response = add_applicant_note(self.applicant.id, "A note", current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
-        notes = Application.query.filter_by(user_id=self.applicant.id).one().notes
+        notes = self.application.notes
         self.assertEqual(len(notes), 1)
         self.assertEqual(notes[0].text, "A note")
+        response = add_applicant_note(self.applicant.id, "Another note", current_user=self.recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        notes = self.application.notes
+        self.assertEqual(len(notes), 1)
 
-    def test_edit_not_an_applicant_notes(self):
-        response = add_applicant_note(
-            self.not_applicant.id,
-            "A note",
-            current_user=self.recruiter
-        )
-        self.assertIn('error', response)
+    def test_add_applicant_note_as_senior_recruiter(self):
+        response = add_applicant_note(self.applicant.id, "A note", current_user=self.recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        notes = self.application.notes
+        self.assertEqual(len(notes), 1)
+        self.assertEqual(notes[0].text, "A note")
+        response = add_applicant_note(self.applicant.id, "Another note", current_user=self.senior_recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        notes = self.application.notes
+        self.assertEqual(len(notes), 1)
+
+    def test_add_applicant_note_as_other_recruiter(self):
+        with self.assertRaises(ForbiddenException):
+            add_applicant_note(
+                self.applicant.id, "A note", current_user=self.other_recruiter.user
+            )
+
+    def test_add_applicant_note_as_admin(self):
+        with self.assertRaises(ForbiddenException):
+            add_applicant_note(
+                self.applicant.id, "A note", current_user=self.admin.user
+            )
+
+    def test_add_applicant_note_as_applicant(self):
+        with self.assertRaises(ForbiddenException):
+            add_applicant_note(
+                self.applicant.id, "A note", current_user=self.applicant
+            )
+
+    def test_add_applicant_note_non_recruiter(self):
+        with self.assertRaises(ForbiddenException):
+            add_applicant_note(
+                self.applicant.id, "A note", current_user=self.not_applicant
+            )
+
+    def test_add_not_an_applicant_note(self):
+        with self.assertRaises(BadRequestException):
+            add_applicant_note(
+                self.not_applicant.id,
+                "A note",
+                current_user=self.recruiter
+            )
+
+    def test_add_not_an_applicant_note_as_senior_recruiter(self):
+        with self.assertRaises(BadRequestException):
+            add_applicant_note(
+                self.not_applicant.id,
+                "A note",
+                current_user=self.senior_recruiter
+            )
 
     def test_get_character_search_list(self):
         response = get_character_search_list('Kovacs')
