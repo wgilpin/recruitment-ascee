@@ -93,7 +93,6 @@ class SimpleCharTests(AsceeTestCase):
     def helper_simple_APIs(self, response, api_def):
         self.assertIn('info', response)
         for key, entry in response['info'].items():
-            print('XXXXXXXX', api_def['required'])
             for property_name, property_type in api_def['required'].items():
                 self.assertIn(property_name, entry)
                 self.assertIsInstance(entry[property_name], property_type)
