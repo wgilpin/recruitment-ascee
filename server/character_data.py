@@ -595,6 +595,7 @@ def get_mail_body(character_id, mail_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_history(character_id, current_user=None):
     character = Character.get(character_id)
+    application_access_check(current_user, character)
     order_list = character.get_op(
         'get_characters_character_id_orders',
         character_id=character_id,
@@ -665,6 +666,7 @@ def organize_assets_by_location(character, asset_list):
     for item_id, entry in asset_dict.items():
         if item_id in location_dict:
             entry['items'] = location_dict[item_id]['items']
+
 
     systems_dict = {}
     for location_id in location_dict:
