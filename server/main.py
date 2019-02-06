@@ -20,18 +20,28 @@ from flask import render_template, send_from_directory
 from models import db, init_db
 from login import login_manager
 import os
+import recruitment
 
 app.url_map.strict_slashes = False
 
 # Serve React App
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve(path):
+@app.route('/')
+def serve():
+    return send_from_directory('public', 'index.html')
+
+@app.route('/app', defaults={'path': ''})
+@app.route('/app/<path:path>')
+def serve_root(path):
+    print(path)
     if path != "" and os.path.exists("public/" + path):
         return send_from_directory('public', path)
     else:
         return send_from_directory('public', 'index.html')
 
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    root_dir = os.path.dirname(os.getcwd())
+    return send_from_directory(os.path.join(root_dir, 'static', 'js'), filename)
 
 @app.errorhandler(500)
 def api_server_error(e):

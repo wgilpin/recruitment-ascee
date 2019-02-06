@@ -50,7 +50,7 @@ def api_add_applicant_chat(applicant_id):
     return jsonify(add_applicant_note(applicant_id, text=request.form['text'], is_chat_log=True, current_user=current_user))
 
 
-@app.route('/api/applicant_list')
+@app.route('/api/applicant_list/')
 @login_required
 def api_get_applicant_list():
     """
@@ -85,7 +85,7 @@ def api_get_applicant_list():
 
 
 
-@app.route('/api/user/characters')
+@app.route('/api/user/characters/')
 @app.route('/api/user/characters/<int:user_id>')
 @login_required
 def api_get_user_characters(user_id=None):
@@ -122,7 +122,7 @@ def api_get_user_characters(user_id=None):
     return jsonify(get_user_characters(user_id, current_user=current_user))
 
 
-@app.route('/api/questions')
+@app.route('/api/questions/')
 def api_questions():
     """
     Get questions asked to applicants.
@@ -134,7 +134,7 @@ def api_questions():
     return jsonify(get_questions(current_user=current_user))
 
 
-@app.route('/api/answers')
+@app.route('/api/answers/')
 @app.route('/api/answers/<int:user_id>')
 @login_required
 def api_user_answers(user_id=None):
@@ -156,7 +156,7 @@ def api_user_answers(user_id=None):
     return jsonify(get_answers(user_id, current_user=current_user))
 
 
-@app.route('/api/admin/users')
+@app.route('/api/admin/users/')
 @login_required
 def api_users():
     """

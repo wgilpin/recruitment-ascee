@@ -3,7 +3,7 @@
 client_id = 'd42741ceaf7140049db95ec65dda5742'
 secret_key = 'XkkgTu89W1diw2OjrwGlav5T2koud7TPQoePbjoE'
 app_url = 'http://localhost:8080/'
-react_app_url = app_url
+react_app_url = app_url + 'app'
 applicant_url = react_app_url + '/apply'
 recruiter_url = react_app_url + '/recruiter'
 admin_url = react_app_url + '/admin'
