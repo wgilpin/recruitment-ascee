@@ -660,7 +660,6 @@ def organize_assets_by_location(character, asset_list):
         if item_id in location_dict:
             entry['items'] = location_dict[item_id]['items']
 
-
     systems_dict = {}
     for location_id in location_dict:
         location = get_location(character, location_id)
