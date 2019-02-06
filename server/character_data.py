@@ -623,6 +623,7 @@ def get_character_market_history(character_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_skills(character_id, current_user=None):
     character = Character.get(character_id)
+    application_access_check(current_user, character)
     skill_data = character.get_op(
         'get_characters_character_id_skills',
         character_id=character_id,
