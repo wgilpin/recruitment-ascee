@@ -17,7 +17,7 @@ class Application(db.Model):
 
     @classmethod
     def get_for_user(cls, user_id):
-        return db.session.query(cls).filter_by(user_id=user_id).first()
+        return db.session.query(cls).filter_by(user_id=user_id, is_concluded=False).first()
 
 
 class Question(db.Model):

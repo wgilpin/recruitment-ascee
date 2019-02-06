@@ -202,12 +202,7 @@ def get_questions(current_user=None):
 
 
 def get_user_application(user_id):
-    application = db.session.query(Application).filter(
-        Application.user_id == user_id
-    ).filter(
-        db.not_(Application.is_concluded)
-    ).first()
-    return application
+    return Application.get_for_user(user_id)
 
 
 def get_answers(user_id, current_user=None):

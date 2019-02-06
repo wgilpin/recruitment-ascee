@@ -333,6 +333,7 @@ class Character(db.Model):
     corporation = db.relationship(Corporation, uselist=False)
     refresh_token = db.Column(db.Text, nullable=True)
     redlisted = db.Column(db.Boolean, default=False)
+    blocked_from_applying = db.Column(db.Boolean, default=False)
 
     def __init__(self, *args, **kwargs):
         super(Character, self).__init__(*args, **kwargs)
