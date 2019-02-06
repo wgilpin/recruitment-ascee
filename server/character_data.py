@@ -8,6 +8,7 @@ from flask_login import login_required, current_user
 from flask_app import app
 from security import is_applicant_character_id, has_applicant_access
 from exceptions import ForbiddenException, BadRequestException
+from esi import ESIError
 import cachetools
 from collections import namedtuple
 
@@ -383,6 +384,7 @@ def get_character_wallet(character_id, current_user=None):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_contacts(character_id, current_user=None):
+    contacts_dict = {}
     character = Character.get(character_id)
     application_access_check(current_user, character)
     contacts_list = character.get_paged_op(
@@ -391,17 +393,41 @@ def get_character_contacts(character_id, current_user=None):
     )
     contacts_dict = {entry['contact_id']: entry for entry in contacts_list}
     for contact_id, entry in contacts_dict.items():
-        contact = Character.get(contact_id)
-        entry['name'] = contact.name
-        entry['corporation_id'] = contact.corporation_id
-        corporation = Corporation.get(contact.corporation_id)
-        entry['corporation_name'] = corporation.name
-        if corporation.alliance_id:
-            entry['alliance_id'] = corporation.alliance_id
-            entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
-        if contact.is_redlisted:
-            entry['redlisted'] = True
-    return contacts_dict
+        try:
+            contact = Character.get(contact_id)
+            entry['name'] = contact.name
+            entry['corporation_id'] = contact.corporation_id
+            corporation = Corporation.get(contact.corporation_id)
+            entry['corporation_name'] = corporation.name
+            if corporation.alliance_id:
+                entry['alliance_id'] = corporation.alliance_id
+                entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
+            if contact.is_redlisted:
+                entry['redlisted'] = True
+        except ESIError as E:
+            # try corp
+            try:
+                corporation = Corporation.get(contact_id)
+                entry['name'] = corporation.name
+                entry['corporation_id'] = contact_id
+                entry['corporation_name'] = corporation.name
+                if corporation.alliance_id:
+                    entry['alliance_id'] = corporation.alliance_id
+                    entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
+                if corporation.is_redlisted:
+                    entry['redlisted'] = True
+            except ESIError as E:
+                # try alliance
+                try:
+                    alliance = Alliance.get(contact_id)
+                    entry['name'] = alliance.name
+                    entry['alliance_id'] = contact_id
+                    entry['alliance_name'] = alliance.name
+                    if alliance.is_redlisted:
+                        entry['redlisted'] = True
+                except ESIError as E:
+                    raise E
+    return {'info': contacts_dict }
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))

@@ -20,10 +20,10 @@ class SimpleCharTests(AsceeTestCase):
             'fetch_function': 'get_character_contacts',
             'required': {
                 'name': str,
-                'corporation_id': int,
-                'corporation_name': str,
             },
             'optional': {
+                'corporation_id': int,
+                'corporation_name': str,
                 'alliance_id': int,
                 'alliance_name': str,
                 'redlisted': bool
@@ -90,16 +90,25 @@ class SimpleCharTests(AsceeTestCase):
         }
     }
 
-    def helper_simple_APIs(self, response, api_def):
-        self.assertIn('info', response)
-        for key, entry in response['info'].items():
-            for property_name, property_type in api_def['required'].items():
+    def helper_list_or_dict_item(self, entry, api_def):
+        for property_name, property_type in api_def['required'].items():
+            self.assertIn(property_name, entry)
+            self.assertIsInstance(entry[property_name], property_type)
+        for property_name, property_type in api_def['optional'].items():
+            if property_name in entry:
                 self.assertIn(property_name, entry)
                 self.assertIsInstance(entry[property_name], property_type)
-            for property_name, property_type in api_def['optional'].items():
-                if property_name in entry:
-                    self.assertIn(property_name, entry)
-                    self.assertIsInstance(entry[property_name], property_type)
+
+
+    def helper_simple_APIs(self, response, api_def):
+        self.assertIn('info', response)
+        if isinstance(response['info'], dict):
+            for key, entry in response['info'].items():
+                self.helper_list_or_dict_item(entry, api_def)
+        elif isinstance(response['info'], list):
+            for entry in response['info']:
+                self.helper_list_or_dict_item(entry, api_def)
+
 
     def run_tests_simple_APIs(self, test_name, subject, current_user, exception=None):
         for api_name in self.test_definitions:
