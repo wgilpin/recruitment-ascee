@@ -499,7 +499,7 @@ def get_character_bookmarks(character_id, current_user=None):
     for bookmark_id, entry in bookmarks_dict.items():
         if 'folder_id' in entry.keys():
             entry['folder_name'] = character.get_op(
-                'get_characters_character_id_bookmarks_folder',
+                'get_characters_character_id_bookmarks_folders',
                 character_id=character_id,
                 folder_id=entry['folder_id']
             )['name']
