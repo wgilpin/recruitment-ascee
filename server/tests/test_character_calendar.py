@@ -9,6 +9,7 @@ from character_data import get_character_calendar
 from models import Character, User, Question, Answer, db
 from base import AsceeTestCase
 from flask_app import app
+from datetime import datetime
 from exceptions import BadRequestException, ForbiddenException
 import warnings
 
@@ -49,7 +50,7 @@ class CalendarTests(AsceeTestCase):
                 self.assertIn(prop_name, calendar_attributes)
                 self.assertIsInstance(event[prop_name], calendar_attributes[prop_name])
             self.assertIn('event_date', event)
-            event_date = Date(event['event_date'])
+            event_date = datetime.strptime(event['event_date'])
             self.assertIn('event_id', event)
             self.assertIn('event_response', event)
             self.assertIn('importance', event)
@@ -57,7 +58,7 @@ class CalendarTests(AsceeTestCase):
             if 'owner_type' in event:
                 self.assertIn(event['owner_type'], ['character', 'corporation', 'eve_server'])
             if 'attendees' in event:
-                for attendee in attendees:
+                for attendee in event['attendees']:
                     self.assertIsInstance(attendee['name'], str)
                     self.assertGreater(len(attendee['name']), 0)
                     self.assertIsInstance(attendee['attendee_id'], int)
