@@ -87,7 +87,7 @@ def route_login(login_type, character):
         user = User.get(character.user_id)
         login_user(user)
         if not (is_recruiter(user) or is_admin(user)):
-            if Application.get_for_user(user) is None:
+            if Application.get_for_user(user.id) is None:
                 if character.blocked_from_applying:
                     logout_user()
                     return redirect(app_url)
