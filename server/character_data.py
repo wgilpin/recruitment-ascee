@@ -9,6 +9,7 @@ from flask_app import app
 from security import is_applicant_character_id, has_applicant_access
 from exceptions import ForbiddenException, BadRequestException
 import cachetools
+from collections import namedtuple
 
 
 SECONDS_TO_CACHE = 10 * 60
@@ -307,9 +308,12 @@ def api_mail_body(character_id, mail_id):
 
 def get_location(character, location_id):
     if 60000000 <= location_id < 64000000:  # station
-        return Station.get(location_id)
+        station =  Station.get(location_id)
     elif location_id > 50000000:  # structure
         return Structure.get(character, location_id)
+    elif 30000000 < location_id < 32000000:  # system
+        system = System.get(location_id)
+        return namedtuple('Location', ['system_id', 'name']) (location_id, system.name)
     else:
         raise ValueError(
             'location_id {} does not correspond to station'
@@ -495,14 +499,17 @@ def get_character_bookmarks(character_id, current_user=None):
         'get_characters_character_id_bookmarks',
         character_id=character_id,
     )
+    folder_list = character.get_paged_op(
+                'get_characters_character_id_bookmarks_folders',
+                character_id=character_id)
+    folders = { folder['folder_id']: folder['name'] for folder in folder_list }
     bookmarks_dict = {entry['bookmark_id']: entry for entry in bookmarks_list}
     for bookmark_id, entry in bookmarks_dict.items():
         if 'folder_id' in entry.keys():
-            entry['folder_name'] = character.get_op(
-                'get_characters_character_id_bookmarks_folders',
-                character_id=character_id,
-                folder_id=entry['folder_id']
-            )['name']
+            if entry['folder_id'] in folders:
+                entry['folder_name'] = folders[entry['folder_id']]
+            else:
+                entry['folder_name'] = 'Personal Locations'
         location = get_location(character, entry['location_id'])
         system = System.get(location.system_id)
         entry['system_id'] = location.system_id
