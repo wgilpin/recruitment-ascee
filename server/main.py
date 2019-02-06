@@ -16,15 +16,22 @@
 # [START imports]
 import logging
 from flask_app import app
-from flask import render_template
+from flask import render_template, send_from_directory
 from models import db, init_db
 from login import login_manager
+import os
 
 app.url_map.strict_slashes = False
 
-@app.route("/app")
-def index():
-    return render_template("index.html")
+# Serve React App
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    if path != "" and os.path.exists("public/" + path):
+        return send_from_directory('public', path)
+    else:
+        return send_from_directory('public', 'index.html')
+
 
 @app.errorhandler(500)
 def api_server_error(e):

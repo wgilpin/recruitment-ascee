@@ -2,6 +2,9 @@ import React, { Component, setGlobal } from 'reactn';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import MainMenu from './MainMenu';
+import Applicant from './Applicant/Applicant';
+import Recruiter from './recruiter/Recruiter';
+import Admin from './admin/Admin';
 
 // Set an initial global state directly:
 setGlobal({
@@ -21,11 +24,13 @@ class App extends Component {
   }
 
   render() {
-    const showing = this.props;
     return (
-      <Router basename="app">
+      <Router>
         <div className="App">
-          <Route path="/" component={MainMenu} />
+          <Route path="/" exact component={MainMenu} />
+          <Route path="/apply" component={Applicant} />
+          <Route path="/recruiter" component={Recruiter} />
+          <Route path="/admin" component={Admin} />
         </div >
       </Router>
     );
