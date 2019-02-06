@@ -466,27 +466,33 @@ def get_character_market_contracts(character_id, current_user=None):
     )
     # issuer_corporation, acceptor, issuer, end_location, start_location
     for entry in contract_list:
-        entry['items'] = get_op(
+        entry['items'] = character.get_op(
             'get_characters_character_id_contracts_contract_id_items',
             character_id=character_id,
             contract_id=entry['contract_id'],
         )
-        entry['issuer_corporation_name'] = Corporation.get(entry['corporation_id']).name
+        entry['issuer_corporation_name'] = Corporation.get(entry['issuer_corporation_id']).name
         issuer = Character.get(entry['issuer_id'])
         acceptor = Character.get(entry['acceptor_id'])
         entry['issuer_name'] = issuer.name
         entry['acceptor_name'] = acceptor.name
         if 'start_location_id' in entry:
             start_location = get_location(character, entry['start_location_id'])
-            entry['start_location_name'] = start_location.name
-            if start_location.is_redlisted:
-                entry['redlisted'] = True
+            if start_location is None:
+                entry['start_location_name'] = 'Unknown Structure {}'.format(entry['start_location_id'])
+            else:
+                entry['start_location_name'] = start_location.name
+                if start_location.is_redlisted:
+                    entry['redlisted'] = True
         if 'end_location_id' in entry:
             end_location = get_location(character, entry['end_location_id'])
-            entry['end_location_name'] = end_location.name
-            if end_location.is_redlisted:
-                entry['redlisted'] = True
-        if entry['redlisted']:
+            if end_location is None:
+                entry['end_location_name'] = 'Unknown Structure {}'.format(entry['start_location_id'])
+            else:
+                entry['end_location_name'] = end_location.name
+                if end_location.is_redlisted:
+                    entry['redlisted'] = True
+        if entry.get('redlisted', False):
             pass
         elif issuer.is_redlisted or acceptor.is_redlisted:
             entry['redlisted'] = True
@@ -631,19 +637,25 @@ def get_character_market_history(character_id, current_user=None):
         character_id=character_id,
     ))
     for order in order_list:
+        if 'is_buy_order' not in order:  # always present if True
+            order['is_buy_order'] = False
         if order['is_buy_order']:
             order['price'] *= -1
         order['value'] = order['price'] * order['volume_total']
-        location = get_location(order['location_id'])
-        system = System.get(location.system_id)
-        region = Region.get(system.region_id)
+        location = get_location(character, order['location_id'])
+        if location is None:
+            order['location_name'] = 'Unknown Structure {}'.format(order['location_id'])
+            order['region_name'] = 'Unknown Region'
+        else:
+            system = System.get(location.system_id)
+            region = Region.get(system.region_id)
+            order['location_name'] = location.name
+            order['region_name'] = region.name
         type = Type.get(order['type_id'])
-        order['location_name'] = location.name
-        order['region_name'] = region.name
         order['type_name'] = type.name
-        if location.is_redlisted or type.is_redlisted:
+        if (location and location.is_redlisted) or type.is_redlisted:
             order['redlisted'] = True
-    return order_list
+    return {'info': order_list}
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))

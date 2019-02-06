@@ -1,0 +1,66 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVC1TaWduYXR1cmUtS2V5IiwidHlwIjoiSldUIn0.eyJzY3AiOlsicHVibGljRGF0YSIsImVzaS1jYWxlbmRhci5yZXNwb25kX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1jYWxlbmRhci5yZWFkX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1sb2NhdGlvbi5yZWFkX2xvY2F0aW9uLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfc2hpcF90eXBlLnYxIiwiZXNpLW1haWwub3JnYW5pemVfbWFpbC52MSIsImVzaS1tYWlsLnJlYWRfbWFpbC52MSIsImVzaS1tYWlsLnNlbmRfbWFpbC52MSIsImVzaS1za2lsbHMucmVhZF9za2lsbHMudjEiLCJlc2ktc2tpbGxzLnJlYWRfc2tpbGxxdWV1ZS52MSIsImVzaS13YWxsZXQucmVhZF9jaGFyYWN0ZXJfd2FsbGV0LnYxIiwiZXNpLXNlYXJjaC5zZWFyY2hfc3RydWN0dXJlcy52MSIsImVzaS1jbG9uZXMucmVhZF9jbG9uZXMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLXVuaXZlcnNlLnJlYWRfc3RydWN0dXJlcy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jaGFyYWN0ZXJfYm9va21hcmtzLnYxIiwiZXNpLWtpbGxtYWlscy5yZWFkX2tpbGxtYWlscy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9jb3Jwb3JhdGlvbl9tZW1iZXJzaGlwLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2Fzc2V0cy52MSIsImVzaS1wbGFuZXRzLm1hbmFnZV9wbGFuZXRzLnYxIiwiZXNpLWZsZWV0cy5yZWFkX2ZsZWV0LnYxIiwiZXNpLWZsZWV0cy53cml0ZV9mbGVldC52MSIsImVzaS11aS5vcGVuX3dpbmRvdy52MSIsImVzaS11aS53cml0ZV93YXlwb2ludC52MSIsImVzaS1jaGFyYWN0ZXJzLndyaXRlX2NvbnRhY3RzLnYxIiwiZXNpLWZpdHRpbmdzLnJlYWRfZml0dGluZ3MudjEiLCJlc2ktZml0dGluZ3Mud3JpdGVfZml0dGluZ3MudjEiLCJlc2ktbWFya2V0cy5zdHJ1Y3R1cmVfbWFya2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdHJ1Y3R1cmVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9sb3lhbHR5LnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9vcHBvcnR1bml0aWVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9jaGF0X2NoYW5uZWxzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfYWdlbnRzX3Jlc2VhcmNoLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY2hhcmFjdGVyX2pvYnMudjEiLCJlc2ktbWFya2V0cy5yZWFkX2NoYXJhY3Rlcl9vcmRlcnMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2JsdWVwcmludHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvcnBvcmF0aW9uX3JvbGVzLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfb25saW5lLnYxIiwiZXNpLWNvbnRyYWN0cy5yZWFkX2NoYXJhY3Rlcl9jb250cmFjdHMudjEiLCJlc2ktY2xvbmVzLnJlYWRfaW1wbGFudHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2ZhdGlndWUudjEiLCJlc2kta2lsbG1haWxzLnJlYWRfY29ycG9yYXRpb25fa2lsbG1haWxzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy50cmFja19tZW1iZXJzLnYxIiwiZXNpLXdhbGxldC5yZWFkX2NvcnBvcmF0aW9uX3dhbGxldHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX25vdGlmaWNhdGlvbnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZGl2aXNpb25zLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2NvcnBvcmF0aW9uX2Fzc2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF90aXRsZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfYmx1ZXByaW50cy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jb3Jwb3JhdGlvbl9ib29rbWFya3MudjEiLCJlc2ktY29udHJhY3RzLnJlYWRfY29ycG9yYXRpb25fY29udHJhY3RzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdGFyYmFzZXMudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jb3Jwb3JhdGlvbl9qb2JzLnYxIiwiZXNpLW1hcmtldHMucmVhZF9jb3Jwb3JhdGlvbl9vcmRlcnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfY29udGFpbmVyX2xvZ3MudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jaGFyYWN0ZXJfbWluaW5nLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY29ycG9yYXRpb25fbWluaW5nLnYxIiwiZXNpLXBsYW5ldHMucmVhZF9jdXN0b21zX29mZmljZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZmFjaWxpdGllcy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3RpdGxlcy52MSIsImVzaS1hbGxpYW5jZXMucmVhZF9jb250YWN0cy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY2hhcmFjdGVyc3RhdHMucmVhZC52MSJdLCJqdGkiOiJhM2U4ODI0OC0xY2Y3LTQ1NGMtOWY0NC1hMzk0NTU4MzA5ODIiLCJraWQiOiJKV1QtU2lnbmF0dXJlLUtleSIsInN1YiI6IkNIQVJBQ1RFUjpFVkU6MjExNDQ5NjQ4MyIsImF6cCI6ImQ0Mjc0MWNlYWY3MTQwMDQ5ZGI5NWVjNjVkZGE1NzQyIiwibmFtZSI6IlR3aW5lIEVuYWthIiwib3duZXIiOiJUVHloSG9CbU5uSUpHOGlYZTh6MWkyY1lPTGs9IiwiZXhwIjoxNTQ5NDkxODgzLCJpc3MiOiJsb2dpbi5ldmVvbmxpbmUuY29tIn0.bWTffpUX9oPhZphw9N344RRNp45yDECikUlNDJom1YXPXO9oCtvi0Vj9c1pHq9dkS49VNNlxpk7S7aYE4vWqhbyFtdeCro1tnThgkGZY4_-PbX3qBU1dj8D30pQ9pCUFfS2co4tMzPMEmP4AOv_dagyDOCONMTjG13cjt3wZXhpGsjF9Y4pBRxWQiYbNJpWJ2dW8I8X9X_JqBhySvkJKTLTyUiklJMhTLtiHuXkdxwkd3VpuOoMfvnKMokwj_DQr4DDkKarnFDqqGbu4-9xNoJ7cL0-gTzYGzYT-WZdxbzveBXTUrE6Pf61JLOtXcE_vKK8l7XuU-zzeHGx2H3mIog]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/2114496483/contracts/?datasource=tranquility&page=1
+  response:
+    body:
+      string: !!binary |
+        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
+        p+EvoOWlCSRLyAZ+/fVfAAAA//9RObG1TEIAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [private]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Length: ['1510']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Wed, 06 Feb 2019 22:05:09 GMT']
+      Etag: ['"4e8d442195e043173f55b5a9ec35d44a2002ccae47528f67d17be38a"']
+      Expires: ['Wed, 06 Feb 2019 22:10:08 GMT']
+      Last-Modified: ['Wed, 06 Feb 2019 22:05:08 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Encoding]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['51']
+      X-Esi-Request-Id: [e3501bbd-c448-41ae-93ec-42572e522147]
+      X-Pages: ['1']
+    status: {code: 200, message: OK}
+version: 1

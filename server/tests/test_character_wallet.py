@@ -1,6 +1,6 @@
 import sys
 import os
-server_dir = os.environ["python_server_dir"]
+server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
@@ -32,7 +32,7 @@ class WalletTests(AsceeTestCase):
         wallet_attributes = {
             'amount': int,
             'balance': float,
-            'context_id': ,
+            'context_id': int,
             'context_id_type': str,
             'date': str,
             'description': str,
@@ -90,6 +90,7 @@ class WalletTests(AsceeTestCase):
             get_character_wallet(self.admin.id, current_user=self.senior_recruiter)
         with self.assertRaises(ForbiddenException):
             get_character_wallet(self.admin.id, current_user=self.admin)
+
 
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'

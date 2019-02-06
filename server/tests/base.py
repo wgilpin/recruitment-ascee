@@ -1,6 +1,6 @@
 import sys
 import os
-server_dir = os.environ["python_server_dir"]
+server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 print(sys.version)
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
