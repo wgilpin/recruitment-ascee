@@ -14,12 +14,20 @@ class AsceeTestCase(VCRTestCase):
 
     ascee_corp_id = 98589569
 
+    def _get_vcr_kwargs(self, **kwargs):
+        kwargs.update({
+            'record_mode': 'new_episodes'
+        })
+        return kwargs
+
     def setUp(self):
+        super(AsceeTestCase, self).setUp()
         self.initDB()
         warnings.simplefilter("ignore", ResourceWarning)
         warnings.simplefilter("ignore", UserWarning)
 
     def tearDown(self):
+        super(AsceeTestCase, self).tearDown()
         self.clearDB()
 
     def initDB(self):

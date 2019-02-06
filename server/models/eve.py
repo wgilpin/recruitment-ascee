@@ -1,5 +1,5 @@
 from models.database import db
-from esi import get_op, get_paged_op
+from esi import get_op, get_paged_op, ESIError
 
 
 class Group(db.Model):
@@ -20,6 +20,27 @@ class Group(db.Model):
             db.session.commit()
         return group
 
+    @classmethod
+    def get_multi(cls, id_list):
+        existing_items = db.session.query(Group).filter(
+            Group.id.in_(id_list))
+        return_items = {item.id: item for item in existing_items}
+        missing_ids = set(id_list).difference(
+            [item.id for item in existing_items])
+        new_data_dict = get_op(
+            'get_universe_groups_group_id',
+            group_id=list(missing_ids)
+        )
+        for group_id, group_data in new_data_dict.items():
+            group = Group(
+                id=group_id,
+                name=group_data['name'],
+            )
+            db.session.add(group)
+            return_items[group_id] = group
+        db.session.commit()
+        return return_items
+
 
 class Type(db.Model):
     __tablename__ = 'type'
@@ -27,6 +48,7 @@ class Type(db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey(Group.id))
     name = db.Column(db.String(100))
     redlisted = db.Column(db.Boolean, default=False)
+    price = db.Column(db.Float, default=0.)
 
     @classmethod
     def get(cls, id):
@@ -45,27 +67,33 @@ class Type(db.Model):
             db.session.commit()
         return type
 
+    @classmethod
+    def get_multi(cls, id_list):
+        existing_items = db.session.query(Type).filter(
+            Type.id.in_(id_list))
+        return_items = {item.id: item for item in existing_items}
+        missing_ids = set(id_list).difference(
+            [item.id for item in existing_items])
+        new_data_dict = get_op(
+            'get_universe_types_type_id',
+            type_id=list(missing_ids)
+        )
+        group_ids = set(item['group_id'] for item in new_data_dict.values())
+        Group.get_multi(list(group_ids))
+        for type_id, type_data in new_data_dict.items():
+            type = Type(
+                id=type_id,
+                name=type_data['name'],
+                group_id=type_data['group_id'],
+            )
+            db.session.add(type)
+            return_items[type_id] = type
+        db.session.commit()
+        return return_items
+
     @property
     def is_redlisted(self):
         return self.redlisted
-
-
-class Priced(Type):
-    __tablename__ = 'priced'
-    type_id = db.Column(db.Integer, db.ForeignKey(Type.id), primary_key=True)
-    price = db.Column(db.Float)
-
-    @classmethod
-    def get(cls, id):
-        priced_type = db.session.query(cls).get(id)
-        if priced_type is None:
-            priced_type = Priced(
-                id=id,
-                price=0.
-            )
-            db.session.add(priced_type)
-            db.session.commit()
-        return priced_type
 
 
 class Region(db.Model):
@@ -149,7 +177,7 @@ class Station(db.Model):
             station_data = get_op(
                 'get_universe_stations_station_id',
                 station_id=id,
-            )['system_id']
+            )
             station = Station(
                 id=id,
                 system_id=station_data['system_id'],
@@ -289,28 +317,34 @@ class Structure(db.Model):
     __tablename__ = 'structure'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    system_id = db.Column(db.Integer, db.ForeignKey(System.id))
+    system_id = db.Column(db.Integer, db.ForeignKey(System.id), nullable=True)
     system = db.relationship(System, foreign_keys=[system_id])
-    corporation_id = db.Column(db.Integer, db.ForeignKey(Corporation.id))
+    corporation_id = db.Column(db.Integer, db.ForeignKey(Corporation.id), nullable=True)
     corporation = db.relationship(Corporation, uselist=False)
     redlisted = db.Column(db.Boolean, default=False)
 
     @classmethod
-    def get(cls, id):
+    def get(cls, character, id):
         structure = db.session.query(cls).get(id)
         if structure is None:
-            structure_data = get_op(
-                'get_universe_structures_structure_id',
-                structure_id=id,
-            )
+            try:
+                structure_data = character.get_op(
+                    'get_universe_structures_structure_id',
+                    structure_id=id,
+                )
+                structure = Structure(
+                    id=id,
+                    name=structure_data['name'],
+                    system_id=structure_data['solar_system_id'],
+                    corporation_id=structure_data['owner_id']
+                )
+            except ESIError:
+                structure = Structure(
+                    id=id,
+                    name='Unknown Structure {}'.format(id),
+                )
             # Will also need code here to return "unknown" structure if no access
             # it should probably be located in "unknown" system and region? add to DB?
-            structure = Structure(
-                id=id,
-                name=structure_data['name'],
-                system_id=structure_data['solar_system_id'],
-                corporation_id=structure_data['owner_id']
-            )
             db.session.add(structure)
             db.session.commit()
         return structure
