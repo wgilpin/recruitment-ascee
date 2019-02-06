@@ -1,6 +1,6 @@
 from esi import get_op, get_paged_op
 from models import (
-    Character, Corporation, Alliance, Type, Priced, Region, Group,
+    Character, Corporation, Alliance, Type, Region, Group,
     Station, Structure, System, db
 )
 from flask import jsonify
@@ -44,7 +44,7 @@ def api_character_assets(character_id):
         response[region_id]['items'][system_id]['items'][structure_id]['items'][item_id][attribute_name]
 
         # an attribute of an item in a container (e.g. Hangar)
-        response[region_id]['items'][system_id]['items'][structure_id]['items'][container_name]['items'][item_id][attribute_name]
+        response[region_id]['items'][system_id]['items'][structure_id]['items'][container_id]['items'][item_id][attribute_name]
 
         # whether a region is redlisted:
         response[region_id]['redlisted']  # True/False
@@ -305,12 +305,11 @@ def api_mail_body(character_id, mail_id):
     return jsonify(get_mail_body(character_id, mail_id, current_user=current_user))
 
 
-
-def get_location(location_id):
+def get_location(character, location_id):
     if 60000000 <= location_id < 64000000:  # station
         return Station.get(location_id)
     elif location_id > 50000000:  # structure
-        return Structure.get(location_id)
+        return Structure.get(character, location_id)
     else:
         raise ValueError(
             'location_id {} does not correspond to station'
@@ -323,6 +322,7 @@ def get_character_calendar(character_id, current_user=None):
     # TODO: Need to return not just data from this endpoint, but also
     # the get_characters_character_id_calendar_event_id endpoint
     character = Character.get(character_id)
+    application_access_check(current_user, character)
     calendar_data = character.get_op(
         'get_characters_character_id_calendar',
         character_id=character_id
@@ -357,6 +357,7 @@ def get_transaction_party(party_id):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_wallet(character_id, current_user=None):
     character = Character.get(character_id)
+    application_access_check(current_user, character)
     wallet_data = character.get_paged_op(
         'get_characters_character_id_wallet_journal',
         character_id=character_id
@@ -379,6 +380,7 @@ def get_character_wallet(character_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_contacts(character_id, current_user=None):
     character = Character.get(character_id)
+    application_access_check(current_user, character)
     contacts_list = character.get_paged_op(
         'get_characters_character_id_contacts',
         character_id=character_id
@@ -402,6 +404,7 @@ def get_character_contacts(character_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_mining(character_id, current_user=None):
     character = Character.get(character_id)
+    application_access_check(current_user, character)
     mining_data = character.get_op(
         'get_characters_character_id_mining',
         character_id=character_id,
@@ -427,6 +430,7 @@ def get_character_mining(character_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_contracts(character_id, current_user=None):
     character = Character.get(character_id)
+    application_access_check(current_user, character)
     contract_list = character.get_paged_op(
         'get_characters_character_id_contracts',
         character_id=character_id
@@ -444,12 +448,12 @@ def get_character_market_contracts(character_id, current_user=None):
         entry['issuer_name'] = issuer.name
         entry['acceptor_name'] = acceptor.name
         if 'start_location_id' in entry:
-            start_location = get_location(entry['start_location_id'])
+            start_location = get_location(character, entry['start_location_id'])
             entry['start_location_name'] = start_location.name
             if start_location.is_redlisted:
                 entry['redlisted'] = True
         if 'end_location_id' in entry:
-            end_location = get_location(entry['end_location_id'])
+            end_location = get_location(character, entry['end_location_id'])
             entry['end_location_name'] = end_location.name
             if end_location.is_redlisted:
                 entry['redlisted'] = True
@@ -466,22 +470,28 @@ def get_character_market_contracts(character_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_assets(character_id, current_user=None):
     character = Character.get(character_id)
+    application_access_check(current_user, character)
     asset_list = character.get_paged_op(
         'get_characters_character_id_assets',
         character_id=character_id,
     )
+    type_set = set()
     for entry in asset_list:
-        type = Type.get(entry['type_id'])
+        type_set.add(entry['type_id'])
+    type_dict = Type.get_multi(list(type_set))
+    for entry in asset_list:
+        type = type_dict[entry['type_id']]
         entry['type_name'] = type.name
         entry['price'] = entry['quantity'] * type.price
         if type.is_redlisted:
             entry['redlisted'] = True
-    return organize_assets_by_location(asset_list)
+    return organize_assets_by_location(character, asset_list)
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_bookmarks(character_id, current_user=None):
     character = Character.get(character_id)
+    application_access_check(current_user, character)
     bookmarks_list = character.get_paged_op(
         'get_characters_character_id_bookmarks',
         character_id=character_id,
@@ -494,7 +504,7 @@ def get_character_bookmarks(character_id, current_user=None):
                 character_id=character_id,
                 folder_id=entry['folder_id']
             )['name']
-        location = get_location(entry['location_id'])
+        location = get_location(character, entry['location_id'])
         system = System.get(location.system_id)
         entry['system_id'] = location.system_id
         entry['system_name'] = system.name
@@ -503,13 +513,26 @@ def get_character_bookmarks(character_id, current_user=None):
     return {'info': bookmarks_dict}
 
 
+def application_access_check(current_user, target_character):
+    if not is_applicant_character_id(target_character.id):
+        raise ForbiddenException(
+            'Characer {} is not in an open application.'.format(
+                target_character.id
+            )
+        )
+    elif not has_applicant_access(current_user, target_character.user):
+        raise ForbiddenException(
+            'User {} does not have access to character {}'.format(
+                current_user.id, target_character.id
+            )
+        )
+    return target_character
+
+
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_mail(character_id, current_user=None):
     target_character = Character.get(character_id)
-    if not is_applicant_character_id(character_id):
-        raise ForbiddenException('Characer {} is not in an open application.'.format(character_id))
-    elif not has_applicant_access(current_user, target_character.user):
-        raise ForbiddenException('User {} does not have access to character {}'.format(current_user.id, character_id))
+    application_access_check(current_user, target_character)
     mail_list = target_character.get_op(
         'get_characters_character_id_mail',
         character_id=character_id,
@@ -554,6 +577,7 @@ def get_character_mail(character_id, current_user=None):
 @cachetools.cached(cachetools.LRUCache(maxsize=500))
 def get_mail_body(character_id, mail_id, current_user=None):
     character = Character.get(character_id)
+    application_access_check(current_user, character)
     mail_data = character.get_op(
         'get_characters_character_id_mail_mail_id',
         character_id=character_id,
@@ -611,43 +635,62 @@ def get_character_skills(character_id, current_user=None):
     return {'info': {'skills': skill_data, 'queue': queue_data}}
 
 
-def organize_assets_by_location(asset_list):
+class DummySystem(object):
+    id = -1
+    name = 'Unknown System'
+    region_id = None
+    is_redlisted = False
+
+
+class DummyRegion(object):
+    id = -1
+    name = 'Unknown Region'
+    is_redlisted = False
+
+
+def organize_assets_by_location(character, asset_list):
     asset_dict = {
         entry['item_id']: entry for entry in asset_list
     }
     location_set = set(entry['location_id'] for entry in asset_list)
-    location_dict = {id: [] for id in location_set}
+    location_dict = {id: {'items': {}} for id in location_set}
     for entry in asset_list:
-        location_dict[entry['location_id']].append(entry)
+        location_dict[entry['location_id']]['items'][entry['item_id']] = entry
     for item_id, entry in asset_dict.items():
         if item_id in location_dict:
-            entry['items'] = location_dict[item_id]
+            entry['items'] = location_dict[item_id]['items']
+
 
     systems_dict = {}
     for location_id in location_dict:
-        try:
-            location = get_location(location_id)
+        location = get_location(character, location_id)
+        location_dict[location_id]['name'] = location.name
+        if location.system_id is not None:
             system = System.get(location.system_id)
-            systems_dict[system.id] = systems_dict.get(system.id, (system, []))
-            systems_dict[system.id][1].append(location_id)
-        except IOError:  # replace with exception raised if location_id is not a station/structure
-            # can only (easliy) figure this out by getting the exception
-            pass
+            location_dict[location_id]['redlisted'] = location.is_redlisted
+        else:
+            system = DummySystem
+            # Use the raw redlisted value of location, since it can't
+            # check if its system is redlisted
+            location_dict[location_id]['redlisted'] = location.redlisted
+        systems_dict[system.id] = systems_dict.get(system.id, (system, []))
+        systems_dict[system.id][1].append(location_id)
 
     return_dict = {}
-    for system, location_list in systems_dict.items():
-        region = Region.get(system.region_id)
+    for system, location_list in systems_dict.values():
+        if system.region_id is not None:
+            region = Region.get(system.region_id)
+        else:
+            region = DummyRegion
         if region.id not in return_dict:
             return_dict[region.id] = {
-                'redlisted': region.redlisted,
+                'redlisted': region.is_redlisted,
                 'name': region.name,
-                'items': {}
+                'items': {},
             }
-        if system.id not in return_dict[region.id]['items']:
-            return_dict[region.id]['items'][system.id] = {
-                'redlisted': system.is_redlisted,
-                'name': system.name,
-                'items': location_dict[system.id]
-            }
-
+        return_dict[region.id]['items'][system.id] = {
+            'redlisted': system.is_redlisted,
+            'name': system.name,
+            'items': {id: location_dict[id] for id in systems_dict[system.id][1]},
+        }
     return return_dict

@@ -1,18 +1,20 @@
 import requests
-from esi_config import client_id, secret_key
 import json
-from models import Character, User, db
+from models import Character, User, db, Application
 from flask_app import app
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask import session, redirect, request
-from esi_config import \
-    callback_url, client_id, scopes, login_url, app_url, react_app_url, applicant_url, recruiter_url
+from esi_config import (
+    callback_url, client_id, secret_key, scopes, login_url, app_url,
+    react_app_url, applicant_url, recruiter_url, admin_url
+)
 import random
 import hmac
 import hashlib
 from exceptions import ForbiddenException, AppException
 import backoff
 from functools import wraps
+from security import is_admin, is_recruiter
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -25,7 +27,7 @@ def load_user(user_id):
 
 
 @app.route('/auth/login')
-def login():
+def api_login():
     """
     Redirects user to ESI SSO login.
     """
@@ -34,7 +36,7 @@ def login():
 
 @app.route('/auth/logout')
 @login_required
-def logout():
+def api_logout():
     """
     Logs out the current user.
     """
@@ -44,7 +46,7 @@ def logout():
 
 @app.route('/auth/link_alt')
 @login_required
-def link_alt():
+def api_link_alt():
     """
     Redirects user to ESI SSO login for the purposes of linking an alt.
     """
@@ -58,8 +60,9 @@ def login_helper(login_type):
         'client_id': client_id,
         'response_type': 'code',
         'state': session['token'],
-        'scope': scopes,
     }
+    if login_type == 'scopes':
+        params['scope'] = scopes
     eve_login_url = login_url + '?' + '&'.join(
         '{}={}'.format(k, v) for k, v in params.items())
     return redirect(eve_login_url)
@@ -74,7 +77,7 @@ def api_oauth_callback():
         raise ForbiddenException(
             'Login to Eve Online SSO failed: Session Token Mismatch')
     login_type = session_token.split(':')[0]
-    character = process_oauth(code)
+    character = process_oauth(login_type, code)
     return route_login(login_type, character)
 
 
@@ -83,16 +86,45 @@ def route_login(login_type, character):
         print('char', character)
         user = User.get(character.user_id)
         login_user(user)
-        if user.is_applicant:
-            return redirect(f'{react_app_url}?showing=applicant')
-        return redirect(recruiter_url)
-    elif login_type == 'link':
-        character.user_id = current_user.get_id()
-        db.session.commit()
+        if not (is_recruiter(user) or is_admin(user)):
+            if Application.get_for_user(user) is None:
+                if character.blocked_from_applying:
+                    logout_user()
+                    return redirect(app_url)
+            if character.refresh_token is None:
+                return login_helper('scopes')
+            else:
+                return redirect(applicant_url)
+        elif is_recruiter(user):
+            return redirect(recruiter_url)
+        elif is_admin(user):
+            return redirect(admin_url)
+    elif login_type == 'scopes':
         return redirect(applicant_url)
+    elif login_type == 'link':
+        return link_alt(character, current_user)
     else:
         raise AppException(
             'OAuth callback state specified invalid login type {}.'.format(login_type))
+
+
+def link_alt(character, user):
+    character.user_id = user.get_id()
+    db.session.commit()
+    if character.blocked_from_applying:
+        block_user_from_applying(user)
+    return redirect(react_app_url)
+
+
+def block_user_from_applying(user):
+    for character in user.characters:
+        character.blocked_from_applying = True
+    application = db.session.Query(Application).filter(
+        db.and_(Application.user_id==user.id, db.not_(Application.is_concluded))
+    ).one_or_none()
+    if application:
+        application.is_concluded = True
+    db.session.commit()
 
 
 def generate_token():
@@ -110,7 +142,7 @@ def generate_token():
 @backoff.on_exception(
     backoff.expo, requests.exceptions.RequestException, max_time=10,
 )
-def process_oauth(code):
+def process_oauth(login_type, code):
     result = requests.post(
         'https://login.eveonline.com/oauth/token',
         auth=(client_id, secret_key),
@@ -134,7 +166,8 @@ def process_oauth(code):
 
     refresh_token, character_id = token_data['refresh_token'], user_data['CharacterID']
     character = Character.get(character_id)
-    character.refresh_token = refresh_token
-    db.session.commit()
+    if login_type in ('scopes', 'link'):
+        character.refresh_token = refresh_token
+        db.session.commit()
 
     return character
