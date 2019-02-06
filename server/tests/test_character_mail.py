@@ -10,10 +10,9 @@ from models import Character, User, Question, Answer, db
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
-import warnings
 
 
-class MailTests(AsceeTestCase):
+class CharacterMailTests(AsceeTestCase):
 
     def test_get_applicant_mail(self):
         result = get_character_mail(self.applicant.id, current_user=self.recruiter)

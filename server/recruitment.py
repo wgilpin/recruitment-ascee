@@ -202,12 +202,7 @@ def get_questions(current_user=None):
 
 
 def get_user_application(user_id):
-    application = db.session.query(Application).filter(
-        Application.user_id == user_id
-    ).filter(
-        db.not_(Application.is_concluded)
-    ).one()
-    return application
+    return Application.get_for_user(user_id)
 
 
 def get_answers(user_id, current_user=None):
@@ -234,23 +229,31 @@ def get_answers(user_id, current_user=None):
 
 
 def add_applicant_note(applicant_user_id, text, is_chat_log=False, current_user=None):
-    application = Application.query.filter_by(user_id=applicant_user_id).one_or_none()
-    print('APP', application)
+    application = Application.query.filter_by(
+        user_id=applicant_user_id, is_concluded=False).one_or_none()
     if application is None:
-        applicant_name = Character.get(applicant_user_id).name
-        return {'error': 'User {} is not an applicant'.format(applicant_name)}
+        raise BadRequestException('User {} is not an applicant'.format(
+            User.get(applicant_user_id).name))
     else:
-        application.notes.append(Note(
+        if not is_recruiter(current_user):
+            raise ForbiddenException(
+                'Current user is not a recruiter')
+        elif (application.recruiter_id != current_user.id and
+              not is_senior_recruiter(current_user)):
+            raise ForbiddenException(
+                'Current recruiter has not claimed applicant {}'.format(applicant_user_id))
+        note = Note(
             text=text,
-            application_id=applicant_user_id,
+            application_id=application.id,
             is_chat_log=is_chat_log
-        ))
+        )
+        db.session.add(note)
         db.session.commit()
         return {'status': 'ok'}
 
 
 def get_character_search_list(search_text):
-    # list of all chars with name beggining with search_text
+    # list of all chars with name beginning with search_text
     result = {}
     if len(search_text) == 0:
         return result
@@ -264,6 +267,8 @@ def get_character_search_list(search_text):
 
 
 def get_applicant_list(current_user=None):
+    if not (is_recruiter(current_user) or is_admin(current_user)):
+        raise ForbiddenException('User must be recruiter or admin.')
     result = {}
     for application in Application.query.filter(Application.is_concluded==False).all():
         applicant_id = application.user_id
@@ -291,7 +296,7 @@ def get_applicant_list(current_user=None):
                 applicant_visible = application.status == 'new'
 
         if applicant_visible:
-            result[applicant_id]= {
+            result[applicant_id] = {
                 'user_id': applicant_id,
                 'recruiter_id': application.recruiter_id,
                 'recruiter_name': recruiter_name,
