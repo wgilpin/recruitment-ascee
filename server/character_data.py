@@ -392,8 +392,7 @@ def get_character_contacts(character_id, current_user=None):
         entry['corporation_id'] = contact.corporation_id
         corporation = Corporation.get(contact.corporation_id)
         entry['corporation_name'] = corporation.name
-        if hasattr(corporation, 'alliance_id'):
-            assert corporation.alliance_id is not None  # if this fails, I have to change the line directly above
+        if corporation.alliance_id:
             entry['alliance_id'] = corporation.alliance_id
             entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
         if contact.is_redlisted:
@@ -589,7 +588,7 @@ def get_mail_body(character_id, mail_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_history(character_id, current_user=None):
     character = Character.get(character_id)
-    order_list = character.get_paged_op(
+    order_list = character.get_op(
         'get_characters_character_id_orders',
         character_id=character_id,
     )
