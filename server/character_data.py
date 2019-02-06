@@ -9,6 +9,7 @@ from flask_app import app
 from security import is_applicant_character_id, has_applicant_access
 from exceptions import ForbiddenException, BadRequestException
 import cachetools
+from collections import namedtuple
 
 
 SECONDS_TO_CACHE = 10 * 60
@@ -307,9 +308,12 @@ def api_mail_body(character_id, mail_id):
 
 def get_location(character, location_id):
     if 60000000 <= location_id < 64000000:  # station
-        return Station.get(location_id)
+        station =  Station.get(location_id)
     elif location_id > 50000000:  # structure
         return Structure.get(character, location_id)
+    elif 30000000 < location_id < 32000000:  # system
+        system = System.get(location_id)
+        return namedtuple('Location', ['system_id', 'name']) (location_id, system.name)
     else:
         raise ValueError(
             'location_id {} does not correspond to station'
@@ -392,8 +396,7 @@ def get_character_contacts(character_id, current_user=None):
         entry['corporation_id'] = contact.corporation_id
         corporation = Corporation.get(contact.corporation_id)
         entry['corporation_name'] = corporation.name
-        if hasattr(corporation, 'alliance_id'):
-            assert corporation.alliance_id is not None  # if this fails, I have to change the line directly above
+        if corporation.alliance_id:
             entry['alliance_id'] = corporation.alliance_id
             entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
         if contact.is_redlisted:
@@ -496,14 +499,17 @@ def get_character_bookmarks(character_id, current_user=None):
         'get_characters_character_id_bookmarks',
         character_id=character_id,
     )
+    folder_list = character.get_paged_op(
+                'get_characters_character_id_bookmarks_folders',
+                character_id=character_id)
+    folders = { folder['folder_id']: folder['name'] for folder in folder_list }
     bookmarks_dict = {entry['bookmark_id']: entry for entry in bookmarks_list}
     for bookmark_id, entry in bookmarks_dict.items():
         if 'folder_id' in entry.keys():
-            entry['folder_name'] = character.get_op(
-                'get_characters_character_id_bookmarks_folder',
-                character_id=character_id,
-                folder_id=entry['folder_id']
-            )['name']
+            if entry['folder_id'] in folders:
+                entry['folder_name'] = folders[entry['folder_id']]
+            else:
+                entry['folder_name'] = 'Personal Locations'
         location = get_location(character, entry['location_id'])
         system = System.get(location.system_id)
         entry['system_id'] = location.system_id
@@ -589,7 +595,7 @@ def get_mail_body(character_id, mail_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_history(character_id, current_user=None):
     character = Character.get(character_id)
-    order_list = character.get_paged_op(
+    order_list = character.get_op(
         'get_characters_character_id_orders',
         character_id=character_id,
     )

@@ -1,6 +1,6 @@
 import sys
 import os
-from config import server_dir
+server_dir = os.environ["python_server_dir"]
 print(sys.version)
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
