@@ -18,3 +18,4 @@ server/python/__pycache__/*
 server/python/tests/config.py
 server/esi_app.pkl
 server/tests/config.py
+server/tests/cassettes/*.yaml
