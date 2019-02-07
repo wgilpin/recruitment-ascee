@@ -207,27 +207,46 @@ class QuestionAnswerTests(AsceeTestCase):
         with self.assertRaises(ForbiddenException):
             get_answers(self.applicant.id, current_user=self.admin.user)
 
-    def test_set_answers_applicant_no_application_applicant(self):
+    def test_set_answers_applicant_with_application_applicant(self):
         for i in range(3):
             question = Question(text='Question {}?'.format(i))
             db.session.add(question)
             db.session.commit()
         result = get_questions(current_user=self.applicant)
-        print('<<<<<<<<<', result)
         question_keys = []
         answers = []
         for k in result:
             question_keys.append(k)
             answers.append({'question_id': k, 'text': f'answer for {k}'})
-        print('===========', answers)
         set_answers(self.applicant.id, answers=answers, current_user=self.applicant)
         db.session.commit()
         after_set_result = get_answers(self.applicant.id, current_user=self.applicant)
         self.assertIsInstance(after_set_result, dict)
         self.assertEqual(len(after_set_result), 3)
-        print('>>>>>>>>>>>>', after_set_result)
         for k in question_keys:
             self.assertEqual(after_set_result[k]['answer'], f'answer for {k}')
+
+    def test_set_answers_applicant_with_application_non_applicant(self):
+        answers = [{'question_id': 1, 'text': f'answer for 1'}]
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.applicant.id, answers=answers, current_user=self.admin)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.applicant.id, answers=answers, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.applicant.id, answers=answers, current_user=self.senior_recruiter)
+
+    def test_set_answers_non_applicant_with_application(self):
+        answers = [{'question_id': 1, 'text': f'answer for 1'}]
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.recruiter.id, answers=answers, current_user=self.applicant)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.recruiter.id, answers=answers, current_user=self.admin)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.recruiter.id, answers=answers, current_user=self.senior_recruiter)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.admin.id, answers=answers, current_user=self.admin)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.senior_recruiter.id, answers=answers, current_user=self.recruiter)
 
 class MiscRecruitmentTests(AsceeTestCase):
 
