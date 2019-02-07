@@ -421,6 +421,7 @@ class Character(db.Model):
     def get_paged_op(self, op_name, **kwargs):
         return get_paged_op(op_name, refresh_token=self.refresh_token, **kwargs)
 
+    @property
     def is_redlisted(self):
         if self.redlisted:
             return True

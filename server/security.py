@@ -1,5 +1,5 @@
 from models import User, Character, Admin, Recruiter, Application, db
-from exceptions import ForbiddenException
+from exceptions import ForbiddenException, BadRequestException
 
 
 def ensure_has_access(user_id, target_user_id, self_access=False):
@@ -33,6 +33,36 @@ def is_applicant_character_id(character_id):
         db.not_(Application.is_concluded)
     ).first()
     return character is not None
+
+
+def character_application_access_check(current_user, target_character):
+    if not is_applicant_character_id(target_character.id):
+        raise BadRequestException(
+            'Character {} is not in an open application.'.format(
+                target_character.id
+            )
+        )
+    elif not has_applicant_access(current_user, target_character.user):
+        raise ForbiddenException(
+            'User {} does not have access to character {}'.format(
+                current_user.id, target_character.id
+            )
+        )
+
+
+def user_application_access_check(current_user, target_user):
+    if Application.get_for_user(target_user.id) is None:
+        raise BadRequestException(
+            'User {} is not in an open application.'.format(
+                target_user.id
+            )
+        )
+    elif not has_applicant_access(current_user, target_user):
+        raise ForbiddenException(
+            'User {} does not have access to applicant {}'.format(
+                current_user.id, target_user.id
+            )
+        )
 
 
 def has_applicant_access(user, target_user, self_access=False):

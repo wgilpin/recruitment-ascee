@@ -20,7 +20,7 @@ class ApplicantStatusTests(AsceeTestCase):
         db.session.commit()
 
     def test_claim_applicant(self):
-        response = claim_applicant(self.other_recruiter.id, self.applicant.id)
+        response = claim_applicant(self.applicant.id, current_user=self.other_recruiter.user)
         self.assertDictEqual(response, {'status': 'ok'})
         application = Application.get_for_user(self.applicant.id)
         self.assertEqual(application.recruiter_id, self.other_recruiter.id)
@@ -31,24 +31,32 @@ class ApplicantStatusTests(AsceeTestCase):
         self.assertFalse(application.is_invited)
 
     def test_double_claim_applicant(self):
-        claim_applicant(self.recruiter.id, self.applicant.id)
+        claim_applicant(self.applicant.id, current_user=self.recruiter.user)
         with self.assertRaises(BadRequestException):
             claim_applicant(self.applicant.id, current_user=self.recruiter.user)
 
     def test_claim_taken_applicant(self):
-        claim_applicant(self.recruiter.id, self.applicant.id)
+        claim_applicant(self.applicant.id, current_user=self.recruiter.user)
         with self.assertRaises(BadRequestException):
             claim_applicant(self.applicant.id, current_user=self.other_recruiter.user)
 
     def test_not_recruiter_claim_applicant(self):
         with self.assertRaises(ForbiddenException):
-            claim_applicant(self.applicant.id, current_user=self.not_applicant.user)
+            claim_applicant(self.applicant.id, current_user=self.not_applicant)
+
+    def test_claim_not_applicant(self):
+        with self.assertRaises(BadRequestException):
+            claim_applicant(self.not_applicant.id, current_user=self.recruiter.user)
 
     def test_release_applicant(self):
         response = claim_applicant(self.applicant.id, current_user=self.recruiter.user)
         self.assertDictEqual(response, {'status': 'ok'})
         response = release_applicant(self.applicant.id, current_user=self.recruiter.user)
         self.assertDictEqual(response, {'status': 'ok'})
+
+    def test_release_not_applicant(self):
+        with self.assertRaises(BadRequestException):
+            release_applicant(self.not_applicant.id, current_user=self.recruiter.user)
 
     def test_release_applicant_as_other_recruiter(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter.user)
@@ -71,6 +79,10 @@ class ApplicantStatusTests(AsceeTestCase):
         self.assertDictEqual(response, {'status': 'ok'})
         self.assertTrue(self.application.is_escalated)
 
+    def test_escalate_not_applicant(self):
+        with self.assertRaises(BadRequestException):
+            escalate_applicant(self.not_applicant.id, current_user=self.recruiter.user)
+
     def test_escalate_applicant_as_senior_recruiter(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter.user)
         response = escalate_applicant(self.applicant.id, current_user=self.senior_recruiter.user)
@@ -85,7 +97,7 @@ class ApplicantStatusTests(AsceeTestCase):
     def test_escalate_applicant_as_non_recruiter(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter.user)
         with self.assertRaises(ForbiddenException):
-            escalate_applicant(self.applicant.id, current_user=self.not_applicant.user)
+            escalate_applicant(self.applicant.id, current_user=self.not_applicant)
 
     def test_escalate_applicant_as_admin(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter.user)
@@ -96,17 +108,19 @@ class ApplicantStatusTests(AsceeTestCase):
         claim_applicant(self.applicant.id, current_user=self.recruiter.user)
         response = reject_applicant(self.applicant.id, current_user=self.recruiter.user)
         self.assertDictEqual(response, {'status': 'ok'})
-        application = Application.get_for_user(self.applicant.id)
-        self.assertFalse(application.is_accepted)
-        self.assertTrue(application.is_concluded)
+        self.assertFalse(self.application.is_accepted)
+        self.assertTrue(self.application.is_concluded)
+
+    def test_reject_not_applicant(self):
+        with self.assertRaises(BadRequestException):
+            reject_applicant(self.not_applicant.id, current_user=self.recruiter.user)
 
     def test_reject_applicant_as_senior_recruiter(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter.user)
         response = reject_applicant(self.applicant.id, current_user=self.recruiter.user)
         self.assertDictEqual(response, {'status': 'ok'})
-        application = Application.get_for_user(self.applicant.id)
-        self.assertFalse(application.is_accepted)
-        self.assertTrue(application.is_concluded)
+        self.assertFalse(self.application.is_accepted)
+        self.assertTrue(self.application.is_concluded)
 
     def test_reject_applicant_as_other_recruiter(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter.user)
@@ -116,7 +130,7 @@ class ApplicantStatusTests(AsceeTestCase):
     def test_reject_applicant_as_non_recruiter(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter.user)
         with self.assertRaises(ForbiddenException):
-            reject_applicant(self.applicant.id, current_user=self.not_applicant.user)
+            reject_applicant(self.applicant.id, current_user=self.not_applicant)
 
     def test_reject_applicant_as_admin(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter.user)

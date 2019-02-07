@@ -58,17 +58,22 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.applicant.id, self.admin.user, ForbiddenException)
 
     def test_get_recruiter_API(self):
-        self.run_tests_simple_APIs(self.recruiter.id, self.recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.other_recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.senior_recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.admin.user, ForbiddenException)
+        self.run_tests_simple_APIs(self.recruiter.id, self.recruiter.user, BadRequestException)
+        self.run_tests_simple_APIs(self.recruiter.id, self.other_recruiter.user, BadRequestException)
+        self.run_tests_simple_APIs(self.recruiter.id, self.senior_recruiter.user, BadRequestException)
+        self.run_tests_simple_APIs(self.recruiter.id, self.admin.user, BadRequestException)
 
     def test_get_admin_API(self):
-        self.run_tests_simple_APIs(self.admin.id, self.recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.other_recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.senior_recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.admin.user, ForbiddenException)
+        self.run_tests_simple_APIs(self.admin.id, self.recruiter.user, BadRequestException)
+        self.run_tests_simple_APIs(self.admin.id, self.other_recruiter.user, BadRequestException)
+        self.run_tests_simple_APIs(self.admin.id, self.senior_recruiter.user, BadRequestException)
+        self.run_tests_simple_APIs(self.admin.id, self.admin.user, BadRequestException)
 
+    def test_get_not_applicant_API(self):
+        self.run_tests_simple_APIs(self.not_applicant.id, self.recruiter.user, BadRequestException)
+        self.run_tests_simple_APIs(self.not_applicant.id, self.other_recruiter.user, BadRequestException)
+        self.run_tests_simple_APIs(self.not_applicant.id, self.senior_recruiter.user, BadRequestException)
+        self.run_tests_simple_APIs(self.not_applicant.id, self.admin.user, BadRequestException)
 
 class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
 
