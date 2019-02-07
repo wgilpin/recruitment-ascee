@@ -207,10 +207,23 @@ def get_questions(current_user=None):
 def get_user_application(user_id):
     return Application.get_for_user(user_id)
 
+def set_answers(user_id, answers=None, current_user=None):
+    if not current_user.id == user_id:
+        raise ForbiddenException(f'User {current_user.id} is not permitted to answer for {user_id}')
+    application = Application.get_for_user(user_id)
+    if not application:
+        application = Application(user_id=user_id)
+    for answer in answers:
+        answer_record = Answer.query\
+            .filter_by(question_id=answer['question_id'], application_id=application.id)\
+            .one_or_none()
+        if not answer_record:
+            answer_record = Answer(question_id=answer['question_id'], application_id=application.id)
+            application.answers.append(answer_record)
+        answer_record.text = answer['text']
+    db.session.commit()
 
-def set_answers(user_id, current_user=None):
-    return None
-    
+
 def get_answers(user_id, current_user=None):
     if not db.session.query(db.exists().where(User.id==user_id)).scalar():
         raise BadRequestException('User with id={} does not exist.'.format(user_id))
@@ -229,17 +242,17 @@ def get_answers(user_id, current_user=None):
         for question_id in questions:
             answer = answers[question_id] if question_id in answers else ""
             response[question_id] = {
-                'question' questions[question_id],
-                'user_id' user_id,
-                'answer' answer,
+                'question': questions[question_id],
+                'user_id': user_id,
+                'answer': answer,
             }
     else:
         # no application yet, create empty answers
         for question_id in questions:
             response[question_id] = {
-                'question' questions[question_id],
-                'user_id' user_id,
-                'answer' '',
+                'question': questions[question_id],
+                'user_id': user_id,
+                'answer': '',
             }
     return response
 

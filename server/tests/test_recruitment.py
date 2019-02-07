@@ -7,7 +7,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from recruitment import (
     get_questions, get_answers, get_user_characters, get_users, get_user_application,\
-    add_applicant_note, get_character_search_list, get_applicant_list)
+    add_applicant_note, get_character_search_list, get_applicant_list, set_answers)
 from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
 from flask_app import app
@@ -38,6 +38,15 @@ class QuestionAnswerTests(AsceeTestCase):
         result = get_questions()
         self.assertIsInstance(result, dict)
         self.assertEqual(len(result), 3)
+
+    def test_multiple_questions_enabled(self):
+        for i in range(4):
+            question = Question(text=f'Question {i}?', enabled=i % 2 == 0)
+            db.session.add(question)
+            db.session.commit()
+        result = get_questions()
+        self.assertIsInstance(result, dict)
+        self.assertEqual(len(result), 2)
 
     def test_multiple_questions_as_applicant(self):
         for i in range(3):
@@ -198,6 +207,27 @@ class QuestionAnswerTests(AsceeTestCase):
         with self.assertRaises(ForbiddenException):
             get_answers(self.applicant.id, current_user=self.admin.user)
 
+    def test_set_answers_applicant_no_application_applicant(self):
+        for i in range(3):
+            question = Question(text='Question {}?'.format(i))
+            db.session.add(question)
+            db.session.commit()
+        result = get_questions(current_user=self.applicant)
+        print('<<<<<<<<<', result)
+        question_keys = []
+        answers = []
+        for k in result:
+            question_keys.append(k)
+            answers.append({'question_id': k, 'text': f'answer for {k}'})
+        print('===========', answers)
+        set_answers(self.applicant.id, answers=answers, current_user=self.applicant)
+        db.session.commit()
+        after_set_result = get_answers(self.applicant.id, current_user=self.applicant)
+        self.assertIsInstance(after_set_result, dict)
+        self.assertEqual(len(after_set_result), 3)
+        print('>>>>>>>>>>>>', after_set_result)
+        for k in question_keys:
+            self.assertEqual(after_set_result[k]['answer'], f'answer for {k}')
 
 class MiscRecruitmentTests(AsceeTestCase):
 
