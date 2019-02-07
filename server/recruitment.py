@@ -153,6 +153,7 @@ def api_user_answers(user_id=None):
         Forbidden (403): If logged in user is not a senior recruiter,
             a recruiter who has claimed the given user, or the user themself
     """
+    user_id = user_id or current_user.id
     return jsonify(get_answers(user_id, current_user=current_user))
 
 
