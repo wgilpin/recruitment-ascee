@@ -1,7 +1,7 @@
 from models import Corporation, Note, Question, Answer, User, Character, db, Application, Admin, Recruiter
 from flask import jsonify, request
 from flask_login import login_required, current_user
-from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter
+from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter, is_applicant_character_id
 import cachetools
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
@@ -210,6 +210,8 @@ def get_user_application(user_id):
 def set_answers(user_id, answers=None, current_user=None):
     if not current_user.id == user_id:
         raise ForbiddenException(f'User {current_user.id} is not permitted to answer for {user_id}')
+    if not is_applicant_character_id(user_id):
+        raise ForbiddenException(f'User {user_id} is not an applicant')
     application = Application.get_for_user(user_id)
     if not application:
         application = Application(user_id=user_id)
