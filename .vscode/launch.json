@@ -1,6 +1,13 @@
 {
   "version": "0.2.0",
   "configurations": [
+    {
+      "name": "Python: Terminal flask",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/main.py",
+      "console": "integratedTerminal"
+    },
 
     {
       "name": "Python: Terminal (integrated)",
