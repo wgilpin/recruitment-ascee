@@ -1,4 +1,4 @@
-from esi import get_op, get_paged_op
+from esi import get_op, get_paged_op, ESIError, sort_ids_by_category
 from models import (
     Character, Corporation, Alliance, Type, Region, Group,
     Station, Structure, System, db
@@ -8,7 +8,6 @@ from flask_login import login_required, current_user
 from flask_app import app
 from security import is_applicant_character_id, has_applicant_access
 from exceptions import ForbiddenException, BadRequestException
-from esi import ESIError
 import cachetools
 from collections import namedtuple
 
@@ -309,7 +308,7 @@ def api_mail_body(character_id, mail_id):
 
 def get_location(character, location_id):
     if 60000000 <= location_id < 64000000:  # station
-        station =  Station.get(location_id)
+        return Station.get(location_id)
     elif location_id > 50000000:  # structure
         return Structure.get(character, location_id)
     elif 30000000 < location_id < 32000000:  # system
@@ -367,19 +366,54 @@ def get_character_wallet(character_id, current_user=None):
         'get_characters_character_id_wallet_journal',
         character_id=character_id
     )
+    party_ids = get_party_ids(wallet_data)
+    party_data = get_party_data(party_ids)
     for wallet_entry in wallet_data:
+        wallet_entry['date'] = str(wallet_entry['date'].to_json())
         redlisted = wallet_entry['amount'] == 0
         if 'first_party_id' in wallet_entry:
-            result = get_transaction_party(wallet_entry['first_party_id'])
-            redlisted |= result[0]
-            wallet_entry['first_party'] = result[1]
+            wallet_entry['first_party'] = party_data[wallet_entry['first_party_id']]
         if 'second_party_id' in wallet_entry:
-            result = get_transaction_party(wallet_entry['second_party_id'])
-            redlisted |= result[0],
-            wallet_entry['second_party'] = result[1]
+            wallet_entry['second_party'] = party_data[wallet_entry['second_party_id']]
         if redlisted:
             wallet_entry['redlisted'] = True
     return {'info': wallet_data}
+
+
+def get_party_ids(wallet_data):
+    party_ids = set()
+    for wallet_entry in wallet_data:
+        if 'first_party_id' in wallet_entry:
+            party_ids.add(wallet_entry['first_party_id'])
+        if 'second_party_id' in wallet_entry:
+            party_ids.add(wallet_entry['second_party_id'])
+    return party_ids
+
+
+def get_party_data(party_ids):
+    sorted_ids = sort_ids_by_category(party_ids)
+    party_data = {}
+    corporation_list = Corporation.get_multi(sorted_ids['corporation']).values()
+    for corporation in corporation_list:
+        party_data[corporation.id] = {
+            'id': corporation.id,
+            'name': corporation.name,
+            'party_type': 'corporation',
+            'corporation_name': corporation.name,
+            'corporation_ticker': corporation.ticker,
+            'redlisted': corporation.is_redlisted
+        }
+    character_list = Character.get_multi(sorted_ids['character']).values()
+    for character in character_list:
+        party_data[character.id] = {
+            'id': character.id,
+            'name': character.name,
+            'party_type': 'character',
+            'corporation_name': character.corporation.name,
+            'corporation_ticker': character.corporation.ticker,
+            'redlisted': character.is_redlisted,
+        }
+    return party_data
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))

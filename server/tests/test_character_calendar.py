@@ -63,7 +63,6 @@ class CalendarTests(AsceeTestCase):
                     self.assertGreater(len(attendee['name']), 0)
                     self.assertIsInstance(attendee['attendee_id'], int)
 
-
     def test_get_applicant_calendar_as_other_recruiter(self):
         with self.assertRaises(ForbiddenException):
             get_character_calendar(self.applicant.id, current_user=self.other_recruiter)

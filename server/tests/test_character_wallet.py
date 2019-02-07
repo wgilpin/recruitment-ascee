@@ -30,15 +30,17 @@ class WalletTests(AsceeTestCase):
         wallet_list = result['info']
         self.assertGreater(len(wallet_list), 0)
         wallet_attributes = {
-            'amount': int,
+            'date': str,
+            'description': str,
+            'id': int,
+            'ref_type': str,
+        }
+        wallet_optional_attributes = {
+            'amount': float,
             'balance': float,
             'context_id': int,
             'context_id_type': str,
-            'date': str,
-            'description': str,
             'first_party_id': int,
-            'id': int,
-            'ref_type': str,
             'second_party_id': int
         }
         party_attributes = {
@@ -49,19 +51,20 @@ class WalletTests(AsceeTestCase):
             'corporation_ticker': str,
         }
         for entry in wallet_list:
-            for property_name, property_type in wallet_attributes.items():
-                self.assertTrue(property_name in wallet_data)
-                self.assertIsInstance(wallet_data[property_name], property_type)
-            entry_date = datetime.strptime(entry['date'])
+            for attr_name, attr_type in wallet_attributes.items():
+                self.assertIn(attr_name, entry, attr_name)
+                self.assertIsInstance(entry[attr_name], attr_type)
+            for attr_name, attr_type in wallet_optional_attributes.items():
+                if attr_name in entry:
+                    self.assertIsInstance(entry[attr_name], attr_type)
             if 'first_party' in entry:
-                for property_name, property_type in entry['first_party']:
-                    self.assertTrue(property_name in entry['first_party'])
-                    self.assertIsInstance(entry['first_party'][property_name], property_type)
+                for attr_name, attr_type in party_attributes.items():
+                    self.assertIn(attr_name, entry['first_party'])
+                    self.assertIsInstance(entry['first_party'][attr_name], attr_type)
             if 'second_party' in entry:
-                for property_name, property_type in entry['second_party']:
-                    self.assertTrue(property_name in entry['second_party'])
-                    self.assertIsInstance(entry['second_party'][property_name], property_type)
-
+                for attr_name, attr_type in party_attributes.items():
+                    self.assertIn(attr_name, entry['second_party'])
+                    self.assertIsInstance(entry['second_party'][attr_name], attr_type)
 
     def test_get_applicant_wallet_as_other_recruiter(self):
         with self.assertRaises(ForbiddenException):
