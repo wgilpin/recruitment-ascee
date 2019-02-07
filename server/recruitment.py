@@ -134,7 +134,7 @@ def api_questions():
     return jsonify(get_questions(current_user=current_user))
 
 
-@app.route('/api/answers/', methods=['GET', 'POST'])
+@app.route('/api/answers/', methods=['GET', 'PUT'])
 @app.route('/api/answers/<int:user_id>')
 @login_required
 def api_user_answers(user_id=None):
@@ -157,7 +157,7 @@ def api_user_answers(user_id=None):
         user_id = user_id or current_user.id
         return jsonify(get_answers(user_id, current_user=current_user))
     elif request.method == 'PUT':
-        return jsonify(set_answers(user_id, current_user=current_user))
+        return jsonify(set_answers(user_id, answers=request.args.get('answers'), current_user=current_user))
 
 @app.route('/api/admin/users/')
 @login_required
