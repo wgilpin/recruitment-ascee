@@ -6,7 +6,8 @@ from models import (
 from flask import jsonify
 from flask_login import login_required, current_user
 from flask_app import app
-from security import is_applicant_character_id, has_applicant_access
+from security import (
+    is_applicant_character_id, has_applicant_access, character_application_access_check)
 from exceptions import ForbiddenException, BadRequestException
 import cachetools
 from collections import namedtuple
@@ -326,7 +327,7 @@ def get_character_calendar(character_id, current_user=None):
     # TODO: Need to return not just data from this endpoint, but also
     # the get_characters_character_id_calendar_event_id endpoint
     character = Character.get(character_id)
-    application_access_check(current_user, character)
+    character_application_access_check(current_user, character)
     calendar_data = character.get_op(
         'get_characters_character_id_calendar',
         character_id=character_id
@@ -361,7 +362,7 @@ def get_transaction_party(party_id):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_wallet(character_id, current_user=None):
     character = Character.get(character_id)
-    application_access_check(current_user, character)
+    character_application_access_check(current_user, character)
     wallet_data = character.get_paged_op(
         'get_characters_character_id_wallet_journal',
         character_id=character_id
@@ -420,7 +421,7 @@ def get_party_data(party_ids):
 def get_character_contacts(character_id, current_user=None):
     contacts_dict = {}
     character = Character.get(character_id)
-    application_access_check(current_user, character)
+    character_application_access_check(current_user, character)
     contacts_list = character.get_paged_op(
         'get_characters_character_id_contacts',
         character_id=character_id
@@ -467,7 +468,7 @@ def get_character_contacts(character_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_mining(character_id, current_user=None):
     character = Character.get(character_id)
-    application_access_check(current_user, character)
+    character_application_access_check(current_user, character)
     mining_data = character.get_op(
         'get_characters_character_id_mining',
         character_id=character_id,
@@ -493,7 +494,7 @@ def get_character_mining(character_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_contracts(character_id, current_user=None):
     character = Character.get(character_id)
-    application_access_check(current_user, character)
+    character_application_access_check(current_user, character)
     contract_list = character.get_paged_op(
         'get_characters_character_id_contracts',
         character_id=character_id
@@ -539,7 +540,7 @@ def get_character_market_contracts(character_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_assets(character_id, current_user=None):
     character = Character.get(character_id)
-    application_access_check(current_user, character)
+    character_application_access_check(current_user, character)
     asset_list = character.get_paged_op(
         'get_characters_character_id_assets',
         character_id=character_id,
@@ -560,7 +561,7 @@ def get_character_assets(character_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_bookmarks(character_id, current_user=None):
     character = Character.get(character_id)
-    application_access_check(current_user, character)
+    character_application_access_check(current_user, character)
     bookmarks_list = character.get_paged_op(
         'get_characters_character_id_bookmarks',
         character_id=character_id,
@@ -585,26 +586,10 @@ def get_character_bookmarks(character_id, current_user=None):
     return {'info': bookmarks_dict}
 
 
-def application_access_check(current_user, target_character):
-    if not is_applicant_character_id(target_character.id):
-        raise ForbiddenException(
-            'Characer {} is not in an open application.'.format(
-                target_character.id
-            )
-        )
-    elif not has_applicant_access(current_user, target_character.user):
-        raise ForbiddenException(
-            'User {} does not have access to character {}'.format(
-                current_user.id, target_character.id
-            )
-        )
-    return target_character
-
-
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_mail(character_id, current_user=None):
     target_character = Character.get(character_id)
-    application_access_check(current_user, target_character)
+    character_application_access_check(current_user, target_character)
     mail_list = target_character.get_op(
         'get_characters_character_id_mail',
         character_id=character_id,
@@ -649,7 +634,7 @@ def get_character_mail(character_id, current_user=None):
 @cachetools.cached(cachetools.LRUCache(maxsize=500))
 def get_mail_body(character_id, mail_id, current_user=None):
     character = Character.get(character_id)
-    application_access_check(current_user, character)
+    character_application_access_check(current_user, character)
     mail_data = character.get_op(
         'get_characters_character_id_mail_mail_id',
         character_id=character_id,
@@ -661,7 +646,7 @@ def get_mail_body(character_id, mail_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_market_history(character_id, current_user=None):
     character = Character.get(character_id)
-    application_access_check(current_user, character)
+    character_application_access_check(current_user, character)
     order_list = character.get_op(
         'get_characters_character_id_orders',
         character_id=character_id,
@@ -695,7 +680,7 @@ def get_character_market_history(character_id, current_user=None):
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_skills(character_id, current_user=None):
     character = Character.get(character_id)
-    application_access_check(current_user, character)
+    character_application_access_check(current_user, character)
     skill_data = character.get_op(
         'get_characters_character_id_skills',
         character_id=character_id,
