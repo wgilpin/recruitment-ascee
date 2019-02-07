@@ -134,7 +134,7 @@ def api_questions():
     return jsonify(get_questions(current_user=current_user))
 
 
-@app.route('/api/answers/')
+@app.route('/api/answers/', methods=['GET', 'POST'])
 @app.route('/api/answers/<int:user_id>')
 @login_required
 def api_user_answers(user_id=None):
@@ -153,9 +153,11 @@ def api_user_answers(user_id=None):
         Forbidden (403): If logged in user is not a senior recruiter,
             a recruiter who has claimed the given user, or the user themself
     """
-    user_id = user_id or current_user.id
-    return jsonify(get_answers(user_id, current_user=current_user))
-
+    if request.method == 'GET':
+        user_id = user_id or current_user.id
+        return jsonify(get_answers(user_id, current_user=current_user))
+    elif request.method == 'PUT':
+        return jsonify(set_answers(user_id, current_user=current_user))
 
 @app.route('/api/admin/users/')
 @login_required
@@ -206,6 +208,9 @@ def get_user_application(user_id):
     return Application.get_for_user(user_id)
 
 
+def set_answers(user_id, current_user=None):
+    return None
+    
 def get_answers(user_id, current_user=None):
     if not db.session.query(db.exists().where(User.id==user_id)).scalar():
         raise BadRequestException('User with id={} does not exist.'.format(user_id))
@@ -213,19 +218,29 @@ def get_answers(user_id, current_user=None):
     if not has_applicant_access(current_user, user, self_access=True):
         raise ForbiddenException('User {} does not have access to user {}'.format(current_user, user_id))
 
-    application_id = get_user_application(user_id).id
-    # get a dict keyed by question id of questions & answers
-    response = {}
-    questions = get_questions()
-    answer_query = db.session.query(Answer.question_id, Answer.text).filter(Answer.application_id==application_id)
-    answers = {item[0]: item[1] for item in answer_query}
-    for question_id in questions:
-        answer = answers[question_id] if question_id in answers else ""
-        response[question_id] = {
-            "question": questions[question_id],
-            "user_id": user_id,
-            "answer": answer,
-        }
+    application = get_user_application(user_id)
+    if application:
+        application_id = get_user_application(user_id).id
+        # get a dict keyed by question id of questions & answers
+        response = {}
+        questions = get_questions()
+        answer_query = db.session.query(Answer.question_id, Answer.text).filter(Answer.application_id==application_id)
+        answers = {item[0]: item[1] for item in answer_query}
+        for question_id in questions:
+            answer = answers[question_id] if question_id in answers else ""
+            response[question_id] = {
+                'question' questions[question_id],
+                'user_id' user_id,
+                'answer' answer,
+            }
+    else:
+        # no application yet, create empty answers
+        for question_id in questions:
+            response[question_id] = {
+                'question' questions[question_id],
+                'user_id' user_id,
+                'answer' '',
+            }
     return response
 
 

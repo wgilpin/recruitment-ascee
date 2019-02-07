@@ -6,7 +6,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 from exceptions import BadRequestException, ForbiddenException
 import unittest
 import character_data
-from models import Character, User, Question, Answer, db
+from models import Character, User, db
 from base import AsceeTestCase
 from flask_app import app
 from datetime import datetime

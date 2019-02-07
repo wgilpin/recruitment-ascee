@@ -5,7 +5,7 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
-from models import Character, User, Question, Answer, Application, db
+from models import Character, User, Application, db
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
