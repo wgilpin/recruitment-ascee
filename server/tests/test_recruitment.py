@@ -80,11 +80,11 @@ class QuestionAnswerTests(AsceeTestCase):
         result = get_answers(self.applicant.id)
         self.assertIsInstance(result, dict)
         self.assertIn('has_application', result)
-        self.assertEquals(result['has_application'], True)
+        self.assertEqual(result['has_application'], True)
 
     def test_has_no_application(self):
         with self.assertRaises(BadRequestException):
-            result = get_answers(self.not_applicant.id)
+            get_answers(self.not_applicant.id)
 
     def test_no_questions_answers(self):
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
