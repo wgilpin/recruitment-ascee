@@ -77,17 +77,17 @@ class QuestionAnswerTests(AsceeTestCase):
         self.assertEqual(len(result), 3)
 
     def test_has_application(self):
-        result = get_answers(self.applicant)
+        result = get_answers(self.applicant.id)
         self.assertIsInstance(result, dict)
         self.assertIn('has_application', result)
         self.assertEquals(result['has_application'], True)
 
     def test_has_no_application(self):
-        result = get_answers(self.not_applicant)
+        result = get_answers(self.not_applicant.id)
         self.assertIsInstance(result, dict)
         self.assertIn('has_application', result)
         self.assertEquals(result['has_application'], False)
-        
+
     def test_no_questions_answers(self):
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
         self.assertIsInstance(result, dict)
@@ -117,7 +117,7 @@ class QuestionAnswerTests(AsceeTestCase):
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
         self.assertIsInstance(result, dict)
         self.assertIn('questions', result)
-        self.assertEqual(len(result), 3)
+        self.assertEqual(len(result['questions']), 3)
         for question_id, answer_data in result['questions'].items():
             self.assertIsInstance(question_id, int)
             self.assertIsInstance(answer_data['question'], str)
@@ -149,7 +149,7 @@ class QuestionAnswerTests(AsceeTestCase):
             self.assertEqual(len(answer_data), 3, answer_data)
             if question_id != answer.question_id:
                 self.assertEqual(answer_data['answer'], '', answer)
-        self.assertEqual(result[answer.question_id]['answer'], 'My answer.')
+        self.assertEqual(result['questions'][answer.question_id]['answer'], 'My answer.')
 
     def test_three_questions_three_answers(self):
         for i in range(3):
@@ -238,9 +238,9 @@ class QuestionAnswerTests(AsceeTestCase):
         db.session.commit()
         after_set_result = get_answers(self.applicant.id, current_user=self.applicant)
         self.assertIsInstance(after_set_result, dict)
-        self.assertEqual(len(after_set_result), 3)
+        self.assertEqual(len(after_set_result['questions']), 3)
         for k in question_keys:
-            self.assertEqual(after_set_result[k]['answer'], f'answer for {k}')
+            self.assertEqual(after_set_result['questions'][k]['answer'], f'answer for {k}')
 
     def test_set_answers_applicant_with_application_non_applicant(self):
         answers = [{'question_id': 1, 'text': f'answer for 1'}]
@@ -267,12 +267,12 @@ class QuestionAnswerTests(AsceeTestCase):
 class MiscRecruitmentTests(AsceeTestCase):
 
     def test_start_application(self):
-        application = Application.get_for_user(self.not_applicant)
+        application = Application.get_for_user(self.not_applicant.id)
         self.assertIsNone(application, None)
         start_application(self.not_applicant)
-        application = Application.get_for_user(self.not_applicant)
+        application = Application.get_for_user(self.not_applicant.id)
         self.assertIsInstance(application, Application)
-        self.assertEquals(application.user_id, self.not_applicant.id)
+        self.assertEqual(application.user_id, self.not_applicant.id)
 
     def test_start_application_second_time(self):
         with self.assertRaises(BadRequestException):
@@ -302,11 +302,7 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.assertEqual(record['recruiter_id'], self.recruiter.id)
         self.assertEqual(record['recruiter_name'], self.recruiter.name)
         self.assertEqual(record['name'], self.applicant.name)
-        self.assertEqual(record['is_escalated'], False)
-        self.assertEqual(record['is_submitted'], False)
-        self.assertEqual(record['is_concluded'], False)
-        self.assertEqual(record['is_accepted'], False)
-        self.assertEqual(record['is_invited'], False)
+        self.assertTrue(record['status'] in ['claimed', 'new', 'escalated'])
 
     def test_get_applicant_list_as_admin(self):
         response = get_applicant_list(current_user=User.get(self.admin.id))

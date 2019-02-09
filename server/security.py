@@ -36,16 +36,16 @@ def is_applicant_character_id(character_id):
 
 
 def character_application_access_check(current_user, target_character):
-    if not is_applicant_character_id(target_character.id):
-        raise BadRequestException(
-            'Character {} is not in an open application.'.format(
-                target_character.id
-            )
-        )
-    elif not has_applicant_access(current_user, target_character.user):
+    if not has_applicant_access(current_user, target_character.user):
         raise ForbiddenException(
             'User {} does not have access to character {}'.format(
                 current_user.id, target_character.id
+            )
+        )
+    elif not is_applicant_character_id(target_character.id):
+        raise BadRequestException(
+            'Character {} is not in an open application.'.format(
+                target_character.id
             )
         )
 
@@ -78,10 +78,10 @@ def has_applicant_access(user, target_user, self_access=False):
         return_value = True
     else:
         application = Application.query.filter_by(user_id=target_user.id, is_concluded=False).one_or_none()
-        if application.recruiter_id==user.id:
+        if application and application.recruiter_id == user.id:
             # Requesting user is recruiter who claimed application
             return_value = True
-        elif not application.recruiter_id:
+        elif application and not application.recruiter_id:
             # unclaimed application
             return_value = True
     return return_value

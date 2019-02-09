@@ -83,11 +83,7 @@ def api_get_applicant_list():
                     'user_id': 1937622137,  # int character ID of user's main
                     'recruiter_id': 201837771,  # int character ID of recruiter's main
                     'recruiter_name': 'Recruiter Ralph',  # string name of recruiter
-                    'is_escalated': False,
-                    'is_submitted': False,
-                    'is_concluded': False,
-                    'is_accepted': False,
-                    'is_invited': False,
+                    'status': 'claimed' | 'new' | 'escalated',
                 },
                 '876876876': {
                     [...]
@@ -247,6 +243,7 @@ def get_answers(user_id, current_user=None):
     if not db.session.query(db.exists().where(User.id==user_id)).scalar():
         raise BadRequestException('User with id={} does not exist.'.format(user_id))
     user = User.get(user_id)
+    current_user = current_user or user
     if not has_applicant_access(current_user, user, self_access=True):
         raise ForbiddenException('User {} does not have access to user {}'.format(current_user, user_id))
 
