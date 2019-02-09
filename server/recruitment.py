@@ -314,12 +314,13 @@ def start_application(current_user=None):
     application = Application.query.filter_by(
         user_id=current_user.id, is_concluded=False).one_or_none()
     if application:
-        raise BadRequestException ('An application is already open')
+        raise BadRequestException('An application is already open')
     # no application, start one
     application = Application(user_id=current_user.id, is_concluded=False)
     db.session.add(application)
     db.session.commit()
-    return { 'status': 'ok'}
+    return {'status': 'ok'}
+
 
 def add_applicant_note(applicant_user_id, text, is_chat_log=False, current_user=None):
     application = Application.query.filter_by(
