@@ -7,7 +7,8 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from recruitment import (
     get_questions, get_answers, get_user_characters, get_users, get_user_application,\
-    add_applicant_note, get_character_search_list, get_applicant_list, set_answers)
+    add_applicant_note, get_character_search_list, get_applicant_list, set_answers,\
+    start_application)
 from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
 from flask_app import app
@@ -75,10 +76,23 @@ class QuestionAnswerTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertEqual(len(result), 3)
 
+    def test_has_application(self):
+        result = get_answers(self.applicant)
+        self.assertIsInstance(result, dict)
+        self.assertIn('has_application', result)
+        self.assertEquals(result['has_application'], True)
+
+    def test_has_no_application(self):
+        result = get_answers(self.not_applicant)
+        self.assertIsInstance(result, dict)
+        self.assertIn('has_application', result)
+        self.assertEquals(result['has_application'], False)
+        
     def test_no_questions_answers(self):
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 0)
+        self.assertIn('questions', result)
+        self.assertEqual(len(result['questions']), 0)
 
     def test_question_answer(self):
         question = Question(text='Question?')
@@ -89,10 +103,11 @@ class QuestionAnswerTests(AsceeTestCase):
         db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.recruiter)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[question.id]['answer'], 'Answer.')
-        self.assertEqual(result[question.id]['question'], 'Question?')
-        self.assertEqual(result[question.id]['user_id'], self.applicant.id)
+        self.assertIn('questions', result)
+        self.assertEqual(len(result['questions']), 1)
+        self.assertEqual(result['questions'][question.id]['answer'], 'Answer.')
+        self.assertEqual(result['questions'][question.id]['question'], 'Question?')
+        self.assertEqual(result['questions'][question.id]['user_id'], self.applicant.id)
 
     def test_three_questions_no_answers(self):
         for i in range(3):
@@ -101,8 +116,9 @@ class QuestionAnswerTests(AsceeTestCase):
             db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
         self.assertIsInstance(result, dict)
+        self.assertIn('questions', result)
         self.assertEqual(len(result), 3)
-        for question_id, answer_data in result.items():
+        for question_id, answer_data in result['questions'].items():
             self.assertIsInstance(question_id, int)
             self.assertIsInstance(answer_data['question'], str)
             self.assertEqual(answer_data['user_id'], self.applicant.id)
@@ -124,8 +140,8 @@ class QuestionAnswerTests(AsceeTestCase):
         db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 3)
-        for question_id, answer_data in result.items():
+        self.assertEqual(len(result['questions']), 3)
+        for question_id, answer_data in result['questions'].items():
             self.assertIsInstance(question_id, int)
             self.assertIsInstance(answer_data['question'], str)
             self.assertIsInstance(answer_data['answer'], str)
@@ -149,8 +165,8 @@ class QuestionAnswerTests(AsceeTestCase):
             db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 3)
-        for question_id, answer_data in result.items():
+        self.assertEqual(len(result['questions']), 3)
+        for question_id, answer_data in result['questions'].items():
             self.assertIsInstance(question_id, int)
             self.assertIsInstance(answer_data['question'], str)
             self.assertIsInstance(answer_data['answer'], str)
@@ -167,10 +183,10 @@ class QuestionAnswerTests(AsceeTestCase):
         db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.applicant)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[question.id]['answer'], 'Answer.')
-        self.assertEqual(result[question.id]['question'], 'Question?')
-        self.assertEqual(result[question.id]['user_id'], self.applicant.id)
+        self.assertEqual(len(result['questions']), 1)
+        self.assertEqual(result['questions'][question.id]['answer'], 'Answer.')
+        self.assertEqual(result['questions'][question.id]['question'], 'Question?')
+        self.assertEqual(result['questions'][question.id]['user_id'], self.applicant.id)
 
     def test_question_answer_as_other_recruiter(self):
         question = Question(text='Question?')
@@ -192,10 +208,10 @@ class QuestionAnswerTests(AsceeTestCase):
         db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.senior_recruiter.user)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[question.id]['answer'], 'Answer.')
-        self.assertEqual(result[question.id]['question'], 'Question?')
-        self.assertEqual(result[question.id]['user_id'], self.applicant.id)
+        self.assertEqual(len(result['questions']), 1)
+        self.assertEqual(result['questions'][question.id]['answer'], 'Answer.')
+        self.assertEqual(result['questions'][question.id]['question'], 'Question?')
+        self.assertEqual(result['questions'][question.id]['user_id'], self.applicant.id)
 
     def test_question_answer_as_admin(self):
         question = Question(text='Question?')
@@ -249,6 +265,26 @@ class QuestionAnswerTests(AsceeTestCase):
             set_answers(self.senior_recruiter.id, answers=answers, current_user=self.recruiter)
 
 class MiscRecruitmentTests(AsceeTestCase):
+
+    def test_start_application(self):
+        application = Application.get_for_user(self.not_applicant)
+        self.assertIsNone(application, None)
+        start_application(self.not_applicant)
+        application = Application.get_for_user(self.not_applicant)
+        self.assertIsInstance(application, Application)
+        self.assertEquals(application.user_id, self.not_applicant.id)
+
+    def test_start_application_second_time(self):
+        with self.assertRaises(BadRequestException):
+            start_application(self.applicant)
+
+    def test_start_application_with_roles(self):
+        with self.assertRaises(BadRequestException):
+            start_application(self.admin)
+        with self.assertRaises(BadRequestException):
+            start_application(self.recruiter)
+        with self.assertRaises(BadRequestException):
+            start_application(self.senior_recruiter)
 
     # Applicant list tests
 

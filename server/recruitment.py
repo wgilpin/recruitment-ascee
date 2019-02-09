@@ -1,11 +1,28 @@
 from models import Corporation, Note, Question, Answer, User, Character, db, Application, Admin, Recruiter
 from flask import jsonify, request
 from flask_login import login_required, current_user
-from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter, is_applicant_character_id
+from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter,\
+    is_applicant_character_id
 import cachetools
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
 
+
+@app.route(
+    '/api/recruits/start_application/', methods=['GET'])
+@login_required
+def api_start_application():
+    """
+    Create an application for the current user
+
+    Returns:
+        {'status': 'ok'} if application is successfully added
+
+    Error codes:
+        Forbidden (403): If logged in user has roles
+        Bad request (400): If the user already has an application
+    """
+    return jsonify(start_application(current_user=current_user))
 
 @app.route(
     '/api/recruits/add_note/<int:applicant_id>', methods=['PUT'])
@@ -234,16 +251,18 @@ def get_answers(user_id, current_user=None):
         raise ForbiddenException('User {} does not have access to user {}'.format(current_user, user_id))
 
     application = get_user_application(user_id)
+    questions = get_questions()
+    response = {'questions':{}, 'has_application': False}
     if application:
+        response['has_application'] = True
         application_id = get_user_application(user_id).id
         # get a dict keyed by question id of questions & answers
-        response = {}
-        questions = get_questions()
-        answer_query = db.session.query(Answer.question_id, Answer.text).filter(Answer.application_id==application_id)
+        answer_query = db.session.query(Answer.question_id, Answer.text)\
+            .filter(Answer.application_id == application_id)
         answers = {item[0]: item[1] for item in answer_query}
         for question_id in questions:
             answer = answers[question_id] if question_id in answers else ""
-            response[question_id] = {
+            response['questions'][question_id] = {
                 'question': questions[question_id],
                 'user_id': user_id,
                 'answer': answer,
@@ -251,13 +270,29 @@ def get_answers(user_id, current_user=None):
     else:
         # no application yet, create empty answers
         for question_id in questions:
-            response[question_id] = {
+            response['questions'][question_id] = {
                 'question': questions[question_id],
                 'user_id': user_id,
                 'answer': '',
             }
     return response
 
+
+def start_application(current_user=None):
+    if is_admin(current_user) or is_recruiter(current_user) or is_senior_recruiter(current_user):
+        raise BadRequestException('Recruiters cannot apply')
+    character = Character.get(current_user.id)
+    if character.blocked_from_applying:
+        raise ForbiddenException('User is blocked')
+    application = Application.query.filter_by(
+        user_id=current_user.id, is_concluded=False).one_or_none()
+    if application:
+        raise BadRequestException ('An application is already open')
+    # no application, start one
+    application = Application(user_id=current_user.id, is_concluded=False)
+    db.session.add(application)
+    db.session.commit()
+    return { 'status': 'ok'}
 
 def add_applicant_note(applicant_user_id, text, is_chat_log=False, current_user=None):
     application = Application.query.filter_by(
@@ -270,7 +305,7 @@ def add_applicant_note(applicant_user_id, text, is_chat_log=False, current_user=
             raise ForbiddenException(
                 'Current user is not a recruiter')
         elif (application.recruiter_id != current_user.id and
-              not is_senior_recruiter(current_user)):
+            not is_senior_recruiter(current_user)):
             raise ForbiddenException(
                 'Current recruiter has not claimed applicant {}'.format(applicant_user_id))
         note = Note(
@@ -301,42 +336,39 @@ def get_applicant_list(current_user=None):
     if not (is_recruiter(current_user) or is_admin(current_user)):
         raise ForbiddenException('User must be recruiter or admin.')
     result = {}
-    for application in Application.query.filter(Application.is_concluded==False).all():
-        applicant_id = application.user_id
-        recruiter = User.get(application.recruiter_id) if application.recruiter_id else None
-        recruiter_name = \
-            recruiter.name if application.recruiter_id else None
-        applicant_name = \
-            Character.get(applicant_id).name if applicant_id else None
-
-        if application.is_concluded:
+    for user in User.query.all():
+        if not is_applicant_character_id(user.id):
             continue
-
-        application.status = 'new'
-        if application.is_escalated:
-            application.status = 'escalated'
+        recruiter_name = None
+        recruiter_id = None
+        application = Application.query.filter_by(user_id=user.id, is_concluded=False).one_or_none()
+        application_status = 'new'
+        if application:
+            recruiter_id = application.recruiter_id
+            if recruiter_id:
+                recruiter = User.get(recruiter_id)
+                recruiter_name = recruiter.name
+                application_status = 'claimed'
+            if application.is_escalated:
+                application_status = 'escalated'
 
         applicant_visible = False
         # senior recruiters see all
         if is_senior_recruiter(current_user) or is_admin(current_user):
             applicant_visible = True
         elif is_recruiter(current_user):
-            if application.recruiter_id == current_user.id:
+            if application and application.recruiter_id == current_user.id:
                 applicant_visible = True
             else:
-                applicant_visible = application.status == 'new'
+                applicant_visible = application_status == 'new'
 
         if applicant_visible:
-            result[applicant_id] = {
-                'user_id': applicant_id,
-                'recruiter_id': application.recruiter_id,
+            result[user.id] = {
+                'user_id': user.id,
+                'recruiter_id': application.recruiter_id if application else None,
                 'recruiter_name': recruiter_name,
-                'is_escalated': application.is_escalated,
-                'is_submitted': application.is_submitted,
-                'is_concluded': application.is_concluded,
-                'is_accepted': application.is_accepted,
-                'is_invited': application.is_invited,
-                'name': applicant_name,
+                'status': application_status,
+                'name': user.name,
             }
 
     return {'info': result}
