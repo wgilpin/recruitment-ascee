@@ -376,6 +376,10 @@ def get_character_wallet(character_id, current_user=None):
             wallet_entry['first_party'] = party_data[wallet_entry['first_party_id']]
         if 'second_party_id' in wallet_entry:
             wallet_entry['second_party'] = party_data[wallet_entry['second_party_id']]
+        if wallet_entry.get('first_party_id',None) == character_id:
+            wallet_entry['other_party'] = wallet_entry.get('second_party', {'name': ''})['name']
+        else:
+            wallet_entry['other_party'] = wallet_entry.get('first_party', {'name': ''})['name']
         if redlisted:
             wallet_entry['redlisted'] = True
     return {'info': wallet_data}
