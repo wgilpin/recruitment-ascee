@@ -32,6 +32,21 @@ def initDbForE2e():
         name='Billy Admin',
     ))
 
+    # TODO: Id of recruiter user
+    recruiter_id = 345
+
+    db.session.add(Character(
+        id=recruiter_id,
+        user_id=recruiter_id,
+        name='RECRUITER NAME',
+        corporation_id=ascee_corp_id,
+        refresh_token='YOUR TOKEN HERE'
+    ))
+    db.session.add(Recruiter(
+        id=recruiter_id,
+        name='RECRUITER NAME',
+    ))
+
     # TODO: Id of applicant user
     character_id = 234
 
@@ -48,20 +63,7 @@ def initDbForE2e():
         name='APPLICANT NAME',
     ))
 
-    # TODO: Id of recruiter user
-    recruiter_id = 345
 
-    db.session.add(Character(
-        id=recruiter_id,
-        user_id=recruiter_id,
-        name='RECRUITER NAME',
-        corporation_id=ascee_corp_id,
-        refresh_token='YOUR TOKEN HERE'
-    ))
-    db.session.add(Recruiter(
-        id=recruiter_id,
-        name='RECRUITER NAME',
-    ))
 
     db.session.add(Question(text='How long have you been playing Eve?'))
     db.session.add(Question(text='PVP or PVE? Why?'))

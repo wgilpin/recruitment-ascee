@@ -68,7 +68,8 @@ export default class Applicant extends Component {
   submit = () => {
     if (this.state.has_application) {
       const qa = [];
-      this.state.questions.forEach(q => {
+      Object.keys(this.state.questions).forEach(key => {
+        const q = this.state.questions[key];
         qa.push({ q: q.q, a: this.answers[q.q] });
       });
       new FetchData({ scope: 'recruits/submit' })
@@ -99,11 +100,12 @@ export default class Applicant extends Component {
       <TabPanel>
         <h2 style={styles.heading}>Recruitment Questions</h2>
         {Object.keys(this.state.questions || {}).map(key => {
-          const { question, answer } = this.state.questions[key];
+          const { question } = this.state.questions[key];
+          const answer = this.answers[key];
           return (
             <div key={key}>
               <div style={styles.padded}>{question}</div>
-              <textarea style={styles.answer} id={question} onChange={this.handleAnswerChanged}>
+              <textarea style={styles.answer} id={key} onChange={this.handleAnswerChanged}>
                 {answer}
               </textarea>
               <hr style={styles.hr} />
