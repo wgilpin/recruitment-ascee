@@ -1,7 +1,6 @@
 import React from 'react';
 import TabsHeader from './TabsHeader';
 import Alts from './Alts';
-import Wallet from './Wallet';
 import Mail from './Mail';
 import Assets from './Assets';
 import Skills from './Skills';
