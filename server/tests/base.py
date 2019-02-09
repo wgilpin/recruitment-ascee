@@ -9,11 +9,14 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from models import Character, User, Admin, Recruiter, Question, Answer, Application, db, Note
 import warnings
+import time
 
 
 class AsceeTestCase(unittest.TestCase):#VCRTestCase):
 
     ascee_corp_id = 98589569
+
+    slow_time = 0.3
 
     def _get_vcr_kwargs(self, **kwargs):
         kwargs.update({
@@ -26,8 +29,12 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
         self.initDB()
         warnings.simplefilter("ignore", ResourceWarning)
         warnings.simplefilter("ignore", UserWarning)
+        self._started_at = time.time()
 
     def tearDown(self):
+        elapsed = time.time() - self._started_at
+        if elapsed > self.slow_time:
+            print(f'\n{self.id()} ({round(elapsed, 2)}s)')
         super(AsceeTestCase, self).tearDown()
         self.clearDB()
 
