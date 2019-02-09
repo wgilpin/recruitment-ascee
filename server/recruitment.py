@@ -25,6 +25,21 @@ def api_start_application():
     return jsonify(start_application(current_user=current_user))
 
 @app.route(
+    '/api/recruits/submit_application/', methods=['PUT'])
+@login_required
+def api_submit_application():
+    """
+    Submit an application for the current user
+
+    Returns:
+        {'status': 'ok'} if application is successfully added
+
+    Error codes:
+        Forbidden (403): If logged in user has roles
+    """
+    return jsonify(submit_application(request.json, current_user=current_user))
+
+@app.route(
     '/api/recruits/add_note/<int:applicant_id>', methods=['PUT'])
 @login_required
 def api_add_applicant_note(applicant_id):
@@ -189,6 +204,19 @@ def api_users():
         Forbidden (403): If logged in user is not an admin.
     """
     return jsonify(get_users(current_user=current_user))
+
+def submit_application(data, current_user=None):
+    if is_admin(current_user) or is_recruiter(current_user) or is_senior_recruiter(current_user):
+        raise BadRequestException(f'User {current_user.id} is not an applicant')
+    application = Application.get_for_user(current_user.id)
+    if not application:
+        application = Application(user_id=current_user.id)
+        db.session.add(application)
+    answers = []
+    for answer in data:
+        answers.append(Answer(question_id=answer['id'], text=answer['a']))
+    application.answers = answers
+    db.session.commit()
 
 
 def get_users(current_user=None):

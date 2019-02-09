@@ -70,13 +70,16 @@ export default class Applicant extends Component {
       const qa = [];
       Object.keys(this.state.questions).forEach(key => {
         const q = this.state.questions[key];
-        qa.push({ q: q.q, a: this.answers[q.q] });
+        qa.push({ q: q.q, a: this.answers[key], id: key });
       });
-      new FetchData({ scope: 'recruits/submit' })
+      new FetchData({ scope: 'recruits/submit_application' })
         .put(qa)
         .then((res) => {
           if (res.status === 401) {
             return window.location = '/app';
+          }
+          if (res.status > 401) {
+            return alert('Error submitting\n' + res.statusText);
           }
           alert('Submitted')
         })
@@ -150,8 +153,8 @@ export default class Applicant extends Component {
         <h2 style={styles.headingLeft}>My Alts</h2>
         <div style={styles.padded}>
           <label style={styles.label}>
-            I have no more alts
-            <input
+            I have no more alts&emsp;
+            <input style={styles.checkbox}
               type="checkbox"
               onClick={this.handleAltsDone}
               checked={this.state.altsDone}

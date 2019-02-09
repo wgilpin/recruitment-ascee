@@ -62,6 +62,9 @@ const styles = {
     position: 'absolute',
     right: '16px',
     top: '8px',
+  },
+  checkbox: {
+    transform: 'scale(1.5)'
   }
 };
 

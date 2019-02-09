@@ -101,9 +101,7 @@ export default class FetchData {
     return fetch(url, {
       method: 'put',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ "data": {
-        "data" : payload,
-      }}),
+      body: JSON.stringify(payload),
   })
   }
 }
