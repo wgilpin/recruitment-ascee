@@ -1,11 +1,19 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "Python: E2E",
       "type": "python",
       "request": "launch",
       "program": "${workspaceFolder}/server/tests/e2e_test.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Python: unit tests",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/tests/test_all.py",
       "console": "integratedTerminal"
     },
     {
