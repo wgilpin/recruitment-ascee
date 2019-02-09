@@ -50,11 +50,13 @@ def api_server_error(e):
     return 'An internal error occurred.', 500
 # [END app]
 
-
-if __name__ == '__main__':
+def run_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     with app.app_context():
         db.init_app(app)
         db.create_all()
         app.run(host='localhost', port='8080')
+
+if __name__ == '__main__':
+    run_app()
