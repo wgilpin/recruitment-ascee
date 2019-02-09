@@ -95,14 +95,14 @@ export default class FetchData {
       });
   }
 
-  post(payload) {
+  put(payload) {
     let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id || ''}`;
     console.log(`fetch post ${url}`);
     return fetch(url, {
-      method: 'post',
+      method: 'put',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ "data": {
-        "qa" : payload,
+        "data" : payload,
       }}),
   })
   }
