@@ -167,7 +167,7 @@ def process_oauth(login_type, code):
 
     refresh_token, character_id = token_data['refresh_token'], user_data['CharacterID']
     character = Character.get(character_id)
-    if os.environ['ASCEE_SHOW_TOKENS'] and refresh_token:
+    if 'ASCEE_SHOW_TOKENS' in os.environ and os.environ['ASCEE_SHOW_TOKENS'] and refresh_token:
         print (f'TOKEN for {character_id}: {refresh_token}')
     if login_type in ('scopes', 'link'):
         character.refresh_token = refresh_token
