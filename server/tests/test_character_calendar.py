@@ -28,7 +28,7 @@ class CalendarTests(AsceeTestCase):
         self.assertIn('info',  result)
         self.assertIsInstance(result['info'], list)
         calendar_list = result['info']
-        self.assertGreater(len(calendar_list), 0)
+        self.assertGreaterEqual(len(calendar_list), 0)
         calendar_attributes = {
             'event_date': str,
             'event_id': int,

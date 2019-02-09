@@ -248,6 +248,8 @@ def get_answers(user_id, current_user=None):
         raise ForbiddenException('User {} does not have access to user {}'.format(current_user, user_id))
 
     application = get_user_application(user_id)
+    if not application:
+        raise BadRequestException('User with id={} has no application.'.format(user_id))
     questions = get_questions()
     response = {'questions':{}, 'has_application': False}
     if application:

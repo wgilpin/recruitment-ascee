@@ -66,23 +66,23 @@ def user_application_access_check(current_user, target_user):
 
 
 def has_applicant_access(user, target_user, self_access=False):
-    return_value = False
     if self_access and (user.id == target_user.id):
-        return_value = True
-    elif db.session.query(
-            db.exists().where(db.and_(
-                Recruiter.user==user, Recruiter.is_senior)
-            )
-            ).scalar():
-        # Requesting user is senior recruiter
-        return_value = True
-    else:
-        application = Application.query.filter_by(user_id=target_user.id, is_concluded=False).one_or_none()
-        if application and application.recruiter_id == user.id:
+        return True
+    return_value = False
+    application = Application.query.filter_by(user_id=target_user.id, is_concluded=False).one_or_none()
+    if application:
+        if application.recruiter_id == user.id:
             # Requesting user is recruiter who claimed application
             return_value = True
-        elif application and not application.recruiter_id:
+        elif not application.recruiter_id:
             # unclaimed application
+            return_value = True
+        elif db.session.query(
+                db.exists().where(db.and_(
+                    Recruiter.user==user, Recruiter.is_senior)
+                )
+                ).scalar():
+            # Requesting user is senior recruiter
             return_value = True
     return return_value
 
