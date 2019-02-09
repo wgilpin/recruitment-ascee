@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import RoundImage from './common/RoundImage';
 import walletImg from './images/wallet.png';
 import assetsImg from './images/assets.png';
-import mailImg from './images/mail.png';
+import mailImg from './images/evemail.png';
 import skillsImg from './images/skills.png';
 import blueprintImg from './images/blueprints.png';
 import bookmarkImg from './images/bookmarks.png';
 import contractsImg from './images/contracts.png';
-import calendarImg from './images/eve_calendar.png';
-import marketImg from './images/eve_market.png';
-import contactsImg from './images/eve_people.png';
+import calendarImg from './images/calendar.png';
+import marketImg from './images/market.png';
+import contactsImg from './images/contacts.png';
 
 const propTypes = {
   onTabChange: PropTypes.func,
