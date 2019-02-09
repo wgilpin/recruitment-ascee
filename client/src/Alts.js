@@ -32,7 +32,7 @@ export default class Alts extends React.Component {
   }
 
   handleClick = alt => {
-    console.log('alts click ', this.props.onAltSelect.alt);
+    console.log('alts click ', alt);
     this.setState({ selected: alt });
     if (this.props.onAltSelect) {
       this.props.onAltSelect(alt);

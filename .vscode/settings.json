@@ -1,4 +1,5 @@
 {
   "debug.node.autoAttach": "on",
-  "python.pythonPath": "/Users/will/anaconda/envs/env37/bin/python"
+  "python.pythonPath": "/Users/will/anaconda/envs/env37/bin/python",
+  "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]
 }

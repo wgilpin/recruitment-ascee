@@ -1,25 +1,41 @@
 import sys
 import os
-from config import server_dir
+server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 print(sys.version)
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
-from vcr_unittest import VCRTestCase
-from models import Character, User, Admin, Recruiter, Question, Answer, Application, db
+#from vcr_unittest import VCRTestCase
+import unittest
+from models import Character, User, Admin, Recruiter, Question, Answer, Application, db, Note
 import warnings
+import time
 
 
-class AsceeTestCase(VCRTestCase):
+class AsceeTestCase(unittest.TestCase):#VCRTestCase):
 
     ascee_corp_id = 98589569
 
+    slow_time = 0.3
+
+    def _get_vcr_kwargs(self, **kwargs):
+        kwargs.update({
+            'record_mode': 'new_episodes'
+        })
+        return kwargs
+
     def setUp(self):
+        super(AsceeTestCase, self).setUp()
         self.initDB()
         warnings.simplefilter("ignore", ResourceWarning)
         warnings.simplefilter("ignore", UserWarning)
+        self._started_at = time.time()
 
     def tearDown(self):
+        elapsed = time.time() - self._started_at
+        if elapsed > self.slow_time:
+            print(f'\n{self.id()} ({round(elapsed, 2)}s)')
+        super(AsceeTestCase, self).tearDown()
         self.clearDB()
 
     def initDB(self):
@@ -106,6 +122,6 @@ class AsceeTestCase(VCRTestCase):
 
     def clearDB(self):
         db.session.rollback()
-        for model in Character, User, Recruiter, Admin, Application, Question, Answer:
+        for model in Character, User, Recruiter, Admin, Application, Question, Answer, Note:
             db.session.query(model).delete()
         db.session.commit()

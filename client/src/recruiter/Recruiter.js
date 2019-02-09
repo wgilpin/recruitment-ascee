@@ -117,11 +117,12 @@ export default class Recruiter extends React.Component {
         .get()
         // Set the global `recruits` list, and set no recruit selected
         .then(recruits => {
+          this.setState({ loading: false });
           console.log(`fetched ${recruits}`);
           // array -> object
           const recruitDict = {};
-          recruits.info.forEach(rec => {
-            recruitDict[rec.user_id] = rec;
+          Object.keys(recruits.info).forEach(id => {
+            recruitDict[id] = recruits.info[id];
           });
           return { recruits: recruitDict, activeRecruit: null };
         })
@@ -153,7 +154,7 @@ export default class Recruiter extends React.Component {
         ? { scope: 'recruits/deescalate', status: Recruiter.statuses.claimed }
         : { scope: 'recruits/abandon', status: Recruiter.statuses.unclaimed };
     new FetchData({ id, scope: plan.scope })
-      .post()
+      .put()
       .then(() => this.setRecruitStatus(id, plan.status))
       .catch(err => ({ error: err }));
   };
@@ -169,7 +170,7 @@ export default class Recruiter extends React.Component {
   handleEscalate = id => {
     console.log(`handleEscalate ${id}`);
     new FetchData({ id, scope: 'recruits/escalate' })
-      .post()
+      .put()
       .then(() => this.setRecruitStatus(id, Recruiter.statuses.escalated))
       .catch(err => ({ error: err }));
   };

@@ -38,32 +38,15 @@ class MainMenu extends Component {
       console.error(`invalid route showing=${params.showing}`)
     }
     return (
-      < >
-        {(this.props.location.search === '' ||
-          params.showing === 'error') && (
-          <div style={this.styles.outer}>
-            <a href="/auth/login">
-              <img
-                src={RecruiterImg}
-                style={this.styles.image}
-                alt="Recruiters"
-              />
-            </a>
-            <a href="/auth/login">
-              <img
-                src={ApplicantImg}
-                style={this.styles.image}
-                alt="Applicant"
-              />
-            </a>
-          </div>
-        )}
-        {params.showing === 'recruiter' && <Recruiter />}
-        {params.showing === 'applicant' && <Applicant />}
-        {params.showing === 'admin' && <Admin />}
-        {params.showing === 'error' && <div>Unknown route</div>}
-
-      </>
+      <div style={this.styles.outer}>
+        <a href="/auth/login">
+          <img
+            src={ApplicantImg}
+            style={this.styles.image}
+            alt="log in"
+          />
+        </a>
+      </div>
     );
   }
 }

@@ -11,6 +11,7 @@ import TableCalendar from './TableCalendar';
 import TableContracts from './TableContracts';
 import TableBlueprints from './TableBlueprints';
 import TableMarket from './TableMarket';
+import TableWallet from './TableWallet';
 
 const styles = {
   outer: {
@@ -85,7 +86,7 @@ export default class Evidence extends React.Component {
           </div>
           <div style={styles.tabBody}>
             {(active === 'wallet') &&
-              <Wallet style={styles.tabBody} alt={this.state.currentAlt}></Wallet>}
+              <TableWallet style={styles.tabBody} alt={this.state.currentAlt}></TableWallet>}
             {(active === 'assets') &&
               <Assets style={styles.tabBody} alt={this.state.currentAlt}></Assets>}
             {(active === 'mail') &&

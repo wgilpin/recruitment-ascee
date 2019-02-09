@@ -1,19 +1,18 @@
 import sys
 import os
-from config import server_dir
+server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
 from character_data import get_character_mail, get_mail_body
-from models import Character, User, Question, Answer, db
+from models import Character, User, db
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
-import warnings
 
 
-class MailTests(AsceeTestCase):
+class CharacterMailTests(AsceeTestCase):
 
     def test_get_applicant_mail(self):
         result = get_character_mail(self.applicant.id, current_user=self.recruiter)

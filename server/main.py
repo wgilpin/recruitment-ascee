@@ -16,15 +16,32 @@
 # [START imports]
 import logging
 from flask_app import app
-from flask import render_template
+from flask import render_template, send_from_directory
 from models import db, init_db
 from login import login_manager
+import os
+import recruitment
 
 app.url_map.strict_slashes = False
 
-@app.route("/app")
-def index():
-    return render_template("index.html")
+# Serve React App
+@app.route('/')
+def serve():
+    return send_from_directory('public', 'index.html')
+
+@app.route('/app', defaults={'path': ''})
+@app.route('/app/<path:path>')
+def serve_root(path):
+    print(path)
+    if path != "" and os.path.exists("public/" + path):
+        return send_from_directory('public', path)
+    else:
+        return send_from_directory('public', 'index.html')
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    root_dir = os.path.dirname(os.getcwd())
+    return send_from_directory(os.path.join(root_dir, 'static', 'js'), filename)
 
 @app.errorhandler(500)
 def api_server_error(e):
@@ -33,10 +50,13 @@ def api_server_error(e):
     return 'An internal error occurred.', 500
 # [END app]
 
-
-if __name__ == '__main__':
+def run_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     with app.app_context():
         db.init_app(app)
         db.create_all()
         app.run(host='localhost', port='8080')
+
+if __name__ == '__main__':
+    run_app()

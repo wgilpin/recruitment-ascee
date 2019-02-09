@@ -74,7 +74,7 @@ export default class AdminRoles extends React.Component {
   }
 
   componentWillMount() {
-    let fetchStaff = new FetchData({ scope: 'character/all' });
+    let fetchStaff = new FetchData({ scope: 'admin/users' });
     fetchStaff.get().then(data => this.setState({ staff: data }));
   }
 

@@ -14,20 +14,21 @@ export default class Applicant extends Component {
       questions: [],
       altsDone: false,
       ready: false,
+      has_application: false,
     };
     this.answers = {};
   }
 
   applicationStatus() {
     return <div style={{ ...styles.padded, ...styles.heading }}>
-      Application not completed
+      {this.state.has_application ? 'Application not completed' : 'Application not started'}
     </div>
   }
 
-  questionsToState = qsAndAs => {
-    this.setState({ questions: qsAndAs });
-    Object.keys(qsAndAs).forEach(key => {
-      this.answers[key] = qsAndAs[key].answer;
+  questionsToState = ({ questions, has_application }) => {
+    this.setState({ questions, has_application });
+    Object.keys(questions).forEach(key => {
+      this.answers[key] = questions[key].answer;
     });
   };
 
@@ -65,19 +66,36 @@ export default class Applicant extends Component {
   };
 
   submit = () => {
-    const qa = [];
-    this.state.questions.forEach(q => {
-      qa.push({q: q.q, a: this.answers[q.q]});
-    });
-    const post = new FetchData({ scope: 'recruits/submit' });
-    post
-      .post(qa)
-      .then((res) => {
-        if (res.status === 401){
-          return window.location = '/app';
-        }
-        alert('Submitted')})
-      .catch(() => alert('Error sumbitting'));
+    if (this.state.has_application) {
+      const qa = [];
+      Object.keys(this.state.questions).forEach(key => {
+        const q = this.state.questions[key];
+        qa.push({ q: q.q, a: this.answers[key], id: key });
+      });
+      new FetchData({ scope: 'recruits/submit_application' })
+        .put(qa)
+        .then((res) => {
+          if (res.status === 401) {
+            return window.location = '/app';
+          }
+          if (res.status > 401) {
+            return alert('Error submitting\n' + res.statusText);
+          }
+          alert('Submitted')
+        })
+        .catch(() => alert('Error submitting'));
+    } else {
+      // no application, start one
+      new FetchData({ scope: 'recruits/start_application' })
+        .get()
+        .then((res) => {
+          if (res.status === 401) {
+            return window.location = '/app';
+          }
+          window.location.reload()
+        })
+        .catch(() => alert('Error creating application'));
+    }
   };
 
   buildQuestionsPanel = () => {
@@ -85,11 +103,12 @@ export default class Applicant extends Component {
       <TabPanel>
         <h2 style={styles.heading}>Recruitment Questions</h2>
         {Object.keys(this.state.questions || {}).map(key => {
-          const { question, answer } = this.state.questions[key];
+          const { question } = this.state.questions[key];
+          const answer = this.answers[key];
           return (
             <div key={key}>
               <div style={styles.padded}>{question}</div>
-              <textarea style={styles.answer} id={question} onChange={this.handleAnswerChanged}>
+              <textarea style={styles.answer} id={key} onChange={this.handleAnswerChanged}>
                 {answer}
               </textarea>
               <hr style={styles.hr} />
@@ -101,6 +120,7 @@ export default class Applicant extends Component {
   };
 
   buildHeader = () => {
+    const buttonLabel = this.state.has_application ? 'Submit' : 'Start';
     return (
       < >
         <div style={styles.header}>
@@ -109,16 +129,18 @@ export default class Applicant extends Component {
             Applying to Ascendance
           </h1>
         </div>
-        <div style={styles.paddedHeavily}>
-          Start with your alts, add them all. Once that's done, move on to the
-          questions.
-        </div>
+        {this.state.has_application &&
+          <div style={styles.paddedHeavily}>
+            Start with your alts, add them all. Once that's done, move on to the
+            questions.
+          </div>
+        }
         <div >
-          {this.state.ready && (
+          {(this.state.ready || !this.state.has_application) &&
             <button style={{ ...styles.submit, ...styles.padded }} onClick={this.submit}>
-              Submit Application
+              {buttonLabel} Application
             </button>
-          )}
+          }
           {!this.state.ready && this.applicationStatus()}
         </div>
       </>
@@ -131,8 +153,8 @@ export default class Applicant extends Component {
         <h2 style={styles.headingLeft}>My Alts</h2>
         <div style={styles.padded}>
           <label style={styles.label}>
-            I have no more alts
-            <input
+            I have no more alts&emsp;
+            <input style={styles.checkbox}
               type="checkbox"
               onClick={this.handleAltsDone}
               checked={this.state.altsDone}
@@ -141,7 +163,7 @@ export default class Applicant extends Component {
         </div>
         <Alts style={styles.alts}>
           <a href="/auth/link_alt">
-            {!this.state.ready && <FabButton icon="add" color="#c00" size="40px"/>}
+            {!this.state.ready && <FabButton icon="add" color="#c00" size="40px" />}
           </a>
         </Alts>
       </TabPanel>
@@ -149,6 +171,9 @@ export default class Applicant extends Component {
   };
 
   render() {
+    if (!this.state.has_application) {
+      return this.buildHeader();
+    }
     return (
       < >
         {this.buildHeader()}

@@ -103,7 +103,7 @@ export default class TableBase extends React.Component {
         if (data && data.error) {
           return this.setState({ ...data.error, loading: false });
         }
-        let newList = this.jsonToList(data.info);
+        let newList = this.jsonToList(data);
         this.setState({ data: newList, loading: false });
         if (newList.length !== (this.state.data || []).length) {
           // after state set
@@ -213,19 +213,19 @@ export default class TableBase extends React.Component {
       return this.makeTextField(null, field, final);
     }
     switch (field.kind) {
-      case this.kinds().date: {
+      case TableBase.kinds().date: {
         return this.makeDateField(value, field, final);
       }
-      case this.kinds().bool: {
+      case TableBase.kinds().bool: {
         return this.makeBoolField(value, field, final);
       }
-      case this.kinds().number: {
+      case TableBase.kinds().number: {
         return this.makeNumberField(value, field, final);
       }
-      case this.kinds().ISK: {
+      case TableBase.kinds().ISK: {
         return this.makeISKField(value, field, final);
       }
-      case this.kinds().standing: {
+      case TableBase.kinds().standing: {
         return this.makeStandingField(value, field, final);
       }
       default: {

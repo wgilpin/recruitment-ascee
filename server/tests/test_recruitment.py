@@ -1,13 +1,14 @@
 import sys
 import os
-from config import server_dir
+server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
 from recruitment import (
     get_questions, get_answers, get_user_characters, get_users, get_user_application,\
-    add_applicant_note, get_character_search_list, get_applicant_list)
+    add_applicant_note, get_character_search_list, get_applicant_list, set_answers,\
+    start_application)
 from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
 from flask_app import app
@@ -39,6 +40,15 @@ class QuestionAnswerTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertEqual(len(result), 3)
 
+    def test_multiple_questions_enabled(self):
+        for i in range(4):
+            question = Question(text=f'Question {i}?', enabled=i % 2 == 0)
+            db.session.add(question)
+            db.session.commit()
+        result = get_questions()
+        self.assertIsInstance(result, dict)
+        self.assertEqual(len(result), 2)
+
     def test_multiple_questions_as_applicant(self):
         for i in range(3):
             question = Question(text='Question {}?'.format(i))
@@ -66,10 +76,21 @@ class QuestionAnswerTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertEqual(len(result), 3)
 
+    def test_has_application(self):
+        result = get_answers(self.applicant.id)
+        self.assertIsInstance(result, dict)
+        self.assertIn('has_application', result)
+        self.assertEqual(result['has_application'], True)
+
+    def test_has_no_application(self):
+        with self.assertRaises(BadRequestException):
+            get_answers(self.not_applicant.id)
+
     def test_no_questions_answers(self):
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 0)
+        self.assertIn('questions', result)
+        self.assertEqual(len(result['questions']), 0)
 
     def test_question_answer(self):
         question = Question(text='Question?')
@@ -80,10 +101,11 @@ class QuestionAnswerTests(AsceeTestCase):
         db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.recruiter)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[question.id]['answer'], 'Answer.')
-        self.assertEqual(result[question.id]['question'], 'Question?')
-        self.assertEqual(result[question.id]['user_id'], self.applicant.id)
+        self.assertIn('questions', result)
+        self.assertEqual(len(result['questions']), 1)
+        self.assertEqual(result['questions'][question.id]['answer'], 'Answer.')
+        self.assertEqual(result['questions'][question.id]['question'], 'Question?')
+        self.assertEqual(result['questions'][question.id]['user_id'], self.applicant.id)
 
     def test_three_questions_no_answers(self):
         for i in range(3):
@@ -92,8 +114,9 @@ class QuestionAnswerTests(AsceeTestCase):
             db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 3)
-        for question_id, answer_data in result.items():
+        self.assertIn('questions', result)
+        self.assertEqual(len(result['questions']), 3)
+        for question_id, answer_data in result['questions'].items():
             self.assertIsInstance(question_id, int)
             self.assertIsInstance(answer_data['question'], str)
             self.assertEqual(answer_data['user_id'], self.applicant.id)
@@ -115,8 +138,8 @@ class QuestionAnswerTests(AsceeTestCase):
         db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 3)
-        for question_id, answer_data in result.items():
+        self.assertEqual(len(result['questions']), 3)
+        for question_id, answer_data in result['questions'].items():
             self.assertIsInstance(question_id, int)
             self.assertIsInstance(answer_data['question'], str)
             self.assertIsInstance(answer_data['answer'], str)
@@ -124,7 +147,7 @@ class QuestionAnswerTests(AsceeTestCase):
             self.assertEqual(len(answer_data), 3, answer_data)
             if question_id != answer.question_id:
                 self.assertEqual(answer_data['answer'], '', answer)
-        self.assertEqual(result[answer.question_id]['answer'], 'My answer.')
+        self.assertEqual(result['questions'][answer.question_id]['answer'], 'My answer.')
 
     def test_three_questions_three_answers(self):
         for i in range(3):
@@ -140,8 +163,8 @@ class QuestionAnswerTests(AsceeTestCase):
             db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.recruiter.user)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 3)
-        for question_id, answer_data in result.items():
+        self.assertEqual(len(result['questions']), 3)
+        for question_id, answer_data in result['questions'].items():
             self.assertIsInstance(question_id, int)
             self.assertIsInstance(answer_data['question'], str)
             self.assertIsInstance(answer_data['answer'], str)
@@ -158,10 +181,10 @@ class QuestionAnswerTests(AsceeTestCase):
         db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.applicant)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[question.id]['answer'], 'Answer.')
-        self.assertEqual(result[question.id]['question'], 'Question?')
-        self.assertEqual(result[question.id]['user_id'], self.applicant.id)
+        self.assertEqual(len(result['questions']), 1)
+        self.assertEqual(result['questions'][question.id]['answer'], 'Answer.')
+        self.assertEqual(result['questions'][question.id]['question'], 'Question?')
+        self.assertEqual(result['questions'][question.id]['user_id'], self.applicant.id)
 
     def test_question_answer_as_other_recruiter(self):
         question = Question(text='Question?')
@@ -183,10 +206,10 @@ class QuestionAnswerTests(AsceeTestCase):
         db.session.commit()
         result = get_answers(self.applicant.id, current_user=self.senior_recruiter.user)
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[question.id]['answer'], 'Answer.')
-        self.assertEqual(result[question.id]['question'], 'Question?')
-        self.assertEqual(result[question.id]['user_id'], self.applicant.id)
+        self.assertEqual(len(result['questions']), 1)
+        self.assertEqual(result['questions'][question.id]['answer'], 'Answer.')
+        self.assertEqual(result['questions'][question.id]['question'], 'Question?')
+        self.assertEqual(result['questions'][question.id]['user_id'], self.applicant.id)
 
     def test_question_answer_as_admin(self):
         question = Question(text='Question?')
@@ -198,30 +221,86 @@ class QuestionAnswerTests(AsceeTestCase):
         with self.assertRaises(ForbiddenException):
             get_answers(self.applicant.id, current_user=self.admin.user)
 
+    def test_set_answers_applicant_with_application_applicant(self):
+        for i in range(3):
+            question = Question(text='Question {}?'.format(i))
+            db.session.add(question)
+            db.session.commit()
+        result = get_questions(current_user=self.applicant)
+        question_keys = []
+        answers = []
+        for k in result:
+            question_keys.append(k)
+            answers.append({'question_id': k, 'text': f'answer for {k}'})
+        set_answers(self.applicant.id, answers=answers, current_user=self.applicant)
+        db.session.commit()
+        after_set_result = get_answers(self.applicant.id, current_user=self.applicant)
+        self.assertIsInstance(after_set_result, dict)
+        self.assertEqual(len(after_set_result['questions']), 3)
+        for k in question_keys:
+            self.assertEqual(after_set_result['questions'][k]['answer'], f'answer for {k}')
+
+    def test_set_answers_applicant_with_application_non_applicant(self):
+        answers = [{'question_id': 1, 'text': f'answer for 1'}]
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.applicant.id, answers=answers, current_user=self.admin)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.applicant.id, answers=answers, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.applicant.id, answers=answers, current_user=self.senior_recruiter)
+
+    def test_set_answers_non_applicant_with_application(self):
+        answers = [{'question_id': 1, 'text': f'answer for 1'}]
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.recruiter.id, answers=answers, current_user=self.applicant)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.recruiter.id, answers=answers, current_user=self.admin)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.recruiter.id, answers=answers, current_user=self.senior_recruiter)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.admin.id, answers=answers, current_user=self.admin)
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.senior_recruiter.id, answers=answers, current_user=self.recruiter)
 
 class MiscRecruitmentTests(AsceeTestCase):
+
+    def test_start_application(self):
+        application = Application.get_for_user(self.not_applicant.id)
+        self.assertIsNone(application, None)
+        start_application(self.not_applicant)
+        application = Application.get_for_user(self.not_applicant.id)
+        self.assertIsInstance(application, Application)
+        self.assertEqual(application.user_id, self.not_applicant.id)
+
+    def test_start_application_second_time(self):
+        with self.assertRaises(BadRequestException):
+            start_application(self.applicant)
+
+    def test_start_application_with_roles(self):
+        with self.assertRaises(BadRequestException):
+            start_application(self.admin)
+        with self.assertRaises(BadRequestException):
+            start_application(self.recruiter)
+        with self.assertRaises(BadRequestException):
+            start_application(self.senior_recruiter)
 
     # Applicant list tests
 
     def test_get_applicant_list_as_recruiter(self):
         response = get_applicant_list(current_user=self.recruiter)
-        self.assertIn('info', response)
-        self.assertEqual(len(response['info']), 1)
+        self.applicant_list_helper(response)
 
     def applicant_list_helper(self, response):
         response = get_applicant_list(current_user=User.get(self.recruiter.id))
         self.assertIn('info', response)
+        self.assertEqual(len(response['info']), 1)
         self.assertIn(self.applicant.id, response['info'])
         record = response['info'][self.applicant.id]
         self.assertEqual(record['user_id'], self.applicant.id)
         self.assertEqual(record['recruiter_id'], self.recruiter.id)
         self.assertEqual(record['recruiter_name'], self.recruiter.name)
         self.assertEqual(record['name'], self.applicant.name)
-        self.assertEqual(record['is_escalated'], False)
-        self.assertEqual(record['is_submitted'], False)
-        self.assertEqual(record['is_concluded'], False)
-        self.assertEqual(record['is_accepted'], False)
-        self.assertEqual(record['is_invited'], False)
+        self.assertTrue(record['status'] in ['claimed', 'new', 'escalated'])
 
     def test_get_applicant_list_as_admin(self):
         response = get_applicant_list(current_user=User.get(self.admin.id))
@@ -232,30 +311,81 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.applicant_list_helper(response)
 
     def test_get_applicant_list_as_applicant(self):
-        response = get_applicant_list(current_user=User.get(self.applicant.id))
-        self.assertIn('info', response)
-        self.assertEqual(len(response['info']), 0)
+        with self.assertRaises(ForbiddenException):
+            get_applicant_list(current_user=self.applicant)
 
     # end of applicant list
 
     def test_get_user_application(self):
-        response = get_user_application(self.applicant.id)
-        self.assertEqual(response.user_id, self.applicant.id)
+        result = get_user_application(self.applicant.id)
+        self.assertEqual(result.user_id, self.applicant.id)
+        self.assertEqual(result, self.application)
+
+    def test_get_user_application_on_non_applicant(self):
+        result = get_user_application(self.not_applicant.id)
+        self.assertEqual(result, None)
 
     def test_add_applicant_note(self):
         response = add_applicant_note(self.applicant.id, "A note", current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
-        notes = Application.query.filter_by(user_id=self.applicant.id).one().notes
+        notes = self.application.notes
         self.assertEqual(len(notes), 1)
         self.assertEqual(notes[0].text, "A note")
+        response = add_applicant_note(self.applicant.id, "Another note", current_user=self.recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        notes = self.application.notes
+        self.assertEqual(len(notes), 2)
 
-    def test_edit_not_an_applicant_notes(self):
-        response = add_applicant_note(
-            self.not_applicant.id,
-            "A note",
-            current_user=self.recruiter
-        )
-        self.assertIn('error', response)
+    def test_add_applicant_note_as_senior_recruiter(self):
+        response = add_applicant_note(self.applicant.id, "A note", current_user=self.recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        notes = self.application.notes
+        self.assertEqual(len(notes), 1)
+        self.assertEqual(notes[0].text, "A note")
+        response = add_applicant_note(self.applicant.id, "Another note", current_user=self.senior_recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        notes = self.application.notes
+        self.assertEqual(len(notes), 2)
+
+    def test_add_applicant_note_as_other_recruiter(self):
+        with self.assertRaises(ForbiddenException):
+            add_applicant_note(
+                self.applicant.id, "A note", current_user=self.other_recruiter.user
+            )
+
+    def test_add_applicant_note_as_admin(self):
+        with self.assertRaises(ForbiddenException):
+            add_applicant_note(
+                self.applicant.id, "A note", current_user=self.admin.user
+            )
+
+    def test_add_applicant_note_as_applicant(self):
+        with self.assertRaises(ForbiddenException):
+            add_applicant_note(
+                self.applicant.id, "A note", current_user=self.applicant
+            )
+
+    def test_add_applicant_note_non_recruiter(self):
+        with self.assertRaises(ForbiddenException):
+            add_applicant_note(
+                self.applicant.id, "A note", current_user=self.not_applicant
+            )
+
+    def test_add_not_an_applicant_note(self):
+        with self.assertRaises(BadRequestException):
+            add_applicant_note(
+                self.not_applicant.id,
+                "A note",
+                current_user=self.recruiter
+            )
+
+    def test_add_not_an_applicant_note_as_senior_recruiter(self):
+        with self.assertRaises(BadRequestException):
+            add_applicant_note(
+                self.not_applicant.id,
+                "A note",
+                current_user=self.senior_recruiter
+            )
 
     def test_get_character_search_list(self):
         response = get_character_search_list('Kovacs')
