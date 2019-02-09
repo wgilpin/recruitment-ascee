@@ -26,7 +26,6 @@ def api_claim_applicant(applicant_id):
             is not an admin, senior recruiter, or this particular recruiter
         Bad Request (400): If applicant_id is not an unclaimed applicant
     """
-    # TODO: be sure to check that the applicant is in fact an unclaimed applicant
     return jsonify(claim_applicant(applicant_id, current_user=current_user))
 
 
