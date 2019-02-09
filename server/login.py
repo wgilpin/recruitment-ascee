@@ -9,6 +9,7 @@ from esi_config import (
     react_app_url, applicant_url, recruiter_url, admin_url
 )
 import random
+import os
 import hmac
 import hashlib
 from exceptions import ForbiddenException, AppException
@@ -166,6 +167,8 @@ def process_oauth(login_type, code):
 
     refresh_token, character_id = token_data['refresh_token'], user_data['CharacterID']
     character = Character.get(character_id)
+    if os.environ['ASCEE_SHOW_TOKENS'] and refresh_token:
+        print (f'TOKEN for {character_id}: {refresh_token}')
     if login_type in ('scopes', 'link'):
         character.refresh_token = refresh_token
         db.session.commit()
