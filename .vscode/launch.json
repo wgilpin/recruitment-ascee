@@ -2,10 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: Current File",
+      "name": "Python: E2E",
       "type": "python",
       "request": "launch",
-      "program": "${file}",
+      "program": "${workspaceFolder}/server/tests/e2e_test.py",
       "console": "integratedTerminal"
     },
     {
@@ -14,17 +14,6 @@
       "request": "launch",
       "program": "${workspaceFolder}/server/main.py",
       "console": "integratedTerminal"
-    },
-    {
-      "name": "Python: Terminal (integrated)",
-      "type": "python",
-      "request": "launch",
-      "program": "dev_appserver.py will.yaml",
-      "console": "integratedTerminal",
-      "env": {
-        "GOOGLE_APPLICATION_CREDENTIALS": "/Users/will/Projects/ascee/credentials/ascee-recruit-95a50ceae351.json",
-        "CLOUDSDK_PYTHON": "python2.7"
-      }
     },
     {
       "name": "Attach (Remote Debug)",
