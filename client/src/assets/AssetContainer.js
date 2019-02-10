@@ -98,7 +98,6 @@ export default class AssetContainer extends React.Component {
   render() {
     let { item_id, name, asset: { region, items, value, type }} = this.props;
     name = name || this.props.asset.name;
-    console.log('in AC, name=',name)
     const depthPadding = 40 * this.props.depth;
     const iskText = `${Misc.commarize(value)} ISK`;
     let lineStyle = { ...styles.nonTableCell, paddingLeft: depthPadding, ...styles.structure };
@@ -110,7 +109,7 @@ export default class AssetContainer extends React.Component {
             {this.expansionButton()}&emsp;
             {name || type}
             {!!value && (
-              <div style={styles.isk}>{iskText}</div>
+              <span style={styles.isk}>{iskText}</span>
             )}
           </div>
         </div>

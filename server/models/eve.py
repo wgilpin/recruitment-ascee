@@ -41,14 +41,13 @@ class Group(db.Model):
         db.session.commit()
         return return_items
 
-def get_prices():
+def get_prices(types):
     price_list = get_op('get_markets_prices')
-    types_list = []
     prices = {}
     for price in price_list:
-        types_list.append(price.type_id)
-        prices[price.type_id] = price.average_price
-    Type.get_multi(types_list)
+        if price['type_id'] in types:
+            prices[price['type_id']] = price['adjusted_price']
+    return prices
 
 class Type(db.Model):
     __tablename__ = 'type'
@@ -88,12 +87,13 @@ class Type(db.Model):
         )
         group_ids = set(item['group_id'] for item in new_data_dict.values())
         Group.get_multi(list(group_ids))
+        prices = get_prices(missing_ids)
         for type_id, type_data in new_data_dict.items():
             type = Type(
                 id=type_id,
                 name=type_data['name'],
                 group_id=type_data['group_id'],
-                price = prices[type_id] if prices else 0
+                price = prices[type_id] if type_id in prices else 0
             )
             db.session.add(type)
             return_items[type_id] = type
