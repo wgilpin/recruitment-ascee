@@ -64,6 +64,7 @@ export default class FetchData {
     if('param2' in this.originalParams){
       url += `/${this.originalParams.param2}`;
     }
+    const tStart = performance.now();
     console.log(`fetch ${url}`);
     return fetch(
       url,
@@ -76,6 +77,9 @@ export default class FetchData {
         },
       })
       .then((res) => {
+        const tEnd = performance.now();
+        console.log(`Call to ${url} took ${Math.round(tEnd - tStart)}ms`)
+
         if (res.type === "opaque") {
           return this.getMockData(res);
         };

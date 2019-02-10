@@ -87,17 +87,18 @@ class Type(db.Model):
         )
         group_ids = set(item['group_id'] for item in new_data_dict.values())
         Group.get_multi(list(group_ids))
-        prices = get_prices(missing_ids)
-        for type_id, type_data in new_data_dict.items():
-            type = Type(
-                id=type_id,
-                name=type_data['name'],
-                group_id=type_data['group_id'],
-                price = prices[type_id] if type_id in prices else 0
-            )
-            db.session.add(type)
-            return_items[type_id] = type
-        db.session.commit()
+        if (len(missing_ids)>0):
+            prices = get_prices(missing_ids)
+            for type_id, type_data in new_data_dict.items():
+                type = Type(
+                    id=type_id,
+                    name=type_data['name'],
+                    group_id=type_data['group_id'],
+                    price = prices[type_id] if type_id in prices else 0
+                )
+                db.session.add(type)
+                return_items[type_id] = type
+            db.session.commit()
         return return_items
 
     @property
