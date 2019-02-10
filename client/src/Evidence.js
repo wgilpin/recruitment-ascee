@@ -84,25 +84,25 @@ export default class Evidence extends React.Component {
             {this.state.currentAlt && <TabsHeader onTabChange={this.changeTab} />}
           </div>
           <div style={styles.tabBody}>
-            {(active === 'wallet') &&
+            {(active === 'Wallet') &&
               <TableWallet style={styles.tabBody} alt={this.state.currentAlt}></TableWallet>}
-            {(active === 'assets') &&
+            {(active === 'Assets') &&
               <Assets style={styles.tabBody} alt={this.state.currentAlt}></Assets>}
-            {(active === 'mail') &&
+            {(active === 'Mail') &&
               <Mail style={styles.tabBody} alt={this.state.currentAlt}></Mail>}
-            {(active === 'skills') &&
+            {(active === 'Skills') &&
               <Skills style={styles.tabBody} alt={this.state.currentAlt}></Skills>}
-            {(active === 'bookmarks') &&
+            {(active === 'Bookmarks') &&
               <TableBookmarks style={styles.tabBody} alt={this.state.currentAlt}></TableBookmarks>}
-            {(active === 'contacts') &&
+            {(active === 'Contacts') &&
               <TableContacts style={styles.tabBody} alt={this.state.currentAlt}></TableContacts>}
-            {(active === 'contracts') &&
+            {(active === 'Contracts') &&
               <TableContracts style={styles.tabBody} alt={this.state.currentAlt}></TableContracts>}
-            {(active === 'calendar') &&
+            {(active === 'Calendar') &&
               <TableCalendar style={styles.tabBody} alt={this.state.currentAlt}></TableCalendar>}
-            {(active === 'blueprints') &&
+            {(active === 'Blueprints') &&
               <TableBlueprints style={styles.tabBody} alt={this.state.currentAlt}></TableBlueprints>}
-            {(active === 'market') &&
+            {(active === 'Market') &&
               <TableMarket style={styles.tabBody} alt={this.state.currentAlt}></TableMarket>}
           </div>
         </div>
