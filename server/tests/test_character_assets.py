@@ -49,7 +49,7 @@ class CharacterAssetsTests(AsceeTestCase):
             'item_id': int,
             'location_flag': str,
             'type_id': int,
-            'type_name': str,
+            'name': str,
             'location_id': int,
             'location_type': str,
             'quantity': int,

@@ -481,4 +481,7 @@ def get_details_for_id(contact_id):
                     entry['redlisted'] = True
             except ESIError as E:
                 raise E
+    for prop in list(entry):
+        if entry[prop] == None:
+            del entry[prop]
     return entry
