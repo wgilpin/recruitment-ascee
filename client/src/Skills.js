@@ -42,31 +42,27 @@ export default class Skill extends React.Component {
   static jsonToskillList(json) {
     let trainLevels = {};
     let queue = [];
-    if (json && json.queue) {
-      for (let idx in json.queue) {
-        queue.push(json.queue[idx]);
-        let { finished_level, skill_id: { name } } = json.queue[idx];
-        // store the level being trained to for later
-        if (trainLevels[name]) {
-          trainLevels[name].finish = finished_level;
-        } else {
-          // it only doesn't have this prop the first time
-          trainLevels[name] = { start: finished_level - 1, finish: finished_level };
-        }
+    for (let idx in json.info.queue) {
+      queue.push(json.info.queue[idx]);
+      let { finished_level, skill_id: { skill_name } } = json.info.queue[idx];
+      // store the level being trained to for later
+      if (trainLevels[skill_name]) {
+        trainLevels[skill_name].finish = finished_level;
+      } else {
+        // it only doesn't have this prop the first time
+        trainLevels[skill_name] = { start: finished_level - 1, finish: finished_level };
       }
     }
     let groupedList = {};
-    if (json && json.skills) {
-      for (let idx in json.skills) {
-        let sk = json.skills[idx];
-        let group = sk.skill_id.groupName;
-        if (!(group in groupedList)) {
-          groupedList[group] = { items: {}, collapsed: true, summary: { spTotal: 0, count: 0 } };
-        };
-        groupedList[group].items[sk.skill_id.name] = sk.active_skill_level;
-        groupedList[group].summary.spTotal += sk.skillpoints_in_skill;
-        groupedList[group].summary.count += 1;
-      }
+    for (let idx in json.info.skills) {
+      let sk = json.info.skills[idx];
+      let group = sk.skill_id.group_name;
+      if (!(group in groupedList)) {
+        groupedList[group] = { items: {}, collapsed: true, summary: { spTotal: 0, count: 0 } };
+      };
+      groupedList[group].items[sk.skill_id.skill_name] = sk.active_skill_level;
+      groupedList[group].summary.spTotal += sk.skillpoints_in_skill;
+      groupedList[group].summary.count += 1;
     }
     return { queue, groupedList, trainLevels };
   }
@@ -99,14 +95,14 @@ export default class Skill extends React.Component {
       today = new Date(),
       fullRange = endDate - startDate,
       soFar = today - startDate;
-    let { start, finish } = this.state.trainLevels[skill_id.name];
+    let { start, finish } = this.state.trainLevels[skill_id.skill_name];
     if (finished_level !== finish) {
       return null;
     }
     this.skillQueueLinesShown += 1;
     return (
       <div style={styles.row} key={key}>
-        <div style={lineStyle}>{skill_id.name}</div>
+        <div style={lineStyle}>{skill_id.skill_name}</div>
         <div style={lineStyle}>
           <SkillLights currentLevel={start - 1} trainLevel={finish} />
         </div>
