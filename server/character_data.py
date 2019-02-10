@@ -98,7 +98,7 @@ def api_character_bookmarks(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_character_bookmarks(character_id, current_user=current_user))
+    return dumps(get_character_bookmarks(character_id, current_user=current_user), default=json_serial)
 
 
 @app.route('/api/character/<int:character_id>/calendar', methods=['GET'])
@@ -588,13 +588,18 @@ def get_character_bookmarks(character_id, current_user=None):
     for bookmark_id, entry in bookmarks_dict.items():
         if 'folder_id' in entry.keys():
             if entry['folder_id'] in folders:
-                entry['folder_name'] = folders[entry['folder_id']]
+                esi_folder_name = folders[entry['folder_id']]
+                if esi_folder_name == 'Null':
+                    esi_folder_name = 'Personal Locations'
+                entry['folder_name'] = esi_folder_name
             else:
                 entry['folder_name'] = 'Personal Locations'
         location = get_location(character, entry['location_id'])
-        system = System.get(location.system_id)
         entry['system_id'] = location.system_id
-        entry['system_name'] = system.name
+        entry['system_name'] = location.name
+        entry['id'] = bookmark_id
+        del entry['bookmark_id']
+        system = System.get(location.system_id)
         if system.is_redlisted:
             entry['redlisted'] = True
     return {'info': bookmarks_dict}

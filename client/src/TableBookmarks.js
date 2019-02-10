@@ -12,11 +12,11 @@ export default class TableBookmarks extends TableBase {
     super(props);
     this.scope = 'bookmarks';
     this.groupSortField = 'label';
-    this.addField(TableBase.kinds().text, 'folder');
-    this.addField(TableBase.kinds().text, 'system');
+    this.addField(TableBase.kinds().text, 'folder_name');
+    this.addField(TableBase.kinds().text, 'system_name');
     this.addField(TableBase.kinds().text, 'label');
     this.addField(TableBase.kinds().text,'note');
-    this.addGroupBy(['folder', 'system'])
+    this.addGroupBy(['folder_name', 'system_name'])
   }
 }
 
