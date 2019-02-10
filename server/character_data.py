@@ -481,11 +481,16 @@ def get_character_contacts(character_id, current_user=None):
     for contact_id, entry in contacts_dict.items():
         details = get_details_for_id(contact_id)
         entry['name'] = details['name']
-        entry['corporation_id'] = details['corporation_id']
-        entry['corporation_name'] = details['corporation_name']
-        entry['alliance_id'] = details['alliance_id']
-        entry['alliance_name'] = details['alliance_name']
-        entry['redlisted'] = details['redlisted']
+        if 'corporation_id' in details:
+            entry['corporation_id'] = details['corporation_id']
+        if 'corporation_name' in details:
+            entry['corporation_name'] = details['corporation_name']
+        if 'alliance_id' in details:
+            entry['alliance_id'] = details['alliance_id']
+        if 'alliance_name' in details:
+            entry['alliance_name'] = details['alliance_name']
+        if 'redlisted' in entry:
+            entry['redlisted'] = details['redlisted']
 
     return {'info': contacts_dict }
 
