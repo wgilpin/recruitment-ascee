@@ -32,6 +32,7 @@ const styles = {
     paddingBottom: '12px',
     textAlign: 'left',
     color: TableStyles.styles.themeColor.color,
+    fontWeight: 600,
   },
   ISKnegative: {
     color: 'red',
