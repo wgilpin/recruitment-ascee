@@ -6,6 +6,7 @@ const propTypes = {
   alt: PropTypes.string,
 };
 
+
 const defaultProps = {};
 
 export default class TableCalendar extends TableBase {
@@ -22,13 +23,12 @@ export default class TableCalendar extends TableBase {
   }
 
   formatEvent(data, parent) {
-    const toStyle={ marginLeft: '40px', textAlign: 'left' };
     const topStyle={ marginLeft: '20px', textAlign: 'left' };
+    const textStyle={ paddingLeft: '20px', textAlign: 'left', display: 'table-cell', width: '100%' };
     return < >
-        <div style={topStyle}>From: {parent.sender}</div>
-        <div style={topStyle}>  To:</div>
-        <div>
-          {data.map(name => <div style={toStyle}>{name}</div>)}
+        <div style={topStyle}>From: {data.owner_name}</div>
+        <div style={textStyle}>
+          {data.text}
         </div>
       </>
   }
