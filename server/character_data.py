@@ -122,7 +122,7 @@ def api_character_calendar(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_character_calendar(character_id, current_user=current_user))
+    return dumps(get_character_calendar(character_id, current_user=current_user), default=json_serial)
 
 
 @app.route('/api/character/<int:character_id>/contacts', methods=['GET'])
