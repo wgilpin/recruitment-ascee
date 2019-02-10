@@ -52,4 +52,4 @@ This weill start the server with all the test accounts loaded, so you try the ro
 
 ## Wireframes
 
-[Admin Wireframe](https://github.com/wgilpin/recruitment-ascee/blob/master/docs/Admin%20Wireframe.png)
+![Admin Wireframe](https://github.com/wgilpin/recruitment-ascee/blob/master/docs/Admin%20Wireframe.png)
