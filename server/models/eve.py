@@ -437,3 +437,48 @@ class Character(db.Model):
             return True
         else:
             return Corporation.get(self.corporation_id).is_redlisted
+
+def get_details_for_id(contact_id):
+    entry = {
+        'name': None,
+        'corporation_id': None,
+        'corporation_name': None,
+        'alliance_id': None,
+        'alliance_name': None,
+        'redlisted': None,
+        }
+    try:
+        contact = Character.get(contact_id)
+        entry['name'] = contact.name
+        entry['corporation_id'] = contact.corporation_id
+        corporation = Corporation.get(contact.corporation_id)
+        entry['corporation_name'] = corporation.name
+        if corporation.alliance_id:
+            entry['alliance_id'] = corporation.alliance_id
+            entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
+        if contact.is_redlisted:
+            entry['redlisted'] = True
+    except ESIError as E:
+        # try corp
+        try:
+            corporation = Corporation.get(contact_id)
+            entry['name'] = corporation.name
+            entry['corporation_id'] = contact_id
+            entry['corporation_name'] = corporation.name
+            if corporation.alliance_id:
+                entry['alliance_id'] = corporation.alliance_id
+                entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
+            if corporation.is_redlisted:
+                entry['redlisted'] = True
+        except ESIError as E:
+            # try alliance
+            try:
+                alliance = Alliance.get(contact_id)
+                entry['name'] = alliance.name
+                entry['alliance_id'] = contact_id
+                entry['alliance_name'] = alliance.name
+                if alliance.is_redlisted:
+                    entry['redlisted'] = True
+            except ESIError as E:
+                raise E
+    return entry

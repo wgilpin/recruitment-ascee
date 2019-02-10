@@ -3,6 +3,7 @@ from models import (
     Character, Corporation, Alliance, Type, Region, Group,
     Station, Structure, System, db
 )
+from models.eve import get_details_for_id
 from flask import jsonify
 from flask_login import login_required, current_user
 from flask_app import app
@@ -99,6 +100,32 @@ def api_character_bookmarks(character_id):
             a recruiter who has claimed the given user
     """
     return dumps(get_character_bookmarks(character_id, current_user=current_user), default=json_serial)
+
+@app.route('/api/character/<int:character_id>/calendar/<int:event_id>', methods=['GET'])
+@login_required
+def api_character_calendar_event(character_id, event_id):
+    """
+    Get calendar event details for a given character.
+
+    Returned dictionary is of the form
+    {'info': [entry_1, entry_2, ...]}. Each entry is as returned by
+    ESI, with the additional key `redlisted` whose value is True if the entry
+    is owned by a redlisted entity.
+
+    Args:
+        character_id (int)
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or
+            a recruiter who has claimed the given user
+    """
+    return dumps(
+        get_character_calendar_event(character_id, event_id, current_user=current_user),
+        default=json_serial
+    )
 
 
 @app.route('/api/character/<int:character_id>/calendar', methods=['GET'])
@@ -314,8 +341,7 @@ def api_mail_body(character_id, mail_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_mail_body(character_id, mail_id, current_user=current_user))
-
+    return dumps(get_mail_body(character_id, mail_id, current_user=current_user), default=json_serial)
 
 def get_location(character, location_id):
     if 60000000 <= location_id < 64000000:  # station
@@ -334,8 +360,6 @@ def get_location(character, location_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_calendar(character_id, current_user=None):
-    # TODO: Need to return not just data from this endpoint, but also
-    # the get_characters_character_id_calendar_event_id endpoint
     character = Character.get(character_id)
     character_application_access_check(current_user, character)
     calendar_data = character.get_op(
@@ -343,6 +367,19 @@ def get_character_calendar(character_id, current_user=None):
         character_id=character_id
     )
     return {'info': calendar_data}
+
+
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
+def get_character_calendar_event(character_id, event_id, current_user=None):
+    character = Character.get(character_id)
+    character_application_access_check(current_user, character)
+    event_data = character.get_op(
+        'get_characters_character_id_calendar_event_id',
+        character_id=character_id,
+        event_id=event_id,
+    )
+    event_data['owner_name'] = get_details_for_id(event_data['owner_id'])['name']
+    return {'info': event_data}
 
 
 def get_transaction_party(party_id):
@@ -442,40 +479,14 @@ def get_character_contacts(character_id, current_user=None):
     )
     contacts_dict = {entry['contact_id']: entry for entry in contacts_list}
     for contact_id, entry in contacts_dict.items():
-        try:
-            contact = Character.get(contact_id)
-            entry['name'] = contact.name
-            entry['corporation_id'] = contact.corporation_id
-            corporation = Corporation.get(contact.corporation_id)
-            entry['corporation_name'] = corporation.name
-            if corporation.alliance_id:
-                entry['alliance_id'] = corporation.alliance_id
-                entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
-            if contact.is_redlisted:
-                entry['redlisted'] = True
-        except ESIError as E:
-            # try corp
-            try:
-                corporation = Corporation.get(contact_id)
-                entry['name'] = corporation.name
-                entry['corporation_id'] = contact_id
-                entry['corporation_name'] = corporation.name
-                if corporation.alliance_id:
-                    entry['alliance_id'] = corporation.alliance_id
-                    entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
-                if corporation.is_redlisted:
-                    entry['redlisted'] = True
-            except ESIError as E:
-                # try alliance
-                try:
-                    alliance = Alliance.get(contact_id)
-                    entry['name'] = alliance.name
-                    entry['alliance_id'] = contact_id
-                    entry['alliance_name'] = alliance.name
-                    if alliance.is_redlisted:
-                        entry['redlisted'] = True
-                except ESIError as E:
-                    raise E
+        details = get_details_for_id(contact_id)
+        entry['name'] = details['name']
+        entry['corporation_id'] = details['corporation_id']
+        entry['corporation_name'] = details['corporation_name']
+        entry['alliance_id'] = details['alliance_id']
+        entry['alliance_name'] = details['alliance_name']
+        entry['redlisted'] = details['redlisted']
+
     return {'info': contacts_dict }
 
 
@@ -659,7 +670,7 @@ def get_mail_body(character_id, mail_id, current_user=None):
         character_id=character_id,
         mail_id=mail_id,
     )
-    return mail_data
+    return mail_data.body
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
