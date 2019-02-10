@@ -11,10 +11,20 @@ from security import (
 from exceptions import ForbiddenException, BadRequestException
 import cachetools
 from collections import namedtuple
-
+from datetime import date, datetime
+from json import dumps
+import pyswagger
 
 SECONDS_TO_CACHE = 10 * 60
 
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    if isinstance(obj, pyswagger.primitives._time.Datetime):
+        return obj.v.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])
 @login_required
@@ -253,7 +263,7 @@ def api_character_skills(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_character_skills(character_id, current_user=current_user))
+    return dumps(get_character_skills(character_id, current_user=current_user), default=json_serial)
 
 
 @app.route('/api/character/<int:character_id>/wallet', methods=['GET'])
@@ -693,7 +703,7 @@ def get_character_skills(character_id, current_user=None):
         'get_characters_character_id_skillqueue',
         character_id=character_id,
     )
-    for skill_list in skill_data, queue_data:
+    for skill_list in skill_data['skills'], queue_data:
         for entry in skill_list:
             skill = Type.get(entry['skill_id'])
             group = Group.get(skill.group_id)
@@ -701,7 +711,7 @@ def get_character_skills(character_id, current_user=None):
                 'group_name': group.name,
                 'skill_name': skill.name,
             }
-    return {'info': {'skills': skill_data, 'queue': queue_data}}
+    return {'info': {'skills': skill_data['skills'], 'queue': queue_data}}
 
 
 class DummySystem(object):
