@@ -21,8 +21,11 @@ But for the UI we need ID & Kind so that's the db model
 # APIs
 
 GET    `/api/admin/list/<kind>`
+
 PUT    `/api/admin/list/<kind>/add`
+
 PUT    `/api/admin/list/<kind>/replace`
+
 DELETE `/api/admin/list/<kind>/delete/<item_id>`
 
 
