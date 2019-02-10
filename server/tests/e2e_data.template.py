@@ -16,7 +16,7 @@ def initDbForE2e():
 
     clearDB()
 
-    # TODO: Id of admin user
+    # TODO: Id of user a
     admin_id = 123
 
     db.session.add(Character(
@@ -67,6 +67,8 @@ def initDbForE2e():
 
     db.session.add(Question(text='How long have you been playing Eve?'))
     db.session.add(Question(text='PVP or PVE? Why?'))
+
+    db.session.add(Application(user_id=character_id))
     db.session.commit()
 
 def clearDB():

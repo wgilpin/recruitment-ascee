@@ -555,7 +555,7 @@ def get_character_assets(character_id, current_user=None):
     type_dict = Type.get_multi(list(type_set))
     for entry in asset_list:
         type = type_dict[entry['type_id']]
-        entry['type_name'] = type.name
+        entry['name'] = type.name
         entry['price'] = entry['quantity'] * type.price
         if type.is_redlisted:
             entry['redlisted'] = True
@@ -756,10 +756,12 @@ def organize_assets_by_location(character, asset_list):
                 'redlisted': region.is_redlisted,
                 'name': region.name,
                 'items': {},
+                'id': region.id,
             }
         return_dict[region.id]['items'][system.id] = {
             'redlisted': system.is_redlisted,
             'name': system.name,
+            'id': system.id,
             'items': {id: location_dict[id] for id in systems_dict[system.id][1]},
         }
     return return_dict

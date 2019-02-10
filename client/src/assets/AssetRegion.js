@@ -7,7 +7,7 @@ import Misc from '../common/Misc';
 
 
 const propTypes = {
-  systemId: PropTypes.number,
+  region: PropTypes.number,
 };
 
 const defaultProps = {
@@ -22,28 +22,22 @@ const styles = {
   }
 }
 
-export default class AssetSystem extends React.Component {
+export default class AssetRegion extends React.Component {
   render() {
-    const { name, region, items, value } = this.global.assetSystems[this.props.systemId];
+    const { name, items, value } = this.global.assetSystems[this.props.region];
     return (
       <div style={styles.system}>
         <div style={{ ...styles.folderHeader, ...styles.system }} key={name}>
           <div style={styles.cell}>{name}
             <span style={styles.isk}>{Misc.commarize(value)} ISK</span>
           </div>
-          <div style={styles.cell}>{region}</div>
         </div>
         <div>
         {
-          // structures first
-          Object.keys(items).map((it, idx) => 
-            items[it].location_type === 'structure' &&
-              (<AssetContainer name={it} asset={items[it]} index={idx} depth={1}/>)
-          ).concat(
-          Object.keys(items).map((it, idx) => 
-            items[it].location_type !== 'structure' &&
-              (<AssetItem asset={items[it]} index={idx} depth={1}/>)
-          ))
+          // systems first
+          Object.keys(items).map((it, idx) =>
+              <AssetContainer name={items[it].name} asset={items[it]} index={idx} depth={1}/>
+          )
         }
         </div>
       </div>
@@ -51,6 +45,6 @@ export default class AssetSystem extends React.Component {
   }
 }
 
-AssetSystem.propTypes = propTypes;
+AssetRegion.propTypes = propTypes;
 
-AssetSystem.defaultProps = defaultProps;
+AssetRegion.defaultProps = defaultProps;
