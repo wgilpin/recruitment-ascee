@@ -126,11 +126,13 @@ export default class TableBase extends React.Component {
       console.error('fetchDetails: Either Scope or Formatter missing');
       return null;
     }
-    return new FetchData({
+    const fetchParams ={
       id: this.props.alt,
-      scope: this.detailScope,
-      param1: forId,
-    })
+      scope: 'character',
+      param1: this.detailScope,
+      param2: forId
+    }
+    return new FetchData(fetchParams)
       .get()
       .then(data => {
         return this.detailFormatter(
@@ -239,8 +241,10 @@ export default class TableBase extends React.Component {
     console.log(values);
     // TODO: HELP. Toggle details visibility
     let key = values[this.keyField];
+    let key2 = this.keyField2 ? values[this.keyField2] : null;
+
     console.log(key);
-    const details = await this.fetchDetails(key);
+    const details = await this.fetchDetails(key, key2);
     const copyData = this.state.data.slice(0);
     console.log(copyData);
     const idx = copyData.findIndex(el => el[this.keyField] === key);
@@ -269,7 +273,7 @@ export default class TableBase extends React.Component {
           this.makeField(field, values[field.id], i === this.fields.length - 1),
         )}
       </div>,
-      values.details && <div>{values.details}</div>,
+      values.details && <div style={{display: 'table-cell', width: '100%'}}>{values.details}</div>,
     ];
   }
 
