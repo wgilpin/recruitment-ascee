@@ -5,8 +5,6 @@ from flask_app import app
 from flask_login import login_required, current_user
 from security import user_admin_access_check
 from exceptions import ForbiddenException, BadRequestException
-from datetime import date, datetime
-from json import dumps
 
 SECONDS_TO_CACHE = 10 * 60
 

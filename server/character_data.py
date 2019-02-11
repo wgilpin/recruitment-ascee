@@ -12,20 +12,9 @@ from security import (
 from exceptions import ForbiddenException, BadRequestException
 import cachetools
 from collections import namedtuple
-from datetime import date, datetime
-from json import dumps
 import pyswagger
 
 SECONDS_TO_CACHE = 10 * 60
-
-def json_serial(obj):
-    """JSON serializer for objects not serializable by default json code"""
-
-    if isinstance(obj, (datetime, date)):
-        return obj.isoformat()
-    if isinstance(obj, pyswagger.primitives._time.Datetime):
-        return obj.v.isoformat()
-    raise TypeError ("Type %s not serializable" % type(obj))
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])
 @login_required
@@ -99,7 +88,7 @@ def api_character_bookmarks(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return dumps(get_character_bookmarks(character_id, current_user=current_user), default=json_serial)
+    return jsonify(get_character_bookmarks(character_id, current_user=current_user), default=json_serial)
 
 @app.route('/api/character/<int:character_id>/calendar/<int:event_id>', methods=['GET'])
 @login_required
@@ -122,7 +111,7 @@ def api_character_calendar_event(character_id, event_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return dumps(
+    return jsonify(
         get_character_calendar_event(character_id, event_id, current_user=current_user),
         default=json_serial
     )
@@ -149,7 +138,7 @@ def api_character_calendar(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return dumps(get_character_calendar(character_id, current_user=current_user), default=json_serial)
+    return jsonify(get_character_calendar(character_id, current_user=current_user), default=json_serial)
 
 
 @app.route('/api/character/<int:character_id>/contacts', methods=['GET'])
@@ -290,7 +279,7 @@ def api_character_skills(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return dumps(get_character_skills(character_id, current_user=current_user), default=json_serial)
+    return jsonify(get_character_skills(character_id, current_user=current_user), default=json_serial)
 
 
 @app.route('/api/character/<int:character_id>/wallet', methods=['GET'])
@@ -341,7 +330,7 @@ def api_mail_body(character_id, mail_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return dumps(get_mail_body(character_id, mail_id, current_user=current_user), default=json_serial)
+    return jsonify(get_mail_body(character_id, mail_id, current_user=current_user), default=json_serial)
 
 def get_location(character, location_id):
     if 60000000 <= location_id < 64000000:  # station
