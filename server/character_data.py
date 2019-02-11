@@ -3,6 +3,7 @@ from models import (
     Character, Corporation, Alliance, Type, Region, Group,
     Station, Structure, System, db
 )
+from models.eve import get_details_for_id
 from flask import jsonify
 from flask_login import login_required, current_user
 from flask_app import app
@@ -11,10 +12,20 @@ from security import (
 from exceptions import ForbiddenException, BadRequestException
 import cachetools
 from collections import namedtuple
-
+from datetime import date, datetime
+from json import dumps
+import pyswagger
 
 SECONDS_TO_CACHE = 10 * 60
 
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    if isinstance(obj, pyswagger.primitives._time.Datetime):
+        return obj.v.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
 
 @app.route('/api/character/<int:character_id>/assets', methods=['GET'])
 @login_required
@@ -27,9 +38,9 @@ def api_character_assets(character_id):
     that, additional levels are containers.
 
     Items will have attributes as returned by ESI. They will additionally have
-    keys `type_name` and `price`.
+    keys `name` and `price`.
 
-    Locations will have the attributes `name` and, if redlisted, a key `redlisted`
+    Locations will have the attributes `id`, `name` and, if redlisted, a key `redlisted`
     whose value is True.
 
     Items within regions and containers are stored in a key `items` whose
@@ -88,7 +99,33 @@ def api_character_bookmarks(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_character_bookmarks(character_id, current_user=current_user))
+    return dumps(get_character_bookmarks(character_id, current_user=current_user), default=json_serial)
+
+@app.route('/api/character/<int:character_id>/calendar/<int:event_id>', methods=['GET'])
+@login_required
+def api_character_calendar_event(character_id, event_id):
+    """
+    Get calendar event details for a given character.
+
+    Returned dictionary is of the form
+    {'info': [entry_1, entry_2, ...]}. Each entry is as returned by
+    ESI, with the additional key `redlisted` whose value is True if the entry
+    is owned by a redlisted entity.
+
+    Args:
+        character_id (int)
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or
+            a recruiter who has claimed the given user
+    """
+    return dumps(
+        get_character_calendar_event(character_id, event_id, current_user=current_user),
+        default=json_serial
+    )
 
 
 @app.route('/api/character/<int:character_id>/calendar', methods=['GET'])
@@ -112,7 +149,7 @@ def api_character_calendar(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_character_calendar(character_id, current_user=current_user))
+    return dumps(get_character_calendar(character_id, current_user=current_user), default=json_serial)
 
 
 @app.route('/api/character/<int:character_id>/contacts', methods=['GET'])
@@ -253,7 +290,7 @@ def api_character_skills(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_character_skills(character_id, current_user=current_user))
+    return dumps(get_character_skills(character_id, current_user=current_user), default=json_serial)
 
 
 @app.route('/api/character/<int:character_id>/wallet', methods=['GET'])
@@ -304,8 +341,7 @@ def api_mail_body(character_id, mail_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_mail_body(character_id, mail_id, current_user=current_user))
-
+    return dumps(get_mail_body(character_id, mail_id, current_user=current_user), default=json_serial)
 
 def get_location(character, location_id):
     if 60000000 <= location_id < 64000000:  # station
@@ -324,8 +360,6 @@ def get_location(character, location_id):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_calendar(character_id, current_user=None):
-    # TODO: Need to return not just data from this endpoint, but also
-    # the get_characters_character_id_calendar_event_id endpoint
     character = Character.get(character_id)
     character_application_access_check(current_user, character)
     calendar_data = character.get_op(
@@ -333,6 +367,19 @@ def get_character_calendar(character_id, current_user=None):
         character_id=character_id
     )
     return {'info': calendar_data}
+
+
+@cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
+def get_character_calendar_event(character_id, event_id, current_user=None):
+    character = Character.get(character_id)
+    character_application_access_check(current_user, character)
+    event_data = character.get_op(
+        'get_characters_character_id_calendar_event_id',
+        character_id=character_id,
+        event_id=event_id,
+    )
+    event_data['owner_name'] = get_details_for_id(event_data['owner_id'])['name']
+    return {'info': event_data}
 
 
 def get_transaction_party(party_id):
@@ -376,7 +423,7 @@ def get_character_wallet(character_id, current_user=None):
             wallet_entry['first_party'] = party_data[wallet_entry['first_party_id']]
         if 'second_party_id' in wallet_entry:
             wallet_entry['second_party'] = party_data[wallet_entry['second_party_id']]
-        if wallet_entry.get('first_party_id',None) == character_id:
+        if wallet_entry.get('first_party_id', None) == character_id:
             wallet_entry['other_party'] = wallet_entry.get('second_party', {'name': ''})['name']
         else:
             wallet_entry['other_party'] = wallet_entry.get('first_party', {'name': ''})['name']
@@ -432,40 +479,19 @@ def get_character_contacts(character_id, current_user=None):
     )
     contacts_dict = {entry['contact_id']: entry for entry in contacts_list}
     for contact_id, entry in contacts_dict.items():
-        try:
-            contact = Character.get(contact_id)
-            entry['name'] = contact.name
-            entry['corporation_id'] = contact.corporation_id
-            corporation = Corporation.get(contact.corporation_id)
-            entry['corporation_name'] = corporation.name
-            if corporation.alliance_id:
-                entry['alliance_id'] = corporation.alliance_id
-                entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
-            if contact.is_redlisted:
-                entry['redlisted'] = True
-        except ESIError as E:
-            # try corp
-            try:
-                corporation = Corporation.get(contact_id)
-                entry['name'] = corporation.name
-                entry['corporation_id'] = contact_id
-                entry['corporation_name'] = corporation.name
-                if corporation.alliance_id:
-                    entry['alliance_id'] = corporation.alliance_id
-                    entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
-                if corporation.is_redlisted:
-                    entry['redlisted'] = True
-            except ESIError as E:
-                # try alliance
-                try:
-                    alliance = Alliance.get(contact_id)
-                    entry['name'] = alliance.name
-                    entry['alliance_id'] = contact_id
-                    entry['alliance_name'] = alliance.name
-                    if alliance.is_redlisted:
-                        entry['redlisted'] = True
-                except ESIError as E:
-                    raise E
+        details = get_details_for_id(contact_id)
+        entry['name'] = details['name']
+        if 'corporation_id' in details:
+            entry['corporation_id'] = details['corporation_id']
+        if 'corporation_name' in details:
+            entry['corporation_name'] = details['corporation_name']
+        if 'alliance_id' in details:
+            entry['alliance_id'] = details['alliance_id']
+        if 'alliance_name' in details:
+            entry['alliance_name'] = details['alliance_name']
+        if 'redlisted' in entry:
+            entry['redlisted'] = details['redlisted']
+
     return {'info': contacts_dict }
 
 
@@ -555,7 +581,7 @@ def get_character_assets(character_id, current_user=None):
     type_dict = Type.get_multi(list(type_set))
     for entry in asset_list:
         type = type_dict[entry['type_id']]
-        entry['type_name'] = type.name
+        entry['name'] = type.name
         entry['price'] = entry['quantity'] * type.price
         if type.is_redlisted:
             entry['redlisted'] = True
@@ -578,13 +604,18 @@ def get_character_bookmarks(character_id, current_user=None):
     for bookmark_id, entry in bookmarks_dict.items():
         if 'folder_id' in entry.keys():
             if entry['folder_id'] in folders:
-                entry['folder_name'] = folders[entry['folder_id']]
+                esi_folder_name = folders[entry['folder_id']]
+                if esi_folder_name == 'Null':
+                    esi_folder_name = 'Personal Locations'
+                entry['folder_name'] = esi_folder_name
             else:
                 entry['folder_name'] = 'Personal Locations'
         location = get_location(character, entry['location_id'])
-        system = System.get(location.system_id)
         entry['system_id'] = location.system_id
-        entry['system_name'] = system.name
+        entry['system_name'] = location.name
+        entry['id'] = bookmark_id
+        del entry['bookmark_id']
+        system = System.get(location.system_id)
         if system.is_redlisted:
             entry['redlisted'] = True
     return {'info': bookmarks_dict}
@@ -644,7 +675,7 @@ def get_mail_body(character_id, mail_id, current_user=None):
         character_id=character_id,
         mail_id=mail_id,
     )
-    return mail_data
+    return mail_data.body
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
@@ -693,7 +724,7 @@ def get_character_skills(character_id, current_user=None):
         'get_characters_character_id_skillqueue',
         character_id=character_id,
     )
-    for skill_list in skill_data, queue_data:
+    for skill_list in skill_data['skills'], queue_data:
         for entry in skill_list:
             skill = Type.get(entry['skill_id'])
             group = Group.get(skill.group_id)
@@ -701,7 +732,7 @@ def get_character_skills(character_id, current_user=None):
                 'group_name': group.name,
                 'skill_name': skill.name,
             }
-    return {'info': {'skills': skill_data, 'queue': queue_data}}
+    return {'info': {'skills': skill_data['skills'], 'queue': queue_data}}
 
 
 class DummySystem(object):
@@ -756,10 +787,12 @@ def organize_assets_by_location(character, asset_list):
                 'redlisted': region.is_redlisted,
                 'name': region.name,
                 'items': {},
+                'id': region.id,
             }
         return_dict[region.id]['items'][system.id] = {
             'redlisted': system.is_redlisted,
             'name': system.name,
+            'id': system.id,
             'items': {id: location_dict[id] for id in systems_dict[system.id][1]},
         }
     return return_dict

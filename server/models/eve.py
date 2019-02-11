@@ -41,6 +41,13 @@ class Group(db.Model):
         db.session.commit()
         return return_items
 
+def get_prices(type_id_list):
+    price_list = get_op('get_markets_prices')
+    prices = {}
+    for price in price_list:
+        if price['type_id'] in type_id_list:
+            prices[price['type_id']] = price['adjusted_price']
+    return prices
 
 class Type(db.Model):
     __tablename__ = 'type'
@@ -80,15 +87,18 @@ class Type(db.Model):
         )
         group_ids = set(item['group_id'] for item in new_data_dict.values())
         Group.get_multi(list(group_ids))
-        for type_id, type_data in new_data_dict.items():
-            type = Type(
-                id=type_id,
-                name=type_data['name'],
-                group_id=type_data['group_id'],
-            )
-            db.session.add(type)
-            return_items[type_id] = type
-        db.session.commit()
+        if (len(missing_ids)>0):
+            prices = get_prices(missing_ids)
+            for type_id, type_data in new_data_dict.items():
+                type = Type(
+                    id=type_id,
+                    name=type_data['name'],
+                    group_id=type_data['group_id'],
+                    price = prices.get(type_id, 0)
+                )
+                db.session.add(type)
+                return_items[type_id] = type
+            db.session.commit()
         return return_items
 
     @property
@@ -427,3 +437,51 @@ class Character(db.Model):
             return True
         else:
             return Corporation.get(self.corporation_id).is_redlisted
+
+def get_details_for_id(contact_id):
+    entry = {
+        'name': None,
+        'corporation_id': None,
+        'corporation_name': None,
+        'alliance_id': None,
+        'alliance_name': None,
+        'redlisted': None,
+        }
+    try:
+        contact = Character.get(contact_id)
+        entry['name'] = contact.name
+        entry['corporation_id'] = contact.corporation_id
+        corporation = Corporation.get(contact.corporation_id)
+        entry['corporation_name'] = corporation.name
+        if corporation.alliance_id:
+            entry['alliance_id'] = corporation.alliance_id
+            entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
+        if contact.is_redlisted:
+            entry['redlisted'] = True
+    except ESIError as E:
+        # try corp
+        try:
+            corporation = Corporation.get(contact_id)
+            entry['name'] = corporation.name
+            entry['corporation_id'] = contact_id
+            entry['corporation_name'] = corporation.name
+            if corporation.alliance_id:
+                entry['alliance_id'] = corporation.alliance_id
+                entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
+            if corporation.is_redlisted:
+                entry['redlisted'] = True
+        except ESIError as E:
+            # try alliance
+            try:
+                alliance = Alliance.get(contact_id)
+                entry['name'] = alliance.name
+                entry['alliance_id'] = contact_id
+                entry['alliance_name'] = alliance.name
+                if alliance.is_redlisted:
+                    entry['redlisted'] = True
+            except ESIError as E:
+                raise E
+    for prop in list(entry):
+        if entry[prop] == None:
+            del entry[prop]
+    return entry

@@ -32,6 +32,7 @@ const styles = {
     paddingBottom: '12px',
     textAlign: 'left',
     color: TableStyles.styles.themeColor.color,
+    fontWeight: 600,
   },
   ISKnegative: {
     color: 'red',
@@ -80,10 +81,11 @@ export default class TableBase extends React.Component {
     });
   }
 
-  setDetailer(scope, formatter, keyField) {
+  setDetailer(scope, formatter, keyField, canSkipFetch) {
     this.detailScope = scope;
     this.detailFormatter = formatter;
     this.keyField = keyField;
+    this.needsFetch = !canSkipFetch;
   }
 
   jsonToList(json) {
@@ -125,11 +127,13 @@ export default class TableBase extends React.Component {
       console.error('fetchDetails: Either Scope or Formatter missing');
       return null;
     }
-    return new FetchData({
+    const fetchParams = {
       id: this.props.alt,
-      scope: this.detailScope,
-      param1: forId,
-    })
+      scope: 'character',
+      param1: this.detailScope,
+      param2: forId
+    }
+    return new FetchData(fetchParams)
       .get()
       .then(data => {
         return this.detailFormatter(
@@ -142,7 +146,7 @@ export default class TableBase extends React.Component {
   makeDateField(date, field, final) {
     let style = { ...styles.cell, whiteSpace: 'nowrap' };
     if (final) {
-      style = { ...style, width: '100%'};
+      style = { ...style, width: '100%' };
     }
     const newdate = new Date(date);
     const theDate =
@@ -150,10 +154,23 @@ export default class TableBase extends React.Component {
     return <div style={style}>{theDate}</div>;
   }
 
-  makeTextField(text, field, final) {
+  makeTextField(text, field, final, idx) {
     let style = { paddingLeft: INDENT, ...styles.cell, whiteSpace: 'nowrap' };
     if (final) {
-      style = { ...style, width: '99%' };
+      style.width = '99%';
+    }
+    // TODO: This shouldn't need a try..catch but the API needs updating
+    try {
+      if (field.id in (this.state.data[idx].redlisted || {})) {
+        style.color = 'red';
+        style.fontWeight = '600';
+      }
+    } catch (e) {
+      if (e instanceof TypeError) {
+        console.error('API - redlisted')
+      } else {
+        throw e;
+      }
     }
     if (!text) {
       return <div style={style}>&ensp;</div>;
@@ -206,7 +223,7 @@ export default class TableBase extends React.Component {
     return <div style={style}>{value}</div>;
   }
 
-  makeField(field, value, final) {
+  makeField(field, value, final, idx) {
     // ignore fields in grouping -= they are headers
     // if (this.groupBy.slice(0, this.groupBy.length-1).indexOf(field.id) > -1){
     if (this.groupBy.indexOf(field.id) > -1) {
@@ -229,25 +246,23 @@ export default class TableBase extends React.Component {
         return this.makeStandingField(value, field, final);
       }
       default: {
-        return this.makeTextField(value, field, final);
+        return this.makeTextField(value, field, final, idx);
       }
     }
   }
 
   async handleClickLine(values) {
-    console.log(values);
-    // TODO: HELP. Toggle details visibility
+    // TODO: Toggle details visibility
     let key = values[this.keyField];
-    console.log(key);
-    const details = await this.fetchDetails(key);
     const copyData = this.state.data.slice(0);
-    console.log(copyData);
     const idx = copyData.findIndex(el => el[this.keyField] === key);
-    console.log(idx);
-
-    copyData[idx].details = details;
-    console.log(copyData);
-
+    if (this.needsFetch) {
+      // lookup details on server
+      let key2 = this.keyField2 ? values[this.keyField2] : null;
+      const details = await this.fetchDetails(key, key2);
+      copyData[idx].details = details;
+    }
+    copyData[idx].open = !copyData[idx].open;
     this.setState({ data: copyData });
   }
 
@@ -265,10 +280,10 @@ export default class TableBase extends React.Component {
         onClick={() => this.handleClickLine(values)}
       >
         {this.fields.map((field, i) =>
-          this.makeField(field, values[field.id], i === this.fields.length - 1),
+          this.makeField(field, values[field.id], i === this.fields.length - 1, idx),
         )}
       </div>,
-      values.details && <div>{values.details}</div>,
+      values.open && <div style={{ display: 'table-cell', width: '100%' }}>{values.details}</div>,
     ];
   }
 
@@ -298,17 +313,17 @@ export default class TableBase extends React.Component {
   sortFn(property, numeric) {
     const defaultVal = numeric ? 0 : 'zzzz';
     var sortOrder = 1;
-    if(property[0] === "-") {
-        sortOrder = -1;
-        property = property.substr(1);
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
     }
-    const fn = (a,b) => {
-        var result = ((a[property] || defaultVal) < (b[property] || defaultVal))
-          ? -1
-          : ((a[property] || defaultVal) > (b[property] || defaultVal))
-            ? 1
-            : 0;
-        return result * sortOrder;
+    const fn = (a, b) => {
+      var result = ((a[property] || defaultVal) < (b[property] || defaultVal))
+        ? -1
+        : ((a[property] || defaultVal) > (b[property] || defaultVal))
+          ? 1
+          : 0;
+      return result * sortOrder;
     }
     return fn.bind(defaultVal);
   }
@@ -364,14 +379,14 @@ export default class TableBase extends React.Component {
         {this.fields.map(field =>
           // ignore fields in grouping -= they are headers
           this.groupBy.slice(0, this.groupBy.length - 1).indexOf(field.id) >
-          -1 ? null : (
-            <div
-              style={{ ...styles.cell, ...styles.sortHeader }}
-              onClick={() => this.sortColumn(field)}
-            >
-              {field.header}
-            </div>
-          ),
+            -1 ? null : (
+              <div
+                style={{ ...styles.cell, ...styles.sortHeader }}
+                onClick={() => this.sortColumn(field)}
+              >
+                {field.header}
+              </div>
+            ),
         )}
       </div>
     );
@@ -437,10 +452,10 @@ export default class TableBase extends React.Component {
   render() {
     if (this.state.error) {
       return <div>
-          {this.state.error}
-          <br/>
-          Error {this.state.status}
-        </div>
+        {this.state.error}
+        <br />
+        Error {this.state.status}
+      </div>
     }
     if (this.state.loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
@@ -458,8 +473,8 @@ export default class TableBase extends React.Component {
               {this.makeSection(this.state.data)}
             </>
           ) : (
-            this.makeGroupLines(null, this.state.groups, 0)
-          )}
+              this.makeGroupLines(null, this.state.groups, 0)
+            )}
         </div>
       </div>
     );

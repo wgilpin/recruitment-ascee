@@ -24,7 +24,7 @@ export default class AssetItem extends React.Component {
   render() {
     return <div style={this.styles.row}>
       <span style={this.styles.cell}>
-        {this.props.asset.type}&ensp;
+        {this.props.asset.name}&ensp;
         {!this.props.asset.is_singleton &&
           (< >x {this.props.asset.quantity}&emsp;</>)}
         <span style={this.styles.iskLeft}>

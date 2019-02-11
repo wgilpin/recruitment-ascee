@@ -67,6 +67,7 @@ export default class AssetContainer extends React.Component {
     const containers = Object.keys(items).map(it => {
       // TODO: check for empty object
       if (!isEmpty(items[it].items)) {
+        console.log('step into AC',items[it])
         return (
           <AssetContainer asset={items[it]} depth={this.props.depth + 1} />
         );
@@ -95,8 +96,10 @@ export default class AssetContainer extends React.Component {
   }
 
   render() {
-    const { item_id, name, asset: { region, items, value, type }} = this.props;
+    let { item_id, name, asset: { region, items, value, type }} = this.props;
+    name = name || this.props.asset.name;
     const depthPadding = 40 * this.props.depth;
+    const iskText = `${Misc.commarize(value)} ISK`;
     let lineStyle = { ...styles.nonTableCell, paddingLeft: depthPadding, ...styles.structure };
     // orphans is a list of keys of items which are not containers
     return (
@@ -105,11 +108,10 @@ export default class AssetContainer extends React.Component {
           <div>
             {this.expansionButton()}&emsp;
             {name || type}
-            {value && (
-              <span style={styles.isk}>{`${Misc.commarize(value)} ISK`}</span>
+            {!!value && (
+              <span style={styles.isk}>{iskText}</span>
             )}
           </div>
-          <div>{region}</div>
         </div>
         {!this.state.collapsed && this.listOfItemLines(items)}
       </div>
