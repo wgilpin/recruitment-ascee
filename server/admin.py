@@ -14,17 +14,14 @@ SECONDS_TO_CACHE = 10 * 60
 @login_required
 def api_admin_list_add_item(kind):
     """
-    Gets a specified redlist
+    add an item to a specified redlist
 
     Args:
         kind (string)
+        items: list of { id (int), name (string) }
 
     Returns:
-        response (array) of
-        {
-            id (int),
-            name (string),
-        }
+        200 if OK
 
     Error codes:
         Forbidden (403): If logged in user is not an admin
