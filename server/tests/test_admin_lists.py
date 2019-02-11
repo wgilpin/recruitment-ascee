@@ -9,17 +9,10 @@ from models import db, List, ListItem, check_redlist
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
-from admin import get_admin_list
+from admin import get_admin_list, add_admin_list_item, remove_admin_list_item
 
 
 class AdminListTestCase(AsceeTestCase):
-
-    def setUp(self):
-        super(AdminListTestCase, self).setUp()
-        db.session.add(List(id=1, kind='character'))
-        db.session.add(ListItem(id=1234, name='First', list_id=1))
-        db.session.add(ListItem(id=4321, name='Second', list_id=1))
-        db.session.commit()
 
     def test_get_check_red_item(self):
         result = check_redlist(1234, 'character')
@@ -52,6 +45,36 @@ class AdminListTestCase(AsceeTestCase):
         with self.assertRaises(ForbiddenException):
             get_admin_list('character', current_user=self.applicant)
 
+    def test_add_admin_list_item(self):
+        RED_ID = 8765
+        new_item = ListItem(id=RED_ID, name='new person')
+        add_admin_list_item('character', new_item, current_user=self.admin)
+        new_list = get_admin_list('character', current_user=self.admin)
+        self.assertEqual(len(new_list['info']), 3)
+        check_result = check_redlist(RED_ID, 'character')
+        self.assertTrue(check_result)
+
+        with self.assertRaises(ForbiddenException):
+            add_admin_list_item('character', new_item, current_user=self.applicant)
+        with self.assertRaises(ForbiddenException):
+            add_admin_list_item('character', new_item, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            add_admin_list_item('character', new_item, current_user=self.senior_recruiter)
+
+    def test_remove_admin_list_item(self):
+        remove_admin_list_item('character', self.redlist_id_1, current_user=self.admin)
+        new_list = get_admin_list('character', current_user=self.admin)
+        self.assertEqual(len(new_list['info']), 1)
+
+        with self.assertRaises(BadRequestException):
+            remove_admin_list_item('character', self.redlist_id_1, current_user=self.admin)
+
+        with self.assertRaises(ForbiddenException):
+            remove_admin_list_item('character', self.redlist_id_2, current_user=self.applicant)
+        with self.assertRaises(ForbiddenException):
+            remove_admin_list_item('character', self.redlist_id_2, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            remove_admin_list_item('character', self.redlist_id_2, current_user=self.senior_recruiter)
 
 
 
