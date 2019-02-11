@@ -32,6 +32,26 @@ def api_admin_list_add_item(kind):
     return jsonify(
         add_admin_list_item(kind, request.args.get('items'), current_user=current_user))
 
+@app.route('/api/admin/list/<string:kind>/replace', methods=['PUT'])
+@login_required
+def api_admin_list_replace(kind):
+    """
+    Gets or sets a specified redlist
+
+    Args:
+        kind (string)
+        items: list of { id (int), name (string) }
+
+    Returns
+        200
+
+    Error codes:
+        Forbidden (403): If logged in user is not an admin
+    """
+    return jsonify(
+        set_admin_list(
+            kind, request.args.get('items'), replace=True, current_user=current_user))
+
 @app.route('/api/admin/list/<string:kind>', methods=['GET', 'PUT'])
 @login_required
 def api_admin_list(kind):
@@ -58,8 +78,9 @@ def api_admin_list(kind):
     """
     if request.method == 'GET':
         return jsonify(get_admin_list(kind, current_user=current_user))
-    else:
-        return jsonify(set_admin_list(kind, request.args.get('items'), current_user=current_user))
+    return jsonify(
+        set_admin_list(
+            kind, request.args.get('items'), replace=False, current_user=current_user))
 
 @app.route('/api/admin/list/<string:kind>/delete/<int:item_id>', methods=['DELETE'])
 @login_required
@@ -80,15 +101,20 @@ def api_admin_list_delete_item(kind, item_id):
     """
     return jsonify(remove_admin_list_item(kind, item_id, current_user=current_user))
 
-def set_admin_list(kind, items, current_user=None):
+def set_admin_list(kind, items, replace, current_user=None):
     user_admin_access_check(current_user)
     if not kind in list_kinds:
         raise BadRequestException('Unknown Redlist')
     the_list = List.get_by_kind(kind)
     if the_list:
-        the_list.items = []
+        if replace:
+            # wipe the list first
+            for item in the_list.items:
+                db.session.delete(item)
+            the_list.items = []
+        # add the new items to the list
         for item in items:
-            the_list.items.add(ListItem(id=item.id, name=item.name))
+            db.session.add(ListItem(id=item.id, name=item.name, list_id=the_list.id))
         db.session.commit()
     return {'status': 'ok'}
 
