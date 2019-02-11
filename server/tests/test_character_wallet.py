@@ -9,7 +9,6 @@ from character_data import get_character_wallet
 from models import Character, User, db
 from base import AsceeTestCase
 from flask_app import app
-from datetime import datetime
 from exceptions import BadRequestException, ForbiddenException
 import warnings
 

@@ -7,7 +7,9 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 #from vcr_unittest import VCRTestCase
 import unittest
-from models import Character, User, Admin, Recruiter, Question, Answer, Application, db, Note
+from models import (
+    Character, User, Admin, Recruiter, Question, Answer, Application, db, Note, List, ListItem
+    )
 import warnings
 import time
 
@@ -118,10 +120,17 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
         )
         db.session.add(self.application)
 
+        db.session.add(List(id=1, kind='character'))
+        self.redlist_id_1=1234
+        self.redlist_id_2=4321
+        db.session.add(ListItem(id=self.redlist_id_1, name='First', list_id=1))
+        db.session.add(ListItem(id=self.redlist_id_2, name='Second', list_id=1))
+
         db.session.commit()
 
     def clearDB(self):
         db.session.rollback()
-        for model in Character, User, Recruiter, Admin, Application, Question, Answer, Note:
+        for model in \
+            Character, User, Recruiter, Admin, Application, Question, Answer, Note, List, ListItem:
             db.session.query(model).delete()
         db.session.commit()

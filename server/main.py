@@ -16,11 +16,13 @@
 # [START imports]
 import logging
 from flask_app import app
-from flask import render_template, send_from_directory
+from flask import render_template, send_from_directory, json
 from models import db, init_db
 from login import login_manager
 import os
 import recruitment
+import pyswagger
+from datetime import datetime, date
 
 app.url_map.strict_slashes = False
 
@@ -53,10 +55,26 @@ def api_server_error(e):
 def run_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.json_encoder = CustomJSONEncoder
     with app.app_context():
         db.init_app(app)
         db.create_all()
         app.run(host='localhost', port='8080')
+
+class CustomJSONEncoder(json.JSONEncoder):
+
+    def default(self, obj):
+        try:
+            if isinstance(obj, (datetime, date)):
+                return obj.isoformat()
+            if isinstance(obj, pyswagger.primitives._time.Datetime):
+                return obj.v.isoformat()
+            iterable = iter(obj)
+        except TypeError:
+            pass
+        else:
+            return list(iterable)
+        return json.JSONEncoder.default(self, obj)
 
 if __name__ == '__main__':
     run_app()
