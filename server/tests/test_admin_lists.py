@@ -9,7 +9,7 @@ from models import db, List, ListItem, check_redlist
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
-from admin import get_admin_list, add_admin_list_item, remove_admin_list_item
+from admin import get_admin_list, add_admin_list_item, remove_admin_list_item, set_admin_list
 
 
 class AdminListTestCase(AsceeTestCase):
@@ -76,7 +76,40 @@ class AdminListTestCase(AsceeTestCase):
         with self.assertRaises(ForbiddenException):
             remove_admin_list_item('character', self.redlist_id_2, current_user=self.senior_recruiter)
 
+    def test_admin_list_add_multi(self):
+        new_items = [
+          ListItem(id=8765, name='new person'),
+          ListItem(id=8766, name='another person')
+        ]
+        set_admin_list('character', new_items, replace=False, current_user=self.admin)
+        new_list = get_admin_list('character', current_user=self.admin)
+        self.assertEqual(len(new_list['info']), 4)
+        self.assertTrue(check_redlist(8765, 'character'))
 
+        with self.assertRaises(ForbiddenException):
+            set_admin_list('character', new_items, replace=False, current_user=self.applicant)
+        with self.assertRaises(ForbiddenException):
+            set_admin_list('character', new_items, replace=False, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            set_admin_list('character', new_items, replace=False, current_user=self.senior_recruiter)
+
+    def test_admin_list_replace(self):
+        new_items = [
+          ListItem(id=8765, name='new person'),
+          ListItem(id=8766, name='another person')
+        ]
+        set_admin_list('character', new_items, replace=True, current_user=self.admin)
+        new_list = get_admin_list('character', current_user=self.admin)
+        self.assertEqual(len(new_list['info']), 2)
+        self.assertTrue(check_redlist(8765, 'character'))
+        self.assertFalse(check_redlist(self.redlist_id_1, 'character'))
+
+        with self.assertRaises(ForbiddenException):
+            set_admin_list('character', new_items, replace=True, current_user=self.applicant)
+        with self.assertRaises(ForbiddenException):
+            set_admin_list('character', new_items, replace=True, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            set_admin_list('character', new_items, replace=True, current_user=self.senior_recruiter)
 
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
