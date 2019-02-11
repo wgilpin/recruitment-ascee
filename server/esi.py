@@ -131,11 +131,10 @@ def get_paged_op(op_name, refresh_token=None, **kwargs):
         esi_app.op[op_name](page=page, **kwargs) for page in range(2, pages+1)
     ]
 
-    result_list = []
     for request, response in esi_client.multi_request(operations):
         if isinstance(response.data, dict) and 'error' in response.data.keys():
             raise ESIError(response.data['error'])
         else:
-            result_list.extend(response.data)
+            return_list.extend(response.data)
 
     return return_list
