@@ -41,11 +41,11 @@ class Group(db.Model):
         db.session.commit()
         return return_items
 
-def get_prices(types):
+def get_prices(type_id_list):
     price_list = get_op('get_markets_prices')
     prices = {}
     for price in price_list:
-        if price['type_id'] in types:
+        if price['type_id'] in type_id_list:
             prices[price['type_id']] = price['adjusted_price']
     return prices
 
@@ -94,7 +94,7 @@ class Type(db.Model):
                     id=type_id,
                     name=type_data['name'],
                     group_id=type_data['group_id'],
-                    price = prices[type_id] if type_id in prices else 0
+                    price = prices.get(type_id, 0)
                 )
                 db.session.add(type)
                 return_items[type_id] = type

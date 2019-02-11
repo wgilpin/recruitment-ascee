@@ -38,9 +38,9 @@ def api_character_assets(character_id):
     that, additional levels are containers.
 
     Items will have attributes as returned by ESI. They will additionally have
-    keys `type_name` and `price`.
+    keys `name` and `price`.
 
-    Locations will have the attributes `name` and, if redlisted, a key `redlisted`
+    Locations will have the attributes `id`, `name` and, if redlisted, a key `redlisted`
     whose value is True.
 
     Items within regions and containers are stored in a key `items` whose
