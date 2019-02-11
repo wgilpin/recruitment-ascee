@@ -33,7 +33,7 @@ def api_admin_list_add_item(kind):
 @login_required
 def api_admin_list_replace(kind):
     """
-    Gets or sets a specified redlist
+    Replaces a specified redlist with the supplied items
 
     Args:
         kind (string)
@@ -53,7 +53,8 @@ def api_admin_list_replace(kind):
 @login_required
 def api_admin_list(kind):
     """
-    Gets or sets a specified redlist
+    Gets or sets (adds to) a specified redlist. Gets the list of items, or  add the
+    supplied list to the exisiting db list.
 
     Args:
         kind (string)
@@ -83,7 +84,7 @@ def api_admin_list(kind):
 @login_required
 def api_admin_list_delete_item(kind, item_id):
     """
-    removes an item from the specified redlist
+    Removes an item from the specified redlist
 
     Args:
         kind (string)
