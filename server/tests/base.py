@@ -120,6 +120,12 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
         )
         db.session.add(self.application)
 
+        db.session.add(List(id=1, kind='character'))
+        self.redlist_id_1=1234
+        self.redlist_id_2=4321
+        db.session.add(ListItem(id=self.redlist_id_1, name='First', list_id=1))
+        db.session.add(ListItem(id=self.redlist_id_2, name='Second', list_id=1))
+
         db.session.commit()
 
     def clearDB(self):
