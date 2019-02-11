@@ -3,6 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import FetchData from '../common/FetchData';
 import TableStyles from '../TableStyles';
 import AdminRoles from './AdminRoles';
+import AdminLists from './AdminLists';
 
 const primary = TableStyles.styles.themeColor.color;
 
@@ -102,10 +103,12 @@ class Admin extends Component {
           <TabList>
             <Tab style={styles.tab}>     Questions     </Tab>
             <Tab style={styles.tab}>       Roles       </Tab>
+            <Tab style={styles.tab}>       Lists       </Tab>
             <Tab style={styles.tab}>      Config       </Tab>
           </TabList>
           {this.buildQuestionsPanel()}
           <AdminRoles />
+          <TabPanel>list <AdminLists/></TabPanel>
           {this.buildConfigPanel()}
         </Tabs>
       </>
