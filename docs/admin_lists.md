@@ -4,13 +4,12 @@ See [Admin Wireframes](https://github.com/wgilpin/recruitment-ascee/blob/master/
 
 A list of [x] against which things are checked
 
-* Characters
-* Types (for Items/Ships)
-* Chat Channels
-* Alliances
-* Corps
-* Regions
-* Systems
+* `character`: Characters
+* `type`: Types (for Items/Ships)
+* `channel`: Chat Channels
+* `alliance`: Alliances
+* `corporation`: Corps
+* `system`: Systems
 
 For each list there’s an ID
 
@@ -21,6 +20,8 @@ But for the UI we need ID & Kind so that's the db model
 # APIs
 
 GET    `/api/admin/list/<kind>`
+
+GET    `/api/admin/list/character/<char_id>`  (is it redlist or blacklist?)
 
 PUT    `/api/admin/list/<kind>/add`
 
