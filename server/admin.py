@@ -18,7 +18,7 @@ def api_admin_list_add_item(kind):
 
     Args:
         kind (string)
-        items: list of { id (int), name (string) }
+        item:  { id (int), name (string) }
 
     Returns:
         200 if OK
@@ -27,7 +27,7 @@ def api_admin_list_add_item(kind):
         Forbidden (403): If logged in user is not an admin
     """
     return jsonify(
-        add_admin_list_item(kind, request.args.get('items'), current_user=current_user))
+        add_admin_list_item(kind, request.args.get('item'), current_user=current_user))
 
 @app.route('/api/admin/list/<string:kind>/replace', methods=['PUT'])
 @login_required
