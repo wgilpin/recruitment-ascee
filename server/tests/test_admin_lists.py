@@ -74,10 +74,7 @@ class AdminListTestCase(AsceeTestCase):
                 'character', self.redlisted_character_2.id, current_user=self.senior_recruiter)
 
     def test_admin_list_add_multi(self):
-        new_items = [
-            dict(id=self.applicant_character.id, name=self.applicant_character.name),
-            dict(id=self.not_applicant_character.id, name=self.not_applicant_character.name),
-        ]
+        new_items = [self.applicant_character.id, self.not_applicant_character.id]
         put_admin_list('character', new_items, do_replace=False, current_user=self.admin)
         new_list = get_admin_list('character', current_user=self.admin)
         self.assertEqual(len(new_list['info']), 4)
@@ -85,10 +82,7 @@ class AdminListTestCase(AsceeTestCase):
         self.assertTrue(self.not_applicant_character.redlisted)
 
     def test_forbidden_admin_list_add_multi(self):
-        new_items = [
-            dict(id=self.applicant_character.id, name=self.applicant_character.name),
-            dict(id=self.not_applicant_character.id, name=self.not_applicant_character.name),
-        ]
+        new_items = [self.applicant_character.id, self.not_applicant_character.id]
         with self.assertRaises(ForbiddenException):
             put_admin_list('character', new_items, do_replace=False, current_user=self.applicant_character)
         with self.assertRaises(ForbiddenException):
@@ -99,10 +93,7 @@ class AdminListTestCase(AsceeTestCase):
         self.assertFalse(self.not_applicant_character.redlisted)
 
     def test_admin_list_replace(self):
-        new_items = [
-            dict(id=self.applicant_character.id, name=self.applicant_character.name),
-            dict(id=self.not_applicant_character.id, name=self.not_applicant_character.name),
-        ]
+        new_items = [self.applicant_character.id, self.not_applicant_character.id]
         put_admin_list('character', new_items, do_replace=True, current_user=self.admin)
         new_list = get_admin_list('character', current_user=self.admin)
         self.assertEqual(len(new_list['info']), 2)
@@ -111,10 +102,7 @@ class AdminListTestCase(AsceeTestCase):
         self.assertFalse(self.redlisted_character_1.redlisted)
 
     def test_forbidden_admin_list_replace(self):
-        new_items = [
-            dict(id=self.applicant_character.id, name=self.applicant_character.name),
-            dict(id=self.not_applicant_character.id, name=self.not_applicant_character.name),
-        ]
+        new_items = [self.applicant_character.id, self.not_applicant_character.id]
         with self.assertRaises(ForbiddenException):
             put_admin_list('character', new_items, do_replace=True, current_user=self.applicant_character)
         with self.assertRaises(ForbiddenException):

@@ -1,4 +1,4 @@
-from models import db, Character
+from models import db, Character, Type
 from flask import jsonify, request
 from flask_app import app
 from flask_login import login_required, current_user
@@ -9,7 +9,8 @@ from sqlalchemy import exists
 SECONDS_TO_CACHE = 10 * 60
 
 kind_dict = {
-    'character': Character
+    'character': Character,
+    'type': Type,
 }
 
 
@@ -30,7 +31,7 @@ def api_admin_list_add_item(kind):
         Forbidden (403): If logged in user is not an admin
     """
     return jsonify(
-        add_admin_list_item(kind, request.args.get('item'), current_user=current_user)
+        add_admin_list_item(kind, request.args.get('item')['id'], current_user=current_user)
     )
 
 
@@ -136,8 +137,8 @@ def put_admin_list(kind, item_id_list, do_replace, current_user=None):
     if kind not in kind_dict:
         raise BadRequestException('Unknown Redlist')
     for item_id in item_id_list:
-        if not db.session.query(
-                kind_dict[kind]).filter(kind_dict[kind].id=item_id).one_or_none() is None:
+        if db.session.query(
+                kind_dict[kind]).filter(kind_dict[kind].id==item_id).one_or_none() is None:
             raise BadRequestException(
                 f"Item {item_id} of kind {kind} does not exist in database.")
     if do_replace:
@@ -151,14 +152,7 @@ def put_admin_list(kind, item_id_list, do_replace, current_user=None):
 
 
 def add_admin_list_item(kind, item, current_user=None):
-    user_admin_access_check(current_user)
-    if not kind in list_kinds:
-        raise BadRequestException('Unknown Redlist')
-    the_list = List.get_by_kind(kind)
-    if the_list:
-        db.session.add(ListItem(id=item.id, name=item.name, list_id=the_list.id))
-        db.session.commit()
-    return {'status': 'ok'}
+    return put_admin_list(kind, [item], do_replace=False, current_user=current_user)
 
 
 def remove_admin_list_item(kind, item_id, current_user=None):
