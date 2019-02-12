@@ -3,7 +3,6 @@ from models import (
     Character, Corporation, Alliance, Type, Region, Group,
     Station, Structure, System, db, get_id_data
 )
-from models.eve import get_details_for_id
 from flask import jsonify
 from flask_login import login_required, current_user
 from flask_app import app
@@ -334,18 +333,7 @@ def api_mail_body(character_id, mail_id):
 
 
 def get_location(character, location_id):
-    if 60000000 <= location_id < 64000000:  # station
-        return Station.get(location_id)
-    elif location_id > 50000000:  # structure
-        return Structure.get(character, location_id)
-    elif 30000000 < location_id < 32000000:  # system
-        system = System.get(location_id)
-        return namedtuple('Location', ['system_id', 'name']) (location_id, system.name)
-    else:
-        raise ValueError(
-            'location_id {} does not correspond to station'
-            ' or structure'.format(location_id)
-        )
+    return get_location_multi(character, [location_id])[location_id]
 
 
 def get_location_multi(character, location_id_list):
@@ -481,7 +469,6 @@ def get_party_data(party_ids):
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
 def get_character_contacts(character_id, current_user=None):
-    contacts_dict = {}
     character = Character.get(character_id)
     character_application_access_check(current_user, character)
     contacts_list = character.get_paged_op(
@@ -489,21 +476,27 @@ def get_character_contacts(character_id, current_user=None):
         character_id=character_id
     )
     contacts_dict = {entry['contact_id']: entry for entry in contacts_list}
-    for contact_id, entry in contacts_dict.items():
-        details = get_details_for_id(contact_id)
-        entry['name'] = details['name']
-        if 'corporation_id' in details:
-            entry['corporation_id'] = details['corporation_id']
-        if 'corporation_name' in details:
-            entry['corporation_name'] = details['corporation_name']
-        if 'alliance_id' in details:
-            entry['alliance_id'] = details['alliance_id']
-        if 'alliance_name' in details:
-            entry['alliance_name'] = details['alliance_name']
-        if 'redlisted' in entry:
-            entry['redlisted'] = details['redlisted']
+    sorted_contact_model_dict = get_id_data(contacts_dict.keys())
+    for character_id, character in sorted_contact_model_dict.get('character', {}).items():
+        contacts_dict[character_id]['name'] = character.name
+        contacts_dict[character_id]['corporation_id'] = character.corporation_id
+        contacts_dict[character_id]['corporation_name'] = character.corporation.name
+        if character.corporation.alliance is not None:
+            contacts_dict[character_id]['alliance_id'] = character.corporation.alliance_id
+            contacts_dict[character_id]['alliance_name'] = character.corporation.alliance.name
+    for corporation_id, corporation in sorted_contact_model_dict.get('corporation', {}).items():
+        contacts_dict[corporation_id]['name'] = corporation.name
+        contacts_dict[corporation_id]['corporation_id'] = corporation_id
+        contacts_dict[corporation_id]['corporation_name'] = corporation.name
+        if corporation.alliance is not None:
+            contacts_dict[corporation_id]['alliance_id'] = corporation.alliance_id
+            contacts_dict[corporation_id]['alliance_name'] = corporation.alliance.name
+    for alliance_id, alliance in sorted_contact_model_dict.get('alliance', {}).items():
+        contacts_dict[alliance_id]['name'] = alliance.name
+        contacts_dict[alliance_id]['alliance_id'] = alliance_id
+        contacts_dict[alliance_id]['alliance_name'] = alliance.name
 
-    return {'info': contacts_dict }
+    return {'info': contacts_dict}
 
 
 @cachetools.cached(cachetools.TTLCache(maxsize=1000, ttl=SECONDS_TO_CACHE))
@@ -540,40 +533,42 @@ def get_character_market_contracts(character_id, current_user=None):
         'get_characters_character_id_contracts',
         character_id=character_id
     )
+
+    entry_items = character.get_op(
+        'get_characters_character_id_contracts_contract_id_items',
+        character_id=character_id,
+        contract_id=[entry['contract_id'] for entry in contract_list],
+    )
+
+    location_ids = set()
+    character_ids = set()
+    corporation_ids = set()
+    for entry in contract_list:
+        entry['items'] = entry_items[entry['contract_id']]
+        if 'start_location_id' in entry:
+            location_ids.add(entry['start_location_id'])
+        if 'end_location_id' in entry:
+            location_ids.add(entry['end_location_id'])
+        character_ids.add(entry['issuer_id'])
+        character_ids.add(entry['acceptor_id'])
+        corporation_ids.add(entry['issuer_corporation_id'])
+    location_dict = get_location_multi(character, list(location_ids))
+    character_dict = Character.get_multi(list(character_ids))
+    corporation_dict = Corporation.get_multi(list(corporation_ids))
+
     # issuer_corporation, acceptor, issuer, end_location, start_location
     for entry in contract_list:
-        entry['items'] = character.get_op(
-            'get_characters_character_id_contracts_contract_id_items',
-            character_id=character_id,
-            contract_id=entry['contract_id'],
-        )
-        entry['issuer_corporation_name'] = Corporation.get(entry['issuer_corporation_id']).name
-        issuer = Character.get(entry['issuer_id'])
-        acceptor = Character.get(entry['acceptor_id'])
+        entry['issuer_corporation_name'] = corporation_dict[entry['issuer_corporation_id']].name
+        issuer = character_dict[entry['issuer_id']]
+        acceptor = character_dict[entry['acceptor_id']]
         entry['issuer_name'] = issuer.name
         entry['acceptor_name'] = acceptor.name
         if 'start_location_id' in entry:
-            start_location = get_location(character, entry['start_location_id'])
-            if start_location is None:
-                entry['start_location_name'] = 'Unknown Structure {}'.format(entry['start_location_id'])
-            else:
-                entry['start_location_name'] = start_location.name
-                if start_location.is_redlisted:
-                    entry['redlisted'] = True
+            start_location = location_dict[entry['start_location_id']]
+            entry['start_location_name'] = start_location.name
         if 'end_location_id' in entry:
-            end_location = get_location(character, entry['end_location_id'])
-            if end_location is None:
-                entry['end_location_name'] = 'Unknown Structure {}'.format(entry['start_location_id'])
-            else:
-                entry['end_location_name'] = end_location.name
-                if end_location.is_redlisted:
-                    entry['redlisted'] = True
-        if entry.get('redlisted', False):
-            pass
-        elif issuer.is_redlisted or acceptor.is_redlisted:
-            entry['redlisted'] = True
-        elif any(Type.get(item['type_id']).is_redlisted for item in entry['items']):
-            entry['redlisted'] = True
+            end_location = location_dict[entry['end_location_id']]
+            entry['end_location_name'] = end_location.name
 
     return {'info': contract_list}
 
@@ -706,22 +701,30 @@ def get_character_market_history(character_id, current_user=None):
         'get_characters_character_id_orders_history',
         character_id=character_id,
     ))
+    location_ids = set()
+    type_ids = set()
+    for order in order_list:
+        location_ids.add(order['location_id'])
+        type_ids.add(order['type_id'])
+    location_dict = get_location_multi(character, list(location_ids))
+    type_dict = Type.get_multi(list(type_ids))
     for order in order_list:
         if 'is_buy_order' not in order:  # always present if True
             order['is_buy_order'] = False
         if order['is_buy_order']:
             order['price'] *= -1
         order['value'] = order['price'] * order['volume_total']
-        location = get_location(character, order['location_id'])
+        location = location_dict[order['location_id']]
         if location is None:
             order['location_name'] = 'Unknown Structure {}'.format(order['location_id'])
             order['region_name'] = 'Unknown Region'
-        else:
-            system = System.get(location.system_id)
-            region = Region.get(system.region_id)
+        elif location.system is None:
             order['location_name'] = location.name
-            order['region_name'] = region.name
-        type = Type.get(order['type_id'])
+            order['region_name'] = 'Unknown Region'
+        else:
+            order['location_name'] = location.name
+            order['region_name'] = location.system.region.name
+        type = type_dict[order['type_id']]
         order['type_name'] = type.name
         if (location and location.is_redlisted) or type.is_redlisted:
             order['redlisted'] = True
