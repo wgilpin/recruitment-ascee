@@ -5,22 +5,14 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
-from models import db, List, ListItem, check_redlist
+from models import db, Character
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
-from admin import get_admin_list, add_admin_list_item, remove_admin_list_item, set_admin_list
+from admin import get_admin_list, add_admin_list_item, remove_admin_list_item, put_admin_list
 
 
 class AdminListTestCase(AsceeTestCase):
-
-    def test_get_check_red_item(self):
-        result = check_redlist(1234, 'character')
-        self.assertTrue(result)
-
-    def test_get_check_non_red_item(self):
-        result = check_redlist(1, 'character')
-        self.assertFalse(result)
 
     def test_get_admin_list(self):
         result = get_admin_list('character', current_user=self.admin)
@@ -43,73 +35,93 @@ class AdminListTestCase(AsceeTestCase):
             get_admin_list('character', current_user=self.senior_recruiter)
 
         with self.assertRaises(ForbiddenException):
-            get_admin_list('character', current_user=self.applicant)
+            get_admin_list('character', current_user=self.applicant_character)
 
     def test_add_admin_list_item(self):
-        RED_ID = 8765
-        new_item = ListItem(id=RED_ID, name='new person')
-        add_admin_list_item('character', new_item, current_user=self.admin)
+        add_admin_list_item('character', self.applicant_character.id, current_user=self.admin)
         new_list = get_admin_list('character', current_user=self.admin)
         self.assertEqual(len(new_list['info']), 3)
-        check_result = check_redlist(RED_ID, 'character')
-        self.assertTrue(check_result)
+        self.assertTrue(self.applicant_character.redlisted)
 
         with self.assertRaises(ForbiddenException):
-            add_admin_list_item('character', new_item, current_user=self.applicant)
+            add_admin_list_item(
+                'character', self.not_applicant_character.id, current_user=self.applicant_character)
         with self.assertRaises(ForbiddenException):
-            add_admin_list_item('character', new_item, current_user=self.recruiter)
+            add_admin_list_item(
+                'character', self.not_applicant_character.id, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
-            add_admin_list_item('character', new_item, current_user=self.senior_recruiter)
+            add_admin_list_item(
+                'character', self.not_applicant_character.id, current_user=self.senior_recruiter)
 
     def test_remove_admin_list_item(self):
-        remove_admin_list_item('character', self.redlist_id_1, current_user=self.admin)
+        remove_admin_list_item('character', self.redlisted_character_1.id, current_user=self.admin)
         new_list = get_admin_list('character', current_user=self.admin)
         self.assertEqual(len(new_list['info']), 1)
 
         with self.assertRaises(BadRequestException):
-            remove_admin_list_item('character', self.redlist_id_1, current_user=self.admin)
+            remove_admin_list_item(
+                'character', self.redlisted_character_1.id, current_user=self.admin)
 
+    def test_forbidden_remove_admin_list_item(self):
         with self.assertRaises(ForbiddenException):
-            remove_admin_list_item('character', self.redlist_id_2, current_user=self.applicant)
+            remove_admin_list_item(
+                'character', self.redlisted_character_2.id, current_user=self.applicant_character)
         with self.assertRaises(ForbiddenException):
-            remove_admin_list_item('character', self.redlist_id_2, current_user=self.recruiter)
+            remove_admin_list_item(
+                'character', self.redlisted_character_2.id, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
-            remove_admin_list_item('character', self.redlist_id_2, current_user=self.senior_recruiter)
+            remove_admin_list_item(
+                'character', self.redlisted_character_2.id, current_user=self.senior_recruiter)
 
     def test_admin_list_add_multi(self):
         new_items = [
-          ListItem(id=8765, name='new person'),
-          ListItem(id=8766, name='another person')
+            dict(id=self.applicant_character.id, name=self.applicant_character.name),
+            dict(id=self.not_applicant_character.id, name=self.not_applicant_character.name),
         ]
-        set_admin_list('character', new_items, replace=False, current_user=self.admin)
+        put_admin_list('character', new_items, do_replace=False, current_user=self.admin)
         new_list = get_admin_list('character', current_user=self.admin)
         self.assertEqual(len(new_list['info']), 4)
-        self.assertTrue(check_redlist(8765, 'character'))
+        self.assertTrue(self.applicant_character.redlisted)
+        self.assertTrue(self.not_applicant_character.redlisted)
 
+    def test_forbidden_admin_list_add_multi(self):
+        new_items = [
+            dict(id=self.applicant_character.id, name=self.applicant_character.name),
+            dict(id=self.not_applicant_character.id, name=self.not_applicant_character.name),
+        ]
         with self.assertRaises(ForbiddenException):
-            set_admin_list('character', new_items, replace=False, current_user=self.applicant)
+            put_admin_list('character', new_items, do_replace=False, current_user=self.applicant_character)
         with self.assertRaises(ForbiddenException):
-            set_admin_list('character', new_items, replace=False, current_user=self.recruiter)
+            put_admin_list('character', new_items, do_replace=False, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
-            set_admin_list('character', new_items, replace=False, current_user=self.senior_recruiter)
+            put_admin_list('character', new_items, do_replace=False, current_user=self.senior_recruiter)
+        self.assertFalse(self.applicant_character.redlisted)
+        self.assertFalse(self.not_applicant_character.redlisted)
 
     def test_admin_list_replace(self):
         new_items = [
-          ListItem(id=8765, name='new person'),
-          ListItem(id=8766, name='another person')
+            dict(id=self.applicant_character.id, name=self.applicant_character.name),
+            dict(id=self.not_applicant_character.id, name=self.not_applicant_character.name),
         ]
-        set_admin_list('character', new_items, replace=True, current_user=self.admin)
+        put_admin_list('character', new_items, do_replace=True, current_user=self.admin)
         new_list = get_admin_list('character', current_user=self.admin)
         self.assertEqual(len(new_list['info']), 2)
-        self.assertTrue(check_redlist(8765, 'character'))
-        self.assertFalse(check_redlist(self.redlist_id_1, 'character'))
+        self.assertTrue(self.applicant_character.redlisted)
+        self.assertTrue(self.not_applicant_character.redlisted)
+        self.assertFalse(self.redlisted_character_1.redlisted)
 
+    def test_forbidden_admin_list_replace(self):
+        new_items = [
+            dict(id=self.applicant_character.id, name=self.applicant_character.name),
+            dict(id=self.not_applicant_character.id, name=self.not_applicant_character.name),
+        ]
         with self.assertRaises(ForbiddenException):
-            set_admin_list('character', new_items, replace=True, current_user=self.applicant)
+            put_admin_list('character', new_items, do_replace=True, current_user=self.applicant_character)
         with self.assertRaises(ForbiddenException):
-            set_admin_list('character', new_items, replace=True, current_user=self.recruiter)
+            put_admin_list('character', new_items, do_replace=True, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
-            set_admin_list('character', new_items, replace=True, current_user=self.senior_recruiter)
+            put_admin_list('character', new_items, do_replace=True, current_user=self.senior_recruiter)
+
 
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'

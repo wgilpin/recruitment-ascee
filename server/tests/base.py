@@ -8,8 +8,8 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 #from vcr_unittest import VCRTestCase
 import unittest
 from models import (
-    Character, User, Admin, Recruiter, Question, Answer, Application, db, Note, List, ListItem
-    )
+    Character, User, Admin, Recruiter, Question, Answer, Application, db, Note,
+)
 import warnings
 import time
 
@@ -96,20 +96,20 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
         db.session.add(self.other_recruiter)
 
         test_applicant_id = 2114496483
-        applicant_character = Character.get(
+        self.applicant_character = Character.get(
             test_applicant_id,
         )
-        applicant_character.refresh_token = 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2'
-        db.session.add(applicant_character)
+        self.applicant_character.refresh_token = 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2'
+        db.session.add(self.applicant_character)
 
         self.applicant = User.get(id=test_applicant_id)
         db.session.add(self.applicant)
 
         test_not_applicant_id = 2112166943
-        not_applicant_character = Character.get(
+        self.not_applicant_character = Character.get(
             test_not_applicant_id,
         )
-        db.session.add(not_applicant_character)
+        db.session.add(self.not_applicant_character)
 
         self.not_applicant = User.get(id=test_not_applicant_id)
         db.session.add(self.not_applicant)
@@ -120,17 +120,27 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
         )
         db.session.add(self.application)
 
-        db.session.add(List(id=1, kind='character'))
-        self.redlist_id_1=1234
-        self.redlist_id_2=4321
-        db.session.add(ListItem(id=self.redlist_id_1, name='First', list_id=1))
-        db.session.add(ListItem(id=self.redlist_id_2, name='Second', list_id=1))
-
+        self.redlisted_character_1 = Character(
+            id=1234,
+            user_id=1234,
+            name='Redlisted Robert',
+            corporation_id=self.ascee_corp_id,
+            redlisted=True,
+        )
+        self.redlisted_character_2 = Character(
+            id=4321,
+            user_id=4321,
+            name='Redlisted Rebecca',
+            corporation_id=self.ascee_corp_id,
+            redlisted=True,
+        )
+        db.session.add(self.redlisted_character_1)
+        db.session.add(self.redlisted_character_2)
         db.session.commit()
 
     def clearDB(self):
         db.session.rollback()
         for model in \
-            Character, User, Recruiter, Admin, Application, Question, Answer, Note, List, ListItem:
+            Character, User, Recruiter, Admin, Application, Question, Answer, Note:
             db.session.query(model).delete()
         db.session.commit()

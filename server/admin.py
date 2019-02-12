@@ -1,18 +1,23 @@
-from models import db
-from models import List, ListItem, list_kinds
+from models import db, Character
 from flask import jsonify, request
 from flask_app import app
 from flask_login import login_required, current_user
 from security import user_admin_access_check
 from exceptions import ForbiddenException, BadRequestException
+from sqlalchemy import exists
 
 SECONDS_TO_CACHE = 10 * 60
+
+kind_dict = {
+    'character': Character
+}
+
 
 @app.route('/api/admin/list/<string:kind>/add', methods=['PUT'])
 @login_required
 def api_admin_list_add_item(kind):
     """
-    add an item to a specified redlist
+    Add an item to a specified redlist.
 
     Args:
         kind (string)
@@ -25,13 +30,15 @@ def api_admin_list_add_item(kind):
         Forbidden (403): If logged in user is not an admin
     """
     return jsonify(
-        add_admin_list_item(kind, request.args.get('item'), current_user=current_user))
+        add_admin_list_item(kind, request.args.get('item'), current_user=current_user)
+    )
+
 
 @app.route('/api/admin/list/<string:kind>/replace', methods=['PUT'])
 @login_required
 def api_admin_list_replace(kind):
     """
-    Replaces a specified redlist with the supplied items
+    Replaces a specified redlist with the supplied items.
 
     Args:
         kind (string)
@@ -44,19 +51,45 @@ def api_admin_list_replace(kind):
         Forbidden (403): If logged in user is not an admin
     """
     return jsonify(
-        set_admin_list(
-            kind, request.args.get('items'), replace=True, current_user=current_user))
+        put_admin_list(
+            kind, [item['id'] for item in request.args.get('items')],
+            do_replace=True, current_user=current_user)
+    )
 
-@app.route('/api/admin/list/<string:kind>', methods=['GET', 'PUT'])
+
+@app.route('/api/admin/list/<string:kind>', methods=['GET'])
 @login_required
-def api_admin_list(kind):
+def api_get_admin_list(kind):
     """
-    Gets or sets (adds to) a specified redlist. Gets the list of items, or  add the
-    supplied list to the exisiting db list.
+    Gets a specified redlist.
 
     Args:
         kind (string)
-        (PUT only) items: list of { id (int), name (string) }
+
+    Returns
+    (GET):
+        response (array) of
+        {
+            id (int),
+            name (string),
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not an admin
+        BadRequest (400): If list type is not known
+    """
+    return jsonify(get_admin_list(kind, current_user=current_user))
+
+
+@app.route('/api/admin/list/<string:kind>', methods=['PUT'])
+@login_required
+def api_put_admin_list(kind):
+    """
+    Adds items to a specified redlist.
+
+    Args:
+        kind (string)
+        items: list of { id (int), name (string) }
 
     Returns
     (GET):
@@ -66,17 +99,17 @@ def api_admin_list(kind):
             name (string),
         }
     (PUT):
-        { 'status': 'ok}
+        {'status': 'ok}
 
     Error codes:
         Forbidden (403): If logged in user is not an admin
         BadRequest (400): If list type is not known
     """
-    if request.method == 'GET':
-        return jsonify(get_admin_list(kind, current_user=current_user))
     return jsonify(
-        set_admin_list(
-            kind, request.args.get('items'), replace=False, current_user=current_user))
+        put_admin_list(
+            kind, [item['id'] for item in request.args.get('items')], current_user=current_user)
+    )
+
 
 @app.route('/api/admin/list/<string:kind>/delete/<int:item_id>', methods=['DELETE'])
 @login_required
@@ -97,22 +130,25 @@ def api_admin_list_delete_item(kind, item_id):
     """
     return jsonify(remove_admin_list_item(kind, item_id, current_user=current_user))
 
-def set_admin_list(kind, items, replace, current_user=None):
+
+def put_admin_list(kind, item_id_list, do_replace, current_user=None):
     user_admin_access_check(current_user)
-    if not kind in list_kinds:
+    if kind not in kind_dict:
         raise BadRequestException('Unknown Redlist')
-    the_list = List.get_by_kind(kind)
-    if the_list:
-        if replace:
-            # wipe the list first
-            for item in the_list.items:
-                db.session.delete(item)
-            the_list.items = []
-        # add the new items to the list
-        for item in items:
-            db.session.add(ListItem(id=item.id, name=item.name, list_id=the_list.id))
-        db.session.commit()
+    for item_id in item_id_list:
+        if not db.session.query(
+                kind_dict[kind]).filter(kind_dict[kind].id=item_id).one_or_none() is None:
+            raise BadRequestException(
+                f"Item {item_id} of kind {kind} does not exist in database.")
+    if do_replace:
+        for item in db.session.query(kind_dict[kind]).filter_by(redlisted=True):
+            item.redlisted = False
+    for item in db.session.query(kind_dict[kind]).filter(
+            kind_dict[kind].id.in_(item_id_list)):
+        item.redlisted = True
+    db.session.commit()
     return {'status': 'ok'}
+
 
 def add_admin_list_item(kind, item, current_user=None):
     user_admin_access_check(current_user)
@@ -124,25 +160,28 @@ def add_admin_list_item(kind, item, current_user=None):
         db.session.commit()
     return {'status': 'ok'}
 
+
 def remove_admin_list_item(kind, item_id, current_user=None):
     user_admin_access_check(current_user)
-    if not kind in list_kinds:
+    if kind not in kind_dict:
         raise BadRequestException('Unknown Redlist')
-    the_list = List.get_by_kind(kind)
-    item = ListItem.query.filter_by(id=item_id, list_id=the_list.id).one_or_none()
-    if not item:
+    item = db.session.query(kind_dict[kind]).filter_by(id=item_id).one_or_none()
+    if item is None:
         raise BadRequestException(f'Item {item_id} not found in List {kind}')
-    db.session.delete(item)
-    db.session.commit()
-    return {'status': 'ok'}
+    elif not item.redlisted:
+        raise BadRequestException(f'Item {item_id} not found in List {kind}')
+    else:
+        item.redlisted = False
+        db.session.commit()
+        return {'status': 'ok'}
+
 
 def get_admin_list(kind, current_user=None):
     user_admin_access_check(current_user)
-    if not kind in list_kinds:
-        raise BadRequestException('Unknown Redlist')
+    if kind not in kind_dict:
+        raise BadRequestException(f'Unknown Redlist {kind}')
     response = []
-    the_list = List.get_by_kind(kind)
-    if the_list:
-        for item in the_list.items:
-            response.append({ 'id': item.id, 'name': item.name })
+    redlisted_items = db.session.query(kind_dict[kind]).filter_by(redlisted=True)
+    for item in redlisted_items:
+        response.append({'id': item.id, 'name': item.name})
     return {'info': response}
