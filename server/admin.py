@@ -1,4 +1,4 @@
-from models import db, Character, Type
+from models import db, Character, Type, System, Corporation, Alliance, Region
 from flask import jsonify, request
 from flask_app import app
 from flask_login import login_required, current_user
@@ -11,6 +11,11 @@ SECONDS_TO_CACHE = 10 * 60
 kind_dict = {
     'character': Character,
     'type': Type,
+    'channel': None,
+    'alliance': Alliance,
+    'corporation': Corporation,
+    'system': System,
+    'region': Region,
 }
 
 
