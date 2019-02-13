@@ -15,6 +15,9 @@
 
     Access Token
 
+`last_mail_id` {int} (Optional)
+  return mails with ID lower than this, as per ESI endpoint
+
 ### Sample Output
 
 #### Enrichment

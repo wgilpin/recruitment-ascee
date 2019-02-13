@@ -170,10 +170,12 @@ def api_character_contacts(character_id):
 
 
 @app.route('/api/character/<int:character_id>/mail', methods=['GET'])
+@app.route('/api/character/<int:character_id>/mail/<int:last_mail_id>', methods=['GET'])
 @login_required
-def api_character_mail(character_id):
+def api_character_mail(character_id, last_mail_id=None):
     """
     Get mail headers for a given character.
+        Only return mails with ID lower than last_mail_id if present, as per ESI endpoint
 
     Returned dictionary is of the form
     {'info': [mail_1, mail_2, ...]}. Each mail is as returned by
