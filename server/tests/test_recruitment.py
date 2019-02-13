@@ -9,6 +9,7 @@ from recruitment import (
     get_questions, get_answers, get_user_characters, get_users, get_user_application,\
     add_applicant_note, get_character_search_list, get_applicant_list, set_answers,\
     start_application)
+from status import reject_applicant
 from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
 from flask_app import app
@@ -283,6 +284,13 @@ class MiscRecruitmentTests(AsceeTestCase):
             start_application(self.recruiter)
         with self.assertRaises(BadRequestException):
             start_application(self.senior_recruiter)
+
+    def test_start_new_application_after_rejection(self):
+        reject_applicant(self.applicant.id, self.recruiter.user)
+        start_application(self.applicant)
+        application = Application.get_for_user(self.applicant.id)
+        self.assertIsInstance(application, Application)
+        self.assertEqual(application.user_id, self.applicant.id)
 
     # Applicant list tests
 
