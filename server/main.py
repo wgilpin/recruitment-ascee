@@ -17,12 +17,11 @@
 import logging
 from flask_app import app
 from flask import render_template, send_from_directory, json
-from models import db, init_db
-from login import login_manager
+from models import db
 import os
-import recruitment
 import pyswagger
 from datetime import datetime, date
+import routes
 
 app.url_map.strict_slashes = False
 

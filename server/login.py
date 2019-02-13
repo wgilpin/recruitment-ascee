@@ -27,33 +27,6 @@ def load_user(user_id):
     return User.get(user_id)
 
 
-@app.route('/auth/login')
-def api_login():
-    """
-    Redirects user to ESI SSO login.
-    """
-    return login_helper('login')
-
-
-@app.route('/auth/logout')
-@login_required
-def api_logout():
-    """
-    Logs out the current user.
-    """
-    logout_user()
-    return redirect(react_app_url)
-
-
-@app.route('/auth/link_alt')
-@login_required
-def api_link_alt():
-    """
-    Redirects user to ESI SSO login for the purposes of linking an alt.
-    """
-    return login_helper('link')
-
-
 def login_helper(login_type):
     session['token'] = login_type + ':' + generate_token()
     params = {
