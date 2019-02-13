@@ -5,6 +5,10 @@ API for the recruiters notes, and pasted chat logs.
 The application has two note streams, notes and logs. They are conceptually the same: a list of timestamp text messages, but they are seperate.
 The difference is that logs have a title for context.
 
+## GET
+
+`/api/recruits/<int:applicant_id>/notes'`
+
 ## GET Request Params
 
 `applicant_id` {int}
@@ -36,6 +40,10 @@ GET returns all the notes and logs for the current application of the specified 
 }
 ```
 
+## PUT
+
+`/api/recruits/<int:applicant_id>/add_note/`
+
 ## PUT Request Params
 
 `applicant_id` {int}
@@ -44,14 +52,23 @@ GET returns all the notes and logs for the current application of the specified 
 
 `note`: {
 
-      `timestamp`: (string) ISO date
+      `timestamp`: {string} ISO date
 
-      `author_id`: (int),
+      `author_id`: {int},
 
-      `note_id`: (int),
+      `note_id`: {int},
 
-      `title`: (string),
+      `title`: {string},
 
-      `text`: (string),
+      `text`: {string},
 
     }
+
+## Delete (by PUT)
+
+`/api/recruits/<int:applicant_id>/delete_note/`
+
+## PUT Request Params
+
+`note_id` {int}
+
