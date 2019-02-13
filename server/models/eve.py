@@ -49,6 +49,7 @@ def get_prices(type_id_list):
             prices[price['type_id']] = price['adjusted_price']
     return prices
 
+
 class Type(db.Model):
     __tablename__ = 'type'
     id = db.Column(db.Integer, primary_key=True)
@@ -112,21 +113,45 @@ class Region(db.Model):
     name = db.Column(db.String(50))
     redlisted = db.Column(db.Boolean, default=False)
 
+    esi_op_name = 'get_universe_regions_region_id'
+    esi_id_name = 'region_id'
+
+    @classmethod
+    def _construct(cls, esi_data):
+        return cls(
+            id=esi_data[cls.esi_id_name],
+            name=esi_data['name']
+        )
+
     @classmethod
     def get(cls, id):
-        region = db.session.query(cls).get(id)
-        if region is None:
-            region_data = get_op(
-                'get_universe_regions_region_id',
-                region_id=id
+        result = db.session.query(cls).get(id)
+        if result is None:
+            esi_data = get_op(
+                cls.esi_op_name,
+                **{cls.esi_id_name: id}
             )
-            region = Region(
-                id=id,
-                name=region_data['name'],
-            )
-            db.session.add(region)
+            result = cls._construct(esi_data)
+            db.session.add(result)
             db.session.commit()
-        return region
+        return result
+
+    @classmethod
+    def get_multi(cls, id_list):
+        existing_items = db.session.query(cls).filter(
+            cls.id.in_(id_list))
+        return_items = {item.id: item for item in existing_items}
+        missing_ids = set(id_list).difference(
+            [item.id for item in existing_items])
+        new_data_dict = get_op(
+            cls.esi_op_name,
+            **{cls.esi_id_name: missing_ids}
+        )
+        for id, esi_data in new_data_dict.items():
+            return_items[id] = cls._construct(esi_data)
+            db.session.add(return_items[id])
+        db.session.commit()
+        return return_items
 
     @property
     def is_redlisted(self):
@@ -163,6 +188,17 @@ class System(db.Model):
             db.session.commit()
         return system
 
+    @classmethod
+    def get_multi(cls, id_list):
+        existing_items = db.session.query(cls).filter(
+            cls.id.in_(id_list))
+        return_items = {item.id: item for item in existing_items}
+        missing_ids = set(id_list).difference(
+            [item.id for item in existing_items])
+        for id in missing_ids:
+            return_items[id] = cls.get(id)
+        return return_items
+
     @property
     def is_redlisted(self):
         if self.redlisted:
@@ -177,7 +213,7 @@ class Station(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     system_id = db.Column(db.Integer, db.ForeignKey(System.id))
-    system = db.relationship(System, uselist=False)
+    system = db.relationship(System)
     redlisted = db.Column(db.Boolean, default=False)
 
     @classmethod
@@ -196,6 +232,17 @@ class Station(db.Model):
             db.session.add(station)
             db.session.commit()
         return station
+
+    @classmethod
+    def get_multi(cls, id_list):
+        existing_items = db.session.query(cls).filter(
+            cls.id.in_(id_list))
+        return_items = {item.id: item for item in existing_items}
+        missing_ids = set(id_list).difference(
+            [item.id for item in existing_items])
+        for id in missing_ids:
+            return_items[id] = cls.get(id)
+        return return_items
 
     @property
     def is_redlisted(self):
@@ -336,7 +383,10 @@ class Structure(db.Model):
     @classmethod
     def get(cls, character, id):
         structure = db.session.query(cls).get(id)
-        if structure is None:
+        if structure is None or structure.system_id is None:
+            if structure is not None:
+                db.session.delete(structure)
+                db.session.commit()
             try:
                 structure_data = character.get_op(
                     'get_universe_structures_structure_id',
@@ -353,11 +403,20 @@ class Structure(db.Model):
                     id=id,
                     name='Unknown Structure {}'.format(id),
                 )
-            # Will also need code here to return "unknown" structure if no access
-            # it should probably be located in "unknown" system and region? add to DB?
             db.session.add(structure)
             db.session.commit()
         return structure
+
+    @classmethod
+    def get_multi(cls, character, id_list):
+        existing_items = db.session.query(Corporation).filter(
+            Corporation.id.in_(id_list))
+        return_items = {item.id: item for item in existing_items}
+        missing_ids = set(id_list).difference(
+            [item.id for item in existing_items])
+        for id in missing_ids:
+            return_items[id] = cls.get(character, id)
+        return return_items
 
     @property
     def is_redlisted(self):
@@ -437,51 +496,3 @@ class Character(db.Model):
             return True
         else:
             return Corporation.get(self.corporation_id).is_redlisted
-
-def get_details_for_id(contact_id):
-    entry = {
-        'name': None,
-        'corporation_id': None,
-        'corporation_name': None,
-        'alliance_id': None,
-        'alliance_name': None,
-        'redlisted': None,
-        }
-    try:
-        contact = Character.get(contact_id)
-        entry['name'] = contact.name
-        entry['corporation_id'] = contact.corporation_id
-        corporation = Corporation.get(contact.corporation_id)
-        entry['corporation_name'] = corporation.name
-        if corporation.alliance_id:
-            entry['alliance_id'] = corporation.alliance_id
-            entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
-        if contact.is_redlisted:
-            entry['redlisted'] = True
-    except ESIError as E:
-        # try corp
-        try:
-            corporation = Corporation.get(contact_id)
-            entry['name'] = corporation.name
-            entry['corporation_id'] = contact_id
-            entry['corporation_name'] = corporation.name
-            if corporation.alliance_id:
-                entry['alliance_id'] = corporation.alliance_id
-                entry['alliance_name'] = Alliance.get(corporation.alliance_id).name
-            if corporation.is_redlisted:
-                entry['redlisted'] = True
-        except ESIError as E:
-            # try alliance
-            try:
-                alliance = Alliance.get(contact_id)
-                entry['name'] = alliance.name
-                entry['alliance_id'] = contact_id
-                entry['alliance_name'] = alliance.name
-                if alliance.is_redlisted:
-                    entry['redlisted'] = True
-            except ESIError as E:
-                raise E
-    for prop in list(entry):
-        if entry[prop] == None:
-            del entry[prop]
-    return entry

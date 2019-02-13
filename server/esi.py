@@ -64,22 +64,6 @@ class ESIError(Exception):
     pass
 
 
-def sort_ids_by_category(ids):
-    ids = tuple(ids)
-    data = []
-    for i in range(0, len(ids), 1000):
-        data.extend(get_op(
-            'post_universe_names', ids=ids[i:i+1000]
-        ))
-    return_dict = {}
-    for item in data:
-        category = item['category']
-        if category not in return_dict:
-            return_dict[category] = []
-        return_dict[category].append(item['id'])
-    return return_dict
-
-
 def get_op(op_name, refresh_token=None, **kwargs):
     esi_client = get_esi_client(refresh_token)
     multi_kwarg = None
