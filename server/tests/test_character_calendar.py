@@ -5,7 +5,7 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
-from character_data import get_character_calendar
+from character import get_character_calendar
 from models import Character, User, db
 from base import AsceeTestCase
 from flask_app import app

@@ -1,7 +1,7 @@
 from flask_login import login_required, current_user
 from flask_app import app
 from flask import jsonify
-from character_data import get_character_mail, get_mail_body
+from character import get_character_mail, get_mail_body
 
 
 @app.route('/api/character/<int:character_id>/mail', methods=['GET'])

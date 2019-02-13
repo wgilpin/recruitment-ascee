@@ -8,7 +8,7 @@ from models import db
 from login import login_manager
 import os
 import recruitment
-import character_data
+import character
 
 # [END app]
 
