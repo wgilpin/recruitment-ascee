@@ -1,5 +1,10 @@
 import sys
 import os
+
+import character.bookmarks
+import character.finance
+import character.mining
+
 server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
@@ -77,7 +82,7 @@ class SimpleCharacterMixin(object):
 class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.get_character_contacts,
+        'fetch_function': character.finance.get_character_contacts,
         'required': {
             'name': str,
         },
@@ -94,7 +99,7 @@ class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
 class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.get_character_mining,
+        'fetch_function': character.mining.get_character_mining,
         'required': {
             'date': str,
             'quantity': float,
@@ -113,7 +118,7 @@ class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
 class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.get_character_market_contracts,
+        'fetch_function': character.finance.get_character_market_contracts,
         'required': {
             'issuer_corporation_name': str,
             'issuer_id': int,
@@ -134,7 +139,7 @@ class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
 class CharacterBookmarksTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.get_character_bookmarks,
+        'fetch_function': character.bookmarks.get_character_bookmarks,
         'required': {
             'system_id': int,
             'system_name': str,
@@ -150,7 +155,7 @@ class CharacterBookmarksTests(SimpleCharacterMixin, AsceeTestCase):
 class CharacterMarketHistoryTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.get_character_market_history,
+        'fetch_function': character.finance.get_character_market_history,
         'required': {
             'is_buy_order': bool,
             'value': float,

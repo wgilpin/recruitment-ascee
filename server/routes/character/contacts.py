@@ -1,7 +1,7 @@
 from flask_login import login_required, current_user
 from flask_app import app
 from flask import jsonify
-from character import get_character_contacts
+from character.finance import get_character_contacts
 
 
 @app.route('/api/character/<int:character_id>/contacts', methods=['GET'])

@@ -1,9 +1,8 @@
 from flask_login import login_required, current_user
 from flask_app import app
 from flask import jsonify
-from character import (
-    get_character_wallet, get_character_market_history, get_character_market_contracts
-)
+from character.finance import get_character_wallet, \
+    get_character_market_contracts, get_character_market_history
 
 
 @app.route('/api/character/<int:character_id>/market_contracts', methods=['GET'])
