@@ -7,7 +7,7 @@
 
 ### Request Params
 
-`userId` {int} 
+`userId` {int}
 
     ESI id for alt
 
@@ -38,27 +38,35 @@ ESI returns
 
 API adds to each item:
 
-* `from.name` Location name {string}
-* `recipients` array of {`name`} or empty
+* `from` {
+    `id`: {int}
+    `name` {string}
+    `corporation_name` {string}
+    `alliance_name` {string}
+  }
+* `recipients` array of
+  {
+    `id`: {int}
+    `name` {string}
+    `corporation_name` {string}
+    `alliance_name` {string}
+    `redlisted`: [list of redlisted field names]
+  }
 
 ```json
 {
   "info": [
     {
-      "from": { "id": 299590276, "name": "Major Sniper" },
+      "from": {
+        "id": 299590276,
+        "name": "Major Sniper",
+        "corporation_name": "Ascendance"
+        },
       "labels": [4],
       "mail_id": 374341459,
       "recipients": ["", "", ...],
       "subject": "A gentle reminder",
       "timestamp": "2019-01-21T14:11:00Z"
-    },
-    {
-      "from": { "id": 299590276, "name": "Major Sniper" },
-      "labels": [4],
-      "mail_id": 374302352,
-      "recipients": [""],
-      "subject": "December 2018 PVP for Prizes and stuff",
-      "timestamp": "2019-01-18T18:11:00Z"
     },
     {
       "from": { "id": 299590276, "name": "Major Sniper" },

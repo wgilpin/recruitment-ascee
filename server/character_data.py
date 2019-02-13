@@ -177,9 +177,23 @@ def api_character_mail(character_id):
 
     Returned dictionary is of the form
     {'info': [mail_1, mail_2, ...]}. Each mail is as returned by
-    ESI, with the additional key `from_name`, and if
-    redlisted then `redlisted` whose value is True. Recipients have the
-    additional key `recipient_name`.
+    ESI, with the additional key `from`: {
+        `id`: {int}
+        `name` {string}
+        `corporation_name` {string}
+        `alliance_name` {string}
+    }, and if
+    redlisted then `redlisted` whose value is ['redlisted field name',...]. Recipients have the
+    `recipients`: array of names:
+     [
+         {
+             `id`,
+             `name`,
+             `corporation_name`,
+             `alliance_name`,
+             `redlisted`: [list of redlisted field names]
+        }
+    ]
 
     A mail is redlisted if any of the participants in the mail are redlisted.
 
