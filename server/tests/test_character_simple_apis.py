@@ -1,11 +1,16 @@
 import sys
 import os
+
+import character.bookmarks
+import character.finance
+import character.mining
+
 server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 from exceptions import BadRequestException, ForbiddenException
 import unittest
-import character_data
+import character
 from models import Character, User, db
 from base import AsceeTestCase
 from flask_app import app
@@ -74,10 +79,11 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.not_applicant.id, self.senior_recruiter.user, ForbiddenException)
         self.run_tests_simple_APIs(self.not_applicant.id, self.admin.user, ForbiddenException)
 
+
 class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character_data.get_character_contacts,
+        'fetch_function': character.finance.get_character_contacts,
         'required': {
             'name': str,
         },
@@ -94,7 +100,7 @@ class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
 class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character_data.get_character_mining,
+        'fetch_function': character.mining.get_character_mining,
         'required': {
             'date': str,
             'quantity': float,
@@ -110,10 +116,67 @@ class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
+class CharacterPITests(SimpleCharacterMixin, AsceeTestCase):
+    api_definition = {
+        'fetch_function': character.planetary_interaction.get_character_planetary_interaction,
+        'required': {
+            'last_update': str,
+            'num_pins': int,
+            'owner_id': int,
+            'planet_id': int,
+            'planet_type': str,
+            'solar_system_id': int,
+            'solar_system_name': str,
+            'region_id': int,
+            'region_name': str,
+            'upgrade_level': int,
+        },
+        'optional': {
+            'redlisted': list
+        }
+    }
+
+
+class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
+    api_definition = {
+        'fetch_function': character.industry.get_character_industry,
+        'required': {
+            'activity_id': int,
+            'blueprint_id': int,
+            'blueprint_name': str,
+            'blueprint_location_id': int,
+            'blueprint_type_id': int,
+            'blueprint_type_name': str,
+            'duration': int,
+            'end_date': str,
+            'facility_id': int,
+            'installer_id': int,
+            'job_id': int,
+            'output_location_id': int,
+            'output_location_name': str,
+            'runs': int,
+            'start_date': str,
+            'station_id': int,
+            'status': str
+        },
+        'optional': {
+            'completed_character_id': int,
+            'completed_date': str,
+            'cost': float,
+            'licensed_runs': int,
+            'pause_date': str,
+            'probability': float,
+            'product_type_id': int,
+            'successful_runs': int,
+            'redlisted': list
+        }
+    }
+
+
 class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character_data.get_character_market_contracts,
+        'fetch_function': character.finance.get_character_market_contracts,
         'required': {
             'issuer_corporation_name': str,
             'issuer_id': int,
@@ -134,7 +197,7 @@ class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
 class CharacterBookmarksTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character_data.get_character_bookmarks,
+        'fetch_function': character.bookmarks.get_character_bookmarks,
         'required': {
             'system_id': int,
             'system_name': str,
@@ -150,7 +213,7 @@ class CharacterBookmarksTests(SimpleCharacterMixin, AsceeTestCase):
 class CharacterMarketHistoryTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character_data.get_character_market_history,
+        'fetch_function': character.finance.get_character_market_history,
         'required': {
             'is_buy_order': bool,
             'value': float,

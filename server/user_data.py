@@ -1,8 +1,8 @@
-from character_data import (
-    get_character_wallet, get_character_contacts,
-    get_character_calendar, get_character_market_contracts,
-    get_character_bookmarks, get_character_mail,
-)
+from character.calendar import get_character_calendar
+from character.bookmarks import get_character_bookmarks
+from character.mail import get_character_mail
+from character.finance import get_character_wallet, get_character_contacts, \
+    get_character_market_contracts
 from models import Character, Corporation
 import cachetools
 import logging
