@@ -6,7 +6,7 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 from flask import session, redirect, request
 from esi_config import (
     callback_url, client_id, secret_key, scopes, login_url, app_url,
-    react_app_url, applicant_url, recruiter_url, admin_url
+    react_app_url, applicant_url, recruiter_url, admin_url, rejection_url
 )
 import random
 import os
@@ -64,7 +64,7 @@ def route_login(login_type, character):
             if Application.get_for_user(user.id) is None:
                 if character.blocked_from_applying:
                     logout_user()
-                    return redirect(app_url)
+                    return redirect(rejection_url)
             if character.refresh_token is None:
                 return login_helper('scopes')
             else:
@@ -87,7 +87,8 @@ def link_alt(character, user):
     db.session.commit()
     if character.blocked_from_applying:
         block_user_from_applying(user)
-    return redirect(react_app_url)
+        logout_user()
+    return redirect(rejection_url)
 
 
 def block_user_from_applying(user):
