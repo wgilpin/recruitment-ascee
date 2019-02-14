@@ -3,5 +3,8 @@ from routes.character.bookmarks import *
 from routes.character.calendar import *
 from routes.character.contacts import *
 from routes.character.finance import *
+from routes.character.fittings import *
 from routes.character.mail import *
+from routes.character.mining import *
+from routes.character.planetary_interaction import *
 from routes.character.skills import *
