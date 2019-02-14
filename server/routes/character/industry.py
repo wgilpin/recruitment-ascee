@@ -11,8 +11,8 @@ def api_character_industry(character_id):
     Gets industry jobs for a given character.
 
     Returns a dictonary {'info': result_list} where result_list is a list of
-    results from ESI, Each result additionally has the keys 'blueprint_type_name',
-    'output_location_name', and 'station_name'.
+    results from ESI, Each result additionally has the keys 'blueprint_type_name'
+    and 'station_name'.
 
     Example:
 
@@ -27,7 +27,6 @@ def api_character_industry(character_id):
           "end_date": "2014-07-19T15:56:14Z",
           "licensed_runs": 200,
           "output_location_id": 60006382,
-          "output_location_name": 60006382,
           "runs": 1,
           "start_date": "2014-07-19T15:47:06Z",
           "station_id": 60006382,

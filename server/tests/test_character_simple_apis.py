@@ -23,12 +23,12 @@ class SimpleCharacterMixin(object):
 
     def helper_list_or_dict_item(self, entry, api_def):
         for property_name, property_type in api_def['required'].items():
-            self.assertIn(property_name, entry)
-            self.assertIsInstance(entry[property_name], property_type)
+            self.assertIn(property_name, entry, property_name)
+            self.assertIsInstance(entry[property_name], property_type, property_name)
         for property_name, property_type in api_def['optional'].items():
             if property_name in entry:
-                self.assertIn(property_name, entry)
-                self.assertIsInstance(entry[property_name], property_type)
+                self.assertIn(property_name, entry, property_name)
+                self.assertIsInstance(entry[property_name], property_type, property_name)
 
     def helper_simple_APIs(self, response, api_def):
         self.assertIn('info', response)
@@ -78,6 +78,38 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.not_applicant.id, self.other_recruiter.user, ForbiddenException)
         self.run_tests_simple_APIs(self.not_applicant.id, self.senior_recruiter.user, ForbiddenException)
         self.run_tests_simple_APIs(self.not_applicant.id, self.admin.user, ForbiddenException)
+
+
+class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
+
+    # results from ESI, Each result additionally has the key 'ship_type_name',
+    # and each item has the additional key 'type_name'.
+    api_definition = {
+        'fetch_function': character.fittings.get_character_fittings,
+        'required': {
+            'description': str,
+            'fitting_id': int,
+            'items': list,
+            'name': str,
+            'ship_type_id': int,
+            'ship_type_name': str,
+        },
+        'optional': {
+            'redlisted': list
+        }
+    }
+
+    def helper_simple_APIs(self, response, api_def):
+        super(CharacterFittingsTests, self).helper_simple_APIs(response, api_def)
+        for data in response['info']:
+            for item in data['items']:
+                for attr, type in (
+                        ('flag', int),
+                        ('quantity', int),
+                        ('type_id', int),
+                        ('type_name', str)):
+                    self.assertIn(attr, item, attr)
+                    self.assertIsInstance(item[attr], type, attr)
 
 
 class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):

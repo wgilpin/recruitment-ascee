@@ -18,6 +18,7 @@ def api_get_applicant_list():
             'info': {
                 '1937622137': {
                     'user_id': 1937622137,  # int character ID of user's main
+                    'name': Twine Endashi,  # string character name of user's main
                     'recruiter_id': 201837771,  # int character ID of recruiter's main
                     'recruiter_name': 'Recruiter Ralph',  # string name of recruiter
                     'status': 'claimed' | 'new' | 'escalated',

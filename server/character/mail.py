@@ -3,12 +3,17 @@ from models import Character, Corporation, Alliance
 from security import character_application_access_check
 
 
-def get_character_mail(character_id, current_user=None):
+def get_character_mail(character_id, last_mail_id=None, current_user=None):
     target_character = Character.get(character_id)
     character_application_access_check(current_user, target_character)
+    if last_mail_id:
+        kwargs = {'last_mail_id': last_mail_id}
+    else:
+        kwargs = {}
     mail_list = target_character.get_op(
         'get_characters_character_id_mail',
         character_id=character_id,
+        **kwargs
     )
 
     from_ids = set(entry['from'] for entry in mail_list)
