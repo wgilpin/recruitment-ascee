@@ -2,6 +2,7 @@ from character.assets import *
 from character.bookmarks import *
 from character.calendar import *
 from character.finance import *
+from character.fittings import *
 from character.industry import *
 from character.mail import *
 from character.mining import *
