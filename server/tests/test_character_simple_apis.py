@@ -79,6 +79,7 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.not_applicant.id, self.senior_recruiter.user, ForbiddenException)
         self.run_tests_simple_APIs(self.not_applicant.id, self.admin.user, ForbiddenException)
 
+
 class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
@@ -111,6 +112,63 @@ class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
         },
         'optional': {
             'redlisted': bool
+        }
+    }
+
+
+class CharacterPITests(SimpleCharacterMixin, AsceeTestCase):
+    api_definition = {
+        'fetch_function': character.planetary_interaction.get_character_planetary_interaction,
+        'required': {
+            'last_update': str,
+            'num_pins': int,
+            'owner_id': int,
+            'planet_id': int,
+            'planet_type': str,
+            'solar_system_id': int,
+            'solar_system_name': str,
+            'region_id': int,
+            'region_name': str,
+            'upgrade_level': int,
+        },
+        'optional': {
+            'redlisted': list
+        }
+    }
+
+
+class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
+    api_definition = {
+        'fetch_function': character.industry.get_character_industry,
+        'required': {
+            'activity_id': int,
+            'blueprint_id': int,
+            'blueprint_name': str,
+            'blueprint_location_id': int,
+            'blueprint_type_id': int,
+            'blueprint_type_name': str,
+            'duration': int,
+            'end_date': str,
+            'facility_id': int,
+            'installer_id': int,
+            'job_id': int,
+            'output_location_id': int,
+            'output_location_name': str,
+            'runs': int,
+            'start_date': str,
+            'station_id': int,
+            'status': str
+        },
+        'optional': {
+            'completed_character_id': int,
+            'completed_date': str,
+            'cost': float,
+            'licensed_runs': int,
+            'pause_date': str,
+            'probability': float,
+            'product_type_id': int,
+            'successful_runs': int,
+            'redlisted': list
         }
     }
 

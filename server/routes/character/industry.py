@@ -1,13 +1,14 @@
 from flask_login import login_required, current_user
 from flask_app import app
 from flask import jsonify
+from character.industry import get_character_industry
 
 
 @app.route('/api/character/<int:character_id>/industry', methods=['GET'])
 @login_required
 def api_character_industry(character_id):
     """
-    Gets current industry jobs for a given character.
+    Gets industry jobs for a given character.
 
     Returns a dictonary {'info': result_list} where result_list is a list of
     results from ESI, Each result additionally has the keys 'blueprint_type_name',
@@ -19,7 +20,7 @@ def api_character_industry(character_id):
       "info":
       [
         {
-          "blueprint_type_name": "Hel Blueprint",
+          "blueprint_type_name": "Hel",
           "blueprint_type_id": 2047,
           "cost": 118.01,
           "duration": 548,
@@ -46,5 +47,4 @@ def api_character_industry(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    raise NotImplementedError()
-    # return jsonify(get_character_fittings(character_id, current_user=current_user))
+    return jsonify(get_character_industry(character_id, current_user=current_user))

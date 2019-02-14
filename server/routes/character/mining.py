@@ -1,6 +1,7 @@
 from flask_login import login_required, current_user
 from flask_app import app
 from flask import jsonify
+from character.mining import get_character_mining
 
 
 @app.route('/api/character/<int:character_id>/mining', methods=['GET'])
@@ -40,5 +41,4 @@ def api_character_mining(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    raise NotImplementedError()
-    # return jsonify(get_character_fittings(character_id, current_user=current_user))
+    return jsonify(get_character_mining(character_id, current_user=current_user))
