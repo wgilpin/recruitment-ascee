@@ -50,3 +50,26 @@ def api_character_assets(character_id):
             a recruiter who has claimed the given user
     """
     return jsonify(get_character_assets(character_id, current_user=current_user))
+
+
+@app.route('/api/character/<int:character_id>/blueprints', methods=['GET'])
+@login_required
+def api_character_blueprints(character_id):
+    """
+    Gets assets for a given character, including only blueprints and
+    containers containing blueprints.
+
+    Return value is similar to api_character_assets except only for
+    blueprints.
+
+    Args:
+        character_id (int)
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or
+            a recruiter who has claimed the given user
+    """
+    raise NotImplementedError()

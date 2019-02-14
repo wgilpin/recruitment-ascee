@@ -1,6 +1,6 @@
 from flask_login import login_required, current_user
 from flask_app import app
-from flask import jsonify
+from flask import jsonify, request
 from character.mail import get_character_mail, get_mail_body
 
 
@@ -20,6 +20,7 @@ def api_character_mail(character_id):
 
     Args:
         character_id (int)
+        last_mail_id (int, optional): Return only mails with ID lower than this
 
     Returns:
         response (dict)
@@ -28,7 +29,9 @@ def api_character_mail(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_character_mail(character_id, current_user=current_user))
+    return jsonify(get_character_mail(
+        character_id, last_mail_id=request.form.get('last_mail_id', None), current_user=current_user
+    ))
 
 
 @app.route('/api/character/<int:character_id>/mail/<int:mail_id>', methods=['GET'])

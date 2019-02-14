@@ -3,6 +3,45 @@ from flask_app import app
 from flask import request, jsonify
 from recruitment import add_applicant_note
 
+
+@app.route('/api/recruits/<int:applicant_id>/notes', methods=['GET'])
+@login_required
+def api_get_applicant_notes_and_logs(applicant_id):
+    """
+    Get notes and chat logs for current application of an applicant.
+
+    Args:
+        applicant_id (int)
+
+    Returns:
+        response
+
+    Example:
+        {
+            "info":
+            "notes": [
+                {
+                    "timestamp": "ISO Date string",
+                    "author_id": 61097499,
+                    "note_id": 101052109,
+                    "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
+                },
+            ],
+            "logs": [
+                {
+                    "timestamp": "ISO Date string",
+                    "author_id": 61097499,
+                    "note_id": 101052109,
+                    "title": "Chat log from friday",
+                    "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
+                },
+            ]
+        }
+
+    """
+    raise NotImplementedError()
+
+
 @app.route(
     '/api/recruits/add_note/<int:applicant_id>', methods=['PUT'])
 @login_required
