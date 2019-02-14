@@ -7,6 +7,7 @@ class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
+    in_corp = db.Column(db.Boolean, default=False)
     characters = db.relationship('Character', uselist=True, back_populates='user')
 
     @classmethod
