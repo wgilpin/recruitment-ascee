@@ -107,7 +107,7 @@ def get_character_market_contracts(character_id, current_user=None):
     )
 
     type_ids = set()
-    for item_list in entry_items.values()
+    for item_list in entry_items.values():
         type_ids.update([item['type_id'] for item in item_list])
     type_dict = Type.get_multi(list(type_ids))
 
@@ -182,7 +182,7 @@ def get_character_market_history(character_id, current_user=None):
     location_dict = get_location_multi(character, list(location_ids))
     type_dict = Type.get_multi(list(type_ids))
     for order in order_list:
-        order['redlisted'] = False
+        order['redlisted'] = []
         if 'is_buy_order' not in order:  # always present if True
             order['is_buy_order'] = False
         if order['is_buy_order']:
@@ -196,7 +196,7 @@ def get_character_market_history(character_id, current_user=None):
             order['location_name'] = location.name
             order['region_name'] = location.system.region.name
             if location.system.region.is_redlisted:
-                order['redlisted'].append(region_name)
+                order['redlisted'].append(location.system.region.name)
         type = type_dict[order['type_id']]
         order['type_name'] = type.name
         if type.is_redlisted:

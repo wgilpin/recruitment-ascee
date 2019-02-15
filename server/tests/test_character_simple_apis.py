@@ -81,30 +81,6 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.not_applicant.id, self.admin.user, ForbiddenException)
 
 
-class CharacterCalendarEventTests(SimpleCharacterMixin, AsceeTestCase):
-
-    # results from ESI, Each result additionally has the key 'ship_type_name',
-    # and each item has the additional key 'type_name'.
-    api_definition = {
-        'fetch_function': character.calendar.get_character_calendar_event,
-        'required': {
-            'date': str,
-            'duration': int,
-            'event_id': int,
-            'importance': int,
-            'owner_id': int,
-            'owner_name': str,
-            'owner_type': str,
-            'response': str,
-            'text': str,
-            'title': str,
-        },
-        'optional': {
-            'redlisted': list
-        }
-    }
-
-
 class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
 
     # results from ESI, Each result additionally has the key 'ship_type_name',
@@ -118,9 +94,9 @@ class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
             'name': str,
             'ship_type_id': int,
             'ship_type_name': str,
+            'redlisted': list,
         },
         'optional': {
-            'redlisted': list
         }
     }
 
@@ -143,13 +119,13 @@ class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
         'fetch_function': character.contacts.get_character_contacts,
         'required': {
             'name': str,
+            'redlisted': list,
         },
         'optional': {
             'corporation_id': int,
             'corporation_name': str,
             'alliance_id': int,
             'alliance_name': str,
-            'redlisted': bool
         }
     }
 
@@ -166,9 +142,9 @@ class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
             'type_id': int,
             'type_name': str,
             'value': float,
+            'redlisted': list,
         },
         'optional': {
-            'redlisted': bool
         }
     }
 
@@ -187,9 +163,9 @@ class CharacterPITests(SimpleCharacterMixin, AsceeTestCase):
             'region_id': int,
             'region_name': str,
             'upgrade_level': int,
+            'redlisted': list,
         },
         'optional': {
-            'redlisted': list
         }
     }
 
@@ -214,7 +190,8 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
             'runs': int,
             'start_date': str,
             'station_id': int,
-            'status': str
+            'status': str,
+            'redlisted': list,
         },
         'optional': {
             'completed_character_id': int,
@@ -225,7 +202,6 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
             'probability': float,
             'product_type_id': int,
             'successful_runs': int,
-            'redlisted': list
         }
     }
 
@@ -240,13 +216,13 @@ class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
             'acceptor_id': int,
             'issuer_name': str,
             'acceptor_name': str,
+            'redlisted': list,
         },
         'optional': {
             'start_location_id': int,
             'start_location_name': str,
             'end_location_id': int,
             'end_location_name': str,
-            'redlisted': bool
         }
     }
 
@@ -258,11 +234,11 @@ class CharacterBookmarksTests(SimpleCharacterMixin, AsceeTestCase):
         'required': {
             'system_id': int,
             'system_name': str,
+            'redlisted': list,
         },
         'optional': {
             'folder_id': int,
             'folder_name': str,
-            'redlisted': bool
         }
     }
 
@@ -279,9 +255,9 @@ class CharacterMarketHistoryTests(SimpleCharacterMixin, AsceeTestCase):
             'location_name': str,
             'region_name': str,
             'type_name': str,
+            'redlisted': list,
         },
         'optional': {
-            'redlisted': bool
         },
     }
 

@@ -30,12 +30,12 @@ def get_character_bookmarks(character_id, current_user=None):
             entry['system_id'] = location.id
             entry['system_name'] = location.name
             if location.is_redlisted:
-                entry['redlisted'] = True
+                entry['redlisted'].append('system_name')
         else:
             entry['system_id'] = location.system_id
             entry['system_name'] = location.system.name
             if entry.system.is_redlisted:
-                entry['redlisted'] = True
+                entry['redlisted'].append('system_name')
         entry['id'] = bookmark_id
         del entry['bookmark_id']
     return {'info': bookmarks_dict}
