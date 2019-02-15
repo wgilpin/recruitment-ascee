@@ -25,6 +25,10 @@ def handle_unauthorized(error):
     return response
 
 
+class ESIException(AppException):
+    pass
+
+
 class BadRequestException(AppException):
     status_code = 400
 
@@ -33,8 +37,8 @@ class ForbiddenException(AppException):
     status_code = 403
 
 
-# class UnauthorizedException(AppException):
-#     status_code = 401
+class UnauthorizedException(AppException):
+    status_code = 401
 
 
 class NotFoundException(AppException):

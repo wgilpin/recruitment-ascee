@@ -1,5 +1,5 @@
 from models.database import db
-from esi import get_op, get_paged_op, ESIError
+from esi import get_op, get_paged_op, ESIException
 
 
 class Group(db.Model):
@@ -398,7 +398,7 @@ class Structure(db.Model):
                     system_id=structure_data['solar_system_id'],
                     corporation_id=structure_data['owner_id']
                 )
-            except ESIError:
+            except ESIException:
                 structure = Structure(
                     id=id,
                     name='Unknown Structure {}'.format(id),

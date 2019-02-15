@@ -1,4 +1,5 @@
-from flask_login import login_required, current_user
+from flask_login import current_user
+from security import login_required
 from flask_app import app
 from flask import request, jsonify
 from recruitment import get_questions, get_answers, set_answers
@@ -16,7 +17,7 @@ def api_questions():
 
 
 @app.route('/api/answers/', methods=['GET', 'PUT'])
-@app.route('/api/answers/<int:user_id>')
+@app.route('/api/answers/<int:user_id>', methods=['GET', 'PUT'])
 @login_required
 def api_user_answers(user_id=None):
     """
