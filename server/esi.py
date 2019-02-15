@@ -1,11 +1,13 @@
 import backoff
 import urllib
 from esipy import EsiClient, EsiSecurity
+from esipy.exceptions import APIException
 from esipy.cache import DictCache
 from pyswagger import App
 from esi_config import client_id, secret_key, callback_url, client_name
 import pickle
 import os
+from exceptions import ESIException
 
 
 @backoff.on_exception(
@@ -60,10 +62,6 @@ def initialize_esi_client(refresh_token=None):
     return esi_client
 
 
-class ESIError(Exception):
-    pass
-
-
 def get_op(op_name, refresh_token=None, **kwargs):
     esi_client = get_esi_client(refresh_token)
     multi_kwarg = None
@@ -74,9 +72,12 @@ def get_op(op_name, refresh_token=None, **kwargs):
             else:
                 multi_kwarg = name
     if multi_kwarg is None or op_name[:4] == 'post':
-        response = esi_client.request(esi_app.op[op_name](**kwargs))
+        try:
+            response = esi_client.request(esi_app.op[op_name](**kwargs), raise_on_error=True)
+        except APIException as err:
+            raise ESIException(err)
         if isinstance(response.data, dict) and 'error' in response.data.keys():
-            raise ESIError(response.data['error'])
+            raise ESIException(response.data['error'])
         else:
             return response.data
     else:
@@ -89,7 +90,7 @@ def get_op(op_name, refresh_token=None, **kwargs):
         result_dict = {}
         for request, response in esi_client.multi_request(operations):
             if isinstance(response.data, dict) and 'error' in response.data.keys():
-                raise ESIError(str(request._p['path']) + response.data['error'])
+                raise ESIException(str(request._p['path']) + response.data['error'])
             else:
                 current_kwarg = request._p['path'][multi_kwarg]
                 if current_kwarg.isdigit():
@@ -117,7 +118,7 @@ def get_paged_op(op_name, refresh_token=None, **kwargs):
 
     for request, response in esi_client.multi_request(operations):
         if isinstance(response.data, dict) and 'error' in response.data.keys():
-            raise ESIError(response.data['error'])
+            raise ESIException(response.data['error'])
         else:
             return_list.extend(response.data)
 

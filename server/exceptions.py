@@ -25,6 +25,10 @@ def handle_unauthorized(error):
     return response
 
 
+class ESIException(AppException):
+    pass
+
+
 class BadRequestException(AppException):
     status_code = 400
 
