@@ -12,23 +12,23 @@ def get_character_contacts(character_id, current_user=None):
     contacts_dict = {entry['contact_id']: entry for entry in contacts_list}
     sorted_contact_model_dict = get_id_data(contacts_dict.keys())
     for character_id, character in sorted_contact_model_dict.get('character', {}).items():
-        contacts_dict[character_id] = get_contact_dict(
+        contacts_dict[character_id].update(get_contact_dict(
             character,
             corporation=character.corporation,
             alliance=character.corporation.alliance
-        )
+        ))
     for corporation_id, corporation in sorted_contact_model_dict.get('corporation', {}).items():
-        contacts_dict[corporation_id] = get_contact_dict(
+        contacts_dict[corporation_id].update(get_contact_dict(
             corporation,
             corporation=corporation,
             alliance=corporation.alliance
-        )
+        ))
     for alliance_id, alliance in sorted_contact_model_dict.get('alliance', {}).items():
-        contacts_dict[alliance_id] = get_contact_dict(
+        contacts_dict[alliance_id].update(get_contact_dict(
             alliance,
             corporation=None,
             alliance=alliance,
-        )
+        ))
 
     return {'info': contacts_dict}
 

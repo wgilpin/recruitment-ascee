@@ -11,8 +11,9 @@ def api_character_planetary_interaction(character_id):
     Get planetary interaction data for a given character.
 
     Returned dictionary is of the same form as returned by ESI, but with
-    additional fields 'solar_system_name', 'region_name', and 'region_id' for
-    each entry. Returns {'info': entry_list}.
+    additional fields 'system_name', 'region_name', and 'region_id' for
+    each entry. Returns {'info': entry_list}. Field 'solar_system_id' is
+    renamed to 'system_id'.
 
     Args:
         character_id (int)

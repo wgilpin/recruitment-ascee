@@ -97,7 +97,7 @@ def get_character_market_contracts(character_id, current_user=None):
     character_application_access_check(current_user, character)
     contract_list = character.get_paged_op(
         'get_characters_character_id_contracts',
-        character_id=character_id
+        character_id=character_id,
     )
 
     entry_items = character.get_op(
@@ -141,6 +141,8 @@ def get_character_market_contracts(character_id, current_user=None):
         if items_redlisted:
             entry['redlisted'].append('items')
         entry['issuer_corporation_name'] = corporation_dict[entry['issuer_corporation_id']].name
+        if corporation_dict[entry['issuer_corporation_id']].is_redlisted:
+            entry['redlisted'].append('issuer_corporation_name')
         issuer = character_dict[entry['issuer_id']]
         acceptor = character_dict[entry['acceptor_id']]
         entry['issuer_name'] = issuer.name
@@ -196,7 +198,7 @@ def get_character_market_history(character_id, current_user=None):
             order['location_name'] = location.name
             order['region_name'] = location.system.region.name
             if location.system.region.is_redlisted:
-                order['redlisted'].append(location.system.region.name)
+                order['redlisted'].append('region_name')
         type = type_dict[order['type_id']]
         order['type_name'] = type.name
         if type.is_redlisted:
