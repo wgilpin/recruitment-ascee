@@ -2,6 +2,7 @@ import sys
 import os
 
 import character.bookmarks
+import character.contacts
 import character.finance
 import character.mining
 
@@ -80,6 +81,30 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.not_applicant.id, self.admin.user, ForbiddenException)
 
 
+class CharacterCalendarEventTests(SimpleCharacterMixin, AsceeTestCase):
+
+    # results from ESI, Each result additionally has the key 'ship_type_name',
+    # and each item has the additional key 'type_name'.
+    api_definition = {
+        'fetch_function': character.calendar.get_character_calendar_event,
+        'required': {
+            'date': str,
+            'duration': int,
+            'event_id': int,
+            'importance': int,
+            'owner_id': int,
+            'owner_name': str,
+            'owner_type': str,
+            'response': str,
+            'text': str,
+            'title': str,
+        },
+        'optional': {
+            'redlisted': list
+        }
+    }
+
+
 class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
 
     # results from ESI, Each result additionally has the key 'ship_type_name',
@@ -115,7 +140,7 @@ class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
 class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.finance.get_character_contacts,
+        'fetch_function': character.contacts.get_character_contacts,
         'required': {
             'name': str,
         },

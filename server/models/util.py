@@ -12,13 +12,18 @@ model_name_dict = {
 }
 
 
-def get_id_data(id_list):
+def get_id_data(id_list, sorted=True):
     sorted_ids = sort_ids_by_category(id_list)
     return_data = {}
     # alliance, character, constellation, corporation, inventory_type, region, solar_system, station
     for id_type, id_list in sorted_ids.items():
         if id_type in model_name_dict:
             return_data[id_type] = model_name_dict[id_type].get_multi(id_list)
+    if not sorted:
+        unsorted_return_data = {}
+        for d in return_data.values():
+            unsorted_return_data.update(d)
+        return_data = unsorted_return_data
     return return_data
 
 

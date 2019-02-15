@@ -38,7 +38,9 @@ def get_character_wallet(character_id, current_user=None):
     party_data = get_party_data(party_ids)
     for wallet_entry in wallet_data:
         wallet_entry['date'] = str(wallet_entry['date'].to_json())
-        redlisted = wallet_entry['amount'] == 0
+        wallet_entry['redlisted'] = []
+        if wallet_entry['amount'] == 0:
+            wallet_entry['redlisted'].append('amount')
         if 'first_party_id' in wallet_entry:
             wallet_entry['first_party'] = party_data[wallet_entry['first_party_id']]
         if 'second_party_id' in wallet_entry:
@@ -47,8 +49,6 @@ def get_character_wallet(character_id, current_user=None):
             wallet_entry['other_party'] = wallet_entry.get('second_party', {'name': ''})['name']
         else:
             wallet_entry['other_party'] = wallet_entry.get('first_party', {'name': ''})['name']
-        if redlisted:
-            wallet_entry['redlisted'] = True
     return {'info': wallet_data}
 
 
@@ -72,8 +72,10 @@ def get_party_data(party_ids):
             'party_type': 'corporation',
             'corporation_name': corporation.name,
             'corporation_ticker': corporation.ticker,
-            'redlisted': corporation.is_redlisted
+            'redlisted': [],
         }
+        if corporation.is_redlisted:
+            party_data[corporation.id]['redlisted'].extend(['name', 'corporation_name', 'corporation_ticker'])
     for character in data_dict['character'].values():
         party_data[character.id] = {
             'id': character.id,
@@ -81,40 +83,13 @@ def get_party_data(party_ids):
             'party_type': 'character',
             'corporation_name': character.corporation.name,
             'corporation_ticker': character.corporation.ticker,
-            'redlisted': character.is_redlisted,
+            'redlisted': [],
         }
+        if character.is_redlisted:
+            party_data[character.id]['redlisted'].append('name')
+        if character.corporation.is_redlisted:
+            party_data[character.id]['redlisted'].extend(['corporation_name', 'corporation_ticker'])
     return party_data
-
-
-def get_character_contacts(character_id, current_user=None):
-    character = Character.get(character_id)
-    character_application_access_check(current_user, character)
-    contacts_list = character.get_paged_op(
-        'get_characters_character_id_contacts',
-        character_id=character_id
-    )
-    contacts_dict = {entry['contact_id']: entry for entry in contacts_list}
-    sorted_contact_model_dict = get_id_data(contacts_dict.keys())
-    for character_id, character in sorted_contact_model_dict.get('character', {}).items():
-        contacts_dict[character_id]['name'] = character.name
-        contacts_dict[character_id]['corporation_id'] = character.corporation_id
-        contacts_dict[character_id]['corporation_name'] = character.corporation.name
-        if character.corporation.alliance is not None:
-            contacts_dict[character_id]['alliance_id'] = character.corporation.alliance_id
-            contacts_dict[character_id]['alliance_name'] = character.corporation.alliance.name
-    for corporation_id, corporation in sorted_contact_model_dict.get('corporation', {}).items():
-        contacts_dict[corporation_id]['name'] = corporation.name
-        contacts_dict[corporation_id]['corporation_id'] = corporation_id
-        contacts_dict[corporation_id]['corporation_name'] = corporation.name
-        if corporation.alliance is not None:
-            contacts_dict[corporation_id]['alliance_id'] = corporation.alliance_id
-            contacts_dict[corporation_id]['alliance_name'] = corporation.alliance.name
-    for alliance_id, alliance in sorted_contact_model_dict.get('alliance', {}).items():
-        contacts_dict[alliance_id]['name'] = alliance.name
-        contacts_dict[alliance_id]['alliance_id'] = alliance_id
-        contacts_dict[alliance_id]['alliance_name'] = alliance.name
-
-    return {'info': contacts_dict}
 
 
 def get_character_market_contracts(character_id, current_user=None):
@@ -131,11 +106,15 @@ def get_character_market_contracts(character_id, current_user=None):
         contract_id=[entry['contract_id'] for entry in contract_list],
     )
 
+    type_ids = set()
+    for item_list in entry_items.values()
+        type_ids.update([item['type_id'] for item in item_list])
+    type_dict = Type.get_multi(list(type_ids))
+
     location_ids = set()
     character_ids = set()
     corporation_ids = set()
     for entry in contract_list:
-        entry['items'] = entry_items[entry['contract_id']]
         if 'start_location_id' in entry:
             location_ids.add(entry['start_location_id'])
         if 'end_location_id' in entry:
@@ -149,17 +128,37 @@ def get_character_market_contracts(character_id, current_user=None):
 
     # issuer_corporation, acceptor, issuer, end_location, start_location
     for entry in contract_list:
+        entry['redlisted'] = []
+        entry['items'] = entry_items[entry['contract_id']]
+        items_redlisted = False
+        for item in entry['items']:
+            type = type_dict[item['type_id']]
+            entry['type_name'] = type.name
+            entry['redlisted'] = []
+            if type.is_redlisted:
+                entry['redlisted'].append('type_name')
+                items_redlisted = True
+        if items_redlisted:
+            entry['redlisted'].append('items')
         entry['issuer_corporation_name'] = corporation_dict[entry['issuer_corporation_id']].name
         issuer = character_dict[entry['issuer_id']]
         acceptor = character_dict[entry['acceptor_id']]
         entry['issuer_name'] = issuer.name
         entry['acceptor_name'] = acceptor.name
+        if issuer.is_redlisted:
+            entry['redlisted'].append('issuer_name')
+        if acceptor.is_redlisted:
+            entry['redlisted'].append('acceptor_name')
         if 'start_location_id' in entry:
             start_location = location_dict[entry['start_location_id']]
             entry['start_location_name'] = start_location.name
+            if start_location.is_redlisted:
+                entry['redlisted'].append('start_location_name')
         if 'end_location_id' in entry:
             end_location = location_dict[entry['end_location_id']]
             entry['end_location_name'] = end_location.name
+            if end_location.is_redlisted:
+                entry['redlisted'].append('end_location_name')
 
     return {'info': contract_list}
 
@@ -183,23 +182,25 @@ def get_character_market_history(character_id, current_user=None):
     location_dict = get_location_multi(character, list(location_ids))
     type_dict = Type.get_multi(list(type_ids))
     for order in order_list:
+        order['redlisted'] = False
         if 'is_buy_order' not in order:  # always present if True
             order['is_buy_order'] = False
         if order['is_buy_order']:
             order['price'] *= -1
         order['value'] = order['price'] * order['volume_total']
         location = location_dict[order['location_id']]
-        if location is None:
-            order['location_name'] = 'Unknown Structure {}'.format(order['location_id'])
-            order['region_name'] = 'Unknown Region'
-        elif location.system is None:
+        if location.system is None:
             order['location_name'] = location.name
             order['region_name'] = 'Unknown Region'
         else:
             order['location_name'] = location.name
             order['region_name'] = location.system.region.name
+            if location.system.region.is_redlisted:
+                order['redlisted'].append(region_name)
         type = type_dict[order['type_id']]
         order['type_name'] = type.name
-        if (location and location.is_redlisted) or type.is_redlisted:
-            order['redlisted'] = True
+        if type.is_redlisted:
+            order['redlisted'].append('type_name')
+        if location.is_redlisted:
+            order['redlisted'].append('location_name')
     return {'info': order_list}
