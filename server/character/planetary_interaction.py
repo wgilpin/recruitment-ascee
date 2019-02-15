@@ -15,8 +15,13 @@ def get_character_planetary_interaction(character_id, current_user=None):
     system_dict = System.get_multi(list(system_ids))
 
     for entry in planet_data:
+        entry['redlisted'] = []
         system = system_dict[entry['solar_system_id']]
         entry['system_name'] = system.name
         entry['region_id'] = system.region_id
         entry['region_name'] = system.region.name
+        if system.is_redlisted:
+            entry['redlisted'].append('system_name')
+        if system.region.is_redlisted:
+            entry['redlisted'].append('region_name')
     return {'info': planet_data}

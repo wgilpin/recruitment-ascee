@@ -16,6 +16,7 @@ def get_character_bookmarks(character_id, current_user=None):
     folders = { folder['folder_id']: folder['name'] for folder in folder_list }
     bookmarks_dict = {entry['bookmark_id']: entry for entry in bookmarks_list}
     for bookmark_id, entry in bookmarks_dict.items():
+        entry['redlisted'] = []
         if 'folder_id' in entry.keys():
             if entry['folder_id'] in folders:
                 esi_folder_name = folders[entry['folder_id']]
@@ -29,12 +30,12 @@ def get_character_bookmarks(character_id, current_user=None):
             entry['system_id'] = location.id
             entry['system_name'] = location.name
             if location.is_redlisted:
-                entry['redlisted'] = True
+                entry['redlisted'].append('system_name')
         else:
             entry['system_id'] = location.system_id
             entry['system_name'] = location.system.name
             if entry.system.is_redlisted:
-                entry['redlisted'] = True
+                entry['redlisted'].append('system_name')
         entry['id'] = bookmark_id
         del entry['bookmark_id']
     return {'info': bookmarks_dict}

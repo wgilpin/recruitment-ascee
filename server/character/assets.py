@@ -20,8 +20,9 @@ def get_character_assets(character_id, current_user=None):
         type = type_dict[entry['type_id']]
         entry['name'] = type.name
         entry['price'] = entry['quantity'] * type.price
+        entry['redlisted'] = []
         if type.is_redlisted:
-            entry['redlisted'] = True
+            entry['redlisted'].append('name')
     return organize_assets_by_location(character, asset_list)
 
 
@@ -60,12 +61,8 @@ def organize_assets_by_location(character, asset_list):
         location_data_dict[location_id]['name'] = location.name
         if location.system_id is not None:
             system = System.get(location.system_id)
-            location_data_dict[location_id]['redlisted'] = location.is_redlisted
         else:
             system = DummySystem
-            # Use the raw redlisted value of location, since it can't
-            # check if its system is redlisted
-            location_data_dict[location_id]['redlisted'] = location.redlisted
         systems_dict[system.id] = systems_dict.get(system.id, (system, []))
         systems_dict[system.id][1].append(location_id)
 
@@ -77,15 +74,19 @@ def organize_assets_by_location(character, asset_list):
             region = DummyRegion
         if region.id not in return_dict:
             return_dict[region.id] = {
-                'redlisted': region.is_redlisted,
+                'redlisted': [],
                 'name': region.name,
                 'items': {},
                 'id': region.id,
             }
+            if region.is_redlisted:
+                return_dict[region.id]['redlisted'].append('name')
         return_dict[region.id]['items'][system.id] = {
-            'redlisted': system.is_redlisted,
+            'redlisted': [],
             'name': system.name,
             'id': system.id,
             'items': {id: location_data_dict[id] for id in systems_dict[system.id][1]},
         }
+        if system.is_redlisted:
+            return_dict[region.id]['items'][system.id]['redlisted'].append('name')
     return return_dict

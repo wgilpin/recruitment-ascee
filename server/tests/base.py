@@ -5,7 +5,6 @@ print(sys.version)
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
-#from vcr_unittest import VCRTestCase
 import unittest
 from models import (
     Character, User, Admin, Recruiter, Question, Answer, Application, db, Note,
@@ -14,7 +13,7 @@ import warnings
 import time
 
 
-class AsceeTestCase(unittest.TestCase):#VCRTestCase):
+class AsceeTestCase(unittest.TestCase):
 
     ascee_corp_id = 98589569
 

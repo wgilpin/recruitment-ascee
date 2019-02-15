@@ -1,4 +1,4 @@
-from models import Character
+from models import Character, get_id_data
 from security import character_application_access_check
 
 
@@ -20,5 +20,13 @@ def get_character_calendar_event(character_id, event_id, current_user=None):
         character_id=character_id,
         event_id=event_id,
     )
-    event_data['owner_name'] = get_details_for_id(event_data['owner_id'])['name']
+    event_data['redlisted'] = []
+    if event_data['owner_type'] in ('corporation', 'character', 'alliance'):
+        owner = get_id_data([event_data['owner_id']], sorted=False)[event_data['owner_id']]
+        if owner.is_redlisted:
+            event_data['redlisted'].append('owner_name')
     return {'info': event_data}
+
+
+def get_details_for_id(id):
+    return list(get_id_data([id], sorted=False).values())[0]

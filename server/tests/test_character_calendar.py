@@ -11,7 +11,6 @@ from base import AsceeTestCase
 from flask_app import app
 from datetime import datetime
 from exceptions import BadRequestException, ForbiddenException
-import warnings
 
 
 class CalendarTests(AsceeTestCase):
