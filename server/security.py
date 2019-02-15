@@ -1,5 +1,17 @@
 from models import User, Character, Admin, Recruiter, Application, db
-from exceptions import ForbiddenException, BadRequestException
+from exceptions import ForbiddenException, BadRequestException, UnauthorizedException
+from functools import wraps
+from flask import g
+
+
+def login_required(func):
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        if not isinstance(g.user, dict):
+            raise UnauthorizedException('Login required')
+        else:
+            return func(*args, **kwargs)
+    return decorated
 
 
 def ensure_has_access(user_id, target_user_id, self_access=False):

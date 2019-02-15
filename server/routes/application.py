@@ -1,8 +1,9 @@
-from flask_login import login_required, current_user
+from flask_login import current_user
 from flask_app import app
 from flask import request, jsonify
 from recruitment import start_application, submit_application
 from status import claim_applicant, release_applicant, accept_applicant, reject_applicant, escalate_applicant
+from security import login_required
 
 
 @app.route(

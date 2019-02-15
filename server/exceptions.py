@@ -33,8 +33,8 @@ class ForbiddenException(AppException):
     status_code = 403
 
 
-# class UnauthorizedException(AppException):
-#     status_code = 401
+class UnauthorizedException(AppException):
+    status_code = 401
 
 
 class NotFoundException(AppException):

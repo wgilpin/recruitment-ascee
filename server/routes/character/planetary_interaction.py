@@ -1,5 +1,6 @@
 from flask_app import app
-from flask_login import login_required, current_user
+from flask_login import current_user
+from security import login_required
 from flask import jsonify
 from character.planetary_interaction import get_character_planetary_interaction
 
