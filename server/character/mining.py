@@ -11,8 +11,11 @@ def get_character_mining(character_id, current_user=None):
     )
     return_list = []
     for entry in mining_data:
+        redlisted = []
         type = Type.get(entry['type_id'])
         system = System.get(entry['solar_system_id'])
+        if system.is_redlisted:
+            redlisted.append('system_name')
         return_list.append({
             'date': entry['date'],
             'quantity': entry['quantity'],
@@ -21,7 +24,6 @@ def get_character_mining(character_id, current_user=None):
             'type_id': entry['type_id'],
             'type_name': type.name,
             'value': entry['quantity'] * type.price,
+            'redlisted': redlisted,
         })
-        if system.is_redlisted:
-            return_list[-1]['is_redlisted'] = True
     return {'info': return_list}
