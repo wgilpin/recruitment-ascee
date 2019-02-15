@@ -17,7 +17,7 @@ def api_questions():
 
 
 @app.route('/api/answers/', methods=['GET', 'PUT'])
-@app.route('/api/answers/<int:user_id>')
+@app.route('/api/answers/<int:user_id>', methods=['GET', 'PUT'])
 @login_required
 def api_user_answers(user_id=None):
     """
