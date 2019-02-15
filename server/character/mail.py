@@ -33,6 +33,7 @@ def get_character_mail(character_id, last_mail_id=None, current_user=None):
     for entry in mail_list:
         for recipient in entry['recipients']:
             id_set_dict[recipient['recipient_type']].add(recipient['recipient_id'])
+
     characters = Character.get_multi(character_ids)
     corporations = Corporation.get_multi(corp_ids)
     alliances = Alliance.get_multi(alliance_ids)
@@ -42,12 +43,19 @@ def get_character_mail(character_id, last_mail_id=None, current_user=None):
     all_parties.update(alliances)
 
     for entry in mail_list:
+        entry['redlisted'] = []
         entry['from_name'] = all_parties[entry['from']].name
+        recipients_redlisted = False
         for recipient in entry['recipients']:
             recipient['recipient_name'] = all_parties[recipient['recipient_id']].name
-        recipient_ids = [r['recipient_id'] for r in entry['recipients']]
-        if any(all_parties[party_id].is_redlisted for party_id in [entry['from']] + recipient_ids):
-            entry['redlisted'] = True
+            if all_parties[recipient['recipient_id']].is_redlisted:
+                recipient['redlisted'] = ['recipient_name']
+            else:
+                recipient['redlisted'] = []
+        if recipients_redlisted:
+            entry['redlisted'].append('recipients')
+        if all_parties[entry['from']].is_redlisted:
+            entry['redlisted'].append('from_name')
         entry['timestamp'] = str(entry['timestamp'].to_json())
     return {'info': mail_list}
 

@@ -21,6 +21,13 @@ def get_character_industry(character_id, current_user=None):
     location_dict = get_location_multi(character, list(location_ids))
 
     for entry in industry_job_data:
-        entry['blueprint_type_name'] = type_dict[entry['blueprint_type_id']].name
-        entry['station_name'] = location_dict[entry['station_id']].name
+        type = type_dict[entry['blueprint_type_id']]
+        location = location_dict[entry['station_id']]
+        entry['blueprint_type_name'] = type.name
+        entry['station_name'] = location.name
+        entry['redlisted'] = []
+        if type.is_redlisted:
+            entry['redlisted'].append('blueprint_type_name')
+        if location.is_redlisted:
+            entry['redlisted'].append('station_name')
     return {'info': industry_job_data}
