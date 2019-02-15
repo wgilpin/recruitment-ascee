@@ -12,7 +12,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 from exceptions import BadRequestException, ForbiddenException
 import unittest
 import character
-from models import Character, User, db
+from models import Character, User, db, Type, Region, System, Corporation, Alliance, Structure
 from base import AsceeTestCase
 from flask_app import app
 import warnings
@@ -28,7 +28,6 @@ class SimpleCharacterMixin(object):
             self.assertIsInstance(entry[property_name], property_type, property_name)
         for property_name, property_type in api_def['optional'].items():
             if property_name in entry:
-                self.assertIn(property_name, entry, property_name)
                 self.assertIsInstance(entry[property_name], property_type, property_name)
 
     def helper_simple_APIs(self, response, api_def):
@@ -40,6 +39,80 @@ class SimpleCharacterMixin(object):
             for entry in response['info']:
                 self.helper_list_or_dict_item(entry, api_def)
 
+    def helper_redlisting_simple_apis(self, subject, current_user):
+        response = self.api_definition['fetch_function'](subject, current_user=current_user)
+        entry_identifier = self.api_definition['entry_identifier']
+        entry_list = response['info']
+        if isinstance(entry_list, dict):
+            entry_list = list(entry_list.values())
+        self.assertGreater(len(entry_list), 0, 'Cannot test redlisting without entries')
+        target_redlist = {
+        }
+        for red_name, spec in self.api_definition['redlisting'].items():
+            if isinstance(spec, (tuple, list)):
+                cls, target_id_name = spec
+                redlisted_id = None
+                for entry in entry_list:
+                    if target_id_name in entry:
+                        target_id = entry[target_id_name]
+                        if redlisted_id is None:
+                            cls.get(target_id).redlisted = True
+                            redlisted_id = target_id
+                        if redlisted_id == target_id:
+                            entry_id = entry[entry_identifier]
+                            target_redlist[entry_id] = target_redlist.get(entry_id, {})
+                            target_redlist[entry_id]['redlisted'] = target_redlist[entry_id].get('redlisted', [])
+                            target_redlist[entry_id]['redlisted'].append(red_name)
+                if redlisted_id is None:
+                    self.fail('Could not find an entry for {} to redlist'.format(red_name))
+            elif isinstance(spec, dict):
+                for second_red_name, second_spec in spec.items():
+                    if second_red_name != 'entry_identifier':
+                        cls, target_id_name = second_spec
+                        identifier = spec['entry_identifier']
+                        redlisted_id = None
+                        for entry in entry_list:
+                            entry_redlisted = False
+                            for item in entry[red_name]:
+                                id = item[identifier]
+                                if redlisted_id is None:
+                                    cls.get(id).redlisted = True
+                                    redlisted_id = id
+                                if id == redlisted_id:
+                                    entry_redlisted = True
+                                    entry_id = entry[entry_identifier]
+                                    target_redlist[entry_id] = target_redlist.get(entry_id, {})
+                                    target_redlist[entry_id][red_name] = target_redlist[entry_id].get(red_name, {})
+                                    target_redlist[entry_id][red_name][id] = target_redlist[entry_id][red_name].get('id', {})
+                                    target_redlist[entry_id][red_name][id]['redlisted'] = target_redlist[entry_id][red_name][id].get('redlisted', [])
+                                    target_redlist[entry_id][red_name][id]['redlisted'].append(second_red_name)
+                            if entry_redlisted:
+                                target_redlist[entry_id]['redlisted'] = target_redlist[entry_id].get('redlisted', [])
+                                target_redlist[entry_id]['redlisted'].append(red_name)
+                        if redlisted_id is None:
+                            self.fail('Could not find an entry for {}.{} to redlist'.format(red_name, second_red_name))
+            else:
+                self.fail('Spec for redlist name {} is of invalid type {}'.format(red_name, type(spec)))
+        db.session.commit()
+
+        response = self.api_definition['fetch_function'](subject, current_user=current_user)
+        entry_list = response['info']
+        if isinstance(entry_list, dict):
+            entry_list = list(entry_list.values())
+        self.helper_simple_APIs(response, self.api_definition)  # ensure redlisting doesn't cause api to break
+        for entry in entry_list:
+            target_dict = target_redlist.get(entry[entry_identifier], {'redlisted': []})
+            entry_redlist = set(entry.get('redlisted', []))
+            for red_name in target_dict['redlisted']:
+                self.assertIn(red_name, entry_redlist, red_name)
+            list_names = set(target_dict.keys()).difference(['redlisted'])
+            for list_name in list_names:
+                for item in entry.get(list_name, []):
+                    second_identifier = self.api_definition['redlisting'][list_name]['entry_identifier']
+                    target_second_redlist = target_dict[list_name].get(item[second_identifier], {'redlisted': []})['redlisted']
+                    for red_name in target_second_redlist:
+                        self.assertIn(red_name, item.get('redlisted', []), red_name)
+
     def run_tests_simple_APIs(self, subject, current_user, exception=None):
         api_def = self.api_definition
         method = api_def['fetch_function']
@@ -49,6 +122,7 @@ class SimpleCharacterMixin(object):
         else:
             response = method(subject, current_user=current_user)
             self.helper_simple_APIs(response, api_def)
+            self.helper_redlisting_simple_apis(subject, current_user)
 
     def test_API(self):
         self.run_tests_simple_APIs(self.applicant.id, self.recruiter.user)
@@ -97,7 +171,15 @@ class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
             'redlisted': list,
         },
         'optional': {
-        }
+        },
+        'redlisting': {
+            'ship_type_name': (Type, 'ship_type_id'),
+            'items': {
+                'type_name': (Type, 'type_id'),
+                'entry_identifier': 'type_id',
+            },
+        },
+        'entry_identifier': 'fitting_id',
     }
 
     def helper_simple_APIs(self, response, api_def):
@@ -119,6 +201,8 @@ class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
         'fetch_function': character.contacts.get_character_contacts,
         'required': {
             'name': str,
+            'contact_id': int,
+            'contact_type': str,
             'redlisted': list,
         },
         'optional': {
@@ -126,8 +210,14 @@ class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
             'corporation_name': str,
             'alliance_id': int,
             'alliance_name': str,
-        }
+        },
+        'redlisting': {
+            'corporation_name': (Corporation, 'corporation_id'),
+            'alliance_name': (Alliance, 'alliance_id'),
+        },
+        'entry_identifier': 'contact_id',
     }
+
 
 
 class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
@@ -145,7 +235,12 @@ class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
             'redlisted': list,
         },
         'optional': {
-        }
+        },
+        'redlisting': {
+            'system_name': (System, 'system_id'),
+        },
+        # it's fine that this can match multiple entries, since we're only testing system redlisting
+        'entry_identifier': 'system_id',
     }
 
 
@@ -158,15 +253,20 @@ class CharacterPITests(SimpleCharacterMixin, AsceeTestCase):
             'owner_id': int,
             'planet_id': int,
             'planet_type': str,
-            'solar_system_id': int,
-            'solar_system_name': str,
+            'system_id': int,
+            'system_name': str,
             'region_id': int,
             'region_name': str,
             'upgrade_level': int,
             'redlisted': list,
         },
         'optional': {
-        }
+        },
+        'redlisting': {
+            'system_name': (System, 'system_id'),
+            'region_name': (System, 'region_id'),
+        },
+        'entry_identifier': 'planet_id',
     }
 
 
@@ -186,7 +286,6 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
             'installer_id': int,
             'job_id': int,
             'output_location_id': int,
-            'output_location_name': str,
             'runs': int,
             'start_date': str,
             'station_id': int,
@@ -202,7 +301,12 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
             'probability': float,
             'product_type_id': int,
             'successful_runs': int,
-        }
+        },
+        'entry_identifier': 'activity_id',
+        'redlisting': {
+            'station_name': (Structure, 'station_id'),
+            'blueprint_type_name': (Type, 'blueprint_type_id'),
+        },
     }
 
 
@@ -212,18 +316,26 @@ class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
         'fetch_function': character.finance.get_character_market_contracts,
         'required': {
             'issuer_corporation_name': str,
+            'issuer_corporation_id': int,
             'issuer_id': int,
             'acceptor_id': int,
             'issuer_name': str,
             'acceptor_name': str,
             'redlisted': list,
+            'contract_id': int,
         },
         'optional': {
             'start_location_id': int,
             'start_location_name': str,
             'end_location_id': int,
             'end_location_name': str,
-        }
+        },
+        'redlisting': {
+            'issuer_name': (Character, 'issuer_id'),
+            'acceptor_name': (Character, 'acceptor_id'),
+            'issuer_corporation_name': (Corporation, 'issuer_corporation_id'),
+        },
+        'entry_identifier': 'contract_id',
     }
 
 
@@ -235,11 +347,20 @@ class CharacterBookmarksTests(SimpleCharacterMixin, AsceeTestCase):
             'system_id': int,
             'system_name': str,
             'redlisted': list,
+            'bookmark_id': int,
+            'notes': str,
+            'location_id': int,
+            'creator_id': int,
+            'label': str,
         },
         'optional': {
             'folder_id': int,
             'folder_name': str,
-        }
+        },
+        'redlisting': {
+            'system_name': (System, 'system_id'),
+        },
+        'entry_identifier': 'bookmark_id',
     }
 
 
@@ -248,17 +369,25 @@ class CharacterMarketHistoryTests(SimpleCharacterMixin, AsceeTestCase):
     api_definition = {
         'fetch_function': character.finance.get_character_market_history,
         'required': {
+            'order_id': int,
             'is_buy_order': bool,
             'value': float,
             'price': float,
             'volume_total': int,
             'location_name': str,
+            'region_id': int,
             'region_name': str,
+            'type_id': int,
             'type_name': str,
             'redlisted': list,
         },
         'optional': {
         },
+        'redlisting': {
+            'type_name': (Type, 'type_id'),
+            'region_name': (Region, 'region_id'),
+        },
+        'entry_identifier': 'order_id',
     }
 
 

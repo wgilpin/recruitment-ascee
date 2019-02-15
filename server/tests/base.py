@@ -8,6 +8,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from models import (
     Character, User, Admin, Recruiter, Question, Answer, Application, db, Note,
+    Type, Region, System, Station, Structure
 )
 import warnings
 import time
@@ -140,6 +141,9 @@ class AsceeTestCase(unittest.TestCase):
     def clearDB(self):
         db.session.rollback()
         for model in \
-            Character, User, Recruiter, Admin, Application, Question, Answer, Note:
+            Character, User, Recruiter, Admin, Application, Question, Answer, Note, Station, Structure:
             db.session.query(model).delete()
+        for model in Type, Region, System:
+            for item in db.session.query(model).filter_by(redlisted=True):
+                item.redlisted = False
         db.session.commit()
