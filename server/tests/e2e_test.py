@@ -6,6 +6,7 @@ from flask_app import app
 from flask import render_template, send_from_directory
 from models import db
 from login import login_manager
+from main import CustomJSONEncoder
 import os
 import recruitment
 import character
@@ -16,6 +17,7 @@ import character
 def run_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.json_encoder = CustomJSONEncoder
     with app.app_context():
         db.init_app(app)
         db.create_all()
