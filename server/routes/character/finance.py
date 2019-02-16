@@ -14,12 +14,15 @@ def api_character_market_contracts(character_id):
 
     Returned dictionary is of the form
     {'info': [contract_1, contract_2, ...]}. Each contract is as returned by
-    ESI, with the additional keys `items` (containing a list of item data, as
-    returned by the contracts items endpoint with the additional key `type_name`),
+    ESI, with the additional keys
+
+    `items` (containing a list of item data, as
+    returned by the contracts items endpoint with the additional keys `type_name` and `redlisted`),
+
     `issuer_corporation_name`, `issuer_name`, and `acceptor_name`. If
     `start_location_id` and `end_location_id` are present, will also include
     `start_location_name` and `end_location_name`. If redlisted then will
-    include `redlisted` whose value is True.
+    include `redlisted` whose value is an array of field names.
 
     A contract is redlisted if it includes participants or items that are
     redlisted, or if it starts or ends at a redlisted location.

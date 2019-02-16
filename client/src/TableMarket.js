@@ -11,13 +11,13 @@ export default class TableMarket extends TableBase {
   constructor(props) {
     super(props);
     this.sortBy = 'issued';
-    this.scope = 'market';
+    this.scope = 'market_history';
     this.addField(TableBase.kinds().date,'issued', 'Date');
-    this.addField(TableBase.kinds().text,'type');
+    this.addField(TableBase.kinds().text,'type_name');
     this.addField(TableBase.kinds().ISK,'price');
     this.addField(TableBase.kinds().number,'volume_total', 'Volume');
-    this.addField(TableBase.kinds().text,'location');
-    this.addField(TableBase.kinds().text,'region');
+    this.addField(TableBase.kinds().text,'location_name');
+    this.addField(TableBase.kinds().text,'region_name');
   }
 }
 

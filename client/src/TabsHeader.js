@@ -6,11 +6,15 @@ import assetsImg from './images/assets.png';
 import mailImg from './images/evemail.png';
 import skillsImg from './images/skills.png';
 import blueprintImg from './images/blueprints.png';
-import bookmarkImg from './images/bookmarks.png';
+import bookmarkImg from './images/personallocations.png';
 import contractsImg from './images/contracts.png';
 import calendarImg from './images/calendar.png';
 import marketImg from './images/market.png';
 import contactsImg from './images/contacts.png';
+import PIImg from './images/planetarycommodities.png';
+import fittingsImg from './images/fitting.png';
+import industryImg from './images/industry.png';
+import standingsImg from './images/personalstandings.png';
 
 const propTypes = {
   onTabChange: PropTypes.func,
@@ -89,6 +93,10 @@ export default class TabsHeader extends React.Component {
         {this.build_tab_icons(8, contractsImg, 'Contracts')}
         {this.build_tab_icons(9, calendarImg, 'Calendar')}
         {this.build_tab_icons(10, marketImg, 'Market')}
+        {this.build_tab_icons(11, fittingsImg, 'Fittings')}
+        {this.build_tab_icons(12, industryImg, 'Industry')}
+        {this.build_tab_icons(13, PIImg, 'PI')}
+        {this.build_tab_icons(14, standingsImg, 'Standings')}
       </div>
     );
   }
