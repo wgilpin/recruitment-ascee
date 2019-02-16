@@ -262,6 +262,8 @@ export default class TableBase extends React.Component {
       let key2 = this.keyField2 ? values[this.keyField2] : null;
       const details = await this.fetchDetails(key, key2);
       copyData[idx].details = details;
+    } else {
+      copyData[idx].details = this.detailFormatter(copyData[idx])
     }
     copyData[idx].open = !copyData[idx].open;
     this.setState({ data: copyData });
@@ -309,8 +311,8 @@ export default class TableBase extends React.Component {
 
   titleise(text) {
     let words = text.split('_')
-    if (words[words.length-1] === 'name'){
-      words = words.splice(words.length-1, 1);
+    if (words.length > 1 && words[words.length-1] === 'name'){
+      words = words.splice(0, words.length-1);
     }
     text = words.join(' ');
     return (text[0].toUpperCase() + text.slice(1)).replace(/_/g, ' ');

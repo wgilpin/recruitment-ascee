@@ -11,6 +11,10 @@ import TableContracts from './TableContracts';
 import TableBlueprints from './TableBlueprints';
 import TableMarket from './TableMarket';
 import TableWallet from './TableWallet';
+import TablePI from './TablePI';
+import TableStandings from './TableStandings';
+import TableFittings from './TableFittings';
+import TableIndustry from './TableIndustry';
 
 const styles = {
   outer: {
@@ -55,7 +59,7 @@ export default class Evidence extends React.Component {
   }
 
   changeTab = (tabId) => {
-    console.log('evidence click ');
+    console.log('evidence click ', tabId);
     this.setState({ activeTab: tabId });
     this.forceUpdate();
   }
@@ -104,6 +108,14 @@ export default class Evidence extends React.Component {
               <TableBlueprints style={styles.tabBody} alt={this.state.currentAlt}></TableBlueprints>}
             {(active === 'Market') &&
               <TableMarket style={styles.tabBody} alt={this.state.currentAlt}></TableMarket>}
+            {(active === 'Fittings') &&
+              <TableFittings style={styles.tabBody} alt={this.state.currentAlt}></TableFittings>}
+            {(active === 'Industry') &&
+              <TableIndustry style={styles.tabBody} alt={this.state.currentAlt}></TableIndustry>}
+            {(active === 'PI') &&
+              <TablePI style={styles.tabBody} alt={this.state.currentAlt}></TablePI>}
+            {(active === 'Standings') &&
+              <TableStandings style={styles.tabBody} alt={this.state.currentAlt}></TableStandings>}
           </div>
         </div>
       </div>

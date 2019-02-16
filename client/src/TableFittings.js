@@ -10,19 +10,26 @@ const defaultProps = {};
 
 const styles = {
   cell: {
-    display: 'table-cell'
+    display: 'table-cell',
+    paddingBottom: '8px',
+    paddingLeft: '8px',
   },
   itemLine: {
     textAlign: 'left',
+    display: 'table-row',
   },
   typeIcon: {
-    width: '16px',
-    height: '16px',
+    width: '20px',
+    height: '20px',
   },
   itemName: {
-    paddingLeft: '8px',
-  }
+  },
+  table: {
+    display: 'table',
+    marginLeft: '20px',
+  },
 }
+
 export default class TableFittings extends TableBase {
   constructor(props) {
     super(props);
@@ -38,21 +45,23 @@ export default class TableFittings extends TableBase {
       true);
   }
 
-  build_item_line({item_name: type_name, quantity, type_id}) {
+  build_item_line({type_name, quantity, type_id}) {
     const imgSrc = `https://image.eveonline.com/Type/${type_id}_64.png`;
     return <div style={styles.itemLine}>
       <div style={styles.cell}>{quantity}</div>
       <div style={styles.cell}>
         <img style={styles.typeIcon} alt="icon" src={imgSrc} />
+      </div>
+      <div style={styles.cell}>
         <span style={styles.itemName}>{type_name}</span>
       </div>
     </div>
   }
 
   formatEvent(data, parent) {
-    return < >
+    return <div style={styles.table} >
       {data.items.map(item => this.build_item_line(item))}
-      </>
+      </div>
   }
 }
 
