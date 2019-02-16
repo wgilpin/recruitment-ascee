@@ -424,7 +424,7 @@ export default class TableBase extends React.Component {
   }
 
   buildGroups() {
-    // covert a list of items into their groupings, based on fields in this.groupBy
+    // convert a list of items into their groupings, based on fields in this.groupBy
     const grouped = { level: 'root' };
     this.state.data.forEach(item => {
       let node = grouped;
