@@ -68,6 +68,8 @@ class CustomJSONEncoder(json.JSONEncoder):
                 return obj.isoformat()
             if isinstance(obj, pyswagger.primitives._time.Datetime):
                 return obj.v.isoformat()
+            if isinstance(obj, Exception):
+                return str(obj)
             iterable = iter(obj)
         except TypeError:
             pass
