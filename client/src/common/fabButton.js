@@ -18,6 +18,7 @@ type Props = {
 export const FabButton = (props: Props) => {
   return (
     <RoundImage
+      onClick={props.onClick}
       aria-label={props.label}
       color={props.color}
       style={styles.fabFixed}
