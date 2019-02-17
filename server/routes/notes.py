@@ -19,11 +19,12 @@ def api_get_applicant_notes_and_logs(applicant_id):
 
     Example:
         {
-            "info":
+        "info": {
             "notes": [
                 {
                     "timestamp": "ISO Date string",
                     "author_id": 61097499,
+                    "author_name": "Tommy Tattle",
                     "note_id": 101052109,
                     "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
                 },
@@ -31,12 +32,14 @@ def api_get_applicant_notes_and_logs(applicant_id):
             "logs": [
                 {
                     "timestamp": "ISO Date string",
+                    "author_name": "Tommy Tattle",
                     "author_id": 61097499,
                     "note_id": 101052109,
                     "title": "Chat log from friday",
                     "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
                 },
             ]
+        }
         }
 
     """
