@@ -2,7 +2,7 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import request, jsonify
-from search import get_search_results, category_dict
+from search import get_search_results, get_names_to_ids, category_dict
 
 
 @app.route('/api/search', methods=['GET'])
@@ -42,7 +42,7 @@ def api_search():
 
 @app.route('/api/names_to_ids', methods=['PUT'])
 @login_required
-def api_ids():
+def api_names_to_ids():
     """
     Gets the IDs of names of a given category.
 
@@ -55,7 +55,7 @@ def api_ids():
     Example:
         response = {
             'info': [
-                '1937622137': 'Twine Endashi',
+                'Twine Endashi': '1937622137',
                 ...
             ]
         }
@@ -65,6 +65,5 @@ def api_ids():
         Bad request (400): If category is not a valid category
     """
     category = request.args.get('category')
-    search = request.args.get('names')
-    return jsonify(get_search_results(category, search, current_user=current_user))
-
+    name_list = request.args.get('names')
+    return jsonify(get_names_to_ids(category, name_list, current_user=current_user))

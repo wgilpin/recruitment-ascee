@@ -62,7 +62,7 @@ def initialize_esi_client(refresh_token=None):
     return esi_client
 
 
-def get_op(op_name, refresh_token=None, **kwargs):
+def get_op(op_name, refresh_token=None, disable_multi=False, **kwargs):
     esi_client = get_esi_client(refresh_token)
     multi_kwarg = None
     for name, value in kwargs.items():
@@ -71,7 +71,7 @@ def get_op(op_name, refresh_token=None, **kwargs):
                 raise RuntimeError('Tried to call with multiple kwargs for both {} and {}'.format(name, multi_kwarg))
             else:
                 multi_kwarg = name
-    if multi_kwarg is None or op_name[:4] == 'post':
+    if disable_multi or multi_kwarg is None or op_name[:4] == 'post':
         try:
             response = esi_client.request(esi_app.op[op_name](**kwargs), raise_on_error=True)
         except APIException as err:
