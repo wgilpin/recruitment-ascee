@@ -88,7 +88,9 @@ def link_alt(character, user):
     if character.blocked_from_applying:
         block_user_from_applying(user)
         logout_user()
-    return redirect(rejection_url)
+        return redirect(rejection_url)
+    else:
+        return redirect(applicant_url)
 
 
 def block_user_from_applying(user):
