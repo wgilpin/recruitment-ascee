@@ -37,7 +37,8 @@ const styles = {
     fontWeight: 600,
   },
   selected: {
-    textDecoration: 'underline',
+    textDecoration: 'underline overline',
+    fontWeight: 600,
   }
 };
 
@@ -72,7 +73,7 @@ export default class TabsHeader extends React.Component {
     }
     return (
       <>
-      <RoundImage style={{ gridColumn: col+1, gridRow: 1 }} size={40} src={image} onClick={this.showTab} name={name}/>
+      <RoundImage style={{ gridColumn: col, gridRow: 1 }} size={40} src={image} onClick={this.showTab} name={name}/>
       <span style={textStyle} onClick={this.showTab} name={name}>{name}</span>
       </>
     )
