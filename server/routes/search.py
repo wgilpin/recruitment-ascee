@@ -14,7 +14,7 @@ def api_search():
 
     Args:
         category (str)
-            A category name such as `character`, `corporation`, `solar_system`,
+            A category name such as `character`, `corporation`, `system`,
             `alliance`, 'inventory_type`, or `region`.
         search (str)
             A partial search string

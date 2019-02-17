@@ -11,11 +11,14 @@ category_dict = {
     'inventory_type': Type,
     'region': Region,
     'solar_system': System,
+    'system': System,
     'station': Station,
 }
 
 
 def get_search_results(category, search, current_user=None):
+    if category == 'system':
+        category = 'solar_system'
     if not is_admin(current_user) and not is_recruiter(current_user):
         raise ForbiddenException('User not permitted to use search.')
     elif category not in category_dict:
@@ -41,5 +44,24 @@ def get_search_results(category, search, current_user=None):
             return {'info': {}}
 
 
-def get_names_to_ids(category, search, current_user=None):
-    pass
+def get_names_to_ids(category, name_list, current_user=None):
+    if not is_admin(current_user) and not is_recruiter(current_user):
+        raise ForbiddenException('User not permitted to use search.')
+    elif category not in category_dict:
+        raise BadRequestException(
+            'Category {} is not one of the valid categories {}'.format(
+                category, list(category_dict.keys())
+            )
+        )
+    else:
+        result = get_op(
+            'post_universe_ids',
+            names=name_list,
+            disable_multi=True
+        )
+        category_key = f'{category}s'
+        if category_key in result:
+            result = result[category_key]
+            return {'info': {item['name']: item['id'] for item in result}}
+        else:
+            return {'info': {}}
