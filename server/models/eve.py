@@ -145,7 +145,7 @@ class Region(db.Model):
             [item.id for item in existing_items])
         new_data_dict = get_op(
             cls.esi_op_name,
-            **{cls.esi_id_name: missing_ids}
+            **{cls.esi_id_name: list(missing_ids)}
         )
         for id, esi_data in new_data_dict.items():
             return_items[id] = cls._construct(esi_data)
