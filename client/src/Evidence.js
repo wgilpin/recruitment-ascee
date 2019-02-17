@@ -15,6 +15,7 @@ import TablePI from './TablePI';
 import TableStandings from './TableStandings';
 import TableFittings from './TableFittings';
 import TableIndustry from './TableIndustry';
+import NotesPage from './notes/NotesPage';
 
 const styles = {
   outer: {
@@ -88,6 +89,8 @@ export default class Evidence extends React.Component {
             {this.state.currentAlt && <TabsHeader onTabChange={this.changeTab} />}
           </div>
           <div style={styles.tabBody}>
+            {(active === 'Notes') &&
+              <NotesPage style={styles.tabBody} alt={this.state.currentAlt}></NotesPage>}
             {(active === 'Wallet') &&
               <TableWallet style={styles.tabBody} alt={this.state.currentAlt}></TableWallet>}
             {(active === 'Assets') &&
