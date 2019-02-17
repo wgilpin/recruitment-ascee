@@ -26,6 +26,52 @@ def get_character_assets(character_id, current_user=None):
     return organize_assets_by_location(character, asset_list)
 
 
+def get_character_blueprints(character_id, current_user=None):
+    character = Character.get(character_id)
+    character_application_access_check(current_user, character)
+    assets = get_character_assets(character_id, current_user=current_user)
+    asset_system_dict = get_asset_systems(assets)
+    blueprints_list = character.get_paged_op(
+        'get_characters_character_id_blueprints',
+        character_id=character_id,
+    )
+    type_ids = set()
+    for entry in blueprints_list:
+        type_ids.add(entry['type_id'])
+    type_dict = Type.get_multi(list(type_ids))
+    system_dict = System.get_multi(list(set(asset_system_dict.values())))
+    for entry in blueprints_list:
+        type = type_dict[entry['type_id']]
+        entry['type_name'] = type.name
+        entry['system_id'] = asset_system_dict[entry['item_id']]
+        system = system_dict[entry['system_id']]
+        entry['system_name'] = system.name
+        entry['redlisted'] = []
+        if system.is_redlisted:
+            entry['redlisted'].append('system_name')
+        if type.is_redlisted:
+            entry['redlisted'].append('type_name')
+    return {'info': blueprints_list}
+
+
+def get_asset_systems(assets):
+    asset_system_dict = {}
+    for region_id, region_data in assets.items():
+        for system_id, system_data in region_data['items'].items():
+            for item_id in get_asset_item_ids(system_data['items']):
+                asset_system_dict[item_id] = system_id
+    return asset_system_dict
+
+
+def get_asset_item_ids(asset_tree):
+    return_list = []
+    for item_id, item_data in asset_tree.items():
+        return_list.append(item_id)
+        if 'items' in item_data.keys():
+            return_list.extend(get_asset_item_ids(item_data['items']))
+    return return_list
+
+
 class DummySystem(object):
     id = -2
     name = 'Unknown System'

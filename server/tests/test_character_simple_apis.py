@@ -122,7 +122,9 @@ class SimpleCharacterMixin(object):
         else:
             response = method(subject, current_user=current_user)
             self.helper_simple_APIs(response, api_def)
-            self.helper_redlisting_simple_apis(subject, current_user)
+
+    def test_redlisting(self):
+        self.helper_redlisting_simple_apis(self.applicant.id, self.recruiter.user)
 
     def test_API(self):
         self.run_tests_simple_APIs(self.applicant.id, self.recruiter.user)
@@ -219,7 +221,6 @@ class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
-
 class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
@@ -241,6 +242,33 @@ class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
         },
         # it's fine that this can match multiple entries, since we're only testing system redlisting
         'entry_identifier': 'system_id',
+    }
+
+
+class CharacterBlueprintsTests(SimpleCharacterMixin, AsceeTestCase):
+
+    api_definition = {
+        'fetch_function': character.get_character_blueprints,
+        'required': {
+            'item_id': int,
+            'location_flag': str,
+            'location_id': int,
+            'material_efficiency': int,
+            'quantity': int,
+            'runs': int,
+            'time_efficiency': int,
+            'type_id': int,
+            'type_name': str,
+            'system_id': int,
+            'system_name': str,
+        },
+        'optional': {
+        },
+        'redlisting': {
+            'system_name': (System, 'system_id'),
+            'type_name': (Type, 'type_id'),
+        },
+        'entry_identifier': 'item_id',
     }
 
 
