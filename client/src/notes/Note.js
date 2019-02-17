@@ -1,5 +1,7 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
+import relativeDate from 'tiny-relative-date';
+
 import Styles from '../common/Styles';
 
 const propTypes = {
@@ -63,7 +65,7 @@ export default class Note extends React.Component {
         </div>}
         <div style={styles.body}>
           <div style={styles.author}>{author}</div>
-          <div style={styles.date}>{timestamp}</div>
+          <div style={styles.date}>{relativeDate(timestamp, new Date())}</div>
           {body}
         </div>
       </div>
