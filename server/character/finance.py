@@ -136,7 +136,7 @@ def get_character_market_contracts(character_id, current_user=None):
             item['type_name'] = type.name
             item['redlisted'] = []
             if type.is_redlisted:
-                entry['redlisted'].append('type_name')
+                item['redlisted'].append('type_name')
                 items_redlisted = True
         if items_redlisted:
             entry['redlisted'].append('items')
