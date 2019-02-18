@@ -13,11 +13,11 @@ def api_character_bookmarks(character_id):
 
     Returned dictionary is of the form
     {'info': [bookmark_1, bookmark_2, ...]}. Each bookmark is as returned by
-    ESI, with the additional keys `folder_name` (if `folder_id` is present),
-    `system_id`, and `system_name`.
-
-    Bookmarks in redlisted locations will also have the key `redlisted`
-    whose value is True.
+    ESI, with the additional keys
+        `id` (same as bookmark_id),
+        `folder_name` (if `folder_id` is present),
+        `system_id`,
+        `system_name`.e.
 
     Args:
         character_id (int)
