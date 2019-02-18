@@ -7,7 +7,7 @@ from character import get_character_blueprints
 
 @app.route('/api/character/<int:character_id>/blueprints', methods=['GET'])
 @login_required
-def api_character_bookmarks(character_id):
+def api_character_blueprints(character_id):
     """
     Get blueprints for a given character.
 
