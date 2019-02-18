@@ -9,7 +9,8 @@ from recruitment import add_applicant_note, get_applicant_notes
 @login_required
 def api_get_applicant_notes_and_logs(applicant_id):
     """
-    Get notes and chat logs for current application of an applicant.
+    Get notes and chat logs for current application of an applicant. Items with titles are treated
+    as logs, the rest are notes.
 
     Args:
         applicant_id (int)
