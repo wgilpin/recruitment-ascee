@@ -39,35 +39,8 @@ export default class NotesPage extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    console.log('set global')
+  fetchNotes(){
     this.setState(
-      { notes: [
-        {
-          author_name: "William Gilpin",
-          body: 'jhg Kjhg kjhg kjygfkuyfkuyf kuyf kjfy kjhf kuytf k',
-          timestamp: 'Yesterday',
-        },
-        {
-          author_name: "William Gilpin",
-          body: "Surveys show weakening industrial production. The far-Right is gaining attention, just as the pressure from regional separatists – whom Sánchez needs to form a Left-wing coalition government – to get what they deem their fair slice of the spending pie, proves unrelenting. The trial of Catalan leaders has been a decisive factor in pro-separatist parties deciding not to save Sánchez’s Budget, which should have been passed in November.",
-          timestamp: 'Last week',
-        },
-      ], logs: [
-        {
-          author_name: "Katie Snape",
-          title: 'hurfy blurf',
-          body: 'jhg Kjhg kjhg kjygfkuyfkuyf kuyf kjfy kjhf kuytf k',
-          timestamp: 'Yesterday',
-        },
-        {
-          author_name: "Katie Snape",
-          title: 'Tornado F3',
-          body: "Surveys show weakening industrial production. The far-Right is gaining attention, just as the pressure from regional separatists – whom Sánchez needs to form a Left-wing coalition government – to get what they deem their fair slice of the spending pie, proves unrelenting. The trial of Catalan leaders has been a decisive factor in pro-separatist parties deciding not to save Sánchez’s Budget, which should have been passed in November.",
-          timestamp: 'Last week',
-        },
-      ] });
-      /*
       new FetchData({ id: this.props.alt, scope: 'recruits', param1: 'notes' })
         .get()
         // Set the global `recruits` list, and set no recruit selected
@@ -75,11 +48,28 @@ export default class NotesPage extends React.Component {
           this.setState({ loading: false });
           console.log(`fetched notes`);
 
-          return { notes: data.info.notes, logs: data.info.logs }
+          return { notes: data.info.notes, logs: data.info.logs, showAddLog: false }
         }))
-        */
   }
 
+  componentDidMount() {
+    console.log('set global')
+    this.fetchNotes();
+  }
+
+  handleAddNote(text, title) {
+    const scope = title ? 'recruits/add_chat_log' : 'recruits/add_note';
+    new FetchData({ id: this.props.alt, scope })
+      .put({ text, title: title || '' })
+      .then(() => {
+        // TODO: check for errors
+        this.fetchNotes();
+      })
+  }
+
+  clickAddLog = () => {
+    this.setState({ showAddLog: true })
+  }
 
   render() {
     if (this.state.loading) {
@@ -92,13 +82,23 @@ export default class NotesPage extends React.Component {
         <div style={styles.column}>
           <h2 style={styles.h2}>Notes</h2>
           <Chat items={this.state.notes} />
-          <NoteInput />
+          <NoteInput onSubmit={this.handleAddNote}/>
         </div>
         <div style={styles.column}>
           <h2 style={styles.h2}>Chat Transcripts</h2>
           <Chat items={this.state.logs} />
           <div>
-            <FabButton icon="add" color="#c00" size="40px" style={styles.fab}/>
+            { !this.state.showAddLog &&
+              <FabButton
+                icon="add"
+                color="#c00"
+                size="40px"
+                style={styles.fab}
+                onClick={this.clickAddLog}/>
+            }
+            { this.state.showAddLog &&
+              <NoteInput log="true" onSubmit={this.handleAddNote}/>
+            }
           </div>
         </div>
       </div>
@@ -106,5 +106,5 @@ export default class NotesPage extends React.Component {
   }
 }
 
- NotesPage.propTypes = propTypes;
- NotesPage.defaultProps = defaultProps;
+NotesPage.propTypes = propTypes;
+NotesPage.defaultProps = defaultProps;

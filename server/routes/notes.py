@@ -78,6 +78,7 @@ def api_add_applicant_chat(applicant_id):
     Args:
         applicant_id (int): User key of applicant
         text (in body): The chat log
+        title (in body): The chat log description
 
     Returns:
         {'status': 'ok'} if log is successfully added
@@ -87,4 +88,10 @@ def api_add_applicant_chat(applicant_id):
             recruiter who has claimed this applicant
         Bad request (400): If the given user is not an applicant
     """
-    return jsonify(add_applicant_note(applicant_id, text=request.form['text'], is_chat_log=True, current_user=current_user))
+    return jsonify(add_applicant_note(
+        applicant_id,
+        text=request.form['text'],
+        title=request.form['title'],
+        is_chat_log=True,
+        current_user=current_user
+    ))

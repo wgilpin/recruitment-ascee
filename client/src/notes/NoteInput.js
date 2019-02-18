@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import addImg from '../images/add.gif';
 
 
-const propTypes = {};
+const propTypes = {
+  onSubmit: PropTypes.func,
+  log: PropTypes.bool,
+};
 
 const defaultProps = {};
 
@@ -45,21 +48,48 @@ const styles = {
     display: 'inline',
     position: 'relative',
     top: '11px',
+  },
+  textArea: {
+    cols: 50,
+    rows: 10,
+    display: 'table-cell',
+    borderColor: '#555',
+    backgroundColor: '#111',
+    top: '6px',
+    borderWidth: '1px',
+    borderRadius: '2px',
+    textAlign: 'left',
   }
 }
 
 export default class NoteInput extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+    this.textArea = React.createRef();
+  }
+
+  handleSubmit = () => {
+    if (this.props.onSubmit) {
+      const title = this.props.log ?
+        this.textArea.current.value : null;
+      this.props.onSubmit(this.textInput.current.value, title);
+    }
+  }
+
   render() {
     return (
       <div style={styles.inOuter}>
       <div style={styles.inInner}>
-        <input style={styles.input} type="text" placeholder="Add a note"></input>
-        <img style={styles.inImg} alt="Add" src={addImg} />
+        <input ref={this.textInput} style={styles.input} type="text" placeholder="Add a note" />
+        {this.props.log && <textarea style={styles.textarea} ref={this.textArea}/>}
+        <img onClick={this.handleSubmit} style={styles.inImg} alt="Add" src={addImg} />
       </div>
     </div>
     );
   }
 }
 
- NoteInput.propTypes = propTypes;
- NoteInput.defaultProps = defaultProps;
+NoteInput.propTypes = propTypes;
+NoteInput.defaultProps = defaultProps;

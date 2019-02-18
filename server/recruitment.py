@@ -123,7 +123,7 @@ def start_application(current_user=None):
     return {'status': 'ok'}
 
 
-def add_applicant_note(applicant_user_id, text, is_chat_log=False, current_user=None):
+def add_applicant_note(applicant_user_id, text, title=None, is_chat_log=False, current_user=None):
     application = Application.query.filter_by(
         user_id=applicant_user_id, is_concluded=False).one_or_none()
     if application is None:
@@ -139,6 +139,7 @@ def add_applicant_note(applicant_user_id, text, is_chat_log=False, current_user=
                 'Current recruiter has not claimed applicant {}'.format(applicant_user_id))
         note = Note(
             text=text,
+            title=title,
             application_id=application.id,
             is_chat_log=is_chat_log
         )
