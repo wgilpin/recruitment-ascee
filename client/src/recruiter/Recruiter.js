@@ -75,7 +75,7 @@ const styles = {
   },
   buttons: {
     position: 'absolute',
-    left: '350px',
+    left: '300px',
   },
   icon: {
     marginRight: '32px',
@@ -175,6 +175,16 @@ export default class Recruiter extends React.Component {
       .catch(err => ({ error: err }));
   };
 
+  handleReject = id => {
+    console.log(`handleReject ${id}`);
+    if (window.confirm(`Reject ${this.global.recruits[this.global.activeRecruit].name} ?`)) {
+      new FetchData({ id, scope: 'recruits/reject' })
+        .put()
+        .then(() => this.setRecruitStatus(id, Recruiter.statuses.rejected))
+        .catch(err => ({ error: err }));
+    }
+  };
+
   handleClick(id) {
     console.log(`activate recruit ${id}`);
     this.setGlobal({ activeRecruit: id });
@@ -201,6 +211,7 @@ export default class Recruiter extends React.Component {
           onClaim={this.handleClaim}
           onDrop={this.handleDrop}
           onEscalate={this.handleEscalate}
+          onReject={this.handleReject}
         />
       </div>
     );
@@ -257,7 +268,9 @@ export default class Recruiter extends React.Component {
           </div>
         </>
       ),
-      this.global.activeRecruit && <Evidence style={styles.evidence} main={this.global.activeRecruit} />,
+      this.global.activeRecruit
+        && this.global.recruits[this.global.activeRecruit].status !== Recruiter.status.unclaimed
+        &&<Evidence style={styles.evidence} main={this.global.activeRecruit} />,
     ];
   }
 }
