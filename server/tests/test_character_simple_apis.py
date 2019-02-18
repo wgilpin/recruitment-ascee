@@ -343,9 +343,17 @@ class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
     api_definition = {
         'fetch_function': character.finance.get_character_market_contracts,
         'required': {
-            'issuer_corporation_name': str,
-            'issuer_corporation_id': int,
+            'issuer_alliance_id': (int, type(None)),
+            'issuer_alliance_name': (str, type(None)),
+            'issuer_corporation_name': (str, type(None)),
+            'issuer_corporation_ticker': (str, type(None)),
+            'issuer_corporation_id': (int, type(None)),
             'issuer_id': int,
+            'acceptor_alliance_id': (int, type(None)),
+            'acceptor_alliance_name': (str, type(None)),
+            'acceptor_corporation_id': (int, type(None)),
+            'acceptor_corporation_name': (str, type(None)),
+            'acceptor_corporation_ticker': (str, type(None)),
             'acceptor_id': int,
             'issuer_name': str,
             'acceptor_name': str,
@@ -362,6 +370,8 @@ class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
             'issuer_name': (Character, 'issuer_id'),
             'acceptor_name': (Character, 'acceptor_id'),
             'issuer_corporation_name': (Corporation, 'issuer_corporation_id'),
+            'issuer_corporation_ticker': (Corporation, 'issuer_corporation_id'),
+            'issuer_alliance_name': (Alliance, 'issuer_alliance_id'),
         },
         'entry_identifier': 'contract_id',
     }
