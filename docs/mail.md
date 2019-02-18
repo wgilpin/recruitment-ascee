@@ -145,11 +145,13 @@ For mail message links get extra data for display
 ```json
   {
     "item_id": {
+      "type": "character | system | corporation | alliance",
       "name": "String name of item",
       "redlisted": [ "array of string field names for item"],
       "corporation_name" : "string, optional",
       "corporation_ticker" : "string, optional",
       "alliance_name" : "string, optional",
+      "alliance_ticker" : "string, optional",
       "system_name" : "string, optional",
     },
     ...
