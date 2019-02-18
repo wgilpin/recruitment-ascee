@@ -2,7 +2,7 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import request, jsonify
-from recruitment import add_applicant_note
+from recruitment import add_applicant_note, get_applicant_notes
 
 
 @app.route('/api/recruits/<int:applicant_id>/notes', methods=['GET'])
@@ -19,31 +19,19 @@ def api_get_applicant_notes_and_logs(applicant_id):
 
     Example:
         {
-        "info": {
-            "notes": [
-                {
-                    "timestamp": "ISO Date string",
-                    "author_id": 61097499,
-                    "author_name": "Tommy Tattle",
-                    "note_id": 101052109,
-                    "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
-                },
-            ],
-            "logs": [
-                {
-                    "timestamp": "ISO Date string",
-                    "author_name": "Tommy Tattle",
-                    "author_id": 61097499,
-                    "note_id": 101052109,
-                    "title": "Chat log from friday",
-                    "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
-                },
-            ]
+        "info": [
+            {
+                "timestamp": "ISO Date string",
+                "author_name": "Tommy Tattle",
+                "author_id": 61097499,
+                "note_id": 101052109,
+                "title": "Chat log from friday",
+                "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
+            },
+        ]
         }
-        }
-
     """
-    raise NotImplementedError()
+    return jsonify(get_applicant_notes(applicant_id, current_user=current_user))
 
 
 @app.route(

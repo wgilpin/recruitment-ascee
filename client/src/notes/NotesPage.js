@@ -43,12 +43,13 @@ export default class NotesPage extends React.Component {
     this.setState(
       new FetchData({ id: this.props.alt, scope: 'recruits', param1: 'notes' })
         .get()
-        // Set the global `recruits` list, and set no recruit selected
+        // Set the  `notes` and 'logs' lists
         .then(data => {
           this.setState({ loading: false });
           console.log(`fetched notes`);
-
-          return { notes: data.info.notes, logs: data.info.logs, showAddLog: false }
+          const notes = data.info.filter(note => (note.title || '').length > 0);
+          const logs = data.info.filter(note => (note.title || '').length === 0);
+          return { notes, logs, showAddLog: false }
         }))
   }
 
