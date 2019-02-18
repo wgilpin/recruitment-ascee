@@ -345,9 +345,9 @@ class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
         'required': {
             'issuer_alliance_id': (int, type(None)),
             'issuer_alliance_name': (str, type(None)),
-            'issuer_corporation_name': (str, type(None)),
-            'issuer_corporation_ticker': (str, type(None)),
-            'issuer_corporation_id': (int, type(None)),
+            'issuer_corporation_name': str,
+            'issuer_corporation_ticker': str,
+            'issuer_corporation_id': int,
             'issuer_id': int,
             'acceptor_alliance_id': (int, type(None)),
             'acceptor_alliance_name': (str, type(None)),
