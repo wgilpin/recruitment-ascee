@@ -2,7 +2,7 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import request, jsonify
-from search import get_search_results, get_names_to_ids, category_dict
+from search import get_search_results, get_names_to_ids, get_ids_to_names
 
 
 @app.route('/api/search', methods=['GET'])
@@ -67,3 +67,33 @@ def api_names_to_ids():
     category = request.args.get('category')
     name_list = request.args.get('names')
     return jsonify(get_names_to_ids(category, name_list, current_user=current_user))
+
+
+@app.route('/api/ids_to_names', methods=['PUT'])
+@login_required
+def api_ids_to_names():
+    """
+    Gets the IDs of names of a given category.
+
+    Returns a dict whose keys are IDs and values are dicts with keys `name` (str)
+    and `redlisted` (bool).
+
+    Args:
+        ids (list of int)
+            IDs whose names we want to retrieve.
+    Example:
+        response = {
+            'info': {
+                '1937622137': {
+                    'name': 'Twine Endashi',
+                     'redlisted': False,
+                },
+                ...
+            }
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not a recruiter or admin
+    """
+    id_list = request.args.get('ids')
+    return jsonify(get_ids_to_names(id_list, current_user=current_user))

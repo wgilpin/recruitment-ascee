@@ -65,3 +65,27 @@ def get_names_to_ids(category, name_list, current_user=None):
             return {'info': {item['name']: item['id'] for item in result}}
         else:
             return {'info': {}}
+
+
+def get_ids_to_names(id_list, current_user=None):
+    if not is_admin(current_user) and not is_recruiter(current_user):
+        raise ForbiddenException('User not permitted to use search.')
+    elif len(id_list) > 0:
+        result = get_op(
+            'post_universe_names',
+            ids=id_list,
+            disable_multi=True
+        )
+        return_dict = {}
+        for data in result:
+            entry = {
+                'name': data['name'],
+            }
+            if data['category'] in category_dict:
+                entry['redlisted'] = category_dict[data['category']].get(data['id']).is_redlisted
+            else:
+                entry['redlisted'] = False
+            return_dict[data['id']] = entry
+        return {'info': return_dict}
+    else:
+        return {'info': {}}
