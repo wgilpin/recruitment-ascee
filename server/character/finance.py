@@ -92,6 +92,23 @@ def get_party_data(party_ids):
     return party_data
 
 
+class DummyCorporation(object):
+    name = None
+    ticker = None
+    id = None
+    is_redlisted = False
+    alliance_id = None
+    alliance = None
+
+
+class DummyAcceptor(object):
+    name = 'None'
+    id = 0
+    is_redlisted = False
+    corporation_id = None
+    corporation = DummyCorporation()
+
+
 def get_character_market_contracts(character_id, current_user=None):
     character = Character.get(character_id)
     character_application_access_check(current_user, character)
@@ -120,11 +137,14 @@ def get_character_market_contracts(character_id, current_user=None):
         if 'end_location_id' in entry:
             location_ids.add(entry['end_location_id'])
         character_ids.add(entry['issuer_id'])
-        character_ids.add(entry['acceptor_id'])
+        if entry['acceptor_id'] != 0:
+            character_ids.add(entry['acceptor_id'])
         corporation_ids.add(entry['issuer_corporation_id'])
     location_dict = get_location_multi(character, list(location_ids))
     character_dict = Character.get_multi(list(character_ids))
+    character_dict[0] = DummyAcceptor()
     corporation_dict = Corporation.get_multi(list(corporation_ids))
+    corporation_dict[None] = DummyCorporation()
 
     # issuer_corporation, acceptor, issuer, end_location, start_location
     for entry in contract_list:
@@ -140,13 +160,37 @@ def get_character_market_contracts(character_id, current_user=None):
                 items_redlisted = True
         if items_redlisted:
             entry['redlisted'].append('items')
-        entry['issuer_corporation_name'] = corporation_dict[entry['issuer_corporation_id']].name
+        issuer_corporation = corporation_dict[entry['issuer_corporation_id']]
+        entry['issuer_corporation_name'] = issuer_corporation.name
+        entry['issuer_corporation_ticker'] = issuer_corporation.ticker
+        entry['issuer_alliance_id'] = issuer_corporation.alliance_id
+        if issuer_corporation.alliance is None:
+            entry['issuer_alliance_name'] = None
+        else:
+            entry['issuer_alliance_name'] = issuer_corporation.alliance.name
+            if issuer_corporation.alliance.is_redlisted:
+                entry['redlisted'].append('issuer_alliance_name')
         if corporation_dict[entry['issuer_corporation_id']].is_redlisted:
             entry['redlisted'].append('issuer_corporation_name')
+            entry['redlisted'].append('issuer_corporation_ticker')
         issuer = character_dict[entry['issuer_id']]
-        acceptor = character_dict[entry['acceptor_id']]
         entry['issuer_name'] = issuer.name
+        acceptor = character_dict[entry['acceptor_id']]
         entry['acceptor_name'] = acceptor.name
+        acceptor_corporation = acceptor.corporation
+        entry['acceptor_corporation_id'] = acceptor_corporation.id
+        entry['acceptor_corporation_name'] = acceptor_corporation.name
+        entry['acceptor_corporation_ticker'] = acceptor_corporation.ticker
+        entry['acceptor_alliance_id'] = acceptor_corporation.alliance_id
+        if acceptor_corporation.alliance is None:
+            entry['acceptor_alliance_name'] = 'None'
+        else:
+            entry['acceptor_alliance_name'] = acceptor_corporation.alliance.name
+            if acceptor_corporation.alliance.is_redlisted:
+                entry['redlisted'].append('acceptor_alliance_name')
+        if acceptor_corporation.is_redlisted:
+            entry['redlisted'].append('acceptor_corporation_name')
+            entry['redlisted'].append('acceptor_corporation_ticker')
         if issuer.is_redlisted:
             entry['redlisted'].append('issuer_name')
         if acceptor.is_redlisted:

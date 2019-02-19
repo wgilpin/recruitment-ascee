@@ -1,7 +1,7 @@
 from flask_login import current_user
 from security import login_required
 from flask_app import app
-from flask import request, jsonify
+from flask import jsonify
 from recruitment import get_applicant_list, get_user_characters, get_users
 
 

@@ -27,19 +27,21 @@ class Group(db.Model):
         return_items = {item.id: item for item in existing_items}
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
-        new_data_dict = get_op(
-            'get_universe_groups_group_id',
-            group_id=list(missing_ids)
-        )
-        for group_id, group_data in new_data_dict.items():
-            group = Group(
-                id=group_id,
-                name=group_data['name'],
+        if len(missing_ids) > 0:
+            new_data_dict = get_op(
+                'get_universe_groups_group_id',
+                group_id=list(missing_ids)
             )
-            db.session.add(group)
-            return_items[group_id] = group
-        db.session.commit()
+            for group_id, group_data in new_data_dict.items():
+                group = Group(
+                    id=group_id,
+                    name=group_data['name'],
+                )
+                db.session.add(group)
+                return_items[group_id] = group
+            db.session.commit()
         return return_items
+
 
 def get_prices(type_id_list):
     price_list = get_op('get_markets_prices')
@@ -82,13 +84,13 @@ class Type(db.Model):
         return_items = {item.id: item for item in existing_items}
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
-        new_data_dict = get_op(
-            'get_universe_types_type_id',
-            type_id=list(missing_ids)
-        )
-        group_ids = set(item['group_id'] for item in new_data_dict.values())
-        Group.get_multi(list(group_ids))
-        if (len(missing_ids)>0):
+        if len(missing_ids) > 0:
+            new_data_dict = get_op(
+                'get_universe_types_type_id',
+                type_id=list(missing_ids)
+            )
+            group_ids = set(item['group_id'] for item in new_data_dict.values())
+            Group.get_multi(list(group_ids))
             prices = get_prices(missing_ids)
             for type_id, type_data in new_data_dict.items():
                 type = Type(
@@ -143,14 +145,15 @@ class Region(db.Model):
         return_items = {item.id: item for item in existing_items}
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
-        new_data_dict = get_op(
-            cls.esi_op_name,
-            **{cls.esi_id_name: missing_ids}
-        )
-        for id, esi_data in new_data_dict.items():
-            return_items[id] = cls._construct(esi_data)
-            db.session.add(return_items[id])
-        db.session.commit()
+        if len(missing_ids) > 0:
+            new_data_dict = get_op(
+                cls.esi_op_name,
+                **{cls.esi_id_name: list(missing_ids)}
+            )
+            for id, esi_data in new_data_dict.items():
+                return_items[id] = cls._construct(esi_data)
+                db.session.add(return_items[id])
+            db.session.commit()
         return return_items
 
     @property
@@ -283,19 +286,20 @@ class Alliance(db.Model):
         return_items = {item.id: item for item in existing_items}
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
-        new_data_dict = get_op(
-            'get_alliances_alliance_id',
-            alliance_id=list(missing_ids)
-        )
-        for alliance_id, data in new_data_dict.items():
-            alliance = Alliance(
-                id=alliance_id,
-                name=data['name'],
-                ticker=data['ticker']
+        if len(missing_ids) > 0:
+            new_data_dict = get_op(
+                'get_alliances_alliance_id',
+                alliance_id=list(missing_ids)
             )
-            db.session.add(alliance)
-            return_items[alliance_id] = alliance
-        db.session.commit()
+            for alliance_id, data in new_data_dict.items():
+                alliance = Alliance(
+                    id=alliance_id,
+                    name=data['name'],
+                    ticker=data['ticker']
+                )
+                db.session.add(alliance)
+                return_items[alliance_id] = alliance
+            db.session.commit()
         return return_items
 
     def is_redlisted(self):
@@ -338,26 +342,27 @@ class Corporation(db.Model):
         return_items = {item.id: item for item in existing_items}
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
-        new_data_dict = get_op(
-            'get_corporations_corporation_id',
-            corporation_id=list(missing_ids)
-        )
-        alliance_ids = set()
-        for corp_data in new_data_dict.values():
-            if 'alliance_id' in corp_data:
-                alliance_ids.add(corp_data['alliance_id'])
-        alliances = Alliance.get_multi(list(alliance_ids))
-        for corporation_id, corporation_data in new_data_dict.items():
-            corporation = Corporation(
-                id=corporation_id,
-                name=corporation_data['name'],
-                ticker=corporation_data['ticker']
+        if len(missing_ids) > 0:
+            new_data_dict = get_op(
+                'get_corporations_corporation_id',
+                corporation_id=list(missing_ids)
             )
-            if corporation_data.get('alliance_id', None) is not None:
-                corporation.alliance_id = corporation_data['alliance_id']
-            db.session.add(corporation)
-            return_items[corporation_id] = corporation
-        db.session.commit()
+            alliance_ids = set()
+            for corp_data in new_data_dict.values():
+                if 'alliance_id' in corp_data:
+                    alliance_ids.add(corp_data['alliance_id'])
+            alliances = Alliance.get_multi(list(alliance_ids))
+            for corporation_id, corporation_data in new_data_dict.items():
+                corporation = Corporation(
+                    id=corporation_id,
+                    name=corporation_data['name'],
+                    ticker=corporation_data['ticker']
+                )
+                if corporation_data.get('alliance_id', None) is not None:
+                    corporation.alliance_id = corporation_data['alliance_id']
+                db.session.add(corporation)
+                return_items[corporation_id] = corporation
+            db.session.commit()
         return return_items
 
     @property
@@ -467,21 +472,22 @@ class Character(db.Model):
         return_items = {item.id: item for item in existing_items}
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
-        new_data_dict = get_op(
-            'get_characters_character_id',
-            character_id=list(missing_ids)
-        )
-        corporation_ids = set(char['corporation_id'] for char in new_data_dict.values())
-        corporations = Corporation.get_multi(list(corporation_ids))
-        for character_id, character_data in new_data_dict.items():
-            character = Character(
-                id=character_id,
-                name=character_data['name'],
-                corporation_id=character_data['corporation_id'],
+        if len(missing_ids) > 0:
+            new_data_dict = get_op(
+                'get_characters_character_id',
+                character_id=list(missing_ids)
             )
-            db.session.add(character)
-            return_items[character_id] = character
-        db.session.commit()
+            corporation_ids = set(char['corporation_id'] for char in new_data_dict.values())
+            corporations = Corporation.get_multi(list(corporation_ids))
+            for character_id, character_data in new_data_dict.items():
+                character = Character(
+                    id=character_id,
+                    name=character_data['name'],
+                    corporation_id=character_data['corporation_id'],
+                )
+                db.session.add(character)
+                return_items[character_id] = character
+            db.session.commit()
         return return_items
 
     def get_op(self, op_name, **kwargs):
