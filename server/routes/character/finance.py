@@ -16,13 +16,12 @@ def api_character_market_contracts(character_id):
     {'info': [contract_1, contract_2, ...]}. Each contract is as returned by
     ESI, with the additional keys `items` (containing a list of item data, as
     returned by the contracts items endpoint with the additional key `type_name`),
-    `issuer_corporation_name`, `issuer_name`, and `acceptor_name`. If
+    `issuer_corporation_id`, `issuer_alliance_id` (possibly None),
+    `issuer_corporation_name`, `issuer_corporation_ticker`,
+    `issuer_alliance_name` (possibly None),
+    `issuer_name`, and similar keys for `acceptor`. If
     `start_location_id` and `end_location_id` are present, will also include
-    `start_location_name` and `end_location_name`. If redlisted then will
-    include `redlisted` whose value is True.
-
-    A contract is redlisted if it includes participants or items that are
-    redlisted, or if it starts or ends at a redlisted location.
+    `start_location_name` and `end_location_name`.
 
     Args:
         character_id (int)
