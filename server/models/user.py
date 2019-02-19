@@ -28,9 +28,11 @@ class User(db.Model, UserMixin):
 class Recruiter(db.Model):
     __tablename__ = 'recruiter'
     id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
+    user = db.relationship(User)
     is_senior = db.Column(db.Boolean, default=False)
 
 
 class Admin(db.Model):
     __tablename__ = 'admin'
     id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
+    user = db.relationship(User)
