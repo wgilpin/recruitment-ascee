@@ -1,0 +1,33 @@
+interactions:
+- request:
+    body: '[2114509950]'
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['12']
+      Content-Type: [application/json]
+      User-Agent: [ascee-recruit]
+    method: POST
+    uri: https://esi.evetech.net/latest/universe/names/?datasource=tranquility
+  response:
+    body: {string: '[{"category":"character","id":2114509950,"name":"Twine Endashi"}]'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['POST,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['OPTIONS,POST']
+      Connection: [keep-alive]
+      Content-Length: ['65']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 02:08:54 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Warning: [199 - This route has an upgrade available]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['6']
+      X-Esi-Request-Id: [1d49efee-136f-413b-8d2a-cf23db5738dd]
+    status: {code: 200, message: OK}
+version: 1
