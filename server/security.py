@@ -1,7 +1,6 @@
 from models import User, Character, Admin, Recruiter, Application, db
 from exceptions import ForbiddenException, BadRequestException, UnauthorizedException
 from functools import wraps
-from flask import g
 from flask_login import current_user
 
 
@@ -24,15 +23,15 @@ def ensure_has_access(user_id, target_user_id, self_access=False):
 
 
 def is_admin(user):
-    return db.session.query(db.exists().where(Admin.user_id == user.id)).scalar()
+    return isinstance(user.admin, Admin)
 
 
 def is_recruiter(user):
-    return db.session.query(db.exists().where(Recruiter.user_id == user.id)).scalar()
+    return isinstance(user.recruiter, Recruiter)
 
 
 def is_senior_recruiter(user):
-    return db.session.query(db.exists().where(db.and_(Recruiter.user_id == user.id, Recruiter.is_senior))).scalar()
+    return isinstance(user.recruiter, Recruiter) and user.recruiter.is_senior
 
 
 def is_applicant_character_id(character_id):
@@ -67,6 +66,7 @@ def user_admin_access_check(current_user):
     if not is_admin(current_user):
         raise ForbiddenException('Insufficient Privilege')
 
+
 def user_application_access_check(current_user, target_user):
     if Application.get_for_user(target_user.id) is None:
         raise BadRequestException(
@@ -94,27 +94,6 @@ def has_applicant_access(user, target_user, self_access=False):
         elif not application.recruiter_id:
             # unclaimed application
             return_value = True
-        elif db.session.query(
-                db.exists().where(db.and_(
-                    Recruiter.user==user, Recruiter.is_senior)
-                )
-                ).scalar():
-            # Requesting user is senior recruiter
+        elif is_senior_recruiter(user):
             return_value = True
     return return_value
-
-
-def has_access(user_id, target_character_id, self_access=False):
-    target_character = Character.get(target_character_id)
-    user = User.get(user_id)
-    target_user = User.get(target_character.user_id)
-    if user.is_admin:
-        return True
-    elif self_access and (user_id == target_character.user_id):
-        return True
-    elif user.is_senior_recruiter and target_user.is_applicant:
-        return True
-    elif user.is_recruiter and target_user.is_applicant and (target_user.recruiter_id == user.get_id()):
-        return True
-    else:
-        return False

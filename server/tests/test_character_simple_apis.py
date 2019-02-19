@@ -116,7 +116,7 @@ class SimpleCharacterMixin(object):
     def test_only_valid_types_returned(self):
         api_def = self.api_definition
         method = api_def['fetch_function']
-        response = method(self.applicant.id, current_user=self.recruiter.user)
+        response = method(self.applicant.id, current_user=self.recruiter)
         self.ensure_only_valid_types(response)
 
     def ensure_only_valid_types(self, d):
@@ -144,37 +144,37 @@ class SimpleCharacterMixin(object):
             self.helper_simple_APIs(response, api_def)
 
     def test_redlisting(self):
-        self.helper_redlisting_simple_apis(self.applicant.id, self.recruiter.user)
+        self.helper_redlisting_simple_apis(self.applicant.id, self.recruiter)
 
     def test_API(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.recruiter.user)
+        self.run_tests_simple_APIs(self.applicant.id, self.recruiter)
 
     def test_API_as_senior_recruiter(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.senior_recruiter.user)
+        self.run_tests_simple_APIs(self.applicant.id, self.senior_recruiter)
 
     def test_API_as_other_recruiter(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.other_recruiter.user, ForbiddenException)
+        self.run_tests_simple_APIs(self.applicant.id, self.other_recruiter, ForbiddenException)
 
     def test_API_as_admin(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.admin.user, ForbiddenException)
+        self.run_tests_simple_APIs(self.applicant.id, self.admin, ForbiddenException)
 
     def test_get_recruiter_API(self):
-        self.run_tests_simple_APIs(self.recruiter.id, self.recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.other_recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.senior_recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.admin.user, ForbiddenException)
+        self.run_tests_simple_APIs(self.recruiter.id, self.recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.recruiter.id, self.other_recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.recruiter.id, self.senior_recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.recruiter.id, self.admin, ForbiddenException)
 
     def test_get_admin_API(self):
-        self.run_tests_simple_APIs(self.admin.id, self.recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.other_recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.senior_recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.admin.user, ForbiddenException)
+        self.run_tests_simple_APIs(self.admin.id, self.recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.admin.id, self.other_recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.admin.id, self.senior_recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.admin.id, self.admin, ForbiddenException)
 
     def test_get_not_applicant_API(self):
-        self.run_tests_simple_APIs(self.not_applicant.id, self.recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.not_applicant.id, self.other_recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.not_applicant.id, self.senior_recruiter.user, ForbiddenException)
-        self.run_tests_simple_APIs(self.not_applicant.id, self.admin.user, ForbiddenException)
+        self.run_tests_simple_APIs(self.not_applicant.id, self.recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.not_applicant.id, self.other_recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.not_applicant.id, self.senior_recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.not_applicant.id, self.admin, ForbiddenException)
 
 
 class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
