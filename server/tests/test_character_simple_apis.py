@@ -113,6 +113,26 @@ class SimpleCharacterMixin(object):
                     for red_name in target_second_redlist:
                         self.assertIn(red_name, item.get('redlisted', []), red_name)
 
+    def test_only_valid_types_returned(self):
+        api_def = self.api_definition
+        method = api_def['fetch_function']
+        response = method(self.applicant.id, current_user=self.recruiter.user)
+        self.ensure_only_valid_types(response)
+
+    def ensure_only_valid_types(self, d):
+        for k, v in d.items():
+            self.assertIsInstance(k, (int, str), k)
+            if isinstance(v, dict):
+                self.ensure_only_valid_types(v)
+            elif isinstance(v, (list, tuple)):
+                for item in v:
+                    if isinstance(item, dict):
+                        self.ensure_only_valid_types(item)
+                    else:
+                        self.assertIsInstance(item, (int, str))
+            else:
+                self.assertIsInstance(v, (int, float, str), k)
+
     def run_tests_simple_APIs(self, subject, current_user, exception=None):
         api_def = self.api_definition
         method = api_def['fetch_function']

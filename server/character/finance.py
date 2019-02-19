@@ -184,6 +184,7 @@ def get_character_market_history(character_id, current_user=None):
     location_dict = get_location_multi(character, list(location_ids))
     type_dict = Type.get_multi(list(type_ids))
     for order in order_list:
+        order['issued'] = order['issued'].v.isoformat()
         order['redlisted'] = []
         if 'is_buy_order' not in order:  # always present if True
             order['is_buy_order'] = False

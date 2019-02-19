@@ -9090,4 +9090,3635 @@ interactions:
       X-Esi-Error-Limit-Reset: ['20']
       X-Esi-Request-Id: [95fced8d-0d1b-44b7-afcf-5bd977dfcdd1]
     status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/526/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SU3Y6bMBCFX8Waa3eFzU9S3qC37UUvqgo5MJDRYmz5Z1O62nevWNKErtxwl3g+
+        js8Zj/0KrbKqpTBDnT1lHDr0rSMbyExQw1fsYouehTMyrX6Rjpp5i9gx0zPF/JksO80MtR3NTNPA
+        NLXOMJzQDTPzwaHSnl3O1J4Z9j22gV5wnBlOQU3DiO/CQbkBAwuorXHK0TjzZd3haWZ+NJdFlwLr
+        zGV6Ag6dGbRqVAiOTjGgh/rHK9z+NtRBXXB4UWPE90xv/GO5upXLVPnzrVwkP5fZDfhUponD4YaI
+        FCDEMdt6FAmkPD5OISrxOIeo5B3Ikhr5zh7l3aVM7pFnj4OW96MQWZY2IaTYSyKF3Gno8Q7kRf4f
+        FbmBklYO+bZj6bMVm6ZJIZJbFXLHb5Xnjzsvs+LfKf75d/LXe7SO/fp7TZdzIN902Ks4Bqh7NXpc
+        dLdMtc/k4lDsU1UhP2gFF3ExOTgT7cqUHKg107X5x4KDVu4ZQ7Nhjvmy6v31+ZmURqjhW1CePPuO
+        J+oJHfsCHKxqn9WAXfNixqjXUeFgjVveqsbT76XXHGw8jeTP2K2WODjVUfTXK8AhzPY6mkuCjdbb
+        nwAAAP//ryttBQwFAAA=
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['470']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:04 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['56']
+      X-Esi-Request-Id: [00c6171f-e044-4585-9d26-794b07297d31]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/603/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4xXwXKkNhD9lS5d9oJdSCBpmGtOOeSWW2prSoZmUCwQJYnZTLby7ylmdoycaND6
+        ZJvHU/frp+7mO2nVrFodruRIeflaFqRD3zo9B20nciS/Dwi/oTN6Au0hDAij9QFm+w1dvxho7fim
+        AvROn1VAsP0N84synXL6FX4NHpw1CIPygBdrLthBGJxdzsMNeUXlfAFq6uDboA2CDh467HHy6GFQ
+        FwRlvqmrB4ej0hN2gH+1eAtPGXMFH5ydztBbB+pxLlzQezTFjcz2K5m+IKypvmmjg35QPyLqnR3h
+        gs6roA0W8Kdq319s/6KMeQlOdehBhaDad5hVCOgmD3oKFnrbLh67W/gdqs5c4bxMvXYIQbVBt/4V
+        NgW/eJidHpW7gtLjTU97j2ONMyzOYfAwL1M7wGANroeAnWc74RT8FxgWY/wrKUhnz6M6qRCcflsC
+        enL84zv5+POkO3Lkh0NBLsosSI78tfyn+C+AsiYDoLz+QFQpRPXxuEw93t5uGlmWSYwQLCbh/0cw
+        sR3D0yS0Eh8QmgJsmdZPGGiESKu1LwXdgqyTzzNSUr6vJZOxTimZZFwNkQLUEeCQCKHZF5GJJiKQ
+        qRjofhJCbIDqiSEo/+Sq9YexOlUxuRmcprnYIeNQJjbZK56OJ4qZimcGjFxcNWmDyVi9kiauC2P7
+        BajkdghNxlFFkjxJh8YsKQTn2VwO+6pS2ohMrpQ2hzykyRW4jvI9pBHNfqxcbLeCpynoIRKkqtI0
+        m4+o5E+tXcvcFasz0jZsv2lzxnNHyP1GIsvIH4k+Qhmrc0fEtW1SFGWZK60Ucdd/gmmy7YSVGbOy
+        MuMQRsscIOoQSUEoO9CMZDI+hCfKUkdj8CU9YpjIzAgRyZ50D6NRc2jSEJlJpY6qItizu1DHlyrd
+        qupDnZk3tMwMHFrmxraMvEppxZ4oy5t9ZddXszvGJ6cJmWIpswiaQ/CoF7Eni12VI2Hi0zlVwge1
+        yFmFxl5JLwRVZkBzmqtw3IyElJLRJ30xZyYmPzfnr481G/se23Dfse+//xgLVBRE+1OHvVpMIMde
+        GY8r8WeU/ClU8zMoVuZRdVPTFOprQc5OzYNu76vCupGenV3me/a8IKNy7xhO2z9XE4zK+22BL8ik
+        RiRHcv+gIQWZVfuuztidLtYs481zd+Bs3fqNdvL671XRgszLm9F+wI4cg1uwIE51evH3LaMg4To/
+        utRqih9sj5Xr3wAAAP//v7fE86gOAAA=
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['935']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:04 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['56']
+      X-Esi-Request-Id: [564677a9-59b6-46c4-a648-91aa266e1d60]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/605/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4xXT+/jJhD9KohLL24EmD92jj31A/RWrSLWJgla21iAs01X/e6Vk/5+nlTjsDkl
+        4RnevHkzjH/Qzs628/lOj5KxA6to71IX/Zx9mOiR/nF15HcXw0SuNpFLCD3pwjgv2UVip564wXU5
+        hsl3JN1TdmOqyMXf/HQhPpN8dSQ8tiLhTGYbs+/8bPNjeYIPf7fxbKM7kN+WvD65nhbdYLO/ueFO
+        5hAi6d3ZTcmlx8GDH312Pfnu7BymeK9ICsTnXxIZQ3QryTFMw50syfXkHCJJXVgeBz9o/zUPIdqV
+        2YFWtA+X0Z5sztF/XbJL9PjnD/r58+R7eqwrerPD4uiRHdg/1f+X5ecy54oxhoLaT5DAAZxvCIkC
+        xAZA1zeaCl3feNbounofJm8K61uIHFsX/P3ztdn4SRyxMZC4iEoJAEGTte0hNI5o3/NUehNS1js0
+        NilqteMIrqR5r5hhIGPKIOcICbgahSCaLV5zwABCvSehGSv4ivGCMVnJubwWpcxyBtOiETE4Z0UE
+        LyKgC/GsgeQKVBBdFxoGB2nj2hgjOK6saEvCqVJR17qQXr1pUu84VWsBA0JcxNVLyOuH4/qazY98
+        rxGalwrkCASQ5k27sw9gXeP68rroh1aXuPC2KUPaYtQC1NkepgER1Xjr4S0oJfwg6D60UbNCpxes
+        0CLFSymiAJBA1NqCQ+ElBgCV2uL5NRq4jdd796qC4WDuFho2DoOlWLzUiEB2EVIXCQsDdNmBNLyQ
+        Pl2XmqnQspAfrUrzitDmvWpCQxu1GKAt3F7CQB8pFFFSw4gCTfPSBDAAFKvBAIV7XDR1qRM1YLZR
+        O4UNBjB0EylEYZ4ABjQKT6sE7vkVPQZ0Z71zYUiIEXsDkATtTEg8pKY44PDXsfLLx0TvzmfX5ec4
+        //z+3JGv1vbp1LuzXYZMj2c7JLduDFCKyZ9BSc0w1JeKXqKdr757jq1rK7vEsMxPN6iKjjZ+c/m0
+        /bk2mNGmBN4hKjrZ0dEjfbyD0YrOtvtmL64/3cKwjI/x44mbQ1zfZk7J/72mvqLz8nXw6ep6esxx
+        cRWNtvdLerqvovk+f8x2a5n/t9vHRfpvAAAA//9IdxB5GA4AAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['835']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:05 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Sat, 16 Feb 2019 11:03:35 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['55']
+      X-Esi-Request-Id: [efa1da3d-7159-44a7-985f-d2a98bb602fa]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/608/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SXzY6jOBDHX8XymY3swh+Q27zD3lajyAGHWAMYYZNWdrTvvqIzHZyZIu5TJ/VL
+        8Xd9ufhJGzOZxsU7PXIhD6ygrQ3N7Kbo/EiP9O+rJd/i7EfiAjHkauaWjEvX2Ug+XLwSMxLT3szY
+        2JZM/sPOpPFju7hIwj1EOxTkvETSuxh7S8JkGksufiaNmTt/IN/6ePVLdyUuPvx33rfrQ242RDuT
+        j6sdV1vjBxtI9GRwoxu7grgYyGDcSMzZ9S7eP3+9Omj8cDaR3GwItj/Qgra+G8zJxDi78xJtoMd/
+        ftLnx5Nr6bEs6M30i6VHdmD/Fb+bxdPMmWSMoVD9hAQOcP4kSo0CsAGovczYN50Ctcv3x+RVxr4d
+        kWN24O9/X+pNH+DEpuCzFv8kpEyChBIi9YHGWdTvdUq1BbLGcym3UHIldyqCS6HfR0yzpx0OFfIY
+        EIlULRGiUklxos/YANhTKkG+F6rYphSNOmeZ5HOWq25eQraFWJo6pTEvLEvwLJFUKq5VJgUAaEBU
+        mRkqPMktV1pr4Hhkoc4FTorc4FCZ9KpkNu3UiFKQHgipRS5fjrz+AQhMsE56dG9Y6pcu5QiSiIa1
+        tFE/iWrApyIvs/VQq5wWXld5pM6eGpI+22OqpJFKqPBJDZmrANLqQ4c5y9wGwDJjFJJWRFUCz8wM
+        4Ekf1vhBtEpqiZclehgO8mVwlBiiUjVYecNLByAECJXVCzo3KKHa4vZXtcfwTPpUmXY0johM+JVM
+        7todRGdCotIyqjHgJTOYC82yRC4aOpc5/TIEMCANFnJVg87c9VDltkyA9x5EUn/oVZGMzL15KBJG
+        7e4D4mXG7CDZ1eS39v7+tYrby8U28bGHP/7/xUNBXTi19mKWPtLjxfTBrn4TiOs1UzmqFLXEqO8F
+        7WYzXV3zwKBcv/DL9MiQLOhg5h82nrYv17QOJoRk9y/oaAZLj/TztYgWdDLND9PZ9nTz/TI8o1/Q
+        yc/rW9QpuH/XpBZ0Ws69C1fb0mOcF1vQ2bRuCY+7qaDxPn3tW2vbfHn7lcz/AwAA//8YHPkjqw0A
+        AA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['799']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:05 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['55']
+      X-Esi-Request-Id: [adf01719-83df-4a7c-8fe1-fbc6299770a4]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/1224/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Pyroxeres is an interesting ore
+        type, as it is very plain in most respects except one - deep core reprocessing
+        yields a little bit of nocxium, increasing its value considerably. It also
+        has a large portion of tritanium and some pyerite and mexallon.\r\n\r\nAvailable
+        in <color=''0xFF4DFFCC''>0.9<\/color> security status solar systems or lower.","dogma_attributes":[{"attribute_id":161,"value":0.3},{"attribute_id":162,"value":0.0},{"attribute_id":2115,"value":0.0},{"attribute_id":4,"value":1e35},{"attribute_id":182,"value":3386.0},{"attribute_id":38,"value":0.0},{"attribute_id":2699,"value":1.0},{"attribute_id":1940,"value":28424.0},{"attribute_id":1941,"value":100.0},{"attribute_id":790,"value":12192.0},{"attribute_id":2711,"value":1224.0}],"group_id":459,"icon_id":231,"market_group_id":515,"mass":1e35,"name":"Pyroxeres","packaged_volume":0.3,"portion_size":100,"published":true,"radius":1.0,"type_id":1224,"volume":0.3}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['959']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:05 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['55']
+      X-Esi-Request-Id: [e7754a1a-0c2e-4304-9ddf-45b86830c58c]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/30424/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SUT4/aPBDGv8pozn6R8wcI0ase2qqXXnrpqarQkEzCaB07ip2t6Gq/e+UNS6ga
+        kQMS2D8/fjzPMC9YUU+VhAuWeqMV1uyrQfogzmKJH53zwYM/C5saBvbiA9mKgVoS6wM8ieUgFdTU
+        Ucub/0/Dh/j5xpZMuJTw3YttoXMDQziTBWcZwqVncA2Es3joXD0aVuAG8NKJoeG65OOBANQ0XAUI
+        ZwZPHd97iDoKfokxcXU0AcQCQT/dDcG9nTrFJ8DFjdByAGcn2XcPsxwqrF3b0ZFCGOQ0BvZY/njB
+        28+j1Fgmu0ThM5mRsUz1Rr+qf4n0RiwCh2L/GMhv24nWehHZzSa2S/tZsXJFOptMFk3etvPlV6bJ
+        XIhsky8Rulgp1Vav37LiM93vHwNJMStkeZItMftsveKHIn9c0l2WreU+p/Zfthjbodg+1kiSQt8T
+        yUL0+q+C/Hxva377I009PX2fFDOF4o81NzSagGVDxnNUvWd260yms3Sd2qbR3j0VhpGjyXZwYz+l
+        sVcolbNTvvqQHxR2NDxxOM5Qsjtkcdn7W2YKLXWMJX6SZzFCFr5eh9NnbgxXcaTBlzjIUGFP1RO1
+        XB+fnRm7a4cq7N0QsaOX37F+CvvxZMSfuZ6cKhyoltG/1VZhnCLX1+dp7I87sdc/AQAA//+16ETx
+        WwUAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['517']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:05 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['55']
+      X-Esi-Request-Id: [dac91008-b9d0-48ca-bb09-5a42104646c9]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/1317/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Increases cargo hold capacity at
+        the expense of maximum velocity and hull strength.","dogma_attributes":[{"attribute_id":161,"value":5.0},{"attribute_id":162,"value":10.0},{"attribute_id":4,"value":50.0},{"attribute_id":182,"value":3394.0},{"attribute_id":38,"value":0.0},{"attribute_id":422,"value":1.0},{"attribute_id":9,"value":40.0},{"attribute_id":306,"value":0.85},{"attribute_id":149,"value":1.175},{"attribute_id":150,"value":0.8},{"attribute_id":633,"value":0.0},{"attribute_id":277,"value":1.0}],"dogma_effects":[{"effect_id":11,"is_default":false},{"effect_id":16,"is_default":false},{"effect_id":59,"is_default":false},{"effect_id":3046,"is_default":false},{"effect_id":3047,"is_default":false}],"group_id":765,"icon_id":92,"market_group_id":1197,"mass":50.0,"name":"Expanded
+        Cargohold I","packaged_volume":5.0,"portion_size":1,"published":true,"radius":10.0,"type_id":1317,"volume":5.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['930']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:05 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['55']
+      X-Esi-Request-Id: [dc7ff3b4-364f-487c-a90c-8a45e9893d10]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/1319/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Increases cargo hold capacity at
+        the expense of maximum velocity and hull strength.","dogma_attributes":[{"attribute_id":161,"value":5.0},{"attribute_id":162,"value":10.0},{"attribute_id":4,"value":50.0},{"attribute_id":182,"value":3394.0},{"attribute_id":38,"value":0.0},{"attribute_id":422,"value":2.0},{"attribute_id":9,"value":40.0},{"attribute_id":306,"value":0.82},{"attribute_id":149,"value":1.275},{"attribute_id":150,"value":0.77},{"attribute_id":633,"value":5.0},{"attribute_id":277,"value":2.0}],"dogma_effects":[{"effect_id":11,"is_default":false},{"effect_id":16,"is_default":false},{"effect_id":59,"is_default":false},{"effect_id":3046,"is_default":false},{"effect_id":3047,"is_default":false}],"group_id":765,"icon_id":92,"market_group_id":1197,"mass":50.0,"name":"Expanded
+        Cargohold II","packaged_volume":5.0,"portion_size":1,"published":true,"radius":10.0,"type_id":1319,"volume":5.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['932']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:05 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['55']
+      X-Esi-Request-Id: [98f3f4ee-73a1-4def-b070-4d0cb255f3ef]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/16238/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4xXy27kNhD8FYKXXGSDD5GU5po/SHILFgNa6vEQ1gsk5WCyyL8HM/aKNLYlrk+2
+        XCo2i9XF1nfa2cV2Lt7oqRbqmVW0h9B5t0Q3T/RE/7oC+X324+ztFIkLJF6BzNNwI39GG+Fp8XO/
+        dtCTsNgOyDuEAAP55zoHID0E9zqRqw2km0cgFz+PxJJ4db4ni/Xx9kz+WMfZB2Jf5nXqKzJfSDev
+        PkBFXtb4WOyDBfxvgbgepuji7UHpYbRugv7O6F6vcbg9vcESSYDOQyRuerz9qPL+6jSBJ53z3QDP
+        tKL9/Dras43Ru5c1QqCnv7/T7c+z6+mJq9pU9N0OK9ATf2b/VT8hRLsBasVQCFf1hpEYQm7/RgnS
+        29yw+w8G0lpkLEL9jBA6rdPiJFzq4+2mzZodBr4hdIMLtgEEXsKxVjypgfOrYzGFyXXCZDL5cWgM
+        UGeABimhPRZR6DYjMFgN/HgTWieA2DEEVzJTikt4MthxmSYVixOJpuBPoVXRFlnBarfizMKc4+7g
+        JteOcaRbhDiWX6aWFnjHyqTJIxGxOjIW1KdKpTI0ztEcy8p5qwt75bxtypC2dMJ1k7sJRbTHtSqd
+        eqI2O9tNgkjJWvR8VXKSFHtRJ3RdCMzMJFqoHRojVSYMWnKbSjZouUKVWt0cp41hWRwaLEyE+BI3
+        aLDnJmgxDsZKHjDJa1LvKZZk3RNVsIKrBStYSXBWAqQs2UkJ0fDCuZh8EYWIykXxQtWZqjV6lfAs
+        JFq0K4QpVGpkXXCpVFm27vR3lkV7EVAX7iTOCpVyVugWbjKjci5FjR+eyh3SCDR901L1zmXyxWca
+        vftYEcFLCJUlVr0T47JEIjQvzCS1LhmJ507ChwZZuMd5ljRcG2MER5dSouQVYb6Ozd9+TNtwuUAX
+        P0btj98/G0Wyirpw7uFi1yHS08UOAe7EGUpJJn8JVWOobxV99Xa5uu5jSdk09yfzunyODayio/Vv
+        EM/ZU63vT0PIZu+KTnYEeqLbRxGt6GK7N/sK/fl9HtZxC8iKLrO/f0edg/v3LkZFl/VlcOEKPT1F
+        v0JFve3dGj5HnorG27KNQ49B5Afh59j0fwAAAP//+pYr7bANAAA=
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['836']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:05 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['55']
+      X-Esi-Request-Id: [6502e9a3-210d-4965-8c69-5568eceaeb7b]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/27025/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"This datacore is a minor storehouse
+        of information, containing a fair portion of mankind''s collected knowledge
+        in the field of ordinary civilian technology.","dogma_attributes":[{"attribute_id":161,"value":1.0},{"attribute_id":162,"value":0.0},{"attribute_id":4,"value":1.0},{"attribute_id":38,"value":0.0},{"attribute_id":277,"value":1.0},{"attribute_id":182,"value":3402.0}],"group_id":333,"icon_id":3232,"mass":1.0,"name":"Datacore
+        - Basic Civilian Tech","packaged_volume":1.0,"portion_size":1,"published":false,"radius":1.0,"type_id":27025,"volume":1.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['588']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:05 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['55']
+      X-Esi-Request-Id: [33a9af69-8ede-4d9b-8f5e-5be2ed2d4912]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/781/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":781,"name":"Rig Core","published":true,"types":[4395,4397,4399,4401,25934,25948,25950,25952,25954,25956,26348,26368,26370,26372,26374,26376,26929,26931,31226,31228,31230,31232,31234,31236,31358,31360,31362,31364,31366,31368,31370,31372,31374,31376,31378,31380,31382,31384,31386,31388,31390,31392,31394,31396,31398,31400,31402,31404,31406,31408,31410,31412,31414,31416,33303,33305,43894,43896,43898,43900]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['433']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:06 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['54']
+      X-Esi-Request-Id: [349ad93d-4db5-4bf4-9f61-a749ce9160c0]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/25/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":6,"group_id":25,"name":"Frigate","published":true,"types":[582,583,584,585,586,587,589,590,591,592,593,594,595,597,598,599,600,602,603,605,607,608,609,613,614,616,618,619,1896,1898,1900,1902,2161,3532,3751,3753,3766,3768,11019,11940,11942,17360,17619,17703,17705,17707,17812,17841,17924,17926,17928,17930,17932,29248,32880,32983,32985,32987,32989,33190,33468,33655,33657,33659,33661,33663,33665,33667,33669,33677,33816,34443,37453,37454,37455,37456,47269]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['471']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:06 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['54']
+      X-Esi-Request-Id: [edfb6355-7dbd-46dc-95a2-0c8040f8b230]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/333/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":17,"group_id":333,"name":"Datacores","published":true,"types":[11491,11492,11493,11496,11498,11499,11504,11506,12867,20113,20114,20115,20116,20117,20171,20172,20410,20411,20412,20413,20414,20415,20416,20417,20418,20419,20420,20421,20423,20424,20425,25887,27025,27059]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['283']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:06 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['54']
+      X-Esi-Request-Id: [c05df7c3-55af-4b8d-b404-98520542c9dd]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/86/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/yTRy2pbQQyA4VcpZ63F6DIzkreFvkQpxU0OaSBNXF8WpvTdw/ze/Nj6PAtL/7an
+        43V/+Tjff74+b4eU7eX8cTs9vgzZ3o9/9u2wfTvvf2/7+9P9y9fz/XI9vm2ynW6/3l4vv/fn7XA9
+        33bZrvfTftkO381LLJpYqFiYWLhYhFh0sRhiMcUixaLEehPrKtZNrLtYD7HexfoQ61Osp1gvsdHE
+        hooNE50jG318DjporhZaaIVo1czV9apqvarKEGtNGzX6mAyaq4YaaqihhjrqS5WJMtHHxNfvUyet
+        VVPqtFPUUEcdddRRRwMNNNBAA+1oRzva0Y4OdKADHehAJzrRiU50ookmmmiiiRZaaKGF1tJqSp12
+        OimqKqZaQQdNMbXWqNGgg6KKKqqooooaaqihhhrqqKOOOupooIEGGmigHe1oRzva0YEOdKADHehE
+        JzrRiU400UQTTTTRQgtlV8aujF05u3J25ezK2ZWzK2dXzq6cXTm7cnYV6x95W9f3tq7vbV3f27q+
+        t3V9b4kmmmgyL+bFvJgXr9bdXdfdXdfdXdfdXdfdXRuqqKKKKqolbrPqx//PAAAA//8K4QvIkwQA
+        AA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['457']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:06 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['54']
+      X-Esi-Request-Id: [a7a70376-f13c-44a4-a573-595d377e343c]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/645/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":645,"name":"Drone Damage Modules","published":true,"types":[4393,4405,32919,32921,32923,32925,33842,33844,33846,33848,41034]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['153']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:06 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['54']
+      X-Esi-Request-Id: [59bfaf58-0d78-41d8-a83a-ad5c2d7a0f81]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/1189/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":1189,"name":"Micro Jump Drive","published":true,"types":[4383,33915]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['97']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:06 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['54']
+      X-Esi-Request-Id: [73631766-e806-4ac2-b82e-2203e01199f8]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/1210/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":16,"group_id":1210,"name":"Armor","published":true,"types":[3392,3393,3394,16069,21803,22806,22807,22808,22809,24568,27902,27936,33078]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['151']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:07 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['53']
+      X-Esi-Request-Id: [8209e2dc-6699-4943-a454-bae4ee19c1f4]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/745/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":20,"group_id":745,"name":"Cyber Learning","published":true,"types":[9899,9941,9942,9943,9956,10208,10209,10210,10211,10212,10213,10214,10215,10216,10217,10218,10219,10221,10222,10223,10224,10225,10226,10227,13283,13284,13285,13286,13287,14295,14296,14297,14298,14299]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['283']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:07 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['53']
+      X-Esi-Request-Id: [22d4a0ff-f918-4d09-be99-fad26905cdd4]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/34/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/6yWzW7bOBDHX2WgSy6CK8mfMVICWQfuArtFgnqRU4CAIifWwBQpDEk36mLffUFv
+        F7BbR/UhBx1E/uY/w+EMyb8zJTupKPTZshgVeabRK6YukLPZMvurQWglWagjGU12C7VxagdkwXdS
+        IfjAUYXI6EdwC3vkHhrJOoceA9RotawNQotBmhGspLUuDUP0qJNIE1tpoZE1BRk86IgQHFDwQNYH
+        WZOh0IMMIEPrfNcgk4KAbYcsv3t9TD6Va1tnITTs4rZxMUBoEKKlPbLH0RM/2fR9ln3y7uogyaKG
+        ugfGjp1C79PiktGLM8Z9TX+O0S//N71Rzjj+eFW8rtfrdVEUxZUoRsXN04fDhACPKnKK1gcZogfv
+        jGTwvQ/YgmMw7ivyQe5GQsP48tE3yc+LW1aVuOWds45vnj5IkcNPRDmfVFOxYmq9s3ABPBMPTC2e
+        oGd9l9VB2O0o4IDguBKbRnIHF6BjseLeB2kMWTwxeCOCcSXuJO/gXjU8qDwT97Z//TU3F/e1J03S
+        HrHnnV+LTed0TEU+oDibid+Ytk2Ai+i5+GRQtqmITvnz1TS5+6+aqnepprIal+J3bB13zfBOTSbi
+        kfak4TJ6Kr7IlNPwI39uVUWRvrSq+fv0SCH+QLbDIU4r8Wdsybro4QJ6LNaUTo9j9K0mmYv7tsaB
+        nlvM5mJD5nAE/hJdiE/OaLRH5LkkTu7W69UqJfH6fUpjIR6M3JJTRvrB1EzF7bfICBfiM/GFVPMT
+        /VYyJ+KhZ/eKjH5I9VpsnCENl8CzQjySV2nnT/FzeR2PU9tdifKdDvCyqhZioxzr4YqbjcXKWY02
+        XX+X8BPxWXpPezyl3+r7Qjyi0b6TQ3fDvEhBKLSBZUANl5iU4i4FfcpmebZlF7tn0tmyXOQZKWcP
+        P1WVZ63kHYbnY2I6T8Pef39qWNliemMwBWkptlmedVLt5Bb1896ZmGaLUVHmWec4PUiePX3DbJkG
+        Ym3IN6izZeCIecZSU/TZskzCoe/w4HI8ybNjpX/+DQAA//95Yq9Z7wgAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['784']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:48 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['12']
+      X-Esi-Request-Id: [8c7aee89-7f6b-4e17-b501-9c2ce2f3ab40]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/648/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4RXTY/jNgz9K4LOTiDJ+rB9bE89t7d2EXBsJRFG/qgkLzBd7H8vMsnESstEt8nw
+        gX4iHx+lH7SHBXqXPmhXt4ztWUUHG/vgluTmiXb0j7Mlv8BwsmHXe4iRuGlYYwoOPHGRpLMlI7iJ
+        9BBO866HEJwN5DiHz9Cv4AcIjvyeINmKLBCS61cPwX8QNxE/T6eKQBjWeY0kBRjsLqxT3JPfUiTn
+        9WRJdP9YAtNA+nk8ziHBm7cEwgijnRIZ4d1G4hJZbDjaPvkPYv9e3bLY4cZhjpYkiO+xIuDTeV5P
+        5wdm0fphHom36ZImzDAS8PNk939NtKLDfBrhACkF97YmG2n35w96/3lwA+3qin4Hv1rasT37Wf03
+        LO9hzrRijKGo9o4STKMIrqTZQChC3OMSjW9MNRqXhfzq9Ul5U4hvh+RYXKiGvc4g+Ot4vVWIC4Mi
+        No5Xuf8fotRWR97iPc2yNDiifc1U6a3YeL/VVm0hhcK58q0gvFEYwuQlbSXyHSEzhFFICr3p6hkR
+        JdTr5mrGMnUiX+GMv87AmSgAeJ1NwJOCsbwx2mBZWBHBi4hMiTU+S1l/FUpV1wVn4VnnuDbGCI5K
+        gIts8J7pSMkC4VoXqq/qHNC0nNsdWhvTlOmYh/nhCERvTRBPbZXrfJZx1+N1sZutLrHhbVOGlNsg
+        sil5hmm2I9W1xJ26FaVVUZx6wQp2LljB4wQv2nk28vhK4Nkctbi6jc70xGuB7z6hCmy50A9jXaMQ
+        kUEEVjWpi4SFKawxLpqCFwqdDZuUeHW1LJRfbxZkcA8S2mQ5sPPqXCUtBmhLQntYUQpFlMphRIGm
+        eRhyDJAXq8EApsChKdh1k6l9hyujaUsHlVlTUYQUpS3ZPsgPcarMe9snviozjP60X/yalO1jXKSy
+        KfmQbLNFuWc/v31dyu3xcuG/3sivf1/ZC1NRFw+DPcLqE+2O4KO95M1ASl50W0Jp07QY6ltFTwGW
+        s+uvyfjl97wuNx1UdITwbtNh++fllCPEmD8CKjrBaGlHr68rWtEF+nc42eHwffbr+PkWuCGXOVye
+        Y4fLY4h2vKLL+uZdPNuBdimstqIBBrfG25araPpYbreIz7vqV76vRflvAAAA///1ZgpI9w0AAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['853']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:49 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['11']
+      X-Esi-Request-Id: [dbb04e5d-baed-484a-988d-cc232854bf2d]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/47302/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SUT6/qNhDFv8rI6wgl4U+AZat2+TbtpioVGuwJGZHYefYYmvv0vnvlhAf0Xe5l
+        gRTsn84czxn7m9LYo2YZ1Daf5ZkyFLTnXthZtVV/NgR/OY4t/NLy2xt6AzV7ujh/Ag7AFsRHaQAt
+        7BTrcWOnAAOwJAAhWv4aCejfvnWBzwS6QX8kkAYFtCcUSlgQ5ztwNbAeQPshCLajfuhRUwYdd6xP
+        bI+AcGErfoDD1dFs53c2/ZLZ2uOxIyvoBwjaYx+SqEHBqaI0BNT17ClADGRAHGhng/iop90vdIHf
+        DFn4Q9CadOJfsaX0Bb13ZzYECA1bmQQnO+ShpiB8xhYaNBBcR8Bd77yg1TQ2qiFoMZGds9KMvtLa
+        QOihdn4C6DiWGtIKHQj9yDWxQ8syzOCLE8C2BbYNHljIwMX51ozUzXmDZ4JAGJwNcIjJqQvXlhsH
+        HfrTWI1tCiB1IVh3AbQmHcZcnbH/cTT6GtPJyMoYyRk9uxjggkOYqUwZd+xwjyKeD1EoqO3f39Tt
+        756N2harIlNnbCOlMSu+Z++B8gYUs/w9sLhv5/kzYF7diDJ/jlT5DZl/gCzKFz42Dz6e7Rf5+l5k
+        +YxYlsvPS6yK8qFZz4DF4nOFIq9e1CjzFxJlVb0C1i9MPCSyXD2VWBePqX4QSfEqkvn6RbuK+f+A
+        f36MLNU1aZnmdfqeAtqsM8Vhb6jG2Ira1tgGSroPULlIqo+U+EhJ++ixb1hPVLGpyrTkYj9p53mm
+        WDt7TWFTzTOVLiTJ/k4Vq9W4HMJ13DNlsSO1VT89xr9fH2OVqR71CY9k9mfXxm66Z5lKLxA7uw/8
+        NjU5U308tBwaMpPlTHk0HMPY3EzJ0F9vQjXPU+Pvat//CwAA///RdzhcLQYAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['673']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:49 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['11']
+      X-Esi-Request-Id: [dc860083-8af6-49e6-891d-939d5b0449fa]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/8433/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Increases the maximum strength
+        of the shield.","dogma_attributes":[{"attribute_id":161,"value":10.0},{"attribute_id":162,"value":0.0},{"attribute_id":4,"value":0.0},{"attribute_id":422,"value":1.0},{"attribute_id":38,"value":0.0},{"attribute_id":72,"value":900.0},{"attribute_id":9,"value":40.0},{"attribute_id":50,"value":28.0},{"attribute_id":277,"value":1.0},{"attribute_id":182,"value":3425.0},{"attribute_id":983,"value":3.0},{"attribute_id":633,"value":1.0},{"attribute_id":30,"value":28.0}],"dogma_effects":[{"effect_id":13,"is_default":false},{"effect_id":16,"is_default":false},{"effect_id":21,"is_default":false},{"effect_id":2029,"is_default":false}],"group_id":38,"icon_id":1044,"market_group_id":606,"mass":0.0,"name":"Medium
+        Azeotropic Restrained Shield Extender","packaged_volume":10.0,"portion_size":1,"published":true,"radius":1.0,"type_id":8433,"volume":10.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['908']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:49 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['11']
+      X-Esi-Request-Id: [c0bdb973-6f47-41e6-acd3-6fa2bf882bef]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/17200/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"This copper tag carries the rank
+        insignia equivalent of a private within the Blood Raider pirate cult. It may
+        prove valuable if turned in at proper authorities.","group_id":370,"icon_id":2315,"market_group_id":741,"mass":1.0,"name":"Blood
+        Copper Tag","packaged_volume":0.1,"portion_size":1,"published":true,"radius":1.0,"type_id":17200,"volume":0.1}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['380']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:49 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['11']
+      X-Esi-Request-Id: [fda217c4-bb9e-42e8-a271-8914f693e386]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/3385/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Skill at using reprocessing facilities
+        in station, outposts and starbases to break ores and ice down into refined
+        products.\r\n\r\n3% bonus to ore and ice reprocessing yield per skill level.","dogma_attributes":[{"attribute_id":161,"value":0.01},{"attribute_id":162,"value":0.0},{"attribute_id":4,"value":0.0},{"attribute_id":38,"value":0.0},{"attribute_id":275,"value":1.0},{"attribute_id":180,"value":166.0},{"attribute_id":181,"value":165.0},{"attribute_id":182,"value":3380.0},{"attribute_id":280,"value":0.0},{"attribute_id":379,"value":3.0},{"attribute_id":277,"value":1.0}],"dogma_effects":[{"effect_id":132,"is_default":true},{"effect_id":331,"is_default":false},{"effect_id":435,"is_default":false}],"group_id":1218,"icon_id":33,"market_group_id":1323,"mass":0.0,"name":"Reprocessing","packaged_volume":0.01,"portion_size":1,"published":true,"radius":1.0,"type_id":3385,"volume":0.01}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['924']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:50 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['10']
+      X-Esi-Request-Id: [6db3da1b-6df1-40bd-8592-ae57600d3435]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/1403/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Improves ship handling and maneuverability.\r\n\r\nPenalty:
+        Using more than one type of this module or similar modules that affect the
+        same attribute on the ship will be penalized.","dogma_attributes":[{"attribute_id":161,"value":5.0},{"attribute_id":162,"value":100.0},{"attribute_id":4,"value":200.0},{"attribute_id":422,"value":1.0},{"attribute_id":38,"value":0.0},{"attribute_id":9,"value":40.0},{"attribute_id":554,"value":10.0},{"attribute_id":277,"value":1.0},{"attribute_id":182,"value":3394.0},{"attribute_id":169,"value":-16.75},{"attribute_id":633,"value":0.0}],"dogma_effects":[{"effect_id":11,"is_default":false},{"effect_id":16,"is_default":false},{"effect_id":657,"is_default":false},{"effect_id":2644,"is_default":false}],"group_id":762,"icon_id":1041,"market_group_id":1086,"mass":200.0,"name":"Inertial
+        Stabilizers I","packaged_volume":5.0,"portion_size":1,"published":true,"radius":100.0,"type_id":1403,"volume":5.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['966']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:50 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['10']
+      X-Esi-Request-Id: [f58180be-488d-42a1-b171-2b06fbee249b]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/31153/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/3yT32/bOAzH/xVCL/fiy0XOr9boFbiXAzYMw7B1T2sRMBZtE5ElQ5SbJUX/90Fx
+        5qZougcDFvnRl1+C1JMqscOS414V08k0U4akDNxF9k4V6q5hAWm4g9YbrrjElAAWMCRcOzIQPbAr
+        A6EQ4JH9SwBrthz3gBFiQ0A/O3JC4CvA0PoA2Prexcl9uHfp+0IObdwX8F3Y1dD6QBAbdOAdQdx3
+        x5sxeWm96S2BDyDcssVwikjiI2BVUTnUFGwJMMbAmz4SeDdEUy87thY2BF0qywcyo5G7hsAE3G2w
+        3EoqWnGMydKxeOAaWtynq4FMX5KBzR5iQHYDQ3CD0ASq/pXG79hVvsiX+WJ++5/E4B32kUuBr1zX
+        7Oqb+3/wFmTL1k5UpoyvW1yPhkUVP57UeFyzUYVe6kw9ou1JFYvJ9Dl7C+QjoKfTS8h8BPJ3gPxM
+        4xIwuxrzFwW0XsxebF5Ersf8/LLEYr76swmtz2z8rd9R0WeInqzeIsvZ7FUzD7/nQMdFGoYw/A+9
+        Xy8yxbI2VGFvoyoqtEJJ9wzKl8vZayqG/g200vklqYdM1cH33RFaXSWm9G4orq+XmWoxbCmuXyCd
+        62kKi5xmmimHLalCfWvRWvjkd/B/4PL4cj/7w8ESfPTsosAHlakOyy3WZNaP3vbtsFmZ6nxI/Fr4
+        kEaQqa7fWJaGzNBNpgIa7uW0Z5lKr/Tkcpj/i9rzrwAAAP//Qfp9vWUEAAA=
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['557']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:50 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['10']
+      X-Esi-Request-Id: [d3dfae1e-dd72-4784-a710-603f7843ebae]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/17366/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":1000000.0,"description":"This is a Station Container.
+        It is fitted with a password-protected security lock and computerized inventory
+        auditing. Although the construction of a Station Container is much like that
+        of other Cargo Containers a Station Container is far too big to fit in a ship''s
+        cargo hold and is only used for storage and inventory management at stations.
+        ","dogma_attributes":[{"attribute_id":161,"value":2000000.0},{"attribute_id":162,"value":111.0},{"attribute_id":4,"value":3000000.0},{"attribute_id":38,"value":1000000.0},{"attribute_id":9,"value":10000000.0},{"attribute_id":525,"value":1.0},{"attribute_id":1852,"value":0.0}],"graphic_id":2091,"group_id":448,"icon_id":1171,"market_group_id":1658,"mass":3000000.0,"name":"Station
+        Container","packaged_volume":10000.0,"portion_size":1,"published":true,"radius":111.0,"type_id":17366,"volume":2000000.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['883']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:50 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['10']
+      X-Esi-Request-Id: [3b57fe7c-f53e-4894-bb99-af0f8e5c79e9]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/268/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":16,"group_id":268,"name":"Production","published":true,"types":[3380,3381,3382,3383,3384,3387,3388,3391,3395,3396,3397,3398,3400,22242,24268,24625,26224]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['169']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:50 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['10']
+      X-Esi-Request-Id: [70d8156d-411c-4905-877a-5c1069f2ddcd]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/74/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/ySTzU5cSQyFX2V0116U/8p2P8G8wSxGoxGEFkFKoNXAAkV59+icu/lkzk+5ror+
+        dXx7+Lg+v92//n95Oi4lx/P97fN2/hFyvD78vB6X4++vx/vL01//XB9ub6+HHLfPxx8v79+vT8fl
+        4/55lePj63Z9Py7/5lbJbZLbJXdI7pTcW3KX5G7JPZK1JEslyyTLJSskK8VXhfhqE1+zgBbXtcVV
+        Q1zNxNUXACNgJIwNo2AUjN7iCTdzSVkUMFKWCriUNbSGNtDGpdwKGCl3BaBtaBtaQSuXilXASIUq
+        AA07AjsCOwI7AjsCOwI7AjvSEyhgpDJUKgtTY2pEOqW2jtQ2BRyAtjFtTgWMVC0HEigAWkALaLhV
+        4VaFkwsnF25VuFXjexvf2/jedhdduxrsRXIezmNkiJrHyQ0m59yi3jvIJE+lyAZrkUY6yXwxWWdm
+        wGaylWS+mW/mm+c3W83zm91md9gddofdYRc3D8P2sDrnTTaIjWFNt+ni/PBKssgBcatw3Ce86Tbd
+        pjt0h+7QHboDN5aSTiZZJF2lq3Q1RTNMSRfN1iCT3GSRDdoilWTemDfmjXlj3s78gM6Ws+VGsuvs
+        OrvOrrPr7AZbwVYwj/+HrThhK07Y6iG2IhrMJbayixxwVMx6RsxmKelkkkXSVbpKV1Oc7+V8L+d7
+        OX/AXr4Wec5GuoSu2mSRTY6Eqm2yyCap+yKpOJWgEkraf7//BAAA//8ksofsMgUAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['562']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:50 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['10']
+      X-Esi-Request-Id: [ae75486c-962d-4a55-987a-74e869a4720e]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/380/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":6,"group_id":380,"name":"Deep Space Transport","published":true,"types":[12731,12745,12747,12753]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['113']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:51 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['9']
+      X-Esi-Request-Id: [28345b15-9521-46c1-9435-da30c38a9409]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/169/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":9,"group_id":169,"name":"Capacitor Booster Charge
+        Blueprint","published":true,"types":[1178,1179,3553,3555,11284,11286,11288,11290,41598]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['153']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:51 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['9']
+      X-Esi-Request-Id: [2570d315-3289-4890-a9d5-11913e06e8ae]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/237/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":6,"group_id":237,"name":"Corvette","published":true,"types":[588,596,601,606,615,617,1233,9854,9858,9860,9862,33079,33081,33083]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['144']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:45:51 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['9']
+      X-Esi-Request-Id: [9f74c084-c96b-444f-b44a-0e689e117a55]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/22542/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Increases the yield on mining lasers,
+        but causes them to use up more CPU.","dogma_attributes":[{"attribute_id":161,"value":5.0},{"attribute_id":162,"value":0.0},{"attribute_id":4,"value":1.0},{"attribute_id":422,"value":1.0},{"attribute_id":38,"value":0.0},{"attribute_id":9,"value":40.0},{"attribute_id":434,"value":5.0},{"attribute_id":50,"value":30.0},{"attribute_id":277,"value":1.0},{"attribute_id":182,"value":22578.0},{"attribute_id":633,"value":0.0},{"attribute_id":1082,"value":10.0},{"attribute_id":30,"value":1.0}],"dogma_effects":[{"effect_id":11,"is_default":false},{"effect_id":16,"is_default":false},{"effect_id":1882,"is_default":false},{"effect_id":2444,"is_default":false}],"group_id":546,"icon_id":1046,"market_group_id":935,"mass":1.0,"name":"Mining
+        Laser Upgrade I","packaged_volume":5.0,"portion_size":1,"published":true,"radius":1.0,"type_id":22542,"volume":5.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['916']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:30 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['30']
+      X-Esi-Request-Id: [01ae454c-27dd-40cc-900a-dc1d24f79c2b]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/3170/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4xWTW/jNhD9KwOeCUMSrQ/71t4CLBaLou2luzDG5FgiliJVfmTrLvLfC0VupG6Y
+        uIcAzPBx5r1HzsjfmcQJpY5Xdix2gjNFQXo9Re0sO7JP6KOWhuBsMETyAdxEHiOBs4AQ9KgNepi8
+        tlJPhgADxIHAozZ9skB/SZriHLrCRXsChBF7S1FLNOYK0tmI2pKCMxoD7gIhnTG6UUuYbrXDDj46
+        cHEgDzF5TxGkwRBAooURoxyeS4aByIOiEH2SUT8STO4b+Tnn9KMKDucUQSWC6G58J61A6TCRD9rZ
+        +dQcv/EbyUa4aDKKg46AJjgYblK/OR8ieLQ9zadmGQvLsIPP/rOd/36hP5P2FID0swxPfZp9cx5Q
+        PaKVpGC4nr1WIAf0PUG8ThSO8JONesQYyXN48FrpNM4LZzl8IFQcPpkUnX0O/zo4vyyS7UMky+E3
+        j8vex2QMh9+dVjvGmXL9iCeM0etzihTY8Y/v7OXfk1bsWFYdZ49oErFjuSue+CtAe6hfEHVRFDnQ
+        fovIAZoXQLE7iPI14PAC2GcTVG271sgD7gip2sMdpWVXbGgWVQZSr0WqN7wom2KjRexyaZryfTFl
+        U61cs1VEt6EqMjfSvi+2XkmWVRawUhRvKBVrjjaroltVCFHkTe/EFpN3tNtvyFZ5Q8qq3EjKu1qV
+        5ca1Louo3vet2WbI7Ys7+6sUsav3oq0z1m/kvtFPdXOHZrHm6LJmNMXa1qLN3t++Ws3IvpGybTZN
+        VwqRRTXVtiHeeEuNEHdaotooaqq2OXS74unLv0OOLheScZlwy/p2ijMdTooumExkxwuaQHPyLaa5
+        jxH7/2KiTz9C9v+jlCiqOof6wlnvcRq0vE2iSrRzyKXpOdDO5aWzS5K24WxE/5XiaYXU88scMYTb
+        DObM4kjsyD7ofojw4Cz8vHwV4eGBcTah/Io9qdOjM2lcXOdscn7+RXAK+u/5Sjmb0tnoMJBaNHPm
+        UekUlrHE2fz5WkiV7XzLa66nfwIAAP//PSa+2XIIAAA=
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['773']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:31 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['29']
+      X-Esi-Request-Id: [53326668-7b27-4a08-ab4e-912f67e838d9]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/32375/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"This electronic passkey is provided
+        by tutorial agents as part of a capsuleer training programming. It is used
+        to unlock an acceleration gate inside the Gas site training area, where the
+        \u201cProof of Discovery\u201d documents can be found stored inside containers.
+        The \u201cProof of Discovery\u201d documents serve as physical evidence that
+        the capsuleer was able to discover a particular type of site. \r\n\r\nThis
+        passkey is used to unlock Acceleration gates found inside <b>Gas<\/b> sites
+        only.","group_id":314,"icon_id":2038,"mass":1.0,"name":"Gas Passkey","packaged_volume":1.0,"portion_size":1,"published":true,"radius":1.0,"type_id":32375,"volume":1.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['693']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:31 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['29']
+      X-Esi-Request-Id: [f5da365d-91e0-432d-80b0-3d1272b0c01d]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/30420/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SUT4vbMBDFv8owZzXIf+I4pvTQ0t4KvZQeSjETe+KIlSUjyVvSZb97UZyNU2ri
+        QyCRfnrz9EaZF2xooEaFM1ZyIwW27BunhqCswQo/WuuDB39SrFtw7JUPZBoG6kgZH+DzV2ipp443
+        7w/uQ/x8Y0M6nCv47pXpoLeOIZzIgDUM4Tww2COEk/LQ23bULMA68KpXmtx1yccDAeh45CZAODF4
+        6vm+fNQR8FtpHVdHHUAZIBim2hDs5dQhuoezHaHjANZMsm8eZrkNCmxt11NNITh1GAN7rH6+4O1n
+        rVqskiIR+Ex6ZKxSuZGv4n8ivRGLwL7cPQby23YipVxEitnEdmk/K1dKpLPJZNHkbTtfvmWazEFk
+        m3yJkOVKVFu5XmXFZ7rbPQaSclbI8iRbYnbZeuL7cm7Lu2wx9CLL1jpfrAHbx0CSlPKeSBZaL/8J
+        5Nfbs+bLP2l609P3STETqHzd8pFGHbA6kvYcVe+ZYp3JZLpfp7ZptHdPBTdyNNk5Ow5TN3YCVWPN
+        1F+5z0uBPbknDvUMJcV+G5e9v/VMoKGescJP6llpRSYOph/kWvgSJxcKHKh5oo7b+tnqsb8+S4GD
+        dXHU1V79iaEJHMaDVv7E7WRPoKNWjf4SqMA4O65XztMY9p3Y698AAAD///X8da1MBQAA
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['507']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:31 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['29']
+      X-Esi-Request-Id: [b745743c-b76b-4f33-8ce8-79470bfada40]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/240/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SUy26kPBCFX8WylB0/ss2lu9n/iyyymuUkQtV20W0FsMeXjjJR3n3kvtEaMbBA
+        Ap/Px+VDqb6oBAtSh0/asJxlVKGXTtugzUgb+mJU7CGgJ+GIZI8wENMRID14dOQDwZqR6DGYsz5o
+        6cwHnJB0Dn9FHKVGn5PnwTpzQkUcjAfMyfMoHYJHRf5/IQoGOGD+6l7H9JTsiei7bmzQA/TXjUkX
+        1RNxqKJERa6VG0dGRJXTjCpzGKCFEJzex4CeNj+/6P2z1Yo2XGwzeoI+Im14zr6zv4HiLrM5uVze
+        vVuWN5tHoJwBtsWKw7Z8LJAxUc1B9fIteM2Xj+G1WMlBiBWHYnMHqmI2aT4R/4lqDqn5yu+o+Uqd
+        xXYlCT7lWc4Da1k+XOMfwFSDmAUEW+4KLqYiC86qXZV83m4Nj12HMly6/fJ+3lXt6oxq3yrsIPaB
+        Nh30HpP7A7Rl5TrE+aaYo94yenBgj1resizSion24p3Ol2Z8EAdw7xjaieFMpFXvz22U0REGTIPn
+        Pkp+0IxakO9wQNWeTB8HvKLWuDSmWq9/p6WM2rjvtT+iok1wETPqQOl4cw6f9pKmKFPck9P3nwAA
+        AP//a6KLOQUFAAA=
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['467']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:31 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['29']
+      X-Esi-Request-Id: [7cb1c00c-8af1-40a3-82f3-5fb1d724847c]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/17205/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"This copper tag carries the rank
+        insignia equivalent of a private within the Guristas pirate organization.
+        It may prove valuable if turned in at proper authorities.","group_id":370,"icon_id":2325,"market_group_id":745,"mass":1.0,"name":"Guristas
+        Copper Tag","packaged_volume":0.1,"portion_size":1,"published":true,"radius":1.0,"type_id":17205,"volume":0.1}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['387']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:31 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['29']
+      X-Esi-Request-Id: [68693f7c-0848-4489-b1f0-6bfc102e0541]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/938/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"","dogma_attributes":[{"attribute_id":161,"value":0.01},{"attribute_id":162,"value":0.0},{"attribute_id":1955,"value":20.0},{"attribute_id":4,"value":0.0},{"attribute_id":38,"value":0.0}],"graphic_id":56,"group_id":105,"market_group_id":272,"mass":0.0,"name":"Tormentor
+        Blueprint","packaged_volume":0.01,"portion_size":1,"published":true,"radius":1.0,"type_id":938,"volume":0.01}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['410']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:31 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['29']
+      X-Esi-Request-Id: [771c3df3-3a30-4d50-966b-aa4fb798beb4]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/35659/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SVTc/iNhSF/8qVN92kCJMPPpYddcmoi+mi6lToEt8Qd2I7sq95Jx3Nf6+c8ELa
+        poCERJLH555zEodvosYea82DOKxX60woCrXXPWtnxUEcMQR9JTg7FxjYQeiJFDTOA8KV/AChdZ6B
+        taEVfGoJuPUxoS3ytCoAtwSh1X0GaNV4VDvvKfTOKm0vYPCrNtHAlTqXnMDZ2RgyQE/QaaOZFJyH
+        caHBEMA1d8lpTgyUpugAxqnY3ZyElsgDGhctpzVkyV8GsESKVMrSuzfy07owBCYDhtCGSVMzmBSk
+        J2/QkuVuAE+B/JUAofFYp4revdxKdB5c5D4y/Bmnvgxqy6jtSGnLdPEpoWtAc4A39D3UbiQMWYZG
+        U6emnt5aspCmXDEVoBlCPAdGyxq7bgBta084JZ/K+CHAz0donOPea8urz/6zTd9fyGLHwwGO+HXm
+        1JOKNak79tExHeDXEEf5RjM4Cx981IF8GC39hMwd1bdTK5EJ5S4GT8js9TkyBXH4/Zu4H560Eoci
+        E1fsIo3P1/fs35er+2W5WwT2d6BYvC6L7WzCtvwvsVnfgXJdLmlstg8NuThE7tbzHMVCkGr/PGn+
+        UJD5og1ZyQeyHLbaPDea756b2O6rWRnjZwkry2KOLVrZbPIZs6jySFzkixq7R5y8KItFkWp2b55Y
+        lhs5a0+uFm6R3MgX9e3W8jmwzWd36H+cFJsXU6o8fzGl+ifwx/tOo6ahmqdtNv2eguWZ0OGkqMHY
+        sTg02AVKsnOmes2Uu9dMLrfla6rapsd9TrGPlIJcvIv91FNyVDs72VvLYp8Jg/4L8ekByVymsyHc
+        /p8sGhIHUa6PH+G3Hz/t4IMzPdYMR117l16oyusriUz0WH/BC6nT1XXR3LZUJnrn05v7FPRf6Vwm
+        +njudGhJTR4z4VHpGMbmM8FDf9tZZVWmHT4T+/53AAAA///jr2tXPgcAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['727']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:31 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['29']
+      X-Esi-Request-Id: [4a3a144f-05c7-4361-bf70-72ae98d079cc]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/27019/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4yUzW7jOgyFX4XQWghkOz+Nd8V9g7udDgJGohOismSIUoq06LsP3GTiAONJZ2HA
+        Aj8dUkekPpTFAS3ns2rNwmjlSGziIXMMqlXPINwPnkAshsDhAI5ObAkcCR8COehiAgzoz+9jdB/z
+        ETKlhAEw2SNS9PHAFj1ITsXmkkgAg4NUOAh0PmIeN3IAGdDSAl7SSxi/Z4F8ZAEWQPiPT+wZA/TR
+        FU8aOMMbew8x+DO8xfQKMUA+EvRRMuxR2IKcJVMPPtrXS045xuIdhJhhT1CE3Jh3SLEjEY4BPVhO
+        tvSSMViShdLKxUOPO8w58b5kEtX++FC35Y6daqt1pdUJfSHVrhbmU/8J1BNgzByyvAGz4fUtXM2F
+        m6fH25d1/VhgewsvZwWqbWUmhVlka6Yc9RywMt+41DTV4yqrrZkKrWdFVst7p2cL3TR3J/kLs26a
+        x4425rtSq+kwzcJ8/vzdStR1ZPOljy7/19NrxbJz1GHxWbUdeqFR955Z/wOzGZvhnsqp0Jj+kGIZ
+        LiZ9ITaGr1X9tNpo1aPI9QkI2JNq1W3m/ifPFp6/hpyS0mpA+4oHcrtT9KW/3KdWQ0zjq7ETfh9d
+        0Wooe89yJHetVKuEjotch0CrfB4ubtUbU403O8l9/goAAP//uYcrCJkEAAA=
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['500']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:31 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['29']
+      X-Esi-Request-Id: [e60efe80-dee9-40f3-9ad7-d684740cae8e]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/2547/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4yTwY6bMBCGX2U0ZxcRCAmgqlKrXla99NJTtUIODMkoxrZss1V2lXevCFmoVBT2
+        gASeb+Y3/8y8YS2trDlcsIyjWGBDvnZsAxuNJX4zxgcP4URwZk2Ba3Dk2QepawLT3iL+xKSa6PPB
+        fRmen6SlCpcSfnnWR+iMIwgnqcFognCx9zz20JmmVwTGgeeOlXT3k0FQBpBtS3UYJWRHIENwfOgD
+        gdHvwhb+sFJwILCDLL9SE6HAxhw7WU0JHsvfbzh9VtxgudltBL5I1ROWWRRfxf9AMgHxErBdCSdz
+        frIEpPnjAvsV/WIKbxfjWTwB6SKQ7PdziUUL8vkK6TZZtKnIs5Vr5itG7dL0cSeKfDcBn9J9lC0h
+        +8ci6WzGJoqvz+8zQrchGwdkfB//PBXIvmqolb0KWLZSeRqq/svs1plk8wEmzpIl6lng0ZnejlCR
+        CeTa6HtKkRYCO+nOFKqZ2uzy27H393XWsiMs8cd9eb9Tq6gelhu+dlZxy+Tg6QkFWlmf5ZGa6sWo
+        vhs7IdAaN8CV59fBOIG2Pyj2J2qwDK4ngU423PubqQKH7R7vl22Hfsylrn8DAAD//72oAWJpBAAA
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['456']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:32 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['28']
+      X-Esi-Request-Id: [d485ea01-f124-4bfc-ab02-3fa7f832c0f4]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/2531/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4yTT4+bMBDFv8pozi7iT0gCqiq1ag9766WnaoUcGJLRGmzZJm12le9eOWShUlHo
+        AQk8v5lnnv3esJZG1uwvWMZRLLAhV1s2nnWPJX7R2nkH/kRAv43Sjs8Elhw7L/uaQLe3mjsxqSb6
+        eLCfwvOdeqn8pYQfjvsjdNoS+JPsQfcE/mLufeyg082gCLQFxx0rae8rQVJ6kG1LtR8lZEcgvbd8
+        GDyB7t+FDfxipeBAYIIsv1ITocBGHztZTQ0Oy59vOH1W3GCZbBOBZ6kGwjKP4qv4F0gnIF4CNivl
+        dO5Pl4Bs/3jAbkW/mMqbxXoeT0C2CKS73Txi0YL9vIVsky7aVOzzifmQ7aJ8CVmxaptlj8+i2G9X
+        vNjvHgPZbEYSxdfn9ztCt0s2XpDxffzzTCC7qqFWDspj2UrlKEz9m9muM2nyH0ycp0vUs8Cj1YMZ
+        oSIXyLXu7y3FJhHYSftCvpqpZFvEYdm5e6B72RGW+G2K71dqFdUh4PC5M4pbJgtPTyjQyPpFHqmp
+        zloN3XgSAo22Aa4cvwbrBJrhoNidqMHS24EEWtnw4G62Cgz5HneYZyFf86jrnwAAAP//uCE1yW0E
+        AAA=
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['458']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:32 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['28']
+      X-Esi-Request-Id: [bd025547-786e-42e6-a55d-8598695c9102]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/1355/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4yTQY+bMBCF/wqasxXZYCDxsT3ttVJP1Qp5jUmtBWzZ41RplP9eURpIFSvkhplP
+        855m3lxASSeVwTMIuqMEWh2UNw6NHUHAF2sDhszZX9pnynqd2Ygu4g4ItPY4yEYievMRUQcQPy6w
+        PBvTgmAVI3CSfdQgyh29kkcgXwFKUwhfgDxZZ8VKsBRQ7Jd6WiBfPeQp4LCUedoBr547YHzDIuPl
+        HcDKR6Kkq8ekScbr5xp5XW/sYr/OoeA5TzFVUTxvUtD/hv1+i4nuOq1wzsj8PWsyAiY0re5k7BFE
+        J/ugp673TLXNTOPZZF7QKl/Rql9g9inmncDR2+j+InV1IGCUHecXJTBI/6mxWZGqPEx/Q5izT2CU
+        gwYB37RUaH321Y7obZ99Hw1mb29AwEn1KY+6bU62j8O8JALO+umem2B+T+kg4OJHb8JP3YJAHzUB
+        L1sTw78bJIBndzuuckrm2uz6JwAA//+Jb1VGMQQAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['373']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:32 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['28']
+      X-Esi-Request-Id: [15acece5-8dcd-46cd-9333-4989c13586ec]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/18/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":4,"group_id":18,"name":"Mineral","published":true,"types":[34,35,36,37,38,39,40,11399,27029,48927]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['114']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:32 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['28']
+      X-Esi-Request-Id: [0cad6786-5b1b-4e02-b5e6-e4e68930c3ee]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/65/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":65,"name":"Stasis Web","published":true,"types":[526,527,4025,4027,4029,4031,14262,14264,14266,14268,14270,14648,14650,14652,14654,15419,17500,17559,28514,30328,41038,47702]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['202']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:32 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['28']
+      X-Esi-Request-Id: [66d6e3cd-7c09-481f-ac16-77df1ab16458]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/105/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":9,"group_id":105,"name":"Frigate Blueprint","published":true,"types":[683,684,685,689,690,691,935,936,937,938,939,940,941,943,944,945,946,947,948,949,950,952,953,954,955,956,960,961,962,963,964,965,966,2162,2835,3517,3533,3752,3754,3767,3769,11173,11175,11177,11179,11183,11185,11187,11189,11191,11193,11195,11197,11199,11201,11203,11366,11372,11374,11376,11378,11380,11382,11384,11388,11390,11394,11401,12031,12035,12037,12041,12043,12045,17620,17704,17706,17708,17813,17842,17925,17927,17929,17931,17933,29249,32208,32789,32881,32984,32986,32988,32990,33080,33082,33084,33191,33398,33469,33656,33658,33660,33662,33664,33666,33668,33670,33674,33678,33698,33817,34444,35780,39580,39581,39583,40301,40302,40315,40316,40317,40318,42525,45486,45533,47966,48638]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['774']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:33 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['27']
+      X-Esi-Request-Id: [8c6e10e8-a7d1-4c35-8014-0bd69405b605]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/1122/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":1122,"name":"Salvager","published":true,"types":[25861,26983,30836]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['96']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:33 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['27']
+      X-Esi-Request-Id: [c38dc269-78d0-4ebe-9932-fe2868999615]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/448/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":2,"group_id":448,"name":"Audit Log Secure Container","published":true,"types":[17363,17364,17365,17366,17367,17368]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['131']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:33 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['27']
+      X-Esi-Request-Id: [216b09a0-b39b-4ff0-b847-2ef604b4dac4]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/213/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":213,"name":"Tracking Computer","published":true,"types":[1977,1978,6173,6174,6175,6176,14238,15284,15286,15288,15290,15792,22927,22929]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['164']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:33 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['27']
+      X-Esi-Request-Id: [36d14ece-1d3f-44f8-9c2e-d78abedeefcf]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/100/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":18,"group_id":100,"name":"Combat Drone","published":true,"types":[1201,2173,2175,2183,2185,2193,2195,2203,2205,2436,2444,2446,2454,2456,2464,2466,2476,2478,2486,2488,3549,15508,15510,16206,21638,21640,22780,23525,23559,23561,23563,23759,28209,28211,28213,28215,28262,28264,28266,28268,28270,28272,28274,28276,28278,28280,28282,28284,28286,28288,28290,28292,28294,28296,28298,28300,28302,28304,28306,28308,31864,31866,31868,31870,31872,31874,31876,31878,31880,31882,31884,31886,31888,31890,31892,31894,32465,33681,48744]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['535']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:33 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['27']
+      X-Esi-Request-Id: [5c7d39a1-5762-4051-aa4e-43b042c42781]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/36/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/6yVT2/bOBDFv8qAl14EV3FtxxZSAt3sqtg/BYIt0FOAgJbG1iAkR5ihEquL/e4L
+        Kl0gQV3Xhxx0IPmbx3l+JvmPaVzvGkqjqcpZWZgWtRHqE3E0lfmCMsLO44G2HiFgct5TA4EiivMF
+        tIP3kBi2QvsugZJ/yBV7QYxAERr2LDO4dhG2CIEO2MIjpQ6SUHKRhpCrg7tHwEMSDOhH6Jy04Lzn
+        UYEFKEHzVD8otrAdgZKi38GOBR6cEA8K/SA9K+oMakfiR2g4BJ56CKwJBPfEUWe3chvz98mNWZG3
+        yVF8UhXshRtUpbiH1CHs2Ht+zCMW1Or/0qvJ1Ps35aGu67osy/KNLWfl1e3bacGCYjMIpRE0uTQo
+        KHsnoKMmDNmQ50eUSe7KQSe4e69d3mfH1cV8vrEfI5Lq1e1bZwv4Hrlcr5b2d6GcFMYEP8dX9kZI
+        g0vUPKePd7Cxn3tuh+Ao/lhzsVrZX54yP4u+tB89upB/y5f80R7mc/tB7jmynNCcT64Cwhno0l4L
+        BeX4Aj4W6G/L9bdAF68V6Mr+4bTHdKLBxdreDILwc3AzRZkovoCPOSnL/GUnl6/iZF7aP1EiJTzR
+        33Ju/xoCxXwkz6Df2ZryffEcPeZl8WtdX19nL5vXSWVtb7zbEzfe6ckOl/bD15zMmfjK/k1N9x39
+        o7/Gwt6MwgcUPHF+F8uN/cyeWjgHXpX2C2mTA3iJm8LshYf+jlpTXawLQw3HabAoLwoTnNxjunuO
+        LC/ztOq3lyG6gKYyn/CQ7+ZoCtO75t7tsb17YD/kxXKWpXqW/HzcKX1FU+WJYetJO2xNlWTAwohr
+        aVBTXWTdNPY47fhuVZjnSv/+FwAA//9rks7FnQYAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['658']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:47 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['13']
+      X-Esi-Request-Id: [4f2743f6-0f3a-44a8-ad9d-26c06f31c1d3]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/1178/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"","dogma_attributes":[{"attribute_id":161,"value":0.01},{"attribute_id":162,"value":0.0},{"attribute_id":1955,"value":1.0},{"attribute_id":4,"value":0.0},{"attribute_id":38,"value":0.0}],"group_id":169,"icon_id":1033,"market_group_id":339,"mass":0.0,"name":"Cap
+        Booster 25 Blueprint","packaged_volume":0.01,"portion_size":1,"published":true,"radius":1.0,"type_id":1178,"volume":0.01}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['414']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:48 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['12']
+      X-Esi-Request-Id: [d19fdf22-d9a5-48a7-ae61-ae7cecf4b549]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/33915/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4RVX4+bRhD/KqN9pi4YGxsrjRQpT1VPfWiiVupV1pgdzNTL7mr/cLpG+e7Vmquh
+        Ced7sASeH78/szPwRTRoseHwLA75Ks+EJN84toGNFgfxqSN44MYZ+Dn2Fj46HgjYA0JvZFQEocMA
+        3hqjPESbQehIw9+xtz5dgu/YQmvcEzoJRZ5femB9rUh21CQV4JAYW2xYn1fw2RoN6BwPqLKJo0fW
+        AVl74OBnD6OWMJAyKcEKfkdnwTcO+5Mi56FBDSeC6ElCMCDZu2jDlXX0v4LfkneIFgL312iOZGxI
+        wul5VL+wUvAOoXPU/uQ788S6NYdNud++/64zv1pymHy9e/wR368e3aNOv8UuPqEHScm7HdU+xsEo
+        RfALnozDYByThw9yQJ3sPKDm1igJnzoy7hk+aw6rdAPyRtcY3RAPk3mFgeDDgOeOHPyBDj2TG7t6
+        Js3Rw4k61hI8DeRQwdmZqOUPJ0d4YX0G1toM10QeTDueNjm8JhOZkObc4xFDcHyKgbw4/PlF3G6P
+        LMVhk4kBVaTreH3Nvi1Xt3JR75YAxXYzURRLiPpW3ixK1Hl1n6BY1/u5jfUroJlQUS9iyjy/YbbL
+        bta73X03VTXpFPs8zxdpykmoqLaLZqpigixyFNX6/uGU+/v17Sztcmf3k0LamCXMrpxsrl9JW89B
+        2+Uw+916TrToZ7NevzEKefHGtFVleR+wq94AFGU+nUy5T2n++m+VqG2pCeMejdcvj2SC/VFSi1EF
+        cWhReUrMc0z1NmZTr4v/o4KLlOTT4tuRp9jXmeDG6HFe83pXZKJHd6FwnMGqdPo9ev/y4dDYkziI
+        B5Ic++9edyITFpsLnkkeB6Ni/zKVmbDGpffL0fM/6b9M2HhS7DuSo7tMOJQc/bWbmQjP9mU4y7rY
+        ZmJO9vXfAAAA//8KVv9LzgYAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['703']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:48 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['12']
+      X-Esi-Request-Id: [8a0840ba-0775-4773-b96d-f252d73b7f04]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/3831/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Increases the maximum strength
+        of the shield.","dogma_attributes":[{"attribute_id":161,"value":10.0},{"attribute_id":162,"value":0.0},{"attribute_id":4,"value":0.0},{"attribute_id":422,"value":2.0},{"attribute_id":38,"value":0.0},{"attribute_id":72,"value":1100.0},{"attribute_id":9,"value":40.0},{"attribute_id":50,"value":35.0},{"attribute_id":277,"value":4.0},{"attribute_id":182,"value":3425.0},{"attribute_id":983,"value":7.0},{"attribute_id":633,"value":5.0},{"attribute_id":30,"value":30.0}],"dogma_effects":[{"effect_id":13,"is_default":false},{"effect_id":16,"is_default":false},{"effect_id":21,"is_default":false},{"effect_id":2029,"is_default":false}],"group_id":38,"icon_id":1044,"market_group_id":606,"mass":0.0,"name":"Medium
+        Shield Extender II","packaged_volume":10.0,"portion_size":1,"published":true,"radius":1.0,"type_id":3831,"volume":10.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['890']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:48 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['12']
+      X-Esi-Request-Id: [da75b579-b79f-43ab-879c-12cc7145336c]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/3388/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Skill at efficiently using industrial
+        facilities. 3% reduction in all manufacturing and research times per skill
+        level.","dogma_attributes":[{"attribute_id":161,"value":0.01},{"attribute_id":162,"value":0.0},{"attribute_id":4,"value":0.0},{"attribute_id":38,"value":0.0},{"attribute_id":1961,"value":-3.0},{"attribute_id":275,"value":3.0},{"attribute_id":180,"value":166.0},{"attribute_id":181,"value":165.0},{"attribute_id":182,"value":3380.0},{"attribute_id":280,"value":0.0},{"attribute_id":277,"value":3.0}],"dogma_effects":[{"effect_id":132,"is_default":true},{"effect_id":5903,"is_default":false},{"effect_id":5906,"is_default":false},{"effect_id":5907,"is_default":false},{"effect_id":5908,"is_default":false},{"effect_id":5909,"is_default":false},{"effect_id":5910,"is_default":false}],"group_id":268,"icon_id":33,"market_group_id":369,"mass":0.0,"name":"Advanced
+        Industry","packaged_volume":0.01,"portion_size":1,"published":true,"radius":1.0,"type_id":3388,"volume":0.01}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['1012']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:48 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['12']
+      X-Esi-Request-Id: [6fb0e540-5be9-4d8a-8707-f1a22851e663]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/30328/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SUwY6bMBCGX8WasxthA9mUa9+gPfRQVciBgYzWxpZtktJV3r2iZAlqreUGno9/
+        xv8M8waNcqqhOEGVHTIOLYbGk4tkB6jgK7Zjg4HFCzKjfpEZDQsOsWW2Y4qFCzl2nhgap+1EQ88M
+        Nd4yHND3EwvRozKB3S7UXBh2HTaRrqgnhkNUQ6/xr3BUvsfIIhpnvfKkJz6fezxPLGh7m3Upstbe
+        hgNwaG1vVK1i9HQeIwaofrzB+lpTC5WQUnK4Kj0iVHl2yO78P+QoVqJMA0+JMktqFCuQDB/X8Esq
+        nJ8+/rzY3EGkgM9ruEgKlNkKyGQFQoqdFPIp8SlP21TuXKN8uiSyLG3kS761Om1mnn+cR4qNoVKI
+        dLVS7LVdnLJtIpFo3MbXQ3b/+T6Sy4Av87g8L4o5Bwp1i50adYSqUzrgrLpljvtMLl6KfepYyH+0
+        oh9xLrL3dnQLU3Kgxg4PS04FB6P8K8Z6w5zy+TSEx14YlEGo4AtdSZMa2LeoAgX2Hc/UEXrg4FTz
+        qnps66vVo1n85eCsn3dJHej3PAEc3HjWFC7YLpVx8KqlMTx+Mg5xcu8253Lu6FPt/icAAP//uBsT
+        Y64EAAA=
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['461']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:48 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['12']
+      X-Esi-Request-Id: [65bc6e0c-4fe0-4c15-a278-b0c43fc9afdc]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/1405/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Improves ship handling and maneuverability.\r\n\r\nPenalty:
+        Using more than one type of this module or similar modules that affect the
+        same attribute on the ship will be penalized.","dogma_attributes":[{"attribute_id":161,"value":5.0},{"attribute_id":162,"value":100.0},{"attribute_id":4,"value":200.0},{"attribute_id":422,"value":2.0},{"attribute_id":38,"value":0.0},{"attribute_id":9,"value":40.0},{"attribute_id":554,"value":11.0},{"attribute_id":277,"value":2.0},{"attribute_id":182,"value":3394.0},{"attribute_id":169,"value":-20.0},{"attribute_id":633,"value":5.0}],"dogma_effects":[{"effect_id":11,"is_default":false},{"effect_id":16,"is_default":false},{"effect_id":657,"is_default":false},{"effect_id":2644,"is_default":false}],"group_id":762,"icon_id":1041,"market_group_id":1086,"mass":200.0,"name":"Inertial
+        Stabilizers II","packaged_volume":5.0,"portion_size":1,"published":true,"radius":100.0,"type_id":1405,"volume":5.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['966']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:48 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['12']
+      X-Esi-Request-Id: [6eae9a57-1056-4d62-91b8-56fa1b71274f]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/400/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4STS4/aMBSF/4p11y7ygwkhy0pdzHqW1Sgy8SVYJLHrByodzX+v0jAx1bhlh7lf
+        js59nDfolFOdiVdo2IZR0Bg6b1w0doIGvv10OOlAcELfX0m0xHl7MRqJIj+S6c7kYG2IxEwknAwO
+        moTocerjaQMUtO1H1aoYvTmkiAGa72+wPlujoeEVp3BRQ0JonjbsnX4GRAYYKyHbFSiWq7UsinVZ
+        ///7rcgORAnYr+Vt2YCUD3oUMk+BFzWeWPawL2vwbJOXCLHbrYAsStRZQW55VWJ28m6a5XVUeZ7y
+        H+1yfjfyukDwmt0vRRS2xh40I1he/Bc+G3n9uEg8HrGLyzkuvz/uyIRW41GlIUITfcJZ947g8m/k
+        qIbwiakeM1IwXqJeKfTeJrfYYRRMZ6c/j3pLYVT+jLHNRMX2878h3LI7qRGhgZdRDQN5WfL4dc4n
+        evL8DBSc6s6qR91e7JDG5RwpOOvnuLfB/Jpvh4JLh8GEE+plCBS80iaFWwApxKu7RYPNW8ha778D
+        AAD//wlvTB9PBAAA
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['411']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:47:49 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['11']
+      X-Esi-Request-Id: [1f31a03b-d5bb-41e1-b09c-76df1baac962]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/35/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/6yVzW4jNwzHX4XQJZeJd/xtD7ICdrNw2kPQoGl7ChDIEj1DRCMalCbZSdF3L+S0
+        QHbjOD74oMNIvyH5Jynxb2XN1lhKvarKQVkoh9EKbRNxUJX6ApE3Caz0MRl/7ukBoaWAYjw8UWrA
+        wCNKD45iolB3FBsKNbCYUCPUnp/ARKANcIANCQ7gz4gu71kOrqMEJjigAKlBWBOf2wZbssYDBdfF
+        JP0ALrltOfgeNty9wK0JPZiYUJjcOQtC6rcYB3dyF/K6Nj2sEXidDAV0sO5BcCtsMcYcXna2Ye/5
+        6SVYjNX/v15Y9iyfz8rvq9VqVZZleabLQXlx92l3oCGi7YRSDzGZ1EWI7I1A7GPCFljA8xPKztyF
+        gUZw8zk22c+Gq+FoNNZfKSZOF3efjC7gLTKfjJb6mgNbT4EsfIwv9B9Cb+n3Iljqq4AU4/smF7Op
+        /lUoNwKGBB/jM30jFFuTyL6m90ew1Ldbdl1rKBxQNZvpr0J1k+Aoeq6vPJo2V/NHfn9ZJ99eyjo6
+        SVlHQ/0LujVKTQkPRDkp9V+UhCwchw/1lTfP6H7G92kqy7yypvmpWnWuf2vXKIcKP9e35Hf3/0N0
+        oa/YOwyvyH06Jt9Wq8vLrGN5Gh0LfeNNTWy9iYeyPZ3qL8+dIByJz/TvZJs39HvJnOibXvg7Ch64
+        SZPpUt+yJwfHwLPcTtFyF3/C9+V1PM59f6aHp3vKFvrWsrjDTTwb60sODkN+9Y/hJ/raxEiP+COt
+        ClULd9t7cqoaLgpFlsPuY1KWhWqNPGC6f41M53k7xv/GWjAtqkrd9CiUUBVqa+yDqdHdP7Lv8lk5
+        KIeF2rLk0Xcf6RlVlTe6tafYoFNVkg4LJcZRF1U1zGbz3Nk5HE8L9drSP/8GAAD//xYxGkRZBwAA
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['684']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:10 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['50']
+      X-Esi-Request-Id: [a127f3a4-0a73-4b68-998d-c3029bf1277b]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/1156/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"","dogma_attributes":[{"attribute_id":161,"value":0.01},{"attribute_id":162,"value":0.0},{"attribute_id":1955,"value":1.0},{"attribute_id":4,"value":0.0},{"attribute_id":38,"value":0.0}],"graphic_id":1144,"group_id":168,"icon_id":1144,"market_group_id":302,"mass":0.0,"name":"Infrared
+        S Blueprint","packaged_volume":0.01,"portion_size":1,"published":true,"radius":1.0,"type_id":1156,"volume":0.01}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['428']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:11 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['49']
+      X-Esi-Request-Id: [b28469aa-d6da-4ec3-99dc-5860623104ab]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/222/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SUwWrrOhCGX2UYuDsRbCdxWu8ufYN7l6clTKRJLCpLQhq15JS++8FOT+JS0y4C
+        8cyn0f8Pv/2GmiJpK2fsqlWl0HDWyUaxwWOHD8FnmyVDOIK8BtBhiMGzl9wBQe7ZuallhbwtA5A3
+        QKBD4rFMXuxAIpyAJAwZcsmRvWED1kN0lAeCLCS8gv/IulPxGRwVr3uQnj/mG5tYizsreO2tY4iU
+        xGrHcHCUhVOGWIY4HfgYab2EUcZZuyAp+ElWTEFzzgvcITgB6UnATm0PR5vYrB7Tox9/2+ofSGyK
+        ZgMhjpYcJPInXqFCE04D7Ukk2UMRztj9esPr494a7OrmTuELucLY1avqXX0B2voKVKuqarZLTDNn
+        vgKbebte6DfN9yrWd99fUK93V2C3WSJ2u/vZiCUT9eaHO+r2J2AmYhm42dguAk31vci2/mHTdXNz
+        Ube7dlM3i9x6pnURaOv1J+Dpb5z4eGQtlyxd/k/89r5VaPPe8JGKE+yO5DKPc2fQXbVZgp4UnhLF
+        3uqLh2qzGyuhxMuprUKrg581B0rPLPsbU1dTNedLxBR6Ghg7/Pf2mj/0lE4M/6PCSPqZTmz2L8GV
+        4ZpshTGk8euyz/b3uMCqUhjLwdncs8FOUmGFiYwteQqqQjnHy76aKcKfxr3/CQAA//8MyUA9wQQA
+        AA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['514']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:11 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['49']
+      X-Esi-Request-Id: [c58adf17-8e60-40a7-9a57-c6ed0975a9e2]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/11578/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SVT2/bOBDFv8qAZ62h/7J9K7qH7WX3srdtYTDkyBqEJgVyaMEt+t0XlJ3IaeXk
+        ECCmnn7z3nAo/hBKjlIRX8Q+3+SZ0BiUp5HJWbEXn+CM/gJhREXS0HfUMBIqBNcDoxqsM+54yYAH
+        BOXO6BncGEAZJ5+BAmgMdLSooXceYkAgCyytxhNMxMMV3JO6f/mMIaAJG/hkeHDxOAAxKBeNTmWc
+        RyYljbnA5PwzOAuOB/QQBhpDBsQBwiiZpAFNgZ1PUaAnNDo5Cg6iDSyfDAIPkoH9hewR2IFypxFt
+        kIyz3UTqTVQcZUIEmMgYSD6nAc0JrLN/3DcmvR45sQbp9SQ9buCr/2rT39+OcQ//DhRglJ5JRSM9
+        nJyOBpMrqc/SKtSAdk48OyMGaYybAsg5XfI4ST/CNJDBa5NRb+AvN+EZfQY98VyfJwcu4f1NlRY1
+        nklhSJAbzuJRcloZkObdyUCG1J2LVYN3dk5l6DgwaOwNqrmTSsaAAcgy+h49WoUbkQntjid5kMye
+        niJjEPv/fojXnwfSYl9n4ixNxHnSfma/Pt69Pq5Xnxe7eiFUdbNbV5W77atq11YPNEuxbbXOqfL8
+        TrPKKbtu8fwAUi6Wy+6B5SqvFlVVt9sHqvpe1T1iNXeqplk13rZL/irP81VUteQvVtPX7WK7Lsu6
+        WTXUFgtmvVDRlu9PRl0ugnJN0OQf1WjaN5JHidv3IxfbxUhRNN1utS/Fm+1sd906qsvfT11su7tq
+        Zb6avNq+D2mrxcv6/lR5cTfnaYy/vZxm7HtUfD3K1/9vxycTFA4aexkNi30vTcBEvte0H2t22/yt
+        iH38VdOUaX5+J33LxNG7OF6bkEaVlLMv/W8zcZL+GfmwiNquSash3C46K08o9uLz9eL5Zwzw+eVT
+        +ef8qYQvX0QmRqme5RH14exMPL0MWCbG68VyCPQ9LWZijE+GwoD6miMTXmqKYZ6kTPBlvPW7aLq0
+        Z/e0n/8HAAD//8VuHmyGBwAA
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['759']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:11 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['49']
+      X-Esi-Request-Id: [c2d3eedf-d5c0-4f19-a2b0-dc93b5866500]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/8529/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"Increases the maximum strength
+        of the shield.","dogma_attributes":[{"attribute_id":161,"value":20.0},{"attribute_id":162,"value":0.0},{"attribute_id":4,"value":0.0},{"attribute_id":422,"value":1.0},{"attribute_id":38,"value":0.0},{"attribute_id":72,"value":2200.0},{"attribute_id":9,"value":40.0},{"attribute_id":50,"value":35.0},{"attribute_id":277,"value":1.0},{"attribute_id":182,"value":3425.0},{"attribute_id":983,"value":25.0},{"attribute_id":633,"value":1.0},{"attribute_id":30,"value":140.0}],"dogma_effects":[{"effect_id":13,"is_default":false},{"effect_id":16,"is_default":false},{"effect_id":21,"is_default":false},{"effect_id":2029,"is_default":false}],"group_id":38,"icon_id":1044,"market_group_id":608,"mass":0.0,"name":"Large
+        F-S9 Regolith Compact Shield Extender","packaged_volume":20.0,"portion_size":1,"published":true,"radius":1.0,"type_id":8529,"volume":20.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['910']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:11 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['49']
+      X-Esi-Request-Id: [cb839293-0100-45a9-98b1-9bec5dcfe01f]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/31119/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"capacity":0.0,"description":"This ship modification is designed
+        to increase a ship''s cargo capacity at the expense of armor amount.\r\n\r\nThe
+        drawbacks of fitting this rig may be reduced by training the <a href=showinfo:26254>Astronautics
+        Rigging<\/a> skill.","dogma_attributes":[{"attribute_id":161,"value":10.0},{"attribute_id":162,"value":100.0},{"attribute_id":4,"value":200.0},{"attribute_id":38,"value":0.0},{"attribute_id":422,"value":1.0},{"attribute_id":1153,"value":100.0},{"attribute_id":9,"value":40.0},{"attribute_id":1547,"value":2.0},{"attribute_id":614,"value":15.0},{"attribute_id":1138,"value":-10.0},{"attribute_id":633,"value":0.0}],"dogma_effects":[{"effect_id":836,"is_default":false},{"effect_id":2663,"is_default":true},{"effect_id":2712,"is_default":false}],"group_id":782,"icon_id":3196,"market_group_id":1211,"mass":200.0,"name":"Medium
+        Cargohold Optimization I","packaged_volume":10.0,"portion_size":1,"published":true,"radius":100.0,"type_id":31119,"volume":10.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['995']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:11 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['49']
+      X-Esi-Request-Id: [f06a8138-b860-4a38-8dd1-49f117165812]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/31167/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/3yUQW/bPAyG/wqhy3cR8sVO4rRGV2C39TBsGLpd1iJgLNomIkuCJDdLi/73QXbm
+        ZqixgwGbevTypSj6RVTosOJ4EuVysZRCUag8u8jWiFLctxwgtOygs4prrjAtAAdQFLgxpCBaYFN5
+        wkCAA/tfgCN6B8ERKUCjAKuKNPlxM0aILQH9cmQCga2n/QqSJsbeE3hU3IfFg38w6flKBnU8lfA9
+        sGmgs54gtmjAGoJ4coNOTG47q3pNYD0E7lijP0dC4iNgXVM1OgjYEWCMnvd9JLBmjKZqj6w17Alc
+        SsvPpCYj9y2B8njcY3UIKWnNMSZLQ3LPDXR4Sls9qb4iBfsTRI9sRobgBqH1VH8IrT2yqW2ZF/lm
+        ffsxRG8N9pGrAN+4adg0Nw//4y2EA2u9EFIo23S4mwwHUf58EdPnjpUosyKT4gl1T6LMlovlq3xP
+        5BfELLKegHweWF1NxLxA/pYjnzWRbVYTsd3MIdfT+nq+js16++8kRX5RyGyOLLuoZP64itWb0aTx
+        +KcNNNyjsQfj+8BfbQopOOwU1djrKMoadaCkewHlRbH6m4q+fwdts1mpRykab3s3QNurXAqurBn7
+        kl0XUnToDxR3b1CWZ1kKh3DuqBQGOxKl+EyK+w4+nRz54DAyavhB2qb/AXxxkTt+Jg93d0IKh9UB
+        G1K7J6v77nxgUjjr01TvAj+nmBSu32sOLamxKinGST7fNinSsJ7dZkVq4YXc6+8AAAD//0DpXYKP
+        BAAA
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['573']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:11 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['49']
+      X-Esi-Request-Id: [6de92e3f-f4fe-4b85-8d66-41d7a52b3b3f]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/12747/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4yXTY+jOBOA/4rlMx1hAzbkPNeR3sPc3hlFbiiC1QQj26Snd7T/feX+CM5uEdNS
+        SwE/lOvb5T+0VbNqtX+jx7LK80Oe0Q5ca/XstZnokX6DK4xmBnskP4bl5QUs+a5//7Q/p/D/DWAm
+        blYtEG/V5GZjvSPKAunA6fMEHXnVfiB+CG9mPzhiejKq1xGc+/xQT+Sip+5A/mecA+f0dCYd9DA5
+        fQUS9HvWo/YaHOmVDTj8bsPnpifOq6lTtiN66hbnrVYjcYOeXRa2fCOzNVfdATlbUD48eWiDYaQ3
+        lrwOysMVLGmVPRuiHXmGsPnNEghygyBtyUW5d30GM3buQH4E6cpCRgbzGoRkxJkLBJ2CrW40r+D8
+        hy7EG/IMpDfL1JF+NMq/7zJYs5yHDyccaEY7c76ok/Le6ufFg6PH//+ht8eT7uixyOhVjQvQY37I
+        /87+vVzellnD8/CHUc2NKhhOsKqUN4ijBL+tl+j6qmmFrpcJ+dVjS1mdWF+NZNg6r+r8sQTOHq8X
+        q4cYx4lVx4/S+i9SVasfWYXHdJXCJU40jzWtRORstqHHjRCy2sgbtnqEFygh88der3gZqSorRIJY
+        fbaVvxWvHm8j8lWP4lAgluSJ4LKcJ/IzXy15wglW8NgWXEocOiExKXmSYEmiSFVzFSXARk8QRaqk
+        o+AyIaXkbINrUjnPWJXqD4V4nAOsWtWtD6yAJ9Qzsk7ZzZi8qy+GIGINQVFvlo/gUeOVGzmTjGUj
+        Utqwpk4jTdJuHlXRFlNHJhUlHoi6iE4lyRq8XUeCcG2SrYPniTOBR9XG0FOLs+ShkGgcnK2lVjR4
+        kKWIko6VfKNKqjjtOGIw4yLWRmKB5lHS5QeB9EJeiqTGXKb6Ja9Z4sAVxV1nx5ky4V2xtilebwmR
+        kRDEJ1zEedJgQJNKNRnnSYEF595lOBGHBgXuugEGxP4qMUA+7tk87n8oUCdGzjpPbFFHZfmEVl0d
+        DYMScwSrm0R2NSwJrM6utgYL1pTJtsjLKEnRrUqemh2au9xAUjQ6ccI4hu4SMYxvmlRGHZrLLSbV
+        Wsvm/uz/9XVZgb6H1n/cVD5+f05oMqPanTro1TJ6euzV6CDIjaE6uGEHVe6h6l2y6mYP1eS7qF07
+        hoNtB1XsosQuaoeNQuKe+JXRs1XzoNuvJlaEN2aZP280eUYvyr6AP61v3yfDcD2Or50ZndQF6JF+
+        V86bzkw0o7NqX9QZutPVjEtY5F9suGxrM52c/ivkc0bn5XnUboCOHr1dIKNWdXpxn5NTRv3bfDub
+        3u+qnxJv49c/AQAA//+G4L5w2RAAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['991']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:11 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Sat, 16 Feb 2019 11:03:35 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['49']
+      X-Esi-Request-Id: [b8b3b0e1-8946-4d76-81a8-ac23f7b1db2a]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/526/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/ySWSY6cNxKF75JrLsiYWds+RqPRkK2CXIDlEqTSQjB8d+N9uXlgxvAYI//8+/H7
+        p4/XL+/ff/3/7fPj5fR6fPn+/vMbv9JqPf769PX18fL4z/vXr++f3z7eXn881uPbz9/+fPvxx+vn
+        x8vH95+v6/Hx69vrj8fLf22ml91jy3P38vFafi0Ftc6ps9dJ97Nsh8ey3ceXnR1PDLCEiSSRVAvv
+        WXaOSXtmLzsRV4hlYBmFvA5oINp6ahMcUL55AixQt6SJIRXhSeJJvLKwIZLaBzQQyeFMLgVnnQQL
+        1F0Fcxk2htbxcuwdHiIvYi5iLm4voq1G23C27NsLlLZDbD0OyrevzrM3eEDJJzmn7AeeadVkqOqM
+        bpyLFobrkl9uv+3LbEti25/nBAtscISqnu1AG2jVL6OnthN5Ii/Y1C/bBefzlsay4Ww4B8tBO8gv
+        DFfMR5naUaZ21B07W5YnkAfyQE5sh6gOUZ1Em2iJ7SRyojpEdQqvQlv4ah5U+mVKBixQcjsHRHue
+        kgHFbJoHM8fGsQm0xGNUycjdRnLXRJnDE1faJtPm3ubGpvJNvk2+nU/EnmozFdY3lzn3urWBvsxd
+        FfNQbB52lnnuEep2Z1OcTfE8T/kVPi0diSMJJKq2p7bb2SbPgCfgCXgCr8ArN4hv4pt4JV6JF3Hm
+        lS876KWp9lIdvIikDLneCi8Tc2linY3z0tw6e+fleMFZ/Tzj1fBr6rwahoFh4B94Bq+B56LV1nhr
+        Dr21C05HnA11+uJNHZo6NLk3uXch11z5aKJ8+nkWD7vpw43DXaP30NlTZ095aI2XVihONtevZswv
+        uV9yv+R+yf069oo22OvYso+jlypM0YapX2HqVzClwZSGqV9hiWViqU6FFZLGq/FqvIbzPM9icNUq
+        XB0MJjxcMxbMeTicDqenJEEkvOSRqlgkt6TqE6nuBLsQrbmN1vZFw9ya1WjNdrQmJNqQq2LRhpfh
+        RR1atYp2GBxLx5Ka0MFgp6KVb7riSdebkK4XO32QDxL1K/0iuVjeWZahLc7YnPHlq5RsXLJxycZl
+        KuZMTWmOYkje7RzNZ15VtY6yqyPLooN1LMAEC2zwCtXrOo69bq/IAaXle1p8T4vvafE9Lb6nRRcq
+        NLHVR5atntbVVtbVS1JXna2r3ayrt7H5OrRpwttUhzma5xlN4Iy0lzm8R1+ie6ZA/lgox8sbe3lR
+        rxnnALEPvWY3tNE3VJkbw1l7emNy+Y7by/dYLd+KyvetWm6qj/OCuauewdZHWDgYYIIFNjjgFSb2
+        eUBbGpO94mpO4s6+wrP/98+/AQAA//+1r03EewkAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['1000']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:12 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['48']
+      X-Esi-Request-Id: [fb900554-6d51-409d-9403-ee36604e747c]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/538/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":538,"name":"Data Miners","published":true,"types":[3581,3793,22175,22177,22325,22327,22329,22331,22333,22335,22337,22339,27014,27019,30832,30834,41533,41534,49791]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['192']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:12 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['48']
+      X-Esi-Request-Id: [30558a84-8a6f-4b27-aa1f-81bdf7a75cab]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/26/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":6,"group_id":26,"name":"Cruiser","published":true,"types":[620,621,622,623,624,625,626,627,628,629,630,631,632,633,634,635,1904,2006,11011,17634,17709,17713,17715,17718,17720,17722,17843,17922,25560,29336,29337,29340,29344,33470,33553,33639,33641,33643,33645,33647,33649,33651,33653,33818,34445,34475,34590,47270,49712]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['335']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:12 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['48']
+      X-Esi-Request-Id: [fe53a37e-90a0-4400-a106-452d2f2f387f]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/370/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":17,"group_id":370,"name":"Criminal Tags","published":true,"types":[12304,12528,12529,12530,12531,12532,12533,12534,12535,12536,12537,12538,12539,12540,12541,12542,12543,12544,12545,12546,12547,12548,12549,12550,12551,17190,17192,17194,17196,17199,17200,17201,17202,17203,17204,17205,17206,17207,17208,17209,17210,17211,17212,17213,17214,17215,17216,17217,17218,17219,17220,17221,17222,17223,17224,17225,17226,17227,17229,17230,17231,17232,17233,17234,17235,17236,17237,17238,17239,17240,17241,17242,17243,17244,17245,17247,17248,17249,17250,17251,17252,17253,17254,17255,17256,17257,17258,17259,17260,17261,17262,17263,17264,17266,17267,17268,17269,17270,17271,17272,17287,17288,17289,17290,17291,17292,17293,17294,17295,17296,17297,17298,17299,17300,17301,17302,17303,17304,17305,17306,17623,17630,17642,17743,17847,17852,18679,19663,20550,21062,21104,21626,23668,23669,24285,25239,25849,26128]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['911']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:12 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['48']
+      X-Esi-Request-Id: [0eba9ff5-6b06-4cb5-9b60-cdaeb481f126]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/384/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":8,"group_id":384,"name":"Light Missile","published":true,"types":[210,211,212,213,16025,27353,27361,27365,27367,27369,27371,27375,27379,27381,27383,27385,27387,27885,27886,30430,32463]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['200']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:12 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['48']
+      X-Esi-Request-Id: [49db6ffd-3fc9-4128-9fc8-e437e3b3a525]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/1156/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":1156,"name":"Ancillary Shield Booster","published":true,"types":[4391,32772,32774,32780,41504,47836,47838,47840]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['141']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:12 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['48']
+      X-Esi-Request-Id: [1e4fff9f-c679-4938-981c-ce6286ba941c]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/1950/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/yzbzap1P5Ie+Ftp/uMcnCXFZ95B09A09NAYU3Yl5QLXB1lZg8L43o1+xxOh97zr
+        2bElPTviidCK//nHf/u7v/3lH/7lr//xX/7x7//4835/+uMf/vov//6v/vVt/vzpj3/+u3/6yx9/
+        /uP/+8tf/+nv/vkv//y3/+v//3/+7//3jz/98a///l//xz/+23//y9//8ee//fXf//KnP/72H//6
+        l3/748//6Ubu/ulG/fwYP+MxXmMY01jGNo4R9oP9YD/YD/aD/WA/2A/2g/1gD+yBPVAH6kAdqAN1
+        oA7UhbpQl8ULe2Ev7IW9sBf2wgZswAZswAZUQAVUQAVUQiVUQiVUspiwCZuwCZuwBVuwBVuwBVuw
+        BVuwBVuwDduwDduwDduwDduwDduwAzuwAzuwAzuwAzuwAzuwC7uwC7uwC7uwC7uwC4tLjUuNS41L
+        jUuNS41LjUuNS41LjUuNS41LjUuNS41LjUuNS41FjUWNRY1FfaBwqXGpcalxqXGpcalxqXGpcalx
+        qXGpcalxqXGpcalxqXGpcalxqXGpcakDFqMaoxqjGqMaoxqjGqMaoxqjGqMaoxqjGqMaoxqjGqPa
+        2bWza2fXzq6dXTu7dnbtvNp5tfNq59XOa5zXOK9xXuOMxrmMcxnnMs5lnMs4l3Eu41zGuYzf+Did
+        cTrjdMbpjNOZdzqJY4lLiTOJG3Uet+v077yMbRzjvvFxu87jdp3H7TqP23UGdmAHdmAHdmAXdmEX
+        dmEXdmEXdmEX9u1V3fc96769qvv2qu7jdt3H7bq+/33crvu4XfftYd0f2A/2g/1gP9gP9oP9YD/Y
+        D/aDPbAH9sAe2AN7YA/sgT2wB/bCXtgLe2Ev7IW9sBf2wl7YgA3YgA3YgA3YgA3YgA3YhE3YhE3Y
+        hE3YhE3YhE3Ygi3Ygi3Ygi3Ygi3Ygi3Yhm3Yhm1YvLp4dfHq4tXFq4tXF68uXl28unh18eri1cWr
+        i1cXry5eXby6eHXx6uLVxauLVxevLl5dvLp4FXgVeBV4FXgVeBV4FXgVeBV4FXgVeBV4FXgVeBV4
+        FXgVeBV4FXgVeBV4FXgVeBV4FXgVeBV4FXgVeBV4FXgVeBV4FXgVeBV4FXgVeBV4FXgVeBV4FXgV
+        eBV4FXgVeBV4FXgVeBV4FXgVeBV4FXgVeBV4FXgVeJXWnt/v/H1OWntaNf1Q9EPRD0U/FP1Q9EPR
+        D0U/FP1Q9EPRD1W+ORVRVERREUVFFBVRVERREUVFFBVRVERREUVFFBVRVERREUVFFBVRVERREUVF
+        FBVRVERREUVFFBVRVERREUVFFBVRVERREUVFFBVRVET9emORukTqEqlLpC6RukTqEqlLpC6RukTq
+        Eqmr7bx4XeJ1idclXpd4XeJ1idclXpd4XeJ1idclXpd4XeJ1idclXpd4XeJ1idclXpd4XeJ1idcl
+        Xpd4XeJ1idclXpd4XeJ1idclXpd4XeJ1idclXpd4XeJ1idclXpd4XeJ1idfVzq6dXTu7dnbt7NrZ
+        tbNrZ9fOrp1dO7t2du3s2tm1s2tn186uf8+ON2verHmz5s2aN2verHkzKqKoiKIiioooKqKoiKIi
+        qnmz5s0oiqIoiqIoiqIoiqIoiqIoiqKGNxvejLqowavBK0qjKI2iNIrSKEqjKI2iNIrSKEqjKI2i
+        NIrSKEqjKI2iNIrSqMGrwavBq8GrwavBq8GrwavBq8GrwavBq8GrwavBq8GrwavBq8GrwavBq8GQ
+        tYr9fudpfJ+2GLVOZ53OOp11Out01ums01mns05nnc46nXU6+06nfx4b++exsX8eG/vnofrnofrn
+        ofrnofrnofrnF7VQC7VQ70z7551pf+9M+3tn2t870/7emfb3zrS/d6b9vTPt751pf+9M+/uB/WA/
+        2A/2g/1gP9gP9oP9YD/YA3tgD+yBPbAH9sAe2AN7YC/shb2wF/adacf8jmksYxvH+D4h7FjYsbBj
+        YcfCjoUdCzsWdizsWNixtGNpx9KOpR1LO5Z2LO1Y2rG0Y2nH0o6lHUs7lnYs7VjasbRj4lqLay2u
+        tbjWacdEt047lnYs7VjasbRjacfSjmX4S/hL+Ev6tPRp6dPSp6VPw7TEtMS0TNiELdiCLdiCLdiC
+        LdiCLdiCbdiGbdiGbdiGbdiGbdiGHdiBHdiBdeLpxNOJpxNPJ55OPJ14OvF04unE04mnE1dzaNqg
+        aYAW61tMb7G7xegWi1vMbbG1ZeIt426ZdcugW6bc4myLpy1utvjY4mCLdy2utfjV4lSLRy3utPjS
+        4kiLFy0uNP/f/HxP/Y5jfKse32Gwd7B3sXexd323xd7F3sXe9W0XbxdvF28Xb9cq+L3m95rfa36v
+        1+oWS9caF0sXG9fvdO/v3CeHTw7PW/uGZ8Inh0+2G4u9i72LvXxsr11a7F3sXexd7F27t9i72LvY
+        u9i7dnUxdjF27eHaw7WHi7GLsWvnF2MXYxcz+fbmw/vXV+/b7fl5uzo/P+af+Wd+zI/5Nb/mYR7m
+        aZ7mZV7mbd7mYz7ma84u7z289PDGw+sO7zq86PCW87H7vVOY72mk+d5uz/d2ez7f5Ev/+3Z1vjIv
+        8zZv8zEf8zV/v6k5j29zfsw/88eiOY9Fcx6L5viG5/t9poxtHOP7DufAHtgDezxzza95mPv+J83T
+        vMzLvM3bfMzHfM3f72VUAEamPzL6kbmPDH1k4iPjHpn1yKBHpjwy4pH5jgx3ZLIjYx2Z6chAR6Y5
+        MsqRUY6McmSUI6Oc+/t93u93ZJQjoxy55MglRy45csaRG44ccOR6I6cbudvI0UYuNnKukVtN4Fjg
+        WOBY4FjgmHg64uaIjyMOjng34tqIXyNOjXg04s4ku8lusiv6jCgzosmIGiM6jCgwvP3w6sN7Dy89
+        atqjdj1q1KMWPWrOo+Y8as5TTkrleVSeR+V5VJ5H5XlUnkfleVSeh/8f/n/4/+H/h/8fOd3I6UZO
+        N3K6kamNjGxkXqNOO+qxo+466qujjjrqpSPbGlnVyJ5GljSyoZH1jOxmZDEjWxlZycg+RpYxsomR
+        NYzsYGQBQ+0PVT/U+1DpQ40P1T3U9VDRQy0PVTzU71C5M+zSujPsDrviywy7w+6wO+wOuyLOiCwj
+        jox4McvusrvsLrsiwvD8w88Pfz789iy7fPLwvcP3Dt87fO/wvcP3Lt+7fO/yvcv3Lt+7fO/yvcv3
+        Lt+7fO/yvcv3Lt+7fO/yvcv3Lt+7fO/yvcv3Lt+7fO/yvcv3Lt+7fO/yvcv37scuT7sfux+7H7sf
+        ux+7H7sfux+7H7sfu4fdwy6PujznHnYPu4fdw+5h97B72D3sHnYPu2q2qza7arCr1rpqqqt2umqk
+        qxa6ap6rtrlqmKtWuWqSq/a4aoyrlrhqhqs2uGqAq9a3anqrdrdqdKsWtzzk8oTL7y2/t/ze8nvL
+        7y2/t/ze8nvL7y2/t/ze8nvL7y2/t/ze8nvL7y2/t/ze8nvL7y2/t/ze8nvL7y2/t/ze8nvL7y2/
+        t/ze8nvL7y2/t/ze8nhLxy4du/Tq5osF6xZv3datW7l1+7Y83vJs6+5s1bhWLWvVrFZtavmrVWta
+        NaVVO1o1onWjtG6O1g3RuglaNz6rXrTqQqv+s+o8q56z6jarPrPqMKvesuoqq36y6iSrHrLqHqu+
+        seoYq16x6hKr/rDqDKuesOoGqz6w6gAr3195/crfV56+w+6wO+wOu8PusDvsDrvD7rA77NLGu+xS
+        vEvZLk27y+6yu+zSrrvsUqRLeS6FuVTlUo+77C67KgAr09/d+lP8/Px8RvPP/DM/5sf8ml/zMA/z
+        NE/zMi/zNm/zMR/zNWf3Y/dj92P3Y/dj92P3Y/dj92P3Y/dj92P3Y/dj92P3Y/dj92P3Y/dj97B7
+        2D3sHnYPu4fdw+5h97B72D3sHnYPu4fdw+5h97B72D3sHnafd4qfe36Mn/EYrzGMafT88fz1vO/z
+        tN8bPc/uZfeye9m97F52L7thvWG9Yb1hveE7BFvh88N6w3rDesN6o9o4xveton+M/reP8RrDmEaf
+        0LAN27AD69vGwA7UQPn+MVADNVALZV2xUMviQv2udKEWah8qf36Mn/EYrzGMaSxjG8cI+8Hasfxg
+        P9gP9oO1k/nBWl1aXVpdWl0OlDWmNaY1pjWmNaY1pjWmNaY1pjU+FfpGWCtNK00rTSstKy0rLSst
+        Ky0rLSstKy0rLSstKy0rLSstKy0rLSstKy0rLSutDxafC58LlwqfC58LnwufC8fK92/MacxpzGnM
+        acxpPGk71nam7UBb6VjR+ObjG45vMizOMffrmGse5mGe5mle5vg8rA+7w+6wO+wOu8vusrvsLrvL
+        7rK77C67y+6yu+wuu8vusrvsLrvL7rK77O6z+/08u9/Pj/ln/ux+T2/EF2/nP7/iD/c+3Puw68Ou
+        D7u+8vcXZ994jNcYxjSW8aGc0dfvV/w1bHum1/yd4zePb9/8mH/mn7lvNcf8ml/zMA/zNE/zMi9z
+        dofdYXfYHXaH3WV32V12l91ld9lddpfdZXfZXXaX3WV32V12l91ld9lddvfZPT/P7vn5Mf/MP/Nj
+        fsyv+TUP8zBP8zQv8zJv8zYf8zFfc3Y/dj92P3a/aOMY940+X0w8Xx7jNYYR9sWs8yVswias7yOG
+        nq9gC7ZgfU+x9XwFW7AF6/uLuedr2IZtWOsSi8/XsA3bsNYrRp9vYAd2YO2D2H2+gR3YgbU/Yvr5
+        FnZhF/Z33xZ2YRf2+ckj1h+x/hw7eezYsTPHDhwrPVZ0fPPjGx7f5LB4fPJ9nvbcH/PP/DM/5sf8
+        ml/zMGf3snvZvexedi+7l93L7mX3snvZDXaD3WA32A12g91gN9gNdoPdYDfYDXbF9yOOH/H6iMtH
+        FD6i7RFbjxh6xMqTPjOfrzsv13hjGsv4+8wY384nliaWpu+QWJpYmliaWJq+W2JpYmliaWJp+s6J
+        pYmliaWJpWktiaWJpYmliaVpjYmliaWJpYmlae2JpTzq4VGPaH5E8yOaH9H8iOaHvz387eFvj2h+
+        RPMjmh/R/IjmRzQ/ovkRzU/+7i2WiuZHND/i7xF/j/h7xN8j/h7x94i/R/w94u8Rf4/4e8Tf8zKy
+        N/pf51XOq+L3f32y8yrnVc6rnFc5r3Je5bzKTpadrP79i0+zk2Uny06WnSw7KQYdMeiIQafZbXab
+        3Wa32W12m91mt/Gk8aTxpPGk8aTxpPGk8aTxpPGk8aTxpPGk8aTxpPFE1DuUyaFMDmVyKJMjGp62
+        urY6WuW01YmSp62uf1eHJ40noudpPGk8oW1O44moehpPGk9ontN4ItqexpPGE1roNJ6Iwmf9HumT
+        s0/RHZHxiIxHZDwi4xEZj8h4RMYjMh6R8YiMR2Q8IuMRGY/IeETGIzIekfGIjFdkvCLjFRmvyHhF
+        xisyXpHxioxXZLwi4xUZr8h4RcYrMl6R8YqMV2S8IuMVGa/IeEXGKzJekfF+7H7sfux+7H7sfux+
+        7IqYV2S8IuAV6a6IdkWuK0JdkeiKOFdkuYfdw+5h97B72D3sHnYPu4fdw+5h97B72D3sHnYPu4fd
+        w+5h97B72b3sXnYvuzLKK3O8ssV72b3sXnYvu5fdy+5l97J72b3sXnYvu5fdYDfYDXZFhxuP4Vfu
+        duVuV+52RY0rd7tytyt3u3K3K5pcuduNhf21srALu7CP4VcGd2VwV/S5Mrgrg7syuCuDu6LSlcFd
+        GdyVwV0Z3JXBXRnclcFdGdyVwV0Z3M0P9oO1q3lgD+yBPbB2Ow/sgT2wB9Yp5IW9sBf2wjqdvLAX
+        9sLeh63nnW4973Treadb5e9Oiu+9fO/ley/fe/ney/deXvTyopcXvbzo5UUvL3p50cuLXl708qKX
+        F7286OVFLy96edHLi15e9PKilxe9vOjlRS8vennRy4teXvTyord/v2FDNVRD4R7/efnPy39e/vPy
+        n5f/vPzn5T8v/3n5z8t/Xv7z8p+X/7z85+U/L/95+c/Lf17+8w52DXbJMe9gl+zmDnYNdsk972CX
+        rOcOdg12yUnvYJds6A52DXbJVe9glyzpDnYNdslh72CX7OkOdg12yW3vYJes6g52DXbJee9gl2zr
+        DnYNdsmF72CXLOxOwAZswAYsXzEBG7ABi1GytjsYNRglp76iSfw8Drwk/42PA6EGGD+PA6HWF99b
+        S3zvewafHCp78d3fv4/xfQJfHSp+L8U1XiNswAZswAZswCZswiZswiZswiZswiZswhZswRZswRZs
+        wRZswVq1bCjEjpANxfe76oZt2IZt2IZt2IYd2IEd2IEd2IF9/A/RJ9QwX9ppfE+ex66X5LzxeOaY
+        X/Pr+ev563mnIEKFOudLOYw+xymIXKH++ZKKN9pD8StUQUPe9CSvEcpaZEwhYwoZU8iYQsYUMqaQ
+        MYWMKWRMIWMKGVPImELGFDKmkDGFjClkTCFjChlTyJhCxhQyppAxhYwpZEwhYwoZU8iYQsYUMqaQ
+        MYWMKWRMIWMKGVPImELGFDKmkDGFjCnExBD7QowLsSzErBCbQgwKsSbElBA7QowIsSBkVSF7CllS
+        yIZC1hOym5DFhGwlZCUh+whZRsgmdF2F7qrQRRW6pd7XN2e32C12ZQc6lUJHUug8Ch1GoZModAyF
+        zqDQARQ6fUJHT+jcCR06oRMndNy80ZzdZrfZbXabXVmAvpXQnxIh7oT4EuJIiBohOuhSCd0ooQMl
+        dJq80ZxdXleHyBvN2eUVg/cLXi54sxh2h91hd9gddofdmd/5GB/b1aZiXvSJ8X1UDmNe9Ak1q5gX
+        fWJ+v+fCvugTalmxfsvr+6s0xr7oE2pcsS/6BIUfFH5Q+EHhx36w1qsyGfvBfrAfrH1QsYzlH2QE
+        sQfW/qhkxh7YA3tg7ZsKZyx/IoOI5U/Wfqp8xvInv7Fg+ZO1zyqisfyJjCOWP1n7r1Iay6vLRGJ5
+        9XUuKqixvLoMJfZ59fx5600V0fx5600ZR6qO5s9bY8o+0h1W/hzPH88fzx/PvzXmz1tj/rzVpZuL
+        dEORbijS7zpp3aR1k9ZNyjP9rpPmTJoz/WZTZSNVNlJlI1U20m85VTZSZSNVNlJlI/3GU2UjVTZS
+        ZSNVNtJvP1U2UmUjVTZSZSP5hFTZSJWNVNlIlY3kK1JlI1U2UmUjVTaSD8lisVikQtOvPqnQpCTT
+        LzQpyaQkk5JMSjL9cpOSTEoyKcmkJNMvOinJpCSTkkxKMv3Ss39tWR0lmZRk8gBJSSYlmfLxpCeT
+        Z0h6MunJpCeTnkweI+nJpCeTnkx6MnmSpCeTnkx6MunJ5GGSnkx6MunJpCeT50l6MunJpCeTnkwe
+        KenJpCeTnkx6MnmqpCeTnkx6MunJ5MGSnkx6MunJpCeTZ0t6MunJpCeTnkweL+nJpCeTnkx6MnnC
+        pCeTnkx6MunJ5CGTnkx6MunJpCeT50x6MunJpCeTnkweNenJpCeTnkx6MnnapCeTnkx6MunJ5IGT
+        nszBK7cDOXjFM6e7mxy8cmuQg1c8drrTycErtwk5eMWTp7ueHLxyy5CDVzx8ugPKwSu3Dzl4xfOn
+        u6EcvHIrkYNXIkK6M8rBK7cVOXglUqRIkSJFihQpUqRIkSJFihQpUqRIkSJFihQpUqRIkSJFihQp
+        UqRIkSJFihQpUqRIkSJFihQpUqRIkSJFihQpUqRIkSJFihQpUqRIkSJFihQpUqRIkSJFihQpUqRI
+        kSJFihQpUqRIkSJFihQpUqRIkSJFihQpUqRIkSJFihQpUqRIkSJFihQpUqRIkSJFihT5GykWr9zB
+        5eKVGlcuXi1euZvLxSu1r1y8WrxyZ5eLV2piuXi1eOUuLxev1Mpy8Wrxyh1fLl6poeXi1eKVu79c
+        vFJby8WrxSt3grl4peaWi1eLV+4Kc/FKLS4Xrxav9vGnRMYSGcsbHfXz/f59jPvGd74lSpYoWeJj
+        iY8lPpZ6XXnro37CM+8s6ic8GZ5M/zs+cz2//rKeX8+v59fz65N/v+f6Po/npaZXssX6Hs/rezyv
+        7/G81PrKGyP1PZ7X93he3w/sB/vBfrAfrH1QGyxvmNRnHz778NkHNcPy5kl99uE7sHZDLbG8kVJy
+        2PoO7IG9sBf2wl7YC3thL+yFvbAX1t7Kc0ueW/LckueWPLfkuSXPLXluyXP1Mode5tB/GvpPQ/9p
+        6D8N/aeh5zT0nIae09BzGnpOQ89p6DkNPaeh5zT0nIae09BzGnpOQ89p6DkNPaeh5zT0nIae09Bz
+        GnpOQ89p6DkNPaeh5zT0nIae09BzGnpOQ89p6DkNPaeh5zT0nIae09BzGnpOQ89p6DkNPaeh5zT0
+        nIae09BzGnpOQ89p6DkNPaeh5zT0nIae09BzGnpOQ89p6DkNPaeh5zT0nIae09BzGnpOQx/oGz/j
+        MaaxjG0c4/sc1cJSLSyZYKkWlmphqRaWamHJEEu1sFQLK30H2WK5ayt3beWurdy1FUVaFGlRpEWR
+        FkVaFGlRpEWRFkVaFGlRpEWRFkVatGK5/9LFGbo4Qxdn6OIMXZyhizN0cYYuztDFGbo4Qxdn6OIM
+        XZyhizN0cYYuztDFGbo4Qxdn6OIMXZyhizN0cYYuztDFGbo4Qxdn6OIMXZyhizN0cYYuztDFGbo4
+        Qxdn6OIMXZyhizN0cYYuztDFGbo4Qxdn6OIMXZyhizN0cYYuztDFGforQ39l6K8M/ZWhvzL0V4b+
+        ytBfGforQ39l6K8M/ZWhvzL0V4b+ytBfGforQ39l6K8M/ZWhvzL0V4b+ytBfGforQ39l6K8M/ZWh
+        vzL0V4b+ytBfGforQ39l6K8M/ZWhvzL0V4b+ytBfGforQ39l6K8M/ZWhvzL0V4b+ytBfGforQ39l
+        6K8M/ZWhpzL0VIaeytBTGXoqQ09l6KkMPZWhpzL0VIaeytBTGXoqQ09l6KkMPZWhpzL0VL4R1ilT
+        qkWpFqValGpRqkWpFqWqE/ONsH5NlGpRqkWpFqValGpRqkWpFqValGpRqkWpFqValGpRqkWpFqVa
+        lGpRqkWpFqValGpRqkWpFqValGpRqkWpFqValGpRqkWpFqValGpRqkWpFqValGpRqkWpFqValGpR
+        qkWpFqValGpRqkWpFqValGpRqkWpFqValGpRqkWpFqWqyzV0uYYu19Dl+kZYXKJUi1ItSrUo1aJU
+        i1ItSrUo1aJUi1ItSrUo1aJUi1ItSrUo1aJUi1ItSrUo1aJUi1ItSrUo1aJUi1ItSrUo1aJUi1It
+        SrUoVR27b4TFK0q1KNWiVItSLUq1KNWiVItSLUq1KNWiVItSLUq1KNWiVItSLUq1KNWiVItSLUq1
+        KNWiVItSLUq1KNWiVItS1WUcuoxDl3HoMg5dxqHLOHQZhy7j0GUcuoxDl3HoMg5dxm+ExatfBest
+        uNrHq3bL3N5V7p/Hq/Z2XP88XrXb5/YOc/88XrW35vrnB/aD/WA/2A/2g/1gjyevJ8M8zRMqodqT
+        Y1z/+76zLubQxRy6mEMXc+hiDl3M0W4Z2i1Du2VotwztlqHdMrRbhnbL0G4Z2i1Du2VotwztlqHd
+        MrRbhnbL0G4Z2i1Du2VotwztlqHdMvSxLnfQ7U3mVqXvM/5uRd5YbhX7Pu90+rzTaXfQfa3LHXRf
+        61LJ72u3r912N93Xbqvw97Xb1267s+77wX6wH+wHe2APbP+OPsG6qNymcvVNh77p0Dcd+qZD33To
+        mw5906FvOvRNh77p0Dcd+qZD33Tomw5906FvOvRNh77p0Dcdep9D73PofQ5dz6HrOXQ9h67naIqu
+        Kbqm6Jqia4quKbqm6Jqia4quKbqm6DoDNjwfng/Ph+fD806T0tNPHfqpo73N297mbZX/9jZve5uo
+        vU3U3iZqNwLtbaL2NlF7j6jdEbT3iNp7RO09ovYeb7s76LLest6y3rJedwpd1lvWW9Zb1uuuoct6
+        y3rLer2hpPf5jbDW7g2l9oaSnug3wlq7N5TaG0p6pd8Im7AJO54Zz2C7d1/bu69djyf6T0P/aeg2
+        faO/5O9fPPN+ubpQ3/gZj/EawwhbsAVbsAXbsA3bsA3bsA3bsA3bsA07sAM7sAM7sAM7sAM7sAO7
+        sAu7sAu7sAu7sAv7uyfvt6OL9o2f8RivMYxpLGMbxwj7wX6wH+wH+8F+sB/sB/vBfrAH9sAe2AN7
+        YA/sgT2wB/bAXtgLe2EvbJjH7/x9jndgRieFbtk3jvF9jvr/qP+P+r+O1DemsYxtHCOU3fauy7gH
+        HJ5KB+sbYe02TzU8lc7WGJ5qeKrhqYan0vH6xjSWsY1jhLXbPNW4ZxzvuuiQfSOs3Xb/ON510Tkb
+        I2MdGevwcsPL6ah9I6zd5uuGr9NpG8PXjbdAddq+0ZN+TTyV3tsYnmp4quGpRk6qJ/eNrPjdyUlH
+        TqpXN0ZOOnLSkZOOnFQP7xthnaP7jnHfMe47dPXGuO8Y9x3DewzvMbyHHtvQYxt6bEOPbeiQjZGZ
+        jsx0ZKYjM9U5+8Y0et7+yEx11MbITEdmOjLTkZnqtH3jw8qPRn6kNzZGpjMynZHj6JB9oyevJ58X
+        1TMbI5fROftGn+kU5DIjl9FRGyOXGbnMyGVGLqPT9o2w1i6XGbmMDtwYuczIZUZGoN/2jVCP1auW
+        tTzq8qirZqXPNNa7GevdjPVuxno3Q//pG9MIm7AJW54p8zZv8zEf8zV/v6blo5YvWj5n+ZblQ5av
+        WD5hve2wfMIe3/P4Pt5n2MPuYfewe9g97B52aaQ97F52aaGleZa2WR1ee9nVvbWX3cvuZfeye9m9
+        7PJFe9lV01t1vFWvW3W5VX9bdbZVT1t1s1UTWzWxVRNbNTE9qm9MYxnbCPsYu2piqya2amKrJqan
+        9Y2wF9ZZ6xRbnWIbzi7KvMzbvM3HfMzXHGd4vOXZlgdbnmp5pOV5VqVFX+cb37dS2ViVDZ2bb2zj
+        GN9aVDZ0dIZezjce4zWGsYxtHCOsPVSdWNWJVZ1Y1Yl1p7YyzZVprkxz9//8vYxtfJ8po1wZ5coo
+        dXGG/s03ehITZIIrE1yZ4MoEdXe+0ZP5++T7njJBXZ9vhK37p/x5WdIbf+fxxvsZ/eX+/iXfWPvG
+        /jF6pv1v+98uYxvH6PnxOePJyf/8v/53AAAA//+SwPdQUVgAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:13 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Transfer-Encoding: [chunked]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['47']
+      X-Esi-Request-Id: [92edda92-1682-43a3-ad1e-bc00d4b12397]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/464/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":464,"name":"Strip Miner","published":true,"types":[16278,17482,22229,28752,28754]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['110']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:13 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['47']
+      X-Esi-Request-Id: [92683994-5bfb-4dd2-b582-2488660cd104]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/481/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":481,"name":"Scan Probe Launcher","published":true,"types":[2083,4258,4260,17901,17938,18639,25771,26173,28756,28758]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['145']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:52:13 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['47']
+      X-Esi-Request-Id: [3a9e1f22-4f59-44c7-88f1-0c34f2940e86]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/37/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/6yUz24bNxDGX2XASy5bhZJlyVk4PBSB3KApVDRoTgYMLjnSDswlFzOklU3Rdy+o
+        tICS+o8OOfBAzo/fzM58y7+Us6N1lCfV6plulEdxTGOmFFWrPtC+zz91oZD04HiSbEMDu8QDeugm
+        oJgxCsLIKFIYwSOOcKDcU4RgeY9gJSMn8gI2ehhSijKDPwU9UAQM6DKnSO4YPaAdU4TBxrKzLhem
+        uJ/BNoYJdqnE4xXblehtdHjcwA4PYBmtzG75Ntb1m52gQ0hdthS/lsk4cnIoQnEPuUfYpRDSoe4S
+        o7T/Xb12KSR++0p/3mw2G621fmX0TF/fvj4GDAi6wpQnkGxzEZAULINMknGAxBDSAfkod22hZ9y9
+        lb7m2aV2vrhYmHeW72Hresbr29fWNPB/bL28WJltnD6/zK3NthPyZOMJ+0TyxRtzE5FEnha8Wl2a
+        90zVARgzvIyvzO9MMthM7pR+vII35uOYfBksxWe+abUyP3M1HZxFr81NQDvUQX7LPz7R5buvE138
+        kIku5uYX9B3ynvJzc1pq84kyk4Pz8Lm5CfYL+u/xp2xVyxgSj/0LukvziR6oyp5DX5o/bLVW/p5/
+        rLVa11Vbu/4xrdXmV+T4fImXC/OhDBRTETiDvjAbQp6+QZ/6WdZmO3TIz5l/bT5SeKiCL6JX5iYF
+        j/GEVI3acyrjHXnVzq8aRS7F42apF40aLN9jvjtFLtf1WOTfdzraAVWr3kvaY1SNGq27t3v0dw8p
+        lBrSMz1v1Ji4PuV3Ql9QtfWgdIGkR6/azAUbxdZTEdXOq2qeRjzmu1g36lTp738CAAD//999Zpop
+        BgAA
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['630']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:54:30 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['30']
+      X-Esi-Request-Id: [049e3421-1954-4e25-a590-8b2eafa76890]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/246/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SU34qkOhDGXyUEzp00Rm3t8R3Oze7CXuwMUpOUGiYmblJpcId+98V2+g+L6IWg
+        Vb/6vkql8JNLGEFqmnidHtKEKwzS65G0s7zm38AqN5iJyUkaDIx6ZAYCeka9d7HrrxG0pD2yMKIk
+        H4cD+9Ej6zwCmYlpKz1CQMUUDNAhk27AwICupdIFYq5lwILurG61BEvMo4pyboFpyzzYDg+v/tXO
+        z09NPQu984R+SSWznR/A3AxujoGBVVcXd0YP5g64SGMkpsOjubv+Mf1vsUfF3Eh61l064AlXrhug
+        ASKv3yNh4PWvT37/bLTitchOCT+DichrcUgvyb9Afk+na+liu/plO11VL0/yxxXglO8onIrnBtM0
+        W1Upt08hSrFtI8psZw5ZtqOQV3fgmK9OWlTbHqXYuYxS7HSZn3bmIB7TrNaBvUnuHUKIRw/HVSBL
+        t3dCZE9LJ8qiLMvikF7ebvuObYuSlmVf3q9lx5cy4To0CluIhnjdggk4yz9Bp7TYh4So8jXqLeGd
+        h7HX8gvLxRxxcVy0Z3/p7FNyAP+B1DwYkWZzNITrFiXcwoC85v9HQ7r1+DuilRP7zhM+gvyADlVz
+        diYO+MWPzs//oSboP3Mo4WN8Nzr0qHhNPmLCPSgdb/I0jctMs2K+14fS5W8AAAD//zkCMqdpBQAA
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['513']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:54:31 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['29']
+      X-Esi-Request-Id: [c3c895ae-0424-4edf-b2c6-9119583ae4cc]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/types/438/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/4SUTY/bIBCG/wrijCLjz8S3SlWrPXRP7albWdiMY7Q2WHykTVf73yvs1HZ22SRS
+        pMA8vPPOMOEFN2xkjbBnXEa7iGAOptFitEJJXOKv4gQGMVQrZSyyCtkO0MD+iMEN6AS98ieRaqd9
+        04kR/e5AItZYcWIW+A597wDZTjt/vGN2VjILTxCTfFo1Smswo5JcyOP7HLWSzhDENKBeDMICR/X5
+        YseYKwtTHmfAZxEGDYq7HnZP+kn676OyUKIfxrG+P6NWWKQk+qLFkVlfquToMxir1Rm02WGCuToO
+        rGLWalE7CwaXP1/wsqwEx2VK8In1DqYWvpK34XwJx3EofljiafB8HC0ATbIgURSrRgigdB9tTabv
+        kWSThQY1croQQRc0j1eJEJDsbzeqOKytyiL/CVHZxmjYx371kaRZWCQvNiof5qIxXYs+7PIgcadq
+        GsfJpqxg4StAP7KSxmue4BjlSXL7foo8ue10H9GrC/r1f/qhbaGx8+jPv+fKEoKFqTi0zPUWly3r
+        DXjZLZPfZxJaZPepvEjoNWW1A2/yqJUb5yb5bI2S8/8qJ3hg+hlstRJZGvtdYy7vnWQD4BLTb4/o
+        U2tB105L0OjhARM8suaZHYFXJ9W7YW4rwaPS/nWsjPjrG0nw6OpemA747IhgzbhwZmoywfY8Xi5w
+        Gv9V6fVfAAAA//8BYzeRfAUAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['532']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:54:32 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['28']
+      X-Esi-Request-Id: [9b488894-e3ef-447f-91e9-65e8e095d004]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/28/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":6,"group_id":28,"name":"Industrial","published":true,"types":[648,649,650,651,652,653,654,655,656,657,1944,2863,2998,4363,4388,19744,32811,33689,33691,33693,33695]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['179']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:54:33 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['27']
+      X-Esi-Request-Id: [cf0295d9-81b6-4779-a276-8c634bf2fa01]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/1319/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":29,"group_id":1319,"name":"Miscellaneous","published":false,"types":[60,34870]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['94']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:54:33 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['27']
+      X-Esi-Request-Id: [2f170097-87db-4f32-8f16-ad9532900785]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/168/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":9,"group_id":168,"name":"Frequency Crystal Blueprint","published":true,"types":[1154,1155,1156,1157,1158,1159,1160,1161,1162,1163,1164,1165,1166,1167,1168,1169,1170,1171,1172,1173,1174,1175,1176,1177,17681,17683,17685,17687,17689,17691,17693,17695,23072,32800]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['276']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:54:33 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['27']
+      X-Esi-Request-Id: [a7a47a8b-0c84-4f85-aced-b536ee8b1e17]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/1202/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":6,"group_id":1202,"name":"Blockade Runner","published":true,"types":[12729,12733,12735,12743]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['109']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:54:33 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['27']
+      X-Esi-Request-Id: [0a681966-da38-42fd-9437-b92e5ff4cab1]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/1209/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":16,"group_id":1209,"name":"Shields","published":true,"types":[3416,3419,3420,3422,3425,11206,11566,12365,12366,12367,21059,21802,24571,44067]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['157']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:54:33 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['27']
+      X-Esi-Request-Id: [6a27dafa-3f5f-4f17-80e1-7547baf70aad]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/groups/763/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"category_id":7,"group_id":763,"name":"Nanofiber Internal Structure","published":true,"types":[1242,2603,2605,5559,5561,5591,5593,5595,5597,5599,5601,14127,15813,21500]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['170']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:54:34 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['26']
+      X-Esi-Request-Id: [7ec925af-0c56-42e9-a023-0ff0f3b277cc]
+    status: {code: 200, message: OK}
 version: 1
