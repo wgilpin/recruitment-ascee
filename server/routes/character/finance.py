@@ -14,6 +14,7 @@ def api_character_market_contracts(character_id):
 
     Returned dictionary is of the form
     {'info': [contract_1, contract_2, ...]}. Each contract is as returned by
+
     ESI, with the additional keys `items` (containing a list of item data, as
     returned by the contracts items endpoint with the additional key `type_name`),
     `issuer_corporation_id`, `issuer_alliance_id` (possibly None),

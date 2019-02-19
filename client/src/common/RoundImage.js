@@ -24,14 +24,11 @@ export default class RoundImage extends React.Component<Props> {
   render() {
     const imgStyle = {
       borderRadius: '50%',
-      width: this.props.size || 32,
-      height: this.props.size || 32,
+      width: 32,
+      height: 32,
       backgroundColor: this.props.color || 'black',
-      position: this.props.position,
-      bottom: this.props.distance,
-      right: this.props.distance,
-      boxShadow: this.props.shadow && '1px 3px 1px #111',
-
+      boxShadow: '1px 3px 1px #111',
+      ...(this.props.style || {}),
     };
     return (
       < >

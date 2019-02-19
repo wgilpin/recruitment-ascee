@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ClaimIcon from 'react-ionicons/lib/MdStarOutline';
 import DropIcon from 'react-ionicons/lib/MdUndo';
 import EscalateIcon from 'react-ionicons/lib/IosAlertOutline';
+import RejectIcon from 'react-ionicons/lib/IosTrashOutline';
 
 const statuses = {
   unclaimed: 'new',
@@ -47,6 +48,7 @@ export default class RecruitButtonBar extends Component {
       showClaim: status === statuses.unclaimed,
       showEscalate: status === statuses.claimed,
       showDrop: status === statuses.escalated || status === statuses.claimed,
+      showReject: status !== statuses.rejected && status !== statuses.unclaimed,
     };
   }
 
@@ -69,6 +71,13 @@ export default class RecruitButtonBar extends Component {
     }
   }
 
+  handeReject = () => {
+    console.log('reject')
+    if (this.props.onEscalate){
+      this.props.onEscalate(this.props.id);
+    }
+  }
+
   showButton(icon) {
     return <span style={styles.buttonOuter}>{icon}</span>;
   }
@@ -82,6 +91,8 @@ export default class RecruitButtonBar extends Component {
           this.showButton(<EscalateIcon style={styles.image} onClick={this.handleEscalate}/>)}
         {this.state.showDrop &&
           this.showButton(<DropIcon style={styles.image} onClick={this.handleDrop}/>)}
+        {this.state.showReject &&
+          this.showButton(<RejectIcon style={styles.image} onClick={this.handleReject}/>)}
       </span>
     );
   }

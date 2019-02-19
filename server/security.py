@@ -2,12 +2,13 @@ from models import User, Character, Admin, Recruiter, Application, db
 from exceptions import ForbiddenException, BadRequestException, UnauthorizedException
 from functools import wraps
 from flask import g
+from flask_login import current_user
 
 
 def login_required(func):
     @wraps(func)
     def decorated(*args, **kwargs):
-        if not isinstance(g.user, dict):
+        if not current_user.is_authenticated:
             raise UnauthorizedException('Login required')
         else:
             return func(*args, **kwargs)
@@ -65,7 +66,7 @@ def character_application_access_check(current_user, target_character):
 def user_admin_access_check(current_user):
     if not is_admin(current_user):
         raise ForbiddenException('Insufficient Privilege')
-        
+
 def user_application_access_check(current_user, target_user):
     if Application.get_for_user(target_user.id) is None:
         raise BadRequestException(

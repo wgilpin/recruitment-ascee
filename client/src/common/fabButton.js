@@ -5,26 +5,28 @@ import RoundImage from './RoundImage';
 
 const styles = {
   fabFixed: {
-    position: 'fixed',
-    bottom: '12px',
+    position: 'absolute',
+    bottom: '30px',
+    right: '30px',
   },
 };
 
 type Props = {
   label: PropTypes.string,
   color: PropTypes.string,
+  style: PropTypes.any,
 };
 
 export const FabButton = (props: Props) => {
+  const appliedStyle = { ...styles.fabFixed, ...(props.style || {})};
   return (
     <RoundImage
+      onClick={props.onClick}
       aria-label={props.label}
       color={props.color}
-      style={styles.fabFixed}
+      style={appliedStyle}
       src={addImg}
       altText='Add Alt'
-      position='absolute'
-      distance='30px'
       shadow={true}
       size={props.size}
     />

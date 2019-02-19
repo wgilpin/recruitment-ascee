@@ -428,7 +428,7 @@ class Structure(db.Model):
         if self.redlisted:
             return True
         else:
-            return self.system.is_redlisted
+            return bool(self.system and self.system.is_redlisted)
 
 
 class Character(db.Model):

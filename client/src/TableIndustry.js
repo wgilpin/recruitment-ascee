@@ -11,7 +11,7 @@ export default class TableIndustry extends TableBase {
   constructor(props) {
     super(props);
     this.state.sortBy = 'name';
-    this.scope = 'planetary_interaction';
+    this.scope = 'industry';
     this.addField(TableBase.kinds().text, 'blueprint_type_name', 'Type');
     this.addField(TableBase.kinds().number, 'blueprint_type_id');
     this.addField(TableBase.kinds().number, 'cost');
