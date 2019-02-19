@@ -2,7 +2,7 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import request, jsonify
-from recruitment import add_applicant_note
+from recruitment import add_applicant_note, get_applicant_notes
 
 
 @app.route('/api/recruits/<int:applicant_id>/notes', methods=['GET'])
@@ -19,28 +19,19 @@ def api_get_applicant_notes_and_logs(applicant_id):
 
     Example:
         {
-            "info":
-            "notes": [
-                {
-                    "timestamp": "ISO Date string",
-                    "author_id": 61097499,
-                    "note_id": 101052109,
-                    "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
-                },
-            ],
-            "logs": [
-                {
-                    "timestamp": "ISO Date string",
-                    "author_id": 61097499,
-                    "note_id": 101052109,
-                    "title": "Chat log from friday",
-                    "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
-                },
-            ]
+        "info": [
+            {
+                "timestamp": "ISO Date string",
+                "author_name": "Tommy Tattle",
+                "author_id": 61097499,
+                "note_id": 101052109,
+                "title": "Chat log from friday",
+                "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
+            },
+        ]
         }
-
     """
-    raise NotImplementedError()
+    return jsonify(get_applicant_notes(applicant_id, current_user=current_user))
 
 
 @app.route(
@@ -75,6 +66,7 @@ def api_add_applicant_chat(applicant_id):
     Args:
         applicant_id (int): User key of applicant
         text (in body): The chat log
+        title (in body): The chat log description
 
     Returns:
         {'status': 'ok'} if log is successfully added
@@ -84,4 +76,10 @@ def api_add_applicant_chat(applicant_id):
             recruiter who has claimed this applicant
         Bad request (400): If the given user is not an applicant
     """
-    return jsonify(add_applicant_note(applicant_id, text=request.form['text'], is_chat_log=True, current_user=current_user))
+    return jsonify(add_applicant_note(
+        applicant_id,
+        text=request.form['text'],
+        title=request.form['title'],
+        is_chat_log=True,
+        current_user=current_user
+    ))

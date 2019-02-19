@@ -106,19 +106,20 @@ export default class TableBase extends React.Component {
           return this.setState({ ...data.error, loading: false });
         }
         let newList = this.jsonToList(data);
-        this.setState({ data: newList, loading: false });
-        if (newList.length !== (this.state.data || []).length) {
-          // after state set
-          if (!!this.sortBy) {
-            const found = this.fields.filter(f => f.id === this.sortBy);
-            if (found.length > 0) {
-              this.sortColumn(found[0]);
+        this.setState({ data: newList, loading: false },
+          () => {
+            // after state set
+            if (!!this.sortBy) {
+              const found = this.fields.filter(
+                f => f.id === this.sortBy || f.id === this.sortBy.substring(1));
+              if (found.length > 0) {
+                this.sortColumn(found[0]);
+              }
             }
-          }
-        }
-        if (this.groupBy.length > 0) {
-          this.buildGroups();
-        }
+            if (this.groupBy.length > 0) {
+              this.buildGroups();
+            }
+        });
       });
   }
 
@@ -261,6 +262,8 @@ export default class TableBase extends React.Component {
       let key2 = this.keyField2 ? values[this.keyField2] : null;
       const details = await this.fetchDetails(key, key2);
       copyData[idx].details = details;
+    } else {
+      copyData[idx].details = this.detailFormatter(copyData[idx])
     }
     copyData[idx].open = !copyData[idx].open;
     this.setState({ data: copyData });
@@ -307,6 +310,11 @@ export default class TableBase extends React.Component {
   }
 
   titleise(text) {
+    let words = text.split('_')
+    if (words.length > 1 && words[words.length-1] === 'name'){
+      words = words.splice(0, words.length-1);
+    }
+    text = words.join(' ');
     return (text[0].toUpperCase() + text.slice(1)).replace(/_/g, ' ');
   }
 
@@ -334,12 +342,11 @@ export default class TableBase extends React.Component {
       // can't sort if grouped
       return;
     }
-    const isCurrentFieldIdx = (this.sortBy || '').indexOf(field.id);
-    this.sortBy = isCurrentFieldIdx === -1 ? field.id : (
-      isCurrentFieldIdx === 0
-        ? `-${field.id}`
-        : field.id
-    )
+    if (this.sortBy === field.id){
+      this.sortBy =`-${field.id}`
+    } else {
+      this.sortBy = field.id;
+    }
     let sortFn = this.sortFn(this.sortBy, field.kind === 'standing');
     const resorted = this.state.data.sort(sortFn);
     this.setState({ data: resorted });
@@ -424,7 +431,7 @@ export default class TableBase extends React.Component {
   }
 
   buildGroups() {
-    // covert a list of items into their groupings, based on fields in this.groupBy
+    // convert a list of items into their groupings, based on fields in this.groupBy
     const grouped = { level: 'root' };
     this.state.data.forEach(item => {
       let node = grouped;

@@ -17,6 +17,7 @@ def get_character_bookmarks(character_id, current_user=None):
     bookmarks_dict = {entry['bookmark_id']: entry for entry in bookmarks_list}
     for bookmark_id, entry in bookmarks_dict.items():
         entry['created'] = entry['created'].v.isoformat()
+        entry['id'] = bookmark_id
         entry['redlisted'] = []
         if 'folder_id' in entry.keys():
             if entry['folder_id'] in folders:

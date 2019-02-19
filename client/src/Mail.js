@@ -116,7 +116,7 @@ export default class Mail extends React.Component {
           markup += link.data.alliance_ticker ? ` / ${link.data.alliance_ticker}` : '';
         }
       } else {
-        markup = link.data.solarSystemName;
+        markup = link.data.system_name;
       };
       body = body.replace(lookupRegex, `${link.itemId}">$1 [${markup}]<`);
     });
