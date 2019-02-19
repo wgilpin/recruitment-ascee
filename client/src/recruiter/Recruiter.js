@@ -187,7 +187,8 @@ export default class Recruiter extends React.Component {
 
   handleClick(id) {
     console.log(`activate recruit ${id}`);
-    this.setGlobal({ activeRecruit: id });
+    if (this.global.recruits[id].status !== Recruiter.statuses.unclaimed)
+      this.setGlobal({ activeRecruit: id });
   }
 
   recruitLine(id, recruit) {
@@ -269,7 +270,7 @@ export default class Recruiter extends React.Component {
         </>
       ),
       this.global.activeRecruit
-        && this.global.recruits[this.global.activeRecruit].status !== Recruiter.status.unclaimed
+        && this.global.recruits[this.global.activeRecruit].status !== Recruiter.statuses.unclaimed
         &&<Evidence style={styles.evidence} main={this.global.activeRecruit} />,
     ];
   }
