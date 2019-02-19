@@ -20,6 +20,7 @@ def get_character_planetary_interaction(character_id, current_user=None):
         entry['system_id'] = system.id
         entry['system_name'] = system.name
         entry['region_id'] = system.region_id
+        entry['last_update'] = entry['last_update'].v.isoformat()
         entry['region_name'] = system.region.name
         if system.is_redlisted:
             entry['redlisted'].append('system_name')

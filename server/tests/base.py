@@ -12,9 +12,19 @@ from models import (
 )
 import warnings
 import time
+from vcr_unittest import VCRTestCase
+import esipy
 
 
-class AsceeTestCase(unittest.TestCase):
+def dummy_cache_time_left(expires_header):
+    return 60*60*24
+
+
+esipy.utils.get_cache_time_left = dummy_cache_time_left
+esipy.client.get_cache_time_left = dummy_cache_time_left
+
+
+class AsceeTestCase(VCRTestCase):
 
     ascee_corp_id = 98589569
 

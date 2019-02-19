@@ -12,7 +12,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 from exceptions import BadRequestException, ForbiddenException
 import unittest
 import character
-from models import Character, User, db, Type, Region, System, Corporation, Alliance, Structure
+from models import Character, User, db, Type, Region, System, Corporation, Alliance, Station
 from base import AsceeTestCase
 from flask_app import app
 import warnings
@@ -53,7 +53,7 @@ class SimpleCharacterMixin(object):
                 cls, target_id_name = spec
                 redlisted_id = None
                 for entry in entry_list:
-                    if target_id_name in entry:
+                    if entry.get(target_id_name, None) is not None:
                         target_id = entry[target_id_name]
                         if redlisted_id is None:
                             cls.get(target_id).redlisted = True
@@ -113,6 +113,26 @@ class SimpleCharacterMixin(object):
                     for red_name in target_second_redlist:
                         self.assertIn(red_name, item.get('redlisted', []), red_name)
 
+    def test_only_valid_types_returned(self):
+        api_def = self.api_definition
+        method = api_def['fetch_function']
+        response = method(self.applicant.id, current_user=self.recruiter.user)
+        self.ensure_only_valid_types(response)
+
+    def ensure_only_valid_types(self, d):
+        for k, v in d.items():
+            self.assertIsInstance(k, (int, str), k)
+            if isinstance(v, dict):
+                self.ensure_only_valid_types(v)
+            elif isinstance(v, (list, tuple)):
+                for item in v:
+                    if isinstance(item, dict):
+                        self.ensure_only_valid_types(item)
+                    else:
+                        self.assertIsInstance(item, (int, str))
+            else:
+                self.assertIsInstance(v, (int, float, str, type(None)), k)
+
     def run_tests_simple_APIs(self, subject, current_user, exception=None):
         api_def = self.api_definition
         method = api_def['fetch_function']
@@ -155,6 +175,57 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.not_applicant.id, self.other_recruiter.user, ForbiddenException)
         self.run_tests_simple_APIs(self.not_applicant.id, self.senior_recruiter.user, ForbiddenException)
         self.run_tests_simple_APIs(self.not_applicant.id, self.admin.user, ForbiddenException)
+
+
+class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
+
+    api_definition = {
+        'fetch_function': character.get_character_wallet,
+        'required': {
+            'date': str,
+            'description': str,
+            'id': int,
+            'ref_type': str,
+        },
+        'optional': {
+            'amount': float,
+            'balance': float,
+            'context_id': int,
+            'context_id_type': str,
+            'first_party_id': int,
+            'second_party_id': int,
+            'first_party': dict,
+            'second_party': dict,
+        },
+        'redlisting': {
+        },
+        'entry_identifier': 'id',
+    }
+
+
+class CharacterCalendarTests(SimpleCharacterMixin, AsceeTestCase):
+
+    api_definition = {
+        'fetch_function': character.get_character_calendar,
+        'required': {
+            'event_date': str,
+            'event_id': int,
+            'event_response': str,
+            'importance': int,
+            'title': str,
+            'duration': int,
+            'owner_id': int,
+            'owner_name': str,
+            'owner_type': str,
+            'response': str,
+            'text': str,
+        },
+        'optional': {
+        },
+        'redlisting': {
+        },
+        'entry_identifier': 'event_id',
+    }
 
 
 class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
@@ -227,7 +298,7 @@ class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
         'fetch_function': character.mining.get_character_mining,
         'required': {
             'date': str,
-            'quantity': float,
+            'quantity': int,
             'system_id': int,
             'system_name': str,
             'type_id': int,
@@ -292,7 +363,7 @@ class CharacterPITests(SimpleCharacterMixin, AsceeTestCase):
         },
         'redlisting': {
             'system_name': (System, 'system_id'),
-            'region_name': (System, 'region_id'),
+            'region_name': (Region, 'region_id'),
         },
         'entry_identifier': 'planet_id',
     }
@@ -304,7 +375,6 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
         'required': {
             'activity_id': int,
             'blueprint_id': int,
-            'blueprint_name': str,
             'blueprint_location_id': int,
             'blueprint_type_id': int,
             'blueprint_type_name': str,
@@ -332,7 +402,7 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
         },
         'entry_identifier': 'activity_id',
         'redlisting': {
-            'station_name': (Structure, 'station_id'),
+            'station_name': (Station, 'station_id'),
             'blueprint_type_name': (Type, 'blueprint_type_id'),
         },
     }

@@ -8,7 +8,6 @@ import unittest
 from flask_app import app
 from models import db
 from test_character_assets import *
-from test_character_calendar import *
 from test_character_mail import *
 from test_character_simple_apis import *
 from test_character_wallet import *
