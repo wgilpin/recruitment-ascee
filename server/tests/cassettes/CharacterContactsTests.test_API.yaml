@@ -2873,4 +2873,142 @@ interactions:
       X-Esi-Error-Limit-Reset: ['17']
       X-Esi-Request-Id: [29c44b2e-f44f-4b6c-be49-9c4a4a5aafe1]
     status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/3019353/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":7,"birthday":"2009-01-16T18:28:00Z","bloodline_id":2,"corporation_id":1000167,"description":"","gender":"male","name":"Hakkaras
+        Ihora","race_id":1,"security_status":0.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['184']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 02:18:44 GMT']
+      Etag: ['"4f9edb0d117e1d98d6c95c213ee373602c441e83bcae79855339c860"']
+      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
+      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['16']
+      X-Esi-Request-Id: [373715c4-43d8-4ef9-8e7a-e7102d2b6648]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/3019470/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":4,"birthday":"2009-09-29T13:53:00Z","bloodline_id":6,"corporation_id":1000077,"description":"","gender":"male","name":"Kiamarian
+        Nagakoun","race_id":4,"security_status":0.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['188']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 02:18:44 GMT']
+      Etag: ['"44f6436bbc87e521f4e345d051d897cb384e06e593e6e2cd3e2de8cf"']
+      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
+      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['16']
+      X-Esi-Request-Id: [fcf7f64d-b037-41b2-9277-a3876dcce984]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/3018488/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":2,"birthday":"2005-06-27T11:31:00Z","bloodline_id":5,"corporation_id":1000084,"description":"","gender":"male","name":"Demi
+        Lazerus","race_id":4,"security_status":0.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['182']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 02:18:44 GMT']
+      Etag: ['"8d87bcc9385b0e8851078d65527cb420f1bbabb22c4453cf0146fd23"']
+      Expires: ['Tue, 19 Feb 2019 02:48:07 GMT']
+      Last-Modified: ['Tue, 19 Feb 2019 01:48:07 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['16']
+      X-Esi-Request-Id: [52a94a25-110d-407e-9417-d69311eca563]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/corporations/1000035/?datasource=tranquility
+  response:
+    body: {string: '{"ceo_id":3004069,"creator_id":1,"description":"The Caldari Navy
+        is smaller in personnel and total ships than both the Federation Navy and
+        the Imperial Navy, yet they have more battleships than any other fleet and
+        the average age of the Caldari ships is considerably less. This is because
+        the Caldari are constantly replacing their oldest ships with newer ones, with
+        better hi-tech equipment. The strategic doctrine of the Caldari Navy is simple:
+        to be able to defeat any other navy in the world. Most experts believe it
+        is.","home_station_id":60003754,"member_count":159,"name":"Caldari Navy","shares":100000000,"tax_rate":0.0,"ticker":"CN"}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['642']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 02:18:44 GMT']
+      Etag: ['"6715f52778e40e1e00190cfdf9d3819a7ef56d344c265460f07aeb9e"']
+      Expires: ['Tue, 19 Feb 2019 02:23:25 GMT']
+      Last-Modified: ['Tue, 19 Feb 2019 01:23:25 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['16']
+      X-Esi-Request-Id: [afdc16b0-ee42-430a-b5da-a5625cbdd8a0]
+    status: {code: 200, message: OK}
 version: 1
