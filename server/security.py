@@ -1,7 +1,6 @@
 from models import User, Character, Admin, Recruiter, Application, db
 from exceptions import ForbiddenException, BadRequestException, UnauthorizedException
 from functools import wraps
-from flask import g
 from flask_login import current_user
 
 

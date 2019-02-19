@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
         user = db.session.query(cls).get(id)
         if user is None:
             character = Character.get(id=id)
-            user = User(id=id, name=character.name)
+            user = cls(id=id, name=character.name)
             db.session.add(user)
             db.session.commit()
         return user
@@ -25,12 +25,20 @@ class User(db.Model, UserMixin):
 
 class Recruiter(User):
     __tablename__ = 'recruiter'
-    user_id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
-    user = db.relationship("User", uselist=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
+    # user = db.relationship("User", uselist=False)
     is_senior = db.Column(db.Boolean, default=False)
+
+    @classmethod
+    def get(cls, id):
+        raise NotImplementedError()
 
 
 class Admin(User):
     __tablename__ = 'admin'
-    user_id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
-    user = db.relationship("User", uselist=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
+    # user = db.relationship("User", uselist=False)
+
+    @classmethod
+    def get(cls, id):
+        raise NotImplementedError()
