@@ -89,13 +89,13 @@ class CharacterMailTests(AsceeTestCase):
             get_character_mail(self.admin.id, current_user=self.admin)
 
     def mail_body_test_as_recruiter(self):
-        mail_id = get_character_mail(self.applicant.id, current_user=self.recruiter.user)['info'][0]['mail_id']
-        result = get_mail_body(mail_id, current_user=self.recruiter.user)
+        mail_id = get_character_mail(self.applicant.id, current_user=self.recruiter)['info'][0]['mail_id']
+        result = get_mail_body(mail_id, current_user=self.recruiter)
         self.helper_test_mail_body_success(result)
 
     def mail_body_test_as_senior_recruiter(self):
-        mail_id = get_character_mail(self.applicant.id, current_user=self.recruiter.user)['info'][0]['mail_id']
-        result = get_mail_body(mail_id, current_user=self.senior_recruiter.user)
+        mail_id = get_character_mail(self.applicant.id, current_user=self.recruiter)['info'][0]['mail_id']
+        result = get_mail_body(mail_id, current_user=self.senior_recruiter)
         self.helper_test_mail_body_success(result)
 
     def helper_test_mail_body_success(self, result):
@@ -127,14 +127,14 @@ class CharacterMailTests(AsceeTestCase):
             self.assertTrue(len(recipient_attributes) == len(recipient), recipient)
 
     def mail_body_test_as_other_recruiter(self):
-        mail_id = get_character_mail(self.applicant.id, current_user=self.recruiter.user)['info'][0]['mail_id']
+        mail_id = get_character_mail(self.applicant.id, current_user=self.recruiter)['info'][0]['mail_id']
         with self.assertRaises(ForbiddenException):
-            get_mail_body(mail_id, current_user=self.other_recruiter.user)
+            get_mail_body(mail_id, current_user=self.other_recruiter)
 
     def mail_body_test_as_admin(self):
-        mail_id = get_character_mail(self.applicant.id, current_user=self.recruiter.user)['info'][0]['mail_id']
+        mail_id = get_character_mail(self.applicant.id, current_user=self.recruiter)['info'][0]['mail_id']
         with self.assertRaises(ForbiddenException):
-            get_mail_body(mail_id, current_user=self.admin.user)
+            get_mail_body(mail_id, current_user=self.admin)
 
 
 if __name__ == '__main__':

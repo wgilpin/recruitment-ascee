@@ -59,11 +59,11 @@ class AsceeTestCase(VCRTestCase):
             corporation_id=self.ascee_corp_id,
         )
         db.session.add(admin_character)
-        self.admin = Admin(
+        self.admin = User.get(1000)
+        admin = Admin(
             id=1000,
-            name='Admin Alice',
         )
-        db.session.add(self.admin)
+        db.session.add(admin)
 
         senior_recruiter_character = Character(
             id=1001,
@@ -72,12 +72,12 @@ class AsceeTestCase(VCRTestCase):
             corporation_id=self.ascee_corp_id,
         )
         db.session.add(senior_recruiter_character)
-        self.senior_recruiter = Recruiter(
+        self.senior_recruiter = User.get(1001)
+        senior_recruiter = Recruiter(
             id=1001,
             is_senior=True,
-            name='Senior Sam',
         )
-        db.session.add(self.senior_recruiter)
+        db.session.add(senior_recruiter)
 
         recruiter_character = Character(
             id=1002,
@@ -86,11 +86,11 @@ class AsceeTestCase(VCRTestCase):
             corporation_id=self.ascee_corp_id,
         )
         db.session.add(recruiter_character)
-        self.recruiter = Recruiter(
+        self.recruiter = User.get(1002)
+        recruiter = Recruiter(
             id=1002,
-            name='Recruiter Randy',
         )
-        db.session.add(self.recruiter)
+        db.session.add(recruiter)
 
         other_recruiter_character = Character(
             id=1003,
@@ -99,11 +99,11 @@ class AsceeTestCase(VCRTestCase):
             corporation_id=self.ascee_corp_id,
         )
         db.session.add(other_recruiter_character)
-        self.other_recruiter = Recruiter(
+        self.other_recruiter = User.get(1003)
+        other_recruiter = Recruiter(
             id=1003,
-            name='OtherRecruiter Oswald',
         )
-        db.session.add(self.other_recruiter)
+        db.session.add(other_recruiter)
 
         test_applicant_id = 2114496483
         self.applicant_character = Character.get(

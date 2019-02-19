@@ -85,7 +85,7 @@ class NamesToIDsTests(AsceeTestCase):
 
     def test_search_for_applicant(self):
         response = get_names_to_ids(
-            'character', [self.applicant.name], current_user=self.admin.user)
+            'character', [self.applicant.name], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
         self.assertIn(self.applicant.name, data)
@@ -94,7 +94,7 @@ class NamesToIDsTests(AsceeTestCase):
 
     def test_search_for_applicant_as_recruiter(self):
         response = get_names_to_ids(
-            'character', [self.applicant.name], current_user=self.recruiter.user)
+            'character', [self.applicant.name], current_user=self.recruiter)
         self.assertIn('info', response)
         data = response['info']
         self.assertIn(self.applicant.name, data)
@@ -103,7 +103,7 @@ class NamesToIDsTests(AsceeTestCase):
 
     def test_search_for_applicant_as_senior_recruiter(self):
         response = get_names_to_ids(
-            'character', [self.applicant.name], current_user=self.senior_recruiter.user)
+            'character', [self.applicant.name], current_user=self.senior_recruiter)
         self.assertIn('info', response)
         data = response['info']
         self.assertIn(self.applicant.name, data)
@@ -112,7 +112,7 @@ class NamesToIDsTests(AsceeTestCase):
 
     def test_search_for_two_characters_full_match(self):
         response = get_names_to_ids(
-            'character', [self.applicant.name, self.not_applicant.name], current_user=self.admin.user)
+            'character', [self.applicant.name, self.not_applicant.name], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
         self.assertIn(self.applicant.name, data)
@@ -123,7 +123,7 @@ class NamesToIDsTests(AsceeTestCase):
 
     def test_search_for_jita(self):
         response = get_names_to_ids(
-            'system', ['Jita'], current_user=self.admin.user)
+            'system', ['Jita'], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
         self.assertIn('Jita', data)
@@ -132,7 +132,7 @@ class NamesToIDsTests(AsceeTestCase):
 
     def test_search_for_querious(self):
         response = get_names_to_ids(
-            'region', ['Querious'], current_user=self.admin.user)
+            'region', ['Querious'], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
         self.assertIn('Querious', data)
@@ -141,7 +141,7 @@ class NamesToIDsTests(AsceeTestCase):
 
     def test_search_for_ascendance(self):
         response = get_names_to_ids(
-            'corporation', ['Ascendance'], current_user=self.admin.user)
+            'corporation', ['Ascendance'], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
         self.assertIn('Ascendance', data)
@@ -150,7 +150,7 @@ class NamesToIDsTests(AsceeTestCase):
 
     def test_search_no_result(self):
         response = get_names_to_ids(
-            'character', ['erajlfdskhaahouirwaeiouw'], current_user=self.admin.user)
+            'character', ['erajlfdskhaahouirwaeiouw'], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
         self.assertEqual(len(data), 0)
@@ -166,7 +166,7 @@ class NamesToIDsTests(AsceeTestCase):
 
     def test_search_invalid_category(self):
         with self.assertRaises(BadRequestException):
-            get_names_to_ids('type', ['Tritanium'], current_user=self.admin.user)
+            get_names_to_ids('type', ['Tritanium'], current_user=self.admin)
 
 
 class SearchTests(AsceeTestCase):

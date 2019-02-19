@@ -8,6 +8,8 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     characters = db.relationship('Character', uselist=True, back_populates='user')
+    recruiter = db.relationship('Recruiter', uselist=False)
+    admin = db.relationship('Admin', uselist=False)
 
     @classmethod
     def get(cls, id):
@@ -23,22 +25,12 @@ class User(db.Model, UserMixin):
         return self.id
 
 
-class Recruiter(User):
+class Recruiter(db.Model):
     __tablename__ = 'recruiter'
-    # user_id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
-    # user = db.relationship("User", uselist=False)
+    id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
     is_senior = db.Column(db.Boolean, default=False)
 
-    @classmethod
-    def get(cls, id):
-        raise NotImplementedError()
 
-
-class Admin(User):
+class Admin(db.Model):
     __tablename__ = 'admin'
-    # user_id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
-    # user = db.relationship("User", uselist=False)
-
-    @classmethod
-    def get(cls, id):
-        raise NotImplementedError()
+    id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
