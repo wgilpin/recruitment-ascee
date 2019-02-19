@@ -177,6 +177,31 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.not_applicant.id, self.admin.user, ForbiddenException)
 
 
+class CharacterCalendarTests(SimpleCharacterMixin, AsceeTestCase):
+
+    api_definition = {
+        'fetch_function': character.get_character_calendar,
+        'required': {
+            'event_date': str,
+            'event_id': int,
+            'event_response': str,
+            'importance': int,
+            'title': str,
+            'duration': int,
+            'owner_id': int,
+            'owner_name': str,
+            'owner_type': str,
+            'response': str,
+            'text': str,
+        },
+        'optional': {
+        },
+        'redlisting': {
+        },
+        'entry_identifier': 'event_id',
+    }
+
+
 class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
 
     # results from ESI, Each result additionally has the key 'ship_type_name',
