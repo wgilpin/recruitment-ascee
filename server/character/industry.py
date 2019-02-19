@@ -26,6 +26,8 @@ def get_character_industry(character_id, current_user=None):
         entry['blueprint_type_name'] = type.name
         entry['station_name'] = location.name
         entry['redlisted'] = []
+        entry['start_date'] = entry['start_date'].v.isoformat()
+        entry['end_date'] = entry['end_date'].v.isoformat()
         if type.is_redlisted:
             entry['redlisted'].append('blueprint_type_name')
         if location.is_redlisted:

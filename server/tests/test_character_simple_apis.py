@@ -12,7 +12,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 from exceptions import BadRequestException, ForbiddenException
 import unittest
 import character
-from models import Character, User, db, Type, Region, System, Corporation, Alliance, Structure
+from models import Character, User, db, Type, Region, System, Corporation, Alliance, Station
 from base import AsceeTestCase
 from flask_app import app
 import warnings
@@ -227,7 +227,7 @@ class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
         'fetch_function': character.mining.get_character_mining,
         'required': {
             'date': str,
-            'quantity': float,
+            'quantity': int,
             'system_id': int,
             'system_name': str,
             'type_id': int,
@@ -292,7 +292,7 @@ class CharacterPITests(SimpleCharacterMixin, AsceeTestCase):
         },
         'redlisting': {
             'system_name': (System, 'system_id'),
-            'region_name': (System, 'region_id'),
+            'region_name': (Region, 'region_id'),
         },
         'entry_identifier': 'planet_id',
     }
@@ -304,7 +304,6 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
         'required': {
             'activity_id': int,
             'blueprint_id': int,
-            'blueprint_name': str,
             'blueprint_location_id': int,
             'blueprint_type_id': int,
             'blueprint_type_name': str,
@@ -332,7 +331,7 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
         },
         'entry_identifier': 'activity_id',
         'redlisting': {
-            'station_name': (Structure, 'station_id'),
+            'station_name': (Station, 'station_id'),
             'blueprint_type_name': (Type, 'blueprint_type_id'),
         },
     }

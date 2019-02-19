@@ -1,0 +1,326 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVC1TaWduYXR1cmUtS2V5IiwidHlwIjoiSldUIn0.eyJzY3AiOlsicHVibGljRGF0YSIsImVzaS1jYWxlbmRhci5yZXNwb25kX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1jYWxlbmRhci5yZWFkX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1sb2NhdGlvbi5yZWFkX2xvY2F0aW9uLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfc2hpcF90eXBlLnYxIiwiZXNpLW1haWwub3JnYW5pemVfbWFpbC52MSIsImVzaS1tYWlsLnJlYWRfbWFpbC52MSIsImVzaS1tYWlsLnNlbmRfbWFpbC52MSIsImVzaS1za2lsbHMucmVhZF9za2lsbHMudjEiLCJlc2ktc2tpbGxzLnJlYWRfc2tpbGxxdWV1ZS52MSIsImVzaS13YWxsZXQucmVhZF9jaGFyYWN0ZXJfd2FsbGV0LnYxIiwiZXNpLXNlYXJjaC5zZWFyY2hfc3RydWN0dXJlcy52MSIsImVzaS1jbG9uZXMucmVhZF9jbG9uZXMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLXVuaXZlcnNlLnJlYWRfc3RydWN0dXJlcy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jaGFyYWN0ZXJfYm9va21hcmtzLnYxIiwiZXNpLWtpbGxtYWlscy5yZWFkX2tpbGxtYWlscy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9jb3Jwb3JhdGlvbl9tZW1iZXJzaGlwLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2Fzc2V0cy52MSIsImVzaS1wbGFuZXRzLm1hbmFnZV9wbGFuZXRzLnYxIiwiZXNpLWZsZWV0cy5yZWFkX2ZsZWV0LnYxIiwiZXNpLWZsZWV0cy53cml0ZV9mbGVldC52MSIsImVzaS11aS5vcGVuX3dpbmRvdy52MSIsImVzaS11aS53cml0ZV93YXlwb2ludC52MSIsImVzaS1jaGFyYWN0ZXJzLndyaXRlX2NvbnRhY3RzLnYxIiwiZXNpLWZpdHRpbmdzLnJlYWRfZml0dGluZ3MudjEiLCJlc2ktZml0dGluZ3Mud3JpdGVfZml0dGluZ3MudjEiLCJlc2ktbWFya2V0cy5zdHJ1Y3R1cmVfbWFya2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdHJ1Y3R1cmVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9sb3lhbHR5LnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9vcHBvcnR1bml0aWVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9jaGF0X2NoYW5uZWxzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfYWdlbnRzX3Jlc2VhcmNoLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY2hhcmFjdGVyX2pvYnMudjEiLCJlc2ktbWFya2V0cy5yZWFkX2NoYXJhY3Rlcl9vcmRlcnMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2JsdWVwcmludHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvcnBvcmF0aW9uX3JvbGVzLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfb25saW5lLnYxIiwiZXNpLWNvbnRyYWN0cy5yZWFkX2NoYXJhY3Rlcl9jb250cmFjdHMudjEiLCJlc2ktY2xvbmVzLnJlYWRfaW1wbGFudHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2ZhdGlndWUudjEiLCJlc2kta2lsbG1haWxzLnJlYWRfY29ycG9yYXRpb25fa2lsbG1haWxzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy50cmFja19tZW1iZXJzLnYxIiwiZXNpLXdhbGxldC5yZWFkX2NvcnBvcmF0aW9uX3dhbGxldHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX25vdGlmaWNhdGlvbnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZGl2aXNpb25zLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2NvcnBvcmF0aW9uX2Fzc2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF90aXRsZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfYmx1ZXByaW50cy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jb3Jwb3JhdGlvbl9ib29rbWFya3MudjEiLCJlc2ktY29udHJhY3RzLnJlYWRfY29ycG9yYXRpb25fY29udHJhY3RzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdGFyYmFzZXMudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jb3Jwb3JhdGlvbl9qb2JzLnYxIiwiZXNpLW1hcmtldHMucmVhZF9jb3Jwb3JhdGlvbl9vcmRlcnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfY29udGFpbmVyX2xvZ3MudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jaGFyYWN0ZXJfbWluaW5nLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY29ycG9yYXRpb25fbWluaW5nLnYxIiwiZXNpLXBsYW5ldHMucmVhZF9jdXN0b21zX29mZmljZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZmFjaWxpdGllcy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3RpdGxlcy52MSIsImVzaS1hbGxpYW5jZXMucmVhZF9jb250YWN0cy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY2hhcmFjdGVyc3RhdHMucmVhZC52MSJdLCJqdGkiOiI1ZWZiMTU2Ny1hMzJmLTQ4ZjYtODlkOS04ZTBlYWQwYzdjMWUiLCJraWQiOiJKV1QtU2lnbmF0dXJlLUtleSIsInN1YiI6IkNIQVJBQ1RFUjpFVkU6MjExNDQ5NjQ4MyIsImF6cCI6ImQ0Mjc0MWNlYWY3MTQwMDQ5ZGI5NWVjNjVkZGE1NzQyIiwibmFtZSI6IlR3aW5lIEVuYWthIiwib3duZXIiOiJUVHloSG9CbU5uSUpHOGlYZTh6MWkyY1lPTGs9IiwiZXhwIjoxNTUwNTQwODYyLCJpc3MiOiJsb2dpbi5ldmVvbmxpbmUuY29tIn0.N_r3tZ8BH4wYnMLbkrr9UuNGnULNgmTJbkBPe1-DqZmVp1BtuUQOcFFV2nXY3kFqG0AG38U7cDxiOO0-EWJofvowlRdGO2yKMtM9Efo4GgAv7UELPmUynHKF4ZOJ9GBOXKBXjPvsMzJrTCf5OdUU14_0tAXRuCJuKMFC5iPfC25vls80VwXp8Cg4E9b-Xie0ZPR8JwrUSkvWVP-3rSCbnaZK_AgTIratzO9egT2AHZWlHiUiu7_EpLfkxb3sAOdsekW7XBKBc8nv3RdHrZyKKdt25HStDxOlARjX4nvsSBvdsX-qWaWS7tYxarnItBLC8T1zqvApM0MQsAg1RXO5eg]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/2114496483/bookmarks/?datasource=tranquility&page=1
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/6yWX2/bNhfGvwrBqxSwhXPIQx5Sd3nbN5sHZCuWLBj2BwNjcZgQWSokOqgb5LsP
+        tJvOXhXZC3JlWJItPD/+nkP++iBvu+5uFfq7P+pKloiO2YJ2PJPLPoYUK1lKBejm4OeorgFLgBLg
+        F/n5ga7f/lAhEnlLTs/kn11Txd1lAqNQw0zWKa5k+bD93N6xAKDZwkymzYe4e7lR/nEmm3AbG1nK
+        7+oUxOJGzMVl17WCxFy8DU0V+lp8H+434nwY4uq22Yj3TWiTOPty97xa1W09pD6k+j6KqxRS3bXi
+        zW9JzmTTLbdft2/UAABIaibbLsVBllI+zsaRkLKTSNQkkrH4aADMRPxufb9uYisWi4WYi6tlHdtl
+        FKGtxHUfqigW7ZDqtE5RXC3/6rrmpQQQtT+BADk/IQVxiepVpHDkaZ+K12qPyvkq9L24yUzOfujr
+        4Y2Yi/+vPsS+68VFWNXNRpwvQxVXG3Emdg/vaL3vhvScAgqz70cAsMacYxyALtGUaF4FABnn9gAo
+        8m4PwI+xHcTN4qkVTszF//p16nLO+jaK6z6GYd3n+Jd1uwop9OKybuoU+s2xKiiDcAIHpWCSA73K
+        dEB01u5x0M7yHod3XVV/rKNY/PyEQoGYi4tYxX4XcnxIfBOaJrYp16daD6mvQ3MUizX+FCzWTGCx
+        JdCr6GGss4d67GP5Nt7t2vEZCqosSLduqyYOg3ib356jXoRl6g4t+Q9AwOhpIJ6UdSYXedl1fVW3
+        Yfvsg/woyzkCa9DaKmYumEjP5CZfdkzkGRm4MAYM8Ex+kiXpPHoUK21cgc4Y8/gVZoQ52owZVKlx
+        CvPh5vLTu5fuCZ5IE2gzGtCgM057Q8pxoZXNY36T/1kZS9qhp4LI55Z/kiUCKecNI1h2hYKt5SP5
+        +DrvMlTSSfl2o+/ZgMcnnidLyjkYC4hKa6UVMRCpApF5t4KctSXNSlFhkGm3gKiBgdg45xUVGojG
+        A7q8gMRHevJV/5+NeLS1OSI7PiKp86YA5fIWuWcpaWsKC5417VmKgKi4IMOgnw1JpebS+NMtfbmk
+        RgF4g5OSaiAsnPb2H0ctWGZfeIdg6UBSYIe2AA/jkircngWopMmzwL8kfbmjxipkM1rCJ0cRCahA
+        AnvgqMvmGrLa7ztKSoMzRT4Bj+fT13nCQKlPyvfF0RMV/f3vAAAA//+yhOBwjwsAAA==
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [private]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Length: ['904']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:28:00 GMT']
+      Etag: ['"2854cd24e28552098eb85cab534aff505dbe9a7de303954bdd10643c"']
+      Expires: ['Tue, 19 Feb 2019 01:46:21 GMT']
+      Last-Modified: ['Tue, 19 Feb 2019 00:46:21 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Encoding]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['60']
+      X-Esi-Request-Id: [af8aa08d-9006-4018-9345-3300063d4767]
+      X-Pages: ['1']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVC1TaWduYXR1cmUtS2V5IiwidHlwIjoiSldUIn0.eyJzY3AiOlsicHVibGljRGF0YSIsImVzaS1jYWxlbmRhci5yZXNwb25kX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1jYWxlbmRhci5yZWFkX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1sb2NhdGlvbi5yZWFkX2xvY2F0aW9uLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfc2hpcF90eXBlLnYxIiwiZXNpLW1haWwub3JnYW5pemVfbWFpbC52MSIsImVzaS1tYWlsLnJlYWRfbWFpbC52MSIsImVzaS1tYWlsLnNlbmRfbWFpbC52MSIsImVzaS1za2lsbHMucmVhZF9za2lsbHMudjEiLCJlc2ktc2tpbGxzLnJlYWRfc2tpbGxxdWV1ZS52MSIsImVzaS13YWxsZXQucmVhZF9jaGFyYWN0ZXJfd2FsbGV0LnYxIiwiZXNpLXNlYXJjaC5zZWFyY2hfc3RydWN0dXJlcy52MSIsImVzaS1jbG9uZXMucmVhZF9jbG9uZXMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLXVuaXZlcnNlLnJlYWRfc3RydWN0dXJlcy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jaGFyYWN0ZXJfYm9va21hcmtzLnYxIiwiZXNpLWtpbGxtYWlscy5yZWFkX2tpbGxtYWlscy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9jb3Jwb3JhdGlvbl9tZW1iZXJzaGlwLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2Fzc2V0cy52MSIsImVzaS1wbGFuZXRzLm1hbmFnZV9wbGFuZXRzLnYxIiwiZXNpLWZsZWV0cy5yZWFkX2ZsZWV0LnYxIiwiZXNpLWZsZWV0cy53cml0ZV9mbGVldC52MSIsImVzaS11aS5vcGVuX3dpbmRvdy52MSIsImVzaS11aS53cml0ZV93YXlwb2ludC52MSIsImVzaS1jaGFyYWN0ZXJzLndyaXRlX2NvbnRhY3RzLnYxIiwiZXNpLWZpdHRpbmdzLnJlYWRfZml0dGluZ3MudjEiLCJlc2ktZml0dGluZ3Mud3JpdGVfZml0dGluZ3MudjEiLCJlc2ktbWFya2V0cy5zdHJ1Y3R1cmVfbWFya2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdHJ1Y3R1cmVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9sb3lhbHR5LnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9vcHBvcnR1bml0aWVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9jaGF0X2NoYW5uZWxzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfYWdlbnRzX3Jlc2VhcmNoLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY2hhcmFjdGVyX2pvYnMudjEiLCJlc2ktbWFya2V0cy5yZWFkX2NoYXJhY3Rlcl9vcmRlcnMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2JsdWVwcmludHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvcnBvcmF0aW9uX3JvbGVzLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfb25saW5lLnYxIiwiZXNpLWNvbnRyYWN0cy5yZWFkX2NoYXJhY3Rlcl9jb250cmFjdHMudjEiLCJlc2ktY2xvbmVzLnJlYWRfaW1wbGFudHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2ZhdGlndWUudjEiLCJlc2kta2lsbG1haWxzLnJlYWRfY29ycG9yYXRpb25fa2lsbG1haWxzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy50cmFja19tZW1iZXJzLnYxIiwiZXNpLXdhbGxldC5yZWFkX2NvcnBvcmF0aW9uX3dhbGxldHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX25vdGlmaWNhdGlvbnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZGl2aXNpb25zLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2NvcnBvcmF0aW9uX2Fzc2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF90aXRsZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfYmx1ZXByaW50cy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jb3Jwb3JhdGlvbl9ib29rbWFya3MudjEiLCJlc2ktY29udHJhY3RzLnJlYWRfY29ycG9yYXRpb25fY29udHJhY3RzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdGFyYmFzZXMudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jb3Jwb3JhdGlvbl9qb2JzLnYxIiwiZXNpLW1hcmtldHMucmVhZF9jb3Jwb3JhdGlvbl9vcmRlcnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfY29udGFpbmVyX2xvZ3MudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jaGFyYWN0ZXJfbWluaW5nLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY29ycG9yYXRpb25fbWluaW5nLnYxIiwiZXNpLXBsYW5ldHMucmVhZF9jdXN0b21zX29mZmljZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZmFjaWxpdGllcy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3RpdGxlcy52MSIsImVzaS1hbGxpYW5jZXMucmVhZF9jb250YWN0cy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY2hhcmFjdGVyc3RhdHMucmVhZC52MSJdLCJqdGkiOiI1ZWZiMTU2Ny1hMzJmLTQ4ZjYtODlkOS04ZTBlYWQwYzdjMWUiLCJraWQiOiJKV1QtU2lnbmF0dXJlLUtleSIsInN1YiI6IkNIQVJBQ1RFUjpFVkU6MjExNDQ5NjQ4MyIsImF6cCI6ImQ0Mjc0MWNlYWY3MTQwMDQ5ZGI5NWVjNjVkZGE1NzQyIiwibmFtZSI6IlR3aW5lIEVuYWthIiwib3duZXIiOiJUVHloSG9CbU5uSUpHOGlYZTh6MWkyY1lPTGs9IiwiZXhwIjoxNTUwNTQwODYyLCJpc3MiOiJsb2dpbi5ldmVvbmxpbmUuY29tIn0.N_r3tZ8BH4wYnMLbkrr9UuNGnULNgmTJbkBPe1-DqZmVp1BtuUQOcFFV2nXY3kFqG0AG38U7cDxiOO0-EWJofvowlRdGO2yKMtM9Efo4GgAv7UELPmUynHKF4ZOJ9GBOXKBXjPvsMzJrTCf5OdUU14_0tAXRuCJuKMFC5iPfC25vls80VwXp8Cg4E9b-Xie0ZPR8JwrUSkvWVP-3rSCbnaZK_AgTIratzO9egT2AHZWlHiUiu7_EpLfkxb3sAOdsekW7XBKBc8nv3RdHrZyKKdt25HStDxOlARjX4nvsSBvdsX-qWaWS7tYxarnItBLC8T1zqvApM0MQsAg1RXO5eg]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/2114496483/bookmarks/folders/?datasource=tranquility&page=1
+  response:
+    body: {string: '[{"folder_id":4052130,"name":"Trading Hubs"}]'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [private]
+      Connection: [keep-alive]
+      Content-Length: ['45']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:28:00 GMT']
+      Etag: ['"3f06a22cfc5bc25b3b58d0a86e044991c9fef61ab8ec35dd54b41a4e"']
+      Expires: ['Tue, 19 Feb 2019 01:46:22 GMT']
+      Last-Modified: ['Tue, 19 Feb 2019 00:46:22 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['60']
+      X-Esi-Request-Id: [3fb54c16-99ba-4f37-b2d6-65ab5076c34f]
+      X-Pages: ['1']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/systems/30002510/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/2yTQYvjMAyF/4vOmSLbkiXnvL9gr8swhG5YCm2yjDOw3dL/PjidBwP17UN5enoS
+        8Y2O61K3+XyettO6vJ1+0xiZmVO2gZbpMtNIP+el0kB/z9Myb5XGXze6rOvSSDhoySm84vPu8FXl
+        +/CkTF1l7Ci1q5SO0rrK3FGW4QHC3RZ/bpGEFgEoIAMM4AAMUgYEQATAWaUXRsJzGMVExUTFoAz/
+        DP8M/4zkGckzfDJ8MnwMgQ2GBkODocHQYGgwNFzAYOjdU6s+b+cY5Bjk3ct45zKOAI6NHEkcSQpW
+        K93f1fXeyms9tZdA443+0fhSSogxSeDC7SbMBx7o2npS0sCcUxAvwXKr/6fxJXo2i+6hqCeXfOD7
+        QHU+fryftuvb8TzVSiP9oG/Fuk3bR6WRD15EPbhKkiRB0kB1m96/hYzlUfozbXPbXpk5eEzDF0iD
+        IGz+ugvbKk2XmVnUfXhAkR3Uou5QAucGIVoMAAG091WvdZsve5LEzFED3z8DAAD//2aEPW09BAAA
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['399']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:28:01 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['59']
+      X-Esi-Request-Id: [027123a1-90f6-4c86-a435-0195892add52]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/constellations/20000367/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"constellation_id":20000367,"name":"Ortner","position":{"x":-102443018585216160.0,"y":41967542491658110.0,"z":-3279331427389417.0},"region_id":10000030,"systems":[30002505,30002506,30002507,30002508,30002509,30002510,30002511,30012505]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['237']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:28:01 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['59']
+      X-Esi-Request-Id: [63c1a22d-222a-4ba5-876c-e0e9f5852d57]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/regions/10000030/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"constellations":[20000367,20000368,20000369,20000370,20000371,20000372,20000373,20000374,20000375,20000376,20000377,20000378],"description":"\"Never
+        Again\"","name":"Heimatar","region_id":10000030}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['199']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:28:01 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['59']
+      X-Esi-Request-Id: [8c301e9e-0fa3-4189-9e02-a8a5789a80d9]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/systems/30002053/?datasource=tranquility&language=en-us
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAA/3yU3arbMAzH30XXXpFlSbZzvYu9wziUrCeMsDYZtQ+sK333kTQaZfV690NY/w+d
+        k17hME+lDsdjX8d52o/v0BEiYkByMPWnATr4MvwABz+P/TTUAt3XK/SlDud5fN9/G47riNEHj17d
+        BvHNFlbJbSo3d4XTPE8PK7n5Mi0v/+NCvrVC+GolvLl/jImbKvQckawVNVtRoxU1W1F6fhn8Jh7I
+        IBiwgRhYkhANUssovLoF47bLZs1mpPh0JrZYbLHY0rClYUvDySBvIGYmZiYmKCYoZi+mLKYspiym
+        LM3LhvyisJqjmr6afoxPhdVi6d+rWAi1EGr1otWLVi+aWTSdaDrR7KO2Oqi/LeO5jMuXCN0VfkH3
+        yVNOOQaWKBhz8Iw7dHCBjgNlVs1JUSml+/w3dCJZs0QvwqKRBHd4c1CGw8d5rJf94diXAh189vAw
+        LbWvHwU63Aln1URCrMlj9g5K7c+PnybfR9/7OixXk+XHInt1G0SDtIAPOeAKfP/TLU7j/d6KiCxe
+        3QJCYQNNK3hPKa4gnpf/y3IpdTitSQIiEkq4/QkAAP//5dsVnr8EAAA=
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Language: [en-us]
+      Content-Length: ['440']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:28:01 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: ['Accept-Encoding,Accept-Language']
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['59']
+      X-Esi-Request-Id: [ba754b9d-6593-4e76-b214-6534990901ce]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/constellations/20000302/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"constellation_id":20000302,"name":"Barvigrard","position":{"x":-124264869458733500.0,"y":28948982058508370.0,"z":57390335176842880.0},"region_id":10000042,"systems":[30002048,30002049,30002050,30002051,30002052,30002053]}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['223']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:28:02 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['58']
+      X-Esi-Request-Id: [4f7a0924-a185-4911-a5cb-d7a10ed203e8]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Accept-Language: [en-us]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/universe/regions/10000042/?datasource=tranquility&language=en-us
+  response:
+    body: {string: '{"constellations":[20000302,20000303,20000304,20000305,20000306,20000307,20000308,20000309,20000492,20000493,20000494,20000495,20000496,20000497,20000498,20000499,20000500,20000501,20000502,20000503,20000504,20000505,20000506],"description":"It
+        has long been an established fact of civilization that wherever a seat of
+        government lies, then so will a concentration of its subjects, the better
+        to fuel the halls of bureaucracy.  In this, the Republic has been no exception
+        and in locating their Parliament and Justice Department in the Gedulf constellation,
+        they guaranteed a huge population influx.  This population needs supporting,
+        and so some of the largest Matari corporations also have their head offices
+        here, making the region bustle with activity, not unlike a large Metropolis.","name":"Metropolis","region_id":10000042}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Language: [en-us]
+      Content-Length: ['829']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Tue, 19 Feb 2019 01:28:02 GMT']
+      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
+      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      Vary: [Accept-Language]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['58']
+      X-Esi-Request-Id: [3b3e1f99-f7eb-426e-bf8f-27da5d2b7e4a]
+    status: {code: 200, message: OK}
+version: 1

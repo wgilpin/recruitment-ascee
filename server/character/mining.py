@@ -17,7 +17,7 @@ def get_character_mining(character_id, current_user=None):
         if system.is_redlisted:
             redlisted.append('system_name')
         return_list.append({
-            'date': entry['date'],
+            'date': entry['date'].v.isoformat(),
             'quantity': entry['quantity'],
             'system_id': entry['solar_system_id'],
             'system_name': system.name,
