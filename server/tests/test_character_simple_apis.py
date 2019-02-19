@@ -177,6 +177,32 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.not_applicant.id, self.admin.user, ForbiddenException)
 
 
+class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
+
+    api_definition = {
+        'fetch_function': character.get_character_wallet,
+        'required': {
+            'date': str,
+            'description': str,
+            'id': int,
+            'ref_type': str,
+        },
+        'optional': {
+            'amount': float,
+            'balance': float,
+            'context_id': int,
+            'context_id_type': str,
+            'first_party_id': int,
+            'second_party_id': int,
+            'first_party': dict,
+            'second_party': dict,
+        },
+        'redlisting': {
+        },
+        'entry_identifier': 'id',
+    }
+
+
 class CharacterCalendarTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
