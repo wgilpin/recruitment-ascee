@@ -53,7 +53,7 @@ class SimpleCharacterMixin(object):
                 cls, target_id_name = spec
                 redlisted_id = None
                 for entry in entry_list:
-                    if target_id_name in entry:
+                    if entry.get(target_id_name, None) is not None:
                         target_id = entry[target_id_name]
                         if redlisted_id is None:
                             cls.get(target_id).redlisted = True
@@ -131,7 +131,7 @@ class SimpleCharacterMixin(object):
                     else:
                         self.assertIsInstance(item, (int, str))
             else:
-                self.assertIsInstance(v, (int, float, str), k)
+                self.assertIsInstance(v, (int, float, str, type(None)), k)
 
     def run_tests_simple_APIs(self, subject, current_user, exception=None):
         api_def = self.api_definition

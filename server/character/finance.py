@@ -149,6 +149,11 @@ def get_character_market_contracts(character_id, current_user=None):
     # issuer_corporation, acceptor, issuer, end_location, start_location
     for entry in contract_list:
         entry['redlisted'] = []
+        for date_name in (
+                'date_issued', 'date_accepted', 'date_completed',
+                'date_expired'):
+            if entry.get(date_name, None) is not None:
+                entry[date_name] = entry[date_name].v.isoformat()
         entry['items'] = entry_items[entry['contract_id']]
         items_redlisted = False
         for item in entry['items']:
