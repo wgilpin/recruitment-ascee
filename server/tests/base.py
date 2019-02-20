@@ -43,7 +43,9 @@ class AsceeTestCase(VCRTestCase):
         warnings.simplefilter("ignore", ResourceWarning)
         warnings.simplefilter("ignore", UserWarning)
         self._started_at = time.time()
-        esi.client_dict.clear()
+        for client in esi.client_dict.values():
+            client.access_token = None
+            client.token_expiry = None
 
     def tearDown(self):
         elapsed = time.time() - self._started_at
