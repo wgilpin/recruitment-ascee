@@ -56,13 +56,16 @@ export default class FetchData {
     }
   }
 
-  get() {
+  get(query_params) {
     let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id || ''}`;
     if('param1' in this.originalParams){
       url += `/${this.originalParams.param1}`;
     }
     if('param2' in this.originalParams){
       url += `/${this.originalParams.param2}`;
+    }
+    if (query_params){
+      url += '?' + Object.keys(query_params).map(key => `${key}=${query_params[key]}`).join('&');
     }
     const tStart = performance.now();
     console.log(`fetch ${url}`);
