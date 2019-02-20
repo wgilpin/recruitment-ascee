@@ -65,7 +65,7 @@ def get_party_ids(wallet_data):
 def get_party_data(party_ids):
     data_dict = get_id_data(party_ids)
     party_data = {}
-    for corporation in data_dict['corporation'].values():
+    for corporation in data_dict.get('corporation', {}).values():
         party_data[corporation.id] = {
             'id': corporation.id,
             'name': corporation.name,
@@ -76,7 +76,7 @@ def get_party_data(party_ids):
         }
         if corporation.is_redlisted:
             party_data[corporation.id]['redlisted'].extend(['name', 'corporation_name', 'corporation_ticker'])
-    for character in data_dict['character'].values():
+    for character in data_dict.get('character', {}).values():
         party_data[character.id] = {
             'id': character.id,
             'name': character.name,
