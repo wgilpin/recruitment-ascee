@@ -41,14 +41,18 @@ def get_character_blueprints(character_id, current_user=None):
     type_dict = Type.get_multi(list(type_ids))
     system_dict = System.get_multi(list(set(asset_system_dict.values())))
     for entry in blueprints_list:
+        entry['redlisted'] = []
         type = type_dict[entry['type_id']]
         entry['type_name'] = type.name
-        entry['system_id'] = asset_system_dict[entry['item_id']]
-        system = system_dict[entry['system_id']]
-        entry['system_name'] = system.name
-        entry['redlisted'] = []
-        if system.is_redlisted:
-            entry['redlisted'].append('system_name')
+        if entry['item_id'] in asset_system_dict:
+            entry['system_id'] = asset_system_dict[entry['item_id']]
+            system = system_dict[entry['system_id']]
+            entry['system_name'] = system.name
+            if system.is_redlisted:
+                entry['redlisted'].append('system_name')
+        else:
+            entry['system_id'] = -1
+            entry['system_name'] = 'None'
         if type.is_redlisted:
             entry['redlisted'].append('type_name')
     return {'info': blueprints_list}

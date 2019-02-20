@@ -14,6 +14,7 @@ import warnings
 import time
 from vcr_unittest import VCRTestCase
 import esipy
+import esi
 
 
 def dummy_cache_time_left(expires_header):
@@ -42,6 +43,7 @@ class AsceeTestCase(VCRTestCase):
         warnings.simplefilter("ignore", ResourceWarning)
         warnings.simplefilter("ignore", UserWarning)
         self._started_at = time.time()
+        esi.client_dict.clear()
 
     def tearDown(self):
         elapsed = time.time() - self._started_at
