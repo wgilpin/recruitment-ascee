@@ -14,14 +14,6 @@ def login_required(func):
     return decorated
 
 
-def ensure_has_access(user_id, target_user_id, self_access=False):
-    if not has_access(user_id, target_user_id, self_access=self_access):
-        raise ForbiddenException(
-            'User {} does not have access to target user {}'.format(
-                user_id, target_user_id)
-        )
-
-
 def is_admin(user):
     return isinstance(user.admin, Admin)
 

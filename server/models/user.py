@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
     characters = db.relationship('Character', uselist=True, back_populates='user')
     recruiter = db.relationship('Recruiter', uselist=False)
     admin = db.relationship('Admin', uselist=False)
+    applications = db.relationship('Application', uselist=True, back_populates='user')
 
     @classmethod
     def get(cls, id):
@@ -29,6 +30,7 @@ class Recruiter(db.Model):
     __tablename__ = 'recruiter'
     id = db.Column(db.Integer, db.ForeignKey(User.id), primary_key=True)
     user = db.relationship(User)
+    applications = db.relationship('Application', uselist=True, back_populates='recruiter')
     is_senior = db.Column(db.Boolean, default=False)
 
 
