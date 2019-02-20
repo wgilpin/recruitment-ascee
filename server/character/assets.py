@@ -19,7 +19,7 @@ def get_character_assets(character_id, current_user=None):
     for entry in asset_list:
         type = type_dict[entry['type_id']]
         entry['name'] = type.name
-        entry['price'] = entry['quantity'] * type.price
+        entry['price'] = type.price
         entry['redlisted'] = []
         if type.is_redlisted:
             entry['redlisted'].append('name')
