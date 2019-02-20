@@ -176,6 +176,7 @@ export default class Applicant extends Component {
     }
     return (
       < >
+        <div style={styles.logout}><a href="/auth/logout">Sign out</a></div>
         {this.buildHeader()}
         <Tabs>
           <TabList>
