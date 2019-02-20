@@ -1,0 +1,223 @@
+{
+    "get_op": {
+        "(('get_characters_character_id_mining',), (('character_id', 2114496483), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": [
+            {
+                "date": "2019-02-19",
+                "quantity": 2538,
+                "solar_system_id": 30011407,
+                "type_id": 1230
+            }
+        ],
+        "(('get_universe_types_type_id',), (('type_id', 1230),))": {
+            "capacity": 0.0,
+            "description": "The most common ore type in the known universe, veldspar can be found almost everywhere. It is still in constant demand as it holds a large portion of the much-used tritanium mineral.\r\n\r\nAvailable in <color='0xFF33FFFF'>1.0</color> security status solar systems or lower.",
+            "dogma_attributes": [
+                {
+                    "attribute_id": 161,
+                    "value": 0.1
+                },
+                {
+                    "attribute_id": 162,
+                    "value": 0.0
+                },
+                {
+                    "attribute_id": 2115,
+                    "value": 0.0
+                },
+                {
+                    "attribute_id": 4,
+                    "value": 4000.0
+                },
+                {
+                    "attribute_id": 182,
+                    "value": 3386.0
+                },
+                {
+                    "attribute_id": 38,
+                    "value": 0.0
+                },
+                {
+                    "attribute_id": 2699,
+                    "value": 1.0
+                },
+                {
+                    "attribute_id": 1940,
+                    "value": 28432.0
+                },
+                {
+                    "attribute_id": 1941,
+                    "value": 100.0
+                },
+                {
+                    "attribute_id": 790,
+                    "value": 12195.0
+                },
+                {
+                    "attribute_id": 2711,
+                    "value": 1230.0
+                }
+            ],
+            "group_id": 462,
+            "icon_id": 232,
+            "market_group_id": 518,
+            "mass": 4000.0,
+            "name": "Veldspar",
+            "packaged_volume": 0.1,
+            "portion_size": 100,
+            "published": true,
+            "radius": 1.0,
+            "type_id": 1230,
+            "volume": 0.1
+        },
+        "(('get_universe_systems_system_id',), (('system_id', 30011407),))": {
+            "constellation_id": 20000206,
+            "name": "Akiainavas",
+            "planets": [
+                {
+                    "planet_id": 40340602
+                },
+                {
+                    "moons": [
+                        40340604
+                    ],
+                    "planet_id": 40340603
+                },
+                {
+                    "moons": [
+                        40340606
+                    ],
+                    "planet_id": 40340605
+                },
+                {
+                    "moons": [
+                        40340608,
+                        40340609
+                    ],
+                    "planet_id": 40340607
+                },
+                {
+                    "moons": [
+                        40340611,
+                        40340612
+                    ],
+                    "planet_id": 40340610
+                },
+                {
+                    "asteroid_belts": [
+                        40340614,
+                        40340616,
+                        40340618,
+                        40340619,
+                        40340630,
+                        40340631,
+                        40340633,
+                        40340634,
+                        40340635,
+                        40340636,
+                        40340637,
+                        40340639,
+                        40340640,
+                        40340641,
+                        40340642,
+                        40340644
+                    ],
+                    "moons": [
+                        40340615,
+                        40340617,
+                        40340620,
+                        40340621,
+                        40340622,
+                        40340623,
+                        40340624,
+                        40340625,
+                        40340626,
+                        40340627,
+                        40340628,
+                        40340629,
+                        40340632,
+                        40340638,
+                        40340643
+                    ],
+                    "planet_id": 40340613
+                },
+                {
+                    "asteroid_belts": [
+                        40340646
+                    ],
+                    "moons": [
+                        40340647,
+                        40340648
+                    ],
+                    "planet_id": 40340645
+                },
+                {
+                    "asteroid_belts": [
+                        40340650
+                    ],
+                    "moons": [
+                        40340651,
+                        40340652
+                    ],
+                    "planet_id": 40340649
+                }
+            ],
+            "position": {
+                "x": -1.6510850773785706e+17,
+                "y": 9.94436364816238e+16,
+                "z": 1.170239446617018e+17
+            },
+            "security_class": "A",
+            "security_status": 0.7452549338340759,
+            "star_id": 40340601,
+            "stargates": [
+                50014138
+            ],
+            "stations": [
+                60015001
+            ],
+            "system_id": 30011407
+        },
+        "(('get_universe_constellations_constellation_id',), (('constellation_id', 20000206),))": {
+            "constellation_id": 20000206,
+            "name": "Karnola",
+            "position": {
+                "x": -1.7478582290447066e+17,
+                "y": 1.0012748058892402e+17,
+                "z": 1.1751408164443371e+17
+            },
+            "region_id": 10000016,
+            "systems": [
+                30001404,
+                30001405,
+                30001406,
+                30001407,
+                30001408,
+                30001409,
+                30011407
+            ]
+        },
+        "(('get_universe_regions_region_id',), (('region_id', 10000016),))": {
+            "constellations": [
+                20000198,
+                20000199,
+                20000200,
+                20000201,
+                20000202,
+                20000203,
+                20000204,
+                20000205,
+                20000206,
+                20000207,
+                20000208,
+                20000209,
+                20000210,
+                20000211,
+                20000212
+            ],
+            "description": "\"Our surveys show that there are many planets capable of sustaining life in these systems. However, the lack of a proper stargate network has drastically increased the travel time for our mission. I think it is worth it. I don't trust those Gallente further than I could throw one, and that isn't very far, given their indulgences.\n\nThe initial speculation for a fallback position seems to be sustainable, but we have one potential problem. The long-range probes we sent out have been reporting some strange readings. Our science teams think they are reading stargates and an adjoining region, which is disturbing. I do not think it possible that the Gallente have yet moved that far. Until we can confirm these readings and determine who or what these stargates belong to, it would be ill-advised to place ourselves in a position where we have our movement restricted on multiple fronts.\"\n\n<i>-Minato Zumari, Caldari Navy Commander </i>",
+            "name": "Lonetrek",
+            "region_id": 10000016
+        }
+    },
+    "get_paged_op": {}
+}

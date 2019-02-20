@@ -15,7 +15,7 @@ import time
 from vcr_unittest import VCRTestCase
 import esipy
 import esi
-from tests.json_mock import JsonFunctionMocker
+from json_mock import JsonFunctionMocker
 
 
 def dummy_cache_time_left(expires_header):
@@ -48,8 +48,7 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
         for client in esi.client_dict.values():
             client.access_token = None
             client.token_expiry = None
-        mock_basename = '{}.{}.{}.json'.format(
-            os.path.basename(__file__).strip('.py'),
+        mock_basename = '{}.{}.json'.format(
             self.__class__.__name__,
             self._testMethodName
         )

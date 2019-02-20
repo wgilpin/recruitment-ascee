@@ -393,7 +393,7 @@ class Structure(db.Model):
                 db.session.delete(structure)
                 db.session.commit()
             try:
-                structure_data = character.esi.get_op(
+                structure_data = character.get_op(
                     'get_universe_structures_structure_id',
                     structure_id=id,
                 )
@@ -490,10 +490,10 @@ class Character(db.Model):
             db.session.commit()
         return return_items
 
-    def esi.get_op(self, op_name, **kwargs):
+    def get_op(self, op_name, **kwargs):
         return esi.get_op(op_name, refresh_token=self.refresh_token, **kwargs)
 
-    def esi.get_paged_op(self, op_name, **kwargs):
+    def get_paged_op(self, op_name, **kwargs):
         return esi.get_paged_op(op_name, refresh_token=self.refresh_token, **kwargs)
 
     @property

@@ -10,7 +10,6 @@ def get_character_calendar(character_id, current_user=None):
         character_id=character_id
     )
     for entry in calendar_data:
-        entry['event_date'] = entry['event_date'].v.isoformat()
         entry.update(
             get_character_calendar_event(
                 character_id, entry['event_id'], current_user=current_user
