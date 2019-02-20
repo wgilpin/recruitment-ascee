@@ -37,7 +37,7 @@ def api_character_market_contracts(character_id):
     return jsonify(get_character_market_contracts(character_id, current_user=current_user))
 
 
-@app.route('/api/character/<int:character_id>/market_history', methods=['GET'])
+@app.route('/api/character/<int:character_id>/market', methods=['GET'])
 @login_required
 def api_character_market_history(character_id):
     """
