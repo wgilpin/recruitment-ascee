@@ -15,6 +15,7 @@ export default class Applicant extends Component {
       altsDone: false,
       ready: false,
       has_application: false,
+      submitted: false,
     };
     this.answers = {};
   }
@@ -81,7 +82,7 @@ export default class Applicant extends Component {
           if (res.status > 401) {
             return alert('Error submitting\n' + res.statusText);
           }
-          alert('Submitted')
+          this.setState({ submitted: true });
         })
         .catch(() => alert('Error submitting'));
     } else {
@@ -174,8 +175,9 @@ export default class Applicant extends Component {
     if (!this.state.has_application) {
       return this.buildHeader();
     }
-    return (
-      < >
+    return [
+      this.state.submitted && <React.Fragment >
+        <div style={styles.logout}><a href="/auth/logout">Sign out</a></div>
         {this.buildHeader()}
         <Tabs>
           <TabList>
@@ -185,7 +187,8 @@ export default class Applicant extends Component {
           {this.buildAltsPanel()}
           {this.buildQuestionsPanel()}
         </Tabs>
-      </>
-    );
+      </React.Fragment>,
+      this.state.submitted && <h1>Application Submitted</h1>
+    ];
   }
 }

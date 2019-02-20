@@ -52,7 +52,12 @@ const styles = {
   },
   tab: {
     width: '20%',
-  }
+  },
+  logout: {
+    position: 'absolute',
+    right: '16px',
+    top: '8px',
+  },
 };
 
 class Admin extends Component {
@@ -99,6 +104,7 @@ class Admin extends Component {
     return (
       < >
         <h1 style={styles.h1}>Admin</h1>
+        <div style={styles.logout}><a href="/auth/logout">Sign out</a></div>
         <Tabs>
           <TabList>
             <Tab style={styles.tab}>     Questions     </Tab>
