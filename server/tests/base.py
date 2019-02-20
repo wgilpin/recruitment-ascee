@@ -15,6 +15,7 @@ import time
 from vcr_unittest import VCRTestCase
 import esipy
 import esi
+from tests.json_mock import JsonFunctionMocker
 
 
 def dummy_cache_time_left(expires_header):
@@ -47,6 +48,19 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
         for client in esi.client_dict.values():
             client.access_token = None
             client.token_expiry = None
+        mock_basename = '{}.{}.{}.json'.format(
+            os.path.basename(__file__).strip('.py'),
+            self.__class__.__name__,
+            self._testMethodName
+        )
+        mock_filename = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            'cassettes',
+            mock_basename
+        )
+        self._mocker = JsonFunctionMocker(mock_filename)
+        esi.get_op = self._mocker.mock_function(esi.get_op)
+        esi.get_paged_op = self._mocker.mock_function(esi.get_paged_op)
 
     def tearDown(self):
         elapsed = time.time() - self._started_at
@@ -54,6 +68,7 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
             print(f'\n{self.id()} ({round(elapsed, 2)}s)')
         super(AsceeTestCase, self).tearDown()
         self.clearDB()
+        self._mocker.save()
 
     def initDB(self):
         self.clearDB()
