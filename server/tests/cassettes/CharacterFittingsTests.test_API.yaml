@@ -4,7 +4,184 @@ interactions:
     headers:
       Accept: [application/json]
       Accept-Encoding: ['gzip, deflate']
-      Authorization: [Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVC1TaWduYXR1cmUtS2V5IiwidHlwIjoiSldUIn0.eyJzY3AiOlsicHVibGljRGF0YSIsImVzaS1jYWxlbmRhci5yZXNwb25kX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1jYWxlbmRhci5yZWFkX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1sb2NhdGlvbi5yZWFkX2xvY2F0aW9uLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfc2hpcF90eXBlLnYxIiwiZXNpLW1haWwub3JnYW5pemVfbWFpbC52MSIsImVzaS1tYWlsLnJlYWRfbWFpbC52MSIsImVzaS1tYWlsLnNlbmRfbWFpbC52MSIsImVzaS1za2lsbHMucmVhZF9za2lsbHMudjEiLCJlc2ktc2tpbGxzLnJlYWRfc2tpbGxxdWV1ZS52MSIsImVzaS13YWxsZXQucmVhZF9jaGFyYWN0ZXJfd2FsbGV0LnYxIiwiZXNpLXNlYXJjaC5zZWFyY2hfc3RydWN0dXJlcy52MSIsImVzaS1jbG9uZXMucmVhZF9jbG9uZXMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLXVuaXZlcnNlLnJlYWRfc3RydWN0dXJlcy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jaGFyYWN0ZXJfYm9va21hcmtzLnYxIiwiZXNpLWtpbGxtYWlscy5yZWFkX2tpbGxtYWlscy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9jb3Jwb3JhdGlvbl9tZW1iZXJzaGlwLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2Fzc2V0cy52MSIsImVzaS1wbGFuZXRzLm1hbmFnZV9wbGFuZXRzLnYxIiwiZXNpLWZsZWV0cy5yZWFkX2ZsZWV0LnYxIiwiZXNpLWZsZWV0cy53cml0ZV9mbGVldC52MSIsImVzaS11aS5vcGVuX3dpbmRvdy52MSIsImVzaS11aS53cml0ZV93YXlwb2ludC52MSIsImVzaS1jaGFyYWN0ZXJzLndyaXRlX2NvbnRhY3RzLnYxIiwiZXNpLWZpdHRpbmdzLnJlYWRfZml0dGluZ3MudjEiLCJlc2ktZml0dGluZ3Mud3JpdGVfZml0dGluZ3MudjEiLCJlc2ktbWFya2V0cy5zdHJ1Y3R1cmVfbWFya2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdHJ1Y3R1cmVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9sb3lhbHR5LnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9vcHBvcnR1bml0aWVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9jaGF0X2NoYW5uZWxzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfYWdlbnRzX3Jlc2VhcmNoLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY2hhcmFjdGVyX2pvYnMudjEiLCJlc2ktbWFya2V0cy5yZWFkX2NoYXJhY3Rlcl9vcmRlcnMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2JsdWVwcmludHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvcnBvcmF0aW9uX3JvbGVzLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfb25saW5lLnYxIiwiZXNpLWNvbnRyYWN0cy5yZWFkX2NoYXJhY3Rlcl9jb250cmFjdHMudjEiLCJlc2ktY2xvbmVzLnJlYWRfaW1wbGFudHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2ZhdGlndWUudjEiLCJlc2kta2lsbG1haWxzLnJlYWRfY29ycG9yYXRpb25fa2lsbG1haWxzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy50cmFja19tZW1iZXJzLnYxIiwiZXNpLXdhbGxldC5yZWFkX2NvcnBvcmF0aW9uX3dhbGxldHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX25vdGlmaWNhdGlvbnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZGl2aXNpb25zLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2NvcnBvcmF0aW9uX2Fzc2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF90aXRsZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfYmx1ZXByaW50cy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jb3Jwb3JhdGlvbl9ib29rbWFya3MudjEiLCJlc2ktY29udHJhY3RzLnJlYWRfY29ycG9yYXRpb25fY29udHJhY3RzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdGFyYmFzZXMudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jb3Jwb3JhdGlvbl9qb2JzLnYxIiwiZXNpLW1hcmtldHMucmVhZF9jb3Jwb3JhdGlvbl9vcmRlcnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfY29udGFpbmVyX2xvZ3MudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jaGFyYWN0ZXJfbWluaW5nLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY29ycG9yYXRpb25fbWluaW5nLnYxIiwiZXNpLXBsYW5ldHMucmVhZF9jdXN0b21zX29mZmljZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZmFjaWxpdGllcy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3RpdGxlcy52MSIsImVzaS1hbGxpYW5jZXMucmVhZF9jb250YWN0cy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY2hhcmFjdGVyc3RhdHMucmVhZC52MSJdLCJqdGkiOiI1ZWZiMTU2Ny1hMzJmLTQ4ZjYtODlkOS04ZTBlYWQwYzdjMWUiLCJraWQiOiJKV1QtU2lnbmF0dXJlLUtleSIsInN1YiI6IkNIQVJBQ1RFUjpFVkU6MjExNDQ5NjQ4MyIsImF6cCI6ImQ0Mjc0MWNlYWY3MTQwMDQ5ZGI5NWVjNjVkZGE1NzQyIiwibmFtZSI6IlR3aW5lIEVuYWthIiwib3duZXIiOiJUVHloSG9CbU5uSUpHOGlYZTh6MWkyY1lPTGs9IiwiZXhwIjoxNTUwNTQwODYyLCJpc3MiOiJsb2dpbi5ldmVvbmxpbmUuY29tIn0.N_r3tZ8BH4wYnMLbkrr9UuNGnULNgmTJbkBPe1-DqZmVp1BtuUQOcFFV2nXY3kFqG0AG38U7cDxiOO0-EWJofvowlRdGO2yKMtM9Efo4GgAv7UELPmUynHKF4ZOJ9GBOXKBXjPvsMzJrTCf5OdUU14_0tAXRuCJuKMFC5iPfC25vls80VwXp8Cg4E9b-Xie0ZPR8JwrUSkvWVP-3rSCbnaZK_AgTIratzO9egT2AHZWlHiUiu7_EpLfkxb3sAOdsekW7XBKBc8nv3RdHrZyKKdt25HStDxOlARjX4nvsSBvdsX-qWaWS7tYxarnItBLC8T1zqvApM0MQsAg1RXO5eg]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/2114496483/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":7,"birthday":"2018-09-07T22:28:20Z","bloodline_id":2,"corporation_id":98589569,"description":"","gender":"female","name":"Twine
+        Enaka","race_id":1,"security_status":0.12144477092208232}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['200']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Wed, 20 Feb 2019 03:35:17 GMT']
+      Etag: ['"b1845d4d54bc90a1ddbd6a6544dd375be6373faf1dde1b7341dd7e43"']
+      Expires: ['Wed, 20 Feb 2019 04:30:59 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:30:59 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['43']
+      X-Esi-Request-Id: [d1ac9a85-74d6-4448-a7ef-f71ea457663c]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/2112166943/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":41,"birthday":"2017-01-01T22:22:18Z","bloodline_id":14,"corporation_id":1000172,"description":"","gender":"male","name":"Takeschi
+        Kovacs","race_id":2,"security_status":0.00035000000000000005}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['206']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Wed, 20 Feb 2019 03:35:17 GMT']
+      Etag: ['"1379a9270d8e68b4d6e7ec5fd289de3503f97196cdf3884bc51333f7"']
+      Expires: ['Wed, 20 Feb 2019 04:27:59 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:27:59 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['43']
+      X-Esi-Request-Id: [c4cb5139-d710-4d2c-8903-5f72cac2863a]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://login.eveonline.com/.well-known/oauth-authorization-server
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAEAL2RwWoDMQxE/8XnEEOgPewX9N5jKcb1Cq+yjmQseUNa+u+1E1pIulDaQ69i3ow0
+        ejMoUqGYwSSOSFtYgCkhwTbwwWyMrzpxwVevyOSAxsxI2uSTapbB2hXMLjvLHbSfNDQn5Rl+73Cm
+        Gl1AMpOA01MGcVJz5qIwmuHJBB6/AszzxuyPs7ha8IeMS0AXn/0XDn87sqMzrHu4rnAHaDWMt1sn
+        hCYQCAXUvXjB0Dyup5lFvw33R+1XXvf5z0GCkZCi8ym6xad6+5KHx93dfYf7b1yYfEpAEdYXvGjf
+        PwAZoQUijAIAAA==
+    headers:
+      Cache-Control: [no-cache]
+      Content-Encoding: [gzip]
+      Content-Length: ['238']
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 20 Feb 2019 03:35:17 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      Server: [Microsoft-IIS/8.5]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://login.eveonline.com/oauth/jwks
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAEAFWSWY+iUBCF/wvPfROazXv7jU1UQGVfJhPCDs2iLArY8b83ZmY6mbfvJFWn6iTn
+        C6vSZcA+fn1hYZ1jH5hoEDSDvWFxf1/VGfxRVZmsCudxnECCCDiIIKDELQ8gDRkgCBTLIgqyIkG8
+        hsflZcSveBvSFYcyX3leKdYHGvG7kEQT01Cw64puyd2jqzRslF3hMqaa+SlxZYr268bLxmg2rXFy
+        9p0Sw1mVaV4vxDI9l6g83ipjdIth6L3EKNUKx55v/1Lof1O8rrMay/1EODgmMMq8DcdbnwI5XX7+
+        1Q125XalNi3O2marvXsyqFN52ecgZHk/NIEQmQptv7tXNy9GxQ0ikQfZNBeJGFCLJgtbJmaBTcWA
+        rgo4qX6UeRM9z7mKhKUt1MruG227eBypqf60JD0iCMsZyEp5gPbE3Eu8TvgWZJmKLol11nd3ZEWF
+        SkccZfgj3197VDhafiC3nw/nRMiXQdJgGCuzMgpaZgV1h5+kx+UzuDiTJYfH4GRnN4g/JHO3aWY7
+        ldRD57gsJyc0wS13z2/JSQkKicGFTHAkO5gzpd6pY+BcZL/pXZOySY7nmqgcD0ydhOTlmBzTnVVQ
+        kCm7UKHISNUJmTIf/XCVVN3y3PiWWBoyl5jTuN6qTUgfdQ+Z6Wn6rw3P389v04eHqnoCAAA=
+    headers:
+      Cache-Control: [no-cache]
+      Content-Encoding: [gzip]
+      Content-Length: ['509']
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 20 Feb 2019 03:35:17 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      Server: [Microsoft-IIS/8.5]
+    status: {code: 200, message: OK}
+- request:
+    body: grant_type=refresh_token&refresh_token=rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic ZDQyNzQxY2VhZjcxNDAwNDlkYjk1ZWM2NWRkYTU3NDI6WGtrZ1R1ODlXMWRpdzJPanJ3R2xhdjVUMmtvdWQ3VFBRb2VQYmpvRQ==]
+      Connection: [keep-alive]
+      Content-Length: ['446']
+      Content-Type: [application/x-www-form-urlencoded]
+      User-Agent: [ascee-recruit]
+    method: POST
+    uri: https://login.eveonline.com/v2/oauth/token
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Cache-Control: [no-store]
+      Content-Encoding: [gzip]
+      Content-Length: ['1640']
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 20 Feb 2019 03:35:18 GMT']
+      Pragma: [no-cache]
+      Server: [Microsoft-IIS/8.5]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVC1TaWduYXR1cmUtS2V5IiwidHlwIjoiSldUIn0.eyJzY3AiOlsicHVibGljRGF0YSIsImVzaS1jYWxlbmRhci5yZXNwb25kX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1jYWxlbmRhci5yZWFkX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1sb2NhdGlvbi5yZWFkX2xvY2F0aW9uLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfc2hpcF90eXBlLnYxIiwiZXNpLW1haWwub3JnYW5pemVfbWFpbC52MSIsImVzaS1tYWlsLnJlYWRfbWFpbC52MSIsImVzaS1tYWlsLnNlbmRfbWFpbC52MSIsImVzaS1za2lsbHMucmVhZF9za2lsbHMudjEiLCJlc2ktc2tpbGxzLnJlYWRfc2tpbGxxdWV1ZS52MSIsImVzaS13YWxsZXQucmVhZF9jaGFyYWN0ZXJfd2FsbGV0LnYxIiwiZXNpLXNlYXJjaC5zZWFyY2hfc3RydWN0dXJlcy52MSIsImVzaS1jbG9uZXMucmVhZF9jbG9uZXMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLXVuaXZlcnNlLnJlYWRfc3RydWN0dXJlcy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jaGFyYWN0ZXJfYm9va21hcmtzLnYxIiwiZXNpLWtpbGxtYWlscy5yZWFkX2tpbGxtYWlscy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9jb3Jwb3JhdGlvbl9tZW1iZXJzaGlwLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2Fzc2V0cy52MSIsImVzaS1wbGFuZXRzLm1hbmFnZV9wbGFuZXRzLnYxIiwiZXNpLWZsZWV0cy5yZWFkX2ZsZWV0LnYxIiwiZXNpLWZsZWV0cy53cml0ZV9mbGVldC52MSIsImVzaS11aS5vcGVuX3dpbmRvdy52MSIsImVzaS11aS53cml0ZV93YXlwb2ludC52MSIsImVzaS1jaGFyYWN0ZXJzLndyaXRlX2NvbnRhY3RzLnYxIiwiZXNpLWZpdHRpbmdzLnJlYWRfZml0dGluZ3MudjEiLCJlc2ktZml0dGluZ3Mud3JpdGVfZml0dGluZ3MudjEiLCJlc2ktbWFya2V0cy5zdHJ1Y3R1cmVfbWFya2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdHJ1Y3R1cmVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9sb3lhbHR5LnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9vcHBvcnR1bml0aWVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9jaGF0X2NoYW5uZWxzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfYWdlbnRzX3Jlc2VhcmNoLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY2hhcmFjdGVyX2pvYnMudjEiLCJlc2ktbWFya2V0cy5yZWFkX2NoYXJhY3Rlcl9vcmRlcnMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2JsdWVwcmludHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvcnBvcmF0aW9uX3JvbGVzLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfb25saW5lLnYxIiwiZXNpLWNvbnRyYWN0cy5yZWFkX2NoYXJhY3Rlcl9jb250cmFjdHMudjEiLCJlc2ktY2xvbmVzLnJlYWRfaW1wbGFudHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2ZhdGlndWUudjEiLCJlc2kta2lsbG1haWxzLnJlYWRfY29ycG9yYXRpb25fa2lsbG1haWxzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy50cmFja19tZW1iZXJzLnYxIiwiZXNpLXdhbGxldC5yZWFkX2NvcnBvcmF0aW9uX3dhbGxldHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX25vdGlmaWNhdGlvbnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZGl2aXNpb25zLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2NvcnBvcmF0aW9uX2Fzc2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF90aXRsZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfYmx1ZXByaW50cy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jb3Jwb3JhdGlvbl9ib29rbWFya3MudjEiLCJlc2ktY29udHJhY3RzLnJlYWRfY29ycG9yYXRpb25fY29udHJhY3RzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdGFyYmFzZXMudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jb3Jwb3JhdGlvbl9qb2JzLnYxIiwiZXNpLW1hcmtldHMucmVhZF9jb3Jwb3JhdGlvbl9vcmRlcnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfY29udGFpbmVyX2xvZ3MudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jaGFyYWN0ZXJfbWluaW5nLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY29ycG9yYXRpb25fbWluaW5nLnYxIiwiZXNpLXBsYW5ldHMucmVhZF9jdXN0b21zX29mZmljZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZmFjaWxpdGllcy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3RpdGxlcy52MSIsImVzaS1hbGxpYW5jZXMucmVhZF9jb250YWN0cy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY2hhcmFjdGVyc3RhdHMucmVhZC52MSJdLCJqdGkiOiJlNTAwN2RiOS00ZGQwLTRiNTYtYTk5My02MGIzODg0NmI1NGMiLCJraWQiOiJKV1QtU2lnbmF0dXJlLUtleSIsInN1YiI6IkNIQVJBQ1RFUjpFVkU6MjExNDQ5NjQ4MyIsImF6cCI6ImQ0Mjc0MWNlYWY3MTQwMDQ5ZGI5NWVjNjVkZGE1NzQyIiwibmFtZSI6IlR3aW5lIEVuYWthIiwib3duZXIiOiJUVHloSG9CbU5uSUpHOGlYZTh6MWkyY1lPTGs9IiwiZXhwIjoxNTUwNjM0OTE4LCJpc3MiOiJsb2dpbi5ldmVvbmxpbmUuY29tIn0.FvM-XW8EVpQ5mdLa4uGuOjZI8gRQuJ9_D8CJcdZWead8vCdPWV-fynjuCHx76Jsj3EUAMUxB-t8sTkNND1OtYXKyZhcrw5BtvYQFzO_jqrwpEwdIGfxwmDSWIBzOyol3hZ2T7tiqQsU6BKd3MOMxvAhFYbUAaaKhXUeNzAu3XQOSuLyiHljPTzMP4P08yOmV_EL3ClYxgq9jnwbIhbafCyplPccf2Clf00STfO-gImRGfJbM3hfGmPqcm4fDbo8JjqDfzwM1z37s0VrxdG4jSVnfYgRTU-c-KGWzduI0ol_RbNB03-GUs4VpGJrevJBBG9PhvJazfp9vNsUITaqSsA]
       Connection: [keep-alive]
       User-Agent: [ascee-recruit]
     method: GET
@@ -36,16 +213,74 @@ interactions:
       Content-Encoding: [gzip]
       Content-Length: ['605']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:11 GMT']
+      Date: ['Wed, 20 Feb 2019 03:35:19 GMT']
       Etag: ['"1b2f1d74f65dcdf59e2a39594368520d77fa3ba73e2ed3f8db90ed64"']
-      Expires: ['Tue, 19 Feb 2019 01:33:11 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:28:11 GMT']
+      Expires: ['Wed, 20 Feb 2019 03:40:19 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:35:19 GMT']
       Strict-Transport-Security: [max-age=31536000]
       Vary: [Accept-Encoding]
       Warning: [199 - This route has an upgrade available]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['49']
-      X-Esi-Request-Id: [d2589d67-cd25-4487-8aea-743da0a624ec]
+      X-Esi-Error-Limit-Reset: ['41']
+      X-Esi-Request-Id: [7731d75f-9fad-4bab-9e3e-0caf9711b1bc]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://login.eveonline.com/.well-known/oauth-authorization-server
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAEAL2RwWoDMQxE/8XnEEOgPewX9N5jKcb1Cq+yjmQseUNa+u+1E1pIulDaQ69i3ow0
+        ejMoUqGYwSSOSFtYgCkhwTbwwWyMrzpxwVevyOSAxsxI2uSTapbB2hXMLjvLHbSfNDQn5Rl+73Cm
+        Gl1AMpOA01MGcVJz5qIwmuHJBB6/AszzxuyPs7ha8IeMS0AXn/0XDn87sqMzrHu4rnAHaDWMt1sn
+        hCYQCAXUvXjB0Dyup5lFvw33R+1XXvf5z0GCkZCi8ym6xad6+5KHx93dfYf7b1yYfEpAEdYXvGjf
+        PwAZoQUijAIAAA==
+    headers:
+      Cache-Control: [no-cache]
+      Content-Encoding: [gzip]
+      Content-Length: ['238']
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 20 Feb 2019 03:35:19 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      Server: [Microsoft-IIS/8.5]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://login.eveonline.com/oauth/jwks
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAEAFWSWY+iUBCF/wvPfROazXv7jU1UQGVfJhPCDs2iLArY8b83ZmY6mbfvJFWn6iTn
+        C6vSZcA+fn1hYZ1jH5hoEDSDvWFxf1/VGfxRVZmsCudxnECCCDiIIKDELQ8gDRkgCBTLIgqyIkG8
+        hsflZcSveBvSFYcyX3leKdYHGvG7kEQT01Cw64puyd2jqzRslF3hMqaa+SlxZYr268bLxmg2rXFy
+        9p0Sw1mVaV4vxDI9l6g83ipjdIth6L3EKNUKx55v/1Lof1O8rrMay/1EODgmMMq8DcdbnwI5XX7+
+        1Q125XalNi3O2marvXsyqFN52ecgZHk/NIEQmQptv7tXNy9GxQ0ikQfZNBeJGFCLJgtbJmaBTcWA
+        rgo4qX6UeRM9z7mKhKUt1MruG227eBypqf60JD0iCMsZyEp5gPbE3Eu8TvgWZJmKLol11nd3ZEWF
+        SkccZfgj3197VDhafiC3nw/nRMiXQdJgGCuzMgpaZgV1h5+kx+UzuDiTJYfH4GRnN4g/JHO3aWY7
+        ldRD57gsJyc0wS13z2/JSQkKicGFTHAkO5gzpd6pY+BcZL/pXZOySY7nmqgcD0ydhOTlmBzTnVVQ
+        kCm7UKHISNUJmTIf/XCVVN3y3PiWWBoyl5jTuN6qTUgfdQ+Z6Wn6rw3P389v04eHqnoCAAA=
+    headers:
+      Cache-Control: [no-cache]
+      Content-Encoding: [gzip]
+      Content-Length: ['509']
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 20 Feb 2019 03:35:20 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      Server: [Microsoft-IIS/8.5]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -84,52 +319,15 @@ interactions:
       Content-Language: [en-us]
       Content-Length: ['515']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:12 GMT']
+      Date: ['Wed, 20 Feb 2019 03:35:21 GMT']
       Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
-      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
+      Expires: ['Wed, 20 Feb 2019 11:05:00 GMT']
       Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
       Strict-Transport-Security: [max-age=31536000]
       Vary: ['Accept-Encoding,Accept-Language']
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['48']
-      X-Esi-Request-Id: [d5371c63-48bb-48dc-bfe1-02c2c290fea2]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Accept-Language: [en-us]
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/universe/types/8419/?datasource=tranquility&language=en-us
-  response:
-    body: {string: '{"capacity":0.0,"description":"Increases the maximum strength
-        of the shield.","dogma_attributes":[{"attribute_id":161,"value":20.0},{"attribute_id":162,"value":0.0},{"attribute_id":4,"value":0.0},{"attribute_id":422,"value":1.0},{"attribute_id":38,"value":0.0},{"attribute_id":72,"value":2200.0},{"attribute_id":9,"value":40.0},{"attribute_id":50,"value":40.0},{"attribute_id":277,"value":1.0},{"attribute_id":182,"value":3425.0},{"attribute_id":983,"value":15.0},{"attribute_id":633,"value":1.0},{"attribute_id":30,"value":150.0}],"dogma_effects":[{"effect_id":13,"is_default":false},{"effect_id":16,"is_default":false},{"effect_id":21,"is_default":false},{"effect_id":2029,"is_default":false}],"group_id":38,"icon_id":1044,"market_group_id":608,"mass":0.0,"name":"Large
-        Azeotropic Restrained Shield Extender","packaged_volume":20.0,"portion_size":1,"published":true,"radius":1.0,"type_id":8419,"volume":20.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Language: [en-us]
-      Content-Length: ['910']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:11 GMT']
-      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
-      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
-      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      Vary: [Accept-Language]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['49']
-      X-Esi-Request-Id: [f6f5a2a1-90e1-49f6-a52b-d50e22ba5074]
+      X-Esi-Error-Limit-Reset: ['39']
+      X-Esi-Request-Id: [bde09c64-75e1-4ad2-872d-d95fd5f5681e]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -2703,15 +2901,15 @@ interactions:
       Connection: [keep-alive]
       Content-Encoding: [gzip]
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:11 GMT']
+      Date: ['Wed, 20 Feb 2019 03:35:21 GMT']
       Etag: ['"740f2436ceb9516502b9f1a589cdb5864c852aa0423a51c58358791b"']
-      Expires: ['Tue, 19 Feb 2019 02:32:17 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:32:17 GMT']
+      Expires: ['Wed, 20 Feb 2019 04:33:34 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:33:34 GMT']
       Strict-Transport-Security: [max-age=31536000]
       Transfer-Encoding: [chunked]
       Vary: [Accept-Encoding]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['49']
-      X-Esi-Request-Id: [bca02205-a644-41b4-a818-739b78bde6d6]
+      X-Esi-Error-Limit-Reset: ['39']
+      X-Esi-Request-Id: [4b108427-be59-47b7-8c50-9944352e530a]
     status: {code: 200, message: OK}
 version: 1

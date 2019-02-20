@@ -4,7 +4,184 @@ interactions:
     headers:
       Accept: [application/json]
       Accept-Encoding: ['gzip, deflate']
-      Authorization: [Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVC1TaWduYXR1cmUtS2V5IiwidHlwIjoiSldUIn0.eyJzY3AiOlsicHVibGljRGF0YSIsImVzaS1jYWxlbmRhci5yZXNwb25kX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1jYWxlbmRhci5yZWFkX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1sb2NhdGlvbi5yZWFkX2xvY2F0aW9uLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfc2hpcF90eXBlLnYxIiwiZXNpLW1haWwub3JnYW5pemVfbWFpbC52MSIsImVzaS1tYWlsLnJlYWRfbWFpbC52MSIsImVzaS1tYWlsLnNlbmRfbWFpbC52MSIsImVzaS1za2lsbHMucmVhZF9za2lsbHMudjEiLCJlc2ktc2tpbGxzLnJlYWRfc2tpbGxxdWV1ZS52MSIsImVzaS13YWxsZXQucmVhZF9jaGFyYWN0ZXJfd2FsbGV0LnYxIiwiZXNpLXNlYXJjaC5zZWFyY2hfc3RydWN0dXJlcy52MSIsImVzaS1jbG9uZXMucmVhZF9jbG9uZXMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLXVuaXZlcnNlLnJlYWRfc3RydWN0dXJlcy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jaGFyYWN0ZXJfYm9va21hcmtzLnYxIiwiZXNpLWtpbGxtYWlscy5yZWFkX2tpbGxtYWlscy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9jb3Jwb3JhdGlvbl9tZW1iZXJzaGlwLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2Fzc2V0cy52MSIsImVzaS1wbGFuZXRzLm1hbmFnZV9wbGFuZXRzLnYxIiwiZXNpLWZsZWV0cy5yZWFkX2ZsZWV0LnYxIiwiZXNpLWZsZWV0cy53cml0ZV9mbGVldC52MSIsImVzaS11aS5vcGVuX3dpbmRvdy52MSIsImVzaS11aS53cml0ZV93YXlwb2ludC52MSIsImVzaS1jaGFyYWN0ZXJzLndyaXRlX2NvbnRhY3RzLnYxIiwiZXNpLWZpdHRpbmdzLnJlYWRfZml0dGluZ3MudjEiLCJlc2ktZml0dGluZ3Mud3JpdGVfZml0dGluZ3MudjEiLCJlc2ktbWFya2V0cy5zdHJ1Y3R1cmVfbWFya2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdHJ1Y3R1cmVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9sb3lhbHR5LnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9vcHBvcnR1bml0aWVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9jaGF0X2NoYW5uZWxzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfYWdlbnRzX3Jlc2VhcmNoLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY2hhcmFjdGVyX2pvYnMudjEiLCJlc2ktbWFya2V0cy5yZWFkX2NoYXJhY3Rlcl9vcmRlcnMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2JsdWVwcmludHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvcnBvcmF0aW9uX3JvbGVzLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfb25saW5lLnYxIiwiZXNpLWNvbnRyYWN0cy5yZWFkX2NoYXJhY3Rlcl9jb250cmFjdHMudjEiLCJlc2ktY2xvbmVzLnJlYWRfaW1wbGFudHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2ZhdGlndWUudjEiLCJlc2kta2lsbG1haWxzLnJlYWRfY29ycG9yYXRpb25fa2lsbG1haWxzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy50cmFja19tZW1iZXJzLnYxIiwiZXNpLXdhbGxldC5yZWFkX2NvcnBvcmF0aW9uX3dhbGxldHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX25vdGlmaWNhdGlvbnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZGl2aXNpb25zLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2NvcnBvcmF0aW9uX2Fzc2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF90aXRsZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfYmx1ZXByaW50cy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jb3Jwb3JhdGlvbl9ib29rbWFya3MudjEiLCJlc2ktY29udHJhY3RzLnJlYWRfY29ycG9yYXRpb25fY29udHJhY3RzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdGFyYmFzZXMudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jb3Jwb3JhdGlvbl9qb2JzLnYxIiwiZXNpLW1hcmtldHMucmVhZF9jb3Jwb3JhdGlvbl9vcmRlcnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfY29udGFpbmVyX2xvZ3MudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jaGFyYWN0ZXJfbWluaW5nLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY29ycG9yYXRpb25fbWluaW5nLnYxIiwiZXNpLXBsYW5ldHMucmVhZF9jdXN0b21zX29mZmljZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZmFjaWxpdGllcy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3RpdGxlcy52MSIsImVzaS1hbGxpYW5jZXMucmVhZF9jb250YWN0cy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY2hhcmFjdGVyc3RhdHMucmVhZC52MSJdLCJqdGkiOiI1ZWZiMTU2Ny1hMzJmLTQ4ZjYtODlkOS04ZTBlYWQwYzdjMWUiLCJraWQiOiJKV1QtU2lnbmF0dXJlLUtleSIsInN1YiI6IkNIQVJBQ1RFUjpFVkU6MjExNDQ5NjQ4MyIsImF6cCI6ImQ0Mjc0MWNlYWY3MTQwMDQ5ZGI5NWVjNjVkZGE1NzQyIiwibmFtZSI6IlR3aW5lIEVuYWthIiwib3duZXIiOiJUVHloSG9CbU5uSUpHOGlYZTh6MWkyY1lPTGs9IiwiZXhwIjoxNTUwNTQwODYyLCJpc3MiOiJsb2dpbi5ldmVvbmxpbmUuY29tIn0.N_r3tZ8BH4wYnMLbkrr9UuNGnULNgmTJbkBPe1-DqZmVp1BtuUQOcFFV2nXY3kFqG0AG38U7cDxiOO0-EWJofvowlRdGO2yKMtM9Efo4GgAv7UELPmUynHKF4ZOJ9GBOXKBXjPvsMzJrTCf5OdUU14_0tAXRuCJuKMFC5iPfC25vls80VwXp8Cg4E9b-Xie0ZPR8JwrUSkvWVP-3rSCbnaZK_AgTIratzO9egT2AHZWlHiUiu7_EpLfkxb3sAOdsekW7XBKBc8nv3RdHrZyKKdt25HStDxOlARjX4nvsSBvdsX-qWaWS7tYxarnItBLC8T1zqvApM0MQsAg1RXO5eg]
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/2114496483/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":7,"birthday":"2018-09-07T22:28:20Z","bloodline_id":2,"corporation_id":98589569,"description":"","gender":"female","name":"Twine
+        Enaka","race_id":1,"security_status":0.12144477092208232}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['200']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Wed, 20 Feb 2019 03:34:38 GMT']
+      Etag: ['"b1845d4d54bc90a1ddbd6a6544dd375be6373faf1dde1b7341dd7e43"']
+      Expires: ['Wed, 20 Feb 2019 04:30:59 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:30:59 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['22']
+      X-Esi-Request-Id: [3209d566-c7ba-4c44-b938-d3deef13f5c6]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/2112166943/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":41,"birthday":"2017-01-01T22:22:18Z","bloodline_id":14,"corporation_id":1000172,"description":"","gender":"male","name":"Takeschi
+        Kovacs","race_id":2,"security_status":0.00035000000000000005}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['206']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Wed, 20 Feb 2019 03:34:38 GMT']
+      Etag: ['"1379a9270d8e68b4d6e7ec5fd289de3503f97196cdf3884bc51333f7"']
+      Expires: ['Wed, 20 Feb 2019 04:27:59 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:27:59 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['22']
+      X-Esi-Request-Id: [1f414cf3-cae2-405e-9e24-cc501d6a35af]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://login.eveonline.com/.well-known/oauth-authorization-server
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAEAL2RwWoDMQxE/8XnEEOgPewX9N5jKcb1Cq+yjmQseUNa+u+1E1pIulDaQ69i3ow0
+        ejMoUqGYwSSOSFtYgCkhwTbwwWyMrzpxwVevyOSAxsxI2uSTapbB2hXMLjvLHbSfNDQn5Rl+73Cm
+        Gl1AMpOA01MGcVJz5qIwmuHJBB6/AszzxuyPs7ha8IeMS0AXn/0XDn87sqMzrHu4rnAHaDWMt1sn
+        hCYQCAXUvXjB0Dyup5lFvw33R+1XXvf5z0GCkZCi8ym6xad6+5KHx93dfYf7b1yYfEpAEdYXvGjf
+        PwAZoQUijAIAAA==
+    headers:
+      Cache-Control: [no-cache]
+      Content-Encoding: [gzip]
+      Content-Length: ['238']
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 20 Feb 2019 03:34:38 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      Server: [Microsoft-IIS/8.5]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://login.eveonline.com/oauth/jwks
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAEAFWSWY+iUBCF/wvPfROazXv7jU1UQGVfJhPCDs2iLArY8b83ZmY6mbfvJFWn6iTn
+        C6vSZcA+fn1hYZ1jH5hoEDSDvWFxf1/VGfxRVZmsCudxnECCCDiIIKDELQ8gDRkgCBTLIgqyIkG8
+        hsflZcSveBvSFYcyX3leKdYHGvG7kEQT01Cw64puyd2jqzRslF3hMqaa+SlxZYr268bLxmg2rXFy
+        9p0Sw1mVaV4vxDI9l6g83ipjdIth6L3EKNUKx55v/1Lof1O8rrMay/1EODgmMMq8DcdbnwI5XX7+
+        1Q125XalNi3O2marvXsyqFN52ecgZHk/NIEQmQptv7tXNy9GxQ0ikQfZNBeJGFCLJgtbJmaBTcWA
+        rgo4qX6UeRM9z7mKhKUt1MruG227eBypqf60JD0iCMsZyEp5gPbE3Eu8TvgWZJmKLol11nd3ZEWF
+        SkccZfgj3197VDhafiC3nw/nRMiXQdJgGCuzMgpaZgV1h5+kx+UzuDiTJYfH4GRnN4g/JHO3aWY7
+        ldRD57gsJyc0wS13z2/JSQkKicGFTHAkO5gzpd6pY+BcZL/pXZOySY7nmqgcD0ydhOTlmBzTnVVQ
+        kCm7UKHISNUJmTIf/XCVVN3y3PiWWBoyl5jTuN6qTUgfdQ+Z6Wn6rw3P389v04eHqnoCAAA=
+    headers:
+      Cache-Control: [no-cache]
+      Content-Encoding: [gzip]
+      Content-Length: ['509']
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 20 Feb 2019 03:34:39 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      Server: [Microsoft-IIS/8.5]
+    status: {code: 200, message: OK}
+- request:
+    body: grant_type=refresh_token&refresh_token=rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic ZDQyNzQxY2VhZjcxNDAwNDlkYjk1ZWM2NWRkYTU3NDI6WGtrZ1R1ODlXMWRpdzJPanJ3R2xhdjVUMmtvdWQ3VFBRb2VQYmpvRQ==]
+      Connection: [keep-alive]
+      Content-Length: ['446']
+      Content-Type: [application/x-www-form-urlencoded]
+      User-Agent: [ascee-recruit]
+    method: POST
+    uri: https://login.eveonline.com/v2/oauth/token
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAEAJVXWXeiWBD+L3nunsMSjMw5/RA1ILRgQFkuLzlshuWCKIvAnPnvU2DHiNFu58EH
+        L7V9X9WtqvvPg+26fp6/FdvYTx/+fvAbMXB4N1yG4kprBVIOhVxIisyaCiMhzkx9Sq5twyuRqZJu
+        ohUrSmeE8BB6c3wQom24wp4mpMRfYKdF9HO4xHnozvXQ4XGk8hyBVp09vbVXZISMGjuJGrgh01im
+        fHAoJjYpGfzrpcVzjUnplGUwhNswlHRLz+Du0ckdkPF4XDknnbpCFEfYBlsuUlR3GCCGbGGcn4sY
+        GerGpYLM5VjCNyd4KEsGtnEoHVpMkcFkfqJvHIPLnOnAd4EMnH/Yuv1d7jBd+97aFM6duVS6iR5Y
+        HHv670Uv4WIqYpeKC5cqMoev28+Y+/+1Z+iktRrYo4G/3DKVD3uRDbwhQyYsU9x4FJcDl8QApylj
+        ZIqRPWVa4K5BVLBxabXxQMczwf9FfhyeLS3zFO/p/3m8YCNwEy7yeL0B/Y88Vk6qBohW26F/vbRN
+        C7vA0Qnfbf+hQ7F74LGxaekqRpSwlU2R4L8Y+jF6zvp8fMY0OBvipMUD/I51lZ7hPT/HbGEZJNgX
+        W5vHh6E/rnUpnfj0dfp/7ufg8BzwB5wkZOAkXGrp7OfZwJ6VW8a5veP/GzK0m2ACbCWQb+wNa460
+        V0zlwp0yaS+Duqy85sv3D30amRjuLi4vbJxzDnF6jW2q+GaODSvz5ir48k41bIF94LC06GHtDM5p
+        MYMauinb18GR09abiyT4hb7V39OP83tyeq57Ebe8hbvR4YH6PMnnDo0DZ64yd8hW7nxSualKOoDB
+        Nu6y33FLAJdb6DulZdT36EAdqsFl37h6D2mZALuxbTDpJT/DnB7zhAwPQ05bk+5s6mBP3g7jgbzM
+        9Y5D5qRz5teksgqlN/P20Rs+MWHgLDli+3NPEXPogQeo1dK7BzvUp5tCPpLjDABMFdyP9k8zAmZX
+        DnxdzIe+1nu+buCIQI/oY/gSW105fa0d7dvGsQ/ch8Hq6jf1DG0g288NvptZn3MCUWzj8mwD8zyD
+        WDZDmSGWc17AVx+3TX72t2HP9mAm111fucHrr+934WEqwJPYhny6l0OdAYbP/sFjyoZYjme/xfL7
+        +fOlT19gud63b/USAvpg/nUeXseAkpq0zEljf91prs65i9kzkLnwB7Uk/sJ6vRaGMnfw95u+cbOv
+        dv0k4dpLPsBG7Jlwb9L4FradQ13UnNHP9L6mbujc6Bs3uO/w87CPJV2PqqvL2XItxvM9w4G+13Hx
+        51445P2qnjnJgdsBts63Q5GtSbEJzL/o3pqyuntr1DA38dfd7Xqe/sfsUMFufWm3u+sZxB8N9kLo
+        fb964x9njJV63c4XfO0XNzDelD+L+df3Pp5+dxE9kNt5fAzvH6GWeSu2ZmKMIH60xtFirUbL2TPs
+        gsoBNUQr8VorzSaBnFhYWmudj71tKN3b6adOKoVG4RT2tX5HXWgF9juMqUyisHtLyYKiixOFVDkt
+        yjg91kZS9FLLM4WRI+VRajo+uJHbvbsShZAil5AM2MMNREtr5SCBnMULjGzokRzpscW/kHKrNF29
+        gM/CWoEeVuluJgkveomMIui/0R7sjUIXo6bP8XbFs1NHY8qVls2XPEbWOhhJRtwgEr+u+Zw91l/Q
+        ve1qea0d5EgiljOXAayZS0udHXhbwY4YQm0mOsysGu6LVkJeiu4d+L6UttRyxy6cMYHfA96Wo4XJ
+        7hiqtCft6yxUPbl+VvyDPEr3QSpsl9PN077OXBT7Y6kO321lRTtj9ilYxtgTFSaIX4VmMmkFZrHc
+        EzQh8jv5rVytZ+zSeqlH7Pc8+W7HC/V57LstyngRTbZPE8XNcPu6W7kr6bWest9HbxW7zVAsv491
+        g69tKXtjFE2zZGU3OswSUUX4bR7S1D78qYVoKj86h9GEpiti9LIftTNinj29M4nqPY62Tkku8IbY
+        oMr2v0fEk+varpjMdW20mcuxcPC94m2dQHYmgvSeYS9+NNkwdp4f9YafjMaazGHRa+knPC50hypn
+        20gWLPUJ74VWdU2vYF+TcmI/Po6rQ0XupPFmHODnh28Pfp2Fez9/C+HVTpIs++2hf8K/FU3mwzt+
+        4tt7fw9ye38DYsHpgR9szMBpXqdYS3bllo4cvZiT7z9+PPz7HyTE9K4MEAAA
+    headers:
+      Cache-Control: [no-store]
+      Content-Encoding: [gzip]
+      Content-Length: ['1641']
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 20 Feb 2019 03:34:39 GMT']
+      Pragma: [no-cache]
+      Server: [Microsoft-IIS/8.5]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVC1TaWduYXR1cmUtS2V5IiwidHlwIjoiSldUIn0.eyJzY3AiOlsicHVibGljRGF0YSIsImVzaS1jYWxlbmRhci5yZXNwb25kX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1jYWxlbmRhci5yZWFkX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1sb2NhdGlvbi5yZWFkX2xvY2F0aW9uLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfc2hpcF90eXBlLnYxIiwiZXNpLW1haWwub3JnYW5pemVfbWFpbC52MSIsImVzaS1tYWlsLnJlYWRfbWFpbC52MSIsImVzaS1tYWlsLnNlbmRfbWFpbC52MSIsImVzaS1za2lsbHMucmVhZF9za2lsbHMudjEiLCJlc2ktc2tpbGxzLnJlYWRfc2tpbGxxdWV1ZS52MSIsImVzaS13YWxsZXQucmVhZF9jaGFyYWN0ZXJfd2FsbGV0LnYxIiwiZXNpLXNlYXJjaC5zZWFyY2hfc3RydWN0dXJlcy52MSIsImVzaS1jbG9uZXMucmVhZF9jbG9uZXMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLXVuaXZlcnNlLnJlYWRfc3RydWN0dXJlcy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jaGFyYWN0ZXJfYm9va21hcmtzLnYxIiwiZXNpLWtpbGxtYWlscy5yZWFkX2tpbGxtYWlscy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9jb3Jwb3JhdGlvbl9tZW1iZXJzaGlwLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2Fzc2V0cy52MSIsImVzaS1wbGFuZXRzLm1hbmFnZV9wbGFuZXRzLnYxIiwiZXNpLWZsZWV0cy5yZWFkX2ZsZWV0LnYxIiwiZXNpLWZsZWV0cy53cml0ZV9mbGVldC52MSIsImVzaS11aS5vcGVuX3dpbmRvdy52MSIsImVzaS11aS53cml0ZV93YXlwb2ludC52MSIsImVzaS1jaGFyYWN0ZXJzLndyaXRlX2NvbnRhY3RzLnYxIiwiZXNpLWZpdHRpbmdzLnJlYWRfZml0dGluZ3MudjEiLCJlc2ktZml0dGluZ3Mud3JpdGVfZml0dGluZ3MudjEiLCJlc2ktbWFya2V0cy5zdHJ1Y3R1cmVfbWFya2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdHJ1Y3R1cmVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9sb3lhbHR5LnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9vcHBvcnR1bml0aWVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9jaGF0X2NoYW5uZWxzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfYWdlbnRzX3Jlc2VhcmNoLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY2hhcmFjdGVyX2pvYnMudjEiLCJlc2ktbWFya2V0cy5yZWFkX2NoYXJhY3Rlcl9vcmRlcnMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2JsdWVwcmludHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvcnBvcmF0aW9uX3JvbGVzLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfb25saW5lLnYxIiwiZXNpLWNvbnRyYWN0cy5yZWFkX2NoYXJhY3Rlcl9jb250cmFjdHMudjEiLCJlc2ktY2xvbmVzLnJlYWRfaW1wbGFudHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2ZhdGlndWUudjEiLCJlc2kta2lsbG1haWxzLnJlYWRfY29ycG9yYXRpb25fa2lsbG1haWxzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy50cmFja19tZW1iZXJzLnYxIiwiZXNpLXdhbGxldC5yZWFkX2NvcnBvcmF0aW9uX3dhbGxldHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX25vdGlmaWNhdGlvbnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZGl2aXNpb25zLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2NvcnBvcmF0aW9uX2Fzc2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF90aXRsZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfYmx1ZXByaW50cy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jb3Jwb3JhdGlvbl9ib29rbWFya3MudjEiLCJlc2ktY29udHJhY3RzLnJlYWRfY29ycG9yYXRpb25fY29udHJhY3RzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdGFyYmFzZXMudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jb3Jwb3JhdGlvbl9qb2JzLnYxIiwiZXNpLW1hcmtldHMucmVhZF9jb3Jwb3JhdGlvbl9vcmRlcnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfY29udGFpbmVyX2xvZ3MudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jaGFyYWN0ZXJfbWluaW5nLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY29ycG9yYXRpb25fbWluaW5nLnYxIiwiZXNpLXBsYW5ldHMucmVhZF9jdXN0b21zX29mZmljZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZmFjaWxpdGllcy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3RpdGxlcy52MSIsImVzaS1hbGxpYW5jZXMucmVhZF9jb250YWN0cy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY2hhcmFjdGVyc3RhdHMucmVhZC52MSJdLCJqdGkiOiIxNGZkZDJkYS1hYTljLTRjODAtYWQwYy0zMGUzMDBhNmZlMTUiLCJraWQiOiJKV1QtU2lnbmF0dXJlLUtleSIsInN1YiI6IkNIQVJBQ1RFUjpFVkU6MjExNDQ5NjQ4MyIsImF6cCI6ImQ0Mjc0MWNlYWY3MTQwMDQ5ZGI5NWVjNjVkZGE1NzQyIiwibmFtZSI6IlR3aW5lIEVuYWthIiwib3duZXIiOiJUVHloSG9CbU5uSUpHOGlYZTh6MWkyY1lPTGs9IiwiZXhwIjoxNTUwNjM0ODc5LCJpc3MiOiJsb2dpbi5ldmVvbmxpbmUuY29tIn0.gOMo2Oq9Lb80lghGaNjLX9q52uaBzPDiRdNxAQewN6nrhnIoOCf7rxpcYke8MxigaQS3b897hOkldJQ5hkPIyBBzI5LOr030JGqN_uSTD9OZEx69-sm-akLRA8eczYpGJYBo7BQcplzPqScSMPxC9-6_v9opYkNg8VWGxaMp_5QUUZNQq6wDmJRYl_Hi32riKUiYCN4bw6B33v06Er6zD0Hp7g5mRd46obu1Llf0fYvae-j07ccacJmHVU6fHNkIwedt_TmGE1BIMgpldk4X9ikbA4VyGB68UNFlJdz37l8tVb2uDojNIZR7lrIzRcXdt9PmuBa448vwv1qM8f8hlA]
       Connection: [keep-alive]
       User-Agent: [ascee-recruit]
     method: GET
@@ -32,16 +209,74 @@ interactions:
       Content-Encoding: [gzip]
       Content-Length: ['380']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:03 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:40 GMT']
       Etag: ['"ec24d2b136e91df46c44c6371f9bb1eaa83fe66ae6b261988fbcba43"']
-      Expires: ['Tue, 19 Feb 2019 01:33:02 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:28:02 GMT']
+      Expires: ['Wed, 20 Feb 2019 03:39:39 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:34:39 GMT']
       Strict-Transport-Security: [max-age=31536000]
       Vary: [Accept-Encoding]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['57']
-      X-Esi-Request-Id: [054d0e08-befc-487a-9bfc-defeb3f75953]
+      X-Esi-Error-Limit-Reset: ['20']
+      X-Esi-Request-Id: [7e7ecb61-59ba-4ddf-9246-ec36a1cd9963]
       X-Pages: ['1']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://login.eveonline.com/.well-known/oauth-authorization-server
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAEAL2RwWoDMQxE/8XnEEOgPewX9N5jKcb1Cq+yjmQseUNa+u+1E1pIulDaQ69i3ow0
+        ejMoUqGYwSSOSFtYgCkhwTbwwWyMrzpxwVevyOSAxsxI2uSTapbB2hXMLjvLHbSfNDQn5Rl+73Cm
+        Gl1AMpOA01MGcVJz5qIwmuHJBB6/AszzxuyPs7ha8IeMS0AXn/0XDn87sqMzrHu4rnAHaDWMt1sn
+        hCYQCAXUvXjB0Dyup5lFvw33R+1XXvf5z0GCkZCi8ym6xad6+5KHx93dfYf7b1yYfEpAEdYXvGjf
+        PwAZoQUijAIAAA==
+    headers:
+      Cache-Control: [no-cache]
+      Content-Encoding: [gzip]
+      Content-Length: ['238']
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 20 Feb 2019 03:34:40 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      Server: [Microsoft-IIS/8.5]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://login.eveonline.com/oauth/jwks
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAEAFWSWY+iUBCF/wvPfROazXv7jU1UQGVfJhPCDs2iLArY8b83ZmY6mbfvJFWn6iTn
+        C6vSZcA+fn1hYZ1jH5hoEDSDvWFxf1/VGfxRVZmsCudxnECCCDiIIKDELQ8gDRkgCBTLIgqyIkG8
+        hsflZcSveBvSFYcyX3leKdYHGvG7kEQT01Cw64puyd2jqzRslF3hMqaa+SlxZYr268bLxmg2rXFy
+        9p0Sw1mVaV4vxDI9l6g83ipjdIth6L3EKNUKx55v/1Lof1O8rrMay/1EODgmMMq8DcdbnwI5XX7+
+        1Q125XalNi3O2marvXsyqFN52ecgZHk/NIEQmQptv7tXNy9GxQ0ikQfZNBeJGFCLJgtbJmaBTcWA
+        rgo4qX6UeRM9z7mKhKUt1MruG227eBypqf60JD0iCMsZyEp5gPbE3Eu8TvgWZJmKLol11nd3ZEWF
+        SkccZfgj3197VDhafiC3nw/nRMiXQdJgGCuzMgpaZgV1h5+kx+UzuDiTJYfH4GRnN4g/JHO3aWY7
+        ldRD57gsJyc0wS13z2/JSQkKicGFTHAkO5gzpd6pY+BcZL/pXZOySY7nmqgcD0ydhOTlmBzTnVVQ
+        kCm7UKHISNUJmTIf/XCVVN3y3PiWWBoyl5jTuN6qTUgfdQ+Z6Wn6rw3P389v04eHqnoCAAA=
+    headers:
+      Cache-Control: [no-cache]
+      Content-Encoding: [gzip]
+      Content-Length: ['509']
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 20 Feb 2019 03:34:40 GMT']
+      Expires: ['-1']
+      Pragma: [no-cache]
+      Server: [Microsoft-IIS/8.5]
     status: {code: 200, message: OK}
 - request:
     body: '[3017769, 3017278, 2114847806, 3017284, 3019336, 3019337, 3019338, 3019339,
@@ -98,13 +333,13 @@ interactions:
       Content-Encoding: [gzip]
       Content-Length: ['1184']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:04 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:42 GMT']
       Strict-Transport-Security: [max-age=31536000]
       Vary: [Accept-Encoding]
       Warning: [199 - This route has an upgrade available]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['56']
-      X-Esi-Request-Id: [9008608f-0f51-4294-91f1-74362b2fc776]
+      X-Esi-Error-Limit-Reset: ['18']
+      X-Esi-Request-Id: [2a6ebd31-4d5f-4c43-b0a3-424fd8fd21cb]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -130,14 +365,14 @@ interactions:
       Connection: [keep-alive]
       Content-Length: ['190']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:04 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:42 GMT']
       Etag: ['"e69a787079ac13ce745b87fd0b7e119107e7c6a0ab25364226fb481a"']
-      Expires: ['Tue, 19 Feb 2019 01:46:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:25 GMT']
+      Expires: ['Wed, 20 Feb 2019 03:41:04 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 02:41:04 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['56']
-      X-Esi-Request-Id: [d8f764b3-5e84-468a-b1cd-7b51f3f9be86]
+      X-Esi-Error-Limit-Reset: ['18']
+      X-Esi-Request-Id: [5082b6ac-6322-439a-8c43-5f1ed3a49b5a]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -163,14 +398,47 @@ interactions:
       Connection: [keep-alive]
       Content-Length: ['188']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:04 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:42 GMT']
       Etag: ['"8072dc1b4154f8461ef23cc1166758206bb829e9dc4cf56c19b21b22"']
-      Expires: ['Tue, 19 Feb 2019 01:46:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:25 GMT']
+      Expires: ['Wed, 20 Feb 2019 04:34:42 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:34:42 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['56']
-      X-Esi-Request-Id: [83102bf0-41c8-4d9b-a07f-22ea0731b3cf]
+      X-Esi-Error-Limit-Reset: ['18']
+      X-Esi-Request-Id: [6a77ed66-0729-4b47-993e-b91eb344b132]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/3019352/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":32,"birthday":"2009-01-16T18:28:00Z","bloodline_id":11,"corporation_id":1000167,"description":"","gender":"male","name":"Kokseri
+        Velen","race_id":1,"security_status":0.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['185']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Wed, 20 Feb 2019 03:34:43 GMT']
+      Etag: ['"931ae85f0019ab05ff4632a72ac398d734f167815cc741f5f8e5eeb0"']
+      Expires: ['Wed, 20 Feb 2019 04:34:43 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:34:43 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['17']
+      X-Esi-Request-Id: [67bbfe3d-f75d-447c-8dde-e1ac598ec5b3]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -196,1106 +464,14 @@ interactions:
       Connection: [keep-alive]
       Content-Length: ['193']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:04 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:43 GMT']
       Etag: ['"06130b8dec1af543f4851bccf92094d85dc2f29dec466e9e11ed92d2"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
+      Expires: ['Wed, 20 Feb 2019 04:34:43 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:34:43 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['56']
-      X-Esi-Request-Id: [d925262a-bf50-4e56-87dd-864cb0cae961]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019338/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":39,"birthday":"2009-01-16T17:05:00Z","bloodline_id":13,"corporation_id":1000166,"description":"","gender":"male","name":"Sherkah
-        Ashek","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['185']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Etag: ['"75f21bcc2123922fb2e9fc870341f5227de0b490d06a2d662c4c8e61"']
-      Expires: ['Tue, 19 Feb 2019 01:46:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:25 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [b4dc0352-c43c-4e55-99ff-6c89720df062]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018648/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":6,"birthday":"2006-01-19T14:19:00Z","bloodline_id":6,"corporation_id":1000018,"description":"","gender":"male","name":"Kikko
-        Roisen","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['182']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Etag: ['"3282c518475ead8ef917bb17468423dd635da3ce0ddac3f745735846"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [919faae4-a854-4345-9b95-b51c20c573e1]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018889/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":37,"birthday":"2006-08-19T14:58:00Z","bloodline_id":13,"corporation_id":1000080,"description":"","gender":"male","name":"Jur
-        Zehbani","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['183']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Etag: ['"ab04fc07b09ec256ef5f1e9a0c4fa3a1f2f8ecd72e307312451004eb"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [4a462645-3e5d-4510-bf27-c1f561e78e88]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/2114509950/?datasource=tranquility
-  response:
-    body: {string: '{"alliance_id":1354830081,"ancestry_id":31,"birthday":"2018-09-12T19:31:55Z","bloodline_id":11,"corporation_id":98409330,"description":"","gender":"female","name":"Twine
-        Endashi","race_id":1,"security_status":0.0068106217520666765}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['231']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Etag: ['"9462a026d8a844482588a1f77b5c290e09d4ecd30ecdd2afdb9e2abd"']
-      Expires: ['Tue, 19 Feb 2019 02:28:05 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [ff90e143-a0b9-4f5d-a4e3-2149346c4c0e]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018910/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":21,"birthday":"2006-08-19T15:27:00Z","bloodline_id":3,"corporation_id":1000123,"description":"","gender":"male","name":"Cimalo
-        Mahnab","race_id":2,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Etag: ['"56a50861c124eea2a64dae3a3ba0f06f54457ff28363fd7a8a76cb2d"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [77fc8254-50b6-4658-9780-68ad90a5da7a]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018929/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":31,"birthday":"2007-03-20T14:51:00Z","bloodline_id":11,"corporation_id":1000045,"description":"","gender":"male","name":"Ochishi
-        Veilai","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['186']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Etag: ['"80323196a167a185378cf69813939960d026d8ca2c203405ad547505"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [8d9da529-cdad-4fd2-b012-e0e1c13288a2]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3016404/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":10,"birthday":"2003-12-04T16:29:00Z","bloodline_id":1,"corporation_id":1000014,"description":"","gender":"female","name":"Alurami
-        Konokkokka","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['191']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Etag: ['"0f8bc1833da6edd220d5c152388b0ff85bab56cf3b8e1cc6445d9d22"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [41de1d4a-e4f9-4cde-9f31-4aeaf04ebfe4]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018491/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":10,"birthday":"2005-06-27T11:47:00Z","bloodline_id":1,"corporation_id":1000035,"description":"","gender":"male","name":"Vaktan
-        Sido","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['182']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Etag: ['"ce753e69901aa651ffb771de11e1b8527526d00f9b465efa91c5ba94"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [273a64a0-7280-4bdf-af61-ef2967221e51]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3011446/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":7,"birthday":"2003-05-04T00:33:00Z","bloodline_id":2,"corporation_id":1000018,"description":"","gender":"female","name":"Saila
-        Sunmaa","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Etag: ['"e88065083f1de7a5c007f6402a42521910a7c29eb1e16db9edb1e5e8"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [9609c18b-39e3-4f19-a5a7-0b5003e41799]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000011/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3004209,"creator_id":1,"description":"Wiyrkomi is one
-        of the two Caldari mega corporations where the largest shareholders is a family.
-        Wiyrkomi is still owned by the founding Seituoda family, a name that has always
-        been associated with honor and trustworthiness in Caldari business. ","home_station_id":60001246,"member_count":105,"name":"Wiyrkomi
-        Corporation","shares":27391794718,"tax_rate":0.0,"ticker":"WC"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['421']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:06 GMT']
-      Etag: ['"52847c3844226dffc4deaa2e04899d6592b0aea17fcc058242017e88"']
-      Expires: ['Tue, 19 Feb 2019 01:50:09 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:50:09 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [a66723cf-00c4-4cb9-acad-1d09272fdf06]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/98409330/?datasource=tranquility
-  response:
-    body:
-      string: !!binary |
-        H4sIAAAAAAAA/6xWbW/bthP/Kgf+X/y3QrX14AdJSA1kmZMaWIM06VpsEGCcpZPFmiI1kqrnDfvu
-        A+kmdrqkSLYa8AudSN7v4e6oPxkKwVGWtOQVy6NkPEqTMEyjgJWkfCzOsnEWxtNJwEpNaJX24WyU
-        TpI0jQNWoaVlrXpZUcVyFofR+GU4fRnH76IoT0b5KPyVBawiU2reWa4ky9lJraQFw/+gVwWL4oJB
-        qYTSrwr2v1W9/xVsdlIM3brZ/dXpI6uvFzdz+PkqgIX9vwHLW4JaaYAnnOJOwEkYupwIjab6VcFM
-        o7Zc1iqPi2ExzNJRmCWJW3JqSpKVE+2kGOIzUcLJSs9u/4eTgBtA6LTqK2ipXZEGVX8D7NEkGmcO
-        /8Hags0ulJJmi7qFc6pIo3Nlz+UInP8/mP8xv66p1D23LUnr+JS91iSt2IHqSA7gShAago+Ky8eY
-        xV8wm2ZJRPeYud1nDUpJIn85jeIwnE7G9wxyZMNRlsb3rAJ9APcV2x6j5ksJ5Q5+68k4uQygrMD0
-        q5ZbQAnYdYKXXskncrtzTajyiGBjbWdyxwK5trgSNChVWwztSqzfLvrL9GL8y/wU7eti+Ilv32J3
-        fR6/R7Foq9Ozgs1ez6/nt/z8wc+iObg1/sVNi0LABco1XL2/8lX74ifUa4KbEgW5oI+dYcctCq/G
-        O25RwgfUNWryb+OkGE7hB6WMpQrecMnlGs4FkTX+/TVa60JcglEtuZq3DcGKjAXToesL6SNrbPcn
-        XvZCgKESFrLstXFO7OO0hSuBO9JwrjnJSuzgu0PQwJosIIxDaLkQwM0GjEVtSUOH5QZsgxa4LEVf
-        kQGz4UKslNrsbeZtJ1BaA1aB1cgl1Ggs6e+f0Sf1QeUv2l76/oBS6U7te3EAHxwc23ADLaE0+dcT
-        jf6ZyJdWNIBLBUoSbB1pNBvYqd7XshPAKt+M3vT44aV7whW5Bw1oDH1WoaHWeaN0RdoFnLxug+qt
-        e5S9EIN/p86i9rXgoKDZGI/WNmTI6SHXJvB5UJPL6avHlNi2VHmr3DtJVHkQyvJ6Bwg/8k6oFi0o
-        DZ+HFGngbhNHS2I3uBvLt0t5CaWSFktrIH9uRz8wh5N05Hr67jYt2OwNflQabiTvSD91JB3pFPy3
-        OXMMLdnfEEmajUf+irskyZ85RY6QOZm/FbbpxA/3yXQ0DtPMNc9OSzjTJCuNn0g+hJIFrFEtLY31
-        3eS/VyZhGGbZKAnY/npdlqqX1n3yJJOASWyJ5ezQmCxgpkFNhuVRGIYBs/j7UqMlloeDaBwwy8sN
-        abfn5mw+ZwHrtWC5n9774X131MAPsmJ4dAENuqZjAduiXpLga74SxHKre/rr7wAAAP//Dd7ivpEJ
-        AAA=
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Encoding: [gzip]
-      Content-Length: ['1028']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:07 GMT']
-      Etag: ['"cfffa12a42a05fe81bad72716d256851dccd1edc460ee2e19178cdca"']
-      Expires: ['Tue, 19 Feb 2019 02:00:40 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:00:40 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      Vary: [Accept-Encoding]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['53']
-      X-Esi-Request-Id: [ebdd7003-471c-4f7c-b343-bec7f317f229]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/alliances/1354830081/?datasource=tranquility
-  response:
-    body: {string: '{"creator_corporation_id":459299583,"creator_id":240070320,"date_founded":"2010-06-01T05:36:00Z","executor_corporation_id":1344654522,"name":"Goonswarm
-        Federation","ticker":"CONDI"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['181']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:07 GMT']
-      Etag: ['"7b7362de30f26dae2913a4d7e093a50c6316e12a0806da0013833a2d"']
-      Expires: ['Tue, 19 Feb 2019 02:00:03 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:00:03 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['53']
-      X-Esi-Request-Id: [1c43dfee-1737-4d5a-88cd-fe852b8c0949]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/alliances/99002775/?datasource=tranquility
-  response:
-    body: {string: '{"creator_corporation_id":98158286,"creator_id":1001129606,"date_founded":"2012-12-29T20:40:34Z","executor_corporation_id":98248368,"name":"CODE.","ticker":"CODE."}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['164']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:08 GMT']
-      Etag: ['"29fef4c32cc39d33af4c49117ed1932510183cd4a8ce47fb88854fd3"']
-      Expires: ['Tue, 19 Feb 2019 01:50:11 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:50:11 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['52']
-      X-Esi-Request-Id: [e0bd5368-dcf4-495f-a7c3-ebfd9a36fa6e]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3017278/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":9,"birthday":"2004-10-25T10:47:00Z","bloodline_id":2,"corporation_id":1000016,"description":"","gender":"male","name":"Orsaken
-        Pakkonen","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['186']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:24 GMT']
-      Etag: ['"5b5df9f9d52c324b478534be89849357c49820dd59eb7d5f49e31939"']
-      Expires: ['Tue, 19 Feb 2019 01:46:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:25 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['36']
-      X-Esi-Request-Id: [52dc7322-b008-4cb3-a417-6f2330de49e9]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3011451/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":10,"birthday":"2003-05-04T00:33:00Z","bloodline_id":1,"corporation_id":1000018,"description":"","gender":"female","name":"Peranida
-        Purtomoki","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['191']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:24 GMT']
-      Etag: ['"5b5b3c98c4ff70e9ce1f69bfe4724edbf0baced2e7609625769aa62a"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['36']
-      X-Esi-Request-Id: [1fa51012-f3c0-4977-a0f5-0090320d8337]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018890/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":2,"birthday":"2006-08-19T14:59:00Z","bloodline_id":5,"corporation_id":1000080,"description":"","gender":"male","name":"Subin
-        Barama","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['182']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:24 GMT']
-      Etag: ['"32684998e69cfcb93595e8c3d2d9d28c45da23df12df060076e63d11"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['36']
-      X-Esi-Request-Id: [5a31888a-2c19-4426-8277-17766944177c]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018891/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":38,"birthday":"2006-08-19T15:00:00Z","bloodline_id":13,"corporation_id":1000080,"description":"","gender":"female","name":"Timafa
-        Esihiz","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['187']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:25 GMT']
-      Etag: ['"9b97922d701804774d4308acedfe20acd541e58703a31e1fd365e289"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['35']
-      X-Esi-Request-Id: [1dfe775f-eef7-4b9c-8512-90300d700468]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019339/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":6,"birthday":"2009-01-16T17:05:00Z","bloodline_id":6,"corporation_id":1000166,"description":"","gender":"male","name":"Aldu
-        Nat","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['178']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:25 GMT']
-      Etag: ['"74ac37f874d1459b62fd094546176111a2124d8c6480cc521ef68c7a"']
-      Expires: ['Tue, 19 Feb 2019 01:46:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:25 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['35']
-      X-Esi-Request-Id: [bd194537-b7d7-423f-8cb6-0de5b9e1a7a5]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018911/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":22,"birthday":"2006-08-19T15:28:00Z","bloodline_id":4,"corporation_id":1000123,"description":"","gender":"female","name":"Bamona
-        Pizteed","race_id":2,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['187']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:25 GMT']
-      Etag: ['"2f9b421bfeb3a04e2e1b76544d1f1de79c3d60ba842509833c64a573"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['35']
-      X-Esi-Request-Id: [f2595970-fab2-40e5-a693-f6dc6345ebe2]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018904/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":7,"birthday":"2006-08-19T15:19:00Z","bloodline_id":2,"corporation_id":1000039,"description":"","gender":"female","name":"Ozunoa
-        Poskat","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['185']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:25 GMT']
-      Etag: ['"755fc72132d59eefab77ad28bbaeeee11d932d29ffbaf9b12606bad7"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['35']
-      X-Esi-Request-Id: [cda7d66b-4462-47b8-947f-b18edd2e29d8]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019448/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":33,"birthday":"2009-09-14T20:17:00Z","bloodline_id":11,"corporation_id":1000044,"description":"","gender":"female","name":"Unachi
-        Arikola","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['188']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:25 GMT']
-      Etag: ['"9957e38de545c6e4c8a8c485a56fab50b1634aa3e113f4d611b9ca4e"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['35']
-      X-Esi-Request-Id: [d5321a55-b5ba-455d-a608-cda7ac596cd2]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019449/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":8,"birthday":"2009-09-14T20:17:00Z","bloodline_id":2,"corporation_id":1000167,"description":"","gender":"male","name":"Chigas
-        Ovoken","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['183']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:25 GMT']
-      Etag: ['"5f932da90e9ef69751ed468d79c2ab753a62cfe0389871943da4eeba"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['35']
-      X-Esi-Request-Id: [f877c066-d05b-4eff-b2a4-5702dd49b091]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018892/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":37,"birthday":"2006-08-19T15:01:00Z","bloodline_id":13,"corporation_id":1000080,"description":"","gender":"female","name":"Hatia
-        Madase","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['186']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:25 GMT']
-      Etag: ['"0d449ce4024b6c051ba2725b2070bc5fa6612dc9ac886de6eafc68b9"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['35']
-      X-Esi-Request-Id: [7f07120d-475f-40f8-9689-d7ab2457ec09]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000077/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3003977,"creator_id":1,"description":"One of the oldest
-        educational facilities in the world of EVE, the institute''s origin date from
-        the era when the Amarr were still confined to their continent on Amarr Prime;
-        before the empire and the Great Reclaiming.","home_station_id":60007702,"member_count":618560,"name":"Royal
-        Amarr Institute","shares":100000000,"tax_rate":0.11,"ticker":"RIN"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['396']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:25 GMT']
-      Etag: ['"acb0fa8438aeeb05d8913e9a32fdfa827b109000039ebad6a6383d6d"']
-      Expires: ['Tue, 19 Feb 2019 02:00:11 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:00:11 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['35']
-      X-Esi-Request-Id: [060b9231-a791-4e97-9168-a3479afe1126]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000016/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3004221,"creator_id":1,"description":"A biotech company
-        founded by the eccentric Todo Kirkinen, the first man to have his mind transferred
-        into a machine. Zainou has from its inception been at the forefront of bio-chemical
-        and nano-mechanical research, its headquarters are described as a combination
-        of a mad scientist''s lab and a jungle zoo.","home_station_id":60001765,"member_count":37,"name":"Zainou","shares":4999329632,"tax_rate":0.0,"ticker":"ZA"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['465']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:25 GMT']
-      Etag: ['"bb854fd54884710dd6297a93a60e50be95af7ca6fb3b9d306194247a"']
-      Expires: ['Tue, 19 Feb 2019 01:44:53 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:44:53 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['35']
-      X-Esi-Request-Id: [271c2596-c657-4407-9712-115f5f419934]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000123/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3004005,"creator_id":1,"description":"The Amarrians
-        allow the Ammatars to operate their own fleet, knowing that it will be employed
-        against the Minmatars that otherwise would harass the Amarr Empire. The Ammatar
-        Fleet is neither big nor sophisticated, but it''s strong enough to keep the
-        Minmatars at bay.","home_station_id":60012124,"member_count":38,"name":"Ammatar
-        Fleet","shares":100000000,"tax_rate":0.0,"ticker":"ATF"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['433']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:25 GMT']
-      Etag: ['"11529f152b1c72cf04d3f883049b39200d3e6a8c911c2a2fa8f01da0"']
-      Expires: ['Tue, 19 Feb 2019 02:26:15 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:26:15 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['35']
-      X-Esi-Request-Id: [87693fbc-a228-4c36-be92-967061b03355]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000166/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3003925,"creator_id":1,"description":"The Imperial Academy
-        is rooted in tradition and generally considered sub-par to the more modern
-        military institutes found in the other empires. However, it is the only one
-        of its kind within the Amarr Empire, thus serving a vital function.","home_station_id":60014629,"member_count":923302,"name":"Imperial
-        Academy","shares":100000000,"tax_rate":0.11,"ticker":"IAC","url":""}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['423']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:31:26 GMT']
-      Etag: ['"edb5eac3a0b5f065ffd832ce01f40a19621189142322cc5b80ec864a"']
-      Expires: ['Tue, 19 Feb 2019 02:13:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:13:25 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['34']
-      X-Esi-Request-Id: [4d21afe8-261f-43c7-bd53-ef93684ae94e]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/2114603273/?datasource=tranquility
-  response:
-    body: {string: '{"alliance_id":1354830081,"ancestry_id":7,"birthday":"2018-10-18T17:13:30Z","bloodline_id":2,"corporation_id":98409330,"description":"","gender":"female","name":"Twine
-        Hinken","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['210']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:05 GMT']
-      Etag: ['"caeff39fac0402efe9247446c667ccf5c17ca9a1feb6eb0cf2b6ddb2"']
-      Expires: ['Tue, 19 Feb 2019 01:46:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:25 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [860c36f2-db7e-460f-aee5-26a68d0a326e]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018893/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":5,"birthday":"2006-08-19T15:02:00Z","bloodline_id":6,"corporation_id":1000080,"description":"","gender":"male","name":"Odoosh
-        Teroul","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['183']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:05 GMT']
-      Etag: ['"f581fe3aa4229ef991eba07a820e345605ff45eb0ec0664c862ac1ff"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [1c878344-776d-409a-be74-23eb750ace1b]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018894/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":1,"birthday":"2006-08-19T15:03:00Z","bloodline_id":5,"corporation_id":1000080,"description":"","gender":"female","name":"Matna
-        Meri","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['182']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:05 GMT']
-      Etag: ['"b01139b4123c45c7ed13340ef48b0dc940f0d6f42a0ad91d57fe93d9"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [f66b982c-713f-4f29-a868-f77253caff38]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018581/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":9,"birthday":"2005-10-21T11:10:00Z","bloodline_id":2,"corporation_id":1000045,"description":"","gender":"female","name":"Hosiwo
-        Onima","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:05 GMT']
-      Etag: ['"fff7427c04912f06425eb63ad37eb5d5802f0a0c1de2c048e240850f"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [a97ab207-65f9-482d-8884-ca2f772b5cf6]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018895/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":5,"birthday":"2006-08-19T15:04:00Z","bloodline_id":6,"corporation_id":1000080,"description":"","gender":"male","name":"Juki
-        Khoun","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['180']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:05 GMT']
-      Etag: ['"1508ff120f6113f3fe23e804415244c881dcff7bae9ce07953a0ba1e"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [7259b387-cdfe-4529-92fb-15d9411644a0]
+      X-Esi-Error-Limit-Reset: ['17']
+      X-Esi-Request-Id: [f6716498-c6eb-4323-9082-612c7f98e380]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -1321,14 +497,80 @@ interactions:
       Connection: [keep-alive]
       Content-Length: ['184']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:05 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:43 GMT']
       Etag: ['"3abd0c358913236b517ea45de801790333668e18e85ea2face8a898d"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
+      Expires: ['Wed, 20 Feb 2019 03:41:05 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 02:41:05 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['55']
-      X-Esi-Request-Id: [8774ece0-c2ad-4c79-9a86-abe5cfe489e7]
+      X-Esi-Error-Limit-Reset: ['17']
+      X-Esi-Request-Id: [5e78b0a4-b70a-4620-9225-f8c37fdf397d]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/3018905/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":8,"birthday":"2006-08-19T15:20:00Z","bloodline_id":2,"corporation_id":1000039,"description":"","gender":"male","name":"Kanouchi
+        Hisama","race_id":1,"security_status":0.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['185']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Wed, 20 Feb 2019 03:34:43 GMT']
+      Etag: ['"32333aa1cf657d02a1cb68fb2845ef5017d8efeadbc58c5236ab1c7a"']
+      Expires: ['Wed, 20 Feb 2019 03:41:05 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 02:41:05 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['17']
+      X-Esi-Request-Id: [1bb1d5d2-fe8b-43c6-8970-536e9de36d90]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/3018911/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":22,"birthday":"2006-08-19T15:28:00Z","bloodline_id":4,"corporation_id":1000123,"description":"","gender":"female","name":"Bamona
+        Pizteed","race_id":2,"security_status":0.0}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['187']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Wed, 20 Feb 2019 03:34:43 GMT']
+      Etag: ['"2f9b421bfeb3a04e2e1b76544d1f1de79c3d60ba842509833c64a573"']
+      Expires: ['Wed, 20 Feb 2019 03:41:05 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 02:41:05 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['17']
+      X-Esi-Request-Id: [4deaf822-1b66-44ca-a04d-617cdd866222]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -1354,14 +596,14 @@ interactions:
       Connection: [keep-alive]
       Content-Length: ['182']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:05 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:43 GMT']
       Etag: ['"a30a324cf70ea67b484d463d18220a312a4d780933fe6dd3817c9902"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
+      Expires: ['Wed, 20 Feb 2019 03:41:05 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 02:41:05 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [aacd2d83-7d37-4bdb-b776-c9d2e49194c3]
+      X-Esi-Error-Limit-Reset: ['17']
+      X-Esi-Request-Id: [cf355a89-388b-40fb-8e10-399817bb10c1]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -1387,14 +629,14 @@ interactions:
       Connection: [keep-alive]
       Content-Length: ['189']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:06 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:43 GMT']
       Etag: ['"cc8fbaa7c0fead01fd08d4c5fd6d7aaaada880e3fdcc8993bf10428d"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
+      Expires: ['Wed, 20 Feb 2019 03:40:53 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 02:40:53 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [1ce91837-ecc8-4210-9066-9877c7540d4c]
+      X-Esi-Error-Limit-Reset: ['17']
+      X-Esi-Request-Id: [d54ff216-69eb-4bfc-bd08-412f6d0fd66f]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -1404,10 +646,10 @@ interactions:
       Connection: [keep-alive]
       User-Agent: [ascee-recruit]
     method: GET
-    uri: https://esi.evetech.net/latest/characters/3012046/?datasource=tranquility
+    uri: https://esi.evetech.net/latest/characters/3019473/?datasource=tranquility
   response:
-    body: {string: '{"ancestry_id":10,"birthday":"2003-05-04T00:33:00Z","bloodline_id":1,"corporation_id":1000035,"description":"","gender":"male","name":"Shikibato
-        Kiruola","race_id":1,"security_status":0.0}'}
+    body: {string: '{"ancestry_id":7,"birthday":"2009-09-29T14:00:00Z","bloodline_id":2,"corporation_id":1000045,"description":"","gender":"male","name":"Anmon
+        Otsi","race_id":1,"security_status":0.0}'}
     headers:
       Access-Control-Allow-Credentials: ['true']
       Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
@@ -1418,16 +660,16 @@ interactions:
       Allow: ['GET,HEAD,OPTIONS']
       Cache-Control: [public]
       Connection: [keep-alive]
-      Content-Length: ['188']
+      Content-Length: ['180']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:06 GMT']
-      Etag: ['"e8290f2bf14522bfbb1551b5ffd92681fb2d8566c1c74a049b787133"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:43 GMT']
+      Etag: ['"f2d1c24e3073a551ce6b717c54da478302a119f49eed63eb799df8c3"']
+      Expires: ['Wed, 20 Feb 2019 03:40:53 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 02:40:53 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [f8cc813e-83ab-49f0-9d4b-206faf8cb619]
+      X-Esi-Error-Limit-Reset: ['17']
+      X-Esi-Request-Id: [a2308a5a-d125-43d1-8339-838df85ece0b]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -1437,10 +679,10 @@ interactions:
       Connection: [keep-alive]
       User-Agent: [ascee-recruit]
     method: GET
-    uri: https://esi.evetech.net/latest/characters/3017214/?datasource=tranquility
+    uri: https://esi.evetech.net/latest/characters/3018889/?datasource=tranquility
   response:
-    body: {string: '{"ancestry_id":10,"birthday":"2004-10-25T10:47:00Z","bloodline_id":1,"corporation_id":1000034,"description":"","gender":"male","name":"Tehurita
-        Hijo","race_id":1,"security_status":0.0}'}
+    body: {string: '{"ancestry_id":37,"birthday":"2006-08-19T14:58:00Z","bloodline_id":13,"corporation_id":1000080,"description":"","gender":"male","name":"Jur
+        Zehbani","race_id":4,"security_status":0.0}'}
     headers:
       Access-Control-Allow-Credentials: ['true']
       Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
@@ -1451,16 +693,16 @@ interactions:
       Allow: ['GET,HEAD,OPTIONS']
       Cache-Control: [public]
       Connection: [keep-alive]
-      Content-Length: ['184']
+      Content-Length: ['183']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:06 GMT']
-      Etag: ['"04a70bb383a00214305125f2448726c316369749cbb8183ab8776403"']
-      Expires: ['Tue, 19 Feb 2019 01:46:27 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:27 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:43 GMT']
+      Etag: ['"ab04fc07b09ec256ef5f1e9a0c4fa3a1f2f8ecd72e307312451004eb"']
+      Expires: ['Wed, 20 Feb 2019 04:34:43 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:34:43 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [bbb60f41-cd74-45ef-82ae-1cecafee64b0]
+      X-Esi-Error-Limit-Reset: ['17']
+      X-Esi-Request-Id: [a215b39d-4345-4140-a65d-0569cea0e123]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -1470,10 +712,10 @@ interactions:
       Connection: [keep-alive]
       User-Agent: [ascee-recruit]
     method: GET
-    uri: https://esi.evetech.net/latest/characters/3018896/?datasource=tranquility
+    uri: https://esi.evetech.net/latest/characters/3018488/?datasource=tranquility
   response:
-    body: {string: '{"ancestry_id":39,"birthday":"2006-08-19T15:05:00Z","bloodline_id":13,"corporation_id":1000080,"description":"","gender":"male","name":"Urat
-        Mekar","race_id":4,"security_status":0.0}'}
+    body: {string: '{"ancestry_id":2,"birthday":"2005-06-27T11:31:00Z","bloodline_id":5,"corporation_id":1000084,"description":"","gender":"male","name":"Demi
+        Lazerus","race_id":4,"security_status":0.0}'}
     headers:
       Access-Control-Allow-Credentials: ['true']
       Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
@@ -1486,14 +728,50 @@ interactions:
       Connection: [keep-alive]
       Content-Length: ['182']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:06 GMT']
-      Etag: ['"8b9273779549aced00737585ba7af88bca45d2e444c06ff5a345f6b8"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:44 GMT']
+      Etag: ['"8d87bcc9385b0e8851078d65527cb420f1bbabb22c4453cf0146fd23"']
+      Expires: ['Wed, 20 Feb 2019 04:34:44 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:34:44 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [46b8bdc7-1057-41d0-b786-6454a2f1ff20]
+      X-Esi-Error-Limit-Reset: ['16']
+      X-Esi-Request-Id: [cbfbbbc3-4cfa-4f20-9d18-be67e066e3c6]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/corporations/1000077/?datasource=tranquility
+  response:
+    body: {string: '{"ceo_id":3003977,"creator_id":1,"description":"One of the oldest
+        educational facilities in the world of EVE, the institute''s origin date from
+        the era when the Amarr were still confined to their continent on Amarr Prime;
+        before the empire and the Great Reclaiming.","home_station_id":60007702,"member_count":618682,"name":"Royal
+        Amarr Institute","shares":100000000,"tax_rate":0.11,"ticker":"RIN"}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['396']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Wed, 20 Feb 2019 03:34:44 GMT']
+      Etag: ['"7a6fe27f0b6c85501963010a722c5b15ae73b6625832469a91a92472"']
+      Expires: ['Wed, 20 Feb 2019 04:11:10 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:11:10 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['16']
+      X-Esi-Request-Id: [5d506faa-c760-482f-8e19-e35d007d9fc8]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -1522,1355 +800,13 @@ interactions:
       Connection: [keep-alive]
       Content-Length: ['469']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:06 GMT']
+      Date: ['Wed, 20 Feb 2019 03:34:44 GMT']
       Etag: ['"382e1b14e0f4e408ad0ab443adca9cb2dcde7d8d5ed0f1c31ab99623"']
-      Expires: ['Tue, 19 Feb 2019 02:28:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:28:06 GMT']
+      Expires: ['Wed, 20 Feb 2019 04:33:46 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:33:46 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [87daad2e-1cbb-4854-8194-8924ba8ffbea]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000034/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3004109,"creator_id":1,"description":"The fragmentation
-        of the Caldari government has often proved to be problematic when it comes
-        to documenting events, deals and communications. The House of Records was
-        set up by the Caldari mega corporations to act as a central source for all
-        this information. Information on all transactions, business deals and governmental
-        involvements within the State must be sent here and are stored in huge data
-        banks.","home_station_id":60003724,"member_count":20,"name":"House of Records","shares":100000000,"tax_rate":0.0,"ticker":"HR"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['576']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:35:07 GMT']
-      Etag: ['"3077308686e4b8818f1663f1e66854775af65f0d67c5af9a559433e7"']
-      Expires: ['Tue, 19 Feb 2019 01:46:27 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:27 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['53']
-      X-Esi-Request-Id: [06799e3d-6eb6-4223-92e2-ff57d9889a0d]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3017284/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":8,"birthday":"2004-10-25T10:47:00Z","bloodline_id":2,"corporation_id":1000041,"description":"","gender":"male","name":"Ichiken
-        Rumatoh","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['185']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:39:57 GMT']
-      Etag: ['"32d368dac27b89737772755df365560f3785f27083dc8ac7215d249c"']
-      Expires: ['Tue, 19 Feb 2019 01:46:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:25 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['3']
-      X-Esi-Request-Id: [34c63c46-10ce-4e76-917a-4c3127634f80]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018898/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":32,"birthday":"2006-08-19T15:13:00Z","bloodline_id":11,"corporation_id":1000039,"description":"","gender":"male","name":"Ichmari
-        Obesa","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['185']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:39:58 GMT']
-      Etag: ['"3a753dc432cf4f3699a421478508333dbf51611d8176e537bc0d6a72"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['2']
-      X-Esi-Request-Id: [3f0e358b-f791-4f31-bd09-dd7e7afd9ddc]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018900/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":10,"birthday":"2006-08-19T15:14:00Z","bloodline_id":1,"corporation_id":1000039,"description":"","gender":"female","name":"Tojawara
-        Saziras","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['189']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:39:58 GMT']
-      Etag: ['"647ea6b070a803455eec04b6b882bd23b5de15c8701aaeea22f79805"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['2']
-      X-Esi-Request-Id: [94cc775b-e94b-4870-a9a6-c2415317b8f6]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3011918/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":8,"birthday":"2003-05-04T00:33:00Z","bloodline_id":2,"corporation_id":1000033,"description":"","gender":"female","name":"Kai
-        Etashanko","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['185']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:39:58 GMT']
-      Etag: ['"6b0d4c72b7ebca21c6fb98e244c7d15b3d8d7c7bfc7e3e38aacc1277"']
-      Expires: ['Tue, 19 Feb 2019 01:46:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:25 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['2']
-      X-Esi-Request-Id: [1a084601-6003-459d-8a9d-00b17fd9fb3d]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018901/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":33,"birthday":"2006-08-19T15:16:00Z","bloodline_id":11,"corporation_id":1000039,"description":"","gender":"female","name":"Oko
-        Alo","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['181']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:39:58 GMT']
-      Etag: ['"9b7578e2121e2a0ee2bf15320be8f9f174a30f559848adfa41ae3c04"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['2']
-      X-Esi-Request-Id: [9a9b3962-c01a-4fa4-acc5-3e3662bc051d]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3017120/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":9,"birthday":"2004-10-25T10:47:00Z","bloodline_id":2,"corporation_id":1000011,"description":"","gender":"male","name":"Veinen
-        Hyastilen","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['186']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:39:58 GMT']
-      Etag: ['"1f12fd68d483e8936f2772391befdb5f18a2c998e82dc421469654b8"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['2']
-      X-Esi-Request-Id: [49409320-579e-4c44-84b7-601e420ddf15]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019446/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":2,"birthday":"2009-09-14T20:14:00Z","bloodline_id":5,"corporation_id":1000166,"description":"","gender":"female","name":"Ketandia
-        Iosos","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['186']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:39:58 GMT']
-      Etag: ['"98021885e0340148e991c7378c0bb6547352a5824fc65bbc7855413c"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['2']
-      X-Esi-Request-Id: [b0927fdf-9a25-4079-a82f-b1feec662b7a]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019473/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":7,"birthday":"2009-09-29T14:00:00Z","bloodline_id":2,"corporation_id":1000045,"description":"","gender":"male","name":"Anmon
-        Otsi","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['180']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:39:58 GMT']
-      Etag: ['"f2d1c24e3073a551ce6b717c54da478302a119f49eed63eb799df8c3"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['2']
-      X-Esi-Request-Id: [e6d1b51f-2df3-4986-ac03-f7ba2a739f85]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018489/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":6,"birthday":"2005-06-27T11:32:00Z","bloodline_id":6,"corporation_id":1000084,"description":"","gender":"male","name":"Nikmar
-        Jyran","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['182']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:39:58 GMT']
-      Etag: ['"e405237520bf4d7cfdbb82677874423505b75461c4983b1cbcffb354"']
-      Expires: ['Tue, 19 Feb 2019 01:46:27 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:27 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['2']
-      X-Esi-Request-Id: [fbca400c-a976-410e-845d-b8a2a5280686]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018902/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":12,"birthday":"2006-08-19T15:17:00Z","bloodline_id":1,"corporation_id":1000039,"description":"","gender":"female","name":"Isu
-        Jokaga","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['183']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:39:59 GMT']
-      Etag: ['"c3ff774c79be0c5007adc1bbda72798c204fbe87bc40bfe78fc4b4c6"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['1']
-      X-Esi-Request-Id: [5a213a0a-e9b1-44c0-a004-3ba7a101c12c]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/2114847806/?datasource=tranquility
-  response:
-    body: {string: '{"alliance_id":1354830081,"ancestry_id":11,"birthday":"2019-01-08T19:47:16Z","bloodline_id":1,"corporation_id":98409330,"description":"","gender":"female","name":"Twine
-        Kouvo","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['210']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:45:23 GMT']
-      Etag: ['"40a8c39c7ffbc8185996449dc31bf00dc483e04fcd6244ad11b4e66e"']
-      Expires: ['Tue, 19 Feb 2019 02:28:05 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:28:05 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['37']
-      X-Esi-Request-Id: [62c32447-dcbf-4805-b513-6c66c15b1384]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018905/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":8,"birthday":"2006-08-19T15:20:00Z","bloodline_id":2,"corporation_id":1000039,"description":"","gender":"male","name":"Kanouchi
-        Hisama","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['185']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:45:23 GMT']
-      Etag: ['"32333aa1cf657d02a1cb68fb2845ef5017d8efeadbc58c5236ab1c7a"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['37']
-      X-Esi-Request-Id: [bc9f3687-5279-4f87-9790-6062d16cf10a]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018906/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":22,"birthday":"2006-08-19T15:23:00Z","bloodline_id":4,"corporation_id":1000123,"description":"","gender":"male","name":"Hazar
-        Arjidsi","race_id":2,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:45:23 GMT']
-      Etag: ['"e90286ae8b9f783a492744d3cd7cb7d7cf227b91780ffaaebc0a8cb1"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['37']
-      X-Esi-Request-Id: [885a872c-22fe-4830-a66b-f7be059dac69]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019336/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":4,"birthday":"2009-01-16T17:01:00Z","bloodline_id":6,"corporation_id":1000077,"description":"","gender":"female","name":"Aswamih
-        Omid","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:45:24 GMT']
-      Etag: ['"9019d80d2a5e5bcd07542d92e872c789defcad85ccf48eb9aaaddc6a"']
-      Expires: ['Tue, 19 Feb 2019 01:46:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:25 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['36']
-      X-Esi-Request-Id: [2432fadf-92af-41ed-ac4a-9608dde02dd9]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018907/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":42,"birthday":"2006-08-19T15:24:00Z","bloodline_id":14,"corporation_id":1000123,"description":"","gender":"male","name":"Sish
-        Iaokih","race_id":2,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['183']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:45:24 GMT']
-      Etag: ['"84d89d8d220b7eb6a846c1fad173dd78bb51ec65e3b760191e2cb388"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['36']
-      X-Esi-Request-Id: [baed29a1-990d-48ac-bcd0-6edf67de5489]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019462/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":12,"birthday":"2009-09-23T14:54:00Z","bloodline_id":1,"corporation_id":1000004,"description":"","gender":"female","name":"Atma
-        Aulato","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:45:24 GMT']
-      Etag: ['"db3d97f8d3a872207d0643a572114d2d21915f9817f857bd2e51ea94"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['36']
-      X-Esi-Request-Id: [1fd82aa8-a3a9-40fa-a173-cc42aeb36f9d]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018666/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":33,"birthday":"2006-01-31T12:32:00Z","bloodline_id":11,"corporation_id":1000018,"description":"","gender":"female","name":"Aviekko
-        Ta","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:45:24 GMT']
-      Etag: ['"7fef25d23ffa01f9d84b2d5e5062b010b45d9af64d9f171ae17b78c0"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['36']
-      X-Esi-Request-Id: [2314936f-7305-402d-8ef1-8768899184af]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018490/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":5,"birthday":"2005-06-27T11:33:00Z","bloodline_id":6,"corporation_id":1000084,"description":"","gender":"male","name":"Taspar
-        Zolankor","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['185']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:45:24 GMT']
-      Etag: ['"8d99f90d35698bb6cd33a0334af18db3f0ff837088e18ec635d0e4ac"']
-      Expires: ['Tue, 19 Feb 2019 01:46:27 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:27 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['36']
-      X-Esi-Request-Id: [3a2605be-adb4-4222-a426-c4a6e9000adb]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018492/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":10,"birthday":"2005-06-27T11:54:00Z","bloodline_id":1,"corporation_id":1000035,"description":"","gender":"male","name":"Rokuza
-        Taman","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['183']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:45:24 GMT']
-      Etag: ['"ad8fc9b4ce3a21c536987dd8f8a52a1feff7689348dc91f37f19f94c"']
-      Expires: ['Tue, 19 Feb 2019 01:46:27 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:27 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['36']
-      X-Esi-Request-Id: [4386ccd8-e77e-4003-9916-7fc41687e48e]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018908/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":19,"birthday":"2006-08-19T15:25:00Z","bloodline_id":3,"corporation_id":1000123,"description":"","gender":"male","name":"Darabu
-        Harva","race_id":2,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['183']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:45:24 GMT']
-      Etag: ['"b60b48b0b419b707342adf8e78d9fcc3adb63d36e1929e487d6dbd84"']
-      Expires: ['Tue, 19 Feb 2019 01:46:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['36']
-      X-Esi-Request-Id: [2dc4e6f8-6050-4919-8ef7-706ff65e84e4]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018582/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":7,"birthday":"2005-10-21T11:19:00Z","bloodline_id":2,"corporation_id":1000167,"description":"","gender":"male","name":"Nakkito
-        Ihadechi","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['186']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Etag: ['"0d8fe36c85883d9b5e27566be8ea93b01e08da29b9bb40e2e2a969c0"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [785645bd-414f-4b30-a243-818960b58609]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018909/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":42,"birthday":"2006-08-19T15:26:00Z","bloodline_id":14,"corporation_id":1000123,"description":"","gender":"female","name":"Derqa
-        Mandame","race_id":2,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['187']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Etag: ['"aeed2df8faed67a9d9b959ea76265430ac0a01398398f3184b5d745c"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [cca2c647-68a3-4759-b786-2314814e29e0]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018912/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":20,"birthday":"2006-08-19T15:30:00Z","bloodline_id":3,"corporation_id":1000123,"description":"","gender":"female","name":"Rolnia
-        Houmar","race_id":2,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['186']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Etag: ['"95649d4133e82d7c3ba938e3fa8fe51fee4fb40a9b13f5eee7e62f1c"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [ede98a67-9c6f-43c3-8fa3-08b13f3d6577]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018938/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":31,"birthday":"2007-03-26T16:13:00Z","bloodline_id":11,"corporation_id":1000044,"description":"","gender":"male","name":"Abishi
-        Tian","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['183']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Etag: ['"8f0db2d8ceb2dcf28d91c8d4daef0ac93c94bafcc0bf6484a646a353"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['54']
-      X-Esi-Request-Id: [7651fd21-1084-44a6-87e5-7e988980191a]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019472/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":10,"birthday":"2009-09-29T13:58:00Z","bloodline_id":1,"corporation_id":1000167,"description":"","gender":"male","name":"Ijumachi
-        Vuonolailen","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['191']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:48:07 GMT']
-      Etag: ['"d348c6c3b0062cd20f2188c8599d0201688d6b2c33cf0c8cae9bee8e"']
-      Expires: ['Tue, 19 Feb 2019 02:48:07 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:07 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['53']
-      X-Esi-Request-Id: [0517a2a7-78a6-4812-a213-fd91e8ce6b96]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018914/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":23,"birthday":"2006-08-19T15:32:00Z","bloodline_id":4,"corporation_id":1000123,"description":"","gender":"male","name":"Tizeli
-        Reymta","race_id":2,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:48:07 GMT']
-      Etag: ['"8d6938d97aa4951ba5fbab9845fab2c83791afa1d9ade613b6e20c58"']
-      Expires: ['Tue, 19 Feb 2019 02:48:07 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:07 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['53']
-      X-Esi-Request-Id: [66626603-81d7-4d3a-b6a7-70478d4475de]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000014/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3004161,"creator_id":1,"description":"One of the few
-        remaining Caldari corporations that were founded during the Industrial Age
-        on Caldari Prime, before the arrival of the Gallenteans. Perkone took to the
-        Gallenteans like ducks to water and had its glory days in the years leading
-        up to the war with the Federation. After the war Perkone has struggled, but
-        still manages to produce solid, high quality equipment.","home_station_id":60001525,"member_count":161334,"name":"Perkone","shares":7862072981,"tax_rate":0.11,"ticker":"P"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['539']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:48:07 GMT']
-      Etag: ['"d19859fc80a838a000b0676fd8efadbea195efc415ba1c52c73501f2"']
-      Expires: ['Tue, 19 Feb 2019 02:23:25 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:23:25 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['53']
-      X-Esi-Request-Id: [d9f186ff-9345-4b85-ace4-27aa1e7aae8d]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019337/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":2,"birthday":"2009-01-16T17:03:00Z","bloodline_id":5,"corporation_id":1000077,"description":"","gender":"male","name":"Joas
-        Alathema","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['183']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:52:29 GMT']
-      Etag: ['"a8b30a9b7253a0533f98269b41bb3c508dbfd48bb84fbf8a54159d5c"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['31']
-      X-Esi-Request-Id: [51f5ac84-75b9-4aa4-a568-562f2a844db5]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018913/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":41,"birthday":"2006-08-19T15:31:00Z","bloodline_id":14,"corporation_id":1000123,"description":"","gender":"male","name":"Migart
-        Anunat","race_id":2,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['185']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:52:30 GMT']
-      Etag: ['"dcd59e081c1713a8fc653650fdef861aae356d8aa0b5116460589a47"']
-      Expires: ['Tue, 19 Feb 2019 02:48:07 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:07 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['30']
-      X-Esi-Request-Id: [4b5c2af6-81f3-432b-ba5f-73662e31f2ee]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018659/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":2,"birthday":"2006-01-31T11:36:00Z","bloodline_id":5,"corporation_id":1000153,"description":"","gender":"female","name":"Shafra
-        Gulias","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['185']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:52:30 GMT']
-      Etag: ['"3cb8fcc9759e6db7b7901f3303c5b88ba26efde0b67b28daf4c6d7a6"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['30']
-      X-Esi-Request-Id: [2eda44a4-6790-40d5-9985-7f4f6071d3b7]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018924/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":39,"birthday":"2007-03-20T14:33:00Z","bloodline_id":13,"corporation_id":1000077,"description":"","gender":"female","name":"Zidah
-        Arvo","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:52:30 GMT']
-      Etag: ['"07e2ffe7af6dd1b16173ecc200ec273e3c66e36cf49309f5f26aa3f5"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['30']
-      X-Esi-Request-Id: [3cbff1d5-9d8c-407b-8a7d-cf7cfce6b627]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019447/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":4,"birthday":"2009-09-14T20:15:00Z","bloodline_id":6,"corporation_id":1000077,"description":"","gender":"male","name":"Raish
-        Okarema","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['183']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:52:30 GMT']
-      Etag: ['"73ec14e8c4abc9811b77538c48e989a8a986cbb80467298e3d39a921"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['30']
-      X-Esi-Request-Id: [c0dfe1e5-f822-4a7d-a474-adee03944689]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000080/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3003965,"creator_id":1,"description":"The Ministry of
-        War wields extensive powers within the Amarr Empire through their control
-        of the armed forces. The Ministry of War is responsible for the construction
-        and maintenance of the Amarrian military and space navy, and it also has a
-        great say in the foreign policy of the empire.","home_station_id":60007888,"member_count":90451,"name":"Ministry
-        of War","shares":100000000,"tax_rate":0.11,"ticker":"MW"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['460']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:52:30 GMT']
-      Etag: ['"c2420b56876da30d999f464ecc7a0f8a09e91a75e012212ec006d56f"']
-      Expires: ['Tue, 19 Feb 2019 02:13:05 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:13:05 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['30']
-      X-Esi-Request-Id: [2e1402a8-ba79-44b0-a943-0dc332d7131c]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019354/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":12,"birthday":"2009-01-16T18:29:00Z","bloodline_id":1,"corporation_id":1000045,"description":"","gender":"male","name":"Kirvas
-        Ohvali","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:54:42 GMT']
-      Etag: ['"fb5d34584e9533fcda87e09ea471cd868388e260855b8b56289b7014"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['18']
-      X-Esi-Request-Id: [0836b289-93b8-4abc-a7dc-2201ef52a2bd]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3018935/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":32,"birthday":"2007-03-25T15:06:00Z","bloodline_id":11,"corporation_id":1000167,"description":"","gender":"male","name":"Ranta
-        Tarumo","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:54:42 GMT']
-      Etag: ['"fdd8e6878e4b06f0f0bb08b33929e096f303fc0f901c1b8548ec27bd"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['18']
-      X-Esi-Request-Id: [8cda1319-b2b8-4677-b931-262c0d8d6c95]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019450/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":12,"birthday":"2009-09-14T20:18:00Z","bloodline_id":1,"corporation_id":1000045,"description":"","gender":"male","name":"Rimaremi
-        Tasanen","race_id":1,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['187']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:54:42 GMT']
-      Etag: ['"f927728d9eee7b6171e85caf29b4ff876eb48c0a6623a53f6351fbe4"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['18']
-      X-Esi-Request-Id: [bc84643b-0ecf-4278-a888-c7e71d9b49ff]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/3019469/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":37,"birthday":"2009-09-29T13:52:00Z","bloodline_id":13,"corporation_id":1000166,"description":"","gender":"male","name":"Navai
-        Mosten","race_id":4,"security_status":0.0}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['184']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:54:42 GMT']
-      Etag: ['"174233ec8bdd50d0b4cf9c9ffa6d805c87c2a7cf817334d07170624e"']
-      Expires: ['Tue, 19 Feb 2019 02:48:06 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:48:06 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['18']
-      X-Esi-Request-Id: [586d19de-bc90-4d53-99f3-4452ade6d49f]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000153/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3004409,"creator_id":1,"description":"One of the first
-        things that Khanid II did after separating from the Amarr Empire was to set
-        up a company capable of building a brand new space fleet to deter the Amarrians
-        from invading. Khanid Works cranked its first ship out within weeks and its
-        success is evident as the Amarrians have never invaded the kingdom.","home_station_id":60013858,"member_count":8,"name":"Khanid
-        Works","shares":1032287144,"tax_rate":0.0,"ticker":"KWK"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['482']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:54:43 GMT']
-      Etag: ['"ef3db5d0a6c40141c6f79c42e782811ce1c0750efcfe75bc3c4884de"']
-      Expires: ['Tue, 19 Feb 2019 02:52:31 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:52:31 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['17']
-      X-Esi-Request-Id: [10e1a50e-3050-4c2e-b906-e576e573dacf]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000084/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3003881,"creator_id":1,"description":"The Imperial Navy
-        operates under the simple doctrine of applying overwhelming force to any given
-        situation. The Imperial Navy has almost twice as many ships as the next two
-        empire navies put together, though the quality of some of the Amarrian ships
-        are questionable as many of them have not been refitted for decades and are
-        almost obsolete.","home_station_id":60008368,"member_count":90,"name":"Amarr
-        Navy","shares":100000000,"tax_rate":0.0,"ticker":"AN"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['505']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:54:43 GMT']
-      Etag: ['"4c65bfdbfff270c4e6faa4cadd015083757c06338d11370581cca053"']
-      Expires: ['Tue, 19 Feb 2019 02:23:26 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:23:26 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['17']
-      X-Esi-Request-Id: [29c44b2e-f44f-4b6c-be49-9c4a4a5aafe1]
+      X-Esi-Error-Limit-Reset: ['16']
+      X-Esi-Request-Id: [4bc6e8c4-b7f7-4d1a-bbb1-9cbc74fb32bb]
     status: {code: 200, message: OK}
 version: 1

@@ -4,13 +4,13 @@ interactions:
     headers:
       Accept: [application/json]
       Accept-Encoding: ['gzip, deflate']
-      Authorization: [Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVC1TaWduYXR1cmUtS2V5IiwidHlwIjoiSldUIn0.eyJzY3AiOlsicHVibGljRGF0YSIsImVzaS1jYWxlbmRhci5yZXNwb25kX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1jYWxlbmRhci5yZWFkX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1sb2NhdGlvbi5yZWFkX2xvY2F0aW9uLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfc2hpcF90eXBlLnYxIiwiZXNpLW1haWwub3JnYW5pemVfbWFpbC52MSIsImVzaS1tYWlsLnJlYWRfbWFpbC52MSIsImVzaS1tYWlsLnNlbmRfbWFpbC52MSIsImVzaS1za2lsbHMucmVhZF9za2lsbHMudjEiLCJlc2ktc2tpbGxzLnJlYWRfc2tpbGxxdWV1ZS52MSIsImVzaS13YWxsZXQucmVhZF9jaGFyYWN0ZXJfd2FsbGV0LnYxIiwiZXNpLXNlYXJjaC5zZWFyY2hfc3RydWN0dXJlcy52MSIsImVzaS1jbG9uZXMucmVhZF9jbG9uZXMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLXVuaXZlcnNlLnJlYWRfc3RydWN0dXJlcy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jaGFyYWN0ZXJfYm9va21hcmtzLnYxIiwiZXNpLWtpbGxtYWlscy5yZWFkX2tpbGxtYWlscy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9jb3Jwb3JhdGlvbl9tZW1iZXJzaGlwLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2Fzc2V0cy52MSIsImVzaS1wbGFuZXRzLm1hbmFnZV9wbGFuZXRzLnYxIiwiZXNpLWZsZWV0cy5yZWFkX2ZsZWV0LnYxIiwiZXNpLWZsZWV0cy53cml0ZV9mbGVldC52MSIsImVzaS11aS5vcGVuX3dpbmRvdy52MSIsImVzaS11aS53cml0ZV93YXlwb2ludC52MSIsImVzaS1jaGFyYWN0ZXJzLndyaXRlX2NvbnRhY3RzLnYxIiwiZXNpLWZpdHRpbmdzLnJlYWRfZml0dGluZ3MudjEiLCJlc2ktZml0dGluZ3Mud3JpdGVfZml0dGluZ3MudjEiLCJlc2ktbWFya2V0cy5zdHJ1Y3R1cmVfbWFya2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdHJ1Y3R1cmVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9sb3lhbHR5LnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9vcHBvcnR1bml0aWVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9jaGF0X2NoYW5uZWxzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfYWdlbnRzX3Jlc2VhcmNoLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY2hhcmFjdGVyX2pvYnMudjEiLCJlc2ktbWFya2V0cy5yZWFkX2NoYXJhY3Rlcl9vcmRlcnMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2JsdWVwcmludHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvcnBvcmF0aW9uX3JvbGVzLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfb25saW5lLnYxIiwiZXNpLWNvbnRyYWN0cy5yZWFkX2NoYXJhY3Rlcl9jb250cmFjdHMudjEiLCJlc2ktY2xvbmVzLnJlYWRfaW1wbGFudHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2ZhdGlndWUudjEiLCJlc2kta2lsbG1haWxzLnJlYWRfY29ycG9yYXRpb25fa2lsbG1haWxzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy50cmFja19tZW1iZXJzLnYxIiwiZXNpLXdhbGxldC5yZWFkX2NvcnBvcmF0aW9uX3dhbGxldHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX25vdGlmaWNhdGlvbnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZGl2aXNpb25zLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2NvcnBvcmF0aW9uX2Fzc2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF90aXRsZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfYmx1ZXByaW50cy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jb3Jwb3JhdGlvbl9ib29rbWFya3MudjEiLCJlc2ktY29udHJhY3RzLnJlYWRfY29ycG9yYXRpb25fY29udHJhY3RzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdGFyYmFzZXMudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jb3Jwb3JhdGlvbl9qb2JzLnYxIiwiZXNpLW1hcmtldHMucmVhZF9jb3Jwb3JhdGlvbl9vcmRlcnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfY29udGFpbmVyX2xvZ3MudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jaGFyYWN0ZXJfbWluaW5nLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY29ycG9yYXRpb25fbWluaW5nLnYxIiwiZXNpLXBsYW5ldHMucmVhZF9jdXN0b21zX29mZmljZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZmFjaWxpdGllcy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3RpdGxlcy52MSIsImVzaS1hbGxpYW5jZXMucmVhZF9jb250YWN0cy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY2hhcmFjdGVyc3RhdHMucmVhZC52MSJdLCJqdGkiOiI1ZWZiMTU2Ny1hMzJmLTQ4ZjYtODlkOS04ZTBlYWQwYzdjMWUiLCJraWQiOiJKV1QtU2lnbmF0dXJlLUtleSIsInN1YiI6IkNIQVJBQ1RFUjpFVkU6MjExNDQ5NjQ4MyIsImF6cCI6ImQ0Mjc0MWNlYWY3MTQwMDQ5ZGI5NWVjNjVkZGE1NzQyIiwibmFtZSI6IlR3aW5lIEVuYWthIiwib3duZXIiOiJUVHloSG9CbU5uSUpHOGlYZTh6MWkyY1lPTGs9IiwiZXhwIjoxNTUwNTQwODYyLCJpc3MiOiJsb2dpbi5ldmVvbmxpbmUuY29tIn0.N_r3tZ8BH4wYnMLbkrr9UuNGnULNgmTJbkBPe1-DqZmVp1BtuUQOcFFV2nXY3kFqG0AG38U7cDxiOO0-EWJofvowlRdGO2yKMtM9Efo4GgAv7UELPmUynHKF4ZOJ9GBOXKBXjPvsMzJrTCf5OdUU14_0tAXRuCJuKMFC5iPfC25vls80VwXp8Cg4E9b-Xie0ZPR8JwrUSkvWVP-3rSCbnaZK_AgTIratzO9egT2AHZWlHiUiu7_EpLfkxb3sAOdsekW7XBKBc8nv3RdHrZyKKdt25HStDxOlARjX4nvsSBvdsX-qWaWS7tYxarnItBLC8T1zqvApM0MQsAg1RXO5eg]
       Connection: [keep-alive]
       User-Agent: [ascee-recruit]
     method: GET
-    uri: https://esi.evetech.net/latest/characters/2114496483/mining/?datasource=tranquility&page=1
+    uri: https://esi.evetech.net/latest/characters/2114496483/?datasource=tranquility
   response:
-    body: {string: '[{"date":"2019-02-19","quantity":2538,"solar_system_id":30011407,"type_id":1230}]'}
+    body: {string: '{"ancestry_id":7,"birthday":"2018-09-07T22:28:20Z","bloodline_id":2,"corporation_id":98589569,"description":"","gender":"female","name":"Twine
+        Enaka","race_id":1,"security_status":0.12144477092208232}'}
     headers:
       Access-Control-Allow-Credentials: ['true']
       Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
@@ -19,19 +19,51 @@ interactions:
       Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
       Access-Control-Max-Age: ['600']
       Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [private]
+      Cache-Control: [public]
       Connection: [keep-alive]
-      Content-Length: ['81']
+      Content-Length: ['200']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:28:41 GMT']
-      Etag: ['"0da31fe6bfa7c59a548302dca90fff1d6a6d8322d1205168d7da1c7b"']
-      Expires: ['Tue, 19 Feb 2019 01:38:40 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:28:40 GMT']
+      Date: ['Wed, 20 Feb 2019 03:38:27 GMT']
+      Etag: ['"b1845d4d54bc90a1ddbd6a6544dd375be6373faf1dde1b7341dd7e43"']
+      Expires: ['Wed, 20 Feb 2019 04:30:59 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:30:59 GMT']
       Strict-Transport-Security: [max-age=31536000]
       X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['19']
-      X-Esi-Request-Id: [820a1e7c-4fac-47ee-be2d-7364e2d6863d]
-      X-Pages: ['1']
+      X-Esi-Error-Limit-Reset: ['33']
+      X-Esi-Request-Id: [221b9b40-5b43-44f6-8cb6-7ffd75d4bd2b]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [ascee-recruit]
+    method: GET
+    uri: https://esi.evetech.net/latest/characters/2112166943/?datasource=tranquility
+  response:
+    body: {string: '{"ancestry_id":41,"birthday":"2017-01-01T22:22:18Z","bloodline_id":14,"corporation_id":1000172,"description":"","gender":"male","name":"Takeschi
+        Kovacs","race_id":2,"security_status":0.00035000000000000005}'}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
+      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
+      Access-Control-Max-Age: ['600']
+      Allow: ['GET,HEAD,OPTIONS']
+      Cache-Control: [public]
+      Connection: [keep-alive]
+      Content-Length: ['206']
+      Content-Type: [application/json; charset=UTF-8]
+      Date: ['Wed, 20 Feb 2019 03:38:27 GMT']
+      Etag: ['"1379a9270d8e68b4d6e7ec5fd289de3503f97196cdf3884bc51333f7"']
+      Expires: ['Wed, 20 Feb 2019 04:27:59 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:27:59 GMT']
+      Strict-Transport-Security: [max-age=31536000]
+      X-Esi-Error-Limit-Remain: ['100']
+      X-Esi-Error-Limit-Reset: ['33']
+      X-Esi-Request-Id: [b8f89b67-ee35-455c-a1e7-2d89f42efc39]
     status: {code: 200, message: OK}
 - request:
     body: null
@@ -55,7 +87,7 @@ interactions:
       Content-Encoding: [gzip]
       Content-Length: ['238']
       Content-Type: [application/json; charset=utf-8]
-      Date: ['Tue, 19 Feb 2019 01:33:24 GMT']
+      Date: ['Wed, 20 Feb 2019 03:38:27 GMT']
       Expires: ['-1']
       Pragma: [no-cache]
       Server: [Microsoft-IIS/8.5]
@@ -86,148 +118,10 @@ interactions:
       Content-Encoding: [gzip]
       Content-Length: ['509']
       Content-Type: [application/json; charset=utf-8]
-      Date: ['Tue, 19 Feb 2019 01:33:25 GMT']
+      Date: ['Wed, 20 Feb 2019 03:38:27 GMT']
       Expires: ['-1']
       Pragma: [no-cache]
       Server: [Microsoft-IIS/8.5]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/2114496483/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":7,"birthday":"2018-09-07T22:28:20Z","bloodline_id":2,"corporation_id":98589569,"description":"","gender":"female","name":"Twine
-        Enaka","race_id":1,"security_status":0.12144477092208232}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['200']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:33:26 GMT']
-      Etag: ['"b1845d4d54bc90a1ddbd6a6544dd375be6373faf1dde1b7341dd7e43"']
-      Expires: ['Tue, 19 Feb 2019 02:27:40 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:27:40 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['34']
-      X-Esi-Request-Id: [859b65f3-1065-4c78-82c8-cb908736fcb3]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/98589569/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":2114496483,"creator_id":2114847806,"date_founded":"2019-01-26T05:29:20Z","description":"Enter
-        a description of your corporation here.","home_station_id":60003760,"member_count":1,"name":"Knot
-        Industrial Corporation","shares":1000,"tax_rate":0.15,"ticker":"NOTIN","url":""}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['282']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:33:26 GMT']
-      Etag: ['"6d51732401823169d3be1ace4982ec45774d12cdfc222b48e69c1a5e"']
-      Expires: ['Tue, 19 Feb 2019 01:46:02 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:02 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['34']
-      X-Esi-Request-Id: [537a33e0-52d7-4b7a-946c-2500fb7c1480]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/characters/2112166943/?datasource=tranquility
-  response:
-    body: {string: '{"ancestry_id":41,"birthday":"2017-01-01T22:22:18Z","bloodline_id":14,"corporation_id":1000172,"description":"","gender":"male","name":"Takeschi
-        Kovacs","race_id":2,"security_status":0.00035000000000000005}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['206']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:33:26 GMT']
-      Etag: ['"1379a9270d8e68b4d6e7ec5fd289de3503f97196cdf3884bc51333f7"']
-      Expires: ['Tue, 19 Feb 2019 01:46:03 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 00:46:03 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['34']
-      X-Esi-Request-Id: [be0cb396-2212-4854-8236-a8b24c1f4c53]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/corporations/1000172/?datasource=tranquility
-  response:
-    body: {string: '{"ceo_id":3004449,"creator_id":1,"description":"Pator Tech School
-        was founded on the principle of helping gifted Minmatar children to be better
-        qualified for high-level positions; something the republic was in dire need
-        of when assembling a new government and administration virtually from scratch.
-        This principle has held intact to this day, even if the foundations of the
-        republic were firmly set a long time ago.","home_station_id":60014809,"member_count":530802,"name":"Pator
-        Tech School","shares":100000000,"tax_rate":0.11,"ticker":"PTS"}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Length: ['543']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:33:27 GMT']
-      Etag: ['"14c263da4858e5ecbcff60d927e1defc25d0440d8258d663e6343733"']
-      Expires: ['Tue, 19 Feb 2019 02:23:22 GMT']
-      Last-Modified: ['Tue, 19 Feb 2019 01:23:22 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['33']
-      X-Esi-Request-Id: [5c4438fb-aff9-4a87-a8e4-1857889bf5c9]
     status: {code: 200, message: OK}
 - request:
     body: grant_type=refresh_token&refresh_token=rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2
@@ -244,41 +138,41 @@ interactions:
   response:
     body:
       string: !!binary |
-        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
+        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
     headers:
       Cache-Control: [no-store]
       Content-Encoding: [gzip]
-      Content-Length: ['1644']
+      Content-Length: ['1642']
       Content-Type: [application/json; charset=utf-8]
-      Date: ['Tue, 19 Feb 2019 01:33:27 GMT']
+      Date: ['Wed, 20 Feb 2019 03:38:27 GMT']
       Pragma: [no-cache]
       Server: [Microsoft-IIS/8.5]
     status: {code: 200, message: OK}
@@ -287,16 +181,13 @@ interactions:
     headers:
       Accept: [application/json]
       Accept-Encoding: ['gzip, deflate']
-      Accept-Language: [en-us]
+      Authorization: [Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVC1TaWduYXR1cmUtS2V5IiwidHlwIjoiSldUIn0.eyJzY3AiOlsicHVibGljRGF0YSIsImVzaS1jYWxlbmRhci5yZXNwb25kX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1jYWxlbmRhci5yZWFkX2NhbGVuZGFyX2V2ZW50cy52MSIsImVzaS1sb2NhdGlvbi5yZWFkX2xvY2F0aW9uLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfc2hpcF90eXBlLnYxIiwiZXNpLW1haWwub3JnYW5pemVfbWFpbC52MSIsImVzaS1tYWlsLnJlYWRfbWFpbC52MSIsImVzaS1tYWlsLnNlbmRfbWFpbC52MSIsImVzaS1za2lsbHMucmVhZF9za2lsbHMudjEiLCJlc2ktc2tpbGxzLnJlYWRfc2tpbGxxdWV1ZS52MSIsImVzaS13YWxsZXQucmVhZF9jaGFyYWN0ZXJfd2FsbGV0LnYxIiwiZXNpLXNlYXJjaC5zZWFyY2hfc3RydWN0dXJlcy52MSIsImVzaS1jbG9uZXMucmVhZF9jbG9uZXMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLXVuaXZlcnNlLnJlYWRfc3RydWN0dXJlcy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jaGFyYWN0ZXJfYm9va21hcmtzLnYxIiwiZXNpLWtpbGxtYWlscy5yZWFkX2tpbGxtYWlscy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9jb3Jwb3JhdGlvbl9tZW1iZXJzaGlwLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2Fzc2V0cy52MSIsImVzaS1wbGFuZXRzLm1hbmFnZV9wbGFuZXRzLnYxIiwiZXNpLWZsZWV0cy5yZWFkX2ZsZWV0LnYxIiwiZXNpLWZsZWV0cy53cml0ZV9mbGVldC52MSIsImVzaS11aS5vcGVuX3dpbmRvdy52MSIsImVzaS11aS53cml0ZV93YXlwb2ludC52MSIsImVzaS1jaGFyYWN0ZXJzLndyaXRlX2NvbnRhY3RzLnYxIiwiZXNpLWZpdHRpbmdzLnJlYWRfZml0dGluZ3MudjEiLCJlc2ktZml0dGluZ3Mud3JpdGVfZml0dGluZ3MudjEiLCJlc2ktbWFya2V0cy5zdHJ1Y3R1cmVfbWFya2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdHJ1Y3R1cmVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9sb3lhbHR5LnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9vcHBvcnR1bml0aWVzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9jaGF0X2NoYW5uZWxzLnYxIiwiZXNpLWNoYXJhY3RlcnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfYWdlbnRzX3Jlc2VhcmNoLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY2hhcmFjdGVyX2pvYnMudjEiLCJlc2ktbWFya2V0cy5yZWFkX2NoYXJhY3Rlcl9vcmRlcnMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2JsdWVwcmludHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2NvcnBvcmF0aW9uX3JvbGVzLnYxIiwiZXNpLWxvY2F0aW9uLnJlYWRfb25saW5lLnYxIiwiZXNpLWNvbnRyYWN0cy5yZWFkX2NoYXJhY3Rlcl9jb250cmFjdHMudjEiLCJlc2ktY2xvbmVzLnJlYWRfaW1wbGFudHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX2ZhdGlndWUudjEiLCJlc2kta2lsbG1haWxzLnJlYWRfY29ycG9yYXRpb25fa2lsbG1haWxzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy50cmFja19tZW1iZXJzLnYxIiwiZXNpLXdhbGxldC5yZWFkX2NvcnBvcmF0aW9uX3dhbGxldHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX25vdGlmaWNhdGlvbnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZGl2aXNpb25zLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX2NvbnRhY3RzLnYxIiwiZXNpLWFzc2V0cy5yZWFkX2NvcnBvcmF0aW9uX2Fzc2V0cy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF90aXRsZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfYmx1ZXByaW50cy52MSIsImVzaS1ib29rbWFya3MucmVhZF9jb3Jwb3JhdGlvbl9ib29rbWFya3MudjEiLCJlc2ktY29udHJhY3RzLnJlYWRfY29ycG9yYXRpb25fY29udHJhY3RzLnYxIiwiZXNpLWNvcnBvcmF0aW9ucy5yZWFkX3N0YW5kaW5ncy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9zdGFyYmFzZXMudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jb3Jwb3JhdGlvbl9qb2JzLnYxIiwiZXNpLW1hcmtldHMucmVhZF9jb3Jwb3JhdGlvbl9vcmRlcnMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfY29udGFpbmVyX2xvZ3MudjEiLCJlc2ktaW5kdXN0cnkucmVhZF9jaGFyYWN0ZXJfbWluaW5nLnYxIiwiZXNpLWluZHVzdHJ5LnJlYWRfY29ycG9yYXRpb25fbWluaW5nLnYxIiwiZXNpLXBsYW5ldHMucmVhZF9jdXN0b21zX29mZmljZXMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZmFjaWxpdGllcy52MSIsImVzaS1jb3Jwb3JhdGlvbnMucmVhZF9tZWRhbHMudjEiLCJlc2ktY2hhcmFjdGVycy5yZWFkX3RpdGxlcy52MSIsImVzaS1hbGxpYW5jZXMucmVhZF9jb250YWN0cy52MSIsImVzaS1jaGFyYWN0ZXJzLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY29ycG9yYXRpb25zLnJlYWRfZndfc3RhdHMudjEiLCJlc2ktY2hhcmFjdGVyc3RhdHMucmVhZC52MSJdLCJqdGkiOiI0ZGNhMDAyMC1mMGExLTRjOTctODcxMy02NjgzYzM2NzkyMmEiLCJraWQiOiJKV1QtU2lnbmF0dXJlLUtleSIsInN1YiI6IkNIQVJBQ1RFUjpFVkU6MjExNDQ5NjQ4MyIsImF6cCI6ImQ0Mjc0MWNlYWY3MTQwMDQ5ZGI5NWVjNjVkZGE1NzQyIiwibmFtZSI6IlR3aW5lIEVuYWthIiwib3duZXIiOiJUVHloSG9CbU5uSUpHOGlYZTh6MWkyY1lPTGs9IiwiZXhwIjoxNTUwNjM1MTA4LCJpc3MiOiJsb2dpbi5ldmVvbmxpbmUuY29tIn0.ZBllK56xxeuwO8t2seeQE3x7YQkNj4bIc9HyoaDEaJDY1UdoB80MgSXaqiQpG0fJHi2hhWPNF4yBPtU9xIFx0pD0anAWpMVKCAnJa-R5Ju-omMKstCMXvG1gzZl9CK-gEXLW9PdjffamjVHfuLmgcOgsFps7mcqn2hXYFPMtei8KSDQICVLP91Wzov-pWWGaMDugU5wfJBXC3XgXlTbK7tHwtmRiJdt40oDGMCyFsvfjAIOLSsM5-t8pRsJmVXv9mjBGUKTdmStQ9bEkj2J7noPyI5YDR-42GHNc-8hgxUg0qKG9idNHEKFRuJsH6gMMkluRKO80Bf02VSg8sw5RUw]
       Connection: [keep-alive]
       User-Agent: [ascee-recruit]
     method: GET
-    uri: https://esi.evetech.net/latest/universe/types/1230/?datasource=tranquility&language=en-us
+    uri: https://esi.evetech.net/latest/characters/2114496483/mining/?datasource=tranquility&page=1
   response:
-    body: {string: '{"capacity":0.0,"description":"The most common ore type in the
-        known universe, veldspar can be found almost everywhere. It is still in constant
-        demand as it holds a large portion of the much-used tritanium mineral.\r\n\r\nAvailable
-        in <color=''0xFF33FFFF''>1.0<\/color> security status solar systems or lower.","dogma_attributes":[{"attribute_id":161,"value":0.1},{"attribute_id":162,"value":0.0},{"attribute_id":2115,"value":0.0},{"attribute_id":4,"value":4000.0},{"attribute_id":182,"value":3386.0},{"attribute_id":38,"value":0.0},{"attribute_id":2699,"value":1.0},{"attribute_id":1940,"value":28432.0},{"attribute_id":1941,"value":100.0},{"attribute_id":790,"value":12195.0},{"attribute_id":2711,"value":1230.0}],"group_id":462,"icon_id":232,"market_group_id":518,"mass":4000.0,"name":"Veldspar","packaged_volume":0.1,"portion_size":100,"published":true,"radius":1.0,"type_id":1230,"volume":0.1}'}
+    body: {string: '[{"date":"2019-02-19","quantity":2538,"solar_system_id":30011407,"type_id":1230}]'}
     headers:
       Access-Control-Allow-Credentials: ['true']
       Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
@@ -305,138 +196,18 @@ interactions:
       Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
       Access-Control-Max-Age: ['600']
       Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
+      Cache-Control: [private]
       Connection: [keep-alive]
-      Content-Language: [en-us]
-      Content-Length: ['896']
+      Content-Length: ['81']
       Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:33:28 GMT']
-      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
-      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
-      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
+      Date: ['Wed, 20 Feb 2019 03:38:29 GMT']
+      Etag: ['"0da31fe6bfa7c59a548302dca90fff1d6a6d8322d1205168d7da1c7b"']
+      Expires: ['Wed, 20 Feb 2019 03:48:28 GMT']
+      Last-Modified: ['Wed, 20 Feb 2019 03:38:28 GMT']
       Strict-Transport-Security: [max-age=31536000]
-      Vary: [Accept-Language]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['32']
-      X-Esi-Request-Id: [5d764d4c-4bd9-4b5a-b6e8-22b0db2aa909]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Accept-Language: [en-us]
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/universe/systems/30011407/?datasource=tranquility&language=en-us
-  response:
-    body: {string: '{"constellation_id":20000206,"name":"Akiainavas","planets":[{"planet_id":40340602},{"moons":[40340604],"planet_id":40340603},{"moons":[40340606],"planet_id":40340605},{"moons":[40340608,40340609],"planet_id":40340607},{"moons":[40340611,40340612],"planet_id":40340610},{"asteroid_belts":[40340614,40340616,40340618,40340619,40340630,40340631,40340633,40340634,40340635,40340636,40340637,40340639,40340640,40340641,40340642,40340644],"moons":[40340615,40340617,40340620,40340621,40340622,40340623,40340624,40340625,40340626,40340627,40340628,40340629,40340632,40340638,40340643],"planet_id":40340613},{"asteroid_belts":[40340646],"moons":[40340647,40340648],"planet_id":40340645},{"asteroid_belts":[40340650],"moons":[40340651,40340652],"planet_id":40340649}],"position":{"x":-165108507737857060.0,"y":99443636481623800.0,"z":117023944661701800.0},"security_class":"A","security_status":0.7452549338340759,"star_id":40340601,"stargates":[50014138],"stations":[60015001],"system_id":30011407}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Language: [en-us]
-      Content-Length: ['990']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:33:28 GMT']
-      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
-      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
-      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      Vary: [Accept-Language]
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['32']
-      X-Esi-Request-Id: [596bb5eb-070e-4e37-b2b4-59a0cd43ba58]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Accept-Language: [en-us]
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/universe/constellations/20000206/?datasource=tranquility&language=en-us
-  response:
-    body: {string: '{"constellation_id":20000206,"name":"Karnola","position":{"x":-174785822904470660.0,"y":100127480588924020.0,"z":117514081644433710.0},"region_id":10000016,"systems":[30001404,30001405,30001406,30001407,30001408,30001409,30011407]}'}
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Language: [en-us]
-      Content-Length: ['231']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:33:29 GMT']
-      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
-      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
-      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      Vary: [Accept-Language]
       X-Esi-Error-Limit-Remain: ['100']
       X-Esi-Error-Limit-Reset: ['31']
-      X-Esi-Request-Id: [f3f5f2a9-5953-4450-b6e8-0bd411f0f0a2]
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Accept-Language: [en-us]
-      Connection: [keep-alive]
-      User-Agent: [ascee-recruit]
-    method: GET
-    uri: https://esi.evetech.net/latest/universe/regions/10000016/?datasource=tranquility&language=en-us
-  response:
-    body:
-      string: !!binary |
-        H4sIAAAAAAAA/0SUT6/jVAzFv8pRNmwypX3AMPM0ms0sYCT+bGADDyE3cRvzbuzIdhJViO+Obvoy
-        b3dk1b72Ob/m36YzjeRSKMU0msc/H47H4/H0/l37It7fxcPxuIvTLh528c0uvt3Fd7t4u4vvd/Fu
-        F/vk0z75tE8+PfzVNj1H5zLVvZrH5qn5dXbE7AvfAjHYihwokQM7g5wxkt4wFVLOQEcTnQvDLog5
-        kkRFryhyYYjWpmDELZLHOOBHW3lhb2sdhbrn2kaY3CZ2RJJfKRnKuZo/Y6BA7xQpHZVyg2jnTMH9
-        1p9OCxekjIyLOWx2jBIhpgd8Rg6iz5CEBFbzHCBZ673pV4n0OepNFowfqBTWZFxmr1fWexWf0dlc
-        6lNuK0y5BWl/90KizljYb7iQt7jKwtux4hDt53Jl7TgOT/qkvw3VCUmhgpi4m+8EbCsTLlTKuRox
-        WchWD+YxkIYz745Wg1uc58TKGGjhug4mS9Zt7OR2LjweUN8qptc3Tnrlrc5Rm4I1YXPeu8/MCufJ
-        PGtYYSMj8t7jTL3oNQ7YMOikXoJkqkttlubAt42Dl59+yS02g0hB/T9258D5KqYt1kG6oSbRS+Ts
-        Z9HrPQuo5WtUk0VIpWkn7jWbbfEbJ0Zb+CWGC/kBv2tKqTd2pOhML+LjC3f7LdtePSf7KMpYB4M5
-        1pc3KqBfLjhz9Q9pbd1n3Qg4M6SUN9QvsrFnFf6OK3DBZeGopNNrguv2T/kSVcXSFh5rBM6RLl1y
-        D1OMc0mZCuPiphmHp6YC80E+vvlZlNLwxzySS4tPVHpywS+03PDJxpG0Z8eHp6/lY9M2SiM3j81P
-        ppzOz03b3H3/W/rm8XTcPi9v//s/AAD//0VMlr6DBAAA
-    headers:
-      Access-Control-Allow-Credentials: ['true']
-      Access-Control-Allow-Headers: ['Content-Type,Authorization,If-None-Match,X-User-Agent']
-      Access-Control-Allow-Methods: ['GET,HEAD,OPTIONS']
-      Access-Control-Allow-Origin: ['*']
-      Access-Control-Expose-Headers: ['Content-Type,Warning,ETag,X-Pages,X-ESI-Error-Limit-Remain,X-ESI-Error-Limit-Reset']
-      Access-Control-Max-Age: ['600']
-      Allow: ['GET,HEAD,OPTIONS']
-      Cache-Control: [public]
-      Connection: [keep-alive]
-      Content-Encoding: [gzip]
-      Content-Language: [en-us]
-      Content-Length: ['660']
-      Content-Type: [application/json; charset=UTF-8]
-      Date: ['Tue, 19 Feb 2019 01:33:29 GMT']
-      Etag: [W/"7c3e352530bd9a3e07ffaa978ad52dbb4609fa58f483a7eedea7a287"]
-      Expires: ['Tue, 19 Feb 2019 11:05:00 GMT']
-      Last-Modified: ['Mon, 18 Feb 2019 11:03:30 GMT']
-      Strict-Transport-Security: [max-age=31536000]
-      Vary: ['Accept-Encoding,Accept-Language']
-      X-Esi-Error-Limit-Remain: ['100']
-      X-Esi-Error-Limit-Reset: ['31']
-      X-Esi-Request-Id: [4cca2123-866c-4450-9175-bc1c697c9259]
+      X-Esi-Request-Id: [be9ef54a-3598-45c0-b8b6-6e0e99cac13d]
+      X-Pages: ['1']
     status: {code: 200, message: OK}
 version: 1
