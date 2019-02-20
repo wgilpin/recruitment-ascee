@@ -73,16 +73,21 @@ export default class AdminRoles extends React.Component {
     };
   }
 
+  arrayToObject(arr, keyField) {
+    return arr.reduce((acc, val) => ({ ...acc, [val[keyField]]: val}), {})
+  }
+
   componentWillMount() {
-    let fetchStaff = new FetchData({ scope: 'admin/users' });
-    fetchStaff.get().then(data => this.setState({ staff: data }));
+    new FetchData({ scope: 'admin/users' })
+      .get()
+      .then(data => this.setState({ staff: this.arrayToObject(data.info || {}, 'id') }));
   }
 
   filterStaff(role) {
+    // filter by is_<role>, e.g. is_admin
     return Object
-      .keys(this.state.staff || {})
-      .filter(c => !!(this.state.staff[c][`is_${role}`]))
-      .map(id => this.state.staff[id]);
+      .values(this.state.staff || {})
+      .filter(c => !!(c[`is_${role}`]));
   }
 
   handleSearch() {
@@ -92,6 +97,32 @@ export default class AdminRoles extends React.Component {
       .then(res => {
         this.setState({ searchResults: res });
       });
+  }
+
+  async writeRoles(id, newRole) {
+    let roles = {
+      recruiter: false,
+      senior_recruiter: false,
+      admin: false,
+    }
+    switch(newRole) {
+      case 1:
+        roles.recruiter = true;
+        break;
+      case 2:
+        roles.senior_recruiter = true;
+        break;
+      case 3:
+        roles.admin = true;
+        break;
+      default:
+        // nada
+    }
+    await new FetchData({ id, scope: 'admin', param1: 'set_roles' })
+      .get(roles);
+    return new FetchData({ scope: 'admin/users' })
+      .get()
+      .then(data => this.setState({ staff: data }));
   }
 
   handleMove(id, direction) {
@@ -110,19 +141,21 @@ export default class AdminRoles extends React.Component {
     let newState = oldState + (direction === 'up' ? 1 : -1);
     newState = Math.min(newState, 3);
     newState = Math.max(newState, 0);
-    this.setState({
-      staff: {
-        ...this.state.staff,
-        [id]: {
-          ...this.state.staff[id],
-          isAdmin: newState === 3,
-          isSnrRecruiter: newState === 2,
-          isRecruiter: newState === 1,
+    this.writeRoles(id, newState).then(() => {
+      this.setState({
+        staff: {
+          ...this.state.staff,
+          [id]: {
+            ...this.state.staff[id],
+            isAdmin: newState === 3,
+            isSnrRecruiter: newState === 2,
+            isRecruiter: newState === 1,
+          },
         },
-      },
-    });
-  }
+      });
+    } )
 
+  }
 
   makeSearchResultLine(char) {
     // TODO:
@@ -209,9 +242,8 @@ export default class AdminRoles extends React.Component {
     const admins = this.filterStaff('admin');
     const recruiters = this.filterStaff('recruiter');
     const snrRecruiters = this.filterStaff('snr_recruiter');
-    return [
-      <TabPanel>
-        <h2 style={styles.h2}>Recruiters</h2>
+    return <>
+        <h2>Roles</h2>
         {this.sectionList('Admins', admins)}
         <hr />
         {this.sectionList('Senior Recruiters', snrRecruiters)}
@@ -220,6 +252,15 @@ export default class AdminRoles extends React.Component {
         <hr />
         <div style={styles.h2}>Others</div>
         <div>
+          <div>
+            <input
+              style={styles.searchInput}
+              type="text"
+              placeholder="search..."
+              onChange={this.updateSearchText}
+              value={this.state.searchText}
+            />
+          </div>
           <div>
             {this.state.searchResults.forEach(char =>
               this.makeSearchResultLine(char),
@@ -230,18 +271,9 @@ export default class AdminRoles extends React.Component {
               <img style={styles.smallButtonImg} src={SearchImg} alt="Search" />
             </button>
           </div>
-          <div>
-            <input
-              style={styles.searchInput}
-              type="text"
-              placeholder="search..."
-              onChange={this.updateSearchText}
-              value={this.state.searchText}
-            />
-          </div>
         </div>
-      </TabPanel>
-    ];
+      </>
+
   };
 
   render() {

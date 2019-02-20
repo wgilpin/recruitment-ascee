@@ -76,7 +76,7 @@ class Admin extends Component {
 
   buildQuestionsPanel = () => {
     return (
-      <TabPanel>
+      <>
         <h2 style={styles.heading}>Applicant Questions</h2>
         {Object.keys(this.state.questions).map(id => {
           return (
@@ -92,11 +92,12 @@ class Admin extends Component {
             </>
           );
         })}
-      </TabPanel>
+      </>
     );
   };
   buildConfigPanel() {
     return < >
+    <h2>Config</h2>
     </>
   }
 
@@ -112,10 +113,10 @@ class Admin extends Component {
             <Tab style={styles.tab}>       Lists       </Tab>
             <Tab style={styles.tab}>      Config       </Tab>
           </TabList>
-          {this.buildQuestionsPanel()}
-          <AdminRoles />
-          <TabPanel>list <AdminLists/></TabPanel>
-          {this.buildConfigPanel()}
+          <TabPanel>{this.buildQuestionsPanel()}</TabPanel>
+          <TabPanel><AdminRoles /></TabPanel>
+          <TabPanel><AdminLists/></TabPanel>
+          <TabPanel>{this.buildConfigPanel()}</TabPanel>
         </Tabs>
       </>
     );
