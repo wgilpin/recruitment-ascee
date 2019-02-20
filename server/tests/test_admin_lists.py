@@ -35,7 +35,7 @@ class AdminListTestCase(AsceeTestCase):
             get_admin_list('character', current_user=self.senior_recruiter)
 
         with self.assertRaises(ForbiddenException):
-            get_admin_list('character', current_user=self.applicant_character)
+            get_admin_list('character', current_user=self.applicant)
 
     def test_add_admin_list_item(self):
         add_admin_list_item('character', self.applicant_character.id, current_user=self.admin)
@@ -45,7 +45,7 @@ class AdminListTestCase(AsceeTestCase):
 
         with self.assertRaises(ForbiddenException):
             add_admin_list_item(
-                'character', self.not_applicant_character.id, current_user=self.applicant_character)
+                'character', self.not_applicant_character.id, current_user=self.applicant)
         with self.assertRaises(ForbiddenException):
             add_admin_list_item(
                 'character', self.not_applicant_character.id, current_user=self.recruiter)
@@ -65,7 +65,7 @@ class AdminListTestCase(AsceeTestCase):
     def test_forbidden_remove_admin_list_item(self):
         with self.assertRaises(ForbiddenException):
             remove_admin_list_item(
-                'character', self.redlisted_character_2.id, current_user=self.applicant_character)
+                'character', self.redlisted_character_2.id, current_user=self.applicant)
         with self.assertRaises(ForbiddenException):
             remove_admin_list_item(
                 'character', self.redlisted_character_2.id, current_user=self.recruiter)
@@ -84,7 +84,7 @@ class AdminListTestCase(AsceeTestCase):
     def test_forbidden_admin_list_add_multi(self):
         new_items = [self.applicant_character.id, self.not_applicant_character.id]
         with self.assertRaises(ForbiddenException):
-            put_admin_list('character', new_items, do_replace=False, current_user=self.applicant_character)
+            put_admin_list('character', new_items, do_replace=False, current_user=self.applicant)
         with self.assertRaises(ForbiddenException):
             put_admin_list('character', new_items, do_replace=False, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
@@ -104,7 +104,7 @@ class AdminListTestCase(AsceeTestCase):
     def test_forbidden_admin_list_replace(self):
         new_items = [self.applicant_character.id, self.not_applicant_character.id]
         with self.assertRaises(ForbiddenException):
-            put_admin_list('character', new_items, do_replace=True, current_user=self.applicant_character)
+            put_admin_list('character', new_items, do_replace=True, current_user=self.applicant)
         with self.assertRaises(ForbiddenException):
             put_admin_list('character', new_items, do_replace=True, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
