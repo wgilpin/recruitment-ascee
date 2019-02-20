@@ -1,5 +1,5 @@
 from models import Alliance, Character, Corporation, Type, Region, System, Station
-from esi import get_op
+import esi
 from security import is_admin, is_recruiter
 from exceptions import ForbiddenException, BadRequestException
 
@@ -28,7 +28,7 @@ def get_search_results(category, search, current_user=None):
             )
         )
     else:
-        response = get_op(
+        response = esi.get_op(
             'get_search',
             categories=[category],
             search=search,
@@ -54,7 +54,7 @@ def get_names_to_ids(category, name_list, current_user=None):
             )
         )
     else:
-        result = get_op(
+        result = esi.get_op(
             'post_universe_ids',
             names=name_list,
             disable_multi=True
@@ -71,7 +71,7 @@ def get_ids_to_names(id_list, current_user=None):
     if not is_admin(current_user) and not is_recruiter(current_user):
         raise ForbiddenException('User not permitted to use search.')
     elif len(id_list) > 0:
-        result = get_op(
+        result = esi.get_op(
             'post_universe_names',
             ids=id_list,
             disable_multi=True

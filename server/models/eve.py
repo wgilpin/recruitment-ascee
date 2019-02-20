@@ -1,5 +1,5 @@
 from models.database import db
-from esi import get_op, get_paged_op, ESIException
+import esi
 
 
 class Group(db.Model):
@@ -11,7 +11,7 @@ class Group(db.Model):
     def get(cls, id):
         group = db.session.query(cls).get(id)
         if group is None:
-            group_data = get_op(
+            group_data = esi.get_op(
                 'get_universe_groups_group_id',
                 group_id=id,
             )
@@ -28,7 +28,7 @@ class Group(db.Model):
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
         if len(missing_ids) > 0:
-            new_data_dict = get_op(
+            new_data_dict = esi.get_op(
                 'get_universe_groups_group_id',
                 group_id=list(missing_ids)
             )
@@ -44,7 +44,7 @@ class Group(db.Model):
 
 
 def get_prices(type_id_list):
-    price_list = get_op('get_markets_prices')
+    price_list = esi.get_op('get_markets_prices')
     prices = {}
     for price in price_list:
         if price['type_id'] in type_id_list:
@@ -64,7 +64,7 @@ class Type(db.Model):
     def get(cls, id):
         type = db.session.query(cls).get(id)
         if type is None:
-            type_dict = get_op(
+            type_dict = esi.get_op(
                 'get_universe_types_type_id',
                 type_id=id,
             )
@@ -85,7 +85,7 @@ class Type(db.Model):
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
         if len(missing_ids) > 0:
-            new_data_dict = get_op(
+            new_data_dict = esi.get_op(
                 'get_universe_types_type_id',
                 type_id=list(missing_ids)
             )
@@ -129,7 +129,7 @@ class Region(db.Model):
     def get(cls, id):
         result = db.session.query(cls).get(id)
         if result is None:
-            esi_data = get_op(
+            esi_data = esi.get_op(
                 cls.esi_op_name,
                 **{cls.esi_id_name: id}
             )
@@ -146,7 +146,7 @@ class Region(db.Model):
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
         if len(missing_ids) > 0:
-            new_data_dict = get_op(
+            new_data_dict = esi.get_op(
                 cls.esi_op_name,
                 **{cls.esi_id_name: list(missing_ids)}
             )
@@ -173,11 +173,11 @@ class System(db.Model):
     def get(cls, id):
         system = db.session.query(cls).get(id)
         if system is None:
-            system_data = get_op(
+            system_data = esi.get_op(
                 'get_universe_systems_system_id',
                 system_id=id,
             )
-            constellation_data = get_op(
+            constellation_data = esi.get_op(
                 'get_universe_constellations_constellation_id',
                 constellation_id=system_data['constellation_id'],
             )
@@ -223,7 +223,7 @@ class Station(db.Model):
     def get(cls, id):
         station = db.session.query(cls).get(id)
         if station is None:
-            station_data = get_op(
+            station_data = esi.get_op(
                 'get_universe_stations_station_id',
                 station_id=id,
             )
@@ -266,7 +266,7 @@ class Alliance(db.Model):
     def get(cls, id, *args, **kwargs):
         alliance = db.session.query(cls).get(id)
         if alliance is None:
-            alliance_data = get_op(
+            alliance_data = esi.get_op(
                 'get_alliances_alliance_id',
                 alliance_id=id,
             )
@@ -287,7 +287,7 @@ class Alliance(db.Model):
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
         if len(missing_ids) > 0:
-            new_data_dict = get_op(
+            new_data_dict = esi.get_op(
                 'get_alliances_alliance_id',
                 alliance_id=list(missing_ids)
             )
@@ -319,7 +319,7 @@ class Corporation(db.Model):
     def get(cls, id):
         corporation = db.session.query(cls).get(id)
         if corporation is None:
-            corporation_data = get_op(
+            corporation_data = esi.get_op(
                 'get_corporations_corporation_id',
                 corporation_id=id,
             )
@@ -343,7 +343,7 @@ class Corporation(db.Model):
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
         if len(missing_ids) > 0:
-            new_data_dict = get_op(
+            new_data_dict = esi.get_op(
                 'get_corporations_corporation_id',
                 corporation_id=list(missing_ids)
             )
@@ -393,7 +393,7 @@ class Structure(db.Model):
                 db.session.delete(structure)
                 db.session.commit()
             try:
-                structure_data = character.get_op(
+                structure_data = character.esi.get_op(
                     'get_universe_structures_structure_id',
                     structure_id=id,
                 )
@@ -403,7 +403,7 @@ class Structure(db.Model):
                     system_id=structure_data['solar_system_id'],
                     corporation_id=structure_data['owner_id']
                 )
-            except ESIException:
+            except esi.ESIException:
                 structure = Structure(
                     id=id,
                     name='Unknown Structure {}'.format(id),
@@ -450,7 +450,7 @@ class Character(db.Model):
     def get(cls, id):
         character = db.session.query(cls).get(id)
         if character is None:
-            character_data = get_op(
+            character_data = esi.get_op(
                 'get_characters_character_id',
                 character_id=id
             )
@@ -473,7 +473,7 @@ class Character(db.Model):
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
         if len(missing_ids) > 0:
-            new_data_dict = get_op(
+            new_data_dict = esi.get_op(
                 'get_characters_character_id',
                 character_id=list(missing_ids)
             )
@@ -490,11 +490,11 @@ class Character(db.Model):
             db.session.commit()
         return return_items
 
-    def get_op(self, op_name, **kwargs):
-        return get_op(op_name, refresh_token=self.refresh_token, **kwargs)
+    def esi.get_op(self, op_name, **kwargs):
+        return esi.get_op(op_name, refresh_token=self.refresh_token, **kwargs)
 
-    def get_paged_op(self, op_name, **kwargs):
-        return get_paged_op(op_name, refresh_token=self.refresh_token, **kwargs)
+    def esi.get_paged_op(self, op_name, **kwargs):
+        return esi.get_paged_op(op_name, refresh_token=self.refresh_token, **kwargs)
 
     @property
     def is_redlisted(self):
