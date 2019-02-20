@@ -8,7 +8,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from models import (
     Character, User, Admin, Recruiter, Question, Answer, Application, db, Note,
-    Type, Region, System, Station, Structure
+    Type, Region, System, Station, Structure, Group
 )
 import warnings
 import time
@@ -25,7 +25,7 @@ esipy.utils.get_cache_time_left = dummy_cache_time_left
 esipy.client.get_cache_time_left = dummy_cache_time_left
 
 
-class AsceeTestCase(VCRTestCase):
+class AsceeTestCase(unittest.TestCase):#VCRTestCase):
 
     ascee_corp_id = 98589569
 
@@ -33,7 +33,8 @@ class AsceeTestCase(VCRTestCase):
 
     def _get_vcr_kwargs(self, **kwargs):
         kwargs.update({
-            'record_mode': 'new_episodes'
+            # 'record_mode': 'new_episodes'
+            'record_mode': 'once',
         })
         return kwargs
 
@@ -155,9 +156,10 @@ class AsceeTestCase(VCRTestCase):
     def clearDB(self):
         db.session.rollback()
         for model in \
-            Character, User, Recruiter, Admin, Application, Question, Answer, Note, Station, Structure:
+            Character, User, Recruiter, Admin, Application, Question, Answer,\
+            Note, Station, Structure, Type, Group, Region, System:
             db.session.query(model).delete()
-        for model in Type, Region, System:
-            for item in db.session.query(model).filter_by(redlisted=True):
-                item.redlisted = False
+        # for model in Type, Region, System:
+        #     for item in db.session.query(model).filter_by(redlisted=True):
+        #         item.redlisted = False
         db.session.commit()
