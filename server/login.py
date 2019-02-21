@@ -35,7 +35,7 @@ def login_helper(login_type):
         'response_type': 'code',
         'state': session['token'],
     }
-    if login_type == 'scopes':
+    if login_type in ('scopes', 'link'):
         params['scope'] = scopes
     eve_login_url = login_url + '?' + '&'.join(
         '{}={}'.format(k, v) for k, v in params.items())
