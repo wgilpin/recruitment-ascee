@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TabPanel } from 'react-tabs';
 import Alt from '../Alt';
-import UpImg from '../images/arrow_up_24x24.png';
-import DownImg from '../images/arrow_down_24x24.png';
+import UpImg from '../images/arrow-up.png';
+import DownImg from '../images/arrow-down.png';
 import TableStyles from '../TableStyles';
 import SearchImg from '../images/magnifying_glass_24x24.png';
 import FetchData from '../common/FetchData';
@@ -12,11 +12,25 @@ import FetchData from '../common/FetchData';
 const primary = TableStyles.styles.themeColor.color;
 
 const styles = {
+  outer: {
+    maxWidth: '400px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  searchOuter: {
+    width: '50%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  names: {
+    float: 'left',
+    width: '200px',
+    verticalAlign: 'middle',
+    position: 'unset',
+    paddingTop: '4px',
+  },
   searchButton: {
-    borderRadius: '3px',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: 'darkgray',
+    borderStyle: 'none',
     backgroundColor: '#0000',
     padding: '6px',
   },
@@ -28,7 +42,9 @@ const styles = {
     color: primary,
   },
   h2: {
+    padding: '4px',
     color: primary,
+    fontWeight: 600,
   },
   userLine: {
     justifyItems: 'left',
@@ -37,17 +53,17 @@ const styles = {
   },
   moveButtons: {
     paddingLeft: '24px',
-    position: 'relative',
-    top: '11px',
   },
   searchInput: {
-    backgroundColor: `#000`,
-    borderStyle: `solid`,
-    borderWidth: `1px`,
-    borderColor: `darkgray`,
-    height: `2px`,
-    padding: `6px`,
-    float: 'right',
+    backgroundColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    borderColor: 'darkgray',
+    padding: '6px',
+    borderBottom: '1px white solid',
+    borderLeft: 'black',
+    borderRight: 'black',
+    borderTop: 'black',
   },
   searchBtnOuter: {
     float: 'right',
@@ -215,13 +231,13 @@ export default class AdminRoles extends React.Component {
           onClick={() => this.handleClick(id)}
           name={recruiter.name}
           id={recruiter.id}
-          style={{ float: 'left', width: '250px' }} />
-        <img
+          style={styles.names} />
+        {!recruiter.is_admin && <img
           style={styles.moveButtons}
           src={UpImg}
           alt="up"
           onClick={() => this.handleMove(id, 'up')}
-        />
+        />}
         <img
           style={styles.moveButtons}
           src={DownImg}
@@ -242,7 +258,7 @@ export default class AdminRoles extends React.Component {
     const admins = this.filterStaff('admin');
     const recruiters = this.filterStaff('recruiter');
     const snrRecruiters = this.filterStaff('snr_recruiter');
-    return <>
+    return <div style={styles.outer}>
         <h2>Roles</h2>
         {this.sectionList('Admins', admins)}
         <hr />
@@ -251,18 +267,13 @@ export default class AdminRoles extends React.Component {
         {this.sectionList('Recruiters', recruiters)}
         <hr />
         <div style={styles.h2}>Others</div>
-        <div>
-          <div>
-            {this.state.searchResults.forEach(char =>
-              this.makeSearchResultLine(char),
-            )}
-          </div>
+        <div style={styles.searchOuter}>
           <div style={styles.searchBtnOuter}>
             <button onClick={this.handleSearch} style={styles.searchButton}>
               <img style={styles.smallButtonImg} src={SearchImg} alt="Search" />
             </button>
           </div>
-          <div>
+          <div style={{padding: '6px'}}>
             <input
               style={styles.searchInput}
               type="text"
@@ -272,7 +283,12 @@ export default class AdminRoles extends React.Component {
             />
           </div>
         </div>
-      </>
+        <div>
+          {this.state.searchResults.forEach(char =>
+            this.makeSearchResultLine(char),
+          )}
+        </div>
+      </div>
 
   };
 

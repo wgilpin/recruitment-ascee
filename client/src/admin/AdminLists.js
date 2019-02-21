@@ -14,6 +14,11 @@ const defaultProps = {};
 const styles = {
   ...TableStyles.styles,
   ...Styles.styles,
+  outer: {
+    maxWidth: '400px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
   listbox: {
     display: 'table',
     width: '200px',
@@ -128,8 +133,8 @@ export default class AdminLists extends React.Component {
           <RoundImage src={imgSrc}></RoundImage>
         </div>
       }
-      <div style={styles.cell}>
-        {item.name} {idx}
+      <div style={{ ...styles.cell, verticalAlign: 'middle'}}>
+        {item.name}
       </div>
       <div style={styles.cell}>
         <img src={deleteImg} onClick={() => this.handleDelete(item.id)} alt='delete' />
@@ -139,7 +144,7 @@ export default class AdminLists extends React.Component {
 
   render() {
     return (
-      <>
+      <div style={styles.outer}>
         <h2>Redlists</h2>
         <select style={styles.selectPrimary} onChange={this.handleChangeKind}>
           {AdminLists.list_kinds.map(kind => <option value={kind}>{kind}</option>)}
@@ -167,7 +172,7 @@ export default class AdminLists extends React.Component {
         </div>
         }
         <FabButton onClick={this.handleAddFab} icon="add" color="#c00" size="40px" />
-      </>
+      </div>
     );
   }
 }

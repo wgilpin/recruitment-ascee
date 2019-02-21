@@ -11,6 +11,11 @@ const defaultProps = {};
 
 const styles = {
   ...CommonStyles,
+  outer: {
+    maxWidth: '400px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
   toolbarImg: {
     height: '24px',
     padding: '16px',
@@ -56,7 +61,7 @@ export default class AdminQuestions extends React.Component {
 
   render() {
     return (
-      <>
+      <div style={styles.outer}>
         <h2 style={styles.heading}>Applicant Questions</h2>
         {Object.keys(this.state.questions).map(id => {
           return (
@@ -65,7 +70,7 @@ export default class AdminQuestions extends React.Component {
                 style={styles.answer}
                 id={id}
                 onChange={this.handleAnswerChanged}
-                cols="70"
+                cols="50"
               >
                 {this.state.questions[id]}
               </textarea>
@@ -77,7 +82,7 @@ export default class AdminQuestions extends React.Component {
           );
         })}
         {this.state.dirty && <button style={styles.styles.primaryButton}>Save</button>}
-      </>
+      </div>
     );
   };
 }
