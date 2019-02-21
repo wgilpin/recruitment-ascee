@@ -1,9 +1,7 @@
-from models import db, Character, Type, System, Corporation, Alliance, Region
-from flask import jsonify, request
+from models import db, Character, Type, System, Corporation, Alliance, Region, User, Recruiter, Admin
 from flask_app import app
-from flask_login import login_required, current_user
 from security import user_admin_access_check
-from exceptions import ForbiddenException, BadRequestException
+from exceptions import BadRequestException, ForbiddenException
 from sqlalchemy import exists
 
 SECONDS_TO_CACHE = 10 * 60
@@ -19,122 +17,37 @@ kind_dict = {
 }
 
 
-@app.route('/api/admin/list/<string:kind>/add', methods=['PUT'])
-@login_required
-def api_admin_list_add_item(kind):
-    """
-    Add an item to a specified redlist.
+def set_roles(
+        user_id, is_recruiter=None, is_senior_recruiter=None, is_admin=None,
+        current_user=None):
+    user_admin_access_check(current_user)
+    user = User.get(user_id)
+    if is_senior_recruiter:
+        if not user.recruiter:
+            db.session.add(Recruiter(id=user.id, is_senior=True))
+        elif not user.recruiter.is_senior:
+            user.recruiter.is_senior = True
+    elif is_recruiter:
+        if not user.recruiter:
+            db.session.add(Recruiter(id=user.id, is_senior=True))
+    elif is_recruiter == False and user.recruiter:
+        remove_recruiter(user.recruiter)
+    if is_senior_recruiter == False and user.recruiter and user.recruiter.is_senior:
+        user.recruiter.is_senior = False
 
-    Args:
-        kind (string)
-        item:  { id (int), name (string) }
-
-    Returns:
-        200 if OK
-
-    Error codes:
-        Forbidden (403): If logged in user is not an admin
-    """
-    return jsonify(
-        add_admin_list_item(kind, request.args.get('item')['id'], current_user=current_user)
-    )
-
-
-@app.route('/api/admin/list/<string:kind>/replace', methods=['PUT'])
-@login_required
-def api_admin_list_replace(kind):
-    """
-    Replaces a specified redlist with the supplied items.
-
-    Args:
-        kind (string)
-        items: list of { id (int), name (string) }
-
-    Returns
-        200
-
-    Error codes:
-        Forbidden (403): If logged in user is not an admin
-    """
-    return jsonify(
-        put_admin_list(
-            kind, [item['id'] for item in request.args.get('items')],
-            do_replace=True, current_user=current_user)
-    )
+    if is_admin and not user.admin:
+        db.session.add(Admin(id=user.id))
+    elif is_admin == False and user.admin:
+        db.session.delete(user.admin)
+    db.session.commit()
+    return {'status': 'ok'}
 
 
-@app.route('/api/admin/list/<string:kind>', methods=['GET'])
-@login_required
-def api_get_admin_list(kind):
-    """
-    Gets a specified redlist.
-
-    Args:
-        kind (string)
-
-    Returns
-    (GET):
-        response (array) of
-        {
-            id (int),
-            name (string),
-        }
-
-    Error codes:
-        Forbidden (403): If logged in user is not an admin
-        BadRequest (400): If list type is not known
-    """
-    return jsonify(get_admin_list(kind, current_user=current_user))
-
-
-@app.route('/api/admin/list/<string:kind>', methods=['PUT'])
-@login_required
-def api_put_admin_list(kind):
-    """
-    Adds items to a specified redlist.
-
-    Args:
-        kind (string)
-        items: list of { id (int), name (string) }
-
-    Returns
-    (GET):
-        response (array) of
-        {
-            id (int),
-            name (string),
-        }
-    (PUT):
-        {'status': 'ok}
-
-    Error codes:
-        Forbidden (403): If logged in user is not an admin
-        BadRequest (400): If list type is not known
-    """
-    return jsonify(
-        put_admin_list(
-            kind, [item['id'] for item in request.args.get('items')], current_user=current_user)
-    )
-
-
-@app.route('/api/admin/list/<string:kind>/delete/<int:item_id>', methods=['DELETE'])
-@login_required
-def api_admin_list_delete_item(kind, item_id):
-    """
-    Removes an item from the specified redlist
-
-    Args:
-        kind (string)
-        item_id (int)
-
-    Returns:
-        200
-
-    Error codes:
-        Forbidden (403): If logged in user is not an admin
-        BadRequest (400): If item not in list
-    """
-    return jsonify(remove_admin_list_item(kind, item_id, current_user=current_user))
+def remove_recruiter(recruiter):
+    for app in recruiter.applications:
+        app.recruiter_id = None
+    db.session.delete(recruiter)
+    db.session.commit()
 
 
 def put_admin_list(kind, item_id_list, do_replace, current_user=None):

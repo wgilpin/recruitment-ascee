@@ -6,7 +6,9 @@ class Application(db.Model):
     __tablename__ = 'application'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    user = db.relationship(User)
     recruiter_id = db.Column(db.Integer, db.ForeignKey(Recruiter.id), nullable=True)
+    recruiter = db.relationship(Recruiter)
     is_escalated = db.Column(db.Boolean, default=False)
     is_submitted = db.Column(db.Boolean, default=False)
     is_concluded = db.Column(db.Boolean, default=False)
