@@ -45,7 +45,7 @@ const styles = {
     borderStyle: `solid`,
     borderWidth: `1px`,
     borderColor: `darkgray`,
-    height: `23px`,
+    height: `2px`,
     padding: `6px`,
     float: 'right',
   },
@@ -253,15 +253,6 @@ export default class AdminRoles extends React.Component {
         <div style={styles.h2}>Others</div>
         <div>
           <div>
-            <input
-              style={styles.searchInput}
-              type="text"
-              placeholder="search..."
-              onChange={this.updateSearchText}
-              value={this.state.searchText}
-            />
-          </div>
-          <div>
             {this.state.searchResults.forEach(char =>
               this.makeSearchResultLine(char),
             )}
@@ -270,6 +261,15 @@ export default class AdminRoles extends React.Component {
             <button onClick={this.handleSearch} style={styles.searchButton}>
               <img style={styles.smallButtonImg} src={SearchImg} alt="Search" />
             </button>
+          </div>
+          <div>
+            <input
+              style={styles.searchInput}
+              type="text"
+              placeholder="search..."
+              onChange={this.updateSearchText}
+              value={this.state.searchText}
+            />
           </div>
         </div>
       </>
