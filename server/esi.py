@@ -8,6 +8,8 @@ from esi_config import client_id, secret_key, callback_url, client_name
 import pickle
 import os
 from exceptions import ESIException
+import pyswagger.primitives
+from datetime import datetime
 
 
 @backoff.on_exception(
@@ -79,7 +81,7 @@ def get_op(op_name, refresh_token=None, disable_multi=False, **kwargs):
         if isinstance(response.data, dict) and 'error' in response.data.keys():
             raise ESIException(response.data['error'])
         else:
-            return response.data
+            return jsonify_dates(response.data)
     else:
         operations = []
         value_list = kwargs.pop(multi_kwarg)
@@ -96,7 +98,7 @@ def get_op(op_name, refresh_token=None, disable_multi=False, **kwargs):
                 if current_kwarg.isdigit():
                     current_kwarg = int(current_kwarg)
                 result_dict[current_kwarg] = response.data
-        return result_dict
+        return jsonify_dates(result_dict)
 
 
 def get_paged_op(op_name, refresh_token=None, **kwargs):
@@ -122,4 +124,23 @@ def get_paged_op(op_name, refresh_token=None, **kwargs):
         else:
             return_list.extend(response.data)
 
-    return return_list
+    return jsonify_dates(return_list)
+
+
+def jsonify_dates(obj):
+    if isinstance(obj, list):
+        return [jsonify_dates(item) for item in obj]
+    if isinstance(obj, tuple):
+        return tuple(jsonify_dates(item) for item in obj)
+    elif isinstance(obj, dict):
+        return {key: jsonify_dates(value) for key, value in obj.items()}
+    elif isinstance(obj, pyswagger.primitives.Datetime):
+        return obj.v.isoformat()
+    elif isinstance(obj, pyswagger.primitives.Date):
+        return obj.v.isoformat()
+    elif isinstance(obj, datetime):
+        return obj.isoformat()
+    elif isinstance(obj, (str, float, int)):
+        return obj
+    else:
+        raise TypeError(obj, type(obj))

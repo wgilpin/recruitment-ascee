@@ -1,4 +1,4 @@
-from esi import get_op
+import esi
 from models.eve import Corporation, Character, Alliance, Region, System, Station
 
 
@@ -31,7 +31,7 @@ def sort_ids_by_category(ids):
     ids = tuple(ids)
     data = []
     for i in range(0, len(ids), 1000):
-        data.extend(get_op(
+        data.extend(esi.get_op(
             'post_universe_names', ids=ids[i:i+1000]
         ))
     return_dict = {}

@@ -8,13 +8,14 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from models import (
     Character, User, Admin, Recruiter, Question, Answer, Application, db, Note,
-    Type, Region, System, Station, Structure
+    Type, Region, System, Station, Structure, Group
 )
 import warnings
 import time
 from vcr_unittest import VCRTestCase
 import esipy
 import esi
+from json_mock import JsonFunctionMocker
 
 
 def dummy_cache_time_left(expires_header):
@@ -25,7 +26,7 @@ esipy.utils.get_cache_time_left = dummy_cache_time_left
 esipy.client.get_cache_time_left = dummy_cache_time_left
 
 
-class AsceeTestCase(VCRTestCase):
+class AsceeTestCase(unittest.TestCase):#VCRTestCase):
 
     ascee_corp_id = 98589569
 
@@ -33,7 +34,8 @@ class AsceeTestCase(VCRTestCase):
 
     def _get_vcr_kwargs(self, **kwargs):
         kwargs.update({
-            'record_mode': 'new_episodes'
+            # 'record_mode': 'new_episodes'
+            'record_mode': 'once',
         })
         return kwargs
 
@@ -43,7 +45,21 @@ class AsceeTestCase(VCRTestCase):
         warnings.simplefilter("ignore", ResourceWarning)
         warnings.simplefilter("ignore", UserWarning)
         self._started_at = time.time()
-        esi.client_dict.clear()
+        for client in esi.client_dict.values():
+            client.access_token = None
+            client.token_expiry = None
+        mock_basename = '{}.{}.json'.format(
+            self.__class__.__name__,
+            self._testMethodName
+        )
+        mock_filename = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            'cassettes',
+            mock_basename
+        )
+        self._mocker = JsonFunctionMocker(mock_filename)
+        esi.get_op = self._mocker.mock_function(esi.get_op)
+        esi.get_paged_op = self._mocker.mock_function(esi.get_paged_op)
 
     def tearDown(self):
         elapsed = time.time() - self._started_at
@@ -51,6 +67,7 @@ class AsceeTestCase(VCRTestCase):
             print(f'\n{self.id()} ({round(elapsed, 2)}s)')
         super(AsceeTestCase, self).tearDown()
         self.clearDB()
+        self._mocker.save()
 
     def initDB(self):
         self.clearDB()
@@ -153,9 +170,10 @@ class AsceeTestCase(VCRTestCase):
     def clearDB(self):
         db.session.rollback()
         for model in \
-            Character, User, Recruiter, Admin, Application, Question, Answer, Note, Station, Structure:
+            Character, User, Recruiter, Admin, Application, Question, Answer,\
+            Note, Station, Structure, Type, Group, Region, System:
             db.session.query(model).delete()
-        for model in Type, Region, System:
-            for item in db.session.query(model).filter_by(redlisted=True):
-                item.redlisted = False
+        # for model in Type, Region, System:
+        #     for item in db.session.query(model).filter_by(redlisted=True):
+        #         item.redlisted = False
         db.session.commit()

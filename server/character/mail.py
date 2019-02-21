@@ -56,7 +56,6 @@ def get_character_mail(character_id, last_mail_id=None, current_user=None):
             entry['redlisted'].append('recipients')
         if all_parties[entry['from']].is_redlisted:
             entry['redlisted'].append('from_name')
-        entry['timestamp'] = str(entry['timestamp'].to_json())
     return {'info': mail_list}
 
 

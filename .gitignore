@@ -20,3 +20,4 @@ server/esi_app.pkl
 server/tests/config.py
 server/tests/cassettes/*.yaml
 server/tests/e2e_data.py
+server/tests/cassettes/*.swp
