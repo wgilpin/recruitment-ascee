@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import FetchData from '../common/FetchData';
 import TableStyles from '../TableStyles';
 import AdminRoles from './AdminRoles';
 import AdminLists from './AdminLists';
+import AdminQuestions from './AdminQuestions';
 
 const primary = TableStyles.styles.themeColor.color;
 
@@ -61,40 +61,8 @@ const styles = {
 };
 
 class Admin extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      questions: [],
 
-    };
-  }
 
-  componentWillMount() {
-    let fetchQs = new FetchData({ scope: 'questions' });
-    fetchQs.get().then(data => this.setState({ questions: data }));
-  }
-
-  buildQuestionsPanel = () => {
-    return (
-      <>
-        <h2 style={styles.heading}>Applicant Questions</h2>
-        {Object.keys(this.state.questions).map(id => {
-          return (
-            < >
-              <textarea
-                style={styles.answer}
-                id={id}
-                onChange={this.handleAnswerChanged}
-              >
-                {this.state.questions[id]}
-              </textarea>
-              <hr style={styles.hr} />
-            </>
-          );
-        })}
-      </>
-    );
-  };
   buildConfigPanel() {
     return < >
     <h2>Config</h2>
@@ -113,8 +81,8 @@ class Admin extends Component {
             <Tab style={styles.tab}>       Lists       </Tab>
             <Tab style={styles.tab}>      Config       </Tab>
           </TabList>
-          <TabPanel>{this.buildQuestionsPanel()}</TabPanel>
-          <TabPanel><AdminRoles /></TabPanel>
+          <TabPanel><AdminQuestions/></TabPanel>
+          <TabPanel><AdminRoles/></TabPanel>
           <TabPanel><AdminLists/></TabPanel>
           <TabPanel>{this.buildConfigPanel()}</TabPanel>
         </Tabs>
