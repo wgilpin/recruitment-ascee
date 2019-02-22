@@ -95,9 +95,7 @@ def api_admin_questions():
     Set questions for all users.
 
     Args:
-        user_id (int)
-            if missing/None uses the logged in user
-        answers (list)
+        questions (list)
             Given for PUT only. List of dict with keys 'question_id' and 'text'.
             question_can be None, if the question is new.
 
