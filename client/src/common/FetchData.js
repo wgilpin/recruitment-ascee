@@ -57,7 +57,10 @@ export default class FetchData {
   }
 
   get(query_params) {
-    let url = `${config.client.server}/api/${this.scope}/${this.originalParams.id || ''}`;
+    let url = `${config.client.server}/api/${this.scope}`;
+    if (this.originalParams.id) {
+      url += `/${this.originalParams.id || ''}`;
+    }
     if('param1' in this.originalParams){
       url += `/${this.originalParams.param1}`;
     }

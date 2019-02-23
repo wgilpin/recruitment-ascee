@@ -47,7 +47,7 @@ export default class Styles {
       backgroundColor: '#0000',
       cursor: 'pointer',
       fontSize: 'large',
-      textDecorationStyle: 'underline'
+      textDecoration: 'underline'
     }
   }
 }
