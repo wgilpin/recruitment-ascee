@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TabPanel } from 'react-tabs';
 import Alt from '../Alt';
 import UpImg from '../images/arrow-up.png';
 import DownImg from '../images/arrow-down.png';
 import TableStyles from '../TableStyles';
-import SearchImg from '../images/magnifying_glass_24x24.png';
 import FetchData from '../common/FetchData';
+import FindESICharacter from './FindESICharacter';
 
 
 const primary = TableStyles.styles.themeColor.color;
@@ -17,22 +16,12 @@ const styles = {
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-  searchOuter: {
-    width: '50%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
   names: {
     float: 'left',
     width: '200px',
     verticalAlign: 'middle',
     position: 'unset',
     paddingTop: '4px',
-  },
-  searchButton: {
-    borderStyle: 'none',
-    backgroundColor: '#0000',
-    padding: '6px',
   },
   smallButtonImg: {
     width: '20px',
@@ -42,7 +31,7 @@ const styles = {
     color: primary,
   },
   h2: {
-    padding: '4px',
+    padding: '8px',
     color: primary,
     fontWeight: 600,
   },
@@ -53,22 +42,6 @@ const styles = {
   },
   moveButtons: {
     paddingLeft: '24px',
-  },
-  searchInput: {
-    backgroundColor: 'black',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: 'darkgray',
-    padding: '6px',
-    borderBottom: '1px white solid',
-    borderLeft: 'black',
-    borderRight: 'black',
-    borderTop: 'black',
-  },
-  searchBtnOuter: {
-    float: 'right',
-    cursor: 'pointer',
-    marginRight: '12px',
   },
   tab: {
     width: '20%',
@@ -84,8 +57,6 @@ export default class AdminRoles extends React.Component {
     super(props);
     this.state = {
       staff: {},
-      searchText: '',
-      searchResults: [],
     };
   }
 
@@ -104,15 +75,6 @@ export default class AdminRoles extends React.Component {
     return Object
       .values(this.state.staff || {})
       .filter(c => !!(c[`is_${role}`]));
-  }
-
-  handleSearch() {
-    // TODO:
-    new FetchData({ scope: 'character/find', param1: this.state.searchText })
-      .get()
-      .then(res => {
-        this.setState({ searchResults: res });
-      });
   }
 
   async writeRoles(id, newRole) {
@@ -173,27 +135,6 @@ export default class AdminRoles extends React.Component {
 
   }
 
-  makeSearchResultLine(char) {
-    // TODO:
-    return (
-      <div>
-        {char.name}
-        <img
-          style={styles.moveButtons}
-          src={UpImg}
-          alt="up"
-          onClick={() => this.handleMove(char.id, 'up')}
-        />
-        <img
-          style={styles.moveButtons}
-          src={DownImg}
-          alt="up"
-          onClick={() => this.handleMove(char.id, 'down')}
-        />
-      </div>
-    );
-  }
-
   sortByNameFn(a, b) {
     if (a.name > b.name) {
       return 1;
@@ -248,12 +189,6 @@ export default class AdminRoles extends React.Component {
     );
   }
 
-  updateSearchText(evt) {
-    this.setState({
-      searchText: evt.target.value,
-    });
-  }
-
   buildRolesPanel = () => {
     const admins = this.filterStaff('admin');
     const recruiters = this.filterStaff('recruiter');
@@ -267,27 +202,13 @@ export default class AdminRoles extends React.Component {
         {this.sectionList('Recruiters', recruiters)}
         <hr />
         <div style={styles.h2}>Others</div>
-        <div style={styles.searchOuter}>
-          <div style={styles.searchBtnOuter}>
-            <button onClick={this.handleSearch} style={styles.searchButton}>
-              <img style={styles.smallButtonImg} src={SearchImg} alt="Search" />
-            </button>
-          </div>
-          <div style={{padding: '6px'}}>
-            <input
-              style={styles.searchInput}
-              type="text"
-              placeholder="search..."
-              onChange={this.updateSearchText}
-              value={this.state.searchText}
-            />
-          </div>
-        </div>
-        <div>
-          {this.state.searchResults.forEach(char =>
-            this.makeSearchResultLine(char),
-          )}
-        </div>
+        <FindESICharacter
+          onChange={this.handleMove}
+          iconList={[
+            { img: UpImg, name: 'up'},
+            { img: DownImg, name: 'down'},
+          ]}
+        />
       </div>
 
   };

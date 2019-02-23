@@ -21,7 +21,7 @@ const styles = {
   },
   listbox: {
     display: 'table',
-    width: '200px',
+    width: '300px',
   },
   li: {
     height: '32px',
@@ -47,12 +47,15 @@ const styles = {
   leftDiv :{
     textAlign: 'left',
     padding: '8px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   selectPrimary: {
     transform: 'scale(1.5)',
     color: 'white',
     backgroundColor: Styles.themeColors.primary,
     border: 'none',
+    marginBottom: '12px',
   }
 }
 
@@ -64,6 +67,7 @@ export default class AdminLists extends React.Component {
       kind: '',
     };
     this.textInput = React.createRef();
+    this.textArea = React.createRef();
   }
 
   static list_kinds = [
@@ -80,20 +84,33 @@ export default class AdminLists extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      kind: 'character',
-      list: [{ name: 'Billy Anto', id: 92900739 }, { name: 'Tommy Sos', id: 91027948 }],
+    const lists = {};
+    const promises = [];
+    for (let kind in AdminLists.list_kinds){
+      promises.push(new FetchData({ id: AdminLists.list_kinds[kind], scope: 'admin/list'})
+        .get()
+        .then((list) => {
+          lists[kind] = list;
+        }));
+    }
+    Promise.all().then(() => {
+      this.setState(lists.reduce((acc, cur) => ({ kind: cur.kind, list: cur.list }), {}));
     })
   }
 
   submitOne() {
     const name = this.textInput.current.value;
-    new FetchData(
-      { id: this.state.kind, scope: 'admin/lists', param1: 'add' },
-    ).put({ replace: false, names: [name]})
-      .then(data => {
-        alert(data)
-      });
+    return this.submit([name]);
+  }
+
+  submitMany() {
+    const names = this.textArea.current.value;
+    return this.submit(names);
+  }
+
+  submit(names) {
+    return new FetchData({ id: this.state.kind, scope: 'admin/list', param1: 'add' })
+      .put({ replace: false, names});
   }
 
   handleDelete(id) {
@@ -112,8 +129,8 @@ export default class AdminLists extends React.Component {
     this.setState({ showAddMany: true, showInput: false })
   }
 
-  handleDoAdd = () => {
-    this.submitOne()
+  handleDoAdd = async () => {
+    await this.submitOne();
     this.setState({ showInput: false })
   }
 
@@ -136,7 +153,7 @@ export default class AdminLists extends React.Component {
       <div style={{ ...styles.cell, verticalAlign: 'middle'}}>
         {item.name}
       </div>
-      <div style={styles.cell}>
+      <div style={{ ...styles.cell, verticalAlign: 'middle' }}>
         <img src={deleteImg} onClick={() => this.handleDelete(item.id)} alt='delete' />
       </div>
     </div>
@@ -155,7 +172,7 @@ export default class AdminLists extends React.Component {
         {this.state.showInput &&
         <div style={styles.leftDiv}>
           <input type='text' placeholder='add name' style={styles.input} ref={this.textInput} />
-          <button style={styles.smallPrimary} onClick={this.handleDoAdd}>Add+</button>
+          <button style={styles.smallPrimary} onClick={this.handleDoAdd}>Add</button>
           <br/>
           <button
             style={{ ...styles.linkButton, marginTop: '6px' }}
@@ -166,7 +183,7 @@ export default class AdminLists extends React.Component {
         }
         {this.state.showAddMany &&
         <div style={styles.leftDiv}>
-          <textarea rows="10" cols="60" style={styles.textarea}></textarea>
+          <textarea rows="10" cols="60" style={styles.textarea} ref={this.textArea} />
           <br/>
           <button style={styles.smallPrimary} onClick={this.handleDoAddMany}>Submit</button>
         </div>
