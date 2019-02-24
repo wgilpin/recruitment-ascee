@@ -54,18 +54,18 @@ def api_names_to_ids():
             Names to retrieve. Only exact matches will be returned.
     Example:
         response = {
-            'info': [
-                'Twine Endashi': '1937622137',
+            'info': {
+                '1937622137': 'Twine Endashi',
                 ...
-            ]
+            }
         }
 
     Error codes:
         Forbidden (403): If logged in user is not a recruiter or admin
         Bad request (400): If category is not a valid category
     """
-    category = request.args.get('category')
-    name_list = request.args.get('names')
+    category = request.json['category']
+    name_list = request.json['names']
     return jsonify(get_names_to_ids(category, name_list, current_user=current_user))
 
 
