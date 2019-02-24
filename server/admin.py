@@ -9,7 +9,6 @@ SECONDS_TO_CACHE = 10 * 60
 kind_dict = {
     'character': Character,
     'type': Type,
-    'channel': None,
     'alliance': Alliance,
     'corporation': Corporation,
     'system': System,
@@ -68,9 +67,6 @@ def put_admin_list(kind, item_id_list, do_replace, current_user=None):
     db.session.commit()
     return {'status': 'ok'}
 
-
-def add_admin_list_item(kind, item, current_user=None):
-    return put_admin_list(kind, [item], do_replace=False, current_user=current_user)
 
 
 def remove_admin_list_item(kind, item_id, current_user=None):
