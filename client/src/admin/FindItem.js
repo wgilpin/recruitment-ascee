@@ -62,6 +62,10 @@ const styles = {
     paddingLeft: '12px',
     paddingRight: '12px',
   },
+  line: {
+    height: '1px',
+    color: 'grey',
+  }
 };
 
 export default class FindItem extends React.Component {
@@ -81,16 +85,20 @@ export default class FindItem extends React.Component {
   };
 
   searchMany = () => {
-    const names = this.textArea.current.value;
+    const names = this.textArea.current.value.split('\n');
     return this.search(names);
   };
+
+  appendResults(list) {
+    return { ...this.state.searchResults, ...list };
+  }
 
   search(names) {
     return new FetchData({ id: this.state.kind, scope: 'names_to_ids' })
       .put({ category: this.props.kind, names })
       .then(data => {
-        console.log(data.body);
-        this.setState({ searchResults: data.info || [] });
+        this.setState({ searchResults: this.appendResults(data.info) || [] });
+        this.removeMatches(data.info);
       });
   }
 
@@ -99,7 +107,7 @@ export default class FindItem extends React.Component {
   };
 
   handleAdd = id => {
-    return new FetchData({ id: this.state.kind, scope: 'admin/list' }).put({
+    return new FetchData({ id: this.props.kind, scope: 'admin/list' }).put({
       replace: false,
       items: this.state.searchResults,
     });
@@ -110,6 +118,17 @@ export default class FindItem extends React.Component {
     delete newList[id];
     this.setState({ searchResults: newList });
   };
+
+  removeMatches(matches) {
+    const oldList = this.textArea.current.value.toLowerCase().split('\n');
+    Object.values(this.state.searchResults).forEach(name => {
+      const index = oldList.indexOf(name.toLowerCase());
+      if (index !== -1) {
+        oldList.splice(index, 1);
+      }
+    });
+    this.textArea.current.value = oldList.join('\n');
+  }
 
   makeResultLine(name, id, idx) {
     const lineStyle = {
@@ -151,6 +170,7 @@ export default class FindItem extends React.Component {
         {this.state.showInput && (
           <>
             <div style={styles.centreDiv}>
+              <hr style={styles.line} />
               <input
                 type="text"
                 placeholder="add name"
@@ -180,6 +200,7 @@ export default class FindItem extends React.Component {
         {!this.state.showInput && (
           <>
             <div style={styles.centreDiv}>
+              <hr style={styles.line} />
               <textarea
                 rows="10"
                 cols="60"
@@ -197,10 +218,17 @@ export default class FindItem extends React.Component {
                   return this.makeResultLine(name, id, idx);
                 }
               )}
-              <button style={styles.primaryButton} onClick={this.handleAddAll}>
-                Add All
-              </button>
             </div>
+            {this.state.searchResults.length > 0 && (
+              <div style={styles.listbox}>
+                <button
+                  style={styles.primaryButton}
+                  onClick={this.handleAddAll}
+                >
+                  Add All
+                </button>
+              </div>
+            )}
           </>
         )}
       </React.Fragment>

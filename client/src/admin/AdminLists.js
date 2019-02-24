@@ -59,6 +59,11 @@ const styles = {
     border: 'none',
     marginBottom: '12px',
   },
+  fab: {
+    float: 'right',
+    marginTop: '30px',
+    position: 'inherited',
+  },
 };
 
 export default class AdminLists extends React.Component {
@@ -186,12 +191,15 @@ export default class AdminLists extends React.Component {
           {(lists[kind] || []).map((item, idx) => this.makeListLine(item, idx))}
         </div>
         {this.state.showInput && <FindItem />}
-        <FabButton
-          onClick={this.handleAddFab}
-          icon="add"
-          color="#c00"
-          size="40px"
-        />
+        {!this.state.showInput && (
+          <FabButton
+            onClick={this.handleAddFab}
+            icon="add"
+            color="#c00"
+            size="40px"
+            style={styles.fab}
+          />
+        )}
 
         <ReactModal isOpen={this.state.showModal} style={styles.modal}>
           <h2 style={styles.modal.title}>
