@@ -35,7 +35,7 @@ def api_submit_application():
     Error codes:
         Forbidden (403): If logged in user has roles
     """
-    return jsonify(submit_application(request.json, current_user=current_user))
+    return jsonify(submit_application(request.get_json(), current_user=current_user))
 
 
 

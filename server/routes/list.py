@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from security import login_required
-from admin import add_admin_list_item, put_admin_list, get_admin_list, \
+from admin import put_admin_list, get_admin_list, \
     remove_admin_list_item
 from flask_app import app
 from flask_login import current_user
@@ -24,7 +24,7 @@ def api_admin_list_replace(kind):
     """
     return jsonify(
         put_admin_list(
-            kind, [item['id'] for item in request.json['items']],
+            kind, [item['id'] for item in request.get_json()['items']],
             do_replace=True, current_user=current_user)
     )
 
@@ -79,7 +79,7 @@ def api_put_admin_list(kind):
     """
     return jsonify(
         put_admin_list(
-            kind, [item['id'] for item in request.json['items']], do_replace=False, current_user=current_user)
+            kind, [item['id'] for item in request.get_json()['items']], do_replace=False, current_user=current_user)
     )
 
 

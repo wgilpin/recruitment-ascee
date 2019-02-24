@@ -64,8 +64,9 @@ def api_names_to_ids():
         Forbidden (403): If logged in user is not a recruiter or admin
         Bad request (400): If category is not a valid category
     """
-    category = request.json['category']
-    name_list = request.json['names']
+    args = request.get_json()
+    category = args['category']
+    name_list = args['names']
     return jsonify(get_names_to_ids(category, name_list, current_user=current_user))
 
 
