@@ -1,6 +1,3 @@
-import Mocks from "./mocks/Mocks";
-import MockContacts from './mocks/MockContacts'
-import MockContracts from './mocks/MockContracts'
 import configFile from './config';
 const config = configFile.get(process.env.NODE_ENV);
 
