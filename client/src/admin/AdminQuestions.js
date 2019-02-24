@@ -1,12 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import FetchData from '../common/FetchData';
 import DeleteImg from '../images/baseline_delete_white_24dp.png';
 import CommonStyles from '../common/Styles';
-
-const propTypes = {};
-
-const defaultProps = {};
 
 const styles = {
   ...CommonStyles,
@@ -33,7 +28,7 @@ class AdminQuestion extends React.Component {
   render() {
     const { id, text } = this.props;
     return (
-      < >
+      <>
         <textarea
           style={styles.answer}
           id={id}
@@ -42,7 +37,12 @@ class AdminQuestion extends React.Component {
           value={text}
         />
         <div style={styles.buttonBar}>
-          <img style={styles.toolbarImg} onClick={() => this.handleDelete(id)} src={DeleteImg} alt="delete" />
+          <img
+            style={styles.toolbarImg}
+            onClick={() => this.handleDelete(id)}
+            src={DeleteImg}
+            alt="delete"
+          />
         </div>
         <hr style={styles.hr} />
       </>
@@ -61,7 +61,7 @@ export default class AdminQuestions extends React.Component {
   }
 
   arrayToObject(arr, keyField) {
-    return arr.reduce((acc, val) => ({ ...acc, [val[keyField]]: val }), {})
+    return arr.reduce((acc, val) => ({ ...acc, [val[keyField]]: val }), {});
   }
 
   componentWillMount() {
@@ -69,51 +69,53 @@ export default class AdminQuestions extends React.Component {
     fetchQs.get().then(data => this.setState({ questions: data }));
   }
 
-  handleAnswerChanged = (e) => {
+  handleAnswerChanged = e => {
     this.setState({
-      questions:
-      {
+      questions: {
         ...this.state.questions,
         [e.target.id]: e.target.value,
       },
       dirty: true,
     });
-  }
+  };
 
   handleSubmit = () => {
     new FetchData({ scope: 'answers' })
-      .put(Object
-        .entries(this.state.questions)
-        .map(([question_id, text]) => ({ question_id, text }))
+      .put(
+        Object.entries(this.state.questions).map(([question_id, text]) => ({
+          question_id,
+          text,
+        }))
       )
       .then(() => {
         this.setState({ dirty: false });
-      })
-  }
+      });
+  };
 
-  handleDelete = (id) => {
+  handleDelete = id => {
     const newQuestions = Object.assign({}, this.state.questions);
     delete newQuestions[id];
     this.setState({ questions: newQuestions, dirty: true });
-  }
+  };
 
   render() {
     const { questions, dirty } = this.state;
-    Object.entries(questions).map(([k, v]) => console.log(k, v))
+    Object.entries(questions).map(([k, v]) => console.log(k, v));
     return (
       <div style={styles.outer}>
         <h2 style={styles.heading}>Applicant Questions</h2>
         {Object.entries(questions).map(([id, text]) => {
-          return <AdminQuestion id={id} text={text} />
+          return <AdminQuestion id={id} text={text} />;
         })}
-        {dirty &&
-          <button style={styles.styles.primaryButton} onClick={this.handleSubmit}>
+        {dirty && (
+          <button
+            style={styles.styles.primaryButton}
+            onClick={this.handleSubmit}
+          >
             Save
-          </button>}
+          </button>
+        )}
       </div>
     );
-  };
+  }
 }
-
-AdminQuestions.propTypes = propTypes;
-AdminQuestions.defaultProps = defaultProps;

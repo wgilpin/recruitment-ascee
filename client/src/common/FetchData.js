@@ -11,7 +11,7 @@ export default class FetchData {
    *  .then(data => {
    *    process(data)
    *  });
-  */
+   */
   constructor(params, onLoaded, onError) {
     this.params = FetchData.toParams(params);
     this.originalParams = params;
@@ -40,7 +40,11 @@ export default class FetchData {
       url += `/${this.originalParams.param2}`;
     }
     if (queryParams) {
-      url += '?' + Object.keys(queryParams).map(key => `${key}=${queryParams[key]}`).join('&');
+      url +=
+        '?' +
+        Object.keys(queryParams)
+          .map(key => `${key}=${queryParams[key]}`)
+          .join('&');
     }
     return url;
   }
@@ -49,32 +53,30 @@ export default class FetchData {
     const url = this.buildUrl(query_params);
     const tStart = performance.now();
     console.log(`fetch ${url}`);
-    return fetch(
-      url,
-      {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://localhost:3000',
-        },
-      })
-      .then((res) => {
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://localhost:3000',
+      },
+    })
+      .then(res => {
         const tEnd = performance.now();
-        console.log(`Call to ${url} took ${Math.round(tEnd - tStart)}ms`)
+        console.log(`Call to ${url} took ${Math.round(tEnd - tStart)}ms`);
         console.log(res.status, res.status > 400);
         if (res.status > 400) {
           console.log('error', res.statusText);
           if (res.status === 401) {
-            console.log('redirect to /login')
+            console.log('redirect to /login');
             window.location = '/login';
           }
-          return ({ 'error': res.statusText, status: res.status })
+          return { error: res.statusText, status: res.status };
         }
-        return res.json()
+        return res.json();
       })
-      .catch((err) => {
-        console.log('fetchData', err)
+      .catch(err => {
+        console.log('fetchData', err);
       });
   }
 
@@ -85,7 +87,9 @@ export default class FetchData {
       method: 'put',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-    })
+    }).then(response => {
+      return response.json();
+    });
   }
 
   delete() {
@@ -94,6 +98,8 @@ export default class FetchData {
     return fetch(url, {
       method: 'delete',
       headers: { 'Content-Type': 'application/json' },
-    })
+    }).then(response => {
+      return response.json();
+    });
   }
 }
