@@ -100,6 +100,9 @@ export default class AdminQuestions extends React.Component {
 
   render() {
     const { questions, dirty } = this.state;
+    if (!questions) {
+      return;
+    }
     Object.entries(questions).map(([k, v]) => console.log(k, v));
     return (
       <div style={styles.outer}>

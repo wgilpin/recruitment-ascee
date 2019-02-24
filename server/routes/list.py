@@ -78,7 +78,7 @@ def api_put_admin_list(kind):
     """
     return jsonify(
         put_admin_list(
-            kind, [item['id'] for item in request.get_json()['items']], do_replace=False, current_user=current_user)
+            kind, [id for id in request.get_json()['items']], do_replace=False, current_user=current_user)
     )
 
 
