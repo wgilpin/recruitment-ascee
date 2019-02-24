@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactModal from 'react-modal'
 import TableStyles from '../TableStyles';
 import RoundImage from '../common/RoundImage';
 import FabButton from '../common/fabButton';
@@ -22,6 +23,8 @@ const styles = {
   listbox: {
     display: 'table',
     width: '300px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   li: {
     height: '32px',
@@ -38,14 +41,13 @@ const styles = {
   input: {
     textAlign: 'left',
     width: '140px',
-    height: '40px',
-    padding: '8px',
+    height: '33px',
+    padding: '4px',
     color: 'white',
     backgroundColor: Styles.themeColors.secondary,
     border: 'none',
   },
-  leftDiv :{
-    textAlign: 'left',
+  centreDiv: {
     padding: '8px',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -63,8 +65,10 @@ export default class AdminLists extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: [],
-      kind: '',
+      lists: [],
+      kind: 'character',
+      selectedItem: {},
+      showModal: false,
     };
     this.textInput = React.createRef();
     this.textArea = React.createRef();
@@ -73,7 +77,6 @@ export default class AdminLists extends React.Component {
   static list_kinds = [
     'character',
     'type',
-    'channel',
     'alliance',
     'corporation',
     'system'
@@ -86,21 +89,23 @@ export default class AdminLists extends React.Component {
   componentDidMount() {
     const lists = {};
     const promises = [];
-    for (let kind in AdminLists.list_kinds){
-      promises.push(new FetchData({ id: AdminLists.list_kinds[kind], scope: 'admin/list'})
+    for (let kind of AdminLists.list_kinds) {
+      promises.push(new FetchData({ id: kind, scope: 'admin/list' })
         .get()
         .then((list) => {
-          lists[kind] = list;
+          lists[kind] = list.info;
         }));
     }
-    Promise.all().then(() => {
-      this.setState(lists.reduce((acc, cur) => ({ kind: cur.kind, list: cur.list }), {}));
+    Promise.all(promises).then(() => {
+      const showInput = this.state.lists.length === 0
+        || this.state.lists[this.state.kind].length === 0;
+      this.setState({ lists, showInput });
     })
   }
 
   submitOne() {
     const name = this.textInput.current.value;
-    return this.submit([name]);
+    return this.submit([{ name }]);
   }
 
   submitMany() {
@@ -108,17 +113,36 @@ export default class AdminLists extends React.Component {
     return this.submit(names);
   }
 
-  submit(names) {
-    return new FetchData({ id: this.state.kind, scope: 'admin/list', param1: 'add' })
-      .put({ replace: false, names});
+  submit(items) {
+    return new FetchData({ id: this.state.kind, scope: 'admin/list' })
+      .put({ replace: false, items });
   }
 
-  handleDelete(id) {
-    alert(`del ${id} not implemented`)
+  handleConfirmDelete(id) {
+    const selectedItem = this.state.lists[this.state.kind].filter(it => it.id === id)[0];
+    this.setState({
+      showModal: true,
+      selectedItem: selectedItem,
+    })
+  }
+
+  handleDelete = async () => {
+    await new FetchData({
+      id: this.state.kind,
+      scope: 'admin/list',
+      param1: 'delete',
+      param2: this.state.selectedItem.id
+    }).delete();
+    this.setState({ showModal: false });
+    this.componentDidMount();
   }
 
   handleChangeKind = (event) => {
-    this.setState({ kind: event.target.value });
+    this.setState({
+      kind: event.target.value,
+      showInput: this.state.lists[event.target.value].length === 0,
+      showAddMany: false,
+    });
   }
 
   handleAddFab = () => {
@@ -144,51 +168,61 @@ export default class AdminLists extends React.Component {
       ...styles.row,
     };
     const imgSrc = `https://image.eveonline.com/Character/${item.id}_64.jpg`;
-    return <div key={item.key} style={lineStyle}>
+    return <div key={item} style={lineStyle}>
       {this.state.kind === 'character' &&
         <div style={styles.cell}>
           <RoundImage src={imgSrc}></RoundImage>
         </div>
       }
-      <div style={{ ...styles.cell, verticalAlign: 'middle'}}>
+      <div style={{ ...styles.cell, verticalAlign: 'middle' }}>
         {item.name}
       </div>
-      <div style={{ ...styles.cell, verticalAlign: 'middle' }}>
-        <img src={deleteImg} onClick={() => this.handleDelete(item.id)} alt='delete' />
+      <div style={{ ...styles.cell, verticalAlign: 'middle', cursor: 'pointer' }}>
+        <img src={deleteImg} onClick={() => this.handleConfirmDelete(item.id)} alt='delete' />
       </div>
     </div>
   }
 
   render() {
+    const { kind, lists } = this.state;
     return (
       <div style={styles.outer}>
         <h2>Redlists</h2>
         <select style={styles.selectPrimary} onChange={this.handleChangeKind}>
-          {AdminLists.list_kinds.map(kind => <option value={kind}>{kind}</option>)}
+          {AdminLists.list_kinds.map(option_kind => <option value={option_kind}>{option_kind}</option>)}
         </select>
         <div style={styles.listbox}>
-          {this.state.list.map((item, idx) => this.makeListLine(item, idx))}
+          {(lists[kind] || []).map((item, idx) => this.makeListLine(item, idx))}
         </div>
         {this.state.showInput &&
-        <div style={styles.leftDiv}>
-          <input type='text' placeholder='add name' style={styles.input} ref={this.textInput} />
-          <button style={styles.smallPrimary} onClick={this.handleDoAdd}>Add</button>
-          <br/>
-          <button
-            style={{ ...styles.linkButton, marginTop: '6px' }}
-            onClick={this.handleClickAddMany}>
+          <div style={styles.centreDiv}>
+            <input type='text' placeholder='add name' style={styles.input} ref={this.textInput} />
+            <button style={styles.smallPrimary} onClick={this.handleDoAdd}>Add</button>
+            <br />
+            <button
+              style={{ ...styles.linkButton, marginTop: '6px' }}
+              onClick={this.handleClickAddMany}>
               Add Many
           </button>
-        </div>
+          </div>
         }
         {this.state.showAddMany &&
-        <div style={styles.leftDiv}>
-          <textarea rows="10" cols="60" style={styles.textarea} ref={this.textArea} />
-          <br/>
-          <button style={styles.smallPrimary} onClick={this.handleDoAddMany}>Submit</button>
-        </div>
+          <div style={styles.centreDiv}>
+            <textarea rows="10" cols="60" style={styles.textarea} ref={this.textArea} />
+            <br />
+            <button style={styles.smallPrimary} onClick={this.handleDoAddMany}>Submit</button>
+          </div>
         }
         <FabButton onClick={this.handleAddFab} icon="add" color="#c00" size="40px" />
+
+        <ReactModal
+          isOpen={this.state.showModal}
+          style={styles.modal}>
+          <h2 style={styles.modal.title}>Delete {this.state.selectedItem.name} from {this.state.kind}s</h2>
+          <p style={styles.modal.text}>Are you sure?</p>
+          <button style={styles.smallSecondary} onClick={() => this.setState({ showModal: false })}>No</button>
+          <button style={styles.smallPrimary} onClick={this.handleDelete}>yes</button>
+        </ReactModal>
       </div>
     );
   }
