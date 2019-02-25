@@ -2,7 +2,9 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import request, jsonify
-from recruitment import get_questions, get_answers, set_answers
+from recruitment import get_questions, get_answers, set_answers, set_questions, remove_question
+from exceptions import BadRequestException
+
 
 @app.route('/api/questions/')
 def api_questions():
@@ -14,6 +16,50 @@ def api_questions():
             values are question text.
     """
     return jsonify(get_questions(current_user=current_user))
+
+
+@app.route('/api/admin/set_questions', methods=['PUT'])
+def api_set_questions():
+    """
+    Set/update questions asked to applicants.
+
+    Args:
+        questions (list)
+            List of dict with keys 'question_id' and 'text'.
+            question_id be None, if the question is new.
+
+    Returns:
+        {'status': 'ok'}
+
+    Error codes:
+        Forbidden (403): If logged in user is not an admin.
+        Bad Request (400): If questions are not given, or if question_id is
+           invalid for any questions (doesn't already exist).
+    """
+
+    questions = request.args.get('questions', None)
+    if questions is None:
+        raise BadRequestException('questions were not given.')
+    else:
+        return jsonify(set_questions(questions, current_user=current_user))
+
+
+@app.route('/api/admin/remove_question/<int:question_id>')
+def api_remove_question(question_id):
+    """
+    Disable question asked to applicants.
+
+    Args:
+        question_id (int)
+
+    Returns:
+        {'status': 'ok'}
+
+    Error codes:
+        Forbidden (403): If logged in user is not an admin.```
+        Bad Request (400): If question_id is invalid.
+    """
+    return jsonify(remove_question(question_id, current_user=current_user))
 
 
 @app.route('/api/answers/', methods=['GET', 'PUT'])

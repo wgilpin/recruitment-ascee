@@ -8,12 +8,70 @@ import unittest
 from recruitment import (
     get_questions, get_answers, get_user_characters, get_users, get_user_application,\
     add_applicant_note, get_character_search_list, get_applicant_list, set_answers,\
-    start_application)
+    start_application, set_questions, remove_question)
 from status import reject_applicant
 from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
+
+
+class AddRemoveQuestionsTests(AsceeTestCase):
+
+    def test_add_question_forbidden(self):
+        for user in (self.recruiter, self.senior_recruiter, self.applicant, self.not_applicant):
+            with self.assertRaises(ForbiddenException):
+                set_questions([{'text': 'Question?'}], current_user=user)
+
+    def test_remove_question_forbidden(self):
+        question = Question(text='Question 1?')
+        db.session.add(question)
+        db.session.commit()
+        for user in (self.recruiter, self.senior_recruiter, self.applicant, self.not_applicant):
+            with self.assertRaises(ForbiddenException):
+                remove_question(question.id, current_user=user)
+
+    def test_add_question(self):
+        set_questions([{'text': 'Question?'}], current_user=self.admin)
+        questions = db.session.query(Question)
+        self.assertEqual(len(questions), 1)
+        question = questions.one()
+        self.assertEqual(question.text, 'Question?')
+
+    def test_add_two_questions_at_once(self):
+        set_questions([{'text': 'Question?'}, {'text': 'Another Question?'}], current_user=self.admin)
+        questions = db.session.query(Question)
+        self.assertEqual(questions.count(), 2)
+        self.assertEqual(db.session.query(Question).filter_by(text='Question?').count(), 1)
+        self.assertEqual(db.session.query(Question).filter_by(text='Another Question?').count(), 1)
+
+    def test_add_two_questions_in_series(self):
+        set_questions(
+            [{'text': 'Question?'}],
+            current_user=self.admin)
+        self.assertEqual(db.session.query(Question).count(), 1)
+        self.assertEqual(
+            db.session.query(Question).filter_by(text='Question?').count(),
+            1)
+        set_questions(
+            [{'text': 'Another Question?'}],
+            current_user=self.admin)
+        questions = db.session.query(Question)
+        self.assertEqual(questions.count(), 2)
+        self.assertEqual(
+            db.session.query(Question).filter_by(text='Question?').count(),
+            1)
+        self.assertEqual(db.session.query(Question).filter_by(
+            text='Another Question?').count(), 1)
+
+    def test_update_question(self):
+        set_questions([{'text': 'Question?'}], current_user=self.admin)
+        question = db.session.query(Question).one()
+        set_questions([{'id': question.id, 'text': 'A Question?'}])
+        questions = db.session.query(Question)
+        self.assertEqual(questions.count(), 1)
+        question = questions.one()
+        self.assertEqual(question.text, 'A Question?')
 
 
 class QuestionAnswerTests(AsceeTestCase):

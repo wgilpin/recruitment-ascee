@@ -1,8 +1,16 @@
 from models import Corporation, Note, Question, Answer, User, Character, db, Application, Admin, Recruiter
 from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter,\
-    is_applicant_character_id
+    is_applicant_character_id, user_admin_access_check
 import cachetools
 from exceptions import BadRequestException, ForbiddenException
+
+
+def set_questions(data, current_user=None):
+    user_admin_access_check(current_user)
+
+
+def remove_question(question_id, current_user=None):
+    user_admin_access_check(current_user)
 
 
 def submit_application(data, current_user=None):
