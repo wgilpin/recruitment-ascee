@@ -129,15 +129,6 @@ class QuestionAnswerTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertEqual(len(result), 3)
 
-    def test_multiple_questions_enabled(self):
-        for i in range(4):
-            question = Question(text=f'Question {i}?', enabled=i % 2 == 0)
-            db.session.add(question)
-            db.session.commit()
-        result = get_questions()
-        self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 2)
-
     def test_multiple_questions_as_applicant(self):
         for i in range(3):
             question = Question(text='Question {}?'.format(i))
