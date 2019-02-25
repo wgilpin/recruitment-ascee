@@ -26,7 +26,6 @@ class Question(db.Model):
     __tablename__ = 'question'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text)
-    enabled = db.Column(db.Boolean, default=True)
 
 
 class Answer(db.Model):

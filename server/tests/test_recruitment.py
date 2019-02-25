@@ -32,30 +32,34 @@ class AddRemoveQuestionsTests(AsceeTestCase):
                 remove_question(question.id, current_user=user)
 
     def test_add_question(self):
-        set_questions([{'text': 'Question?'}], current_user=self.admin)
+        response = set_questions([{'text': 'Question?'}], current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
         questions = db.session.query(Question)
-        self.assertEqual(len(questions), 1)
+        self.assertEqual(questions.count(), 1)
         question = questions.one()
         self.assertEqual(question.text, 'Question?')
 
     def test_add_two_questions_at_once(self):
-        set_questions([{'text': 'Question?'}, {'text': 'Another Question?'}], current_user=self.admin)
+        response = set_questions([{'text': 'Question?'}, {'text': 'Another Question?'}], current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
         questions = db.session.query(Question)
         self.assertEqual(questions.count(), 2)
         self.assertEqual(db.session.query(Question).filter_by(text='Question?').count(), 1)
         self.assertEqual(db.session.query(Question).filter_by(text='Another Question?').count(), 1)
 
     def test_add_two_questions_in_series(self):
-        set_questions(
+        response = set_questions(
             [{'text': 'Question?'}],
             current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
         self.assertEqual(db.session.query(Question).count(), 1)
         self.assertEqual(
             db.session.query(Question).filter_by(text='Question?').count(),
             1)
-        set_questions(
+        response = set_questions(
             [{'text': 'Another Question?'}],
             current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
         questions = db.session.query(Question)
         self.assertEqual(questions.count(), 2)
         self.assertEqual(
@@ -65,13 +69,39 @@ class AddRemoveQuestionsTests(AsceeTestCase):
             text='Another Question?').count(), 1)
 
     def test_update_question(self):
-        set_questions([{'text': 'Question?'}], current_user=self.admin)
+        response = set_questions([{'text': 'Question?'}], current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
         question = db.session.query(Question).one()
-        set_questions([{'id': question.id, 'text': 'A Question?'}])
+        response = set_questions([{'question_id': question.id, 'text': 'A Question?'}], current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
         questions = db.session.query(Question)
         self.assertEqual(questions.count(), 1)
         question = questions.one()
         self.assertEqual(question.text, 'A Question?')
+
+    def test_remove_only_question(self):
+        response = set_questions([{'text': 'Question?'}], current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
+        questions = get_questions(current_user=self.admin)
+        self.assertEqual(len(questions), 1)
+        for question_id, text in questions.items():
+            response = remove_question(question_id, current_user=self.admin)
+            self.assertEqual(response, {'status': 'ok'})
+        questions = get_questions(current_user=self.admin)
+        self.assertEqual(len(questions), 0)
+
+    def test_remove_one_question(self):
+        response = set_questions([{'text': 'Question?'}, {'text': 'Another Question?'}], current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
+        questions = get_questions(current_user=self.admin)
+        self.assertEqual(len(questions), 2)
+        for question_id, text in questions.items():
+            if text == 'Question?':
+                break
+        remove_question(question_id, current_user=self.admin)
+        questions = get_questions(current_user=self.admin)
+        self.assertEqual(len(questions), 1)
+        self.assertEqual(list(questions.values())[0], 'Another Question?')
 
 
 class QuestionAnswerTests(AsceeTestCase):
