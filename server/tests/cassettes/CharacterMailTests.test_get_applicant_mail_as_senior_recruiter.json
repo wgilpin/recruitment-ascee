@@ -969,8 +969,9 @@
                 "ancestry_id": 18,
                 "birthday": "2018-03-05T15:22:47+00:00",
                 "bloodline_id": 8,
-                "corporation_id": 1000111,
+                "corporation_id": 1000181,
                 "description": "",
+                "faction_id": 500004,
                 "gender": "male",
                 "name": "vallis",
                 "race_id": 8,
@@ -989,7 +990,6 @@
                 "security_status": 0.00035000000000000005
             },
             "2114619965": {
-                "alliance_id": 99003144,
                 "ancestry_id": 7,
                 "birthday": "2018-10-24T20:19:53+00:00",
                 "bloodline_id": 2,
@@ -1243,7 +1243,7 @@
                 "birthday": "2008-05-31T06:09:00+00:00",
                 "bloodline_id": 3,
                 "corporation_id": 98124121,
-                "description": "<font size=\"12\" color=\"#bfffffff\"></font><font size=\"12\" color=\"#ffd98d00\"><a href=\"killReport:75178835:e8e04f02a23607f0f8d43692c6157f24b1cbb0c6\">Kill: Fortizar</a></font><font size=\"12\" color=\"#bfffffff\"> <br></font><font size=\"12\" color=\"#ffd98d00\"><a href=\"killReport:74131833:d5f598a7556f3b8bcffc414c398a3e8a2259bd0b\">Kill: AltecScott (Apostle)</a><br><a href=\"killReport:74131768:0cbaa7b4f6957dbd75ed9b7d6e4f34f80128bd5d\">Kill: Spartan Blood (Archon)</a><br><a href=\"killReport:74075681:ca2e47f0e7e1aa190b5051ddb5c95007e36bfd50\">Kill: nikita Schereau (Drekavac)</a><br><a href=\"killReport:74040966:855bca30ae80931d4d233afddf626137dcefafd8\">Kill: Dark Pandemonium (Thanatos)</a><br><a href=\"killReport:74826378:83ef3eacd576e061922e7d2ced291378900a2632\">Kill: payupordie (Thanatos)</a><br><a href=\"killReport:74764312:fc0ba767e5c64d13532b5f37823fe90064f946b7\">\u041f\u043e\u0431\u0435\u0434\u0430: Blood ofGODS (Thanatos*)</a><br><a href=\"killReport:71605015:b095681370852e1bc9126ae9394522f6bdea7a96\">Kill: r0nnie Kray (Molok)</a></font>",
+                "description": "<font size=\"12\" color=\"#bfffffff\"></font><font size=\"12\" color=\"#ffd98d00\"><a href=\"killReport:75178835:e8e04f02a23607f0f8d43692c6157f24b1cbb0c6\">Kill: Fortizar</a></font><font size=\"12\" color=\"#bfffffff\"> <br></font><font size=\"12\" color=\"#ffd98d00\"><a href=\"killReport:74131833:d5f598a7556f3b8bcffc414c398a3e8a2259bd0b\">Kill: AltecScott (Apostle)</a><br><a href=\"killReport:74131768:0cbaa7b4f6957dbd75ed9b7d6e4f34f80128bd5d\">Kill: Spartan Blood (Archon)</a><br><a href=\"killReport:74075681:ca2e47f0e7e1aa190b5051ddb5c95007e36bfd50\">Kill: nikita Schereau (Drekavac)</a><br><a href=\"killReport:74040966:855bca30ae80931d4d233afddf626137dcefafd8\">Kill: Dark Pandemonium (Thanatos)</a><br><a href=\"killReport:74826378:83ef3eacd576e061922e7d2ced291378900a2632\">Kill: payupordie (Thanatos)</a><br><a href=\"killReport:74764312:fc0ba767e5c64d13532b5f37823fe90064f946b7\">\u041f\u043e\u0431\u0435\u0434\u0430: Blood ofGODS (Thanatos*)</a><br><a href=\"killReport:71605015:b095681370852e1bc9126ae9394522f6bdea7a96\">Kill: r0nnie Kray (Molok)</a><br></font><font size=\"12\" color=\"#ffffffff\">[13:52:32] Nina Glutdrache  </font><font size=\"12\" color=\"#ffd98d00\"><a href=\"killReport:74897553:3fae15fee84bc4249794eb0298bb08e07f1d534a\">Kill: Harvey Skywarker (Nightmare)</a></font><font size=\"12\" color=\"#ffffffff\"> harvey let it go<br>[13:52:50] Harvey Skywarker &gt; NEVER!<br>[13:53:35] Harvey Skywarker &gt; It will take me months to get 200 killmarks again. I will never forgive you</font>",
                 "gender": "female",
                 "name": "Nina Glutdrache",
                 "race_id": 2,
@@ -1355,7 +1355,7 @@
                 "birthday": "2016-05-17T18:06:54+00:00",
                 "bloodline_id": 3,
                 "corporation_id": 216121397,
-                "description": "Member of the CCP Player Experience Team.<br>\r\nPlease note that Game Masters do not reply to EVE mails. If you wish to contact a Game Master then please submit a ticket via the EVE: Online support Help Center which can be accessed by pressing F12 and selecting the 'Go to Help Center' option.",
+                "description": "Member of the CCP Player Experience Team.<br><br>Please note that Game Masters do not reply to EVE mails. If you wish to contact a Game Master then please submit a ticket via the EVE: Online support Help Center which can be accessed by pressing F12 and selecting the 'Go to Help Center' option.",
                 "gender": "female",
                 "name": "GM Sirius",
                 "race_id": 2,
@@ -1383,7 +1383,7 @@
                 "gender": "male",
                 "name": "Rod Sonja",
                 "race_id": 1,
-                "security_status": 1.023397229355213
+                "security_status": 1.040452774619438
             },
             "2114607816": {
                 "ancestry_id": 22,
@@ -1449,7 +1449,7 @@
                 "gender": "male",
                 "name": "Valen Sinak",
                 "race_id": 4,
-                "security_status": 0.5311625982791425
+                "security_status": 0.5371973061089949
             },
             "2114517205": {
                 "ancestry_id": 11,
@@ -1494,7 +1494,7 @@
                 "gender": "male",
                 "name": "Tupo Azer",
                 "race_id": 2,
-                "security_status": 0.8014516067399047
+                "security_status": 0.840716705614461
             },
             "2114491108": {
                 "ancestry_id": 33,
@@ -1595,7 +1595,7 @@
                 "gender": "female",
                 "name": "Trainer Aer",
                 "race_id": 1,
-                "security_status": 4.007188836372453
+                "security_status": -0.8983844238476104
             },
             "2112885505": {
                 "alliance_id": 99006113,
@@ -1708,7 +1708,7 @@
                 "gender": "male",
                 "name": "Valkyrie uav",
                 "race_id": 8,
-                "security_status": -1.0061032541153099
+                "security_status": -1.2668196319447869
             },
             "2114577706": {
                 "ancestry_id": 31,
@@ -1955,7 +1955,7 @@
                 "gender": "female",
                 "name": "Trennx",
                 "race_id": 4,
-                "security_status": 0.1670382082645196
+                "security_status": 0.17060222827545724
             },
             "669376864": {
                 "ancestry_id": 12,
@@ -1977,7 +1977,7 @@
                 "gender": "female",
                 "name": "Vanheda-HUN",
                 "race_id": 8,
-                "security_status": 0.05437216042397554
+                "security_status": 0.10060586461311308
             },
             "2113381729": {
                 "ancestry_id": 36,
@@ -2214,7 +2214,7 @@
                 "gender": "male",
                 "name": "Trand Ssel",
                 "race_id": 1,
-                "security_status": 4.871494374212956
+                "security_status": 5.005071510105618
             },
             "2114579881": {
                 "alliance_id": 99003581,
@@ -2361,7 +2361,7 @@
                 "gender": "male",
                 "name": "Pol Diver",
                 "race_id": 8,
-                "security_status": 0.9250109615108278
+                "security_status": 0.9527687277170237
             },
             "2114829818": {
                 "ancestry_id": 7,
@@ -2474,11 +2474,10 @@
                 "security_status": 0.019095105188988097
             },
             "2112791028": {
-                "alliance_id": 99002938,
                 "ancestry_id": 5,
                 "birthday": "2017-05-13T23:44:28+00:00",
                 "bloodline_id": 6,
-                "corporation_id": 98432529,
+                "corporation_id": 1000072,
                 "description": "Do not go gentle into that good night,<br>Old age should burn and rave at close of day; <br>Rage, rage against the dying of the light.<br><br>Though wise men at their end know dark is right,<br>Because their words had forked no lightning they<br>Do not go gentle into that good night.<br><br>Good men, the last wave by, crying how bright<br>Their frail deeds might have danced in a green bay,<br>Rage, rage against the dying of the light.<br><br>Wild men who caught and sang the sun in flight,<br>And learn, too late, they grieved it on its way,<br>Do not go gentle into that good night.<br><br>Grave men, near death, who see with blinding sight<br>Blind eyes could blaze like meteors and be gay,<br>Rage, rage against the dying of the light.<br><br>And you, my father, there on that sad height,<br>Curse, bless, me now with your fierce tears, I pray.<br>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.<br><br><b>Dylan Thomas</b>",
                 "gender": "female",
                 "name": "Valanya Lothain",
