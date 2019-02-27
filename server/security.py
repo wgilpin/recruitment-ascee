@@ -15,15 +15,15 @@ def login_required(func):
 
 
 def is_admin(user):
-    return isinstance(user.admin, Admin)
+    return (user is not None) and isinstance(user.admin, Admin)
 
 
 def is_recruiter(user):
-    return isinstance(user.recruiter, Recruiter)
+    return (user is not None) and isinstance(user.recruiter, Recruiter)
 
 
 def is_senior_recruiter(user):
-    return isinstance(user.recruiter, Recruiter) and user.recruiter.is_senior
+    return (user is not None) and isinstance(user.recruiter, Recruiter) and user.recruiter.is_senior
 
 
 def is_applicant_character_id(character_id):
