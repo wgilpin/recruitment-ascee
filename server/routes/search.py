@@ -55,7 +55,7 @@ def api_names_to_ids():
     Example:
         response = {
             'info': {
-                '1937622137': 'Twine Endashi',
+                'Twine Endashi': '1937622137',
                 ...
             }
         }

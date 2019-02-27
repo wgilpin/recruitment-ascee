@@ -1449,7 +1449,7 @@
                 "gender": "male",
                 "name": "Valen Sinak",
                 "race_id": 4,
-                "security_status": 0.5311625982791425
+                "security_status": 0.533174566445999
             },
             "2114517205": {
                 "ancestry_id": 11,
@@ -1494,7 +1494,7 @@
                 "gender": "male",
                 "name": "Tupo Azer",
                 "race_id": 2,
-                "security_status": 0.8014516067399047
+                "security_status": 0.840716705614461
             },
             "2114491108": {
                 "ancestry_id": 33,
@@ -1595,7 +1595,7 @@
                 "gender": "female",
                 "name": "Trainer Aer",
                 "race_id": 1,
-                "security_status": 4.007188836372453
+                "security_status": 4.015578772001532
             },
             "2112885505": {
                 "alliance_id": 99006113,
@@ -1708,7 +1708,7 @@
                 "gender": "male",
                 "name": "Valkyrie uav",
                 "race_id": 8,
-                "security_status": -1.0061032541153099
+                "security_status": -1.2668196319447869
             },
             "2114577706": {
                 "ancestry_id": 31,
@@ -1955,7 +1955,7 @@
                 "gender": "female",
                 "name": "Trennx",
                 "race_id": 4,
-                "security_status": 0.1670382082645196
+                "security_status": 0.16814441646608982
             },
             "669376864": {
                 "ancestry_id": 12,
@@ -2361,7 +2361,7 @@
                 "gender": "male",
                 "name": "Pol Diver",
                 "race_id": 8,
-                "security_status": 0.9250109615108278
+                "security_status": 0.9527687277170237
             },
             "2114829818": {
                 "ancestry_id": 7,
@@ -2474,11 +2474,10 @@
                 "security_status": 0.019095105188988097
             },
             "2112791028": {
-                "alliance_id": 99002938,
                 "ancestry_id": 5,
                 "birthday": "2017-05-13T23:44:28+00:00",
                 "bloodline_id": 6,
-                "corporation_id": 98432529,
+                "corporation_id": 1000072,
                 "description": "Do not go gentle into that good night,<br>Old age should burn and rave at close of day; <br>Rage, rage against the dying of the light.<br><br>Though wise men at their end know dark is right,<br>Because their words had forked no lightning they<br>Do not go gentle into that good night.<br><br>Good men, the last wave by, crying how bright<br>Their frail deeds might have danced in a green bay,<br>Rage, rage against the dying of the light.<br><br>Wild men who caught and sang the sun in flight,<br>And learn, too late, they grieved it on its way,<br>Do not go gentle into that good night.<br><br>Grave men, near death, who see with blinding sight<br>Blind eyes could blaze like meteors and be gay,<br>Rage, rage against the dying of the light.<br><br>And you, my father, there on that sad height,<br>Curse, bless, me now with your fierce tears, I pray.<br>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.<br><br><b>Dylan Thomas</b>",
                 "gender": "female",
                 "name": "Valanya Lothain",

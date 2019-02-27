@@ -62,7 +62,7 @@ def get_names_to_ids(category, name_list, current_user=None):
         category_key = f'{category}s'
         if category_key in result:
             result = result[category_key]
-            return {'info': {item['id']: item['name'] for item in result}}
+            return {'info': {item['name']: item['id'] for item in result}}
         else:
             return {'info': {}}
 

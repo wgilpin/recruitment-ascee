@@ -88,8 +88,8 @@ class NamesToIDsTests(AsceeTestCase):
             'character', [self.applicant.name], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
-        self.assertIn(self.applicant.id, data)
-        self.assertEqual(data[self.applicant.id], self.applicant.name)
+        self.assertIn(self.applicant.name, data)
+        self.assertEqual(data[self.applicant.name], self.applicant.id)
         self.assertEqual(len(data), 1)
 
     def test_search_for_applicant_as_recruiter(self):
@@ -97,8 +97,8 @@ class NamesToIDsTests(AsceeTestCase):
             'character', [self.applicant.name], current_user=self.recruiter)
         self.assertIn('info', response)
         data = response['info']
-        self.assertIn(self.applicant.id, data)
-        self.assertEqual(data[self.applicant.id], self.applicant.name)
+        self.assertIn(self.applicant.name, data)
+        self.assertEqual(data[self.applicant.name], self.applicant.id)
         self.assertEqual(len(data), 1)
 
     def test_search_for_applicant_as_senior_recruiter(self):
@@ -106,8 +106,8 @@ class NamesToIDsTests(AsceeTestCase):
             'character', [self.applicant.name], current_user=self.senior_recruiter)
         self.assertIn('info', response)
         data = response['info']
-        self.assertIn(self.applicant.id, data)
-        self.assertEqual(data[self.applicant.id], self.applicant.name)
+        self.assertIn(self.applicant.name, data)
+        self.assertEqual(data[self.applicant.name], self.applicant.id)
         self.assertEqual(len(data), 1)
 
     def test_search_for_two_characters_full_match(self):
@@ -115,10 +115,10 @@ class NamesToIDsTests(AsceeTestCase):
             'character', [self.applicant.name, self.not_applicant.name], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
-        self.assertIn(self.applicant.id, data)
-        self.assertEqual(data[self.applicant.id], self.applicant.name)
-        self.assertIn(self.not_applicant.id, data)
-        self.assertEqual(data[self.not_applicant.id], self.not_applicant.name)
+        self.assertIn(self.applicant.name, data)
+        self.assertEqual(data[self.applicant.name], self.applicant.id)
+        self.assertIn(self.not_applicant.name, data)
+        self.assertEqual(data[self.not_applicant.name], self.not_applicant.id)
         self.assertEqual(len(data), 2)
 
     def test_search_for_jita(self):
@@ -126,8 +126,8 @@ class NamesToIDsTests(AsceeTestCase):
             'system', ['Jita'], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
-        self.assertIn(30000142, data)
-        self.assertEqual(data[30000142], 'Jita')
+        self.assertIn('Jita', data)
+        self.assertEqual(data['Jita'], 30000142)
         self.assertEqual(len(data), 1)
 
     def test_search_for_querious(self):
@@ -135,8 +135,8 @@ class NamesToIDsTests(AsceeTestCase):
             'region', ['Querious'], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
-        self.assertIn(10000050, data)
-        self.assertEqual(data[10000050], 'Querious')
+        self.assertIn('Querious', data)
+        self.assertEqual(data['Querious'], 10000050)
         self.assertEqual(len(data), 1)
 
     def test_search_for_ascendance(self):
@@ -144,8 +144,8 @@ class NamesToIDsTests(AsceeTestCase):
             'corporation', ['Ascendance'], current_user=self.admin)
         self.assertIn('info', response)
         data = response['info']
-        self.assertIn(98409330, data)
-        self.assertEqual(data[98409330], 'Ascendance')
+        self.assertIn('Ascendance', data)
+        self.assertEqual(data['Ascendance'], 98409330)
         self.assertEqual(len(data), 1)
 
     def test_search_no_result(self):

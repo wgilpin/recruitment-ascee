@@ -120,6 +120,9 @@ export default class FindItem extends React.Component {
   };
 
   removeMatches(matches) {
+    if (!this.textArea.current) {
+      return;
+    }
     const oldList = this.textArea.current.value.toLowerCase().split('\n');
     Object.values(this.state.searchResults).forEach(name => {
       const index = oldList.indexOf(name.toLowerCase());

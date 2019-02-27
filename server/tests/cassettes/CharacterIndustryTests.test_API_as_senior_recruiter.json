@@ -60313,7 +60313,7 @@
         "(('get_universe_stations_station_id',), (('station_id', 60003760),))": {
             "max_dockable_ship_volume": 50000000.0,
             "name": "Jita IV - Moon 4 - Caldari Navy Assembly Plant",
-            "office_rental_cost": 4342248182.0,
+            "office_rental_cost": 4295172958.0,
             "owner": 1000035,
             "position": {
                 "x": -107303362560.0,

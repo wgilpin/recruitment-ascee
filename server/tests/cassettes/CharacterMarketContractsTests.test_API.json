@@ -1,52 +1,6 @@
 {
     "get_op": {
-        "(('get_characters_character_id_contracts_contract_id_items',), (('character_id', 2114496483), ('contract_id', (141639121, 141660521, 141740024, 141852510, 141916419, 141948675, 141965109, 141965890, 141983937, 142031837, 142050166, 142068877, 142069342, 142100537, 142140262, 142186816, 142188180, 142197360, 142203934, 142221068, 142221202, 142250273, 142250284, 142257274, 142257275, 142300477, 142305338, 142305349, 142316290, 142319026, 142319695, 142322591, 142332501, 142335260, 142347693, 142367747, 142373720, 142381908, 142382132, 142384940, 142389610, 142389651, 142389685, 142405182, 142413230, 142419482, 142426462, 142430381, 142432732, 142435218, 142437429, 142439650, 142451335, 142451345, 142452894, 142455367, 142464668, 142465963, 142465970, 142487046, 142498076, 142535210, 142571178, 142571507, 142571516, 142573734, 142605511, 142613662, 142637593, 142654129, 142654150, 142656135, 142719623, 142723260)), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": {
-            "141639121": [
-                {
-                    "is_included": true,
-                    "is_singleton": false,
-                    "quantity": 4927281,
-                    "record_id": 2820256824,
-                    "type_id": 17887
-                },
-                {
-                    "is_included": true,
-                    "is_singleton": false,
-                    "quantity": 5,
-                    "record_id": 2820256825,
-                    "type_id": 41218
-                },
-                {
-                    "is_included": true,
-                    "is_singleton": false,
-                    "quantity": 73,
-                    "record_id": 2820256826,
-                    "type_id": 31760
-                },
-                {
-                    "is_included": true,
-                    "is_singleton": false,
-                    "quantity": 4889,
-                    "record_id": 2820256827,
-                    "type_id": 16648
-                },
-                {
-                    "is_included": true,
-                    "is_singleton": false,
-                    "quantity": 5,
-                    "record_id": 2820256828,
-                    "type_id": 19325
-                }
-            ],
-            "141660521": [
-                {
-                    "is_included": true,
-                    "is_singleton": false,
-                    "quantity": 1,
-                    "record_id": 2820757782,
-                    "type_id": 4313
-                }
-            ],
+        "(('get_characters_character_id_contracts_contract_id_items',), (('character_id', 2114496483), ('contract_id', (141740024, 141852510, 141916419, 141948675, 141965109, 141965890, 141983937, 142031837, 142050166, 142068877, 142069342, 142100537, 142140262, 142186816, 142188180, 142197360, 142203934, 142221068, 142221202, 142250273, 142250284, 142257274, 142257275, 142300477, 142305338, 142305349, 142316290, 142319026, 142319695, 142322591, 142332501, 142335260, 142347693, 142367747, 142373720, 142381908, 142382132, 142384940, 142389610, 142389651, 142389685, 142405182, 142413230, 142419482, 142426462, 142430381, 142432732, 142435218, 142437429, 142439650, 142451335, 142451345, 142452894, 142455367, 142464668, 142465963, 142465970, 142487046, 142498076, 142535210, 142571178, 142571507, 142571516, 142573734, 142605511, 142613662, 142637593, 142654129, 142654150, 142656135, 142719623, 142723260, 142756410)), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": {
             "141740024": [
                 {
                     "is_included": true,
@@ -4243,9 +4197,32 @@
                     "record_id": 2845286424,
                     "type_id": 16636
                 }
+            ],
+            "142756410": [
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 4,
+                    "record_id": 2846063195,
+                    "type_id": 2739
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 3000000,
+                    "record_id": 2846063196,
+                    "type_id": 17889
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 35800,
+                    "record_id": 2846063197,
+                    "type_id": 16638
+                }
             ]
         },
-        "(('get_universe_types_type_id',), (('type_id', (25600, 18945, 2050, 25603, 7171, 25605, 17912, 10250, 3082, 25612, 25613, 31760, 41490, 41491, 3090, 25624, 2589, 43551, 33826, 2082, 49701, 38, 39, 33832, 49709, 31791, 31792, 20528, 31794, 33844, 28213, 31798, 49719, 33848, 1079, 33852, 45632, 49748, 49749, 46166, 46169, 46170, 603, 23134, 11870, 11873, 46178, 46179, 46180, 19045, 46182, 46183, 46181, 30310, 3178, 30307, 1129, 40555, 46185, 30832, 11889, 11890, 40563, 17526, 46204, 31870, 46207, 46210, 46212, 46217, 41614, 47764, 13976, 13984, 30376, 9899, 3244, 3243, 43694, 19119, 18608, 14003, 2739, 31928, 31930, 33981, 33983, 33985, 31942, 28362, 28366, 5839, 31952, 9941, 9942, 9943, 4313, 4314, 4316, 20702, 9956, 33518, 33519, 41200, 33520, 41201, 18676, 22778, 4346, 16635, 16637, 16636, 16638, 16634, 16641, 41218, 47874, 16642, 20741, 16646, 47873, 16648, 16649, 16644, 16651, 16650, 16653, 16647, 2319, 19207, 30993, 11534, 30988, 18708, 27925, 41238, 16663, 16643, 16658, 47898, 19227, 24349, 11550, 47903, 4383, 47905, 48927, 47907, 11555, 47908, 16671, 34590, 31012, 2345, 31017, 41267, 41268, 17668, 14144, 32006, 8517, 31047, 19198, 35662, 19282, 33619, 31061, 41302, 41303, 47448, 47447, 19288, 41312, 18789, 47975, 2410, 24427, 17266, 41332, 4349, 377, 1403, 11644, 19325, 11646, 1405, 11648, 2436, 18829, 18831, 37631, 15766, 34203, 14238, 14242, 11690, 45998, 45999, 944, 46000, 17330, 37298, 37296, 8117, 46005, 14262, 17334, 17336, 46006, 17338, 31159, 17340, 20413, 15806, 17341, 448, 20418, 17346, 17349, 17350, 17351, 17352, 12747, 13261, 17359, 17887, 17888, 17889, 17894, 31719, 48112, 48113, 48115, 19231, 18933, 25590, 25591, 25592, 18937, 25594, 18941, 25599)),))": {
+        "(('get_universe_types_type_id',), (('type_id', (25600, 18945, 2050, 25603, 7171, 25605, 17912, 10250, 3082, 25612, 25613, 31760, 41490, 41491, 3090, 25624, 2589, 43551, 33826, 2082, 49701, 38, 39, 33832, 49709, 31791, 31792, 20528, 31794, 33844, 28213, 31798, 49719, 33848, 1079, 33852, 45632, 49748, 49749, 46166, 46169, 46170, 603, 23134, 11870, 11873, 46178, 46179, 46180, 19045, 46182, 46183, 46181, 30310, 3178, 30307, 1129, 40555, 46185, 30832, 11889, 11890, 40563, 17526, 46204, 31870, 46207, 46210, 46212, 46217, 41614, 47764, 13976, 13984, 30376, 9899, 3244, 3243, 43694, 19119, 18608, 14003, 2739, 31928, 31930, 33981, 33983, 33985, 31942, 28362, 28366, 5839, 31952, 9941, 9942, 9943, 4313, 4314, 4316, 20702, 9956, 33518, 33519, 41200, 33520, 41201, 18676, 22778, 4346, 16635, 16637, 16636, 16638, 16634, 16641, 47874, 16642, 47873, 20741, 16646, 16644, 16648, 16649, 16650, 16651, 16647, 16653, 19207, 2319, 11534, 30993, 30988, 16658, 18708, 27925, 41238, 16663, 16643, 47898, 19227, 24349, 11550, 47903, 4383, 47905, 48927, 47907, 11555, 47908, 16671, 34590, 31012, 2345, 31017, 41267, 41268, 17668, 14144, 32006, 8517, 31047, 19198, 35662, 19282, 33619, 31061, 41302, 41303, 47448, 47447, 19288, 41312, 18789, 47975, 2410, 24427, 17266, 41332, 4349, 377, 1403, 11644, 1405, 11646, 11648, 2436, 18829, 18831, 37631, 15766, 34203, 14238, 14242, 11690, 45998, 45999, 944, 46000, 17330, 37298, 37296, 8117, 46005, 14262, 17334, 17336, 46006, 17338, 31159, 17340, 20413, 15806, 17341, 448, 20418, 17346, 17349, 17350, 17351, 17352, 12747, 13261, 17359, 17887, 17888, 17889, 17894, 31719, 48112, 48113, 48115, 19231, 18933, 25590, 25591, 25592, 18937, 25594, 18941, 25599)),))": {
             "25600": {
                 "capacity": 0.0,
                 "description": "Autonomous field programmable holographic signal processor with embedded holographic data storage. Used in most modern computers, the ubiquitous AFPHSPEHDS is colloquially known as the \"Aphid\". This name leads of course to many bad puns about bugs in the system. ",
@@ -13559,97 +13536,6 @@
                 "type_id": 16641,
                 "volume": 0.05
             },
-            "41218": {
-                "capacity": 0.0,
-                "description": "Increases capacitor storage. Provides defense against Energy Leech and Energy Neutralizer effects.",
-                "dogma_attributes": [
-                    {
-                        "attribute_id": 161,
-                        "value": 15.0
-                    },
-                    {
-                        "attribute_id": 162,
-                        "value": 500.0
-                    },
-                    {
-                        "attribute_id": 67,
-                        "value": 1820.0
-                    },
-                    {
-                        "attribute_id": 4,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 422,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 38,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 9,
-                        "value": 40.0
-                    },
-                    {
-                        "attribute_id": 50,
-                        "value": 40.0
-                    },
-                    {
-                        "attribute_id": 277,
-                        "value": 2.0
-                    },
-                    {
-                        "attribute_id": 182,
-                        "value": 3424.0
-                    },
-                    {
-                        "attribute_id": 633,
-                        "value": 8.0
-                    },
-                    {
-                        "attribute_id": 2267,
-                        "value": -27.0
-                    },
-                    {
-                        "attribute_id": 1692,
-                        "value": 4.0
-                    },
-                    {
-                        "attribute_id": 30,
-                        "value": 320.0
-                    }
-                ],
-                "dogma_effects": [
-                    {
-                        "effect_id": 13,
-                        "is_default": false
-                    },
-                    {
-                        "effect_id": 16,
-                        "is_default": false
-                    },
-                    {
-                        "effect_id": 25,
-                        "is_default": false
-                    },
-                    {
-                        "effect_id": 6487,
-                        "is_default": false
-                    }
-                ],
-                "group_id": 61,
-                "icon_id": 89,
-                "market_group_id": 705,
-                "mass": 0.0,
-                "name": "Republic Fleet Large Cap Battery",
-                "packaged_volume": 15.0,
-                "portion_size": 1,
-                "published": true,
-                "radius": 500.0,
-                "type_id": 41218,
-                "volume": 15.0
-            },
             "47874": {
                 "capacity": 0.0,
                 "description": "Specialist training in the operation of advanced Heavy Entropic Disintegrators. 2% bonus per skill level to the damage of medium weapons requiring Medium Disintegrator Specialization.",
@@ -13769,6 +13655,89 @@
                 "radius": 1.0,
                 "type_id": 16642,
                 "volume": 0.05
+            },
+            "47873": {
+                "capacity": 0.0,
+                "description": "Specialist training in the operation of advanced Light Entropic Disintegrators. 2% bonus per skill level to the damage of small weapons requiring Small Disintegrator Specialization.",
+                "dogma_attributes": [
+                    {
+                        "attribute_id": 161,
+                        "value": 0.01
+                    },
+                    {
+                        "attribute_id": 162,
+                        "value": 1.0
+                    },
+                    {
+                        "attribute_id": 4,
+                        "value": 0.0
+                    },
+                    {
+                        "attribute_id": 278,
+                        "value": 5.0
+                    },
+                    {
+                        "attribute_id": 38,
+                        "value": 0.0
+                    },
+                    {
+                        "attribute_id": 1047,
+                        "value": 1.0
+                    },
+                    {
+                        "attribute_id": 275,
+                        "value": 3.0
+                    },
+                    {
+                        "attribute_id": 180,
+                        "value": 167.0
+                    },
+                    {
+                        "attribute_id": 181,
+                        "value": 168.0
+                    },
+                    {
+                        "attribute_id": 182,
+                        "value": 3312.0
+                    },
+                    {
+                        "attribute_id": 183,
+                        "value": 47870.0
+                    },
+                    {
+                        "attribute_id": 292,
+                        "value": 2.0
+                    },
+                    {
+                        "attribute_id": 277,
+                        "value": 3.0
+                    }
+                ],
+                "dogma_effects": [
+                    {
+                        "effect_id": 132,
+                        "is_default": true
+                    },
+                    {
+                        "effect_id": 152,
+                        "is_default": false
+                    },
+                    {
+                        "effect_id": 7074,
+                        "is_default": false
+                    }
+                ],
+                "group_id": 255,
+                "icon_id": 33,
+                "market_group_id": 364,
+                "mass": 0.0,
+                "name": "Small Disintegrator Specialization",
+                "packaged_volume": 0.01,
+                "portion_size": 1,
+                "published": true,
+                "radius": 1.0,
+                "type_id": 47873,
+                "volume": 0.01
             },
             "20741": {
                 "capacity": 0.0,
@@ -13910,13 +13879,13 @@
                 "type_id": 16646,
                 "volume": 0.05
             },
-            "47873": {
+            "16644": {
                 "capacity": 0.0,
-                "description": "Specialist training in the operation of advanced Light Entropic Disintegrators. 2% bonus per skill level to the damage of small weapons requiring Small Disintegrator Specialization.",
+                "description": "A corrosion-resistant precious metal with an extremely wide range of applications. Often used as a chemical catalyst.",
                 "dogma_attributes": [
                     {
                         "attribute_id": 161,
-                        "value": 0.01
+                        "value": 0.05
                     },
                     {
                         "attribute_id": 162,
@@ -13924,74 +13893,28 @@
                     },
                     {
                         "attribute_id": 4,
-                        "value": 0.0
+                        "value": 21460.0
                     },
                     {
-                        "attribute_id": 278,
-                        "value": 5.0
+                        "attribute_id": 726,
+                        "value": 100.0
                     },
                     {
                         "attribute_id": 38,
                         "value": 0.0
-                    },
-                    {
-                        "attribute_id": 1047,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 275,
-                        "value": 3.0
-                    },
-                    {
-                        "attribute_id": 180,
-                        "value": 167.0
-                    },
-                    {
-                        "attribute_id": 181,
-                        "value": 168.0
-                    },
-                    {
-                        "attribute_id": 182,
-                        "value": 3312.0
-                    },
-                    {
-                        "attribute_id": 183,
-                        "value": 47870.0
-                    },
-                    {
-                        "attribute_id": 292,
-                        "value": 2.0
-                    },
-                    {
-                        "attribute_id": 277,
-                        "value": 3.0
                     }
                 ],
-                "dogma_effects": [
-                    {
-                        "effect_id": 132,
-                        "is_default": true
-                    },
-                    {
-                        "effect_id": 152,
-                        "is_default": false
-                    },
-                    {
-                        "effect_id": 7074,
-                        "is_default": false
-                    }
-                ],
-                "group_id": 255,
-                "icon_id": 33,
-                "market_group_id": 364,
-                "mass": 0.0,
-                "name": "Small Disintegrator Specialization",
-                "packaged_volume": 0.01,
+                "group_id": 427,
+                "icon_id": 2575,
+                "market_group_id": 501,
+                "mass": 21460.0,
+                "name": "Platinum",
+                "packaged_volume": 0.05,
                 "portion_size": 1,
                 "published": true,
                 "radius": 1.0,
-                "type_id": 47873,
-                "volume": 0.01
+                "type_id": 16644,
+                "volume": 0.05
             },
             "16648": {
                 "capacity": 0.0,
@@ -14067,9 +13990,9 @@
                 "type_id": 16649,
                 "volume": 0.05
             },
-            "16644": {
+            "16650": {
                 "capacity": 0.0,
-                "description": "A corrosion-resistant precious metal with an extremely wide range of applications. Often used as a chemical catalyst.",
+                "description": "A relatively rare soft metal, easily dissolvable in mineral acids. Used primarily in the production of laser materials.",
                 "dogma_attributes": [
                     {
                         "attribute_id": 161,
@@ -14081,7 +14004,7 @@
                     },
                     {
                         "attribute_id": 4,
-                        "value": 21460.0
+                        "value": 8550.0
                     },
                     {
                         "attribute_id": 726,
@@ -14093,15 +14016,15 @@
                     }
                 ],
                 "group_id": 427,
-                "icon_id": 2575,
+                "icon_id": 2571,
                 "market_group_id": 501,
-                "mass": 21460.0,
-                "name": "Platinum",
+                "mass": 8550.0,
+                "name": "Dysprosium",
                 "packaged_volume": 0.05,
                 "portion_size": 1,
                 "published": true,
                 "radius": 1.0,
-                "type_id": 16644,
+                "type_id": 16650,
                 "volume": 0.05
             },
             "16651": {
@@ -14141,9 +14064,9 @@
                 "type_id": 16651,
                 "volume": 0.05
             },
-            "16650": {
+            "16647": {
                 "capacity": 0.0,
-                "description": "A relatively rare soft metal, easily dissolvable in mineral acids. Used primarily in the production of laser materials.",
+                "description": "A golden Alkali metal used primarily in propulsion systems. Also performs a variety of catalytic functions in the nuclear and photoelectric arenas.",
                 "dogma_attributes": [
                     {
                         "attribute_id": 161,
@@ -14155,7 +14078,7 @@
                     },
                     {
                         "attribute_id": 4,
-                        "value": 8550.0
+                        "value": 1544.0
                     },
                     {
                         "attribute_id": 726,
@@ -14167,15 +14090,15 @@
                     }
                 ],
                 "group_id": 427,
-                "icon_id": 2571,
+                "icon_id": 2568,
                 "market_group_id": 501,
-                "mass": 8550.0,
-                "name": "Dysprosium",
+                "mass": 1544.0,
+                "name": "Caesium",
                 "packaged_volume": 0.05,
                 "portion_size": 1,
                 "published": true,
                 "radius": 1.0,
-                "type_id": 16650,
+                "type_id": 16647,
                 "volume": 0.05
             },
             "16653": {
@@ -14214,84 +14137,6 @@
                 "radius": 1.0,
                 "type_id": 16653,
                 "volume": 0.05
-            },
-            "16647": {
-                "capacity": 0.0,
-                "description": "A golden Alkali metal used primarily in propulsion systems. Also performs a variety of catalytic functions in the nuclear and photoelectric arenas.",
-                "dogma_attributes": [
-                    {
-                        "attribute_id": 161,
-                        "value": 0.05
-                    },
-                    {
-                        "attribute_id": 162,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 4,
-                        "value": 1544.0
-                    },
-                    {
-                        "attribute_id": 726,
-                        "value": 100.0
-                    },
-                    {
-                        "attribute_id": 38,
-                        "value": 0.0
-                    }
-                ],
-                "group_id": 427,
-                "icon_id": 2568,
-                "market_group_id": 501,
-                "mass": 1544.0,
-                "name": "Caesium",
-                "packaged_volume": 0.05,
-                "portion_size": 1,
-                "published": true,
-                "radius": 1.0,
-                "type_id": 16647,
-                "volume": 0.05
-            },
-            "2319": {
-                "capacity": 0.0,
-                "description": "When bacteria are allowed to thrive in a water-based environment, they undergo generational transformations that can be monitored and documented, providing research data invaluable to numerous scientific fields.",
-                "dogma_attributes": [
-                    {
-                        "attribute_id": 161,
-                        "value": 1.5
-                    },
-                    {
-                        "attribute_id": 162,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 4,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 38,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 1640,
-                        "value": 7200.0
-                    },
-                    {
-                        "attribute_id": 1641,
-                        "value": 7200.0
-                    }
-                ],
-                "group_id": 1034,
-                "icon_id": 10056,
-                "market_group_id": 1335,
-                "mass": 0.0,
-                "name": "Test Cultures",
-                "packaged_volume": 1.5,
-                "portion_size": 1,
-                "published": true,
-                "radius": 1.0,
-                "type_id": 2319,
-                "volume": 1.5
             },
             "19207": {
                 "capacity": 0.0,
@@ -14408,6 +14253,84 @@
                 "type_id": 19207,
                 "volume": 25.0
             },
+            "2319": {
+                "capacity": 0.0,
+                "description": "When bacteria are allowed to thrive in a water-based environment, they undergo generational transformations that can be monitored and documented, providing research data invaluable to numerous scientific fields.",
+                "dogma_attributes": [
+                    {
+                        "attribute_id": 161,
+                        "value": 1.5
+                    },
+                    {
+                        "attribute_id": 162,
+                        "value": 0.0
+                    },
+                    {
+                        "attribute_id": 4,
+                        "value": 0.0
+                    },
+                    {
+                        "attribute_id": 38,
+                        "value": 0.0
+                    },
+                    {
+                        "attribute_id": 1640,
+                        "value": 7200.0
+                    },
+                    {
+                        "attribute_id": 1641,
+                        "value": 7200.0
+                    }
+                ],
+                "group_id": 1034,
+                "icon_id": 10056,
+                "market_group_id": 1335,
+                "mass": 0.0,
+                "name": "Test Cultures",
+                "packaged_volume": 1.5,
+                "portion_size": 1,
+                "published": true,
+                "radius": 1.0,
+                "type_id": 2319,
+                "volume": 1.5
+            },
+            "11534": {
+                "capacity": 0.0,
+                "description": "Sensor Component used primarily in Caldari ships. A component in various other technology as well.  ",
+                "dogma_attributes": [
+                    {
+                        "attribute_id": 161,
+                        "value": 1.0
+                    },
+                    {
+                        "attribute_id": 162,
+                        "value": 0.0
+                    },
+                    {
+                        "attribute_id": 4,
+                        "value": 1.0
+                    },
+                    {
+                        "attribute_id": 726,
+                        "value": 100.0
+                    },
+                    {
+                        "attribute_id": 38,
+                        "value": 0.0
+                    }
+                ],
+                "group_id": 334,
+                "icon_id": 2181,
+                "market_group_id": 803,
+                "mass": 1.0,
+                "name": "Gravimetric Sensor Cluster",
+                "packaged_volume": 1.0,
+                "portion_size": 1,
+                "published": true,
+                "radius": 1.0,
+                "type_id": 11534,
+                "volume": 1.0
+            },
             "30993": {
                 "capacity": 0.0,
                 "description": "This ship modification is designed to increase a ship's total armor hit points at the expense of max velocity.\r\n\r\nThe drawbacks of fitting this rig may be reduced by training the <a href=showinfo:26253>Armor Rigging</a> skill.",
@@ -14483,43 +14406,6 @@
                 "type_id": 30993,
                 "volume": 40.0
             },
-            "11534": {
-                "capacity": 0.0,
-                "description": "Sensor Component used primarily in Caldari ships. A component in various other technology as well.  ",
-                "dogma_attributes": [
-                    {
-                        "attribute_id": 161,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 162,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 4,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 726,
-                        "value": 100.0
-                    },
-                    {
-                        "attribute_id": 38,
-                        "value": 0.0
-                    }
-                ],
-                "group_id": 334,
-                "icon_id": 2181,
-                "market_group_id": 803,
-                "mass": 1.0,
-                "name": "Gravimetric Sensor Cluster",
-                "packaged_volume": 1.0,
-                "portion_size": 1,
-                "published": true,
-                "radius": 1.0,
-                "type_id": 11534,
-                "volume": 1.0
-            },
             "30988": {
                 "capacity": 0.0,
                 "description": "",
@@ -14556,6 +14442,43 @@
                 "radius": 1.0,
                 "type_id": 30988,
                 "volume": 0.01
+            },
+            "16658": {
+                "capacity": 0.0,
+                "description": "A mineral composite which, in large quantities, gives off a distinct crystalline glow. When combined with other composites, is usable for a variety of manufacturing purposes.",
+                "dogma_attributes": [
+                    {
+                        "attribute_id": 161,
+                        "value": 0.2
+                    },
+                    {
+                        "attribute_id": 162,
+                        "value": 1.0
+                    },
+                    {
+                        "attribute_id": 4,
+                        "value": 0.0
+                    },
+                    {
+                        "attribute_id": 726,
+                        "value": 100.0
+                    },
+                    {
+                        "attribute_id": 38,
+                        "value": 0.0
+                    }
+                ],
+                "group_id": 428,
+                "icon_id": 2664,
+                "market_group_id": 500,
+                "mass": 0.0,
+                "name": "Silicon Diborite",
+                "packaged_volume": 0.2,
+                "portion_size": 1,
+                "published": true,
+                "radius": 1.0,
+                "type_id": 16658,
+                "volume": 0.2
             },
             "18708": {
                 "capacity": 0.0,
@@ -14917,43 +14840,6 @@
                 "radius": 1.0,
                 "type_id": 16643,
                 "volume": 0.05
-            },
-            "16658": {
-                "capacity": 0.0,
-                "description": "A mineral composite which, in large quantities, gives off a distinct crystalline glow. When combined with other composites, is usable for a variety of manufacturing purposes.",
-                "dogma_attributes": [
-                    {
-                        "attribute_id": 161,
-                        "value": 0.2
-                    },
-                    {
-                        "attribute_id": 162,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 4,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 726,
-                        "value": 100.0
-                    },
-                    {
-                        "attribute_id": 38,
-                        "value": 0.0
-                    }
-                ],
-                "group_id": 428,
-                "icon_id": 2664,
-                "market_group_id": 500,
-                "mass": 0.0,
-                "name": "Silicon Diborite",
-                "packaged_volume": 0.2,
-                "portion_size": 1,
-                "published": true,
-                "radius": 1.0,
-                "type_id": 16658,
-                "volume": 0.2
             },
             "47898": {
                 "capacity": 0.0,
@@ -18333,118 +18219,58 @@
                 "type_id": 11644,
                 "volume": 5.0
             },
-            "19325": {
+            "1405": {
                 "capacity": 0.0,
-                "description": "Massive boost to speed for a very short time. The thrust that boosts the ship, and the corresponding maximum velocity bonus, are limited by the mass of the ship that uses this module. The sheer amount of energy needed to power this system means that it must permanently reserve a fraction of the capacitor output just to maintain the integrity of its warp containment field, and when activated it substantially increases the ship's EM footprint.\r\n\r\nPenalty: Max capacitor reduced.\r\n\r\nNote: Usually fit on Frigates and Destroyers.",
+                "description": "Improves ship handling and maneuverability.\r\n\r\nPenalty: Using more than one type of this module or similar modules that affect the same attribute on the ship will be penalized.",
                 "dogma_attributes": [
                     {
-                        "attribute_id": 1692,
-                        "value": 6.0
-                    },
-                    {
-                        "attribute_id": 4,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 6,
-                        "value": 40.0
-                    },
-                    {
-                        "attribute_id": 9,
-                        "value": 40.0
-                    },
-                    {
-                        "attribute_id": 147,
-                        "value": 0.97
-                    },
-                    {
-                        "attribute_id": 20,
-                        "value": 518.0
-                    },
-                    {
-                        "attribute_id": 277,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 1180,
-                        "value": 0.04
-                    },
-                    {
-                        "attribute_id": 669,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 30,
-                        "value": 15.0
-                    },
-                    {
                         "attribute_id": 161,
-                        "value": 10.0
+                        "value": 5.0
                     },
                     {
                         "attribute_id": 162,
-                        "value": 1.0
+                        "value": 100.0
+                    },
+                    {
+                        "attribute_id": 4,
+                        "value": 200.0
+                    },
+                    {
+                        "attribute_id": 422,
+                        "value": 2.0
                     },
                     {
                         "attribute_id": 38,
                         "value": 0.0
                     },
                     {
-                        "attribute_id": 796,
-                        "value": 500000.0
+                        "attribute_id": 9,
+                        "value": 40.0
                     },
                     {
                         "attribute_id": 554,
-                        "value": 410.0
+                        "value": 11.0
                     },
                     {
-                        "attribute_id": 1223,
-                        "value": 50.0
-                    },
-                    {
-                        "attribute_id": 50,
-                        "value": 31.0
+                        "attribute_id": 277,
+                        "value": 2.0
                     },
                     {
                         "attribute_id": 182,
-                        "value": 3454.0
+                        "value": 3394.0
                     },
                     {
-                        "attribute_id": 567,
-                        "value": 1500000.0
-                    },
-                    {
-                        "attribute_id": 1211,
-                        "value": 19.0
-                    },
-                    {
-                        "attribute_id": 1212,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 801,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 73,
-                        "value": 10000.0
-                    },
-                    {
-                        "attribute_id": 422,
-                        "value": 1.0
+                        "attribute_id": 169,
+                        "value": -20.0
                     },
                     {
                         "attribute_id": 633,
-                        "value": 14.0
-                    },
-                    {
-                        "attribute_id": 763,
-                        "value": 1.0
+                        "value": 5.0
                     }
                 ],
                 "dogma_effects": [
                     {
-                        "effect_id": 13,
+                        "effect_id": 11,
                         "is_default": false
                     },
                     {
@@ -18452,29 +18278,25 @@
                         "is_default": false
                     },
                     {
-                        "effect_id": 58,
+                        "effect_id": 657,
                         "is_default": false
                     },
                     {
-                        "effect_id": 3175,
+                        "effect_id": 2644,
                         "is_default": false
-                    },
-                    {
-                        "effect_id": 6730,
-                        "is_default": true
                     }
                 ],
-                "group_id": 46,
-                "icon_id": 10149,
-                "market_group_id": 131,
-                "mass": 0.0,
-                "name": "Coreli A-Type 5MN Microwarpdrive",
-                "packaged_volume": 10.0,
+                "group_id": 762,
+                "icon_id": 1041,
+                "market_group_id": 1086,
+                "mass": 200.0,
+                "name": "Inertial Stabilizers II",
+                "packaged_volume": 5.0,
                 "portion_size": 1,
                 "published": true,
-                "radius": 1.0,
-                "type_id": 19325,
-                "volume": 10.0
+                "radius": 100.0,
+                "type_id": 1405,
+                "volume": 5.0
             },
             "11646": {
                 "capacity": 0.0,
@@ -18593,85 +18415,6 @@
                 "published": true,
                 "radius": 10.0,
                 "type_id": 11646,
-                "volume": 5.0
-            },
-            "1405": {
-                "capacity": 0.0,
-                "description": "Improves ship handling and maneuverability.\r\n\r\nPenalty: Using more than one type of this module or similar modules that affect the same attribute on the ship will be penalized.",
-                "dogma_attributes": [
-                    {
-                        "attribute_id": 161,
-                        "value": 5.0
-                    },
-                    {
-                        "attribute_id": 162,
-                        "value": 100.0
-                    },
-                    {
-                        "attribute_id": 4,
-                        "value": 200.0
-                    },
-                    {
-                        "attribute_id": 422,
-                        "value": 2.0
-                    },
-                    {
-                        "attribute_id": 38,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 9,
-                        "value": 40.0
-                    },
-                    {
-                        "attribute_id": 554,
-                        "value": 11.0
-                    },
-                    {
-                        "attribute_id": 277,
-                        "value": 2.0
-                    },
-                    {
-                        "attribute_id": 182,
-                        "value": 3394.0
-                    },
-                    {
-                        "attribute_id": 169,
-                        "value": -20.0
-                    },
-                    {
-                        "attribute_id": 633,
-                        "value": 5.0
-                    }
-                ],
-                "dogma_effects": [
-                    {
-                        "effect_id": 11,
-                        "is_default": false
-                    },
-                    {
-                        "effect_id": 16,
-                        "is_default": false
-                    },
-                    {
-                        "effect_id": 657,
-                        "is_default": false
-                    },
-                    {
-                        "effect_id": 2644,
-                        "is_default": false
-                    }
-                ],
-                "group_id": 762,
-                "icon_id": 1041,
-                "market_group_id": 1086,
-                "mass": 200.0,
-                "name": "Inertial Stabilizers II",
-                "packaged_volume": 5.0,
-                "portion_size": 1,
-                "published": true,
-                "radius": 100.0,
-                "type_id": 1405,
                 "volume": 5.0
             },
             "11648": {
@@ -23048,7 +22791,7 @@
                 "volume": 0.01
             }
         },
-        "(('get_universe_groups_group_id',), (('group_id', (257, 773, 774, 510, 1289, 1034, 1292, 782, 528, 1040, 18, 767, 787, 1304, 25, 26, 538, 548, 38, 295, 40, 43, 46, 303, 52, 53, 314, 59, 60, 61, 62, 65, 68, 326, 71, 328, 74, 76, 77, 333, 334, 83, 87, 1888, 98, 100, 101, 356, 105, 367, 1137, 370, 1652, 1653, 886, 375, 380, 132, 645, 646, 644, 647, 1676, 142, 912, 663, 157, 1189, 423, 1194, 427, 172, 428, 429, 1979, 958, 447, 1730, 1988, 711, 1996, 974, 723, 213, 1246, 483, 741, 745, 1770, 754, 1268, 1270, 762, 508, 766, 255)),))": {
+        "(('get_universe_groups_group_id',), (('group_id', (257, 773, 774, 510, 1289, 1034, 1292, 782, 528, 1040, 18, 767, 787, 1304, 25, 26, 538, 548, 38, 295, 40, 43, 46, 303, 52, 53, 314, 59, 60, 62, 65, 68, 326, 71, 328, 74, 76, 77, 333, 334, 83, 87, 1888, 98, 100, 101, 356, 105, 367, 1137, 370, 1652, 1653, 886, 375, 380, 132, 645, 646, 644, 647, 1676, 142, 912, 663, 157, 1189, 423, 1194, 427, 172, 428, 429, 1979, 958, 447, 1730, 1988, 711, 1996, 974, 723, 213, 1246, 483, 741, 745, 1770, 754, 1268, 1270, 762, 508, 766, 255)),))": {
             "257": {
                 "category_id": 16,
                 "group_id": 257,
@@ -25928,64 +25671,6 @@
                     47256,
                     47257,
                     47258
-                ]
-            },
-            "61": {
-                "category_id": 7,
-                "group_id": 61,
-                "name": "Capacitor Battery",
-                "published": true,
-                "types": [
-                    522,
-                    1185,
-                    2018,
-                    2020,
-                    2022,
-                    3472,
-                    3480,
-                    3488,
-                    3496,
-                    3504,
-                    4745,
-                    4747,
-                    4749,
-                    4751,
-                    4785,
-                    4787,
-                    4789,
-                    4791,
-                    4869,
-                    4871,
-                    4873,
-                    4875,
-                    4909,
-                    4911,
-                    4913,
-                    4915,
-                    6073,
-                    6083,
-                    6097,
-                    6111,
-                    23801,
-                    23803,
-                    23805,
-                    41212,
-                    41213,
-                    41214,
-                    41215,
-                    41216,
-                    41217,
-                    41218,
-                    41219,
-                    41220,
-                    41484,
-                    41485,
-                    41486,
-                    41487,
-                    41488,
-                    48431,
-                    48435,
-                    48439
                 ]
             },
             "62": {
@@ -89639,7 +89324,7 @@
         "(('get_universe_stations_station_id',), (('station_id', 60003760),))": {
             "max_dockable_ship_volume": 50000000.0,
             "name": "Jita IV - Moon 4 - Caldari Navy Assembly Plant",
-            "office_rental_cost": 4342248182.0,
+            "office_rental_cost": 4295172958.0,
             "owner": 1000035,
             "position": {
                 "x": -107303362560.0,
@@ -89672,7 +89357,7 @@
         "(('get_universe_stations_station_id',), (('station_id', 60008494),))": {
             "max_dockable_ship_volume": 50000000.0,
             "name": "Amarr VIII (Oris) - Emperor Family Academy",
-            "office_rental_cost": 1213807907.0,
+            "office_rental_cost": 1208536217.0,
             "owner": 1000086,
             "position": {
                 "x": -518583951360.0,
@@ -89705,7 +89390,7 @@
             "system_id": 30002187,
             "type_id": 1932
         },
-        "(('get_characters_character_id',), (('character_id', (1382501385, 2114603273, 93902609, 2017977681, 91714452, 2113343128, 96670168, 94945368, 95749089, 96491874, 2112412327, 2113196071, 2114139050, 93033771, 96642861, 94543024, 1251107312, 90388147, 96890932, 93776567, 2114509950, 360407423)),))": {
+        "(('get_characters_character_id',), (('character_id', (1382501385, 2114603273, 93902609, 2017977681, 2113343128, 96670168, 94945368, 95749089, 96491874, 2112412327, 2113196071, 2114139050, 93033771, 96642861, 94543024, 1251107312, 90388147, 96890932, 93776567, 2114509950, 360407423)),))": {
             "1382501385": {
                 "ancestry_id": 31,
                 "birthday": "2008-01-30T04:55:00+00:00",
@@ -89751,17 +89436,6 @@
                 "race_id": 1,
                 "security_status": 5.001198123429392
             },
-            "91714452": {
-                "ancestry_id": 7,
-                "birthday": "2012-02-24T07:41:25+00:00",
-                "bloodline_id": 2,
-                "corporation_id": 98112851,
-                "description": "NPC                Damage Done             Vulnerability<br>Angel Cartel           Exp/Kin            Exp (62%)/Kin (22%)<br>Blood Raiders         EM/Therm           EM (50%)/Therm (48%)<br>EoM                  Kin/Therm          Kin (74%)/Therm (26%)        <br>Guristas Pirates       Kin/Therm           Kin (79%)/Therm (18%)<br>Khanid               EM/Therm                Thermal/EM        <br>Mercenaries           Kin/Therm                Kin/Therm<br>Mordu's Legion         Kin/EM             Kin (70%)/Therm (30%)        <br>Rogue Drones  Am/EM; Ca/Ki; Ga/TH; Mi/Ex<br>Sansha's Nation       EM/Therm           EM (53%)/Therm (47%)        <br>Serpentis             Kin/Therm           Therm (55%)/Kin (45%)        <br>Amarr Empire         EM/Therm            EM (47%)/Therm (42%)<br>Caldari State          Kin/Therm           Kin (51%)/Therm (48%)<br>Gallente Federation    Kin/Therm            Kin (60%)/Therm (39%)<br>Minmatar Republic      Expl/Kin            Expl (50%)/Kin (31%)",
-                "gender": "male",
-                "name": "Vitor Vitorius",
-                "race_id": 1,
-                "security_status": 3.6258366806235878
-            },
             "2113343128": {
                 "ancestry_id": 32,
                 "birthday": "2017-10-21T18:33:47+00:00",
@@ -89771,7 +89445,7 @@
                 "gender": "female",
                 "name": "Gail Raziya",
                 "race_id": 1,
-                "security_status": 5.0661204556178445
+                "security_status": 5.093846270263061
             },
             "96670168": {
                 "ancestry_id": 15,
@@ -89805,7 +89479,7 @@
                 "gender": "male",
                 "name": "Nicky Rapid",
                 "race_id": 4,
-                "security_status": 1.673377408101062
+                "security_status": 1.67582312093468
             },
             "96491874": {
                 "alliance_id": 99008068,
@@ -89817,7 +89491,7 @@
                 "gender": "male",
                 "name": "Michael Aurora",
                 "race_id": 8,
-                "security_status": 0.8020359170587298
+                "security_status": 0.36079696345921103
             },
             "2112412327": {
                 "alliance_id": 99008569,
@@ -89907,7 +89581,7 @@
                 "gender": "male",
                 "name": "RedSquad2",
                 "race_id": 1,
-                "security_status": 4.974898065691431
+                "security_status": 5.001128505545573
             },
             "96890932": {
                 "alliance_id": 99007044,
@@ -89957,7 +89631,7 @@
                 "security_status": 0.0
             }
         },
-        "(('get_corporations_corporation_id',), (('corporation_id', (98387971, 1611343753, 98539531, 98552016, 148103889, 98590674, 98112851, 98561114, 98455643, 98526430, 98293920, 98589796, 98473189, 98548711, 98553964, 98496186, 98539643, 98187325)),))": {
+        "(('get_corporations_corporation_id',), (('corporation_id', (98387971, 1611343753, 98539531, 98552016, 148103889, 98590674, 98561114, 98455643, 98526430, 98293920, 98589796, 98473189, 98548711, 98553964, 98496186, 98539643, 98187325)),))": {
             "98387971": {
                 "ceo_id": 93033771,
                 "creator_id": 93033771,
@@ -90042,20 +89716,6 @@
                 "url": "",
                 "war_eligible": true
             },
-            "98112851": {
-                "ceo_id": 91394260,
-                "creator_id": 91394260,
-                "date_founded": "2012-05-06T14:55:00+00:00",
-                "description": "",
-                "home_station_id": 60003787,
-                "member_count": 11,
-                "name": "Neva Engineering Group",
-                "shares": 1000,
-                "tax_rate": 0.01,
-                "ticker": "NEVAE",
-                "url": "http://",
-                "war_eligible": true
-            },
             "98561114": {
                 "ceo_id": 2114576238,
                 "creator_id": 2112872496,
@@ -90131,7 +89791,7 @@
                 "date_founded": "2016-08-20T21:35:43+00:00",
                 "description": "<font size=\"12\" color=\"#bfffffff\"></font><font size=\"36\" color=\"#ff00ff00\"><b><i><u>Banda di Amici</u> </b><br></font><font size=\"14\" color=\"#ff00ff00\">\"in unity there is strength\"</i><br><br></font><font size=\"12\" color=\"#ff00ff00\">Public Channel:<i>  </i></font><font size=\"12\" color=\"#fff7931e\"><a href=\"joinChannel:-88575378//None//None\">XBDA-Public</a></font><font size=\"12\" color=\"#ff00ff00\"><i> </i></font>",
                 "home_station_id": 60005152,
-                "member_count": 53,
+                "member_count": 52,
                 "name": "Banda di Amici",
                 "shares": 1000,
                 "tax_rate": 0.075,
@@ -90582,52 +90242,6 @@
     },
     "get_paged_op": {
         "(('get_characters_character_id_contracts',), (('character_id', 2114496483), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": [
-            {
-                "acceptor_id": 2114509950,
-                "assignee_id": 2114509950,
-                "availability": "personal",
-                "collateral": 0.0,
-                "contract_id": 141639121,
-                "date_accepted": "2019-01-21T07:15:53+00:00",
-                "date_completed": "2019-01-21T07:15:53+00:00",
-                "date_expired": "2019-01-22T07:15:47+00:00",
-                "date_issued": "2019-01-21T07:15:47+00:00",
-                "days_to_complete": 0,
-                "end_location_id": 60003760,
-                "for_corporation": false,
-                "issuer_corporation_id": 1000009,
-                "issuer_id": 2114496483,
-                "price": 0.0,
-                "reward": 0.0,
-                "start_location_id": 60003760,
-                "status": "finished",
-                "title": "",
-                "type": "item_exchange",
-                "volume": 148917.88
-            },
-            {
-                "acceptor_id": 2114496483,
-                "assignee_id": 0,
-                "availability": "public",
-                "collateral": 0.0,
-                "contract_id": 141660521,
-                "date_accepted": "2019-02-12T07:46:52+00:00",
-                "date_completed": "2019-02-12T07:46:52+00:00",
-                "date_expired": "2019-02-18T19:51:37+00:00",
-                "date_issued": "2019-01-21T19:51:37+00:00",
-                "days_to_complete": 0,
-                "end_location_id": 60003760,
-                "for_corporation": true,
-                "issuer_corporation_id": 98112851,
-                "issuer_id": 91714452,
-                "price": 90000000.0,
-                "reward": 0.0,
-                "start_location_id": 60003760,
-                "status": "finished",
-                "title": "",
-                "type": "item_exchange",
-                "volume": 0.01
-            },
             {
                 "acceptor_id": 2114496483,
                 "assignee_id": 2114496483,
@@ -92281,6 +91895,29 @@
                 "title": "",
                 "type": "item_exchange",
                 "volume": 11838.650000000001
+            },
+            {
+                "acceptor_id": 2114509950,
+                "assignee_id": 2114509950,
+                "availability": "personal",
+                "collateral": 0.0,
+                "contract_id": 142756410,
+                "date_accepted": "2019-02-21T06:00:09+00:00",
+                "date_completed": "2019-02-21T06:00:09+00:00",
+                "date_expired": "2019-03-21T05:59:47+00:00",
+                "date_issued": "2019-02-21T05:59:47+00:00",
+                "days_to_complete": 0,
+                "end_location_id": 60003760,
+                "for_corporation": false,
+                "issuer_corporation_id": 98589569,
+                "issuer_id": 2114496483,
+                "price": 0.0,
+                "reward": 0.0,
+                "start_location_id": 60003760,
+                "status": "finished",
+                "title": "",
+                "type": "item_exchange",
+                "volume": 91790.04
             }
         ]
     }
