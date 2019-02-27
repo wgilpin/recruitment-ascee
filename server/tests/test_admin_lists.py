@@ -5,7 +5,7 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
-from models import db, Character
+from models import db, Character, Region
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
@@ -25,6 +25,7 @@ class AdminListTestCase(AsceeTestCase):
         self.assertIsInstance(result['info'], list)
         self.assertEqual(len(result['info']), 0)
 
+    def test_get_admin_list_forbidden(self):
         with self.assertRaises(ForbiddenException):
             get_admin_list('character', current_user=self.recruiter)
 
@@ -43,6 +44,13 @@ class AdminListTestCase(AsceeTestCase):
         self.assertEqual(len(new_list['info']), 3)
         self.assertTrue(self.applicant_character.redlisted)
 
+    def test_add_new_region_to_admin_list(self):
+        add_admin_list_item('region', 10000050, current_user=self.admin)
+        new_list = get_admin_list('region', current_user=self.admin)
+        self.assertEqual(len(new_list['info']), 1)
+        self.assertTrue(Region.get(10000050).redlisted)
+
+    def test_add_admin_list_item_forbidden(self):
         with self.assertRaises(ForbiddenException):
             add_admin_list_item(
                 'character', self.not_applicant_character.id, current_user=self.applicant)
