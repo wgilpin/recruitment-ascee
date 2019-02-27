@@ -110,9 +110,10 @@ def get_paged_op(op_name, refresh_token=None, **kwargs):
         assert len(response.header['X-Pages']) == 1
         pages = int(response.header['X-Pages'][0])
     except KeyError:
-        print('No page numbers given in getPagedOp, request {}, {}'.format(op_name, kwargs))
+        print('No page numbers given in get_paged_op, request {}, {}'.format(op_name, kwargs))
         print('Response: {}'.format(response))
-        return []
+        print('Probably due to downtime.')
+        raise ESIException('No page numbers given in get_paged_op')
 
     operations = [
         esi_app.op[op_name](page=page, **kwargs) for page in range(2, pages+1)
