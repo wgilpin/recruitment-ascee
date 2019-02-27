@@ -1,6 +1,316 @@
 {
     "get_op": {
-        "(('get_characters_character_id_contracts_contract_id_items',), (('character_id', 2114496483), ('contract_id', (141852510, 141916419, 141948675, 141965109, 141965890, 141983937, 142031837, 142050166, 142068877, 142069342, 142100537, 142140262, 142186816, 142188180, 142197360, 142203934, 142221068, 142221202, 142250273, 142250284, 142257274, 142257275, 142300477, 142305338, 142305349, 142316290, 142319026, 142319695, 142322591, 142332501, 142335260, 142347693, 142367747, 142373720, 142381908, 142382132, 142384940, 142389610, 142389651, 142389685, 142405182, 142413230, 142419482, 142426462, 142430381, 142432732, 142435218, 142437429, 142439650, 142451335, 142451345, 142452894, 142455367, 142464668, 142465963, 142465970, 142487046, 142498076, 142535210, 142571178, 142571507, 142571516, 142573734, 142605511, 142613662, 142637593, 142654129, 142654150, 142656135, 142719623, 142723260, 142756410)), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": {
+        "(('get_characters_character_id_contracts_contract_id_items',), (('character_id', 2114496483), ('contract_id', (141740024, 141852510, 141916419, 141948675, 141965109, 141965890, 141983937, 142031837, 142050166, 142068877, 142069342, 142100537, 142140262, 142186816, 142188180, 142197360, 142203934, 142221068, 142221202, 142250273, 142250284, 142257274, 142257275, 142300477, 142305338, 142305349, 142316290, 142319026, 142319695, 142322591, 142332501, 142335260, 142347693, 142367747, 142373720, 142381908, 142382132, 142384940, 142389610, 142389651, 142389685, 142405182, 142413230, 142419482, 142426462, 142430381, 142432732, 142435218, 142437429, 142439650, 142451335, 142451345, 142452894, 142455367, 142464668, 142465963, 142465970, 142487046, 142498076, 142535210, 142571178, 142571507, 142571516, 142573734, 142605511, 142613662, 142637593, 142654129, 142654150, 142656135, 142719623, 142723260, 142756410)), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": {
+            "141740024": [
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 543,
+                    "record_id": 2822667747,
+                    "type_id": 24427
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 1113,
+                    "record_id": 2822667748,
+                    "type_id": 25590
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 1754,
+                    "record_id": 2822667749,
+                    "type_id": 25605
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 4182,
+                    "record_id": 2822667750,
+                    "type_id": 11550
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 7013,
+                    "record_id": 2822667751,
+                    "type_id": 25590
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 1651,
+                    "record_id": 2822667752,
+                    "type_id": 25594
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 5890,
+                    "record_id": 2822667753,
+                    "type_id": 25599
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 36,
+                    "record_id": 2822667754,
+                    "type_id": 19119
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 131,
+                    "record_id": 2822667755,
+                    "type_id": 41303
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 5,
+                    "record_id": 2822667756,
+                    "type_id": 3178
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 153,
+                    "record_id": 2822667757,
+                    "type_id": 25591
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 3,
+                    "record_id": 2822667758,
+                    "type_id": 34203
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 14,
+                    "record_id": 2822667759,
+                    "type_id": 43551
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 1,
+                    "record_id": 2822667760,
+                    "type_id": 33619
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 22,
+                    "record_id": 2822667761,
+                    "type_id": 14003
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 122,
+                    "record_id": 2822667762,
+                    "type_id": 34203
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 9,
+                    "record_id": 2822667763,
+                    "type_id": 49749
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 2189,
+                    "record_id": 2822667764,
+                    "type_id": 25603
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 212,
+                    "record_id": 2822667765,
+                    "type_id": 41267
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 345,
+                    "record_id": 2822667766,
+                    "type_id": 25591
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 9,
+                    "record_id": 2822667767,
+                    "type_id": 49709
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 12,
+                    "record_id": 2822667768,
+                    "type_id": 25613
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 1,
+                    "record_id": 2822667769,
+                    "type_id": 25592
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 12,
+                    "record_id": 2822667770,
+                    "type_id": 3178
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 84,
+                    "record_id": 2822667771,
+                    "type_id": 25613
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 189,
+                    "record_id": 2822667772,
+                    "type_id": 46005
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 91,
+                    "record_id": 2822667773,
+                    "type_id": 41302
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 1394,
+                    "record_id": 2822667774,
+                    "type_id": 41303
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 14,
+                    "record_id": 2822667775,
+                    "type_id": 13984
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 574,
+                    "record_id": 2822667776,
+                    "type_id": 25592
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 4,
+                    "record_id": 2822667777,
+                    "type_id": 43551
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 14,
+                    "record_id": 2822667778,
+                    "type_id": 49709
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 11,
+                    "record_id": 2822667779,
+                    "type_id": 49701
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 56,
+                    "record_id": 2822667780,
+                    "type_id": 5839
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 1,
+                    "record_id": 2822667781,
+                    "type_id": 49749
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 11,
+                    "record_id": 2822667782,
+                    "type_id": 49719
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 1939,
+                    "record_id": 2822667783,
+                    "type_id": 25594
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 46,
+                    "record_id": 2822667784,
+                    "type_id": 28362
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 103,
+                    "record_id": 2822667785,
+                    "type_id": 41312
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 5,
+                    "record_id": 2822667786,
+                    "type_id": 41491
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 8,
+                    "record_id": 2822667787,
+                    "type_id": 18941
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 10,
+                    "record_id": 2822667788,
+                    "type_id": 19045
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 15000,
+                    "record_id": 2822667789,
+                    "type_id": 16663
+                },
+                {
+                    "is_included": true,
+                    "is_singleton": false,
+                    "quantity": 17,
+                    "record_id": 2822667790,
+                    "type_id": 18941
+                }
+            ],
             "141852510": [
                 {
                     "is_included": true,
@@ -3912,7 +4222,7 @@
                 }
             ]
         },
-        "(('get_universe_types_type_id',), (('type_id', (25600, 18945, 2050, 25603, 7171, 25605, 17912, 10250, 3082, 25612, 25613, 31760, 41490, 3090, 25624, 2589, 43551, 33826, 2082, 49701, 38, 39, 33832, 49709, 31791, 31792, 20528, 31794, 33844, 28213, 31798, 49719, 33848, 1079, 33852, 45632, 49748, 49749, 46166, 46169, 46170, 603, 23134, 11870, 11873, 46178, 46179, 46180, 46181, 46182, 46183, 30310, 30307, 1129, 40555, 46185, 30832, 11889, 11890, 40563, 17526, 46204, 31870, 46207, 46210, 46212, 46217, 41614, 47764, 13976, 30376, 9899, 3244, 3243, 43694, 19119, 18608, 14003, 2739, 31928, 31930, 33981, 33983, 33985, 31942, 28366, 5839, 31952, 9941, 9942, 9943, 4313, 4314, 4316, 20702, 9956, 33518, 33519, 41200, 33520, 41201, 18676, 22778, 4346, 16636, 16635, 16638, 16637, 16634, 16641, 47874, 16642, 47873, 20741, 16646, 16644, 16648, 16649, 16650, 16651, 16647, 16653, 19207, 2319, 11534, 30993, 30988, 16658, 18708, 27925, 41238, 16643, 47898, 19227, 24349, 11550, 47903, 4383, 47905, 48927, 47907, 11555, 47908, 16671, 34590, 31012, 2345, 31017, 41267, 41268, 17668, 14144, 32006, 8517, 31047, 19198, 35662, 19282, 33619, 31061, 41302, 41303, 47448, 47447, 19288, 18789, 47975, 2410, 24427, 17266, 41332, 4349, 377, 1403, 11644, 1405, 11646, 11648, 2436, 18829, 18831, 37631, 15766, 34203, 14238, 14242, 11690, 45998, 45999, 944, 46000, 17330, 37298, 37296, 8117, 14262, 17334, 17336, 46006, 17338, 31159, 17340, 20413, 15806, 17341, 448, 20418, 17346, 17349, 17350, 17351, 17352, 12747, 13261, 17359, 17887, 17888, 17889, 17894, 31719, 48112, 48113, 48115, 19231, 18933, 25590, 25591, 25592, 18937, 25594, 18941, 25599)),))": {
+        "(('get_universe_types_type_id',), (('type_id', (25600, 18945, 2050, 25603, 7171, 25605, 17912, 10250, 3082, 25612, 25613, 31760, 41490, 41491, 3090, 25624, 2589, 43551, 33826, 2082, 49701, 38, 39, 33832, 49709, 31791, 31792, 20528, 31794, 33844, 28213, 31798, 49719, 33848, 1079, 33852, 45632, 49748, 49749, 46166, 46169, 46170, 603, 23134, 11870, 11873, 46178, 46179, 46180, 19045, 46182, 46183, 46181, 30310, 3178, 30307, 1129, 40555, 46185, 30832, 11889, 11890, 40563, 17526, 46204, 31870, 46207, 46210, 46212, 46217, 41614, 47764, 13976, 13984, 30376, 9899, 3244, 3243, 43694, 19119, 18608, 14003, 2739, 31928, 31930, 33981, 33983, 33985, 31942, 28362, 28366, 5839, 31952, 9941, 9942, 9943, 4313, 4314, 4316, 20702, 9956, 33518, 33519, 41200, 33520, 41201, 18676, 22778, 4346, 16635, 16637, 16636, 16638, 16634, 16641, 47874, 16642, 47873, 20741, 16646, 16644, 16648, 16649, 16650, 16651, 16647, 16653, 19207, 2319, 11534, 30993, 30988, 16658, 18708, 27925, 41238, 16663, 16643, 47898, 19227, 24349, 11550, 47903, 4383, 47905, 48927, 47907, 11555, 47908, 16671, 34590, 31012, 2345, 31017, 41267, 41268, 17668, 14144, 32006, 8517, 31047, 19198, 35662, 19282, 33619, 31061, 41302, 41303, 47448, 47447, 19288, 41312, 18789, 47975, 2410, 24427, 17266, 41332, 4349, 377, 1403, 11644, 1405, 11646, 11648, 2436, 18829, 18831, 37631, 15766, 34203, 14238, 14242, 11690, 45998, 45999, 944, 46000, 17330, 37298, 37296, 8117, 46005, 14262, 17334, 17336, 46006, 17338, 31159, 17340, 20413, 15806, 17341, 448, 20418, 17346, 17349, 17350, 17351, 17352, 12747, 13261, 17359, 17887, 17888, 17889, 17894, 31719, 48112, 48113, 48115, 19231, 18933, 25590, 25591, 25592, 18937, 25594, 18941, 25599)),))": {
             "25600": {
                 "capacity": 0.0,
                 "description": "Autonomous field programmable holographic signal processor with embedded holographic data storage. Used in most modern computers, the ubiquitous AFPHSPEHDS is colloquially known as the \"Aphid\". This name leads of course to many bad puns about bugs in the system. ",
@@ -12672,126 +12982,6 @@
             },
             "47874": {
                 "capacity": 0.0,
-                "description": "Specialist training in the operation of advanced Heavy Entropic Disintegrators. 2% bonus per skill level to the damage of medium weapons requiring Medium Disintegrator Specialization.",
-                "dogma_attributes": [
-                    {
-                        "attribute_id": 161,
-                        "value": 0.01
-                    },
-                    {
-                        "attribute_id": 162,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 4,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 278,
-                        "value": 5.0
-                    },
-                    {
-                        "attribute_id": 38,
-                        "value": 0.0
-                    },
-                    {
-                        "attribute_id": 1047,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 275,
-                        "value": 5.0
-                    },
-                    {
-                        "attribute_id": 180,
-                        "value": 167.0
-                    },
-                    {
-                        "attribute_id": 181,
-                        "value": 168.0
-                    },
-                    {
-                        "attribute_id": 182,
-                        "value": 3312.0
-                    },
-                    {
-                        "attribute_id": 183,
-                        "value": 47871.0
-                    },
-                    {
-                        "attribute_id": 292,
-                        "value": 2.0
-                    },
-                    {
-                        "attribute_id": 277,
-                        "value": 4.0
-                    }
-                ],
-                "dogma_effects": [
-                    {
-                        "effect_id": 132,
-                        "is_default": true
-                    },
-                    {
-                        "effect_id": 152,
-                        "is_default": false
-                    },
-                    {
-                        "effect_id": 7075,
-                        "is_default": false
-                    }
-                ],
-                "group_id": 255,
-                "icon_id": 33,
-                "market_group_id": 364,
-                "mass": 0.0,
-                "name": "Medium Disintegrator Specialization",
-                "packaged_volume": 0.01,
-                "portion_size": 1,
-                "published": true,
-                "radius": 1.0,
-                "type_id": 47874,
-                "volume": 0.01
-            },
-            "16642": {
-                "capacity": 0.0,
-                "description": "A soft, white metal with a wide-ranging arsenal of applications both nuclear and structural. Also a versatile catalyst in compound form.",
-                "dogma_attributes": [
-                    {
-                        "attribute_id": 161,
-                        "value": 0.05
-                    },
-                    {
-                        "attribute_id": 162,
-                        "value": 1.0
-                    },
-                    {
-                        "attribute_id": 4,
-                        "value": 6000.0
-                    },
-                    {
-                        "attribute_id": 726,
-                        "value": 100.0
-                    },
-                    {
-                        "attribute_id": 38,
-                        "value": 0.0
-                    }
-                ],
-                "group_id": 427,
-                "icon_id": 2581,
-                "market_group_id": 501,
-                "mass": 6000.0,
-                "name": "Vanadium",
-                "packaged_volume": 0.05,
-                "portion_size": 1,
-                "published": true,
-                "radius": 1.0,
-                "type_id": 16642,
-                "volume": 0.05
-            },
-            "47873": {
-                "capacity": 0.0,
                 "description": "Specialist training in the operation of advanced Light Entropic Disintegrators. 2% bonus per skill level to the damage of small weapons requiring Small Disintegrator Specialization.",
                 "dogma_attributes": [
                     {
@@ -12872,6 +13062,80 @@
                 "radius": 1.0,
                 "type_id": 47873,
                 "volume": 0.01
+            },
+            "16642": {
+                "capacity": 0.0,
+                "description": "A soft, white metal with a wide-ranging arsenal of applications both nuclear and structural. Also a versatile catalyst in compound form.",
+                "dogma_attributes": [
+                    {
+                        "attribute_id": 161,
+                        "value": 0.05
+                    },
+                    {
+                        "attribute_id": 162,
+                        "value": 1.0
+                    },
+                    {
+                        "attribute_id": 4,
+                        "value": 6000.0
+                    },
+                    {
+                        "attribute_id": 726,
+                        "value": 100.0
+                    },
+                    {
+                        "attribute_id": 38,
+                        "value": 0.0
+                    }
+                ],
+                "group_id": 427,
+                "icon_id": 2581,
+                "market_group_id": 501,
+                "mass": 6000.0,
+                "name": "Vanadium",
+                "packaged_volume": 0.05,
+                "portion_size": 1,
+                "published": true,
+                "radius": 1.0,
+                "type_id": 16642,
+                "volume": 0.05
+            },
+            "47873": {
+                "capacity": 0.0,
+                "description": "A corrosion-resistant precious metal with an extremely wide range of applications. Often used as a chemical catalyst.",
+                "dogma_attributes": [
+                    {
+                        "attribute_id": 161,
+                        "value": 0.05
+                    },
+                    {
+                        "attribute_id": 162,
+                        "value": 1.0
+                    },
+                    {
+                        "attribute_id": 4,
+                        "value": 21460.0
+                    },
+                    {
+                        "attribute_id": 726,
+                        "value": 100.0
+                    },
+                    {
+                        "attribute_id": 38,
+                        "value": 0.0
+                    }
+                ],
+                "group_id": 427,
+                "icon_id": 2575,
+                "market_group_id": 501,
+                "mass": 21460.0,
+                "name": "Platinum",
+                "packaged_volume": 0.05,
+                "portion_size": 1,
+                "published": true,
+                "radius": 1.0,
+                "type_id": 16644,
+                "volume": 0.05
             },
             "20741": {
                 "capacity": 0.0,
@@ -17458,7 +17722,7 @@
                     },
                     {
                         "attribute_id": 985,
-                        "value": -55.0
+                        "value": 0.0
                     },
                     {
                         "attribute_id": 1180,
@@ -17479,7 +17743,7 @@
                         "is_default": false
                     },
                     {
-                        "effect_id": 3031,
+                        "effect_id": 3032,
                         "is_default": false
                     },
                     {
@@ -17488,15 +17752,15 @@
                     }
                 ],
                 "group_id": 328,
-                "icon_id": 20943,
-                "market_group_id": 1680,
+                "icon_id": 20945,
+                "market_group_id": 1679,
                 "mass": 1.0,
-                "name": "Armor Explosive Hardener II",
+                "name": "Armor Kinetic Hardener II",
                 "packaged_volume": 5.0,
                 "portion_size": 1,
                 "published": true,
                 "radius": 10.0,
-                "type_id": 11646,
+                "type_id": 11644,
                 "volume": 5.0
             },
             "11648": {
@@ -21822,7 +22086,7 @@
                 "volume": 0.01
             }
         },
-        "(('get_universe_groups_group_id',), (('group_id', (257, 773, 774, 510, 1289, 1034, 1292, 782, 528, 1040, 18, 767, 787, 1304, 25, 26, 538, 548, 38, 295, 40, 43, 46, 303, 52, 53, 314, 59, 60, 65, 68, 326, 71, 328, 74, 77, 333, 334, 83, 87, 1888, 98, 100, 101, 356, 105, 367, 1137, 370, 1652, 1653, 886, 375, 380, 132, 645, 646, 644, 647, 1676, 142, 912, 663, 157, 1189, 423, 1194, 427, 172, 428, 429, 1979, 958, 447, 1730, 1988, 711, 1996, 974, 723, 213, 1246, 483, 741, 745, 1770, 754, 1268, 1270, 762, 508, 766, 255)),))": {
+        "(('get_universe_groups_group_id',), (('group_id', (257, 773, 774, 510, 1289, 1034, 1292, 782, 528, 1040, 18, 767, 787, 1304, 25, 26, 538, 548, 38, 295, 40, 43, 46, 303, 52, 53, 314, 59, 60, 62, 65, 68, 326, 71, 328, 74, 76, 77, 333, 334, 83, 87, 1888, 98, 100, 101, 356, 105, 367, 1137, 370, 1652, 1653, 886, 375, 380, 132, 645, 646, 644, 647, 1676, 142, 912, 663, 157, 1189, 423, 1194, 427, 172, 428, 429, 1979, 958, 447, 1730, 1988, 711, 1996, 974, 723, 213, 1246, 483, 741, 745, 1770, 754, 1268, 1270, 762, 508, 766, 255)),))": {
             "257": {
                 "category_id": 16,
                 "group_id": 257,
@@ -24702,6 +24966,122 @@
                     47256,
                     47257,
                     47258
+                ]
+            },
+            "62": {
+                "category_id": 7,
+                "group_id": 62,
+                "name": "Armor Repair Unit",
+                "published": true,
+                "types": [
+                    523,
+                    1183,
+                    3528,
+                    3530,
+                    3534,
+                    3538,
+                    3540,
+                    4529,
+                    4531,
+                    4533,
+                    4535,
+                    4569,
+                    4571,
+                    4573,
+                    4575,
+                    4579,
+                    4609,
+                    4611,
+                    4613,
+                    4615,
+                    4621,
+                    13955,
+                    13956,
+                    13957,
+                    13958,
+                    13959,
+                    13960,
+                    13962,
+                    13963,
+                    13964,
+                    14067,
+                    14068,
+                    14069,
+                    14552,
+                    14554,
+                    14848,
+                    14849,
+                    14850,
+                    14851,
+                    14852,
+                    14853,
+                    14854,
+                    14855,
+                    15160,
+                    15161,
+                    15162,
+                    15163,
+                    15741,
+                    15742,
+                    15743,
+                    15744,
+                    15745,
+                    15746,
+                    17492,
+                    17493,
+                    17494,
+                    17546,
+                    17547,
+                    17548,
+                    18999,
+                    19001,
+                    19003,
+                    19005,
+                    19007,
+                    19009,
+                    19011,
+                    19013,
+                    19015,
+                    19017,
+                    19019,
+                    19021,
+                    19023,
+                    19025,
+                    19027,
+                    19029,
+                    19031,
+                    19033,
+                    19035,
+                    19036,
+                    19037,
+                    19038,
+                    19039,
+                    19040,
+                    19041,
+                    19042,
+                    19043,
+                    19044,
+                    19045,
+                    19046,
+                    20701,
+                    21853,
+                    22887,
+                    22889,
+                    22891,
+                    23795,
+                    23797,
+                    23799,
+                    28544,
+                    28549,
+                    28556,
+                    41498,
+                    41499,
+                    41500,
+                    41501,
+                    41502,
+                    47769,
+                    47773,
+                    47777
                 ]
             },
             "65": {
@@ -88171,7 +88551,7 @@
         "(('get_universe_stations_station_id',), (('station_id', 60003760),))": {
             "max_dockable_ship_volume": 50000000.0,
             "name": "Jita IV - Moon 4 - Caldari Navy Assembly Plant",
-            "office_rental_cost": 4202467895.0,
+            "office_rental_cost": 4295172958.0,
             "owner": 1000035,
             "position": {
                 "x": -107303362560.0,
@@ -88204,7 +88584,7 @@
         "(('get_universe_stations_station_id',), (('station_id', 60008494),))": {
             "max_dockable_ship_volume": 50000000.0,
             "name": "Amarr VIII (Oris) - Emperor Family Academy",
-            "office_rental_cost": 1198055737.0,
+            "office_rental_cost": 1208536217.0,
             "owner": 1000086,
             "position": {
                 "x": -518583951360.0,
@@ -88326,7 +88706,7 @@
                 "gender": "male",
                 "name": "Nicky Rapid",
                 "race_id": 4,
-                "security_status": 1.7114406138155434
+                "security_status": 1.67582312093468
             },
             "96491874": {
                 "alliance_id": 99008068,
@@ -88338,7 +88718,7 @@
                 "gender": "male",
                 "name": "Michael Aurora",
                 "race_id": 8,
-                "security_status": -0.16860863161621914
+                "security_status": 0.36079696345921103
             },
             "2112412327": {
                 "alliance_id": 99008569,
@@ -88810,6 +89190,29 @@
     },
     "get_paged_op": {
         "(('get_characters_character_id_contracts',), (('character_id', 2114496483), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": [
+            {
+                "acceptor_id": 2114496483,
+                "assignee_id": 2114496483,
+                "availability": "personal",
+                "collateral": 0.0,
+                "contract_id": 141740024,
+                "date_accepted": "2019-01-24T02:06:14+00:00",
+                "date_completed": "2019-01-24T02:06:14+00:00",
+                "date_expired": "2019-01-25T02:06:08+00:00",
+                "date_issued": "2019-01-24T02:06:08+00:00",
+                "days_to_complete": 0,
+                "end_location_id": 60003760,
+                "for_corporation": false,
+                "issuer_corporation_id": 98409330,
+                "issuer_id": 2114509950,
+                "price": 0.0,
+                "reward": 0.0,
+                "start_location_id": 60003760,
+                "status": "finished",
+                "title": "",
+                "type": "item_exchange",
+                "volume": 28706.630999999998
+            },
             {
                 "acceptor_id": 2114509950,
                 "assignee_id": 2114509950,

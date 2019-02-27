@@ -1449,7 +1449,7 @@
                 "gender": "male",
                 "name": "Valen Sinak",
                 "race_id": 4,
-                "security_status": 0.5371973061089949
+                "security_status": 0.533174566445999
             },
             "2114517205": {
                 "ancestry_id": 11,
@@ -1595,7 +1595,7 @@
                 "gender": "female",
                 "name": "Trainer Aer",
                 "race_id": 1,
-                "security_status": -0.8983844238476104
+                "security_status": 4.015578772001532
             },
             "2112885505": {
                 "alliance_id": 99006113,
@@ -1955,7 +1955,7 @@
                 "gender": "female",
                 "name": "Trennx",
                 "race_id": 4,
-                "security_status": 0.17060222827545724
+                "security_status": 0.16814441646608982
             },
             "669376864": {
                 "ancestry_id": 12,
