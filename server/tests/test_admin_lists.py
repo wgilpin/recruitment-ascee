@@ -9,7 +9,7 @@ from models import db, Character, Region
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
-from admin import get_admin_list, add_admin_list_item, remove_admin_list_item, put_admin_list
+from admin_list import get_admin_list, add_admin_list_item, remove_admin_list_item, put_admin_list
 
 
 class AdminListTestCase(AsceeTestCase):

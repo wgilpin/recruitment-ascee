@@ -1,8 +1,37 @@
 from models import Corporation, Note, Question, Answer, User, Character, db, Application, Admin, Recruiter
 from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter,\
-    is_applicant_character_id
+    is_applicant_character_id, user_admin_access_check
 import cachetools
 from exceptions import BadRequestException, ForbiddenException
+from models import Question
+
+
+def set_questions(data, current_user=None):
+    user_admin_access_check(current_user)
+    for question_data in data:
+        id = question_data.get('question_id', None)
+        text = question_data['text']
+        if id is None:
+            db.session.add(Question(text=text))
+        else:
+            question = db.session.query(Question).filter_by(id=id).one_or_none()
+            if question is None:
+                raise BadRequestException('No question with id {}'.format(id))
+            else:
+                question.text = text
+    db.session.commit()
+    return {'status': 'ok'}
+
+
+def remove_question(question_id, current_user=None):
+    user_admin_access_check(current_user)
+    question = db.session.query(Question).filter_by(id=question_id).one_or_none()
+    if question is None:
+        raise BadRequestException('No question with id {}'.format(id))
+    else:
+        db.session.delete(question)
+        db.session.commit()
+    return {'status': 'ok'}
 
 
 def submit_application(data, current_user=None):
@@ -40,7 +69,7 @@ def get_users(current_user=None):
 
 def get_questions(current_user=None):
     question_dict = {}
-    for question in db.session.query(Question).filter(Question.enabled):
+    for question in db.session.query(Question).all():
         question_dict[question.id] = question.text
     return question_dict
 

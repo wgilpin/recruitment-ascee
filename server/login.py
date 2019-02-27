@@ -8,6 +8,7 @@ from esi_config import (
     callback_url, client_id, secret_key, scopes, login_url, app_url,
     react_app_url, applicant_url, recruiter_url, admin_url, rejection_url
 )
+from mail import set_mail_character
 import random
 import os
 import hmac
@@ -35,7 +36,7 @@ def login_helper(login_type):
         'response_type': 'code',
         'state': session['token'],
     }
-    if login_type in ('scopes', 'link'):
+    if login_type in ('scopes', 'link', 'mail'):
         params['scope'] = scopes
     eve_login_url = login_url + '?' + '&'.join(
         '{}={}'.format(k, v) for k, v in params.items())
@@ -77,6 +78,9 @@ def route_login(login_type, character):
         return redirect(applicant_url)
     elif login_type == 'link':
         return link_alt(character, current_user)
+    elif login_type == 'mail':
+        set_mail_character(character, current_user=current_user)
+        return redirect(admin_url)
     else:
         raise AppException(
             'OAuth callback state specified invalid login type {}.'.format(login_type))
@@ -145,7 +149,7 @@ def process_oauth(login_type, code):
     character = Character.get(character_id)
     if 'ASCEE_SHOW_TOKENS' in os.environ and os.environ['ASCEE_SHOW_TOKENS'] and refresh_token:
         print (f'TOKEN for {character_id}: {refresh_token}')
-    if login_type in ('scopes', 'link'):
+    if login_type in ('scopes', 'link', 'mail'):
         character.refresh_token = refresh_token
         db.session.commit()
 
