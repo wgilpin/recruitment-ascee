@@ -85,7 +85,9 @@ export default class FindItem extends React.Component {
   };
 
   searchMany = () => {
-    const names = this.textArea.current.value.split('\n');
+    const names = this.textArea.current.value
+      .split('\n')
+      .filter(n => n.length > 0);
     return this.search(names);
   };
 
@@ -124,7 +126,7 @@ export default class FindItem extends React.Component {
       return;
     }
     const oldList = this.textArea.current.value.toLowerCase().split('\n');
-    Object.values(this.state.searchResults).forEach(name => {
+    Object.keys(this.state.searchResults).forEach(name => {
       const index = oldList.indexOf(name.toLowerCase());
       if (index !== -1) {
         oldList.splice(index, 1);
@@ -193,7 +195,7 @@ export default class FindItem extends React.Component {
             </div>
             <div style={styles.listbox}>
               {Object.entries(this.state.searchResults).map(
-                ([id, name], idx) => {
+                ([name, id], idx) => {
                   return this.makeResultLine(name, id, idx);
                 }
               )}
@@ -217,9 +219,11 @@ export default class FindItem extends React.Component {
             </div>
             <div style={styles.listbox}>
               {Object.entries(this.state.searchResults).map(
-                ([id, name], idx) => {
+                ([name, id], idx) =>{
+                  console.log(name, id);
                   return this.makeResultLine(name, id, idx);
                 }
+
               )}
             </div>
             {this.state.searchResults.length > 0 && (
