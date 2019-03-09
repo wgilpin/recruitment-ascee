@@ -40,17 +40,16 @@ export default class NotesPage extends React.Component {
   }
 
   fetchNotes(){
-    this.setState(
-      new FetchData({ id: this.props.alt, scope: 'recruits', param1: 'notes' })
-        .get()
-        // Set the  `notes` and 'logs' lists
-        .then(data => {
-          this.setState({ loading: false });
-          console.log(`fetched notes`);
-          const notes = data.info.filter(note => (note.title || '').length > 0);
-          const logs = data.info.filter(note => (note.title || '').length === 0);
-          return { notes, logs, showAddLog: false }
-        }))
+    new FetchData({ id: this.props.alt, scope: 'recruits', param1: 'notes' })
+      .get()
+      // Set the  `notes` and 'logs' lists
+      .then(data => {
+        this.setState({ loading: false });
+        console.log(`fetched notes`, data);
+        const notes = data.info.filter(note => (note.title || '').length === 0);
+        const logs = data.info.filter(note => (note.title || '').length > 0);
+        this.setState({ notes, logs, showAddLog: false });
+      });
   }
 
   componentDidMount() {
@@ -58,7 +57,7 @@ export default class NotesPage extends React.Component {
     this.fetchNotes();
   }
 
-  handleAddNote(text, title) {
+  handleAddNote = (text, title) => {
     const scope = title ? 'recruits/add_chat_log' : 'recruits/add_note';
     new FetchData({ id: this.props.alt, scope })
       .put({ text, title: title || '' })

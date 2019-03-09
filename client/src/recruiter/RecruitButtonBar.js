@@ -28,6 +28,8 @@ const styles = {
     width: '32px',
     height: '32px',
     fill: 'lightgrey',
+    border: '1px solid #333',
+    borderRadius: '3px',
   },
 };
 

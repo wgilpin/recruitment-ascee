@@ -32,7 +32,7 @@ const styles = {
   body: {
     borderColor: '#555',
     backgroundColor: '#111',
-    margin: '6px',
+    padding: '6px',
     borderWidth: '1px',
     // width: '100%',
     borderRadius: '0px',
@@ -57,6 +57,7 @@ export default class Note extends React.Component {
   render() {
     console.log(`render note ${this.props.id} ${this.props.title}`)
     const { author, title, timestamp, body} = this.props;
+    const bodyLines = body.split('\n');
     return (
       <div style={styles.outer}>
         {title && title.length > 0 &&
@@ -66,7 +67,7 @@ export default class Note extends React.Component {
         <div style={styles.body}>
           <div style={styles.author}>{author}</div>
           <div style={styles.date}>{relativeDate(timestamp, new Date())}</div>
-          {body}
+            {bodyLines.map(line => <div>{line}</div>)}
         </div>
       </div>
     );
