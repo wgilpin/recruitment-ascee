@@ -242,7 +242,8 @@ def get_applicant_notes(applicant_user_id, current_user=None):
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
-        return {'info': applicant.notes}
+        application = get_user_application(applicant_user_id)
+        return {'info': application.notes}
 
 
 @cachetools.cached(cachetools.LRUCache(maxsize=1000))
