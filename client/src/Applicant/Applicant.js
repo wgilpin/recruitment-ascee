@@ -176,7 +176,7 @@ export default class Applicant extends Component {
       return this.buildHeader();
     }
     return [
-      this.state.submitted && <React.Fragment >
+      !this.state.submitted && <React.Fragment >
         <div style={styles.logout}><a href="/auth/logout">Sign out</a></div>
         {this.buildHeader()}
         <Tabs>
