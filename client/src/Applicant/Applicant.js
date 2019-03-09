@@ -84,7 +84,10 @@ export default class Applicant extends Component {
           }
           this.setState({ submitted: true });
         })
-        .catch(() => alert('Error submitting'));
+        .catch((e) => {
+          console.log(e.message);
+          alert('Error submitting');
+        });
     } else {
       // no application, start one
       new FetchData({ scope: 'recruits/start_application' })

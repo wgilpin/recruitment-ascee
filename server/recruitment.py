@@ -46,6 +46,7 @@ def submit_application(data, current_user=None):
         answers.append(Answer(question_id=answer['id'], text=answer['a']))
     application.answers = answers
     db.session.commit()
+    return {'status': 'ok'}
 
 
 def get_users(current_user=None):
