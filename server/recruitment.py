@@ -77,6 +77,8 @@ def get_questions(current_user=None):
 def get_user_application(user_id):
     return Application.get_for_user(user_id)
 
+def set_admin_questions(answers, current_user=None):
+    raise NotImplementedError()
 
 def set_answers(user_id, answers=None, current_user=None):
     if not current_user.id == user_id:

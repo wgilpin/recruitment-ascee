@@ -34,7 +34,7 @@ export default class Styles {
     smallSecondary: {
       ...Styles.button,
       width: '70px',
-      colour: Styles.themeColors.primary,
+      color: Styles.themeColors.primary,
       backgroundColor: Styles.themeColors.secondary,
       borderColor: Styles.themeColors.primary,
     },
@@ -47,8 +47,26 @@ export default class Styles {
       backgroundColor: '#0000',
       cursor: 'pointer',
       fontSize: 'large',
-      textDecorationStyle: 'underline'
+      textDecoration: 'underline'
+    },
+    modal: {
+      backgroundColor: '#111',
+      overlay: {
+        backgroundColor: 'rgba(255, 255, 255, 0.25)'
+      },
+      content: {
+        border: '1px solid #ccc',
+        background: '#111',
+        overflow: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        borderRadius: '4px',
+        outline: 'none',
+        padding: '20px'
+      },
+      title: {
+        color: Styles.themeColors.primary,
+        fontWeight: 600,
+      }
     }
   }
 }
-

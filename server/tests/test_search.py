@@ -157,7 +157,8 @@ class NamesToIDsTests(AsceeTestCase):
 
     def test_search_no_applicant_access(self):
         with self.assertRaises(ForbiddenException):
-            get_names_to_ids('character', [self.applicant.name], current_user=self.applicant)
+            response = get_names_to_ids('character', [self.applicant.name], current_user=self.applicant)
+            self.assertIn('info', response)
 
     def test_search_no_not_applicant_access(self):
         with self.assertRaises(ForbiddenException):
