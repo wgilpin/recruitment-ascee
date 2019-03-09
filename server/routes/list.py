@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from security import login_required
-from admin_list import put_admin_list, get_admin_list, remove_admin_list_item
+from admin import put_admin_list, get_admin_list, \
+    remove_admin_list_item
 from flask_app import app
 from flask_login import current_user
 

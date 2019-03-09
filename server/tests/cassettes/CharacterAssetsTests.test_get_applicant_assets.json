@@ -91500,7 +91500,7 @@
                 "is_singleton": true,
                 "item_id": 1028648946505,
                 "location_flag": "Hangar",
-                "location_id": 60015027,
+                "location_id": 60015021,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 1220
@@ -91509,7 +91509,16 @@
                 "is_singleton": false,
                 "item_id": 1028649128608,
                 "location_flag": "Hangar",
-                "location_id": 60015027,
+                "location_id": 60015001,
+                "location_type": "station",
+                "quantity": 2,
+                "type_id": 27019
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028684352995,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 648
@@ -91527,7 +91536,7 @@
                 "is_singleton": false,
                 "item_id": 1028649299024,
                 "location_flag": "Hangar",
-                "location_id": 60015021,
+                "location_id": 60015005,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 30420
@@ -91536,7 +91545,7 @@
                 "is_singleton": false,
                 "item_id": 1028649601586,
                 "location_flag": "Hangar",
-                "location_id": 60015021,
+                "location_id": 60015010,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 526
@@ -91545,7 +91554,7 @@
                 "is_singleton": true,
                 "item_id": 1028678484580,
                 "location_flag": "Hangar",
-                "location_id": 60015021,
+                "location_id": 60008494,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 32469
@@ -91593,13 +91602,13 @@
                 "location_id": 60015001,
                 "location_type": "station",
                 "quantity": 1,
-                "type_id": 1317
+                "type_id": 27014
             },
             {
                 "is_singleton": false,
                 "item_id": 1028684452670,
                 "location_flag": "Hangar",
-                "location_id": 60015021,
+                "location_id": 60015010,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 605
@@ -91608,7 +91617,7 @@
                 "is_singleton": true,
                 "item_id": 1028684486859,
                 "location_flag": "Hangar",
-                "location_id": 60015027,
+                "location_id": 60015010,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 561
@@ -91617,7 +91626,7 @@
                 "is_singleton": false,
                 "item_id": 1028685338384,
                 "location_flag": "Hangar",
-                "location_id": 60015027,
+                "location_id": 60015010,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 439
@@ -91626,7 +91635,7 @@
                 "is_singleton": false,
                 "item_id": 1028685342793,
                 "location_flag": "Hangar",
-                "location_id": 60015027,
+                "location_id": 60015010,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 30424
@@ -91635,7 +91644,7 @@
                 "is_singleton": false,
                 "item_id": 1028685430284,
                 "location_flag": "Hangar",
-                "location_id": 60015010,
+                "location_id": 60015027,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 13283
@@ -91644,399 +91653,10 @@
                 "is_singleton": false,
                 "item_id": 1028685483973,
                 "location_flag": "Hangar",
-                "location_id": 60015027,
+                "location_id": 60008494,
                 "location_type": "station",
                 "quantity": 2,
                 "type_id": 1244
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1029268102570,
-                "location_flag": "DroneBay",
-                "location_id": 1029268030359,
-                "location_type": "other",
-                "quantity": 1,
-                "type_id": 2456
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028742976455,
-                "location_flag": "Hangar",
-                "location_id": 60015001,
-                "location_type": "station",
-                "quantity": 2,
-                "type_id": 27025
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028580967622,
-                "location_flag": "Hangar",
-                "location_id": 60015005,
-                "location_type": "station",
-                "quantity": 13,
-                "type_id": 38
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1029115466362,
-                "location_flag": "Unlocked",
-                "location_id": 1028895774768,
-                "location_type": "other",
-                "quantity": 13,
-                "type_id": 35
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1029019530411,
-                "location_flag": "HiSlot1",
-                "location_id": 1029015213848,
-                "location_type": "other",
-                "quantity": 1,
-                "type_id": 17482
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028690110325,
-                "location_flag": "Hangar",
-                "location_id": 60015027,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 32461
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028690136193,
-                "location_flag": "Hangar",
-                "location_id": 60003760,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 585
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028742903265,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 26983
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028752323370,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 2,
-                "type_id": 1244
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028618522374,
-                "location_flag": "MedSlot0",
-                "location_id": 1029480064198,
-                "location_type": "other",
-                "quantity": 1,
-                "type_id": 8433
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1029268030383,
-                "location_flag": "MedSlot1",
-                "location_id": 1029268030359,
-                "location_type": "other",
-                "quantity": 1,
-                "type_id": 5973
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028574681676,
-                "location_flag": "Hangar",
-                "location_id": 60015005,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 27025
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1029479162545,
-                "location_flag": "Hangar",
-                "location_id": 60008494,
-                "location_type": "station",
-                "quantity": 20,
-                "type_id": 2109
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028791412316,
-                "location_flag": "Hangar",
-                "location_id": 60015021,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 32459
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028685342793,
-                "location_flag": "Hangar",
-                "location_id": 60015027,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 30424
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028743042650,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 27019
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028743182848,
-                "location_flag": "Cargo",
-                "location_id": 1028582564819,
-                "location_type": "other",
-                "quantity": 1,
-                "type_id": 1317
-            },
-            {
-                "is_blueprint_copy": true,
-                "is_singleton": true,
-                "item_id": 1028743196939,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 1156
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028684071600,
-                "location_flag": "Hangar",
-                "location_id": 60015001,
-                "location_type": "station",
-                "quantity": 2,
-                "type_id": 27019
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028624418396,
-                "location_flag": "Hangar",
-                "location_id": 60015005,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 3422
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028802921835,
-                "location_flag": "Hangar",
-                "location_id": 60015001,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 26983
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028952611998,
-                "location_flag": "Hangar",
-                "location_id": 60003466,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 9942
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028743041752,
-                "location_flag": "HiSlot0",
-                "location_id": 1028742929165,
-                "location_type": "other",
-                "quantity": 1,
-                "type_id": 483
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028743291901,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 439
-            },
-            {
-                "is_blueprint_copy": true,
-                "is_singleton": true,
-                "item_id": 1028743344205,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 1178
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028818963073,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 29248
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028868407217,
-                "location_flag": "Hangar",
-                "location_id": 60003760,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 603
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028743488355,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 452
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028748675901,
-                "location_flag": "Unlocked",
-                "location_id": 1028895775146,
-                "location_type": "other",
-                "quantity": 20,
-                "type_id": 17208
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028752244118,
-                "location_flag": "Hangar",
-                "location_id": 60015005,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 582
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028752287909,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 523
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028752323370,
-                "location_flag": "Hangar",
-                "location_id": 60015005,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 16238
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028752928631,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 32469
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028752939484,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 597
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028752949770,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 18,
-                "type_id": 240
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028752950916,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 30,
-                "type_id": 240
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028753021764,
-                "location_flag": "Hangar",
-                "location_id": 60015010,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 30328
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028767845585,
-                "location_flag": "Hangar",
-                "location_id": 60015001,
-                "location_type": "station",
-                "quantity": 2,
-                "type_id": 15331
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028768614807,
-                "location_flag": "MedSlot1",
-                "location_id": 1028582564819,
-                "location_type": "other",
-                "quantity": 1,
-                "type_id": 8433
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028768637506,
-                "location_flag": "LoSlot1",
-                "location_id": 1028582564819,
-                "location_type": "other",
-                "quantity": 1,
-                "type_id": 2046
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028819118080,
-                "location_flag": "Hangar",
-                "location_id": 60015021,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 1178
-            },
-            {
-                "is_singleton": true,
-                "item_id": 1028791450491,
-                "location_flag": "Hangar",
-                "location_id": 60015001,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 32467
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028791544503,
-                "location_flag": "Hangar",
-                "location_id": 60008494,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 603
             },
             {
                 "is_singleton": false,
@@ -92067,7 +91687,16 @@
             },
             {
                 "is_singleton": true,
-                "item_id": 1028791673747,
+                "item_id": 1028690110325,
+                "location_flag": "Hangar",
+                "location_id": 60015027,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 32461
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028690136193,
                 "location_flag": "Hangar",
                 "location_id": 60015021,
                 "location_type": "station",
@@ -92107,8 +91736,45 @@
                 "location_flag": "Hangar",
                 "location_id": 60015001,
                 "location_type": "station",
+                "quantity": 2,
+                "type_id": 1317
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028743041752,
+                "location_flag": "HiSlot0",
+                "location_id": 1028742929165,
+                "location_type": "other",
                 "quantity": 1,
-                "type_id": 582
+                "type_id": 483
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028743042650,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 27019
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028743182848,
+                "location_flag": "Cargo",
+                "location_id": 1028582564819,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 1317
+            },
+            {
+                "is_blueprint_copy": true,
+                "is_singleton": true,
+                "item_id": 1028743196939,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 1156
             },
             {
                 "is_singleton": false,
@@ -92193,12 +91859,120 @@
             },
             {
                 "is_singleton": false,
-                "item_id": 1028584052947,
+                "item_id": 1028743488355,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 452
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028748675901,
+                "location_flag": "Unlocked",
+                "location_id": 1028895775146,
+                "location_type": "other",
+                "quantity": 20,
+                "type_id": 17208
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028752244118,
                 "location_flag": "Hangar",
                 "location_id": 60015005,
                 "location_type": "station",
                 "quantity": 1,
-                "type_id": 27014
+                "type_id": 30420
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028752287909,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 523
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028752323370,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 2,
+                "type_id": 1244
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028752928631,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 32469
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028752939484,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 597
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028752949770,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 18,
+                "type_id": 240
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028752950916,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 30,
+                "type_id": 240
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028753021764,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 30328
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028767845585,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
+                "location_type": "station",
+                "quantity": 2,
+                "type_id": 15331
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028768614807,
+                "location_flag": "MedSlot1",
+                "location_id": 1028582564819,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 8433
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028768637506,
+                "location_flag": "LoSlot1",
+                "location_id": 1028582564819,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 2046
             },
             {
                 "is_singleton": true,
@@ -92211,10 +91985,28 @@
             },
             {
                 "is_singleton": true,
-                "item_id": 1029928820529,
-                "location_flag": "HiSlot1",
-                "location_id": 1028802986623,
-                "location_type": "other",
+                "item_id": 1028791412316,
+                "location_flag": "Hangar",
+                "location_id": 60015021,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 32459
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028791450491,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 32467
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028791544503,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
+                "location_type": "station",
                 "quantity": 1,
                 "type_id": 483
             },
@@ -92225,7 +92017,34 @@
                 "location_id": 60015005,
                 "location_type": "station",
                 "quantity": 1,
-                "type_id": 561
+                "type_id": 32461
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028791623047,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 13283
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028791673747,
+                "location_flag": "Hangar",
+                "location_id": 60015021,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 30328
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028791698201,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
+                "location_type": "station",
+                "quantity": 2,
+                "type_id": 1244
             },
             {
                 "is_singleton": false,
@@ -92238,7 +92057,34 @@
             },
             {
                 "is_singleton": false,
-                "item_id": 1028818456997,
+                "item_id": 1028802925068,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 582
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028802975784,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 32880
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028802977992,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 605
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028802986623,
                 "location_flag": "Hangar",
                 "location_id": 60015005,
                 "location_type": "station",
@@ -92256,6 +92102,105 @@
             },
             {
                 "is_singleton": false,
+                "item_id": 1028803040627,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
+                "location_type": "station",
+                "quantity": 3,
+                "type_id": 483
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028803061022,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 591
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028803114069,
+                "location_flag": "HiSlot0",
+                "location_id": 1028802986623,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 483
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028803165074,
+                "location_flag": "Hangar",
+                "location_id": 60015001,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 13286
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028818963073,
+                "location_flag": "Hangar",
+                "location_id": 60015010,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 483
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028819013859,
+                "location_flag": "Hangar",
+                "location_id": 60015021,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 483
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028819019607,
+                "location_flag": "Hangar",
+                "location_id": 60015021,
+                "location_type": "station",
+                "quantity": 42,
+                "type_id": 1230
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028818347590,
+                "location_flag": "Hangar",
+                "location_id": 60015005,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 561
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028818390012,
+                "location_flag": "Hangar",
+                "location_id": 60015021,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 21858
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028818456997,
+                "location_flag": "Hangar",
+                "location_id": 60015005,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 399
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028818754091,
+                "location_flag": "Hangar",
+                "location_id": 60015027,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 27014
+            },
+            {
+                "is_singleton": false,
                 "item_id": 1028818932923,
                 "location_flag": "Hangar",
                 "location_id": 60015010,
@@ -92267,10 +92212,10 @@
                 "is_singleton": false,
                 "item_id": 1028818963073,
                 "location_flag": "Hangar",
-                "location_id": 60015010,
+                "location_id": 60015021,
                 "location_type": "station",
                 "quantity": 1,
-                "type_id": 483
+                "type_id": 32880
             },
             {
                 "is_singleton": false,
@@ -92307,24 +92252,6 @@
                 "location_id": 60015027,
                 "location_type": "station",
                 "quantity": 1,
-                "type_id": 27014
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028819077731,
-                "location_flag": "Hangar",
-                "location_id": 60015021,
-                "location_type": "station",
-                "quantity": 1,
-                "type_id": 32880
-            },
-            {
-                "is_singleton": false,
-                "item_id": 1028819116658,
-                "location_flag": "Hangar",
-                "location_id": 60015027,
-                "location_type": "station",
-                "quantity": 1,
                 "type_id": 3422
             },
             {
@@ -92356,7 +92283,16 @@
             },
             {
                 "is_singleton": false,
-                "item_id": 1028819204094,
+                "item_id": 1028819077731,
+                "location_flag": "Hangar",
+                "location_id": 60015021,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 32880
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028819116658,
                 "location_flag": "Hangar",
                 "location_id": 60015021,
                 "location_type": "station",
@@ -92393,12 +92329,58 @@
             },
             {
                 "is_singleton": false,
-                "item_id": 1028649209412,
+                "item_id": 1028819204094,
+                "location_flag": "Hangar",
+                "location_id": 60015021,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 3387
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028819206028,
+                "location_flag": "Hangar",
+                "location_id": 60015021,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 483
+            },
+            {
+                "is_blueprint_copy": true,
+                "is_singleton": true,
+                "item_id": 1028822274151,
                 "location_flag": "Hangar",
                 "location_id": 60015021,
                 "location_type": "station",
                 "quantity": 1,
                 "type_id": 1317
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028822299204,
+                "location_flag": "Hangar",
+                "location_id": 60015021,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 3388
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1028822304040,
+                "location_flag": "Hangar",
+                "location_id": 60015021,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 19744
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028825826224,
+                "location_flag": "LoSlot3",
+                "location_id": 1028582564819,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 5533
             },
             {
                 "is_singleton": false,
@@ -92452,6 +92434,15 @@
                 "location_id": 1028582564819,
                 "location_type": "other",
                 "quantity": 1,
+                "type_id": 9582
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028825845305,
+                "location_flag": "Cargo",
+                "location_id": 1028582564819,
+                "location_type": "other",
+                "quantity": 1,
                 "type_id": 10998
             },
             {
@@ -92491,6 +92482,15 @@
                 "type_id": 17200
             },
             {
+                "is_singleton": false,
+                "item_id": 1028827012949,
+                "location_flag": "Unlocked",
+                "location_id": 1028895775146,
+                "location_type": "other",
+                "quantity": 3,
+                "type_id": 17200
+            },
+            {
                 "is_singleton": true,
                 "item_id": 1028868407217,
                 "location_flag": "Hangar",
@@ -92513,6 +92513,15 @@
                 "item_id": 1028872868649,
                 "location_flag": "Unlocked",
                 "location_id": 1028895775146,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 12052
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028872905817,
+                "location_flag": "LoSlot1",
+                "location_id": 1028872708588,
                 "location_type": "other",
                 "quantity": 1,
                 "type_id": 12052
@@ -92573,6 +92582,15 @@
             },
             {
                 "is_singleton": true,
+                "item_id": 1028899766801,
+                "location_flag": "Cargo",
+                "location_id": 1028872708588,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 1319
+            },
+            {
+                "is_singleton": true,
                 "item_id": 1028907380907,
                 "location_flag": "RigSlot1",
                 "location_id": 1028907334253,
@@ -92588,6 +92606,33 @@
                 "location_type": "other",
                 "quantity": 1,
                 "type_id": 15331
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028907389434,
+                "location_flag": "LoSlot1",
+                "location_id": 1028907334253,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 1405
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028907397419,
+                "location_flag": "MedSlot0",
+                "location_id": 1028907334253,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 2281
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1028907412711,
+                "location_flag": "MedSlot4",
+                "location_id": 1028907334253,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 35659
             },
             {
                 "is_singleton": true,
@@ -92681,6 +92726,24 @@
             },
             {
                 "is_singleton": true,
+                "item_id": 1029015227392,
+                "location_flag": "MedSlot0",
+                "location_id": 1029015213848,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 2333
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1029015230501,
+                "location_flag": "MedSlot3",
+                "location_id": 1029015213848,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 3831
+            },
+            {
+                "is_singleton": true,
                 "item_id": 1029015238949,
                 "location_flag": "RigSlot2",
                 "location_id": 1029015213848,
@@ -92708,12 +92771,39 @@
             },
             {
                 "is_singleton": true,
+                "item_id": 1029019512737,
+                "location_flag": "LoSlot1",
+                "location_id": 1029015213848,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 22542
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1029019514509,
+                "location_flag": "MedSlot2",
+                "location_id": 1029015213848,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 2281
+            },
+            {
+                "is_singleton": true,
                 "item_id": 1029019530411,
                 "location_flag": "HiSlot1",
                 "location_id": 1029015213848,
                 "location_type": "other",
                 "quantity": 1,
                 "type_id": 1317
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1029019532227,
+                "location_flag": "HiSlot0",
+                "location_id": 1029015213848,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 17482
             },
             {
                 "is_singleton": true,
@@ -92768,6 +92858,51 @@
                 "location_type": "other",
                 "quantity": 4,
                 "type_id": 38
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1029115466363,
+                "location_flag": "Unlocked",
+                "location_id": 1028895774768,
+                "location_type": "other",
+                "quantity": 9,
+                "type_id": 36
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1029115466368,
+                "location_flag": "Unlocked",
+                "location_id": 1028895774768,
+                "location_type": "other",
+                "quantity": 4,
+                "type_id": 38
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1029115769714,
+                "location_flag": "Hangar",
+                "location_id": 60003760,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 17366
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1029119907604,
+                "location_flag": "Unlocked",
+                "location_id": 1028895775146,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 570
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1029139168183,
+                "location_flag": "Unlocked",
+                "location_id": 1028895774768,
+                "location_type": "other",
+                "quantity": 4,
+                "type_id": 40
             },
             {
                 "is_singleton": true,
@@ -92835,6 +92970,15 @@
             {
                 "is_singleton": true,
                 "item_id": 1029268102568,
+                "location_flag": "DroneBay",
+                "location_id": 1029268030359,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 2456
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1029268102570,
                 "location_flag": "DroneBay",
                 "location_id": 1029268030359,
                 "location_type": "other",
@@ -92942,12 +93086,48 @@
             },
             {
                 "is_singleton": true,
+                "item_id": 1029480102817,
+                "location_flag": "RigSlot1",
+                "location_id": 1029480064198,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 31159
+            },
+            {
+                "is_singleton": true,
                 "item_id": 1029480102822,
                 "location_flag": "LoSlot0",
                 "location_id": 1029480064198,
                 "location_type": "other",
                 "quantity": 1,
                 "type_id": 32469
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1029530148233,
+                "location_flag": "Unlocked",
+                "location_id": 1028895775146,
+                "location_type": "other",
+                "quantity": 100,
+                "type_id": 44110
+            },
+            {
+                "is_singleton": true,
+                "item_id": 1029587718905,
+                "location_flag": "Hangar",
+                "location_id": 60003760,
+                "location_type": "station",
+                "quantity": 1,
+                "type_id": 17366
+            },
+            {
+                "is_singleton": false,
+                "item_id": 1029862308094,
+                "location_flag": "Unlocked",
+                "location_id": 1029862305386,
+                "location_type": "other",
+                "quantity": 1,
+                "type_id": 16671
             },
             {
                 "is_singleton": false,
