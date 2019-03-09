@@ -173,7 +173,8 @@ def add_applicant_note(applicant_user_id, text, title=None, is_chat_log=False, c
             text=text,
             title=title,
             application_id=application.id,
-            is_chat_log=is_chat_log
+            is_chat_log=is_chat_log,
+            author_id=current_user.id,
         )
         db.session.add(note)
         db.session.commit()
@@ -243,7 +244,23 @@ def get_applicant_notes(applicant_user_id, current_user=None):
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
         application = get_user_application(applicant_user_id)
-        return {'info': application.notes}
+        result = []
+        authors = {}
+        for note in application.notes:
+            if note.author_id in authors:
+                author = authors[note.author_id]
+            else:
+                author = Character.get(note.author_id).name
+                authors[note.author_id] = author
+            result.append({
+                'id': note.id,
+                'text': note.text,
+                'title': note.title,
+                'author': author,
+                'is_chat_log': note.is_chat_log,
+                'timestamp': note.timestamp,
+            })
+        return {'info': result}
 
 
 @cachetools.cached(cachetools.LRUCache(maxsize=1000))
