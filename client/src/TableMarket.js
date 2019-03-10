@@ -11,7 +11,7 @@ export default class TableMarket extends TableBase {
   constructor(props) {
     super(props);
     this.sortBy = 'issued';
-    this.scope = 'market_history';
+    this.scope = 'market';
     this.addField(TableBase.kinds().date,'issued', 'Date');
     this.addField(TableBase.kinds().text,'type_name');
     this.addField(TableBase.kinds().ISK,'price');
