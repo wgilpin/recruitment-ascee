@@ -17,6 +17,8 @@ import TableFittings from './TableFittings';
 import TableIndustry from './TableIndustry';
 import NotesPage from './notes/NotesPage';
 import notesImg from './images/notepad.png';
+import cancelImg from './images/cancel.png';
+import IconBtn from './common/IconBtn';
 
 
 const styles = {
@@ -93,18 +95,14 @@ export default class Evidence extends React.Component {
             highlightMain={true}
             showPointer={true}
           >
-            <div>
-              <img height="32" src={notesImg} alt="notes"
-                onClick={() => this.changeTab('Notes')}
-                />
-              <span style={styles.label}
-                onClick={() => this.changeTab('Notes')}
-                >
-                Notes
-              </span>
-            </div>
+            <IconBtn
+              src={notesImg}
+              alt="notes"
+              onClick={() => this.changeTab('Notes')}
+              label="Notes"
+            />
+            <IconBtn onClick={this.doLogout} label="Sign out" src={cancelImg} />
           </Alts>
-          <button style={styles.button} onClick={this.doLogout}>Sign out</button>
         </div>
         <div style={styles.right} >
           <div style={styles.tabHeader}>

@@ -6,8 +6,9 @@ import EscalatedIcon from 'react-ionicons/lib/IosAlert';
 import Evidence from '../Evidence';
 import Misc from '../common/Misc';
 import RoundImage from '../common/RoundImage';
+import BackImg from '../images/back.png';
 import RecruitButtonBar from './RecruitButtonBar';
-
+import IconBtn from '../common/IconBtn';
 import TableStyles from '../TableStyles';
 
 const styles = {
@@ -95,6 +96,19 @@ const styles = {
   },
   section: {
     backgroundColor: '#333',
+  },
+  backBtnImg: {
+    height: '18px',
+  },
+  backBtn: {
+    position: 'absolute',
+    top: '8px',
+    left: '8px',
+  },
+  backBtnText: {
+    position: 'relative',
+    top: '-3px',
+    marginLeft: '6px',
   }
 };
 
@@ -247,6 +261,10 @@ export default class Recruiter extends React.Component {
     return res;
   }
 
+  handleBack = () => {
+    this.setGlobal({ activeRecruit: null });
+  }
+
   render() {
     if (this.state.loading) {
       console.log('loading')
@@ -277,7 +295,10 @@ export default class Recruiter extends React.Component {
       ),
       this.global.activeRecruit
         && this.global.recruits[this.global.activeRecruit].status !== Recruiter.statuses.unclaimed
-        &&<Evidence style={styles.evidence} main={this.global.activeRecruit} />,
+        && [
+          <IconBtn src={BackImg} alt="back"label="Back" onClick={this.handleBack}/>,
+          <Evidence style={styles.evidence} main={this.global.activeRecruit} />,
+        ]
     ];
   }
 }
