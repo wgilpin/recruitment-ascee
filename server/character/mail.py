@@ -67,4 +67,4 @@ def get_mail_body(character_id, mail_id, current_user=None):
         character_id=character_id,
         mail_id=mail_id,
     )
-    return mail_data.body
+    return mail_data['body']
