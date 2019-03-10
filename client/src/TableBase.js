@@ -228,11 +228,11 @@ export default class TableBase extends React.Component {
     // ignore fields in grouping -= they are headers
     // if (this.groupBy.slice(0, this.groupBy.length-1).indexOf(field.id) > -1){
     if (this.groupBy.indexOf(field.id) > -1) {
-      return this.makeTextField(null, field, final);
+      return this.makeTextField(null, field, final, idx);
     }
     switch (field.kind) {
       case TableBase.kinds().date: {
-        return this.makeDateField(value, field, final);
+        return this.makeDateField(value, field, final, idx);
       }
       case TableBase.kinds().bool: {
         return this.makeBoolField(value, field, final);

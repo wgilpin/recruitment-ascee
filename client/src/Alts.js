@@ -6,11 +6,15 @@ import FetchData from './common/FetchData';
 const propTypes = {
   onAltSelect: PropTypes.func,
   main: PropTypes.number,
+  childrenTop: PropTypes.bool,
+  highlightMain: PropTypes.bool,
   style: {},
 };
 
 const defaultProps = {
   main: null,
+  childrenTop: false,
+  highlightMain: false,
 };
 
 const styles = {
@@ -24,6 +28,10 @@ const styles = {
   hr: {
     borderColor: '#555',
   },
+  sectionTitle: {
+    fontWeight: 600,
+    color: '#01799A',
+  }
 };
 export default class Alts extends React.Component {
   constructor(props) {
@@ -44,7 +52,12 @@ export default class Alts extends React.Component {
     fetch
       .get()
       .then(data => {
-        this.setState({ alts: data.info });
+        let mainData;
+        if (this.props.highlightMain) {
+          mainData = data.info[this.props.main];
+          delete data.info[this.props.main];
+        }
+        this.setState({ alts: data.info, main: mainData });
       })
       .catch(err => {
         console.log(err);
@@ -52,9 +65,23 @@ export default class Alts extends React.Component {
   }
 
   render() {
+    const hasAlts = Object.keys(this.state.alts || {}).length > 0;
     return (
       <div style={{...styles.outer, ...this.props.style }}>
+        {this.props.childrenTop && this.props.children}
         <hr style={styles.hr} />
+        {this.props.highlightMain && this.state.main && <>
+          <div style={styles.sectionTitle}>Main</div>
+          <Alt
+              style={styles.div}
+              name={this.state.main.name}
+              id={this.props.main}
+              selected={this.state.selected === this.props.main}
+              onClick={this.handleClick}
+            />
+            <hr style={styles.hr} />
+        </>}
+        {hasAlts && <div style={styles.sectionTitle}>Alts</div>}
         {Object.keys(this.state.alts || {}).map(key => {
           const alt = this.state.alts[key];
           return (
@@ -67,8 +94,9 @@ export default class Alts extends React.Component {
             />
           );
         })}
-        {this.props.children}
-        <hr style={styles.hr} />
+        {!this.props.childrenTop && this.props.children}
+        {hasAlts &&
+          <hr style={styles.hr} />}
       </div>
     );
   }

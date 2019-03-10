@@ -38,7 +38,8 @@ export default class Alt extends React.Component {
         size: 14,
         textAlign: 'left',
         paddingLeft: '8px',
-        verticalAlign: 'middle',
+        position: 'relative',
+        top: '-10px',
       },
       selected: {
         backgroundColor: '#222',
