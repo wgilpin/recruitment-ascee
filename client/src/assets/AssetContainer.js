@@ -96,7 +96,7 @@ export default class AssetContainer extends React.Component {
   }
 
   render() {
-    let { item_id, name, asset: { region, items, value, type }} = this.props;
+    let { item_id, name, asset: { items, value, type }} = this.props;
     name = name || this.props.asset.name;
     const depthPadding = 40 * this.props.depth;
     const iskText = `${Misc.commarize(value)} ISK`;

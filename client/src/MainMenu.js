@@ -1,10 +1,6 @@
 import React, { Component } from 'reactn';
 import queryString from 'query-string';
-import RecruiterImg from './images/titansRec.png';
 import ApplicantImg from './images/Rifter.png';
-import Recruiter from './recruiter/Recruiter';
-import Applicant from './Applicant/Applicant';
-import Admin from './admin/Admin';
 class MainMenu extends Component {
   constructor(props) {
     super(props);

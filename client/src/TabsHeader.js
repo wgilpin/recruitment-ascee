@@ -13,7 +13,7 @@ import marketImg from './images/market.png';
 import contactsImg from './images/contacts.png';
 import PIImg from './images/planetarycommodities.png';
 import fittingsImg from './images/fitting.png';
-import industryImg from './images/industry.png';
+import industryImg from './images/Industry.png';
 import notesImg from './images/notepad.png';
 
 const propTypes = {

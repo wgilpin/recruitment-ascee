@@ -2,8 +2,6 @@ import React from 'reactn';
 import PropTypes from 'prop-types';
 import relativeDate from 'tiny-relative-date';
 
-import Styles from '../common/Styles';
-
 const propTypes = {
   id: PropTypes.number,
   kind: PropTypes.string,
