@@ -91,6 +91,7 @@ export default class Evidence extends React.Component {
             onAltSelect={this.changeAlt}
             childrenTop={true}
             highlightMain={true}
+            showPointer={true}
           >
             <div>
               <img height="32" src={notesImg} alt="notes"

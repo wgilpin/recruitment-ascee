@@ -8,6 +8,7 @@ const propTypes = {
   main: PropTypes.number,
   childrenTop: PropTypes.bool,
   highlightMain: PropTypes.bool,
+  showPointer: PropTypes.bool,
   style: {},
 };
 
@@ -15,6 +16,7 @@ const defaultProps = {
   main: null,
   childrenTop: false,
   highlightMain: false,
+  showPointer: false,
 };
 
 const styles = {
@@ -31,6 +33,7 @@ const styles = {
   sectionTitle: {
     fontWeight: 600,
     color: '#01799A',
+    marginBottom: '6px',
   }
 };
 export default class Alts extends React.Component {
@@ -78,6 +81,7 @@ export default class Alts extends React.Component {
               id={this.props.main}
               selected={this.state.selected === this.props.main}
               onClick={this.handleClick}
+              showPointer={this.props.showPointer}
             />
             <hr style={styles.hr} />
         </>}
