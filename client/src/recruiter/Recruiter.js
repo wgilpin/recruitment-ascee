@@ -89,27 +89,9 @@ const styles = {
     width: '32px',
     fill: TableStyles.styles.themeColor.color,
   },
-  logout: {
-    position: 'absolute',
-    right: '16px',
-    top: '8px',
-  },
   section: {
     backgroundColor: '#333',
   },
-  backBtnImg: {
-    height: '18px',
-  },
-  backBtn: {
-    position: 'absolute',
-    top: '8px',
-    left: '8px',
-  },
-  backBtnText: {
-    position: 'relative',
-    top: '-3px',
-    marginLeft: '6px',
-  }
 };
 
 export default class Recruiter extends React.Component {
