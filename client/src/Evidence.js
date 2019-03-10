@@ -16,6 +16,10 @@ import TableStandings from './TableStandings';
 import TableFittings from './TableFittings';
 import TableIndustry from './TableIndustry';
 import NotesPage from './notes/NotesPage';
+import notesImg from './images/notepad.png';
+import cancelImg from './images/cancel.png';
+import IconBtn from './common/IconBtn';
+
 
 const styles = {
   outer: {
@@ -47,7 +51,13 @@ const styles = {
     backgroundColor: '#111',
     color: 'lightgray',
     borderWidth: 0,
-  }
+  },
+  label: {
+    color: '#01799A',
+    fontWeight: 600,
+    position: 'relative',
+    top: '-12px',
+  },
 };
 
 export default class Evidence extends React.Component {
@@ -81,8 +91,18 @@ export default class Evidence extends React.Component {
         <div style={styles.alts}>
           <Alts main={this.props.main}
             onAltSelect={this.changeAlt}
-          />
-          <button style={styles.button} onClick={this.doLogout}>Sign out</button>
+            childrenTop={true}
+            highlightMain={true}
+            showPointer={true}
+          >
+            <IconBtn
+              src={notesImg}
+              alt="notes"
+              onClick={() => this.changeTab('Notes')}
+              label="Notes"
+            />
+            <IconBtn onClick={this.doLogout} label="Sign out" src={cancelImg} />
+          </Alts>
         </div>
         <div style={styles.right} >
           <div style={styles.tabHeader}>

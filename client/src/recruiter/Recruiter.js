@@ -6,12 +6,18 @@ import EscalatedIcon from 'react-ionicons/lib/IosAlert';
 import Evidence from '../Evidence';
 import Misc from '../common/Misc';
 import RoundImage from '../common/RoundImage';
+import BackImg from '../images/back.png';
 import RecruitButtonBar from './RecruitButtonBar';
-
+import IconBtn from '../common/IconBtn';
 import TableStyles from '../TableStyles';
 
 const styles = {
   ...TableStyles.styles,
+  outer: {
+    maxWidth: '800px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
   h2: {
     ...TableStyles.styles.headerText,
     textAlign: 'left',
@@ -75,7 +81,7 @@ const styles = {
   },
   buttons: {
     position: 'absolute',
-    left: '300px',
+    left: '500px',
   },
   icon: {
     marginRight: '32px',
@@ -83,11 +89,9 @@ const styles = {
     width: '32px',
     fill: TableStyles.styles.themeColor.color,
   },
-  logout: {
-    position: 'absolute',
-    right: '16px',
-    top: '8px',
-  }
+  section: {
+    backgroundColor: '#333',
+  },
 };
 
 export default class Recruiter extends React.Component {
@@ -219,14 +223,14 @@ export default class Recruiter extends React.Component {
   }
 
   sectionList(label, list) {
-    return [
-      <div style={styles.h2}>{label}</div>,
-      Misc.dictLen(list) > 0 ? (
+    return <div style={styles.section}>
+      <div style={styles.h2}>{label}</div>
+      {Misc.dictLen(list) > 0 ? (
         Object.keys(list).map(key => this.recruitLine(key, list[key]))
       ) : (
         <div style={styles.noneText}>None</div>
-      ),
-    ];
+      )}
+    </div>
   }
 
   applyFilter(status) {
@@ -237,6 +241,10 @@ export default class Recruiter extends React.Component {
         res[key] = this.global.recruits[key];
       });
     return res;
+  }
+
+  handleBack = () => {
+    this.setGlobal({ activeRecruit: null });
   }
 
   render() {
@@ -253,25 +261,26 @@ export default class Recruiter extends React.Component {
 
     return [
       !this.global.activeRecruit && (
-        < >
+        <div style={styles.outer}>
           <h1 style={styles.headerText}>Applications Pending</h1>
           <div style={styles.logout}><a href="/auth/logout">Sign out</a></div>
           <div style={styles.claimed}>
             {this.sectionList('Claimed', claimed)}
           </div>
-          <hr />
           <div style={styles.escalated}>
             {this.sectionList('Escalated', escalated)}
           </div>
-          <hr />
           <div style={styles.unclaimed}>
             {this.sectionList('Unclaimed', unclaimed)}
           </div>
-        </>
+        </div>
       ),
       this.global.activeRecruit
         && this.global.recruits[this.global.activeRecruit].status !== Recruiter.statuses.unclaimed
-        &&<Evidence style={styles.evidence} main={this.global.activeRecruit} />,
+        && [
+          <IconBtn src={BackImg} alt="back"label="Back" onClick={this.handleBack}/>,
+          <Evidence style={styles.evidence} main={this.global.activeRecruit} />,
+        ]
     ];
   }
 }

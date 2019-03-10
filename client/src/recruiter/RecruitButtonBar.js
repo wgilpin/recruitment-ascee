@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactTooltip from 'react-tooltip'
 
 import ClaimIcon from 'react-ionicons/lib/MdStarOutline';
 import DropIcon from 'react-ionicons/lib/MdUndo';
@@ -28,6 +29,8 @@ const styles = {
     width: '32px',
     height: '32px',
     fill: 'lightgrey',
+    border: '1px solid #333',
+    borderRadius: '3px',
   },
 };
 
@@ -78,21 +81,22 @@ export default class RecruitButtonBar extends Component {
     }
   }
 
-  showButton(icon) {
-    return <span style={styles.buttonOuter}>{icon}</span>;
+  showButton(icon, tip) {
+    return <span data-tip={tip} style={styles.buttonOuter}>{icon}</span>;
   }
 
   render() {
     return (
       <span style={{ ...this.props.style, ...styles.bar }}>
         {this.state.showClaim &&
-          this.showButton(<ClaimIcon style={styles.image} onClick={this.handleClaim}/>)}
+          this.showButton(<ClaimIcon style={styles.image} onClick={this.handleClaim}/>, 'Claim')}
         {this.state.showEscalate &&
-          this.showButton(<EscalateIcon style={styles.image} onClick={this.handleEscalate}/>)}
+          this.showButton(<EscalateIcon style={styles.image} onClick={this.handleEscalate}/>, 'Escalate')}
         {this.state.showDrop &&
-          this.showButton(<DropIcon style={styles.image} onClick={this.handleDrop}/>)}
+          this.showButton(<DropIcon style={styles.image} onClick={this.handleDrop}/>, 'Drop')}
         {this.state.showReject &&
-          this.showButton(<RejectIcon style={styles.image} onClick={this.handleReject}/>)}
+          this.showButton(<RejectIcon style={styles.image} onClick={this.handleReject}/>, 'Reject')}
+        <ReactTooltip />
       </span>
     );
   }

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Alt from '../Alt';
 import UpImg from '../images/arrow-up.png';
 import DownImg from '../images/arrow-down.png';

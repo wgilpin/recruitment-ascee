@@ -6,6 +6,7 @@ const propTypes = {
   name: PropTypes.string,
   id: PropTypes.string,
   onClick: PropTypes.func,
+  showPointer: PropTypes.bool,
   selected: PropTypes.bool,
   style: PropTypes.object,
 };
@@ -38,7 +39,8 @@ export default class Alt extends React.Component {
         size: 14,
         textAlign: 'left',
         paddingLeft: '8px',
-        verticalAlign: 'middle',
+        position: 'relative',
+        top: '-10px',
       },
       selected: {
         backgroundColor: '#222',
@@ -49,7 +51,8 @@ export default class Alt extends React.Component {
     if (selected){
       style = {...style, ...styles.selected};
     }
-
+    style.cursor = this.props.showPointer ? 'pointer' : null;
+    
     return (
       <div style={style} onClick={this.handleClick}>
         <RoundImage src={`https://image.eveonline.com/Character/${this.props.id}_64.jpg`}></RoundImage>

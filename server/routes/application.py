@@ -23,7 +23,7 @@ def api_start_application():
     return jsonify(start_application(current_user=current_user))
 
 @app.route(
-    '/api/recruits/submit_application/', methods=['PUT'])
+    '/api/recruits/submit_application', methods=['PUT'])
 @login_required
 def api_submit_application():
     """

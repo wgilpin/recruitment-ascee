@@ -9,3 +9,4 @@ from routes.character.mining import *
 from routes.character.planetary_interaction import *
 from routes.character.skills import *
 from routes.character.industry import *
+from routes.character.blueprints import *

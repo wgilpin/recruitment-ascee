@@ -53,7 +53,7 @@ def api_add_applicant_note(applicant_id):
             recruiter who has claimed this applicant
         Bad request (400): If the given user is not an applicant
     """
-    return jsonify(add_applicant_note(applicant_id, text=request.form['text'], current_user=current_user))
+    return jsonify(add_applicant_note(applicant_id, text=request.json.get('text'), current_user=current_user))
 
 
 @app.route(
@@ -78,8 +78,8 @@ def api_add_applicant_chat(applicant_id):
     """
     return jsonify(add_applicant_note(
         applicant_id,
-        text=request.form['text'],
-        title=request.form['title'],
+        text=request.json['text'],
+        title=request.json['title'],
         is_chat_log=True,
         current_user=current_user
     ))

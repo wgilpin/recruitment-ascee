@@ -2,7 +2,8 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import request, jsonify
-from recruitment import get_questions, get_answers, set_answers, set_admin_questions
+from recruitment import get_questions, get_answers, set_answers, set_admin_questions,\
+    remove_question
 
 @app.route('/api/questions/')
 def api_questions():
