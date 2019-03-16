@@ -52,7 +52,7 @@ def api_server_error(e):
 # [END app]
 
 def run_app():
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.json_encoder = CustomJSONEncoder
     with app.app_context():
