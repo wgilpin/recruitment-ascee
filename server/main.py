@@ -58,7 +58,7 @@ def run_app():
     with app.app_context():
         db.init_app(app)
         db.create_all()
-        app.run(host='localhost', port='8080')
+        app.run(host='0.0.0.0', port='80')
 
 class CustomJSONEncoder(json.JSONEncoder):
 
@@ -77,5 +77,5 @@ class CustomJSONEncoder(json.JSONEncoder):
             return list(iterable)
         return json.JSONEncoder.default(self, obj)
 
-if __name__ == '__main__':
-    run_app()
+# if __name__ == '__main__':
+run_app()
