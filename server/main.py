@@ -52,9 +52,8 @@ def api_server_error(e):
 # [END app]
 
 def run_app():
-    print('run_app')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.json_encoder = CustomJSONEncoder
     with app.app_context():
         db.init_app(app)
@@ -80,3 +79,10 @@ class CustomJSONEncoder(json.JSONEncoder):
 
 if __name__ == '__main__':
     run_app()
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.json_encoder = CustomJSONEncoder
+    with app.app_context():
+        db.init_app(app)
+        db.create_all()
