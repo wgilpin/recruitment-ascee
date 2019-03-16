@@ -9,8 +9,6 @@
     "npm": "6.4.1"
   },
   "dependencies": {
-    "cross-env": "^5.2.0",
-    "prettier-eslint": "^8.8.2",
     "query-string": "^6.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
