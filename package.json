@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "heroku-postbuild": "cd client && yarn && yarn run build && rm -rf  ../server/public; cp -R ./build/ ../server/public/"
+  }
+}
