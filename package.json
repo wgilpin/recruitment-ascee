@@ -4,7 +4,9 @@
   "private": true,
   "homepage": "https://ascee-recruit.herokuapp.com/",
   "engines": {
-    "node": "10.12.0"
+    "node": "10.12.0",
+    "yarn": "1.13.0",
+    "npm": "6.4.1",
   },
   "dependencies": {
     "cross-env": "^5.2.0",
