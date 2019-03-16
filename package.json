@@ -25,6 +25,6 @@
     "tiny-relative-date": "^1.3.0"
   },
   "scripts": {
-    "heroku-postbuild": "cd client && yarn && yarn run build && echo 1  && rm -rf ../server/public && echo 2 && cp -R ./build/ ../server/public/"
+    "heroku-postbuild": "cd client && yarn && yarn run build "
   }
 }
