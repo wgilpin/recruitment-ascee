@@ -1,3 +1,4 @@
+from sqlalchemy import text
 from models.database import db
 import esi
 
@@ -454,13 +455,17 @@ class Character(db.Model):
                 'get_characters_character_id',
                 character_id=id
             )
-            corporation = Corporation.get(character_data['corporation_id'])
-            character = Character(
-                id=id,
-                user_id=id,
-                name=character_data['name'],
-                corporation_id=character_data['corporation_id'],
-            )
+            Corporation.get(character_data['corporation_id'])
+            character_details = {
+                'id': id,
+                'name': character_data['name'],
+                'corporation_id': character_data['corporation_id'],
+            }
+            if db.engine.execute(text('select * from "user" where "id" = :id'), id=id).scalar():
+            # if db.session.query(db.exists().where(User.id==id)).scalar():
+                # set the user if that user exists
+                character_data['user_id'] = id
+            character = Character(**character_details)
             db.session.add(character)
             db.session.commit()
         return character
