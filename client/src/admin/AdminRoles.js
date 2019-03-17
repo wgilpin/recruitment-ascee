@@ -76,7 +76,7 @@ export default class AdminRoles extends React.Component {
       .filter(c => !!(c[`is_${role}`]));
   }
 
-  async writeRoles(id, newRole) {
+   writeRoles(id, newRole) {
     let roles = {
       recruiter: false,
       senior_recruiter: false,
@@ -95,14 +95,12 @@ export default class AdminRoles extends React.Component {
       default:
         // nada
     }
-    await new FetchData({ id, scope: 'admin', param1: 'set_roles' })
-      .get(roles);
-    return new FetchData({ scope: 'admin/users' })
-      .get()
-      .then(data => this.setState({ staff: data }));
+    return new FetchData({ id, scope: 'admin', param1: 'set_roles' })
+      .get(roles)
+      .then(data => this.setState({ staff: data.info }))
   }
 
-  handleMove(id, direction) {
+  handleMove = (id, direction) => {
     // TODO: + confirm dixt in API
     const user = this.state.staff[id];
     let oldState = 0;
@@ -118,20 +116,7 @@ export default class AdminRoles extends React.Component {
     let newState = oldState + (direction === 'up' ? 1 : -1);
     newState = Math.min(newState, 3);
     newState = Math.max(newState, 0);
-    this.writeRoles(id, newState).then(() => {
-      this.setState({
-        staff: {
-          ...this.state.staff,
-          [id]: {
-            ...this.state.staff[id],
-            isAdmin: newState === 3,
-            isSnrRecruiter: newState === 2,
-            isRecruiter: newState === 1,
-          },
-        },
-      });
-    } )
-
+    this.writeRoles(id, newState);
   }
 
   sortByNameFn(a, b) {
