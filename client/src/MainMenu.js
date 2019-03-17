@@ -29,10 +29,6 @@ class MainMenu extends Component {
 
   render() {
     const params = queryString.parse(this.props.location.search);
-    if (!(params.showing in this.validParams)) {
-      params.showing = 'error';
-      console.error(`invalid route showing=${params.showing}`)
-    }
     return (
       <div style={this.styles.outer}>
         <a href="/auth/login">
