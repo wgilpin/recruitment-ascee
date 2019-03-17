@@ -181,8 +181,10 @@ def add_applicant_note(applicant_user_id, text, title=None, is_chat_log=False, c
         return {'status': 'ok'}
 
 
-def get_character_search_list(search_text):
+def get_character_search_list(search_text, current_user=None):
     # list of all chars with name beginning with search_text
+    if not (is_recruiter(current_user) or is_admin(current_user)):
+        raise ForbiddenException('User must be recruiter or admin.')
     result = {}
     if len(search_text) == 0:
         return result
