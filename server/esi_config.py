@@ -4,7 +4,7 @@ if os.environ.get('CURRENT_ENV', '') == 'heroku':
     client_id = '37de4bba039744c0a4d59cc15c9748c2'
     secret_key = 'O0q1KdspI0QRNlpX3nlSgXIGn0WJ9DOxxqj1bHrv'
     app_url = 'http://ascee-recruit.herokuapp.com/'
-    databae_url = os.environ('DATABASE_URL')
+    database_url = os.environ['DATABASE_URL']
 else:
     client_id = 'd42741ceaf7140049db95ec65dda5742'
     secret_key = 'XkkgTu89W1diw2OjrwGlav5T2koud7TPQoePbjoE'
