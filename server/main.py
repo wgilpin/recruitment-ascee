@@ -22,6 +22,7 @@ import os
 import pyswagger
 from datetime import datetime, date
 import routes
+from esi_config import database_url
 
 app.url_map.strict_slashes = False
 
@@ -80,7 +81,7 @@ class CustomJSONEncoder(json.JSONEncoder):
 if __name__ == '__main__':
     run_app()
 else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.json_encoder = CustomJSONEncoder
     with app.app_context():

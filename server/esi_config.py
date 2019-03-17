@@ -1,14 +1,19 @@
-client_id = '37de4bba039744c0a4d59cc15c9748c2'
-secret_key = 'O0q1KdspI0QRNlpX3nlSgXIGn0WJ9DOxxqj1bHrv'
-# client_id = 'd42741ceaf7140049db95ec65dda5742'
-# secret_key = 'XkkgTu89W1diw2OjrwGlav5T2koud7TPQoePbjoE'
-# app_url = 'http://localhost:8080/'
-app_url = 'http://ascee-recruit.herokuapp.com/'
+import os
+
+if os.environ.get('CURRENT_ENV', '') == 'heroku':
+    client_id = '37de4bba039744c0a4d59cc15c9748c2'
+    secret_key = 'O0q1KdspI0QRNlpX3nlSgXIGn0WJ9DOxxqj1bHrv'
+    app_url = 'http://ascee-recruit.herokuapp.com/'
+    databae_url = os.environ('DATABASE_URL')
+else:
+    client_id = 'd42741ceaf7140049db95ec65dda5742'
+    secret_key = 'XkkgTu89W1diw2OjrwGlav5T2koud7TPQoePbjoE'
+    app_url = 'http://localhost:8080/'
+    database_url = 'postgres://cituvktnwbfvha:b6b6c2b90c91f18c62285124668204a1d55c062c941b87ddf21ee65840ed0c68@ec2-54-228-252-67.eu-west-1.compute.amazonaws.com:5432/dbplq7f0tll58f'
 react_app_url = app_url + 'app'
 applicant_url = react_app_url + '/apply'
 recruiter_url = react_app_url + '/recruiter'
 admin_url = react_app_url + '/admin'
-# app_url = 'https://ascee-recruit.appspot.com/'
 callback_url = app_url + 'auth/oauth_callback'
 client_name = 'ascee-recruit'
 login_url = 'https://login.eveonline.com/oauth/authorize/'
