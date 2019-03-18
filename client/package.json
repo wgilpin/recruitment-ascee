@@ -2,7 +2,7 @@
   "name": "recruitment-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ascee-recruit.appspot.com/",
+  "homepage": "http://ascee-recruit.herokuapp.com/",
   "dependencies": {
     "cross-env": "^5.2.0",
     "prettier-eslint": "^8.8.2",
