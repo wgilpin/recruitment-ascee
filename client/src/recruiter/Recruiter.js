@@ -181,7 +181,7 @@ export default class Recruiter extends React.Component {
   handleEscalate = id => {
     console.log(`handleEscalate ${id}`);
     new FetchData({ id, scope: 'recruits/escalate' })
-      .put()
+      .get()
       .then((res) => {
         if (res.status === 'ok') {
           this.setRecruitStatus(id, Recruiter.statuses.escalated);
@@ -199,7 +199,7 @@ export default class Recruiter extends React.Component {
       )
     ) {
       new FetchData({ id, scope: 'recruits/reject' })
-        .put()
+        .get()
         .then((res) => {
           if (res.status === 'ok') {
             this.setRecruitStatus(id, Recruiter.statuses.rejected);
