@@ -79,10 +79,6 @@ const styles = {
     left: '350px',
     marginTop: '8px',
   },
-  buttons: {
-    position: 'absolute',
-    left: '500px',
-  },
   icon: {
     marginRight: '32px',
     height: '32px',
@@ -92,6 +88,9 @@ const styles = {
   section: {
     backgroundColor: '#333',
   },
+  altSpan: {
+    width: '450px',
+  }
 };
 
 export default class Recruiter extends React.Component {
@@ -205,7 +204,7 @@ export default class Recruiter extends React.Component {
         {recruit.status === Recruiter.statuses.escalated && (
           <EscalatedIcon style={styles.icon} fontSize="24px" />
         )}
-        <span onClick={() => this.handleClick(id)}>
+        <span onClick={() => this.handleClick(id)} style={styles.altSpan}>
           <RoundImage src={avatarImg} />
           <span style={styles.name}>{recruit.name}</span>
         </span>
