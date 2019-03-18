@@ -71,10 +71,9 @@ export default class FetchData {
             console.log('redirect to /login');
             window.location = '/login';
           }
-          console.log('returning', res.status);
+          console.log('returning error', res.status);
           return { error: res.statusText, status: res.status };
         }
-        console.log('returning json');
         return res.json();
       })
       .catch(err => {
