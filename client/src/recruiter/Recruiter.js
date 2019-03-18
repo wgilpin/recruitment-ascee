@@ -68,6 +68,7 @@ const styles = {
     justifyItems: 'left',
     textAlign: 'left',
     padding: '12px',
+    position: 'relative',
   },
   recruitButton: {
     marginLeft: '12px',
@@ -89,7 +90,7 @@ const styles = {
     backgroundColor: '#333',
   },
   buttons: {
-    position: 'fixed',
+    position: 'absolute',
     left: '400px',
   },
 };
