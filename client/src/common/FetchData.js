@@ -65,14 +65,16 @@ export default class FetchData {
         const tEnd = performance.now();
         console.log(`Call to ${url} took ${Math.round(tEnd - tStart)}ms`);
         console.log(res.status, res.status > 400);
-        if (res.status > 400) {
+        if (res.status >= 400) {
           console.log('error', res.statusText);
           if (res.status === 401) {
             console.log('redirect to /login');
             window.location = '/login';
           }
+          console.log('returning', res.status);
           return { error: res.statusText, status: res.status };
         }
+        console.log('returning json');
         return res.json();
       })
       .catch(err => {
