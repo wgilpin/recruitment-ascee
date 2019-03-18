@@ -474,13 +474,17 @@ class MiscRecruitmentTests(AsceeTestCase):
                 current_user=self.senior_recruiter
             )
 
+    def test_get_character_search_list_invalid(self):
+        with self.assertRaises(ForbiddenException):
+            get_character_search_list('Kovacs', self.not_applicant)
+
     def test_get_character_search_list(self):
-        response = get_character_search_list('Kovacs')
+        response = get_character_search_list('Kovacs', self.recruiter)
         self.assertIn(self.not_applicant.id, response)
         self.assertEqual(response[self.not_applicant.id]['name'], self.not_applicant.name)
 
     def test_get_character_search_empty(self):
-        response = get_character_search_list('')
+        response = get_character_search_list('', , self.recruiter)
         self.assertEqual(len(response), 0)
 
     def test_get_character_search_long(self):
@@ -491,11 +495,12 @@ class MiscRecruitmentTests(AsceeTestCase):
             'asdliudfg asiduyg alsiudg alsidughas liduha liduh asliduhas liduh asliduhas ilduhas '+\
             'asdliudfg asiduyg alsiudg alsidughas liduha liduh asliduhas liduh asliduhas ilduhas '+\
             'asdliudfg asiduyg alsiudg alsidughas liduha liduh asliduhas liduh asliduhas ilduhas '+\
-                'liduhas liudh laisudha lisudh  iuyg iuytf dutrd cjuygfOIUYT FIYTf iuky')
+                'liduhas liudh laisudha lisudh  iuyg iuytf dutrd cjuygfOIUYT FIYTf iuky',
+            self.recruiter)
         self.assertEqual(len(response), 0)
 
     def test_get_character_search_unicode(self):
-        response = get_character_search_list('\u0495\u7463\u0004')
+        response = get_character_search_list('\u0495\u7463\u0004', self.recruiter)
         self.assertEqual(len(response), 0)
 
     def test_get_users_as_admin(self):

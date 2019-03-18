@@ -14,8 +14,8 @@ class MainMenu extends Component {
       image: {
         // marginLeft: 12,
         // marginRight: 12,
-        width: '500px',
-        height: '500px',
+        width: '100%',
+        height: '100%',
         margins: 'auto',
       },
     };
@@ -29,10 +29,6 @@ class MainMenu extends Component {
 
   render() {
     const params = queryString.parse(this.props.location.search);
-    if (!(params.showing in this.validParams)) {
-      params.showing = 'error';
-      console.error(`invalid route showing=${params.showing}`)
-    }
     return (
       <div style={this.styles.outer}>
         <a href="/auth/login">

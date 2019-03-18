@@ -1,3 +1,4 @@
+from sqlalchemy import text
 from models.database import db
 import esi
 
@@ -68,6 +69,7 @@ class Type(db.Model):
                 'get_universe_types_type_id',
                 type_id=id,
             )
+            Group.get(type_dict['group_id'])
             type = Type(
                 id=id,
                 name=type_dict['name'],
@@ -377,7 +379,7 @@ class Corporation(db.Model):
 
 class Structure(db.Model):
     __tablename__ = 'structure'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
     name = db.Column(db.String(100))
     system_id = db.Column(db.Integer, db.ForeignKey(System.id), nullable=True)
     system = db.relationship(System, foreign_keys=[system_id])
@@ -397,6 +399,7 @@ class Structure(db.Model):
                     'get_universe_structures_structure_id',
                     structure_id=id,
                 )
+                Corporation.get(structure_data['owner_id'])
                 structure = Structure(
                     id=id,
                     name=structure_data['name'],
@@ -454,13 +457,17 @@ class Character(db.Model):
                 'get_characters_character_id',
                 character_id=id
             )
-            corporation = Corporation.get(character_data['corporation_id'])
-            character = Character(
-                id=id,
-                user_id=id,
-                name=character_data['name'],
-                corporation_id=character_data['corporation_id'],
-            )
+            Corporation.get(character_data['corporation_id'])
+            character_details = {
+                'id': id,
+                'name': character_data['name'],
+                'corporation_id': character_data['corporation_id'],
+            }
+            if db.engine.execute(text('select * from "user" where "id" = :id'), id=id).scalar():
+            # if db.session.query(db.exists().where(User.id==id)).scalar():
+                # set the user if that user exists
+                character_data['user_id'] = id
+            character = Character(**character_details)
             db.session.add(character)
             db.session.commit()
         return character

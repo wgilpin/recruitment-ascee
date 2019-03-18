@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SearchImg from '../images/magnifying_glass_24x24.png';
 import FetchData from '../common/FetchData';
 import TableStyles from '../TableStyles';
+import { relativeDate } from 'tiny-relative-date';
 
 
 const propTypes = {
@@ -58,6 +59,8 @@ const styles = {
     padding: '12px',
   },
   moveButtons: {
+    position: 'relative',
+    top: '6px',
     paddingLeft: '24px',
   },
   searchInput: {
@@ -102,7 +105,7 @@ export default class FindESICharacter extends React.Component {
   }
 
   handleClick = (id, label) => {
-    this.props.onButton && this.props.onButton(id, label);
+    this.props.onChange && this.props.onChange(id, label);
   }
 
   handleSelect = (id, label) => {
@@ -117,11 +120,20 @@ export default class FindESICharacter extends React.Component {
           style={styles.moveButtons}
           src={icon.img}
           alt={icon.name}
-          onClick={() => this.handleClick(char.id, icon.name)}
+          onClick={() => this.handleClick(char.user_id, icon.name)}
         />)}
       </div>
     );
   }
+
+  handleKeyPress = (event) => {
+    if(event.key === 'Enter') {
+      if (this.textInput.current.value.length > 0) {
+        this.handleSearch();
+      }
+    }
+  }
+
 
   render() {
     return (
@@ -134,6 +146,7 @@ export default class FindESICharacter extends React.Component {
           </div>
           <div style={{padding: '6px'}}>
             <input
+              onKeyPress={this.handleKeyPress}
               style={styles.searchInput}
               type="text"
               placeholder="search..."
@@ -144,7 +157,7 @@ export default class FindESICharacter extends React.Component {
         </div>
         {this.state.searchResults &&
           <div>
-            {this.state.searchResults.forEach(char =>
+            {Object.values(this.state.searchResults).map(char =>
               this.makeSearchResultLine(char),
             )}
           </div>

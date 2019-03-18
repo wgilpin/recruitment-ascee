@@ -32,6 +32,8 @@ class ESIException(AppException):
 class BadRequestException(AppException):
     status_code = 400
 
+class NotAcceptableException(AppException):
+    status_code = 406
 
 class ForbiddenException(AppException):
     status_code = 403

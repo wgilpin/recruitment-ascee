@@ -28,7 +28,7 @@ const styles = {
   noneText: {
     textAlign: 'left',
     paddingLeft: '26px',
-    marginBotom: '16px',
+    paddingBottom: '16px',
     marginTop: '12px',
   },
   grid: {
@@ -68,6 +68,7 @@ const styles = {
     justifyItems: 'left',
     textAlign: 'left',
     padding: '12px',
+    position: 'relative',
   },
   recruitButton: {
     marginLeft: '12px',
@@ -79,10 +80,6 @@ const styles = {
     left: '350px',
     marginTop: '8px',
   },
-  buttons: {
-    position: 'absolute',
-    left: '500px',
-  },
   icon: {
     marginRight: '32px',
     height: '32px',
@@ -91,6 +88,10 @@ const styles = {
   },
   section: {
     backgroundColor: '#333',
+  },
+  buttons: {
+    position: 'absolute',
+    left: '400px',
   },
 };
 
@@ -135,7 +136,7 @@ export default class Recruiter extends React.Component {
         .catch(err => {
           console.log('mounting error');
           return { error: err };
-        }),
+        })
     );
   }
 
@@ -156,37 +157,58 @@ export default class Recruiter extends React.Component {
     const plan =
       this.global.recruits[id].status === Recruiter.statuses.escalated
         ? { scope: 'recruits/deescalate', status: Recruiter.statuses.claimed }
-        : { scope: 'recruits/abandon', status: Recruiter.statuses.unclaimed };
+        : { scope: 'recruits/release', status: Recruiter.statuses.unclaimed };
     new FetchData({ id, scope: plan.scope })
-      .put()
-      .then(() => this.setRecruitStatus(id, plan.status))
-      .catch(err => ({ error: err }));
+      .get()
+      .then((res) => {
+        if (res.status === 'ok') {
+          this.setRecruitStatus(id, plan.status);
+        } else {
+          alert('Escalation failed');
+        }
+      });
   };
-
   handleClaim = id => {
     console.log(`handleClaim ${id}`);
-    new FetchData({ id, scope: 'recruits/claim' })
-      .get()
-      .then(() => this.setRecruitStatus(id, Recruiter.statuses.claimed))
-      .catch(err => ({ error: err }));
+    new FetchData({ id, scope: 'recruits/claim' }).get().then((res) => {
+      if (res.status === 'ok') {
+        this.setRecruitStatus(id, Recruiter.statuses.claimed);
+      } else if (res.status === 406) {
+        alert('User has not completed their application');
+      }
+    });
   };
 
   handleEscalate = id => {
     console.log(`handleEscalate ${id}`);
     new FetchData({ id, scope: 'recruits/escalate' })
-      .put()
-      .then(() => this.setRecruitStatus(id, Recruiter.statuses.escalated))
-      .catch(err => ({ error: err }));
+      .get()
+      .then((res) => {
+        if (res.status === 'ok') {
+          this.setRecruitStatus(id, Recruiter.statuses.escalated);
+        } else {
+          alert('Escalation failed');
+        }
+      });
   };
 
   handleReject = id => {
     console.log(`handleReject ${id}`);
-    if (window.confirm(`Reject ${this.global.recruits[this.global.activeRecruit].name} ?`)) {
+    if (
+      window.confirm(
+        `Reject ${this.global.recruits[this.global.activeRecruit].name} ?`
+      )
+    ) {
       new FetchData({ id, scope: 'recruits/reject' })
-        .put()
-        .then(() => this.setRecruitStatus(id, Recruiter.statuses.rejected))
-        .catch(err => ({ error: err }));
-    }
+        .get()
+        .then((res) => {
+          if (res.status === 'ok') {
+            this.setRecruitStatus(id, Recruiter.statuses.rejected);
+          } else {
+            alert('Rejection failed');
+          }
+        });
+    };
   };
 
   handleClick(id) {
@@ -205,7 +227,7 @@ export default class Recruiter extends React.Component {
         {recruit.status === Recruiter.statuses.escalated && (
           <EscalatedIcon style={styles.icon} fontSize="24px" />
         )}
-        <span onClick={() => this.handleClick(id)}>
+        <span onClick={() => this.handleClick(id)} style={styles.altSpan}>
           <RoundImage src={avatarImg} />
           <span style={styles.name}>{recruit.name}</span>
         </span>
@@ -223,14 +245,16 @@ export default class Recruiter extends React.Component {
   }
 
   sectionList(label, list) {
-    return <div style={styles.section}>
-      <div style={styles.h2}>{label}</div>
-      {Misc.dictLen(list) > 0 ? (
-        Object.keys(list).map(key => this.recruitLine(key, list[key]))
-      ) : (
-        <div style={styles.noneText}>None</div>
-      )}
-    </div>
+    return (
+      <div style={styles.section}>
+        <div style={styles.h2}>{label}</div>
+        {Misc.dictLen(list) > 0 ? (
+          Object.keys(list).map(key => this.recruitLine(key, list[key]))
+        ) : (
+          <div style={styles.noneText}>None</div>
+        )}
+      </div>
+    );
   }
 
   applyFilter(status) {
@@ -245,14 +269,14 @@ export default class Recruiter extends React.Component {
 
   handleBack = () => {
     this.setGlobal({ activeRecruit: null });
-  }
+  };
 
   render() {
     if (this.state.loading) {
-      console.log('loading')
+      console.log('loading');
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
-    console.log('loaded')
+    console.log('loaded');
 
     // 3 sections in order: claimed, escalated, unclaimed.
     const claimed = this.applyFilter(Recruiter.statuses.claimed);
@@ -263,7 +287,9 @@ export default class Recruiter extends React.Component {
       !this.global.activeRecruit && (
         <div style={styles.outer}>
           <h1 style={styles.headerText}>Applications Pending</h1>
-          <div style={styles.logout}><a href="/auth/logout">Sign out</a></div>
+          <div style={styles.logout}>
+            <a href="/auth/logout">Sign out</a>
+          </div>
           <div style={styles.claimed}>
             {this.sectionList('Claimed', claimed)}
           </div>
@@ -275,12 +301,17 @@ export default class Recruiter extends React.Component {
           </div>
         </div>
       ),
-      this.global.activeRecruit
-        && this.global.recruits[this.global.activeRecruit].status !== Recruiter.statuses.unclaimed
-        && [
-          <IconBtn src={BackImg} alt="back"label="Back" onClick={this.handleBack}/>,
+      this.global.activeRecruit &&
+        this.global.recruits[this.global.activeRecruit].status !==
+          Recruiter.statuses.unclaimed && [
+          <IconBtn
+            src={BackImg}
+            alt="back"
+            label="Back"
+            onClick={this.handleBack}
+          />,
           <Evidence style={styles.evidence} main={this.global.activeRecruit} />,
-        ]
+        ],
     ];
   }
 }

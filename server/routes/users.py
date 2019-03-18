@@ -2,7 +2,7 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import jsonify
-from recruitment import get_applicant_list, get_user_characters, get_users
+from recruitment import get_applicant_list, get_user_characters, get_users, get_character_search_list
 
 
 @app.route('/api/applicant_list/')
@@ -90,3 +90,28 @@ def api_users():
         Forbidden (403): If logged in user is not an admin.
     """
     return jsonify(get_users(current_user=current_user))
+
+@app.route('/api/character/find/<string:char_name>')
+@login_required
+def api_character(char_name=None):
+    """
+    Gets a list of all characters starting with a given string.
+
+    Args:
+        char_name: string partial name of a user
+
+    Returns:
+        response (dict)
+
+    Example:
+        response = {
+            '1234': {
+                'user_id': 1234,
+                'name': 'Tommy Rotten'
+            }
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not a recruiter / admin
+    """
+    return jsonify(get_character_search_list(char_name, current_user=current_user))

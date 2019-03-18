@@ -7,3 +7,4 @@ from routes.questions import *
 from routes.search import *
 from routes.users import *
 from routes.list import *
+from routes.roles import *
