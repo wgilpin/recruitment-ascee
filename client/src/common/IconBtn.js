@@ -16,9 +16,10 @@ const styles = {
   buttonOuter: {
     margin: '6px',
     padding: '6px',
-    backgroundColor: 'black',
+    // backgroundColor: 'black',
     color: 'darkgrey',
-    borderColor: 'grey',
+    border: '1px solid grey',
+    borderRadius: '4px',
     textAlign: 'left',
   },
   image: {
