@@ -158,19 +158,17 @@ export default class Recruiter extends React.Component {
       this.global.recruits[id].status === Recruiter.statuses.escalated
         ? { scope: 'recruits/deescalate', status: Recruiter.statuses.claimed }
         : { scope: 'recruits/release', status: Recruiter.statuses.unclaimed };
-    new FetchData({ id, scope: plan.scope })
-      .get()
-      .then((res) => {
-        if (res.status === 'ok') {
-          this.setRecruitStatus(id, plan.status);
-        } else {
-          alert('Escalation failed');
-        }
-      });
+    new FetchData({ id, scope: plan.scope }).get().then(res => {
+      if (res.status === 'ok') {
+        this.setRecruitStatus(id, plan.status);
+      } else {
+        alert('Escalation failed');
+      }
+    });
   };
   handleClaim = id => {
     console.log(`handleClaim ${id}`);
-    new FetchData({ id, scope: 'recruits/claim' }).get().then((res) => {
+    new FetchData({ id, scope: 'recruits/claim' }).get().then(res => {
       if (res.status === 'ok') {
         this.setRecruitStatus(id, Recruiter.statuses.claimed);
       } else if (res.status === 406) {
@@ -181,15 +179,13 @@ export default class Recruiter extends React.Component {
 
   handleEscalate = id => {
     console.log(`handleEscalate ${id}`);
-    new FetchData({ id, scope: 'recruits/escalate' })
-      .get()
-      .then((res) => {
-        if (res.status === 'ok') {
-          this.setRecruitStatus(id, Recruiter.statuses.escalated);
-        } else {
-          alert('Escalation failed');
-        }
-      });
+    new FetchData({ id, scope: 'recruits/escalate' }).get().then(res => {
+      if (res.status === 'ok') {
+        this.setRecruitStatus(id, Recruiter.statuses.escalated);
+      } else {
+        alert('Escalation failed');
+      }
+    });
   };
 
   handleReject = id => {
@@ -199,16 +195,14 @@ export default class Recruiter extends React.Component {
         `Reject ${this.global.recruits[this.global.activeRecruit].name} ?`
       )
     ) {
-      new FetchData({ id, scope: 'recruits/reject' })
-        .get()
-        .then((res) => {
-          if (res.status === 'ok') {
-            this.setRecruitStatus(id, Recruiter.statuses.rejected);
-          } else {
-            alert('Rejection failed');
-          }
-        });
-    };
+      new FetchData({ id, scope: 'recruits/reject' }).get().then(res => {
+        if (res.status === 'ok') {
+          this.setRecruitStatus(id, Recruiter.statuses.rejected);
+        } else {
+          alert('Rejection failed');
+        }
+      });
+    }
   };
 
   handleClick(id) {
@@ -309,6 +303,7 @@ export default class Recruiter extends React.Component {
             alt="back"
             label="Back"
             onClick={this.handleBack}
+            style={{ border: 'none' }}
           />,
           <Evidence style={styles.evidence} main={this.global.activeRecruit} />,
         ],

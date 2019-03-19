@@ -77,7 +77,7 @@ export default class Applicant extends Component {
         .put(qa)
         .then((res) => {
           if (res.status === 401) {
-            return window.location = '/app';
+            return window.location = '/app/';
           }
           if (res.status > 401) {
             return alert('Error submitting\n' + res.statusText);
@@ -94,7 +94,7 @@ export default class Applicant extends Component {
         .get()
         .then((res) => {
           if (res.status === 401) {
-            return window.location = '/app';
+            return window.location = '/app/';
           }
           window.location.reload()
         })

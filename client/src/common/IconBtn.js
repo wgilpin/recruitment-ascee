@@ -15,7 +15,7 @@ const defaultProps = {
 const styles = {
   buttonOuter: {
     margin: '6px',
-    padding: '6px',
+    padding: '6px 12px',
     // backgroundColor: 'black',
     color: 'darkgrey',
     border: '1px solid grey',
@@ -41,7 +41,7 @@ export default class IconBtn extends React.Component {
 
   render() {
     return (
-      <div style={styles.buttonOuter} onClick={this.handleClick}>
+      <div style={{...styles.buttonOuter, ...this.props.style }} onClick={this.handleClick}>
         <img style={styles.image} src={this.props.src} alt={this.props.src} />
         <span style={styles.text}>{this.props.label}</span>
       </div>

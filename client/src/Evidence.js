@@ -23,6 +23,7 @@ import closeImg from './images/close.png';
 import checkImg from './images/check.png';
 import IconBtn from './common/IconBtn';
 import RoundImage from './common/RoundImage';
+import FetchData from './common/FetchData';
 
 
 
@@ -92,17 +93,27 @@ export default class Evidence extends React.Component {
   }
 
   doLogout() {
-    window.location = '/app/';
+    new FetchData({ scope: 'logout' })
+      .get()
+      .then(() => window.location = '/app/');
   }
 
   doReject = () => {
-
+    if (window.confirm("Reject this applicant?")) {
+      new FetchData({ id: this.props.main, scope: 'recruits/reject'})
+        .get()
+        .then(() => { window.location = '/app/recruiter'})
+    }
   }
 
   doApprove = () => {
-
+    if (window.confirm("Approve this applicant?")) {
+      new FetchData({ id: this.props.main, scope: 'recruits/approve'})
+        .get()
+        .then(() => { window.location = '/app/recruiter'})
+    }
   }
-  
+
   render() {
     let active = (this.state || {}).activeTab;
     return (
@@ -124,10 +135,10 @@ export default class Evidence extends React.Component {
           </Alts>
           <div>
             <span data-tip="Approve" style={styles.RoundImage}>
-            <RoundImage src={checkImg} color="green" />
+            <RoundImage src={checkImg} color="green" onClick={this.doApprove} />
             </span>
             <span data-tip="Reject" style={styles.RoundImage}>
-            <RoundImage src={closeImg} color="red" />
+            <RoundImage src={closeImg} color="red" onClick={this.doReject}  />
             </span>
             <ReactTooltip />
           </div>
@@ -138,7 +149,7 @@ export default class Evidence extends React.Component {
           </div>
           <div style={styles.tabBody}>
             {(active === 'Notes') &&
-              <NotesPage style={styles.tabBody} alt={this.state.currentAlt}></NotesPage>}
+              <NotesPage style={styles.tabBody} alt={this.state.currentAlt || this.props.main}></NotesPage>}
             {(active === 'Wallet') &&
               <TableWallet style={styles.tabBody} alt={this.state.currentAlt}></TableWallet>}
             {(active === 'Assets') &&
