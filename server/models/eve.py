@@ -229,6 +229,7 @@ class Station(db.Model):
                 'get_universe_stations_station_id',
                 station_id=id,
             )
+            System.get(station_data['system_id'])
             station = Station(
                 id=id,
                 system_id=station_data['system_id'],
