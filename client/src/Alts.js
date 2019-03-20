@@ -23,6 +23,7 @@ const styles = {
   outer: {
     height: '100%',
     position: 'relative',
+    textAlign: 'left',
   },
   div: {
     display: 'block',

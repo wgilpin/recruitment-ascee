@@ -34,6 +34,7 @@ const styles = {
   alts: {
     display: 'flex flex-column',
     width: '300px',
+    minWidth: '240px',
     backgroundColor: '#333',
     height: '100%',
     paddingTop: 100,
