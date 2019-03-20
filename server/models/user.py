@@ -20,6 +20,9 @@ class User(db.Model, UserMixin):
             user = cls(id=id, name=character.name)
             db.session.add(user)
             db.session.commit()
+            if character.user_id is None:
+                character.user_id = user.id
+                db.session.commit()
         return user
 
     def get_id(self):
