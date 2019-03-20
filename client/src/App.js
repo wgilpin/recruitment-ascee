@@ -29,6 +29,7 @@ class App extends Component {
         <div className="App">
           <Route path="/" exact component={MainMenu} />
           <Route path="/app" exact component={MainMenu} />
+          <Route path="/app/" exact component={MainMenu} />
           <Route path="/app/apply" component={Applicant} />
           <Route path="/app/recruiter" component={Recruiter} />
           <Route path="/app/admin" component={Admin} />
