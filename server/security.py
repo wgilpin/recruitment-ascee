@@ -28,7 +28,7 @@ def is_senior_recruiter(user):
 
 def is_applicant_character_id(character_id):
     character = db.session.query(Character).filter(
-        Character.id == character_id
+        Character.id == character_id, Character.id == Character.user_id
     ).join(
         User, User.id == Character.user_id
     ).join(
