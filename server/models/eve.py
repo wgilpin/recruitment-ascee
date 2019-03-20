@@ -305,6 +305,7 @@ class Alliance(db.Model):
             db.session.commit()
         return return_items
 
+    @property
     def is_redlisted(self):
         return self.redlisted
 
