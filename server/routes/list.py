@@ -6,6 +6,29 @@ from flask_app import app
 from flask_login import current_user
 
 
+@app.route('/api/admin/list/<string:kind>/add', methods=['PUT'])
+@login_required
+def api_admin_list_add_item(kind):
+    """
+    Add an item to a specified redlist.
+
+    Args:
+        kind (string)
+        item:  { id (int), name (string) }
+
+    Returns:
+        200 if OK
+
+    Error codes:
+        Forbidden (403): If logged in user is not an admin
+    """
+    return jsonify(
+        put_admin_list(
+            kind, [item['id'] for item in request.get_json()['items']],
+            do_replace=False, current_user=current_user)
+    )
+
+
 @app.route('/api/admin/list/<string:kind>/replace', methods=['PUT'])
 @login_required
 def api_admin_list_replace(kind):
