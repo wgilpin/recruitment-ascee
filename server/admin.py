@@ -53,20 +53,14 @@ def put_admin_list(kind, item_id_list, do_replace, current_user=None):
     user_admin_access_check(current_user)
     if kind not in kind_dict:
         raise BadRequestException('Unknown Redlist')
-    for item_id in item_id_list:
-        if db.session.query(
-                kind_dict[kind]).filter(kind_dict[kind].id==item_id).one_or_none() is None:
-            raise BadRequestException(
-                f"Item {item_id} of kind {kind} does not exist in database.")
     if do_replace:
         for item in db.session.query(kind_dict[kind]).filter_by(redlisted=True):
             item.redlisted = False
-    for item in db.session.query(kind_dict[kind]).filter(
-            kind_dict[kind].id.in_(item_id_list)):
+    item_list = kind_dict[kind].get_multi(item_id_list).values()
+    for item in item_list:
         item.redlisted = True
     db.session.commit()
     return {'status': 'ok'}
-
 
 
 def remove_admin_list_item(kind, item_id, current_user=None):
@@ -82,6 +76,10 @@ def remove_admin_list_item(kind, item_id, current_user=None):
         item.redlisted = False
         db.session.commit()
         return {'status': 'ok'}
+
+
+def add_admin_list_item(kind, item_id, current_user=None):
+    return put_admin_list(kind, [item_id], do_replace=False, current_user=current_user)
 
 
 def get_admin_list(kind, current_user=None):
