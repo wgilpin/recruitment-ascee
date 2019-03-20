@@ -204,7 +204,7 @@ def get_applicant_list(current_user=None):
         raise ForbiddenException('User must be recruiter or admin.')
     result = {}
     for user in User.query.all():
-        if not is_applicant_character_id(user.id):
+        if not is_applicant_character_id(user.id, allow_alts=False):
             continue
         recruiter_name = None
         recruiter_id = None
