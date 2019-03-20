@@ -24,6 +24,7 @@ const styles = {
     height: '100%',
     position: 'relative',
     textAlign: 'left',
+    padding: '8px',
   },
   div: {
     display: 'block',
