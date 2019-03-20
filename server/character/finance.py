@@ -29,7 +29,7 @@ def get_transaction_party(party_id):
 
 def get_character_wallet(character_id, current_user=None):
     character = Character.get(character_id)
-    character_application_access_check(current_user, character)
+    character_application_access_check(current_user, character, allow_alts=True)
     wallet_data = character.get_paged_op(
         'get_characters_character_id_wallet_journal',
         character_id=character_id

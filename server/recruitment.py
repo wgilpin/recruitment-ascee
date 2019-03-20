@@ -86,7 +86,7 @@ def set_answers(user_id, answers=None, current_user=None):
         user_id = current_user.id if current_user else None
     if not current_user.id == user_id:
         raise ForbiddenException(f'User {current_user.id} is not permitted to answer for {user_id}')
-    if not is_applicant_character_id(user_id):
+    if not is_applicant_character_id(user_id, allow_alts=False):
         raise ForbiddenException(f'User {user_id} is not an applicant')
     application = Application.get_for_user(user_id)
     if not application:
