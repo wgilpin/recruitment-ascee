@@ -10,8 +10,10 @@ import BackImg from '../images/back.png';
 import RecruitButtonBar from './RecruitButtonBar';
 import IconBtn from '../common/IconBtn';
 import TableStyles from '../TableStyles';
+import styles from '../Applicant/ApplicantStyles';
 
-const styles = {
+const localStyles = {
+  ...styles,
   ...TableStyles.styles,
   outer: {
     maxWidth: '800px',
@@ -117,27 +119,30 @@ export default class Recruiter extends React.Component {
     //   claimed: my recruits to process
     //   escalated: recruits I claimed then escalated
     //   unclaimed: all unclaimed
-    this.setGlobal(
-      new FetchData({ id: this.global.id, scope: 'applicant_list' })
-        .get()
-        // Set the global `recruits` list, and set no recruit selected
-        .then(recruits => {
-          this.setState({ loading: false });
-          console.log(`fetched ${recruits}`);
-          // array -> object
-          const recruitDict = {};
-          Object.keys(recruits.info).forEach(id => {
-            recruitDict[id] = recruits.info[id];
-          });
-          return { recruits: recruitDict, activeRecruit: null };
-        })
-        // Fail gracefully, set the global `error`
-        //   property to the caught error.
-        .catch(err => {
-          console.log('mounting error');
-          return { error: err };
-        })
-    );
+    return new FetchData({ id: this.global.id, scope: 'applicant_list' })
+      .get()
+      // Set the global `recruits` list, and set no recruit selected
+      .then(recruits => {
+        this.setState({ loading: false });
+        console.log(`fetched ${recruits}`);
+        // array -> object
+        const recruitDict = {};
+        Object.keys(recruits.info).forEach(id => {
+          recruitDict[id] = recruits.info[id];
+        });
+      this.setGlobal({ recruits: recruitDict, activeRecruit: null });
+      })
+      .then(() => {
+        return new FetchData({ scope: 'user/roles' })
+          .get()
+          .then(roles => this.setGlobal({ roles: roles.info }))
+      })
+      // Fail gracefully, set the global `error`
+      //   property to the caught error.
+      .catch(err => {
+        console.log('mounting error');
+        return { error: err };
+      });
   }
 
   setRecruitStatus(id, status) {
@@ -214,20 +219,20 @@ export default class Recruiter extends React.Component {
   recruitLine(id, recruit) {
     const avatarImg = `https://image.eveonline.com/Character/${id}_64.jpg`;
     return (
-      <div key={id} style={styles.recruit}>
+      <div key={id} style={localStyles.recruit}>
         {recruit.status === Recruiter.statuses.claimed && (
-          <ClaimedIcon style={styles.icon} fontSize="24px" />
+          <ClaimedIcon style={localStyles.icon} fontSize="24px" />
         )}
         {recruit.status === Recruiter.statuses.escalated && (
-          <EscalatedIcon style={styles.icon} fontSize="24px" />
+          <EscalatedIcon style={localStyles.icon} fontSize="24px" />
         )}
-        <span onClick={() => this.handleClick(id)} style={styles.altSpan}>
+        <span onClick={() => this.handleClick(id)} style={localStyles.altSpan}>
           <RoundImage src={avatarImg} />
-          <span style={styles.name}>{recruit.name}</span>
+          <span style={localStyles.name}>{recruit.name}</span>
         </span>
         <RecruitButtonBar
           status={recruit.status}
-          style={styles.buttons}
+          style={localStyles.buttons}
           id={id}
           onClaim={this.handleClaim}
           onDrop={this.handleDrop}
@@ -240,12 +245,12 @@ export default class Recruiter extends React.Component {
 
   sectionList(label, list) {
     return (
-      <div style={styles.section}>
-        <div style={styles.h2}>{label}</div>
+      <div style={localStyles.section}>
+        <div style={localStyles.h2}>{label}</div>
         {Misc.dictLen(list) > 0 ? (
           Object.keys(list).map(key => this.recruitLine(key, list[key]))
         ) : (
-          <div style={styles.noneText}>None</div>
+          <div style={localStyles.noneText}>None</div>
         )}
       </div>
     );
@@ -278,19 +283,25 @@ export default class Recruiter extends React.Component {
     const escalated = this.applyFilter(Recruiter.statuses.escalated);
 
     return [
+      this.global.is_admin &&
+      <a href="/app/admin">
+        <button style={{...localStyles.primaryButton, float: 'right'}}>Admin</button>,
+      </a>,
       !this.global.activeRecruit && (
-        <div style={styles.outer}>
-          <h1 style={styles.headerText}>Applications Pending</h1>
-          <div style={styles.logout}>
-            <a href="/auth/logout">Sign out</a>
+        <div style={localStyles.outer}>
+          <h1 style={localStyles.headerText}>Applications Pending</h1>
+          <div style={localStyles.logout}>
+            <a href="/auth/logout">
+              <button style={styles.secondaryButton}>Sign Out</button>
+            </a>
           </div>
-          <div style={styles.claimed}>
+          <div style={localStyles.claimed}>
             {this.sectionList('Claimed', claimed)}
           </div>
-          <div style={styles.escalated}>
+          <div style={localStyles.escalated}>
             {this.sectionList('Escalated', escalated)}
           </div>
-          <div style={styles.unclaimed}>
+          <div style={localStyles.unclaimed}>
             {this.sectionList('Unclaimed', unclaimed)}
           </div>
         </div>
@@ -305,7 +316,7 @@ export default class Recruiter extends React.Component {
             onClick={this.handleBack}
             style={{ border: 'none' }}
           />,
-          <Evidence style={styles.evidence} main={this.global.activeRecruit} />,
+          <Evidence style={localStyles.evidence} main={this.global.activeRecruit} />,
         ],
     ];
   }

@@ -64,8 +64,8 @@ const styles = {
   },
   logout: {
     position: 'absolute',
-    right: '16px',
-    top: '8px',
+    left: '12px',
+    top: '12px',
   },
   checkbox: {
     transform: 'scale(1.5)'
@@ -74,6 +74,11 @@ const styles = {
     ...button,
     color: 'white',
     backgroundColor: Styles.themeColors.primary,
+  },
+  secondaryButton: {
+    ...button,
+    color: 'white',
+    backgroundColor: Styles.themeColors.secondary,
   },
 };
 
