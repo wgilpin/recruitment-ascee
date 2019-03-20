@@ -26,16 +26,21 @@ def is_senior_recruiter(user):
     return (user is not None) and isinstance(user.recruiter, Recruiter) and user.recruiter.is_senior
 
 
-def is_applicant_character_id(character_id, allow_alts):
-    if allow_alts:
-        base = db.session.query(Character).filter(
-            Character.id == character_id,
-        )
-    else:
-        base = db.session.query(Character).filter(
-            Character.id == character_id,
-            Character.id == Character.user_id,
-        )
+def is_applicant_user_id(user_id):
+    user = db.session.query(User).filter(
+        User.id == user_id
+    ).join(
+        Application, Application.user_id == User.id,
+    ).filter(
+        db.not_(Application.is_concluded)
+    ).one_or_none()
+    return user is not None
+
+
+def is_applicant_character_id(character_id):
+    base = db.session.query(Character).filter(
+        Character.id == character_id,
+    )
     character = base.join(
         User, User.id == Character.user_id
     ).join(
@@ -46,14 +51,14 @@ def is_applicant_character_id(character_id, allow_alts):
     return character is not None
 
 
-def character_application_access_check(current_user, target_character, allow_alts=True):
-    if not has_applicant_access(current_user, target_character.user, allow_alts):
+def character_application_access_check(current_user, target_character):
+    if not has_applicant_access(current_user, target_character.user):
         raise ForbiddenException(
             'User {} does not have access to character {}'.format(
                 current_user.id, target_character.id
             )
         )
-    elif not is_applicant_character_id(target_character.id, allow_alts):
+    elif not is_applicant_character_id(target_character.id):
         raise BadRequestException(
             'Character {} is not in an open application.'.format(
                 target_character.id
@@ -81,7 +86,7 @@ def user_application_access_check(current_user, target_user):
         )
 
 
-def has_applicant_access(user, target_user, self_access=False, allow_alts=False):
+def has_applicant_access(user, target_user, self_access=False):
     if self_access and (user.id == target_user.id):
         return True
     return_value = False
