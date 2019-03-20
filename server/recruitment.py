@@ -82,6 +82,8 @@ def set_admin_questions(answers, current_user=None):
     raise NotImplementedError()
 
 def set_answers(user_id, answers=None, current_user=None):
+    if not user_id:
+        user_id = current_user.id if current_user else None
     if not current_user.id == user_id:
         raise ForbiddenException(f'User {current_user.id} is not permitted to answer for {user_id}')
     if not is_applicant_character_id(user_id):

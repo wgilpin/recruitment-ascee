@@ -4,6 +4,8 @@ from flask_app import app
 from flask import request, jsonify
 from recruitment import get_questions, get_answers, set_answers, set_admin_questions,\
     remove_question
+from exceptions import BadRequestException
+
 
 @app.route('/api/questions/')
 def api_questions():
@@ -40,7 +42,7 @@ def api_set_questions():
     if questions is None:
         raise BadRequestException('questions were not given.')
     else:
-        return jsonify(set_questions(questions, current_user=current_user))
+        return jsonify(set_admin_questions(questions, current_user=current_user))
 
 
 @app.route('/api/admin/remove_question/<int:question_id>')
@@ -66,7 +68,7 @@ def api_remove_question(question_id):
 @login_required
 def api_user_answers(user_id=None):
     """
-    Get question answers for a given user.
+    Get and put question answers for a given user.
 
     Args:
         user_id (int)
@@ -86,7 +88,7 @@ def api_user_answers(user_id=None):
         user_id = user_id or current_user.id
         return jsonify(get_answers(user_id, current_user=current_user))
     elif request.method == 'PUT':
-        return jsonify(set_answers(user_id, answers=request.args.get('answers'), current_user=current_user))
+        return jsonify(set_answers(user_id, answers=request.get_json()['answers'], current_user=current_user))
 
 
 @app.route('/api/admin/questions/', methods=['PUT'])

@@ -16,8 +16,9 @@ export default class Applicant extends Component {
       ready: false,
       has_application: false,
       submitted: false,
+      dirtyAnswers: false,
+      answers: {},
     };
-    this.answers = {};
   }
 
   applicationStatus() {
@@ -28,9 +29,11 @@ export default class Applicant extends Component {
 
   questionsToState = ({ questions, has_application }) => {
     this.setState({ questions, has_application });
+    const newAnswers = {...this.state.answers };
     Object.keys(questions).forEach(key => {
-      this.answers[key] = questions[key].answer;
-    });
+      newAnswers[key] = questions[key].answer;
+    })
+    this.setState({ answers: newAnswers });
   };
 
   componentDidMount() {
@@ -39,17 +42,23 @@ export default class Applicant extends Component {
   }
 
   handleAnswerChanged = e => {
-    this.answers[e.target.id] = e.target.value;
+    this.setState({
+      dirtyAnswers: true,
+      answers: {
+        ...this.state.answers,
+        [e.target.id]: e.target.value,
+      }
+    });
     this.checkReady();
   };
 
   allQuestionsAnswered = () => {
-    if (this.answers === undefined) {
+    if (Object.keys(this.state.answers).length === 0) {
       return false;
     }
     let allDone = true;
-    Object.keys(this.answers).forEach(q => {
-      if (this.answers[q].length === 0) {
+    Object.keys(this.state.answers).forEach(q => {
+      if (this.state.answers[q].length === 0) {
         allDone = false;
       }
     });
@@ -66,15 +75,25 @@ export default class Applicant extends Component {
     this.setState({ altsDone: cb.target.checked }, this.checkReady);
   };
 
+  stateToParams = () => {
+    return {
+      answers: Object.entries(this.state.answers).map(([question_id, text]) =>({ question_id, text })),
+    };
+  }
+
+  handleSaveAnswers = () => {
+    new FetchData({scope: 'answers'})
+      .put(this.stateToParams())
+      .then(() => {
+        this.setState({ dirtyAnswers: false });
+        window.alert('Saved');
+      })
+  }
+
   submit = () => {
     if (this.state.has_application) {
-      const qa = [];
-      Object.keys(this.state.questions).forEach(key => {
-        const q = this.state.questions[key];
-        qa.push({ q: q.q, a: this.answers[key], id: key });
-      });
       new FetchData({ scope: 'recruits/submit_application' })
-        .put(qa)
+        .put(this.stateToParams())
         .then((res) => {
           if (res.status === 401) {
             return window.location = '/app/';
@@ -108,7 +127,7 @@ export default class Applicant extends Component {
         <h2 style={styles.heading}>Recruitment Questions</h2>
         {Object.keys(this.state.questions || {}).map(key => {
           const { question } = this.state.questions[key];
-          const answer = this.answers[key];
+          const answer = this.state.answers[key];
           return (
             <div key={key}>
               <div style={styles.padded}>{question}</div>
@@ -119,6 +138,11 @@ export default class Applicant extends Component {
             </div>
           );
         })}
+        {this.state.dirtyAnswers &&
+          <button style={styles.primaryButton} onClick={this.handleSaveAnswers}>
+            Save
+          </button>
+        }
       </TabPanel>
     );
   };
