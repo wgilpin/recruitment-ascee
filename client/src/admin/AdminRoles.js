@@ -76,7 +76,7 @@ export default class AdminRoles extends React.Component {
       .filter(c => !!(c[`is_${role}`]));
   }
 
-   writeRoles(id, newRole) {
+  writeRoles(id, newRole) {
     let roles = {
       recruiter: false,
       senior_recruiter: false,

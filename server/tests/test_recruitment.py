@@ -484,7 +484,7 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.assertEqual(response[self.not_applicant.id]['name'], self.not_applicant.name)
 
     def test_get_character_search_empty(self):
-        response = get_character_search_list('', , self.recruiter)
+        response = get_character_search_list('', self.recruiter)
         self.assertEqual(len(response), 0)
 
     def test_get_character_search_long(self):

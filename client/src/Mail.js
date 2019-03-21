@@ -28,6 +28,10 @@ const styles = {
     paddingLeft: '60px',
     width: '120%',
   },
+  redList: {
+    fontWeight: 600,
+    color: 'red',
+  }
 }
 
 export default class Mail extends React.Component {
@@ -150,7 +154,7 @@ export default class Mail extends React.Component {
   };
 
 
-  mailItem(key, { timestamp, from_name, subject, is_read }) {
+  mailItem(key, { timestamp, from_name, subject, is_read, redlisted }) {
     // a react item
     let lineStyle, formattedDate;
     let readStyle = is_read ? styles.isRead : styles.isUnread;
@@ -159,10 +163,14 @@ export default class Mail extends React.Component {
     lineStyle = { ...lineStyle, ...readStyle, ...styles.cell };
     let newdate = new Date(timestamp);
     formattedDate = newdate.toLocaleDateString() + ' ' + newdate.toLocaleTimeString();
+    let nameStyle = {...lineStyle};
+    if (redlisted.indexOf('from_name') > -1) {
+      nameStyle = { ...lineStyle, ...styles.redList };
+    }
     return (
       <div key={key} style={styles.row} onClick={() => this.toggleMessage(key)}>
         <div style={lineStyle}>{formattedDate}</div>
-        <div style={lineStyle}>{from_name}</div>
+        <div style={nameStyle}>{from_name}</div>
         <div style={lineStyle}>{subject}</div>
       </div>
     );

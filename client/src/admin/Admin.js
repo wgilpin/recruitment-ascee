@@ -4,10 +4,14 @@ import TableStyles from '../TableStyles';
 import AdminRoles from './AdminRoles';
 import AdminLists from './AdminLists';
 import AdminQuestions from './AdminQuestions';
+import styles from '../Applicant/ApplicantStyles';
+import FetchData from '../common/FetchData';
+
 
 const primary = TableStyles.styles.themeColor.color;
 
-const styles = {
+const localStyles = {
+  ...styles,
   searchButton: {
     borderRadius: '3px',
     borderStyle: 'solid',
@@ -55,12 +59,29 @@ const styles = {
   },
   logout: {
     position: 'absolute',
-    right: '16px',
-    top: '8px',
+    left: '12px',
+    top: '12px',
   },
 };
 
 class Admin extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      roles: {},
+    };
+  }
+
+  componentDidMount() {
+
+    new FetchData({ scope: 'user/roles' })
+      .get()
+      .then(roles => {
+        console.log(roles);
+        this.setState({ roles: roles.info });
+      })
+  }
 
 
   buildConfigPanel() {
@@ -72,14 +93,24 @@ class Admin extends Component {
   render() {
     return (
       < >
-        <h1 style={styles.h1}>Admin</h1>
-        <div style={styles.logout}><a href="/auth/logout">Sign out</a></div>
+        {this.state.roles.is_recruiter &&
+        <a href="/app/recruiter">
+          <button style={{...localStyles.primaryButton, float: 'right'}}>Recruiter</button>,
+        </a>}
+        <h1 style={localStyles.h1}>Admin</h1>
+        <div style={localStyles.logout}>
+          <a href="/auth/logout">
+            <button style={localStyles.secondaryButton}>
+              Sign out
+            </button>
+          </a>
+        </div>
         <Tabs>
           <TabList>
-            <Tab style={styles.tab}>     Questions     </Tab>
-            <Tab style={styles.tab}>       Roles       </Tab>
-            <Tab style={styles.tab}>       Lists       </Tab>
-            <Tab style={styles.tab}>      Config       </Tab>
+            <Tab style={localStyles.tab}>     Questions     </Tab>
+            <Tab style={localStyles.tab}>       Roles       </Tab>
+            <Tab style={localStyles.tab}>       Lists       </Tab>
+            <Tab style={localStyles.tab}>      Config       </Tab>
           </TabList>
           <TabPanel><AdminQuestions/></TabPanel>
           <TabPanel><AdminRoles/></TabPanel>

@@ -26,10 +26,22 @@ def is_senior_recruiter(user):
     return (user is not None) and isinstance(user.recruiter, Recruiter) and user.recruiter.is_senior
 
 
-def is_applicant_character_id(character_id):
-    character = db.session.query(Character).filter(
-        Character.id == character_id
+def is_applicant_user_id(user_id):
+    user = db.session.query(User).filter(
+        User.id == user_id
     ).join(
+        Application, Application.user_id == User.id,
+    ).filter(
+        db.not_(Application.is_concluded)
+    ).one_or_none()
+    return user is not None
+
+
+def is_applicant_character_id(character_id):
+    base = db.session.query(Character).filter(
+        Character.id == character_id,
+    )
+    character = base.join(
         User, User.id == Character.user_id
     ).join(
         Application, Application.user_id == User.id,

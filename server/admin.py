@@ -3,6 +3,7 @@ from flask_app import app
 from security import user_admin_access_check
 from exceptions import BadRequestException, ForbiddenException
 from sqlalchemy import exists
+from security import is_admin, is_recruiter, is_senior_recruiter
 
 SECONDS_TO_CACHE = 10 * 60
 
@@ -14,6 +15,17 @@ kind_dict = {
     'system': System,
     'region': Region,
 }
+
+
+def get_user_roles(current_user=None):
+    res = {
+        'info': {
+            'is_admin': is_admin(current_user),
+            'is_recruiter': is_recruiter(current_user),
+            'is_senior_recruiter': is_senior_recruiter(current_user),
+        }
+    }
+    return res
 
 
 def set_roles(
@@ -67,7 +79,8 @@ def remove_admin_list_item(kind, item_id, current_user=None):
     user_admin_access_check(current_user)
     if kind not in kind_dict:
         raise BadRequestException('Unknown Redlist')
-    item = db.session.query(kind_dict[kind]).filter_by(id=item_id).one_or_none()
+    item = db.session.query(kind_dict[kind]).filter_by(
+        id=item_id).one_or_none()
     if item is None:
         raise BadRequestException(f'Item {item_id} not found in List {kind}')
     elif not item.redlisted:
@@ -87,7 +100,8 @@ def get_admin_list(kind, current_user=None):
     if kind not in kind_dict:
         raise BadRequestException(f'Unknown Redlist {kind}')
     response = []
-    redlisted_items = db.session.query(kind_dict[kind]).filter_by(redlisted=True)
+    redlisted_items = db.session.query(
+        kind_dict[kind]).filter_by(redlisted=True)
     for item in redlisted_items:
         response.append({'id': item.id, 'name': item.name})
     return {'info': response}
