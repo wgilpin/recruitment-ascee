@@ -12,9 +12,11 @@ import warnings
 
 ascee_corp_id = 98589569
 
-def initDbForE2e():
 
-    clearDB()
+def initDbForE2e(wipe=True):
+
+    if wipe:
+        clearDB()
 
     # TODO: Id of user a
     admin_id = 123
@@ -63,13 +65,12 @@ def initDbForE2e():
         name='APPLICANT NAME',
     ))
 
-
-
     db.session.add(Question(text='How long have you been playing Eve?'))
     db.session.add(Question(text='PVP or PVE? Why?'))
 
     db.session.add(Application(user_id=character_id))
     db.session.commit()
+
 
 def clearDB():
     db.session.rollback()
