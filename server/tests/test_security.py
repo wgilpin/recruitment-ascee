@@ -4,7 +4,7 @@ server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
-from security import is_admin, is_recruiter, is_senior_recruiter, is_applicant_character_id, has_applicant_access
+from security import is_admin, is_recruiter, is_senior_recruiter, is_applicant_character_id, has_applicant_access#, is_applicant_user_id
 from models import Character, User, db
 from base import AsceeTestCase
 from flask_app import app
@@ -60,10 +60,10 @@ class RecruiterSecurityTests(AsceeTestCase):
         self.assertTrue(has_applicant_access(self.user, self.applicant, self_access=True))
 
 
-class OtherRecruiterSecuurityTests(RecruiterSecurityTests):
+class OtherRecruiterSecurityTests(RecruiterSecurityTests):
 
     def setUp(self):
-        super(OtherRecruiterSecuurityTests, self).setUp()
+        super(OtherRecruiterSecurityTests, self).setUp()
         self.user = self.other_recruiter
 
     def test_has_applicant_access(self):
@@ -100,6 +100,7 @@ class ApplicantSecurityTests(AsceeTestCase):
 
     def test_is_applicant(self):
         self.assertTrue(is_applicant_character_id(self.user.id))
+        self.assertTrue(is_applicant_user_id(self.user.id))
 
     def test_has_applicant_access(self):
         self.assertFalse(has_applicant_access(self.user, self.applicant))

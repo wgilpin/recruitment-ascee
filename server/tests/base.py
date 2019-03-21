@@ -119,10 +119,12 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
         )
         db.session.add(other_recruiter_character)
         self.other_recruiter = User.get(1003)
+        db.session.add(self.other_recruiter)
         other_recruiter = Recruiter(
             id=1003,
         )
         db.session.add(other_recruiter)
+        db.session.commit()
 
         test_applicant_id = 2114496483
         self.applicant_character = Character.get(
@@ -130,10 +132,12 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
         )
         self.applicant_character.user_id = test_applicant_id
         self.applicant_character.refresh_token = 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2'
+        self.applicant_character.user_id = test_applicant_id
         db.session.add(self.applicant_character)
 
         self.applicant = User.get(id=test_applicant_id)
         db.session.add(self.applicant)
+        db.session.commit()
 
         test_not_applicant_id = 2112166943
         self.not_applicant_character = Character.get(
@@ -143,12 +147,14 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
 
         self.not_applicant = User.get(id=test_not_applicant_id)
         db.session.add(self.not_applicant)
+        db.session.commit()
 
         self.application = Application(
             user_id=self.applicant.id,
             recruiter_id=self.recruiter.id,
         )
         db.session.add(self.application)
+        db.session.commit()
 
         self.redlisted_character_1 = Character(
             id=1234,
