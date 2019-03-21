@@ -10,7 +10,8 @@ from admin import get_user_roles
 @login_required
 def api_get_applicant_list():
     """
-    Gets the list of all applicants, including accepted and rejected applicants.
+    Gets the list of current applicants, including applications being processed, and
+    accepted (but not invited) applicants.
 
     Returns:
         response (dict)
@@ -23,7 +24,7 @@ def api_get_applicant_list():
                     'name': Twine Endashi,  # string character name of user's main
                     'recruiter_id': 201837771,  # int character ID of recruiter's main
                     'recruiter_name': 'Recruiter Ralph',  # string name of recruiter
-                    'status': 'claimed' | 'new' | 'escalated',
+                    'status': 'claimed' | 'new' | 'accepted',
                 },
                 '876876876': {
                     [...]

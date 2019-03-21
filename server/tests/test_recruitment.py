@@ -387,7 +387,7 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.assertEqual(record['recruiter_id'], self.recruiter.id)
         self.assertEqual(record['recruiter_name'], self.recruiter.name)
         self.assertEqual(record['name'], self.applicant.name)
-        self.assertTrue(record['status'] in ['claimed', 'new', 'escalated'])
+        self.assertTrue(record['status'] in ['claimed', 'new', 'accepted'])
 
     def test_get_applicant_list_as_admin(self):
         response = get_applicant_list(current_user=self.admin)
