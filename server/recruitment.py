@@ -209,8 +209,9 @@ def get_applicant_list(current_user=None):
         if not is_applicant_user_id(user.id):
             continue
         recruiter_name = None
-        recruiter_id = None
         application = Application.query.filter_by(user_id=user.id, is_concluded=False).one_or_none()
+        if application is None:
+            application = Application.query.filter_by(user_id=user.id, is_concluded=True, is_accepted=True, is_invited=False).one_or_none()
         application_status = 'new'
         if application:
             recruiter_id = application.recruiter_id
@@ -218,27 +219,27 @@ def get_applicant_list(current_user=None):
                 recruiter = User.get(recruiter_id)
                 recruiter_name = recruiter.name
                 application_status = 'claimed'
-            if application.is_escalated:
-                application_status = 'escalated'
+            if application.is_accepted:
+                application_status = 'accepted'
 
-        applicant_visible = False
-        # senior recruiters see all
-        if is_senior_recruiter(current_user) or is_admin(current_user):
-            applicant_visible = True
-        elif is_recruiter(current_user):
-            if application and application.recruiter_id == current_user.id:
+            applicant_visible = False
+            # senior recruiters see all
+            if is_senior_recruiter(current_user) or is_admin(current_user):
                 applicant_visible = True
-            else:
-                applicant_visible = application_status == 'new'
+            elif is_recruiter(current_user):
+                if application and application.recruiter_id == current_user.id:
+                    applicant_visible = True
+                else:
+                    applicant_visible = application_status == 'new'
 
-        if applicant_visible:
-            result[user.id] = {
-                'user_id': user.id,
-                'recruiter_id': application.recruiter_id if application else None,
-                'recruiter_name': recruiter_name,
-                'status': application_status,
-                'name': user.name,
-            }
+            if applicant_visible:
+                result[user.id] = {
+                    'user_id': user.id,
+                    'recruiter_id': application.recruiter_id if application else None,
+                    'recruiter_name': recruiter_name,
+                    'status': application_status,
+                    'name': user.name,
+                }
 
     return {'info': result}
 

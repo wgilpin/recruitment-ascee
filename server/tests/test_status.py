@@ -5,7 +5,7 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
-from status import claim_applicant, release_applicant, escalate_applicant, reject_applicant
+from status import claim_applicant, release_applicant, accept_applicant, reject_applicant
 from models import Character, User, Application, db
 from base import AsceeTestCase
 from flask_app import app
@@ -24,7 +24,6 @@ class ApplicantStatusTests(AsceeTestCase):
         self.assertDictEqual(response, {'status': 'ok'})
         application = Application.get_for_user(self.applicant.id)
         self.assertEqual(application.recruiter_id, self.other_recruiter.id)
-        self.assertFalse(application.is_escalated)
         self.assertFalse(application.is_concluded)
         self.assertFalse(application.is_submitted)
         self.assertFalse(application.is_accepted)
@@ -73,36 +72,37 @@ class ApplicantStatusTests(AsceeTestCase):
         with self.assertRaises(ForbiddenException):
             release_applicant(self.applicant.id, current_user=self.admin)
 
-    def test_escalate_applicant(self):
+    def test_accept_applicant(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
-        response = escalate_applicant(self.applicant.id, current_user=self.recruiter)
+        response = accept_applicant(self.applicant.id, current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
-        self.assertTrue(self.application.is_escalated)
+        self.assertTrue(self.application.is_accepted)
+        self.assertFalse(self.application.is_invited)
 
-    def test_escalate_not_applicant(self):
+    def test_accept_not_applicant(self):
         with self.assertRaises(BadRequestException):
-            escalate_applicant(self.not_applicant.id, current_user=self.recruiter)
+            accept_applicant(self.not_applicant.id, current_user=self.recruiter)
 
-    def test_escalate_applicant_as_senior_recruiter(self):
+    def test_accept_applicant_as_senior_recruiter(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
-        response = escalate_applicant(self.applicant.id, current_user=self.senior_recruiter)
+        response = accept_applicant(self.applicant.id, current_user=self.senior_recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
-        self.assertTrue(self.application.is_escalated)
+        self.assertTrue(self.application.is_accepted)
 
-    def test_escalate_applicant_as_other_recruiter(self):
+    def test_accept_applicant_as_other_recruiter(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
-            escalate_applicant(self.applicant.id, current_user=self.other_recruiter)
+            accept_applicant(self.applicant.id, current_user=self.other_recruiter)
 
-    def test_escalate_applicant_as_non_recruiter(self):
+    def test_accept_applicant_as_non_recruiter(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
-            escalate_applicant(self.applicant.id, current_user=self.not_applicant)
+            accept_applicant(self.applicant.id, current_user=self.not_applicant)
 
-    def test_escalate_applicant_as_admin(self):
+    def test_accept_applicant_as_admin(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
-            escalate_applicant(self.applicant.id, current_user=self.admin)
+            accept_applicant(self.applicant.id, current_user=self.admin)
 
     def test_reject_applicant(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)

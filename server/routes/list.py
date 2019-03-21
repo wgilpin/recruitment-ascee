@@ -1,7 +1,7 @@
 from flask import jsonify, request
 from security import login_required
 from admin import put_admin_list, get_admin_list, \
-    remove_admin_list_item
+    remove_admin_list_item, add_admin_list_item
 from flask_app import app
 from flask_login import current_user
 
@@ -23,9 +23,7 @@ def api_admin_list_add_item(kind):
         Forbidden (403): If logged in user is not an admin
     """
     return jsonify(
-        put_admin_list(
-            kind, [item['id'] for item in request.get_json()['items']],
-            do_replace=False, current_user=current_user)
+        add_admin_list_item(kind, request.args.get('item')['id'], current_user=current_user)
     )
 
 
