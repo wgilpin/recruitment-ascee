@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import SearchImg from '../images/magnifying_glass_24x24.png';
 import FetchData from '../common/FetchData';
 import TableStyles from '../TableStyles';
-import { relativeDate } from 'tiny-relative-date';
-
 
 const propTypes = {
   iconList: PropTypes.array,

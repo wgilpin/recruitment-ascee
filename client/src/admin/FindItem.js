@@ -108,11 +108,20 @@ export default class FindItem extends React.Component {
     this.setState({ showAddMany: true, showInput: false });
   };
 
-  handleAdd = id => {
-    return new FetchData({ id: this.props.kind, scope: 'admin/list' }).put({
-      replace: false,
-      items: this.state.searchResults,
-    });
+  handleAdd = (id, name) => {
+    return new FetchData({ id: this.props.kind, scope: 'admin/list', param1: 'add' })
+      .put({
+        replace: false,
+        items: [{ id, name }],
+      })
+      .then (res => {
+        if (res.status  === 'ok'){
+          const newResults = { ...this.state.searchResults }
+          delete newResults[name];
+          this.setState({ searchResults: newResults });
+          this.textInput.current.value = '';
+        }
+      })
   };
 
   handleReject = id => {
@@ -155,7 +164,7 @@ export default class FindItem extends React.Component {
           <img
             style={styles.img}
             src={addImg}
-            onClick={() => this.handleAdd(id)}
+            onClick={() => this.handleAdd(id, name)}
             alt="add"
           />
           <img

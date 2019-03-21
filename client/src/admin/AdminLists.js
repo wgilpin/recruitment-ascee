@@ -190,7 +190,7 @@ export default class AdminLists extends React.Component {
         <div style={styles.listbox}>
           {(lists[kind] || []).map((item, idx) => this.makeListLine(item, idx))}
         </div>
-        {this.state.showInput && <FindItem />}
+        {this.state.showInput && <FindItem onChange={this.componentDidMount}/>}
         {!this.state.showInput && (
           <FabButton
             onClick={this.handleAddFab}

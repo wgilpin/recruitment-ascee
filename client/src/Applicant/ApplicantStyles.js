@@ -1,15 +1,19 @@
 import TableStyles from '../TableStyles';
+import Styles from '../common/Styles';
+
+const button = {
+  fontSize: 'large',
+  padding: '6px',
+  margin: '12px',
+  borderRadius: '3px',
+  borderStyle: 'none',
+  width: '200px'
+}
 
 const styles = {
   submit: {
-    fontSize: 'large',
-    padding: '6px',
-    margin: '12px',
-    color: 'white',
+    ...button,
     backgroundColor: TableStyles.styles.header.color,
-    borderRadius: '3px',
-    borderStyle: 'none',
-    width: '200px'
   },
   padded: {
     padding: 6,
@@ -60,12 +64,22 @@ const styles = {
   },
   logout: {
     position: 'absolute',
-    right: '16px',
-    top: '8px',
+    left: '12px',
+    top: '12px',
   },
   checkbox: {
     transform: 'scale(1.5)'
-  }
+  },
+  primaryButton: {
+    ...button,
+    color: 'white',
+    backgroundColor: Styles.themeColors.primary,
+  },
+  secondaryButton: {
+    ...button,
+    color: 'white',
+    backgroundColor: Styles.themeColors.secondary,
+  },
 };
 
 export default styles;

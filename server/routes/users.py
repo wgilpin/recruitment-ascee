@@ -3,6 +3,7 @@ from security import login_required
 from flask_app import app
 from flask import jsonify
 from recruitment import get_applicant_list, get_user_characters, get_users, get_character_search_list
+from admin import get_user_roles
 
 
 @app.route('/api/applicant_list/')
@@ -71,6 +72,27 @@ def api_get_user_characters(user_id=None):
     if not user_id:
         user_id = current_user.get_id()
     return jsonify(get_user_characters(user_id, current_user=current_user))
+
+@app.route('/api/user/roles/')
+@login_required
+def api_get_user_roles():
+    """
+    Gets a list of all roles for the logged in user.
+
+    Returns:
+        response (dict)
+
+    Example:
+        response = {
+            'info': {
+                is_recruiter: bool,
+                is_senior_recruiter: bool,
+                is_admin: bool,
+            }
+        }
+
+    """
+    return jsonify(get_user_roles(current_user=current_user))
 
 
 @app.route('/api/admin/users/')

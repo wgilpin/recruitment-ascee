@@ -28,7 +28,6 @@ class MainMenu extends Component {
   }
 
   render() {
-    const params = queryString.parse(this.props.location.search);
     return (
       <div style={this.styles.outer}>
         <a href="/auth/login">

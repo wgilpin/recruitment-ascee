@@ -1,6 +1,6 @@
 from models import Corporation, Note, Question, Answer, User, Character, db, Application, Admin, Recruiter
 from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter,\
-    is_applicant_character_id, user_admin_access_check
+    is_applicant_user_id, user_admin_access_check
 import cachetools
 from exceptions import BadRequestException, ForbiddenException
 from models import Question
@@ -78,13 +78,17 @@ def get_questions(current_user=None):
 def get_user_application(user_id):
     return Application.get_for_user(user_id)
 
+
 def set_admin_questions(answers, current_user=None):
     raise NotImplementedError()
 
+
 def set_answers(user_id, answers=None, current_user=None):
+    if not user_id:
+        user_id = current_user.id if current_user else None
     if not current_user.id == user_id:
         raise ForbiddenException(f'User {current_user.id} is not permitted to answer for {user_id}')
-    if not is_applicant_character_id(user_id):
+    if not is_applicant_user_id(user_id):
         raise ForbiddenException(f'User {user_id} is not an applicant')
     application = Application.get_for_user(user_id)
     if not application:
@@ -202,7 +206,7 @@ def get_applicant_list(current_user=None):
         raise ForbiddenException('User must be recruiter or admin.')
     result = {}
     for user in User.query.all():
-        if not is_applicant_character_id(user.id):
+        if not is_applicant_user_id(user.id):
             continue
         recruiter_name = None
         recruiter_id = None
