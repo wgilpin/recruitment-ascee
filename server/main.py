@@ -31,19 +31,21 @@ app.url_map.strict_slashes = False
 def serve():
     return send_from_directory('public', 'index.html')
 
+
 @app.route('/app', defaults={'path': ''})
 @app.route('/app/<path:path>')
 def serve_root(path):
-    print(path)
     if path != "" and os.path.exists("public/" + path):
         return send_from_directory('public', path)
     else:
         return send_from_directory('public', 'index.html')
 
+
 @app.route('/static/<path:filename>')
 def serve_static(filename):
     root_dir = os.path.dirname(os.getcwd())
     return send_from_directory(os.path.join(root_dir, 'static', 'js'), filename)
+
 
 @app.errorhandler(500)
 def api_server_error(e):
@@ -52,38 +54,15 @@ def api_server_error(e):
     return 'An internal error occurred.', 500
 # [END app]
 
+
 def run_app():
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', database_url)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.json_encoder = CustomJSONEncoder
     with app.app_context():
         db.init_app(app)
         db.create_all()
         app.run(host='0.0.0.0', port='80')
 
-class CustomJSONEncoder(json.JSONEncoder):
-
-    def default(self, obj):
-        try:
-            if isinstance(obj, (datetime, date)):
-                return obj.isoformat()
-            if isinstance(obj, pyswagger.primitives._time.Datetime):
-                return obj.v.isoformat()
-            if isinstance(obj, Exception):
-                return str(obj)
-            iterable = iter(obj)
-        except TypeError:
-            pass
-        else:
-            return list(iterable)
-        return json.JSONEncoder.default(self, obj)
 
 if __name__ == '__main__':
     run_app()
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.json_encoder = CustomJSONEncoder
-    with app.app_context():
-        db.init_app(app)
-        db.create_all()
