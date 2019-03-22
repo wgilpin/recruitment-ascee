@@ -2,7 +2,7 @@ import React from 'reactn';
 import Loader from 'react-loader-spinner';
 import FetchData from '../common/FetchData';
 import ClaimedIcon from 'react-ionicons/lib/MdStar';
-import EscalatedIcon from 'react-ionicons/lib/IosAlert';
+import ApproveIcon from 'react-ionicons/lib/MdCheckboxOutline';
 import Evidence from '../Evidence';
 import Misc from '../common/Misc';
 import RoundImage from '../common/RoundImage';
@@ -11,6 +11,7 @@ import RecruitButtonBar from './RecruitButtonBar';
 import IconBtn from '../common/IconBtn';
 import TableStyles from '../TableStyles';
 import styles from '../Applicant/ApplicantStyles';
+import { ReactTooltip } from 'react-tooltip';
 
 const localStyles = {
   ...styles,
@@ -54,7 +55,7 @@ const localStyles = {
     gridColumn: 1,
     gridRow: 1,
   },
-  escalated: {
+  approved: {
     gridColumn: 1,
     gridRow: 2,
   },
@@ -107,7 +108,7 @@ export default class Recruiter extends React.Component {
 
   static statuses = {
     unclaimed: 'new',
-    escalated: 'escalated',
+    approved: 'approved',
     claimed: 'claimed',
     accepted: 'accepted',
     rejected: 'rejected',
@@ -117,33 +118,37 @@ export default class Recruiter extends React.Component {
     // Hydrate the global state with the response from /api/recruits
     // api recruits returns 3 lists:
     //   claimed: my recruits to process
-    //   escalated: recruits I claimed then escalated
+    //   approved: recruits I claimed then approved
     //   unclaimed: all unclaimed
-    return new FetchData({ id: this.global.id, scope: 'applicant_list' })
-      .get()
-      // Set the global `recruits` list, and set no recruit selected
-      .then(recruits => {
-        this.setState({ loading: false });
-        console.log(`fetched ${recruits}`);
-        // array -> object
-        const recruitDict = {};
-        Object.keys(recruits.info).forEach(id => {
-          recruitDict[id] = recruits.info[id];
-        });
-      this.setGlobal({ recruits: recruitDict, activeRecruit: null });
-      })
-      .then(() => {
-        return new FetchData({ scope: 'user/roles' })
-          .get()
-          .then(roles => this.setGlobal({ roles: roles.info }))
-      })
-      // Fail gracefully, set the global `error`
-      //   property to the caught error.
-      .catch(err => {
-        console.log('mounting error');
-        return { error: err };
-      });
+    this.setGlobal(
+      new FetchData({ id: this.global.id, scope: 'applicant_list' })
+        .get()
+        // Set the global `recruits` list, and set no recruit selected
+        .then(recruits => {
+          this.setState({ loading: false });
+          console.log(`fetched ${recruits}`);
+          // array -> object
+          const recruitDict = {};
+          Object.keys(recruits.info).forEach(id => {
+            recruitDict[id] = recruits.info[id];
+          });
+          return { recruits: recruitDict, activeRecruit: null };
+        })
+        // Fail gracefully, set the global `error`
+        //   property to the caught error.
+        .catch(err => {
+          console.log('mounting error');
+          return { error: err };
+        })
+    );
   }
+
+    // .then(() => {
+      //   return new FetchData({ scope: 'user/roles' })
+      //     .get()
+      //     .then(roles => this.setGlobal({ roles: roles.info }))
+      // })
+
 
   setRecruitStatus(id, status) {
     this.setGlobal({
@@ -157,20 +162,6 @@ export default class Recruiter extends React.Component {
     });
   }
 
-  handleDrop = id => {
-    console.log(`handleDrop ${id}`);
-    const plan =
-      this.global.recruits[id].status === Recruiter.statuses.escalated
-        ? { scope: 'recruits/deescalate', status: Recruiter.statuses.claimed }
-        : { scope: 'recruits/release', status: Recruiter.statuses.unclaimed };
-    new FetchData({ id, scope: plan.scope }).get().then(res => {
-      if (res.status === 'ok') {
-        this.setRecruitStatus(id, plan.status);
-      } else {
-        alert('Escalation failed');
-      }
-    });
-  };
   handleClaim = id => {
     console.log(`handleClaim ${id}`);
     new FetchData({ id, scope: 'recruits/claim' }).get().then(res => {
@@ -182,16 +173,17 @@ export default class Recruiter extends React.Component {
     });
   };
 
-  handleEscalate = id => {
-    console.log(`handleEscalate ${id}`);
-    new FetchData({ id, scope: 'recruits/escalate' }).get().then(res => {
+  handleDrop = id => {
+    console.log(`handleDrop ${id}`);
+    new FetchData({ id, scope: 'recruits/release' }).get().then(res => {
       if (res.status === 'ok') {
-        this.setRecruitStatus(id, Recruiter.statuses.escalated);
-      } else {
-        alert('Escalation failed');
+        this.setRecruitStatus(id, Recruiter.statuses.unclaimed);
+      } else if (res.status === 406) {
+        alert('User has not completed their application');
       }
     });
   };
+
 
   handleReject = id => {
     console.log(`handleReject ${id}`);
@@ -223,8 +215,8 @@ export default class Recruiter extends React.Component {
         {recruit.status === Recruiter.statuses.claimed && (
           <ClaimedIcon style={localStyles.icon} fontSize="24px" />
         )}
-        {recruit.status === Recruiter.statuses.escalated && (
-          <EscalatedIcon style={localStyles.icon} fontSize="24px" />
+        {recruit.status === Recruiter.statuses.approved && (
+          <ApproveIcon style={localStyles.icon} fontSize="24px" />
         )}
         <span onClick={() => this.handleClick(id)} style={localStyles.altSpan}>
           <RoundImage src={avatarImg} />
@@ -235,9 +227,8 @@ export default class Recruiter extends React.Component {
           style={localStyles.buttons}
           id={id}
           onClaim={this.handleClaim}
-          onDrop={this.handleDrop}
-          onEscalate={this.handleEscalate}
           onReject={this.handleReject}
+          onDrop={this.handleDrop}
         />
       </div>
     );
@@ -277,10 +268,10 @@ export default class Recruiter extends React.Component {
     }
     console.log('loaded');
 
-    // 3 sections in order: claimed, escalated, unclaimed.
+    // 3 sections in order: claimed, approved, unclaimed.
     const claimed = this.applyFilter(Recruiter.statuses.claimed);
     const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
-    const escalated = this.applyFilter(Recruiter.statuses.escalated);
+    const approved = this.applyFilter(Recruiter.statuses.approved);
 
     return [
       this.global.is_admin &&
@@ -298,8 +289,8 @@ export default class Recruiter extends React.Component {
           <div style={localStyles.claimed}>
             {this.sectionList('Claimed', claimed)}
           </div>
-          <div style={localStyles.escalated}>
-            {this.sectionList('Escalated', escalated)}
+          <div style={localStyles.approved}>
+            {this.sectionList('Approved', approved)}
           </div>
           <div style={localStyles.unclaimed}>
             {this.sectionList('Unclaimed', unclaimed)}

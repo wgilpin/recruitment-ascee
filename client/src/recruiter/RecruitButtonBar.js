@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip'
 
 import ClaimIcon from 'react-ionicons/lib/MdStarOutline';
-import DropIcon from 'react-ionicons/lib/MdUndo';
-import EscalateIcon from 'react-ionicons/lib/IosAlertOutline';
-import RejectIcon from 'react-ionicons/lib/IosTrashOutline';
+import ApprovedIcon from 'react-ionicons/lib/MdCheckmark';
+import RejectIcon from 'react-ionicons/lib/MdClose';
+import DropIcon from 'react-ionicons/lib/MdArrowDown';
 
 const statuses = {
   unclaimed: 'new',
-  escalated: 'escalated',
+  approved: 'approved',
   claimed: 'claimed',
   accepted: 'accepted',
   rejected: 'rejected',
@@ -39,8 +39,6 @@ const styles = {
  *  id
  *  status
  *  onClaim(id)
- *  onEscalate(id)
- *  onDrop(id)
  *  style
  */
 export default class RecruitButtonBar extends Component {
@@ -49,9 +47,9 @@ export default class RecruitButtonBar extends Component {
     const { status } = this.props;
     this.state = {
       showClaim: status === statuses.unclaimed,
-      showEscalate: status === statuses.claimed,
-      showDrop: status === statuses.escalated || status === statuses.claimed,
-      showReject: status !== statuses.rejected && status !== statuses.unclaimed,
+      showApprove: status === statuses.claimed,
+      showReject: status === statuses.approved || status === statuses.claimed,
+      showDrop: status === statuses.claimed,
     };
   }
 
@@ -61,23 +59,21 @@ export default class RecruitButtonBar extends Component {
     }
   }
 
+  handleReject = () => {
+    if (this.props.onReject){
+      this.props.onReject(this.props.id);
+    }
+  }
+
+  handleApprove = () => {
+    if (this.props.onApprove){
+      this.props.onApprove(this.props.id);
+    }
+  }
+
   handleDrop = () => {
     if (this.props.onDrop){
       this.props.onDrop(this.props.id);
-    }
-  }
-
-  handleEscalate = () => {
-    console.log('escalate')
-    if (this.props.onEscalate){
-      this.props.onEscalate(this.props.id);
-    }
-  }
-
-  handeReject = () => {
-    console.log('reject')
-    if (this.props.onEscalate){
-      this.props.onEscalate(this.props.id);
     }
   }
 
@@ -90,8 +86,8 @@ export default class RecruitButtonBar extends Component {
       <span style={{ ...this.props.style, ...styles.bar }}>
         {this.state.showClaim &&
           this.showButton(<ClaimIcon style={styles.image} onClick={this.handleClaim}/>, 'Claim')}
-        {this.state.showEscalate &&
-          this.showButton(<EscalateIcon style={styles.image} onClick={this.handleEscalate}/>, 'Escalate')}
+        {this.state.showApprove &&
+          this.showButton(<ApprovedIcon style={styles.image} onClick={this.handleApprove}/>, 'Approve')}
         {this.state.showDrop &&
           this.showButton(<DropIcon style={styles.image} onClick={this.handleDrop}/>, 'Drop')}
         {this.state.showReject &&
