@@ -74,7 +74,8 @@ def api_get_user_characters(user_id=None):
         user_id = current_user.get_id()
     return jsonify(get_user_characters(user_id, current_user=current_user))
 
-@app.route('/api/user/roles/')
+
+@app.route('/api/user/roles')
 @login_required
 def api_get_user_roles():
     """

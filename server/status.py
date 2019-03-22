@@ -66,3 +66,31 @@ def accept_applicant(applicant_user_id, current_user=current_user):
     application.is_concluded = True
     db.session.commit()
     return {'status': 'ok'}
+
+
+def invite_applicant(applicant_user_id, current_user=current_user):
+    if not is_senior_recruiter(current_user):
+        raise ForbiddenException('User {} cannot invite applicants.'.format(current_user.id))
+    else:
+        application = Application.get_for_user(applicant_user_id)
+        if application is None:
+            raise BadRequestException(
+                'User {} is not in an open application.'.format(
+                    applicant_user_id
+                )
+            )
+        elif not application.is_accepted:
+            raise BadRequestException(
+                'User {} application is not accepted.'.format(
+                    applicant_user_id
+                )
+            )
+        elif application.is_invited:
+            raise BadRequestException(
+                'User {} application is already invited.'.format(
+                    applicant_user_id
+                )
+            )
+        else:
+            application.is_invited = True
+            db.session.commit()

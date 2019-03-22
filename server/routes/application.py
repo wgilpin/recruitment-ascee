@@ -5,7 +5,6 @@ from recruitment import start_application, submit_application
 from status import claim_applicant, release_applicant, accept_applicant, reject_applicant
 from security import login_required
 
-
 @app.route(
     '/api/recruits/start_application/', methods=['GET'])
 @login_required
@@ -22,6 +21,7 @@ def api_start_application():
     """
     return jsonify(start_application(current_user=current_user))
 
+
 @app.route(
     '/api/recruits/submit_application', methods=['PUT'])
 @login_required
@@ -36,7 +36,6 @@ def api_submit_application():
         Forbidden (403): If logged in user has roles
     """
     return jsonify(submit_application(request.get_json(), current_user=current_user))
-
 
 
 @app.route(
@@ -120,3 +119,23 @@ def api_reject_applicant(applicant_id):
         Bad request (400): If the given user is not an applicant
     """
     return jsonify(reject_applicant(applicant_id, current_user=current_user))
+
+
+@app.route(
+    '/api/recruits/invite/<int:applicant_id>', methods=['GET'])
+@login_required
+def api_invite_applicant(applicant_id):
+    """
+    Marks an accepted applicant as "invited".
+
+    Args:
+        applicant_id (int): User key of applicant
+
+    Returns:
+        {'status': 'ok'} if applicant is successfully marked
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter
+        Bad request (400): If the given user is not an applicant with "accepted" status
+    """
+    return jsonify(invite_applicant(applicant_id, current_user=current_user))
