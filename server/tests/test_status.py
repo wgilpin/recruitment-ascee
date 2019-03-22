@@ -122,6 +122,12 @@ class ApplicantStatusTests(AsceeTestCase):
         with self.assertRaises(BadRequestException):
             claim_applicant(self.applicant.id, current_user=self.recruiter)
 
+    def test_claim_unsubmitted_applicant(self):
+        self.application.is_submitted = False
+        db.session.commit()
+        with self.assertRaises(BadRequestException):
+            claim_applicant(self.applicant.id, current_user=self.recruiter)
+
     def test_claim_taken_applicant(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
         with self.assertRaises(BadRequestException):
