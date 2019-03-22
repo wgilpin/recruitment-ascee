@@ -80,6 +80,11 @@ const styles = {
     color: 'white',
     backgroundColor: Styles.themeColors.secondary,
   },
+  disabledButton: {
+    ...button,
+    color: 'darkgrey',
+    backgroundColor: Styles.themeColors.secondary,
+  },
 };
 
 export default styles;
