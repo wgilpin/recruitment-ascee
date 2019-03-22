@@ -201,13 +201,25 @@ def get_applicant_list(current_user=None):
     if not (is_recruiter(current_user) or is_admin(current_user)):
         raise ForbiddenException('User must be recruiter or admin.')
     result = {}
-    for user in User.query.all():
-        if not is_applicant_user_id(user.id):
-            continue
+    for user in User.query.join(
+            Application, Application.user_id == User.id
+        ).filter(
+            db.and_(
+                Application.is_submitted,
+                db.or_(
+                    db.not_(Application.is_concluded),
+                    db.and_(Application.is_accepted, db.not_(Application.is_invited))
+                )
+            )
+        ):
+
+    # for user in User.query.all():
+    #     if not is_applicant_user_id(user.id):
+    #         continue
         recruiter_name = None
         application = Application.query.filter_by(user_id=user.id, is_concluded=False).one_or_none()
         if application is None:
-            application = Application.query.filter_by(user_id=user.id, is_concluded=True, is_accepted=True, is_invited=False).one_or_none()
+            application = Application.query.filter_by(user_id=user.id, is_accepted=True, is_invited=False).one_or_none()
         application_status = 'new'
         if application:
             recruiter_id = application.recruiter_id
