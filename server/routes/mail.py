@@ -23,7 +23,7 @@ def api_send_mail():
         {'status': 'ok'}
 
     Error codes:
-        Forbidden (403): If logged in user is not an admin.
+        Forbidden (403): If logged in user is not an admin or senior recruiter.
         Bad request (400): If any arguments are missing.
     """
     to_character_id = request.args.get('to_character_id', type=int)

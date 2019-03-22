@@ -1,6 +1,6 @@
-from security import user_admin_access_check
+from security import is_admin, is_senior_recruiter, user_admin_access_check
 from models import db, Character, ConfigItem, MailTemplate
-from exceptions import BadRequestException
+from exceptions import BadRequestException, ForbiddenException
 
 
 def get_mail_character():
@@ -44,7 +44,10 @@ def set_mail_template(name, subject, text, current_user=None):
 
 
 def send_mail(to_character_id, template_name, current_user=None, **kwargs):
-    user_admin_access_check(current_user)
+    if not is_senior_recruiter(current_user) or is_admin(current_user):
+        raise ForbiddenException(
+            'User {} is not authorized to send mail.'.format(current_user.id)
+        )
     subject, text = get_mail_text(template_name, **kwargs)
     mail_character = get_mail_character()
     mail_character.get_op(
