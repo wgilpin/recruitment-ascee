@@ -5,11 +5,34 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
-from status import claim_applicant, release_applicant, accept_applicant, reject_applicant, invite_applicant
+from status import claim_applicant, release_applicant, accept_applicant, reject_applicant, invite_applicant, own_application_status
 from models import Character, User, Application, db
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import ForbiddenException, BadRequestException
+
+
+class OwnApplicationStatusTests(AsceeTestCase):
+
+    def test_not_applicant_status(self):
+        result = own_application_status(self.not_applicant)
+        self.assertEqual(result, {'status': 'none'})
+
+    def test_applicant_status(self):
+        self.application.is_submitted = True
+        db.session.commit()
+        result = own_application_status(self.applicant)
+        self.assertEqual(result, {'status': 'submitted'})
+
+    def test_recruiter_status(self):
+        result = own_application_status(self.recruiter)
+        self.assertEqual(result, {'status': 'none'})
+
+    def test_unsubmitted_status(self):
+        self.application.is_submitted = False
+        db.session.commit()
+        result = own_application_status(self.applicant)
+        self.assertEqual(result, {'status': 'unsubmitted'})
 
 
 class ApplicantStatusTests(AsceeTestCase):

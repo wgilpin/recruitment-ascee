@@ -8,6 +8,17 @@ from security import has_applicant_access
 from exceptions import BadRequestException, ForbiddenException
 
 
+def own_application_status(current_user):
+    application = Application.get_for_user(current_user.id)
+    if application is None:
+        status = 'none'
+    elif application.is_submitted:
+        status = 'submitted'
+    else:
+        status = 'unsubmitted'
+    return {'status': status}
+
+
 def claim_applicant(applicant_user_id, current_user=current_user):
     application = Application.get_for_user(applicant_user_id)
     if application is None:
