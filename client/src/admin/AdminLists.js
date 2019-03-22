@@ -77,13 +77,14 @@ export default class AdminLists extends React.Component {
     };
   }
 
-  static list_kinds = [
-    'character',
-    'type',
-    'alliance',
-    'corporation',
-    'system',
-  ];
+  static list_kinds = {
+    character: 'Red Character',
+    type: 'Flagged Type',
+    alliance: 'Red Alliance',
+    corporation: 'Red Corporation',
+    system: 'Red System',
+    user: 'User Blocked From Applying',
+  };
 
   titleise(text) {
     return (text[0].toUpperCase() + text.slice(1)).replace(/_/g, ' ');
@@ -92,7 +93,7 @@ export default class AdminLists extends React.Component {
   componentDidMount() {
     const lists = {};
     const promises = [];
-    for (let kind of AdminLists.list_kinds) {
+    for (let kind of Object.keys(AdminLists.list_kinds)) {
       promises.push(
         new FetchData({ id: kind, scope: 'admin/list' }).get().then(list => {
           lists[kind] = list.info;
@@ -183,8 +184,8 @@ export default class AdminLists extends React.Component {
       <div style={styles.outer}>
         <h2>Redlists</h2>
         <select style={styles.selectPrimary} onChange={this.handleChangeKind}>
-          {AdminLists.list_kinds.map(option_kind => (
-            <option value={option_kind}>{option_kind}</option>
+          {Object.entries(AdminLists.list_kinds).map(([option_kind, option_text]) => (
+            <option value={option_kind}>{option_text}</option>
           ))}
         </select>
         <div style={styles.listbox}>

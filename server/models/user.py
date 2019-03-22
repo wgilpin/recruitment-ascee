@@ -11,6 +11,8 @@ class User(db.Model, UserMixin):
     recruiter = db.relationship('Recruiter', uselist=False)
     admin = db.relationship('Admin', uselist=False)
     applications = db.relationship('Application', uselist=True, back_populates='user')
+    redlisted = db.Column(db.Boolean, default=False)
+
 
     @classmethod
     def get(cls, id):
@@ -27,6 +29,10 @@ class User(db.Model, UserMixin):
 
     def get_id(self):
         return self.id
+
+    @property
+    def is_redlisted(self):
+        return self.redlisted
 
 
 class Recruiter(db.Model):
