@@ -44,7 +44,7 @@ def set_mail_template(name, subject, text, current_user=None):
 
 
 def send_mail(to_character_id, template_name, current_user=None, **kwargs):
-    if not is_senior_recruiter(current_user) or is_admin(current_user):
+    if not (is_senior_recruiter(current_user) or is_admin(current_user)):
         raise ForbiddenException(
             'User {} is not authorized to send mail.'.format(current_user.id)
         )

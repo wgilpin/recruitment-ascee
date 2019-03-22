@@ -7,12 +7,16 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from flask_app import app
 from models import db
+from test_admin_lists import *
 from test_character_assets import *
 from test_character_mail import *
 from test_character_simple_apis import *
 from test_character_wallet import *
 from test_login import *
+from test_mail import *
 from test_recruitment import *
+from test_roles import *
+from test_search import *
 from test_security import *
 from test_status import *
 

@@ -70,7 +70,7 @@ class MailTests(AsceeTestCase):
 
     def test_send_mail_forbidden(self):
         set_mail_template('simple', 'Subject', 'Hello world!', current_user=self.admin)
-        for user in (self.applicant, self.recruiter, self.senior_recruiter):
+        for user in (self.applicant, self.not_applicant, self.recruiter):
             with self.assertRaises(ForbiddenException):
                 send_mail(self.applicant.id, 'simple', current_user=user)
 
