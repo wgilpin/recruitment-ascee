@@ -152,6 +152,7 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
         self.application = Application(
             user_id=self.applicant.id,
             recruiter_id=self.recruiter.id,
+            is_submitted=True,
         )
         db.session.add(self.application)
         db.session.commit()
