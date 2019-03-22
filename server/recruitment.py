@@ -41,10 +41,6 @@ def submit_application(data, current_user=None):
     if not application:
         application = Application(user_id=current_user.id)
         db.session.add(application)
-    answers = []
-    for answer in data:
-        answers.append(Answer(question_id=answer['id'], text=answer['a']))
-    application.answers = answers
     db.session.commit()
     return {'status': 'ok'}
 
