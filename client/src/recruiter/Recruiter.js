@@ -11,7 +11,6 @@ import RecruitButtonBar from './RecruitButtonBar';
 import IconBtn from '../common/IconBtn';
 import TableStyles from '../TableStyles';
 import styles from '../Applicant/ApplicantStyles';
-import { ReactTooltip } from 'react-tooltip';
 
 const localStyles = {
   ...styles,
@@ -98,11 +97,19 @@ const localStyles = {
   },
 };
 
+
 export default class Recruiter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
+      activeRecruit: null,
+      recruits: {},
+      roles: {
+        is_recruiter: false,
+        is_senior_recruiter: false,
+        is_admin: false,
+      }
     };
   }
 
@@ -115,52 +122,52 @@ export default class Recruiter extends React.Component {
   };
 
   componentDidMount() {
-    // Hydrate the global state with the response from /api/recruits
+    // Hydrate the  state with the response from /api/recruits
     // api recruits returns 3 lists:
     //   claimed: my recruits to process
     //   approved: recruits I claimed then approved
     //   unclaimed: all unclaimed
-    this.setGlobal(
-      new FetchData({ id: this.global.id, scope: 'applicant_list' })
+    new FetchData({ id: this.state.id, scope: 'applicant_list' })
+      .get()
+      // Set the state `recruits` list, and set no recruit selected
+      .then(recruits => this.setState({ recruits: recruits.info, activeRecruit: null }))
+      .then(() => {
+        return new FetchData({ scope: 'user/roles' })
         .get()
-        // Set the global `recruits` list, and set no recruit selected
-        .then(recruits => {
-          this.setState({ loading: false });
-          console.log(`fetched ${recruits}`);
-          // array -> object
-          const recruitDict = {};
-          Object.keys(recruits.info).forEach(id => {
-            recruitDict[id] = recruits.info[id];
-          });
-          return { recruits: recruitDict, activeRecruit: null };
+        .then(roles => {
+          return this.setState({ roles: roles.info, loading: false });
         })
-        // Fail gracefully, set the global `error`
-        //   property to the caught error.
-        .catch(err => {
-          console.log('mounting error');
-          return { error: err };
-        })
-    );
+      })
+      .catch(err => {
+        console.log('mounting error');
+        return { error: err };
+      });
   }
 
-    // .then(() => {
-      //   return new FetchData({ scope: 'user/roles' })
-      //     .get()
-      //     .then(roles => this.setGlobal({ roles: roles.info }))
-      // })
-
-
   setRecruitStatus(id, status) {
-    this.setGlobal({
+    this.setState({
       recruits: {
-        ...this.global.recruits,
+        ...this.state.recruits,
         [id]: {
-          ...this.global.recruits[id],
+          ...this.state.recruits[id],
           status: status,
         },
       },
     });
   }
+
+  handleAccept = id => {
+    console.log(`handleAccept ${id}`);
+    const status = this.state.recruits[id].status;
+    if (status  === Recruiter.statuses.claimed && this.state.roles.is_recruiter){
+      // I can accept
+      new FetchData({ id, scope: 'recruits/accept' }).get().then(this.componentDidMount);
+    } else if (status  === Recruiter.statuses.accepted && this.state.roles.is_senior_recruiter){
+      // I can invite
+      new FetchData({ id, scope: 'recruits/invite' }).get().then(this.componentDidMount);
+    }
+  };
+
 
   handleClaim = id => {
     console.log(`handleClaim ${id}`);
@@ -189,7 +196,7 @@ export default class Recruiter extends React.Component {
     console.log(`handleReject ${id}`);
     if (
       window.confirm(
-        `Reject ${this.global.recruits[this.global.activeRecruit].name} ?`
+        `Reject ${this.state.recruits[this.state.activeRecruit].name} ?`
       )
     ) {
       new FetchData({ id, scope: 'recruits/reject' }).get().then(res => {
@@ -204,11 +211,11 @@ export default class Recruiter extends React.Component {
 
   handleClick(id) {
     console.log(`activate recruit ${id}`);
-    if (this.global.recruits[id].status !== Recruiter.statuses.unclaimed)
-      this.setGlobal({ activeRecruit: id });
+    if (this.state.recruits[id].status !== Recruiter.statuses.unclaimed)
+      this.setState({ activeRecruit: id });
   }
 
-  recruitLine(id, recruit) {
+  recruitLine(id, recruit, isEnabled) {
     const avatarImg = `https://image.eveonline.com/Character/${id}_64.jpg`;
     return (
       <div key={id} style={localStyles.recruit}>
@@ -226,20 +233,21 @@ export default class Recruiter extends React.Component {
           status={recruit.status}
           style={localStyles.buttons}
           id={id}
-          onClaim={this.handleClaim}
-          onReject={this.handleReject}
-          onDrop={this.handleDrop}
+          onClaim={isEnabled && this.handleClaim}
+          onReject={isEnabled && this.handleReject}
+          onDrop={isEnabled && this.handleDrop}
+          onApprove={isEnabled && this.handleAccept}
         />
       </div>
     );
   }
 
-  sectionList(label, list) {
+  sectionList(label, list, isEnabled) {
     return (
       <div style={localStyles.section}>
         <div style={localStyles.h2}>{label}</div>
         {Misc.dictLen(list) > 0 ? (
-          Object.keys(list).map(key => this.recruitLine(key, list[key]))
+          Object.keys(list).map(key => this.recruitLine(key, list[key], isEnabled))
         ) : (
           <div style={localStyles.noneText}>None</div>
         )}
@@ -249,22 +257,31 @@ export default class Recruiter extends React.Component {
 
   applyFilter(status) {
     const res = {};
-    Object.keys(this.global.recruits || {})
-      .filter(key => this.global.recruits[key].status === status)
+    Object.keys(this.state.recruits || {})
+      .filter(key => this.state.recruits[key].status === status)
       .forEach(key => {
-        res[key] = this.global.recruits[key];
+        res[key] = this.state.recruits[key];
       });
     return res;
   }
 
   handleBack = () => {
-    this.setGlobal({ activeRecruit: null });
+    this.setState({ activeRecruit: null });
   };
 
   render() {
     if (this.state.loading) {
       console.log('loading');
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
+    }
+    if (!(
+      this.state.loading ||
+      this.state.roles.is_admin ||
+        this.state.roles.is_recruiter ||
+        this.state.roles.is_senior_recruiter)
+      ) {
+      // no roles? wrong place
+      window.location = '/';
     }
     console.log('loaded');
 
@@ -274,11 +291,11 @@ export default class Recruiter extends React.Component {
     const approved = this.applyFilter(Recruiter.statuses.approved);
 
     return [
-      this.global.is_admin &&
+      this.state.roles.is_admin &&
       <a href="/app/admin">
         <button style={{...localStyles.primaryButton, float: 'right'}}>Admin</button>,
       </a>,
-      !this.global.activeRecruit && (
+      !this.state.activeRecruit && (
         <div style={localStyles.outer}>
           <h1 style={localStyles.headerText}>Applications Pending</h1>
           <div style={localStyles.logout}>
@@ -287,18 +304,18 @@ export default class Recruiter extends React.Component {
             </a>
           </div>
           <div style={localStyles.claimed}>
-            {this.sectionList('Claimed', claimed)}
+            {this.sectionList('Claimed', claimed, this.state.roles.is_recruiter)}
           </div>
           <div style={localStyles.approved}>
-            {this.sectionList('Approved', approved)}
+            {this.sectionList('Accepted', approved, this.state.roles.is_senior_recruiter)}
           </div>
           <div style={localStyles.unclaimed}>
-            {this.sectionList('Unclaimed', unclaimed)}
+            {this.sectionList('Unclaimed', unclaimed, this.state.roles.is_recruiter)}
           </div>
         </div>
       ),
-      this.global.activeRecruit &&
-        this.global.recruits[this.global.activeRecruit].status !==
+      this.state.activeRecruit &&
+        this.state.recruits[this.state.activeRecruit].status !==
           Recruiter.statuses.unclaimed && [
           <IconBtn
             src={BackImg}
@@ -307,7 +324,7 @@ export default class Recruiter extends React.Component {
             onClick={this.handleBack}
             style={{ border: 'none' }}
           />,
-          <Evidence style={localStyles.evidence} main={this.global.activeRecruit} />,
+          <Evidence style={localStyles.evidence} main={this.state.activeRecruit} />,
         ],
     ];
   }

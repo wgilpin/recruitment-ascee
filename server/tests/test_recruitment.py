@@ -6,7 +6,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
 from recruitment import (
-    get_questions, get_answers, get_user_characters, get_users, get_user_application,\
+    get_questions, get_answers, get_user_characters, get_users,\
     add_applicant_note, get_character_search_list, get_applicant_list, set_answers,\
     start_application, set_questions, remove_question)
 from status import reject_applicant
@@ -404,12 +404,12 @@ class MiscRecruitmentTests(AsceeTestCase):
     # end of applicant list
 
     def test_get_user_application(self):
-        result = get_user_application(self.applicant.id)
+        result = Application.get_for_user(self.applicant.id)
         self.assertEqual(result.user_id, self.applicant.id)
         self.assertEqual(result, self.application)
 
     def test_get_user_application_on_non_applicant(self):
-        result = get_user_application(self.not_applicant.id)
+        result = Application.get_for_user(self.not_applicant.id)
         self.assertEqual(result, None)
 
     def test_add_applicant_note(self):
