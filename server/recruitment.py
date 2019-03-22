@@ -75,10 +75,6 @@ def get_questions(current_user=None):
     return question_dict
 
 
-def get_user_application(user_id):
-    return Application.get_for_user(user_id)
-
-
 def set_admin_questions(answers, current_user=None):
     raise NotImplementedError()
 
@@ -112,14 +108,14 @@ def get_answers(user_id, current_user=None):
     if not has_applicant_access(current_user, user, self_access=True):
         raise ForbiddenException('User {} does not have access to user {}'.format(current_user, user_id))
 
-    application = get_user_application(user_id)
+    application = Application.get_for_user(user_id)
     if not application:
         raise BadRequestException('User with id={} has no application.'.format(user_id))
     questions = get_questions()
     response = {'questions':{}, 'has_application': False}
     if application:
         response['has_application'] = True
-        application_id = get_user_application(user_id).id
+        application_id = application.id
         # get a dict keyed by question id of questions & answers
         answer_query = db.session.query(Answer.question_id, Answer.text)\
             .filter(Answer.application_id == application_id)
@@ -250,7 +246,7 @@ def get_applicant_notes(applicant_user_id, current_user=None):
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
-        application = get_user_application(applicant_user_id)
+        application = Application.get_for_user(applicant_user_id)
         result = []
         authors = {}
         for note in application.notes:
