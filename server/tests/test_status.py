@@ -5,7 +5,7 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
-from status import claim_applicant, release_applicant, accept_applicant, reject_applicant
+from status import claim_applicant, release_applicant, accept_applicant, reject_applicant, invite_applicant
 from models import Character, User, Application, db
 from base import AsceeTestCase
 from flask_app import app
@@ -136,6 +136,34 @@ class ApplicantStatusTests(AsceeTestCase):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
             reject_applicant(self.applicant.id, current_user=self.admin)
+
+    def test_invite_accepted_applicant(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        invite_applicant(self.applicant.id, current_user=self.senior_recruiter)
+        self.assertTrue(self.application.is_accepted)
+        self.assertTrue(self.application.is_invited)
+
+    def test_invite_rejected_applicant(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        reject_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(BadRequestException):
+            invite_applicant(self.applicant.id, current_user=self.senior_recruiter)
+
+    def test_invite_unprocessed_applicant(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(BadRequestException):
+            invite_applicant(self.applicant.id, current_user=self.senior_recruiter)
+
+    def test_invite_unclaimed_applicant(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        release_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(BadRequestException):
+            invite_applicant(self.applicant.id, current_user=self.senior_recruiter)
+
+    def test_invite_non_applicant(self):
+        with self.assertRaises(BadRequestException):
+            invite_applicant(self.not_applicant.id, current_user=self.senior_recruiter)
 
 
 if __name__ == '__main__':
