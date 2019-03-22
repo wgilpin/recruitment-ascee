@@ -4,7 +4,7 @@ server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
-from security import is_admin, is_recruiter, is_senior_recruiter, is_applicant_character_id, has_applicant_access#, is_applicant_user_id
+from security import is_admin, is_recruiter, is_senior_recruiter, is_applicant_character_id, has_applicant_access, is_applicant_user_id
 from models import Character, User, db
 from base import AsceeTestCase
 from flask_app import app
