@@ -8,7 +8,88 @@ from models import db, Application
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import ForbiddenException, BadRequestException
-from admin import set_roles
+from admin import set_roles, get_user_roles
+
+
+class GetRolesTests(AsceeTestCase):
+
+    def test_get_applicant_roles(self):
+        roles = get_user_roles(current_user=self.applicant)
+        self.assertIsInstance(roles, dict)
+        self.assertEqual(len(roles), 1)
+        self.assertIn('info', roles)
+        self.assertEqual(len(roles['info']), 3)
+        self.assertIn('is_recruiter', roles['info'])
+        self.assertIn('is_senior_recruiter', roles['info'])
+        self.assertIn('is_admin', roles['info'])
+        self.assertFalse(roles['info']['is_recruiter'])
+        self.assertFalse(roles['info']['is_senior_recruiter'])
+        self.assertFalse(roles['info']['is_admin'])
+
+    def test_get_not_applicant_roles(self):
+        roles = get_user_roles(current_user=self.not_applicant)
+        self.assertIsInstance(roles, dict)
+        self.assertEqual(len(roles), 1)
+        self.assertIn('info', roles)
+        self.assertEqual(len(roles['info']), 3)
+        self.assertIn('is_recruiter', roles['info'])
+        self.assertIn('is_senior_recruiter', roles['info'])
+        self.assertIn('is_admin', roles['info'])
+        self.assertFalse(roles['info']['is_recruiter'])
+        self.assertFalse(roles['info']['is_senior_recruiter'])
+        self.assertFalse(roles['info']['is_admin'])
+
+    def test_get_recruiter_roles(self):
+        roles = get_user_roles(current_user=self.recruiter)
+        self.assertIsInstance(roles, dict)
+        self.assertEqual(len(roles), 1)
+        self.assertIn('info', roles)
+        self.assertEqual(len(roles['info']), 3)
+        self.assertIn('is_recruiter', roles['info'])
+        self.assertIn('is_senior_recruiter', roles['info'])
+        self.assertIn('is_admin', roles['info'])
+        self.assertTrue(roles['info']['is_recruiter'])
+        self.assertFalse(roles['info']['is_senior_recruiter'])
+        self.assertFalse(roles['info']['is_admin'])
+
+    def test_get_other_recruiter_roles(self):
+        roles = get_user_roles(current_user=self.other_recruiter)
+        self.assertIsInstance(roles, dict)
+        self.assertEqual(len(roles), 1)
+        self.assertIn('info', roles)
+        self.assertEqual(len(roles['info']), 3)
+        self.assertIn('is_recruiter', roles['info'])
+        self.assertIn('is_senior_recruiter', roles['info'])
+        self.assertIn('is_admin', roles['info'])
+        self.assertTrue(roles['info']['is_recruiter'])
+        self.assertFalse(roles['info']['is_senior_recruiter'])
+        self.assertFalse(roles['info']['is_admin'])
+
+    def test_get_senior_recruiter_roles(self):
+        roles = get_user_roles(current_user=self.senior_recruiter)
+        self.assertIsInstance(roles, dict)
+        self.assertEqual(len(roles), 1)
+        self.assertIn('info', roles)
+        self.assertEqual(len(roles['info']), 3)
+        self.assertIn('is_recruiter', roles['info'])
+        self.assertIn('is_senior_recruiter', roles['info'])
+        self.assertIn('is_admin', roles['info'])
+        self.assertTrue(roles['info']['is_recruiter'])
+        self.assertTrue(roles['info']['is_senior_recruiter'])
+        self.assertFalse(roles['info']['is_admin'])
+
+    def test_get_admin_roles(self):
+        roles = get_user_roles(current_user=self.admin)
+        self.assertIsInstance(roles, dict)
+        self.assertEqual(len(roles), 1)
+        self.assertIn('info', roles)
+        self.assertEqual(len(roles['info']), 3)
+        self.assertIn('is_recruiter', roles['info'])
+        self.assertIn('is_senior_recruiter', roles['info'])
+        self.assertIn('is_admin', roles['info'])
+        self.assertFalse(roles['info']['is_recruiter'])
+        self.assertFalse(roles['info']['is_senior_recruiter'])
+        self.assertTrue(roles['info']['is_admin'])
 
 
 class SetRolesTests(AsceeTestCase):

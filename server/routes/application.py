@@ -2,10 +2,8 @@ from flask_login import current_user
 from flask_app import app
 from flask import request, jsonify
 from recruitment import start_application, submit_application
-from status import claim_applicant, release_applicant, accept_applicant, reject_applicant,\
-    escalate_applicant, deescalate_applicant
+from status import claim_applicant, release_applicant, accept_applicant, reject_applicant
 from security import login_required
-
 
 @app.route(
     '/api/recruits/start_application/', methods=['GET'])
@@ -23,6 +21,7 @@ def api_start_application():
     """
     return jsonify(start_application(current_user=current_user))
 
+
 @app.route(
     '/api/recruits/submit_application', methods=['PUT'])
 @login_required
@@ -37,7 +36,6 @@ def api_submit_application():
         Forbidden (403): If logged in user has roles
     """
     return jsonify(submit_application(request.get_json(), current_user=current_user))
-
 
 
 @app.route(
@@ -84,48 +82,6 @@ def api_release_applicant(applicant_id):
 
 
 @app.route(
-    '/api/recruits/escalate/<int:applicant_id>', methods=['GET'])
-@login_required
-def api_escalate_applicant(applicant_id):
-    """
-    Sets a new applicant's status to "escalated".
-
-    Args:
-        applicant_id (int): User key of applicant
-
-    Returns:
-        {'status': 'ok'} if applicant is successfully escalated
-
-    Error codes:
-        Forbidden (403): If logged in user is not a senior recruiter or a
-            recruiter who has claimed this applicant
-        Bad request (400): If the given user is not an applicant with "new" status
-    """
-    return jsonify(escalate_applicant(applicant_id, current_user=current_user))
-
-
-@app.route(
-    '/api/recruits/deescalate/<int:applicant_id>', methods=['GET'])
-@login_required
-def api_deescalate_applicant(applicant_id):
-    """
-    Revert an applicant's status to from "escalated" to "claimed"
-
-    Args:
-        applicant_id (int): User key of applicant
-
-    Returns:
-        {'status': 'ok'} if applicant is successfully deescalated
-
-    Error codes:
-        Forbidden (403): If logged in user is not a senior recruiter or a
-            recruiter who has claimed this applicant
-        Bad request (400): If the given user is not an applicant with "escalated" status
-    """
-    return jsonify(deescalate_applicant(applicant_id, current_user=current_user))
-
-
-@app.route(
     '/api/recruits/accept/<int:applicant_id>', methods=['GET'])
 @login_required
 def api_accept_applicant(applicant_id):
@@ -163,3 +119,23 @@ def api_reject_applicant(applicant_id):
         Bad request (400): If the given user is not an applicant
     """
     return jsonify(reject_applicant(applicant_id, current_user=current_user))
+
+
+@app.route(
+    '/api/recruits/invite/<int:applicant_id>', methods=['GET'])
+@login_required
+def api_invite_applicant(applicant_id):
+    """
+    Marks an accepted applicant as "invited".
+
+    Args:
+        applicant_id (int): User key of applicant
+
+    Returns:
+        {'status': 'ok'} if applicant is successfully marked
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter
+        Bad request (400): If the given user is not an applicant with "accepted" status
+    """
+    return jsonify(invite_applicant(applicant_id, current_user=current_user))
