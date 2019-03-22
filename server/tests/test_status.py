@@ -5,7 +5,7 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
-from status import claim_applicant, release_applicant, accept_applicant, reject_applicant, invite_applicant, own_applicant_status
+from status import claim_applicant, release_applicant, accept_applicant, reject_applicant, invite_applicant, own_application_status
 from recruitment import get_applicant_list
 from models import Character, User, Application, db
 from base import AsceeTestCase
