@@ -2,8 +2,9 @@ from flask_login import current_user
 from flask_app import app
 from flask import request, jsonify
 from recruitment import start_application, submit_application
-from status import claim_applicant, release_applicant, accept_applicant, reject_applicant
+from status import claim_applicant, release_applicant, accept_applicant, reject_applicant, own_application_status
 from security import login_required
+
 
 @app.route(
     '/api/recruits/start_application/', methods=['GET'])
@@ -20,6 +21,19 @@ def api_start_application():
         Bad request (400): If the user already has an application
     """
     return jsonify(start_application(current_user=current_user))
+
+
+@app.route(
+    '/api/recruits/application_status', methods=['GET'])
+@login_required
+def api_get_own_application_status():
+    """
+    Get application status for the current user
+
+    Returns:
+        {'status': 'none' | 'unsubmitted' | 'submitted'}
+    """
+    return jsonify(own_application_status(current_user=current_user))
 
 
 @app.route(
