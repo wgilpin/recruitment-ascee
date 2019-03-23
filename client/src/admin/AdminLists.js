@@ -91,6 +91,10 @@ export default class AdminLists extends React.Component {
   }
 
   componentDidMount() {
+    this.doLoad()
+  }
+
+  doLoad = () => {
     const lists = {};
     const promises = [];
     for (let kind of Object.keys(AdminLists.list_kinds)) {
@@ -191,7 +195,7 @@ export default class AdminLists extends React.Component {
         <div style={styles.listbox}>
           {(lists[kind] || []).map((item, idx) => this.makeListLine(item, idx))}
         </div>
-        {this.state.showInput && <FindItem onChange={this.componentDidMount}/>}
+        {this.state.showInput && <FindItem kind={this.state.kind} onChange={this.doLoad}/>}
         {!this.state.showInput && (
           <FabButton
             onClick={this.handleAddFab}

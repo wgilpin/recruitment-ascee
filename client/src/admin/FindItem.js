@@ -9,6 +9,7 @@ import deleteImg from '../images/baseline_clear_white_24dp.png';
 
 const propTypes = {
   kind: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 const defaultProps = {
@@ -96,8 +97,10 @@ export default class FindItem extends React.Component {
   }
 
   search(names) {
-    return new FetchData({ id: this.state.kind, scope: 'names_to_ids' })
-      .put({ category: this.props.kind, names })
+    // if it's a user, need to search for character
+    const kind = this.props.kind === 'user' ? 'character' : this.props.kind;
+    return new FetchData({ scope: 'names_to_ids' })
+      .put({ category: kind, names })
       .then(data => {
         this.setState({ searchResults: this.appendResults(data.info) || [] });
         this.removeMatches(data.info);
@@ -112,7 +115,7 @@ export default class FindItem extends React.Component {
     return new FetchData({ id: this.props.kind, scope: 'admin/list', param1: 'add' })
       .put({
         replace: false,
-        items: [{ id, name }],
+        item: { id, name },
       })
       .then (res => {
         if (res.status  === 'ok'){
@@ -120,6 +123,9 @@ export default class FindItem extends React.Component {
           delete newResults[name];
           this.setState({ searchResults: newResults });
           this.textInput.current.value = '';
+          if (this.props.onChange) {
+            this.props.onChange();
+          }
         }
       })
   };

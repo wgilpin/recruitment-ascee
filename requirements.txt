@@ -12,4 +12,5 @@ Flask-SQLAlchemy==2.1
 asgiref
 psycopg2
 gunicorn
+Flask-Migrate
 
