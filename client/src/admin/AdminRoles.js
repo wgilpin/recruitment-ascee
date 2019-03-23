@@ -1,17 +1,18 @@
 import React from 'react';
 import Alt from '../Alt';
-import UpImg from '../images/arrow-up.png';
-import DownImg from '../images/arrow-down.png';
+import TrueImg from '../images/check_box_white.png';
+import FalseImg from '../images/check_box_outline_blank.png';
 import TableStyles from '../TableStyles';
 import FetchData from '../common/FetchData';
 import FindESICharacter from './FindESICharacter';
-
+import Confirm from '../Confirm';
 
 const primary = TableStyles.styles.themeColor.color;
 
 const styles = {
+  ...TableStyles.styles,
   outer: {
-    maxWidth: '400px',
+    maxWidth: '500px',
     marginLeft: 'auto',
     marginRight: 'auto',
   },
@@ -44,7 +45,7 @@ const styles = {
   },
   tab: {
     width: '20%',
-  }
+  },
 };
 
 const propTypes = {};
@@ -56,149 +57,110 @@ export default class AdminRoles extends React.Component {
     super(props);
     this.state = {
       staff: {},
+      showConfirm: false,
+      changedId: null,
+      changedField: null,
     };
   }
 
   arrayToObject(arr, keyField) {
-    return arr.reduce((acc, val) => ({ ...acc, [val[keyField]]: val}), {})
+    return arr.reduce((acc, val) => ({ ...acc, [val[keyField]]: val }), {});
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     new FetchData({ scope: 'admin/users' })
       .get()
-      .then(data => this.setState({ staff: this.arrayToObject(data.info || {}, 'id') }));
-  }
+      .then(data =>
+        this.setState({
+          staff: this.arrayToObject(data.info || {}, 'id'),
+          showConfirm: false,
+        })
+      );
+  };
 
-  filterStaff(role) {
-    // filter by is_<role>, e.g. is_admin
-    return Object
-      .values(this.state.staff || {})
-      .filter(c => !!(c[`is_${role}`]));
-  }
-
-  writeRoles(id, newRole) {
-    let roles = {
-      recruiter: false,
-      senior_recruiter: false,
-      admin: false,
-    }
-    switch(newRole) {
-      case 1:
-        roles.recruiter = true;
-        break;
-      case 2:
-        roles.senior_recruiter = true;
-        break;
-      case 3:
-        roles.admin = true;
-        break;
-      default:
-        // nada
-    }
-    return new FetchData({ id, scope: 'admin', param1: 'set_roles' })
-      .get(roles)
-      .then(data => this.setState({ staff: data.info }))
-  }
-
-  handleMove = (id, direction) => {
-    // TODO: + confirm dixt in API
-    const user = this.state.staff[id];
-    let oldState = 0;
-    if (user.isRecruiter) {
-      oldState = 1;
-    }
-    if (user.isSnrRecruiter) {
-      oldState = 2;
-    }
-    if (user.isAdmin) {
-      oldState = 3;
-    }
-    let newState = oldState + (direction === 'up' ? 1 : -1);
-    newState = Math.min(newState, 3);
-    newState = Math.max(newState, 0);
-    this.writeRoles(id, newState);
-  }
-
-  sortByNameFn(a, b) {
-    if (a.name > b.name) {
+  sortByNameFn([aId, aData], [bId, bData]) {
+    if (aData.name > bData.name) {
       return 1;
     }
-    if (a.name < b.name) {
+    if (aData.name < bData.name) {
       return -1;
     }
     return 0;
   }
 
-  sectionList(label, list) {
-    /*
-     * create a list of users for display
-     *
-     * @param {label} string - text lable for the section
-     * @param {list} [object] - list of users
-     * @returns jsx
-     */
-    return [
-      <div style={styles.h2}>{label}</div>,
-      list.length > 0 ? (
-        list
-          .sort(this.sortByNameFn)
-          .map(user => this.recruitLine(user.id, user))
-      ) : (
-          <div style={styles.noneText}>None</div>
-        ),
-    ];
+  doChange = () => {
+    const id = this.state.changedId;
+    const field = this.state.changedField;
+    const params = { ...this.state.staff[id] };
+    console.log('from',params[field],'to',!params[field])
+    params[field] = !params[field];
+    return new FetchData({ id, scope: 'admin', param1: 'set_roles' })
+      .get(params)
+      .then(this.componentWillMount);
+  };
+
+  handleClickCheck = (changedId, changedField)  => {
+    this.setState({
+      showConfirm: true,
+      changedField,
+      changedId,
+      confirmText:
+        `Set ${this.state.staff[changedId].name} ${changedField} to ${!this.state.staff[changedId][changedField]}`})
   }
 
-  recruitLine(id, recruiter) {
+  buildCheck = (id, data, field) => (
+    <img
+      src={!!data[field] ? TrueImg : FalseImg}
+      onClick={() => this.handleClickCheck(id, field)}
+      alt={!!data[field] ? 'Yes' : 'No'}
+    />
+  );
+
+  buildStaffRow = ([id, data]) => {
     return (
-      <div key={id} style={styles.userLine}>
-        <Alt
-          onClick={() => this.handleClick(id)}
-          name={recruiter.name}
-          id={recruiter.id}
-          style={styles.names} />
-        {!recruiter.is_admin && <img
-          style={styles.moveButtons}
-          src={UpImg}
-          alt="up"
-          onClick={() => this.handleMove(id, 'up')}
-        />}
-        <img
-          style={styles.moveButtons}
-          src={DownImg}
-          alt="up"
-          onClick={() => this.handleMove(id, 'down')}
-        />
+      <div style={styles.row}>
+        <div style={styles.cell}>
+          <Alt id={id} name={data.name} />
+        </div>
+        <div style={styles.cell}>
+          {this.buildCheck(id, data, 'is_recruiter')}
+        </div>
+        <div style={styles.cell}>
+          {this.buildCheck(id, data, 'is_senior_recruiter')}
+        </div>
+        <div style={styles.cell}>{this.buildCheck(id, data, 'is_admin')}</div>
       </div>
     );
-  }
-
-  buildRolesPanel = () => {
-    const admins = this.filterStaff('admin');
-    const recruiters = this.filterStaff('recruiter');
-    const snrRecruiters = this.filterStaff('snr_recruiter');
-    return <div style={styles.outer}>
-        <h2>Roles</h2>
-        {this.sectionList('Admins', admins)}
-        <hr />
-        {this.sectionList('Senior Recruiters', snrRecruiters)}
-        <hr />
-        {this.sectionList('Recruiters', recruiters)}
-        <hr />
-        <div style={styles.h2}>Others</div>
-        <FindESICharacter
-          onChange={this.handleMove}
-          iconList={[
-            { img: UpImg, name: 'up'},
-            { img: DownImg, name: 'down'},
-          ]}
-        />
-      </div>
-
   };
 
   render() {
-    return this.buildRolesPanel();
+    return [
+      <div style={{ ...styles.table, ...styles.outer }}>
+        <div style={styles.header}>
+          <div style={styles.cell}>Name</div>
+          <div style={styles.cell}>Recruiter</div>
+          <div style={styles.cell}>Senior</div>
+          <div style={styles.cell}>Admin</div>
+        </div>
+        <div style={styles.body}>
+          {Object.entries(this.state.staff).sort(this.sortByNameFn).map(this.buildStaffRow)}
+        </div>
+      </div>,
+      this.state.dirty && (
+        <button
+          style={styles.styles.primaryButton}
+          onClick={this.handleSubmit}
+        >
+          Save
+        </button>
+      ),
+      this.state.showConfirm &&
+        <Confirm
+          text={this.state.confirmText}
+          onConfirm={this.doChange}
+          onClose={() => this.setState({ showConfirm: false })}
+        />
+    ];
   }
 }
 
