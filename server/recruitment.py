@@ -8,6 +8,7 @@ from models import Question
 
 def set_questions(data, current_user=None):
     user_admin_access_check(current_user)
+
     for question_data in data:
         id = question_data.get('question_id', None)
         text = question_data['text']
@@ -17,8 +18,7 @@ def set_questions(data, current_user=None):
             question = db.session.query(Question).filter_by(id=id).one_or_none()
             if question is None:
                 raise BadRequestException('No question with id {}'.format(id))
-            else:
-                question.text = text
+            question.text = text
     db.session.commit()
     return {'status': 'ok'}
 
@@ -69,10 +69,6 @@ def get_questions(current_user=None):
     for question in db.session.query(Question).all():
         question_dict[question.id] = question.text
     return question_dict
-
-
-def set_admin_questions(answers, current_user=None):
-    raise NotImplementedError()
 
 
 def set_answers(user_id, answers=None, current_user=None):

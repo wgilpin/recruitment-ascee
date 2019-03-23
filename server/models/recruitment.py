@@ -52,13 +52,14 @@ class Application(db.Model):
 class Question(db.Model):
     __tablename__ = 'question'
     id = db.Column(db.Integer, primary_key=True)
+    answers = db.relationship('Answer', uselist=True, back_populates='question')
     text = db.Column(db.Text)
 
 
 class Answer(db.Model):
     __tablename__ = 'answer'
     question_id = db.Column(db.Integer, db.ForeignKey(Question.id), primary_key=True)
-    question = db.relationship("Question", uselist=False)
+    question = db.relationship("Question", uselist=False, back_populates='answers')
     application_id = db.Column(db.Integer, db.ForeignKey(Application.id), primary_key=True)
     application = db.relationship("Application", uselist=False, back_populates="answers")
     text = db.Column(db.Text)
