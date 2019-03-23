@@ -55,6 +55,7 @@ export default class RecruitButtonBar extends Component {
 
   handleClaim = () => {
     if (this.props.onClaim){
+      ReactTooltip.hide()
       this.props.onClaim(this.props.id);
     }
   }
@@ -73,6 +74,7 @@ export default class RecruitButtonBar extends Component {
 
   handleDrop = () => {
     if (this.props.onDrop){
+      ReactTooltip.hide()
       this.props.onDrop(this.props.id);
     }
   }
@@ -87,7 +89,7 @@ export default class RecruitButtonBar extends Component {
         {this.state.showClaim &&
           this.showButton(<ClaimIcon style={styles.image} onClick={this.handleClaim}/>, 'Claim')}
         {this.state.showApprove &&
-          this.showButton(<ApprovedIcon style={styles.image} onClick={this.handleApprove}/>, 'Approve')}
+          this.showButton(<ApprovedIcon style={styles.image} onClick={this.handleApprove}/>, 'Accept')}
         {this.state.showDrop &&
           this.showButton(<DropIcon style={styles.image} onClick={this.handleDrop}/>, 'Drop')}
         {this.state.showReject &&

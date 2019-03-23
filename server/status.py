@@ -8,8 +8,19 @@ from security import has_applicant_access
 from exceptions import BadRequestException, ForbiddenException
 
 
+def own_application_status(current_user):
+    application = Application.get_for_user(current_user.id)
+    if application is None:
+        status = 'none'
+    elif application.is_submitted:
+        status = 'submitted'
+    else:
+        status = 'unsubmitted'
+    return {'status': status}
+
+
 def claim_applicant(applicant_user_id, current_user=current_user):
-    application = Application.get_for_user(applicant_user_id)
+    application = Application.get_submitted_for_user(applicant_user_id)
     if application is None:
         raise BadRequestException(
             'User {} is not in an open application.'.format(
@@ -31,7 +42,7 @@ def claim_applicant(applicant_user_id, current_user=current_user):
 
 
 def release_applicant(applicant_user_id, current_user=current_user):
-    application = Application.get_for_user(applicant_user_id)
+    application = Application.get_submitted_for_user(applicant_user_id)
     if application is None:
         raise BadRequestException(
             'User {} is not in an open application.'.format(
@@ -51,7 +62,7 @@ def release_applicant(applicant_user_id, current_user=current_user):
 def reject_applicant(applicant_user_id, current_user=current_user):
     applicant = User.get(applicant_user_id)
     user_application_access_check(current_user, applicant)
-    application = Application.get_for_user(applicant_user_id)
+    application = Application.get_submitted_for_user(applicant_user_id)
     application.is_concluded = True
     application.is_accepted = False
     db.session.commit()
@@ -61,7 +72,7 @@ def reject_applicant(applicant_user_id, current_user=current_user):
 def accept_applicant(applicant_user_id, current_user=current_user):
     applicant = User.get(applicant_user_id)
     user_application_access_check(current_user, applicant)
-    application = Application.get_for_user(applicant_user_id)
+    application = Application.get_submitted_for_user(applicant_user_id)
     application.is_accepted = True
     application.is_concluded = True
     db.session.commit()
@@ -72,7 +83,7 @@ def invite_applicant(applicant_user_id, current_user=current_user):
     if not is_senior_recruiter(current_user):
         raise ForbiddenException('User {} cannot invite applicants.'.format(current_user.id))
     else:
-        application = Application.get_for_user(applicant_user_id)
+        application = Application.get_submitted_for_user(applicant_user_id)
         if application is None:
             raise BadRequestException(
                 'User {} is not in an open application.'.format(

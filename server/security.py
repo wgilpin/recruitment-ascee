@@ -32,7 +32,10 @@ def is_applicant_user_id(user_id):
     ).join(
         Application, Application.user_id == User.id,
     ).filter(
-        db.not_(Application.is_concluded)
+        db.or_(
+            db.not_(Application.is_concluded),
+            db.and_(Application.is_accepted, db.not_(Application.is_invited))
+        )
     ).one_or_none()
     return user is not None
 
@@ -46,7 +49,10 @@ def is_applicant_character_id(character_id):
     ).join(
         Application, Application.user_id == User.id,
     ).filter(
-        db.not_(Application.is_concluded)
+        db.or_(
+            db.not_(Application.is_concluded),
+            db.and_(Application.is_accepted, db.not_(Application.is_invited))
+        )
     ).first()
     return character is not None
 

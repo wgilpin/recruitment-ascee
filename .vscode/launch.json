@@ -17,6 +17,13 @@
       "console": "integratedTerminal"
     },
     {
+      "name": "Python: E2E Remote DB",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/tests/e2e_test.remote_db.py",
+      "console": "integratedTerminal"
+    },
+    {
       "name": "Python: unit tests",
       "type": "python",
       "request": "launch",
