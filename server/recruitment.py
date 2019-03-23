@@ -8,30 +8,19 @@ from models import Question
 
 def set_questions(data, current_user=None):
     user_admin_access_check(current_user)
-    try:
-        # get list of deleted question ids
-        existing_qs = {question.id for question in db.session.query(Question)}
-        next_qs = {int(question['question_id']) for question in data if question.get('question_id')}
-        delete_ids = existing_qs.difference(next_qs)
-        for id in delete_ids:
-            db.session.query(Answer).filter_by(question_id=id).delete()
-            db.session.query(Question).filter_by(id=id).delete()
-        for question_data in data:
-            id = question_data.get('question_id', None)
-            text = question_data['text']
-            if not id:
-                db.session.add(Question(text=text))
-            else:
-                question = db.session.query(Question).filter_by(id=id).one_or_none()
-                if question is None:
-                    raise BadRequestException('No question with id {}'.format(id))
-                else:
-                    question.text = text
-        db.session.commit()
-        return {'status': 'ok'}
-    except:
-        db.session.rollback()
-        raise
+
+    for question_data in data:
+        id = question_data.get('question_id', None)
+        text = question_data['text']
+        if id is None:
+            db.session.add(Question(text=text))
+        else:
+            question = db.session.query(Question).filter_by(id=id).one_or_none()
+            if question is None:
+                raise BadRequestException('No question with id {}'.format(id))
+            question.text = text
+    db.session.commit()
+    return {'status': 'ok'}
 
 
 def remove_question(question_id, current_user=None):
