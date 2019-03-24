@@ -552,7 +552,7 @@ class MiscRecruitmentTests(AsceeTestCase):
         response = get_users(current_user=self.admin)
         assert 'info' in response
         data = response['info']
-        self.assertEqual(len(data), 6, data)
+        self.assertEqual(len(data), 4, data)
         for user in data:
             self.assertIsInstance(user['id'], int)
             self.assertIsInstance(user['name'], str)
@@ -632,10 +632,6 @@ class MiscRecruitmentTests(AsceeTestCase):
         character = character_dict[self.applicant.id]
         for property in ('name', 'corporation_name'):
             self.assertTrue(property in character.keys(), property)
-
-    def test_user_character_list_for_invalid_user(self):
-        with self.assertRaises(BadRequestException):
-            get_user_characters(1234845, current_user=self.senior_recruiter)
 
 
 if __name__ == '__main__':

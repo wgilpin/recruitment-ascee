@@ -2,6 +2,7 @@ import React from 'react';
 import Alt from '../Alt';
 import TrueImg from '../images/check_box_white.png';
 import FalseImg from '../images/check_box_outline_blank.png';
+import PromoteImg from '../images/add_circle_outline_white_24dp.png';
 import TableStyles from '../TableStyles';
 import FetchData from '../common/FetchData';
 import FindESICharacter from './FindESICharacter';
@@ -46,6 +47,9 @@ const styles = {
   tab: {
     width: '20%',
   },
+  find: {
+    marginTop: '24px',
+  }
 };
 
 const propTypes = {};
@@ -89,11 +93,19 @@ export default class AdminRoles extends React.Component {
   }
 
   doChange = () => {
+    let params;
     const id = this.state.changedId;
     const field = this.state.changedField;
-    const params = { ...this.state.staff[id] };
-    console.log('from',params[field],'to',!params[field])
-    params[field] = !params[field];
+    if (this.state.staff[id]) {
+      params = { ...this.state.staff[id] };
+      console.log('from',params[field],'to',!params[field])
+      params[field] = !params[field];
+    } else {
+      console.log('new')
+      params = {
+        is_recruiter: true
+      }
+    }
     return new FetchData({ id, scope: 'admin', param1: 'set_roles' })
       .get(params)
       .then(this.componentWillMount);
@@ -133,6 +145,16 @@ export default class AdminRoles extends React.Component {
     );
   };
 
+  handlePromote = (userId, action, userName) => {
+    this.setState({
+      showConfirm: true,
+      changedField: 'is_recruiter',
+      changedId: userId,
+      confirmText:
+        `Promote ${userName} to Recruiter`,
+    })
+  }
+
   render() {
     return [
       <div style={{ ...styles.table, ...styles.outer }}>
@@ -146,14 +168,12 @@ export default class AdminRoles extends React.Component {
           {Object.entries(this.state.staff).sort(this.sortByNameFn).map(this.buildStaffRow)}
         </div>
       </div>,
-      this.state.dirty && (
-        <button
-          style={styles.styles.primaryButton}
-          onClick={this.handleSubmit}
-        >
-          Save
-        </button>
-      ),
+      <div style={styles.find}>
+        <FindESICharacter
+          onChange={this.handlePromote}
+          iconList={[{ name: 'recruiter', img: PromoteImg }]}
+        />
+      </div>,
       this.state.showConfirm &&
         <Confirm
           text={this.state.confirmText}

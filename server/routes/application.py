@@ -110,8 +110,8 @@ def api_accept_applicant(applicant_id):
 
     Error codes:
         Forbidden (403): If logged in user is not a senior recruiter or a
-            recruiter who has claimed this applicant
-        Bad request (400): If the given user is not an applicant with "new" status
+            recruiter who has claimed this applicant (including if they are
+            not an applicant).
     """
     return jsonify(accept_applicant(applicant_id, current_user=current_user))
 
@@ -129,8 +129,8 @@ def api_reject_applicant(applicant_id):
 
     Error codes:
         Forbidden (403): If logged in user is not a senior recruiter or a
-            recruiter who has claimed this applicant
-        Bad request (400): If the given user is not an applicant
+            recruiter who has claimed this applicant (including if they are
+            not an applicant).
     """
     return jsonify(reject_applicant(applicant_id, current_user=current_user))
 

@@ -198,7 +198,7 @@ class ApplicantStatusTests(AsceeTestCase):
         self.assertFalse(self.application.is_invited)
 
     def test_accept_not_applicant(self):
-        with self.assertRaises(BadRequestException):
+        with self.assertRaises(ForbiddenException):
             accept_applicant(self.not_applicant.id, current_user=self.recruiter)
 
     def test_accept_applicant_as_senior_recruiter(self):
@@ -230,7 +230,7 @@ class ApplicantStatusTests(AsceeTestCase):
         self.assertTrue(self.application.is_concluded)
 
     def test_reject_not_applicant(self):
-        with self.assertRaises(BadRequestException):
+        with self.assertRaises(ForbiddenException):
             reject_applicant(self.not_applicant.id, current_user=self.recruiter)
 
     def test_reject_applicant_as_senior_recruiter(self):
