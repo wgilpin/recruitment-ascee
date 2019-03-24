@@ -7,38 +7,6 @@ from exceptions import BadRequestException
 from login import login_helper
 
 
-@app.route('/api/mail/send', methods=['GET'])
-@login_required
-def api_send_mail():
-    """
-    Sends mail to a character using the given template.
-
-    Args:
-        to_character_id (int)
-        template_name (str)
-        **kwargs
-            Parameters required by the template.
-
-    Returns:
-        {'status': 'ok'}
-
-    Error codes:
-        Forbidden (403): If logged in user is not an admin.
-        Bad request (400): If any arguments are missing.
-    """
-    to_character_id = request.args.get('to_character_id', type=int)
-    template_name = request.args.get('template_name', type=str)
-    if to_character_id is None:
-        raise BadRequestException('name argument is missing.')
-    elif template_name is None:
-        raise BadRequestException('template argument is missing.')
-    kwargs = {}
-    kwargs.update(request.args)
-    kwargs.pop('to_character_id')
-    kwargs.pop('template_name')
-    return jsonify(send_mail(to_character_id, template_name, current_user=current_user, **kwargs))
-
-
 @app.route('/api/mail/character')
 @login_required
 def api_set_mail_character():
@@ -58,10 +26,8 @@ def api_set_mail_template():
     """
     Sets a template.
 
-    Template can include parts like 'Congratulations {character_name}', which
-    will be filled using parameters passed to the send-mail API later.
-    If those parameters are not passed to the send-mail API later,
-    that API will complain.
+    Template can include {name} in parts like 'Congratulations {name}', which
+    will be filled using the to-character's name automatically later.
 
     Args:
         name (str)

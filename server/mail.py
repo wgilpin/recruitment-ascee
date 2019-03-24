@@ -1,6 +1,7 @@
 from security import user_admin_access_check
 from models import db, Character, ConfigItem, MailTemplate
 from exceptions import BadRequestException
+from flask_app import app
 
 
 def get_mail_character():
@@ -43,22 +44,23 @@ def set_mail_template(name, subject, text, current_user=None):
     db.session.commit()
 
 
-def send_mail(to_character_id, template_name, current_user=None, **kwargs):
-    user_admin_access_check(current_user)
-    subject, text = get_mail_text(template_name, **kwargs)
-    mail_character = get_mail_character()
-    mail_character.get_op(
-        'post_characters_character_id_mail',
-        character_id=mail_character.id,
-        mail={
-            'body': text,
-            'subject': subject,
-            'recipients': [
-                {
-                    'recipient_id': to_character_id,
-                    'recipient_type': 'character',
-                }
-            ]
-        }
-    )
+def send_mail(to_character_id, template_name):
+    if not app.config.get('TESTING'):
+        to_character = Character.get(to_character_id)
+        subject, text = get_mail_text(template_name, name=to_character.name)
+        mail_character = get_mail_character()
+        mail_character.get_op(
+            'post_characters_character_id_mail',
+            character_id=mail_character.id,
+            mail={
+                'body': text,
+                'subject': subject,
+                'recipients': [
+                    {
+                        'recipient_id': to_character_id,
+                        'recipient_type': 'character',
+                    }
+                ]
+            }
+        )
     return {'status': 'ok'}

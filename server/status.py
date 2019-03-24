@@ -6,6 +6,7 @@ from models import User, Character, Application
 from models.database import db
 from security import has_applicant_access
 from exceptions import BadRequestException, ForbiddenException
+from mail import send_mail
 
 
 def own_application_status(current_user):
@@ -64,6 +65,7 @@ def release_applicant(applicant_user_id, current_user=current_user):
 def reject_applicant(applicant_user_id, current_user=current_user):
     applicant = User.get(applicant_user_id)
     user_application_access_check(current_user, applicant)
+    send_mail(applicant.id, 'reject')
     application = Application.get_submitted_for_user(applicant_user_id)
     application.is_concluded = True
     application.is_accepted = False
@@ -105,5 +107,6 @@ def invite_applicant(applicant_user_id, current_user=current_user):
                 )
             )
         else:
+            send_mail(applicant_user_id, 'invite')
             application.is_invited = True
             db.session.commit()
