@@ -11,6 +11,7 @@ import RecruitButtonBar from './RecruitButtonBar';
 import IconBtn from '../common/IconBtn';
 import TableStyles from '../TableStyles';
 import styles from '../Applicant/ApplicantStyles';
+import Alert from '../Alert';
 
 const localStyles = {
   ...styles,
@@ -115,13 +116,12 @@ export default class Recruiter extends React.Component {
 
   static statuses = {
     unclaimed: 'new',
-    approved: 'approved',
     claimed: 'claimed',
     accepted: 'accepted',
     rejected: 'rejected',
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
     // Hydrate the  state with the response from /api/recruits
     // api recruits returns 3 lists:
     //   claimed: my recruits to process
@@ -162,9 +162,17 @@ export default class Recruiter extends React.Component {
     if (status  === Recruiter.statuses.claimed && this.state.roles.is_recruiter){
       // I can accept
       new FetchData({ id, scope: 'recruits/accept' }).get().then(this.componentDidMount);
-    } else if (status  === Recruiter.statuses.accepted && this.state.roles.is_senior_recruiter){
+    }
+  };
+
+  handleMail = id => {
+    console.log(`handleMail ${id}`);
+    const status = this.state.recruits[id].status;
+    if (status  === Recruiter.statuses.accepted && this.state.roles.is_senior_recruiter){
       // I can invite
       new FetchData({ id, scope: 'recruits/invite' }).get().then(this.componentDidMount);
+    } else {
+      this.setState({ showAlert: true, alertText: "You don't have permission to invite" })
     }
   };
 
@@ -174,8 +182,8 @@ export default class Recruiter extends React.Component {
     new FetchData({ id, scope: 'recruits/claim' }).get().then(res => {
       if (res.status === 'ok') {
         this.setRecruitStatus(id, Recruiter.statuses.claimed);
-      } else if (res.status === 406) {
-        alert('User has not completed their application');
+      }else {
+        this.setState({ showAlert: true, alertText: "User can't be claimed" })
       }
     });
   };
@@ -187,6 +195,8 @@ export default class Recruiter extends React.Component {
         this.setRecruitStatus(id, Recruiter.statuses.unclaimed);
       } else if (res.status === 406) {
         alert('User has not completed their application');
+      } else {
+        this.setState({ showAlert: true, alertText: "User can't be dropped" })
       }
     });
   };
@@ -203,7 +213,7 @@ export default class Recruiter extends React.Component {
         if (res.status === 'ok') {
           this.setRecruitStatus(id, Recruiter.statuses.rejected);
         } else {
-          alert('Rejection failed');
+          this.setState({ showAlert: true, alertText: "User can't be rejected" })
         }
       });
     }
@@ -237,6 +247,7 @@ export default class Recruiter extends React.Component {
           onReject={isEnabled && this.handleReject}
           onDrop={isEnabled && this.handleDrop}
           onApprove={isEnabled && this.handleAccept}
+          onMail={isEnabled && this.handleMail}
         />
       </div>
     );
@@ -269,6 +280,10 @@ export default class Recruiter extends React.Component {
     this.setState({ activeRecruit: null });
   };
 
+  closeAlert = () => {
+    this.setState({ showAlert: false })
+  }
+
   render() {
     if (this.state.loading) {
       console.log('loading');
@@ -288,7 +303,7 @@ export default class Recruiter extends React.Component {
     // 3 sections in order: claimed, approved, unclaimed.
     const claimed = this.applyFilter(Recruiter.statuses.claimed);
     const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
-    const approved = this.applyFilter(Recruiter.statuses.approved);
+    const accepted = this.applyFilter(Recruiter.statuses.accepted);
 
     return [
       this.state.roles.is_admin &&
@@ -307,7 +322,7 @@ export default class Recruiter extends React.Component {
             {this.sectionList('Claimed', claimed, this.state.roles.is_recruiter)}
           </div>
           <div style={localStyles.approved}>
-            {this.sectionList('Accepted', approved, this.state.roles.is_senior_recruiter)}
+            {this.sectionList('Accepted', accepted, this.state.roles.is_senior_recruiter)}
           </div>
           <div style={localStyles.unclaimed}>
             {this.sectionList('Unclaimed', unclaimed, this.state.roles.is_recruiter)}
@@ -325,6 +340,7 @@ export default class Recruiter extends React.Component {
             style={{ border: 'none' }}
           />,
           <Evidence style={localStyles.evidence} main={this.state.activeRecruit} />,
+          this.showAlert && <Alert text={this.state.alertText} onClose={this.closeAlert} />
         ],
     ];
   }

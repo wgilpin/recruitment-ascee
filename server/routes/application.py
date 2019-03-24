@@ -2,7 +2,8 @@ from flask_login import current_user
 from flask_app import app
 from flask import request, jsonify
 from recruitment import start_application, submit_application
-from status import claim_applicant, release_applicant, accept_applicant, reject_applicant, own_application_status
+from status import claim_applicant, release_applicant, accept_applicant, reject_applicant,\
+    own_application_status, invite_applicant
 from security import login_required
 
 
