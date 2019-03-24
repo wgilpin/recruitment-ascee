@@ -22,11 +22,13 @@ const styles = {
       WebkitOverflowScrolling: 'touch',
       borderRadius: '4px',
       outline: 'none',
+
       width: '300px',
       height: 'fit-content',
       padding: '20px',
       marginLeft: 'auto',
       marginRight: 'auto',
+
     },
     title: {
       color: Styles.themeColors.primary,
