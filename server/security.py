@@ -83,13 +83,13 @@ def user_application_access_check(current_user, target_user):
 def has_applicant_access(user, target_user, self_access=False):
     if is_senior_recruiter(user):
         return True
-    elif not is_recruiter(user):
-        return False
     elif self_access and (user.id == target_user.id):
         return True
+    elif not is_recruiter(user):
+        return False
     else:
         return_value = False
-        application = Application.get_for_user(user)
+        application = Application.get_for_user(target_user.id)
         if application:
             if application.recruiter_id == user.id:
                 # Requesting user is recruiter who claimed application
