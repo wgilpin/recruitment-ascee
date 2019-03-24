@@ -11,7 +11,7 @@ from security import login_required
 @login_required
 def api_start_application():
     """
-    Create an application for the current user
+    Create an application for the current user.
 
     Returns:
         {'status': 'ok'} if application is successfully added
@@ -28,7 +28,7 @@ def api_start_application():
 @login_required
 def api_get_own_application_status():
     """
-    Get application status for the current user
+    Get application status for the current user.
 
     Returns:
         {'status': 'none' | 'unsubmitted' | 'submitted'}
@@ -41,7 +41,7 @@ def api_get_own_application_status():
 @login_required
 def api_submit_application():
     """
-    Submit an application for the current user
+    Submit an application for the current user.
 
     Returns:
         {'status': 'ok'} if application is successfully added
@@ -49,7 +49,7 @@ def api_submit_application():
     Error codes:
         Forbidden (403): If logged in user has roles
     """
-    return jsonify(submit_application(request.get_json(), current_user=current_user))
+    return jsonify(submit_application(current_user=current_user))
 
 
 @app.route(

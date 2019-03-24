@@ -8,6 +8,7 @@ from models import Question
 
 def set_questions(data, current_user=None):
     user_admin_access_check(current_user)
+
     for question_data in data:
         id = question_data.get('question_id', None)
         text = question_data['text']
@@ -17,8 +18,7 @@ def set_questions(data, current_user=None):
             question = db.session.query(Question).filter_by(id=id).one_or_none()
             if question is None:
                 raise BadRequestException('No question with id {}'.format(id))
-            else:
-                question.text = text
+            question.text = text
     db.session.commit()
     return {'status': 'ok'}
 
@@ -34,13 +34,11 @@ def remove_question(question_id, current_user=None):
     return {'status': 'ok'}
 
 
-def submit_application(data, current_user=None):
-    if is_admin(current_user) or is_recruiter(current_user) or is_senior_recruiter(current_user):
-        raise BadRequestException(f'User {current_user.id} is not an applicant')
+def submit_application(current_user=None):
     application = Application.get_for_user(current_user.id)
     if not application:
-        application = Application(user_id=current_user.id)
-        db.session.add(application)
+        raise BadRequestException(f'User {current_user.id} is not an applicant.')
+    application.is_submitted = True
     db.session.commit()
     return {'status': 'ok'}
 

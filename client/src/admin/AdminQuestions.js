@@ -1,7 +1,11 @@
 import React from 'react';
+import ReactModal from 'react-modal';
 import FetchData from '../common/FetchData';
 import DeleteImg from '../images/baseline_delete_white_24dp.png';
 import CommonStyles from '../common/Styles';
+import FabButton from '../common/fabButton';
+import Confirm from '../Confirm';
+
 
 const styles = {
   ...CommonStyles,
@@ -9,6 +13,7 @@ const styles = {
     maxWidth: '400px',
     marginLeft: 'auto',
     marginRight: 'auto',
+    position: 'relative',
   },
   toolbarImg: {
     height: '24px',
@@ -22,9 +27,33 @@ const styles = {
     display: 'inline-block',
     marginBottom: '12px',
   },
+  fab: {
+    float: 'right',
+    position: 'relative',
+    top: 'unset',
+    bottom: 'unset',
+    right: 'unset'
+  }
 };
 
 class AdminQuestion extends React.Component {
+  constructor(props) {
+    super(props);
+    this.textareaRef = React.createRef();
+  }
+
+  handleDelete = (id) => {
+    if (this.props.onDelete){
+      this.props.onDelete(id);
+    }
+  }
+
+  handleChange = () => {
+    if (this.props.onChange){
+      this.props.onChange(this.props.id, this.textareaRef.current.value);
+    }
+  }
+
   render() {
     const { id, text } = this.props;
     return (
@@ -32,9 +61,10 @@ class AdminQuestion extends React.Component {
         <textarea
           style={styles.answer}
           id={id}
-          onChange={this.handleAnswerChanged}
+          onChange={this.handleChange}
           cols="50"
           value={text}
+          ref={this.textareaRef}
         />
         <div style={styles.buttonBar}>
           <img
@@ -57,6 +87,7 @@ export default class AdminQuestions extends React.Component {
       // questions: { id: text,...}
       questions: {},
       dirty: false,
+      showConfirm: false,
     };
   }
 
@@ -64,39 +95,58 @@ export default class AdminQuestions extends React.Component {
     return arr.reduce((acc, val) => ({ ...acc, [val[keyField]]: val }), {});
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     let fetchQs = new FetchData({ scope: 'questions' });
     fetchQs.get().then(data => this.setState({ questions: data }));
   }
 
-  handleAnswerChanged = e => {
+  handleAnswerChanged = (id, value) => {
     this.setState({
       questions: {
         ...this.state.questions,
-        [e.target.id]: e.target.value,
+        [id]: value,
       },
       dirty: true,
     });
   };
 
   handleSubmit = () => {
-    new FetchData({ scope: 'answers' })
-      .put(
-        Object.entries(this.state.questions).map(([question_id, text]) => ({
-          question_id,
-          text,
-        }))
-      )
+    const questions = Object.entries(this.state.questions).map(([question_id, text]) => ({
+      question_id,
+      text,
+    }))
+    if (this.state.newQuestion) {
+      questions.push({text: ''});
+      this.setState({ newQuestion: false });
+    }
+    return new FetchData({ scope: 'admin/set_questions' })
+      .put({ questions })
       .then(() => {
         this.setState({ dirty: false });
       });
   };
 
   handleDelete = id => {
-    const newQuestions = Object.assign({}, this.state.questions);
-    delete newQuestions[id];
-    this.setState({ questions: newQuestions, dirty: true });
+    this.setState({ showConfirm: true, deleteId: id })
+  }
+
+  confirmedDelete = () => {
+    this.setState({ showConfirm: false });
+    new FetchData({ scope: 'admin/remove_question', param2: this.state.deleteId })
+      .get()
+      .then(this.componentWillMount);
   };
+
+  handleAdd = () => {
+    this.setState({
+      newQuestion: true,
+      dirty: true,
+    },
+    () => {
+      this.handleSubmit()
+        .then(this.componentWillMount);
+    });
+  }
 
   render() {
     const { questions, dirty } = this.state;
@@ -108,8 +158,14 @@ export default class AdminQuestions extends React.Component {
       <div style={styles.outer}>
         <h2 style={styles.heading}>Applicant Questions</h2>
         {Object.entries(questions).map(([id, text]) => {
-          return <AdminQuestion id={id} text={text} />;
+          return <AdminQuestion
+            id={id}
+            text={text}
+            onDelete={this.handleDelete}
+            onChange={this.handleAnswerChanged}
+          />;
         })}
+        <FabButton icon="add" color="#c00" size="40px" style={styles.fab} onClick={this.handleAdd} />
         {dirty && (
           <button
             style={styles.styles.primaryButton}
@@ -118,6 +174,13 @@ export default class AdminQuestions extends React.Component {
             Save
           </button>
         )}
+        {this.state.showConfirm &&
+          <Confirm
+            text="Delete Question"
+            onConfirm={this.confirmedDelete}
+            onClose={() => this.setState({ showConfirm: false })}
+          />
+        }
       </div>
     );
   }
