@@ -34,13 +34,11 @@ def remove_question(question_id, current_user=None):
     return {'status': 'ok'}
 
 
-def submit_application(data, current_user=None):
-    if is_admin(current_user) or is_recruiter(current_user) or is_senior_recruiter(current_user):
-        raise BadRequestException(f'User {current_user.id} is not an applicant')
+def submit_application(current_user=None):
     application = Application.get_for_user(current_user.id)
     if not application:
-        application = Application(user_id=current_user.id)
-        db.session.add(application)
+        raise BadRequestException(f'User {current_user.id} is not an applicant.')
+    application.is_submitted = True
     db.session.commit()
     return {'status': 'ok'}
 
@@ -78,9 +76,7 @@ def set_answers(user_id, answers=None, current_user=None):
         raise ForbiddenException(f'User {current_user.id} is not permitted to answer for {user_id}')
     if not is_applicant_user_id(user_id):
         raise ForbiddenException(f'User {user_id} is not an applicant')
-    application = Application.get_for_user(user_id)
-    if not application:
-        application = Application(user_id=user_id)
+    application = Application.get_for_user(user_id)  # always exists, we checked they're an applicant
     for answer in answers:
         answer_record = Answer.query\
             .filter_by(question_id=answer['question_id'], application_id=application.id)\
