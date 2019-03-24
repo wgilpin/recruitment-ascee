@@ -14,6 +14,7 @@ kind_dict = {
     'corporation': Corporation,
     'system': System,
     'region': Region,
+    'user': User,
 }
 
 

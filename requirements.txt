@@ -3,7 +3,6 @@ Flask==1.0.2
 cachetools==3.0.0
 flask_login==0.4.1
 backoff==1.8.0
-google-api-python-client
 vcrpy-unittest
 mock
 contextlib2
@@ -12,4 +11,6 @@ Flask-SQLAlchemy==2.1
 asgiref
 psycopg2
 gunicorn
+Flask-Migrate
+flask-script
 
