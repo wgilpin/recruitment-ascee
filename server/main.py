@@ -15,7 +15,7 @@
 # [START app]
 # [START imports]
 import logging
-from flask_app import app, flask_migrate
+from flask_app import app
 from flask import render_template, send_from_directory, json
 from models import db
 import os
@@ -61,7 +61,6 @@ def run_app():
     with app.app_context():
         db.init_app(app)
         db.create_all()
-        flask_migrate()
         app.run(host='0.0.0.0', port='80')
 
 
