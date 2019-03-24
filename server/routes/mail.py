@@ -74,8 +74,8 @@ def api_set_mail_template():
         Forbidden (403): If logged in user is not an admin.
         Bad request (400): If any arguments are missing.
     """
-    name = request.args.get('name', type=str)
-    template = request.args.get('template', type=str)
+    name = request.get_json().get('name')
+    template = request.get_json().get('template')
     if name is None:
         raise BadRequestException('name argument is missing.')
     elif template is None:
