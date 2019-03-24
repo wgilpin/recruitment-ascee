@@ -89,7 +89,7 @@ def has_applicant_access(user, target_user, self_access=False):
         return False
     else:
         return_value = False
-        application = Application.get_for_user(user)
+        application = Application.get_for_user(target_user.id)
         if application:
             if application.recruiter_id == user.id:
                 # Requesting user is recruiter who claimed application
