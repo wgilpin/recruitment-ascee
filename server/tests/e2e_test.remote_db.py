@@ -2,7 +2,7 @@
 # [START imports]
 from e2e_data import initDbForE2e
 import main
-from flask_app import app, flask_migrate
+from flask_app import app
 from models import db
 import esi_config
 
@@ -14,7 +14,6 @@ def run_app():
         db.init_app(app)
         db.create_all()
         initDbForE2e(wipe=False)
-        flask_migrate()
         app.run(host='localhost', port='8080')
 
 
