@@ -59,6 +59,10 @@ def api_oauth_callback():
 def route_login(login_type, character):
     if login_type == 'login':
         print('char', character)
+        if character.user_id is None:
+            User.get(character.id)
+            character.user_id = character.id
+            db.session.commit()
         user = User.get(character.user_id)
         login_user(user)
         if not (is_recruiter(user) or is_admin(user)):
@@ -75,7 +79,11 @@ def route_login(login_type, character):
         elif is_admin(user):
             return redirect(admin_url)
     elif login_type == 'scopes':
-        return redirect(applicant_url)
+        if current_user is not None and current_user.id != character.id:
+            logout_user()
+            return redirect(react_app_url)
+        else:
+            return redirect(applicant_url)
     elif login_type == 'link':
         return link_alt(character, current_user)
     elif login_type == 'mail':
@@ -147,17 +155,10 @@ def process_oauth(login_type, code):
 
     refresh_token, character_id = token_data['refresh_token'], user_data['CharacterID']
     character = Character.get(character_id)
-    dirty = False
-    if not character.user_id:
-        User.get(character_id)
-        character.user_id = character_id
-        dirty = True
     if 'ASCEE_SHOW_TOKENS' in os.environ and os.environ['ASCEE_SHOW_TOKENS'] and refresh_token:
-        print (f'TOKEN for {character_id}: {refresh_token}')
+        print(f'TOKEN for {character_id}: {refresh_token}')
     if login_type in ('scopes', 'link', 'mail'):
         character.refresh_token = refresh_token
-        dirty = True
-    if dirty:
         db.session.commit()
 
     return character
