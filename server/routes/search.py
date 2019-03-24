@@ -96,5 +96,5 @@ def api_ids_to_names():
     Error codes:
         Forbidden (403): If logged in user is not a recruiter or admin
     """
-    id_list = request.args.get('ids')
+    id_list = request.get_json().get('ids')
     return jsonify(get_ids_to_names(id_list, current_user=current_user))

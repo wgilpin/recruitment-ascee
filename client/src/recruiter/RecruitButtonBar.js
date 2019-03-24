@@ -5,10 +5,10 @@ import ClaimIcon from 'react-ionicons/lib/MdStarOutline';
 import ApprovedIcon from 'react-ionicons/lib/MdCheckmark';
 import RejectIcon from 'react-ionicons/lib/MdClose';
 import DropIcon from 'react-ionicons/lib/MdArrowDown';
+import MailIcon from 'react-ionicons/lib/MdMail';
 
 const statuses = {
   unclaimed: 'new',
-  approved: 'approved',
   claimed: 'claimed',
   accepted: 'accepted',
   rejected: 'rejected',
@@ -34,13 +34,6 @@ const styles = {
   },
 };
 
-/*
- * Props:
- *  id
- *  status
- *  onClaim(id)
- *  style
- */
 export default class RecruitButtonBar extends Component {
   constructor(props) {
     super(props);
@@ -48,8 +41,9 @@ export default class RecruitButtonBar extends Component {
     this.state = {
       showClaim: status === statuses.unclaimed,
       showApprove: status === statuses.claimed,
-      showReject: status === statuses.approved || status === statuses.claimed,
+      showReject: status === statuses.accepted || status === statuses.claimed,
       showDrop: status === statuses.claimed,
+      showMail: status === statuses.accepted,
     };
   }
 
@@ -63,6 +57,12 @@ export default class RecruitButtonBar extends Component {
   handleReject = () => {
     if (this.props.onReject){
       this.props.onReject(this.props.id);
+    }
+  }
+
+  handleMail = () => {
+    if (this.props.onMail){
+      this.props.onMail(this.props.id);
     }
   }
 
@@ -94,6 +94,8 @@ export default class RecruitButtonBar extends Component {
           this.showButton(<DropIcon style={styles.image} onClick={this.handleDrop}/>, 'Drop')}
         {this.state.showReject &&
           this.showButton(<RejectIcon style={styles.image} onClick={this.handleReject}/>, 'Reject')}
+        {this.state.showMail &&
+          this.showButton(<MailIcon style={styles.image} onClick={this.handleMail}/>, 'Mail')}
         <ReactTooltip />
       </span>
     );

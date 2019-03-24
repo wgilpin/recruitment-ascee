@@ -51,7 +51,7 @@ def api_set_roles(user_id):
         current_user=current_user,
     )
 
-    if set_result.get('status','') == 'ok':
+    if set_result.get('status', '') == 'ok':
         return jsonify(get_users(current_user=current_user))
     return set_result
 
