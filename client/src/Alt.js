@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RoundImage from './common/RoundImage';
+import TableStyles from './TableStyles';
 
 const propTypes = {
   name: PropTypes.string,
@@ -27,20 +28,19 @@ export default class Alt extends React.Component {
     const { size, name, selected } = this.props;
 
     const styles = {
+      ...TableStyles.styles,
       div: {
         padding: 8,
-        display: 'grid',
-        gridTemplateColumns: `${size || '32px'} auto`,
-        gridTemplateRows: '50',
-        gridColumnGap: 18,
-        gridRowGap: 18,
+        display: 'table',
       },
-      span: {
+      name: {
         size: 14,
         textAlign: 'left',
         paddingLeft: '8px',
-        position: 'relative',
-        top: '-10px',
+        marginTop: 'auto',
+        marginBottom: 'auto',
+        height: '24px',
+        verticalAlign: 'middle',
       },
       selected: {
         backgroundColor: '#222',
@@ -52,11 +52,15 @@ export default class Alt extends React.Component {
       style = {...style, ...styles.selected};
     }
     style.cursor = this.props.showPointer ? 'pointer' : null;
-    
+
     return (
       <div style={style} onClick={this.handleClick}>
-        <RoundImage src={`https://image.eveonline.com/Character/${this.props.id}_64.jpg`}></RoundImage>
-        <span style={styles.span}>{name}</span>
+        <div style={styles.row}>
+          <div style={styles.cell}>
+            <RoundImage src={`https://image.eveonline.com/Character/${this.props.id}_64.jpg`} />
+          </div>
+          <div style={{ ...styles.cell, ...styles.name}}>{name}</div>
+        </div>
       </div>
     );
   }
