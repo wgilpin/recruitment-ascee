@@ -8,7 +8,7 @@ import unittest
 from recruitment import (
     get_questions, get_answers, get_user_characters, get_users,\
     add_applicant_note, get_character_search_list, get_applicant_list, set_answers,\
-    start_application, set_questions, remove_question)
+    start_application, set_questions, remove_question, get_applicant_notes)
 from status import reject_applicant
 from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
@@ -418,10 +418,55 @@ class MiscRecruitmentTests(AsceeTestCase):
         notes = self.application.notes
         self.assertEqual(len(notes), 1)
         self.assertEqual(notes[0].text, "A note")
+        self.assertEqual(notes[0].title, None)
         response = add_applicant_note(self.applicant.id, "Another note", current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
         notes = self.application.notes
         self.assertEqual(len(notes), 2)
+
+    def test_add_chat_log_with_title(self):
+        response = add_applicant_note(self.applicant.id, "A note", title="A Title", is_chat_log=True, current_user=self.recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        notes = self.application.notes
+        self.assertEqual(len(notes), 1)
+        self.assertEqual(notes[0].text, "A note")
+        self.assertEqual(notes[0].title, "A Title")
+        response = add_applicant_note(self.applicant.id, "Another note", current_user=self.recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        notes = self.application.notes
+        self.assertEqual(len(notes), 2)
+
+    def test_get_chat_log_with_title(self):
+        add_applicant_note(self.applicant.id, "A note", title="A Title", is_chat_log=True, current_user=self.recruiter)
+        response = get_applicant_notes(self.applicant.id, current_user=self.recruiter)
+        self.assertIsInstance(response, dict)
+        self.assertIn('info', response)
+        self.assertEqual(len(response['info']), 1)
+        data = response['info'][0]
+        for key in ('timestamp', 'author', 'title', 'text', 'id', 'is_chat_log'):
+            self.assertIn(key, data)
+        self.assertEqual(data['title'], 'A Title')
+        self.assertEqual(data['text'], 'A note')
+        self.assertEqual(data['is_chat_log'], True)
+
+    def test_get_applicant_notes_without_title(self):
+        add_applicant_note(self.applicant.id, "A note", current_user=self.recruiter)
+        response = get_applicant_notes(self.applicant.id, current_user=self.recruiter)
+        self.assertIsInstance(response, dict)
+        self.assertIn('info', response)
+        self.assertEqual(len(response['info']), 1)
+        data = response['info'][0]
+        for key in ('timestamp', 'author', 'title', 'text', 'id', 'is_chat_log'):
+            self.assertIn(key, data)
+        self.assertEqual(data['title'], None)
+        self.assertEqual(data['text'], 'A note')
+        self.assertEqual(data['is_chat_log'], False)
+
+    def test_get_applicant_notes_forbidden(self):
+        add_applicant_note(self.applicant.id, "A note", current_user=self.recruiter)
+        for user in (self.other_recruiter, self.not_applicant):
+            with self.assertRaises(ForbiddenException):
+                get_applicant_notes(self.applicant.id, current_user=user)
 
     def test_add_applicant_note_as_senior_recruiter(self):
         response = add_applicant_note(self.applicant.id, "A note", current_user=self.recruiter)
