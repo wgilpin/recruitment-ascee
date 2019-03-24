@@ -20,6 +20,8 @@ def own_application_status(current_user):
 
 
 def claim_applicant(applicant_user_id, current_user=current_user):
+    if not is_recruiter(current_user):
+        raise ForbiddenException('User {} is not a recruiter'.format(current_user.id))
     application = Application.get_submitted_for_user(applicant_user_id)
     if application is None:
         raise BadRequestException(
@@ -33,8 +35,6 @@ def claim_applicant(applicant_user_id, current_user=current_user):
                 applicant_user_id
             )
         )
-    elif not is_recruiter(current_user):
-        raise ForbiddenException('User {} is not a recruiter'.format(current_user.id))
     else:
         application.recruiter_id = current_user.id
         db.session.commit()
@@ -42,6 +42,8 @@ def claim_applicant(applicant_user_id, current_user=current_user):
 
 
 def release_applicant(applicant_user_id, current_user=current_user):
+    if not is_recruiter(current_user):
+        raise ForbiddenException('User {} is not a recruiter'.format(current_user.id))
     application = Application.get_submitted_for_user(applicant_user_id)
     if application is None:
         raise BadRequestException(

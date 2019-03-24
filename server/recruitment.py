@@ -1,6 +1,6 @@
 from models import Corporation, Note, Question, Answer, User, Character, db, Application, Admin, Recruiter
 from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter,\
-    is_applicant_user_id, user_admin_access_check
+    is_applicant_user_id, user_admin_access_check, user_application_access_check
 import cachetools
 from exceptions import BadRequestException, ForbiddenException
 from models import Question
@@ -34,13 +34,11 @@ def remove_question(question_id, current_user=None):
     return {'status': 'ok'}
 
 
-def submit_application(data, current_user=None):
-    if is_admin(current_user) or is_recruiter(current_user) or is_senior_recruiter(current_user):
-        raise BadRequestException(f'User {current_user.id} is not an applicant')
+def submit_application(current_user=None):
     application = Application.get_for_user(current_user.id)
     if not application:
-        application = Application(user_id=current_user.id)
-        db.session.add(application)
+        raise BadRequestException(f'User {current_user.id} is not an applicant.')
+    application.is_submitted = True
     db.session.commit()
     return {'status': 'ok'}
 
@@ -76,18 +74,15 @@ def set_answers(user_id, answers=None, current_user=None):
         user_id = current_user.id if current_user else None
     if not current_user.id == user_id:
         raise ForbiddenException(f'User {current_user.id} is not permitted to answer for {user_id}')
-    if not is_applicant_user_id(user_id):
-        raise ForbiddenException(f'User {user_id} is not an applicant')
     application = Application.get_for_user(user_id)
     if not application:
-        application = Application(user_id=user_id)
+        raise ForbiddenException(f'User {user_id} is not an applicant')
     for answer in answers:
         answer_record = Answer.query\
             .filter_by(question_id=answer['question_id'], application_id=application.id)\
             .one_or_none()
         if not answer_record:
             answer_record = Answer(question_id=answer['question_id'], application_id=application.id)
-            application.answers.append(answer_record)
         answer_record.text = answer['text']
     db.session.commit()
 
@@ -204,10 +199,6 @@ def get_applicant_list(current_user=None):
                 )
             )
         ):
-
-    # for user in User.query.all():
-    #     if not is_applicant_user_id(user.id):
-    #         continue
         recruiter_name = None
         application = Application.query.filter_by(user_id=user.id, is_concluded=False).one_or_none()
         if application is None:
@@ -246,6 +237,7 @@ def get_applicant_list(current_user=None):
 
 def get_applicant_notes(applicant_user_id, current_user=None):
     applicant = User.get(applicant_user_id)
+    user_application_access_check(current_user, applicant)
     if applicant is None:
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
@@ -272,11 +264,11 @@ def get_applicant_notes(applicant_user_id, current_user=None):
 
 @cachetools.cached(cachetools.LRUCache(maxsize=1000))
 def get_user_characters(user_id, current_user=None):
-    if not db.session.query(db.exists().where(User.id==user_id)).scalar():
-        raise BadRequestException('User with id={} does not exist.'.format(user_id))
     user = User.get(user_id)
     if not has_applicant_access(current_user, user, self_access=True):
-        raise ForbiddenException('User {} does not have access to user {}'.format(current_user, user_id))
+        raise ForbiddenException('User {} does not have access.'.format(current_user))
+    if not db.session.query(db.exists().where(User.id==user_id)).scalar():
+        raise BadRequestException('User with id={} does not exist.'.format(user_id))
     character_dict = {}
     for character in db.session.query(Character).filter(Character.user_id==user_id):
         character_dict[character.id] = {

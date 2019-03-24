@@ -22,9 +22,9 @@ def api_get_applicant_notes_and_logs(applicant_id):
         "info": [
             {
                 "timestamp": "ISO Date string",
-                "author_name": "Tommy Tattle",
-                "author_id": 61097499,
-                "note_id": 101052109,
+                "author": "Tommy Tattle",
+                "is_chat_log": True,
+                "id": 101052109,
                 "title": "Chat log from friday",
                 "text": "kiugoiugnboyiug ouiguy gkuyf jtf kuf kuyf kutf ikufk uyfku fkj iy gkuyg iuy guy kuy uky kuyg kuy iuy",
             },

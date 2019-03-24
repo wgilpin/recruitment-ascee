@@ -64,12 +64,6 @@ def character_application_access_check(current_user, target_character):
                 current_user.id, target_character.id
             )
         )
-    elif not is_applicant_character_id(target_character.id):
-        raise BadRequestException(
-            'Character {} is not in an open application.'.format(
-                target_character.id
-            )
-        )
 
 
 def user_admin_access_check(current_user):
@@ -78,32 +72,29 @@ def user_admin_access_check(current_user):
 
 
 def user_application_access_check(current_user, target_user):
-    if Application.get_for_user(target_user.id) is None:
-        raise BadRequestException(
-            'User {} is not in an open application.'.format(
-                target_user.id
-            )
-        )
-    elif not has_applicant_access(current_user, target_user):
+    if not has_applicant_access(current_user, target_user):
         raise ForbiddenException(
-            'User {} does not have access to applicant {}'.format(
-                current_user.id, target_user.id
+            'User {} does not have access.'.format(
+                current_user.id
             )
         )
 
 
 def has_applicant_access(user, target_user, self_access=False):
-    if self_access and (user.id == target_user.id):
+    if is_senior_recruiter(user):
         return True
-    return_value = False
-    application = Application.query.filter_by(user_id=target_user.id, is_concluded=False).one_or_none()
-    if application:
-        if application.recruiter_id == user.id:
-            # Requesting user is recruiter who claimed application
-            return_value = True
-        elif not application.recruiter_id:
-            # unclaimed application
-            return_value = True
-        elif is_senior_recruiter(user):
-            return_value = True
-    return return_value
+    elif not is_recruiter(user):
+        return False
+    elif self_access and (user.id == target_user.id):
+        return True
+    else:
+        return_value = False
+        application = Application.get_for_user(user)
+        if application:
+            if application.recruiter_id == user.id:
+                # Requesting user is recruiter who claimed application
+                return_value = True
+            elif not application.recruiter_id:
+                # unclaimed application
+                return_value = True
+        return return_value

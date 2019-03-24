@@ -26,6 +26,7 @@ const localStyles = {
   },
   h1: {
     color: primary,
+    textAlign: 'center',
   },
   h2: {
     color: primary,

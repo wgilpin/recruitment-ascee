@@ -26,9 +26,9 @@ def api_set_roles(user_id):
     Args:
         user_id (int)
             if missing/None uses the logged in user
-        recruiter (bool, optional)
-        senior_recruiter (bool, optional)
-        admin (bool, optional)
+        is_recruiter (bool, optional)
+        is_senior_recruiter (bool, optional)
+        is_admin (bool, optional)
 
     Returned data is of the form {'info': [user_1, user_2, ...]}. Each user
     dictionary has the keys `id`, `name`, `is_admin`, `is_senior_recruiter`,
@@ -40,9 +40,9 @@ def api_set_roles(user_id):
     Error codes:
         Forbidden (403): If logged in user is not an admin.
     """
-    recruiter = query_param_to_python(request.args.get('recruiter', None))
-    senior_recruiter = query_param_to_python(request.args.get('senior_recruiter', None))
-    admin = query_param_to_python(request.args.get('admin', None))
+    recruiter = query_param_to_python(request.args.get('is_recruiter', None))
+    senior_recruiter = query_param_to_python(request.args.get('is_senior_recruiter', None))
+    admin = query_param_to_python(request.args.get('is_admin', None))
     set_result = set_roles(
         user_id,
         is_recruiter=recruiter,
