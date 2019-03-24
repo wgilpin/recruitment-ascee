@@ -13,4 +13,6 @@ asgiref
 psycopg2
 gunicorn
 Flask-Migrate
+flask-script
+psycopg2
 
