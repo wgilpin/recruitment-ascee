@@ -131,14 +131,14 @@ def start_application(current_user=None):
     character = Character.get(current_user.id)
     if character.blocked_from_applying:
         raise ForbiddenException('User is blocked')
-    application = Application.query.filter_by(
-        user_id=current_user.id, is_concluded=False).one_or_none()
+    application = Application.get_for_user(current_user.id)
     if application:
         raise BadRequestException('An application is already open')
     # no application, start one
     application = Application(user_id=current_user.id, is_concluded=False)
     db.session.add(application)
     db.session.commit()
+    print(Application.get_for_user(current_user.id))
     return {'status': 'ok'}
 
 
