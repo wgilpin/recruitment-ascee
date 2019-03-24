@@ -47,18 +47,20 @@ def get_users(current_user=None):
     if not is_admin(current_user):
         raise ForbiddenException('Only admin have access to user list.')
     return_list = []
-    admin_ids = db.session.query(Admin.id).all()
-    recruiter_ids = db.session.query(Recruiter.id).all()
-    senior_recruiter_ids = db.session.query(Recruiter.id).filter(Recruiter.is_senior).all()
+    admin_ids = set(db.session.query(Admin.id).all())
+    recruiter_ids = set(db.session.query(Recruiter.id).all())
+    senior_recruiter_ids = set(db.session.query(Recruiter.id).filter(Recruiter.is_senior).all())
+    users_with_roles = admin_ids.union(recruiter_ids).union(senior_recruiter_ids)
 
     for user in db.session.query(User).all():
-        return_list.append({
-            'id': user.get_id(),
-            'is_admin': (user.id,) in admin_ids,
-            'is_recruiter': (user.id,) in recruiter_ids,
-            'is_senior_recruiter': (user.id,) in senior_recruiter_ids,
-            'name': user.name,
-        })
+        if (user.id,) in users_with_roles:
+            return_list.append({
+                'id': user.get_id(),
+                'is_admin': (user.id,) in admin_ids,
+                'is_recruiter': (user.id,) in recruiter_ids,
+                'is_senior_recruiter': (user.id,) in senior_recruiter_ids,
+                'name': user.name,
+            })
     return {'info': return_list}
 
 
