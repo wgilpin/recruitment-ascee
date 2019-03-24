@@ -1,6 +1,6 @@
 from models import Corporation, Note, Question, Answer, User, Character, db, Application, Admin, Recruiter
 from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter,\
-    is_applicant_user_id, user_admin_access_check
+    is_applicant_user_id, user_admin_access_check, user_application_access_check
 import cachetools
 from exceptions import BadRequestException, ForbiddenException
 from models import Question
@@ -242,6 +242,7 @@ def get_applicant_list(current_user=None):
 
 def get_applicant_notes(applicant_user_id, current_user=None):
     applicant = User.get(applicant_user_id)
+    user_application_access_check(current_user, applicant)
     if applicant is None:
         applicant_name = Character.get(applicant_user_id).name
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
