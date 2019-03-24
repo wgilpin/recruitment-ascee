@@ -102,12 +102,8 @@ export default class FindESICharacter extends React.Component {
       });
   }
 
-  handleClick = (id, label) => {
-    this.props.onChange && this.props.onChange(id, label);
-  }
-
-  handleSelect = (id, label) => {
-    this.props.onSelect && this.props.onSelect(id);
+  handleClick = (id, label, userName) => {
+    this.props.onChange && this.props.onChange(id, label, userName);
   }
 
   makeSearchResultLine = (char) => {
@@ -118,7 +114,7 @@ export default class FindESICharacter extends React.Component {
           style={styles.moveButtons}
           src={icon.img}
           alt={icon.name}
-          onClick={() => this.handleClick(char.user_id, icon.name)}
+          onClick={() => this.handleClick(char.user_id, icon.name, char.name)}
         />)}
       </div>
     );

@@ -104,6 +104,8 @@ def get_op(op_name, refresh_token=None, disable_multi=False, **kwargs):
 def get_paged_op(op_name, refresh_token=None, **kwargs):
     esi_client = get_esi_client(refresh_token)
     response = esi_client.request(esi_app.op[op_name](page=1, **kwargs))
+    if isinstance(response.data, dict) and 'error' in response.data.keys():
+        raise ESIException(response.data['error'])
     return_list = []
     return_list.extend(response.data)
     try:

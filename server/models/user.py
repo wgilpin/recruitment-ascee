@@ -11,6 +11,8 @@ class User(db.Model, UserMixin):
     recruiter = db.relationship('Recruiter', uselist=False)
     admin = db.relationship('Admin', uselist=False)
     applications = db.relationship('Application', uselist=True, back_populates='user')
+    redlisted = db.Column(db.Boolean, default=False)
+
 
     @classmethod
     def get(cls, id):
@@ -27,6 +29,21 @@ class User(db.Model, UserMixin):
 
     def get_id(self):
         return self.id
+
+    @classmethod
+    def get_multi(cls, id_list):
+        existing_items = db.session.query(cls).filter(
+            cls.id.in_(id_list))
+        return_items = {item.id: item for item in existing_items}
+        missing_ids = set(id_list).difference(
+            [item.id for item in existing_items])
+        for id in missing_ids:
+            return_items[id] = cls.get(id)
+        return return_items
+
+    @property
+    def is_redlisted(self):
+        return self.redlisted
 
 
 class Recruiter(db.Model):

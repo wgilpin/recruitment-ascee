@@ -23,6 +23,7 @@ def api_admin_list_add_item(kind):
         Forbidden (403): If logged in user is not an admin
     """
     return jsonify(
+
         add_admin_list_item(kind, request.get_json()['item']['id'], current_user=current_user)
     )
 

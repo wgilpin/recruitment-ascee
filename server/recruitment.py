@@ -47,16 +47,16 @@ def get_users(current_user=None):
     if not is_admin(current_user):
         raise ForbiddenException('Only admin have access to user list.')
     return_list = []
-    admin_ids = db.session.query(Admin.id).all()
-    recruiter_ids = db.session.query(Recruiter.id).all()
-    senior_recruiter_ids = db.session.query(Recruiter.id).filter(Recruiter.is_senior).all()
+    admins = set(admin.user for admin in db.session.query(Admin).all())
+    recruiters = set(recruiter.user for recruiter in db.session.query(Recruiter).all())
+    users_with_roles = admins.union(recruiters)
 
-    for user in db.session.query(User).all():
+    for user in users_with_roles:
         return_list.append({
-            'id': user.get_id(),
-            'is_admin': (user.id,) in admin_ids,
-            'is_recruiter': (user.id,) in recruiter_ids,
-            'is_senior_recruiter': (user.id,) in senior_recruiter_ids,
+            'id': user.id,
+            'is_admin': user.admin is not None,
+            'is_recruiter': user.recruiter is not None,
+            'is_senior_recruiter': user.recruiter is not None and user.recruiter.is_senior,
             'name': user.name,
         })
     return {'info': return_list}
@@ -82,8 +82,11 @@ def set_answers(user_id, answers=None, current_user=None):
             .filter_by(question_id=answer['question_id'], application_id=application.id)\
             .one_or_none()
         if not answer_record:
-            answer_record = Answer(question_id=answer['question_id'], application_id=application.id)
+            answer_record = Answer(
+                question_id=answer['question_id'], text=answer.get('text', ''), application_id=application.id)
+            db.session.add(answer_record)
         answer_record.text = answer['text']
+        db.session.commit()
     db.session.commit()
 
 
@@ -99,14 +102,11 @@ def get_answers(user_id, current_user=None):
     if not application:
         raise BadRequestException('User with id={} has no application.'.format(user_id))
     questions = get_questions()
-    response = {'questions':{}, 'has_application': False}
+    response = {'questions': {}, 'has_application': False}
     if application:
         response['has_application'] = True
-        application_id = application.id
         # get a dict keyed by question id of questions & answers
-        answer_query = db.session.query(Answer.question_id, Answer.text)\
-            .filter(Answer.application_id == application_id)
-        answers = {item[0]: item[1] for item in answer_query}
+        answers = {a.question_id: a.text for a in application.answers}
         for question_id in questions:
             answer = answers[question_id] if question_id in answers else ""
             response['questions'][question_id] = {
@@ -131,14 +131,14 @@ def start_application(current_user=None):
     character = Character.get(current_user.id)
     if character.blocked_from_applying:
         raise ForbiddenException('User is blocked')
-    application = Application.query.filter_by(
-        user_id=current_user.id, is_concluded=False).one_or_none()
+    application = Application.get_for_user(current_user.id)
     if application:
         raise BadRequestException('An application is already open')
     # no application, start one
     application = Application(user_id=current_user.id, is_concluded=False)
     db.session.add(application)
     db.session.commit()
+    print(Application.get_for_user(current_user.id))
     return {'status': 'ok'}
 
 

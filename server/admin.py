@@ -14,6 +14,7 @@ kind_dict = {
     'corporation': Corporation,
     'system': System,
     'region': Region,
+    'user': User,
 }
 
 
@@ -40,7 +41,7 @@ def set_roles(
             user.recruiter.is_senior = True
     elif is_recruiter:
         if not user.recruiter:
-            db.session.add(Recruiter(id=user.id, is_senior=True))
+            db.session.add(Recruiter(id=user.id, is_senior=False))
     elif is_recruiter == False and user.recruiter:
         remove_recruiter(user.recruiter)
     if is_senior_recruiter == False and user.recruiter and user.recruiter.is_senior:
