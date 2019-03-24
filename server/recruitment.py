@@ -80,9 +80,7 @@ def set_answers(user_id, answers=None, current_user=None):
         raise ForbiddenException(f'User {current_user.id} is not permitted to answer for {user_id}')
     if not is_applicant_user_id(user_id):
         raise ForbiddenException(f'User {user_id} is not an applicant')
-    application = Application.get_for_user(user_id)
-    if not application:
-        application = Application(user_id=user_id)
+    application = Application.get_for_user(user_id)  # always exists, we checked they're an applicant
     for answer in answers:
         answer_record = Answer.query\
             .filter_by(question_id=answer['question_id'], application_id=application.id)\
