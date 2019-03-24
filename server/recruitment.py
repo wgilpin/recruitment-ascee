@@ -74,16 +74,15 @@ def set_answers(user_id, answers=None, current_user=None):
         user_id = current_user.id if current_user else None
     if not current_user.id == user_id:
         raise ForbiddenException(f'User {current_user.id} is not permitted to answer for {user_id}')
-    if not is_applicant_user_id(user_id):
+    application = Application.get_for_user(user_id)
+    if not application:
         raise ForbiddenException(f'User {user_id} is not an applicant')
-    application = Application.get_for_user(user_id)  # always exists, we checked they're an applicant
     for answer in answers:
         answer_record = Answer.query\
             .filter_by(question_id=answer['question_id'], application_id=application.id)\
             .one_or_none()
         if not answer_record:
             answer_record = Answer(question_id=answer['question_id'], application_id=application.id)
-            application.answers.append(answer_record)
         answer_record.text = answer['text']
     db.session.commit()
 
@@ -200,10 +199,6 @@ def get_applicant_list(current_user=None):
                 )
             )
         ):
-
-    # for user in User.query.all():
-    #     if not is_applicant_user_id(user.id):
-    #         continue
         recruiter_name = None
         application = Application.query.filter_by(user_id=user.id, is_concluded=False).one_or_none()
         if application is None:
@@ -269,11 +264,11 @@ def get_applicant_notes(applicant_user_id, current_user=None):
 
 @cachetools.cached(cachetools.LRUCache(maxsize=1000))
 def get_user_characters(user_id, current_user=None):
-    if not db.session.query(db.exists().where(User.id==user_id)).scalar():
-        raise BadRequestException('User with id={} does not exist.'.format(user_id))
     user = User.get(user_id)
     if not has_applicant_access(current_user, user, self_access=True):
-        raise ForbiddenException('User {} does not have access to user {}'.format(current_user, user_id))
+        raise ForbiddenException('User {} does not have access.'.format(current_user))
+    if not db.session.query(db.exists().where(User.id==user_id)).scalar():
+        raise BadRequestException('User with id={} does not exist.'.format(user_id))
     character_dict = {}
     for character in db.session.query(Character).filter(Character.user_id==user_id):
         character_dict[character.id] = {
