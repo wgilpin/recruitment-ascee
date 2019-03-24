@@ -29,7 +29,10 @@ const styles = {
   },
   fab: {
     float: 'right',
-    position: 'inherit',
+    position: 'relative',
+    top: 'unset',
+    bottom: 'unset',
+    right: 'unset'
   }
 };
 
@@ -128,9 +131,10 @@ export default class AdminQuestions extends React.Component {
   }
 
   confirmedDelete = () => {
-    const newQuestions = Object.assign({}, this.state.questions);
-    delete newQuestions[this.state.deleteId];
-    this.setState({ questions: newQuestions, dirty: true, showConfirm: false });
+    this.setState({ showConfirm: false });
+    new FetchData({ scope: 'admin/remove_question', param2: this.state.deleteId })
+      .get()
+      .then(this.componentWillMount);
   };
 
   handleAdd = () => {
