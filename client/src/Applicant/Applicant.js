@@ -152,7 +152,7 @@ export default class Applicant extends Component {
       <TabPanel>
         <h2 style={styles.heading}>Recruitment Questions</h2>
         {Object.keys(this.state.questions || {}).map(key => {
-          const { question } = this.state.questions[key];
+          const question = this.state.questions[key];
           const answer = this.state.answers[key];
           return (
             <div key={key}>
