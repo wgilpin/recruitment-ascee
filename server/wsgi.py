@@ -64,7 +64,7 @@ def run_app():
         db.init_app(app)
         db.create_all()
         if os.environ.get('CURRENT_ENV', '') == 'heroku':
-            app.run(host='0.0.0.0', port='80')
+            app.run()
         else:
             app.run(host='localhost', port='8080')
 
