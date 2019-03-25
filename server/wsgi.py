@@ -27,6 +27,8 @@ from esi_config import database_url
 app.url_map.strict_slashes = False
 
 # Serve React App
+
+
 @app.route('/')
 def serve():
     return send_from_directory('public', 'index.html')
@@ -61,8 +63,9 @@ def run_app():
     with app.app_context():
         db.init_app(app)
         db.create_all()
-        app.run(host='0.0.0.0', port='80')
+        if os.environ.get('CURRENT_ENV', '') == 'heroku':
+            app.run(host='0.0.0.0', port='80')
+        else:
+            app.run(host='localhost', port='8080')
 
-
-if __name__ == '__main__':
-    run_app()
+run_app()
