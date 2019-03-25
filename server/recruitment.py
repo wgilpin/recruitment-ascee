@@ -138,7 +138,6 @@ def start_application(current_user=None):
     application = Application(user_id=current_user.id, is_concluded=False)
     db.session.add(application)
     db.session.commit()
-    print(Application.get_for_user(current_user.id))
     return {'status': 'ok'}
 
 
@@ -244,6 +243,7 @@ def get_applicant_notes(applicant_user_id, current_user=None):
     else:
         application = Application.get_for_user(applicant_user_id)
         return {'info': get_application_note_data(application)}
+
 
 def get_application_note_data(application):
     result = []

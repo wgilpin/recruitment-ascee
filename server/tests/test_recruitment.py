@@ -8,8 +8,10 @@ import unittest
 from recruitment import (
     get_questions, get_answers, get_user_characters, get_users,\
     add_applicant_note, get_character_search_list, get_applicant_list, set_answers,\
-    start_application, set_questions, remove_question, get_applicant_notes)
-from status import reject_applicant
+    start_application, set_questions, remove_question, get_applicant_notes,
+    application_history, submit_application
+)
+from status import reject_applicant, accept_applicant, invite_applicant, claim_applicant
 from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
 from flask_app import app
@@ -633,6 +635,142 @@ class MiscRecruitmentTests(AsceeTestCase):
         for property in ('name', 'corporation_name'):
             self.assertTrue(property in character.keys(), property)
 
+
+class ApplicationHistoryTests(AsceeTestCase):
+
+    def test_empty_history(self):
+        result = application_history(self.not_applicant.id, current_user=self.admin)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 0)
+
+    def test_new_history(self):
+        self.application.recruiter_id = None
+        self.application.is_submitted = False
+        result = application_history(self.applicant.id,
+                                     current_user=self.admin)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 1)
+        app_data = result['info'][0]
+        self.assertEqual(app_data['recruiter_id'], None)
+        self.assertEqual(app_data['recruiter_name'], None)
+        self.assertEqual(app_data['status'], 'new')
+        self.assertEqual(len(app_data['notes']), 0)
+
+    def test_submitted_history(self):
+        self.application.recruiter_id = None
+        result = application_history(self.applicant.id,
+                                     current_user=self.admin)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 1)
+        app_data = result['info'][0]
+        self.assertEqual(app_data['recruiter_id'], None)
+        self.assertEqual(app_data['recruiter_name'], None)
+        self.assertEqual(app_data['status'], 'submitted')
+        self.assertEqual(len(app_data['notes']), 0)
+
+    def test_claimed_history(self):
+        result = application_history(self.applicant.id, current_user=self.admin)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 1)
+        app_data = result['info'][0]
+        self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
+        self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
+        self.assertEqual(app_data['status'], 'claimed')
+        self.assertEqual(len(app_data['notes']), 0)
+
+    def test_claimed_history_recruiter_access(self):
+        result = application_history(self.applicant.id, current_user=self.recruiter)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 1)
+        app_data = result['info'][0]
+        self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
+        self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
+        self.assertEqual(app_data['status'], 'claimed')
+        self.assertEqual(len(app_data['notes']), 0)
+
+    def test_claimed_history_senior_recruiter_access(self):
+        result = application_history(self.applicant.id, current_user=self.senior_recruiter)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 1)
+        app_data = result['info'][0]
+        self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
+        self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
+        self.assertEqual(app_data['status'], 'claimed')
+        self.assertEqual(len(app_data['notes']), 0)
+
+    def test_rejected_history(self):
+        reject_applicant(self.applicant.id, current_user=self.recruiter)
+        result = application_history(self.applicant.id, current_user=self.admin)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 1)
+        app_data = result['info'][0]
+        self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
+        self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
+        self.assertEqual(app_data['status'], 'rejected')
+        self.assertEqual(len(app_data['notes']), 0)
+
+    def test_accepted_history(self):
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        result = application_history(self.applicant.id, current_user=self.admin)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 1)
+        app_data = result['info'][0]
+        self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
+        self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
+        self.assertEqual(app_data['status'], 'accepted')
+        self.assertEqual(len(app_data['notes']), 0)
+
+    def test_accepted_history_with_note(self):
+        add_applicant_note(self.applicant.id, "A note", title='A Title', is_chat_log=True, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        result = application_history(self.applicant.id, current_user=self.admin)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 1)
+        app_data = result['info'][0]
+        self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
+        self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
+        self.assertEqual(app_data['status'], 'accepted')
+        self.assertEqual(len(app_data['notes']), 1)
+        note_data = app_data['notes'][0]
+        self.assertEqual(note_data['text'], 'A note')
+        self.assertEqual(note_data['title'], 'A Title')
+        self.assertEqual(note_data['author'], self.recruiter.name)
+        self.assertTrue(note_data['is_chat_log'])
+        for key in ('timestamp', 'author', 'title', 'text', 'id', 'is_chat_log'):
+            self.assertIn(key, note_data)
+
+    def test_invited_history(self):
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        invite_applicant(self.applicant.id, current_user=self.senior_recruiter)
+        result = application_history(self.applicant.id, current_user=self.admin)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 1)
+        app_data = result['info'][0]
+        self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
+        self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
+        self.assertEqual(app_data['status'], 'invited')
+        self.assertEqual(len(app_data['notes']), 0)
+
+    def test_two_applications(self):
+        reject_applicant(self.applicant.id, current_user=self.recruiter)
+        start_application(self.applicant)
+        submit_application(self.applicant)
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        result = application_history(self.applicant.id, current_user=self.admin)
+        self.assertIsInstance(result, dict)
+        self.assertIn('info', result)
+        self.assertEqual(len(result['info']), 2)
 
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
