@@ -138,7 +138,6 @@ def start_application(current_user=None):
     application = Application(user_id=current_user.id, is_concluded=False)
     db.session.add(application)
     db.session.commit()
-    print(Application.get_for_user(current_user.id))
     return {'status': 'ok'}
 
 

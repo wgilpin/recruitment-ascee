@@ -64,16 +64,6 @@ class MailTests(AsceeTestCase):
             with self.assertRaises(ForbiddenException):
                 set_mail_template('simple', 'Subject', 'Hello world!', current_user=user)
 
-    def test_send_mail_invalid_template_name(self):
-        with self.assertRaises(BadRequestException):
-            send_mail(self.applicant.id, 'not_a_template', current_user=self.admin)
-
-    def test_send_mail_forbidden(self):
-        set_mail_template('simple', 'Subject', 'Hello world!', current_user=self.admin)
-        for user in (self.applicant, self.recruiter, self.senior_recruiter):
-            with self.assertRaises(ForbiddenException):
-                send_mail(self.applicant.id, 'simple', current_user=user)
-
 
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
