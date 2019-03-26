@@ -402,6 +402,7 @@ class Structure(db.Model):
                     structure_id=id,
                 )
                 Corporation.get(structure_data['owner_id'])
+                System.get(structure_data['solar_system_id'])
                 structure = Structure(
                     id=id,
                     name=structure_data['name'],
