@@ -197,6 +197,28 @@ class ApplicantStatusTests(AsceeTestCase):
         self.assertTrue(self.application.is_concluded)
         self.assertFalse(self.application.is_invited)
 
+    def test_recruiter_reject_accepted_applicant_forbidden(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            reject_applicant(self.applicant.id, current_user=self.recruiter)
+
+    def test_sr_reject_accepted_applicant(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        response = reject_applicant(self.applicant.id, current_user=self.senior_recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        self.assertFalse(self.application.is_accepted)
+        self.assertTrue(self.application.is_concluded)
+        self.assertFalse(self.application.is_invited)
+
+    def test_sr_reject_invited_applicant_forbidden(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        invite_applicant(self.applicant.id, current_user=self.senior_recruiter)
+        with self.assertRaises(ForbiddenException):
+            reject_applicant(self.applicant.id, current_user=self.senior_recruiter)
+
     def test_accept_not_applicant(self):
         with self.assertRaises(ForbiddenException):
             accept_applicant(self.not_applicant.id, current_user=self.recruiter)
