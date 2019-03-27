@@ -332,7 +332,6 @@ export default class Recruiter extends React.Component {
           <button style={{ ...localStyles.primaryButton, float: 'right' }}>
             Admin
           </button>
-          ,
         </a>
       ),
       !this.state.activeRecruit && (
