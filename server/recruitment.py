@@ -142,8 +142,7 @@ def start_application(current_user=None):
 
 
 def add_applicant_note(applicant_user_id, text, title=None, is_chat_log=False, current_user=None):
-    application = Application.query.filter_by(
-        user_id=applicant_user_id, is_concluded=False).one_or_none()
+    application = Application.get_submitted_for_user(applicant_user_id)
     if application is None:
         raise BadRequestException('User {} is not an applicant'.format(
             User.get(applicant_user_id).name))

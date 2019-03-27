@@ -16,11 +16,9 @@
 # [START imports]
 import logging
 from flask_app import app
-from flask import render_template, send_from_directory, json
+from flask import send_from_directory
 from models import db
 import os
-import pyswagger
-from datetime import datetime, date
 import routes
 from esi_config import database_url
 

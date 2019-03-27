@@ -6,8 +6,8 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
 from recruitment import (
-    get_questions, get_answers, get_user_characters, get_users,\
-    add_applicant_note, get_character_search_list, get_applicant_list, set_answers,\
+    get_questions, get_answers, get_user_characters, get_users,
+    add_applicant_note, get_character_search_list, get_applicant_list, set_answers,
     start_application, set_questions, remove_question, get_applicant_notes,
     application_history, submit_application
 )
@@ -425,6 +425,15 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.assertDictEqual(response, {'status': 'ok'})
         notes = self.application.notes
         self.assertEqual(len(notes), 2)
+
+    def test_add_applicant_note_on_accepted(self):
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        response = add_applicant_note(self.applicant.id, "A note", current_user=self.senior_recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        notes = self.application.notes
+        self.assertEqual(len(notes), 1)
+        self.assertEqual(notes[0].text, "A note")
+        self.assertEqual(notes[0].title, None)
 
     def test_add_chat_log_with_title(self):
         response = add_applicant_note(self.applicant.id, "A note", title="A Title", is_chat_log=True, current_user=self.recruiter)
