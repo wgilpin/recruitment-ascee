@@ -49,8 +49,10 @@ def api_oauth_callback():
     token = request.args.get('state')
     session_token = session.pop('token', None)
     if (token is None) or (session_token is None) or token != session_token:
-        raise ForbiddenException(
-            'Login to Eve Online SSO failed: Session Token Mismatch')
+        # abort operation
+        print('Login to Eve Online SSO failed: Session Token Mismatch for token'
+              ' {} and session_token {}'.format(token, session_token))
+        return redirect(react_app_url)
     login_type = session_token.split(':')[0]
     character = process_oauth(login_type, code)
     return route_login(login_type, character)
