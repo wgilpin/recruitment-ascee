@@ -76,7 +76,7 @@ def api_set_mail_template():
         return jsonify(set_mail_template(name, subject=subject, text=template, current_user=current_user))
 
 
-@app.route('/api/mail/template/<str:name>', methods=['GET'])
+@app.route('/api/mail/template/<string:name>', methods=['GET'])
 @login_required
 def api_get_mail_template(name):
     """
