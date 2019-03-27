@@ -7,7 +7,7 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from models import db, MailTemplate, ConfigItem, Character
 from base import AsceeTestCase
-from mail import set_mail_character, set_mail_template, get_mail_character, get_mail_text, send_mail
+from mail import set_mail_character, set_mail_template, get_mail_character, get_mail_text, send_mail, get_mail_character_data, get_mail_template
 from flask_app import app
 from exceptions import BadRequestException, ForbiddenException
 
@@ -18,6 +18,18 @@ class MailTests(AsceeTestCase):
         self.assertEqual(get_mail_character(), None)
         set_mail_character(self.applicant_character, current_user=self.admin)
         self.assertEqual(get_mail_character(), self.applicant_character)
+
+    def test_get_mail_character_data(self):
+        self.assertEqual(get_mail_character(), None)
+        set_mail_character(self.applicant_character, current_user=self.admin)
+        self.assertEqual(get_mail_character(), self.applicant_character)
+        response = get_mail_character_data(current_user=self.admin)
+        self.assertIn('info', response)
+        data = response['info']
+        self.assertIn('id', data)
+        self.assertIn('name', data)
+        self.assertEqual(data['id'], self.applicant_character.id)
+        self.assertEqual(data['name'], self.applicant_character.name)
 
     def test_change_mail_character(self):
         self.assertEqual(get_mail_character(), None)
@@ -41,9 +53,30 @@ class MailTests(AsceeTestCase):
         self.assertEqual(MailTemplate.query.get('simple').text, 'Hello {character_name}!')
         self.assertEqual(MailTemplate.query.get('simple').subject, 'Hey')
 
+    def test_get_mail_template_with_field(self):
+        set_mail_template('simple', 'Hey', 'Hello {character_name}!', current_user=self.admin)
+        self.assertEqual(MailTemplate.query.get('simple').text, 'Hello {character_name}!')
+        self.assertEqual(MailTemplate.query.get('simple').subject, 'Hey')
+        response = get_mail_template('simple', current_user=self.admin)
+        self.assertIn('info', response)
+        data = response['info']
+        self.assertIn('subject', data)
+        self.assertIn('text', data)
+        self.assertEqual(data['subject'], 'Hey')
+        self.assertEqual(data['text'], 'Hello {character_name}!')
+
+    def test_get_mail_template_empty(self):
+        response = get_mail_template('simple', current_user=self.admin)
+        self.assertIn('info', response)
+        data = response['info']
+        self.assertIn('subject', data)
+        self.assertIn('text', data)
+        self.assertEqual(data['subject'], '')
+        self.assertEqual(data['text'], '')
+
     def test_get_mail_with_field(self):
-        set_mail_template('simple', 'Subject', 'Hello {character_name}!', current_user=self.admin)
-        subject, mail_text = get_mail_text('simple', character_name='Bob')
+        set_mail_template('simple', 'Subject', 'Hello {name}!', current_user=self.admin)
+        subject, mail_text = get_mail_text('simple', name='Bob')
         self.assertEqual(mail_text, 'Hello Bob!')
         self.assertEqual(subject, 'Subject')
 
