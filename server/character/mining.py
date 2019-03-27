@@ -9,6 +9,10 @@ def get_character_mining(character_id, current_user=None):
         'get_characters_character_id_mining',
         character_id=character_id,
     )
+    return process_mining(mining_data)
+
+
+def process_mining(mining_data):
     return_list = []
     for entry in mining_data:
         redlisted = []
