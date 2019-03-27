@@ -78,7 +78,7 @@ def api_set_mail_template():
 
 @app.route('/api/mail/template/<str:name>', methods=['GET'])
 @login_required
-def api_get_mail_template():
+def api_get_mail_template(name):
     """
     Retrieves a mail template. Returns an empty template if not present.
 
@@ -102,7 +102,6 @@ def api_get_mail_template():
         Forbidden (403): If logged in user is not an admin.
         Bad request (400): If any arguments are missing.
     """
-    name = request.get_json().get('name')
     if name is None:
         raise BadRequestException('name argument is missing.')
     return jsonify(get_mail_template(name, current_user=current_user))
