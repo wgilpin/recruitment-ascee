@@ -1,14 +1,14 @@
-from models import Character, Type
+from models import Character, Corporation
 from security import character_application_access_check
-from character.util import get_location_multi
 from character.industry import process_industry
 
 
-def get_character_industry(character_id, current_user=None):
-    character = Character.get(character_id)
+def get_corporation_industry(corporation_id, current_user=None):
+    corporation = Corporation.get(corporation_id)
+    character = Character.get(corporation.ceo_id)
     character_application_access_check(current_user, character)
     industry_job_data = character.get_op(
-        'get_characters_character_id_industry_jobs',
-        character_id=character_id,
+        'get_corporations_corporation_id_industry_jobs',
+        corporation_id=corporation_id,
     )
     return process_industry(character, industry_job_data)
