@@ -138,13 +138,11 @@ def start_application(current_user=None):
     application = Application(user_id=current_user.id, is_concluded=False)
     db.session.add(application)
     db.session.commit()
-    print(Application.get_for_user(current_user.id))
     return {'status': 'ok'}
 
 
 def add_applicant_note(applicant_user_id, text, title=None, is_chat_log=False, current_user=None):
-    application = Application.query.filter_by(
-        user_id=applicant_user_id, is_concluded=False).one_or_none()
+    application = Application.get_submitted_for_user(applicant_user_id)
     if application is None:
         raise BadRequestException('User {} is not an applicant'.format(
             User.get(applicant_user_id).name))
@@ -243,23 +241,27 @@ def get_applicant_notes(applicant_user_id, current_user=None):
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
         application = Application.get_for_user(applicant_user_id)
-        result = []
-        authors = {}
-        for note in application.notes:
-            if note.author_id in authors:
-                author = authors[note.author_id]
-            else:
-                author = Character.get(note.author_id).name
-                authors[note.author_id] = author
-            result.append({
-                'id': note.id,
-                'text': note.text,
-                'title': note.title,
-                'author': author,
-                'is_chat_log': note.is_chat_log,
-                'timestamp': note.timestamp,
-            })
-        return {'info': result}
+        return {'info': get_application_note_data(application)}
+
+
+def get_application_note_data(application):
+    result = []
+    authors = {}
+    for note in application.notes:
+        if note.author_id in authors:
+            author = authors[note.author_id]
+        else:
+            author = Character.get(note.author_id).name
+            authors[note.author_id] = author
+        result.append({
+            'id': note.id,
+            'text': note.text,
+            'title': note.title,
+            'author': author,
+            'is_chat_log': note.is_chat_log,
+            'timestamp': note.timestamp,
+        })
+    return result
 
 
 @cachetools.cached(cachetools.LRUCache(maxsize=1000))
@@ -277,3 +279,38 @@ def get_user_characters(user_id, current_user=None):
             'corporation_name': character.corporation.name,
         }
     return {'info': character_dict}
+
+
+def application_history(applicant_id, current_user=None):
+    user = User.get(applicant_id)
+    if not (is_senior_recruiter(current_user) or is_admin(current_user)):
+        user_application_access_check(current_user, user)
+    application_list = []
+    for application in user.applications:
+        app_dict = {}
+        app_dict['recruiter_id'] = application.recruiter_id
+        if application.recruiter_id is None:
+            app_dict['recruiter_name'] = None
+        else:
+            app_dict['recruiter_name'] = User.get(application.recruiter_id).name
+
+        app_dict['status'] = get_application_status(application)
+        application_list.append(app_dict)
+        app_dict['notes'] = get_application_note_data(application)
+    return {'info': application_list}
+
+
+def get_application_status(application):
+    if application.is_concluded and not application.is_accepted:
+        status = 'rejected'
+    elif application.is_accepted and not application.is_invited:
+        status = 'accepted'
+    elif application.is_invited:
+        status = 'invited'
+    elif application.recruiter is not None:
+        status = 'claimed'
+    elif application.is_submitted:
+        status = 'submitted'
+    else:
+        status = 'new'
+    return status

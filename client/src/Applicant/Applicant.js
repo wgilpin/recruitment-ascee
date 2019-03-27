@@ -60,21 +60,16 @@ export default class Applicant extends Component {
         ...this.state.answers,
         [e.target.id]: e.target.value,
       },
-    });
-    this.checkReady();
+    },
+    () => this.checkReady());
   };
 
   allQuestionsAnswered = () => {
     if (Object.keys(this.state.answers).length === 0) {
       return false;
     }
-    let allDone = true;
-    Object.keys(this.state.answers).forEach(q => {
-      if (this.state.answers[q].length === 0) {
-        allDone = false;
-      }
-    });
-    return allDone;
+    return Object.values(this.state.answers)
+      .filter(q => q.length === 0).length === 0;
   };
 
   checkReady = () => {

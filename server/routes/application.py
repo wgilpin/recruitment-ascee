@@ -1,7 +1,7 @@
 from flask_login import current_user
 from flask_app import app
 from flask import request, jsonify
-from recruitment import start_application, submit_application
+from recruitment import start_application, submit_application, application_history
 from status import claim_applicant, release_applicant, accept_applicant, reject_applicant,\
     own_application_status, invite_applicant
 from security import login_required
@@ -154,3 +154,51 @@ def api_invite_applicant(applicant_id):
         Bad request (400): If the given user is not an applicant with "accepted" status
     """
     return jsonify(invite_applicant(applicant_id, current_user=current_user))
+
+
+@app.route(
+    '/api/recruits/application_history/<int:applicant_id>', methods=['GET'])
+@login_required
+def api_application_history(applicant_id):
+    """
+    Return application history for a user.
+
+    Returned data is a list of dictionaries, one dict per application
+    containing all relevant application data.
+
+    Args:
+        applicant_id (int): User key of applicant
+
+    Returns:
+        response
+
+    Example:
+
+    {
+        'info': [
+            {
+                'recruiter_id': 10233421,  # could be None
+                'recruiter_name': 'Recruiter Rachel',  # could be None
+                'status': 'rejected',  # one of 'new', 'submitted', 'claimed, 'rejected', 'accepted', 'invited'
+                'status_update_timestamp': 'ISO Date string',
+                'notes': [
+                    {
+                        "timestamp": "ISO Date string",
+                        "author": "Recruiter Rachel",
+                        "is_chat_log": True,
+                        "id": 101052109,
+                        "title": "Chat log from friday",
+                        "text": "kiugoiugnboyiug ouiguy",
+                    },
+                    (...)
+                ],
+            },
+            (...)
+        ]
+    }
+
+    Error codes:
+        Forbidden (403): If logged in user is not a recruiter with access
+            to the applicant, or a senior recruiter, or an admin.
+    """
+    return jsonify(application_history(applicant_id, current_user=current_user))

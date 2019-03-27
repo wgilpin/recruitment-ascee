@@ -14,6 +14,17 @@ def get_mail_character():
     return character
 
 
+def get_mail_character_data(current_user=None):
+    user_admin_access_check(current_user)
+    character = get_mail_character()
+    return {
+        'info': {
+            'id': character.id,
+            'name': character.name,
+        }
+    }
+
+
 def get_mail_text(template_name, **kwargs):
     mail_template = MailTemplate.query.get(template_name)
     if mail_template is None:
@@ -42,6 +53,27 @@ def set_mail_template(name, subject, text, current_user=None):
         template.subject = subject
         template.text = text
     db.session.commit()
+
+
+def get_mail_template(name, current_user=None):
+    user_admin_access_check(current_user)
+    template = MailTemplate.query.get(name)
+    if template is not None:
+        return {
+            'info': {
+                'name': name,
+                'subject': template.subject,
+                'text': template.text,
+            }
+        }
+    else:
+        return {
+            'info': {
+                'name': name,
+                'subject': '',
+                'text': '',
+            }
+        }
 
 
 def send_mail(to_character_id, template_name):
