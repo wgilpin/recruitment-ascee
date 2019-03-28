@@ -60,7 +60,7 @@ export default class Alts extends React.Component {
 
   loadCharacterSummary= (alts) => {
     Object.entries(alts).map(([id, alt]) => {
-      return new FetchData({ id, scope: 'character', param2: 'esi' })
+      return new FetchData({ id, scope: 'character', param2: 'summary' })
         .get()
         .then(({info}) => this.setState({
           corporation: info.corporation_name,
@@ -103,7 +103,7 @@ export default class Alts extends React.Component {
               onClick={this.handleClick}
               showPointer={this.props.showPointer}
             />
-            <span>
+            <div>
               <span style={styles.corporation}>{this.state.corporation}</span>
               <span style={styles.secStatus}>({this.state.secStatus})</span>
             </div>
