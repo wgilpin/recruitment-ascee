@@ -18,7 +18,7 @@ from flask_app import app
 import warnings
 
 
-class SimpleCharacterMixin(object):
+class SimpleCorporationMixin(object):
 
     api_definition = None
 
@@ -155,9 +155,6 @@ class SimpleCharacterMixin(object):
     def test_API_as_other_recruiter(self):
         self.run_tests_simple_APIs(self.applicant.id, self.other_recruiter, ForbiddenException)
 
-    def test_API_as_non_recruiter(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.not_applicant, ForbiddenException)
-
     def test_API_as_admin(self):
         self.run_tests_simple_APIs(self.applicant.id, self.admin, ForbiddenException)
 
@@ -180,7 +177,7 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.not_applicant.id, self.admin, ForbiddenException)
 
 
-class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationWalletTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
         'fetch_function': character.get_character_wallet,
@@ -206,72 +203,7 @@ class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
-class CharacterCalendarTests(SimpleCharacterMixin, AsceeTestCase):
-
-    api_definition = {
-        'fetch_function': character.get_character_calendar,
-        'required': {
-            'event_date': str,
-            'event_id': int,
-            'event_response': str,
-            'importance': int,
-            'title': str,
-            'duration': int,
-            'owner_id': int,
-            'owner_name': str,
-            'owner_type': str,
-            'response': str,
-            'text': str,
-        },
-        'optional': {
-        },
-        'redlisting': {
-        },
-        'entry_identifier': 'event_id',
-    }
-
-
-class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
-
-    # results from ESI, Each result additionally has the key 'ship_type_name',
-    # and each item has the additional key 'type_name'.
-    api_definition = {
-        'fetch_function': character.fittings.get_character_fittings,
-        'required': {
-            'description': str,
-            'fitting_id': int,
-            'items': list,
-            'name': str,
-            'ship_type_id': int,
-            'ship_type_name': str,
-            'redlisted': list,
-        },
-        'optional': {
-        },
-        'redlisting': {
-            'ship_type_name': (Type, 'ship_type_id'),
-            'items': {
-                'type_name': (Type, 'type_id'),
-                'entry_identifier': 'type_id',
-            },
-        },
-        'entry_identifier': 'fitting_id',
-    }
-
-    def helper_simple_APIs(self, response, api_def):
-        super(CharacterFittingsTests, self).helper_simple_APIs(response, api_def)
-        for data in response['info']:
-            for item in data['items']:
-                for attr, type in (
-                        ('flag', int),
-                        ('quantity', int),
-                        ('type_id', int),
-                        ('type_name', str)):
-                    self.assertIn(attr, item, attr)
-                    self.assertIsInstance(item[attr], type, attr)
-
-
-class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationContactsTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
         'fetch_function': character.contacts.get_character_contacts,
@@ -295,31 +227,7 @@ class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
-class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
-
-    api_definition = {
-        'fetch_function': character.mining.get_character_mining,
-        'required': {
-            'date': str,
-            'quantity': int,
-            'system_id': int,
-            'system_name': str,
-            'type_id': int,
-            'type_name': str,
-            'value': float,
-            'redlisted': list,
-        },
-        'optional': {
-        },
-        'redlisting': {
-            'system_name': (System, 'system_id'),
-        },
-        # it's fine that this can match multiple entries, since we're only testing system redlisting
-        'entry_identifier': 'system_id',
-    }
-
-
-class CharacterBlueprintsTests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationBlueprintsTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
         'fetch_function': character.get_character_blueprints,
@@ -346,33 +254,7 @@ class CharacterBlueprintsTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
-class CharacterPITests(SimpleCharacterMixin, AsceeTestCase):
-    api_definition = {
-        'fetch_function': character.planetary_interaction.get_character_planetary_interaction,
-        'required': {
-            'last_update': str,
-            'num_pins': int,
-            'owner_id': int,
-            'planet_id': int,
-            'planet_type': str,
-            'system_id': int,
-            'system_name': str,
-            'region_id': int,
-            'region_name': str,
-            'upgrade_level': int,
-            'redlisted': list,
-        },
-        'optional': {
-        },
-        'redlisting': {
-            'system_name': (System, 'system_id'),
-            'region_name': (Region, 'region_id'),
-        },
-        'entry_identifier': 'planet_id',
-    }
-
-
-class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationIndustryTests(SimpleCorporationMixin, AsceeTestCase):
     api_definition = {
         'fetch_function': character.industry.get_character_industry,
         'required': {
@@ -411,7 +293,7 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
-class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationMarketContractsTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
         'fetch_function': character.finance.get_character_market_contracts,
@@ -450,32 +332,7 @@ class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
-class CharacterBookmarksTests(SimpleCharacterMixin, AsceeTestCase):
-
-    api_definition = {
-        'fetch_function': character.bookmarks.get_character_bookmarks,
-        'required': {
-            'system_id': int,
-            'system_name': str,
-            'redlisted': list,
-            'bookmark_id': int,
-            'notes': str,
-            'location_id': int,
-            'creator_id': int,
-            'label': str,
-        },
-        'optional': {
-            'folder_id': int,
-            'folder_name': str,
-        },
-        'redlisting': {
-            'system_name': (System, 'system_id'),
-        },
-        'entry_identifier': 'bookmark_id',
-    }
-
-
-class CharacterMarketHistoryTests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationMarketHistoryTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
         'fetch_function': character.finance.get_character_market_history,
