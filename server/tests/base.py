@@ -12,7 +12,6 @@ from models import (
 )
 import warnings
 import time
-from vcr_unittest import VCRTestCase
 import esipy
 import esi
 from json_mock import JsonFunctionMocker

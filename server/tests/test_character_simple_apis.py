@@ -208,7 +208,7 @@ def esi_wrap_to_list(character_id, current_user=None):
     return {'info': [result['info']]}
 
 
-class CharacterESITests(SimpleCharacterMixin, AsceeTestCase):
+class CharacterSummaryTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
         'fetch_function': esi_wrap_to_list,
@@ -293,6 +293,60 @@ class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
                         ('type_name', str)):
                     self.assertIn(attr, item, attr)
                     self.assertIsInstance(item[attr], type, attr)
+
+
+def wrap_character_jump_clones(character_id, current_user=None):
+    response = character.get_character_clones(character_id, current_user=current_user)
+    return {'info': response['info']['jump_clones']}
+
+
+class CharacterJumpClonesTests(SimpleCharacterMixin, AsceeTestCase):
+
+    api_definition = {
+        'fetch_function': wrap_character_jump_clones,
+        'required': {
+            'location_type': str,
+            'system_id': int,
+            'system_name': str,
+            'region_id': int,
+            'region_name': str,
+        },
+        'optional': {
+            'redlisted': list,
+        },
+        'redlisting': {
+            'system_name': (System, 'system_id'),
+            'region_name': (Region, 'region_id'),
+        },
+        'entry_identifier': 'jump_clone_id',
+    }
+
+
+def wrap_character_home_location(character_id, current_user=None):
+    response = character.get_character_clones(character_id, current_user=current_user)
+    return {'info': [response['info']['home_location']]}
+
+
+class CharacterHomeLocationTests(SimpleCharacterMixin, AsceeTestCase):
+
+    api_definition = {
+        'fetch_function': wrap_character_home_location,
+        'required': {
+            'location_type': str,
+            'system_id': int,
+            'system_name': str,
+            'region_id': int,
+            'region_name': str,
+        },
+        'optional': {
+            'redlisted': list,
+        },
+        'redlisting': {
+            'system_name': (System, 'system_id'),
+            'region_name': (Region, 'region_id'),
+        },
+        'entry_identifier': 'system_id',
+    }
 
 
 class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):

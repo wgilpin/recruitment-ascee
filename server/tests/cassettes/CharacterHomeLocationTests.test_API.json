@@ -1,0 +1,346 @@
+{
+    "get_op": {
+        "(('get_characters_character_id_clones',), (('character_id', 2114496483), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": {
+            "home_location": {
+                "location_id": 60004450,
+                "location_type": "station"
+            },
+            "jump_clones": [
+                {
+                    "implants": [],
+                    "jump_clone_id": 47758805,
+                    "location_id": 60003466,
+                    "location_type": "station"
+                }
+            ]
+        },
+        "(('get_universe_stations_station_id',), (('station_id', 60004450),))": {
+            "max_dockable_ship_volume": 50000000.0,
+            "name": "Amsen VI - Moon 1 - Science and Trade Institute School",
+            "office_rental_cost": 12478449.0,
+            "owner": 1000045,
+            "position": {
+                "x": 273625620480.0,
+                "y": -12937666560.0,
+                "z": -50608005120.0
+            },
+            "race_id": 1,
+            "reprocessing_efficiency": 0.5,
+            "reprocessing_stations_take": 0.05,
+            "services": [
+                "bounty-missions",
+                "courier-missions",
+                "reprocessing-plant",
+                "market",
+                "cloning",
+                "repair-facilities",
+                "factory",
+                "fitting",
+                "news",
+                "insurance",
+                "docking",
+                "office-rental",
+                "loyalty-point-store",
+                "navy-offices"
+            ],
+            "station_id": 60004450,
+            "system_id": 30001392,
+            "type_id": 1529
+        },
+        "(('get_universe_systems_system_id',), (('system_id', 30001392),))": {
+            "constellation_id": 20000204,
+            "name": "Amsen",
+            "planets": [
+                {
+                    "planet_id": 40088639
+                },
+                {
+                    "planet_id": 40088640
+                },
+                {
+                    "planet_id": 40088641
+                },
+                {
+                    "planet_id": 40088642
+                },
+                {
+                    "asteroid_belts": [
+                        40088644
+                    ],
+                    "planet_id": 40088643
+                },
+                {
+                    "asteroid_belts": [
+                        40088646
+                    ],
+                    "moons": [
+                        40088647
+                    ],
+                    "planet_id": 40088645
+                },
+                {
+                    "asteroid_belts": [
+                        40088649
+                    ],
+                    "moons": [
+                        40088650
+                    ],
+                    "planet_id": 40088648
+                },
+                {
+                    "moons": [
+                        40088652,
+                        40088653
+                    ],
+                    "planet_id": 40088651
+                },
+                {
+                    "asteroid_belts": [
+                        40088655
+                    ],
+                    "moons": [
+                        40088656,
+                        40088657
+                    ],
+                    "planet_id": 40088654
+                }
+            ],
+            "position": {
+                "x": -1.4549301322545696e+17,
+                "y": 1.0159411156753597e+17,
+                "z": 1.3763817142278957e+17
+            },
+            "security_class": "A",
+            "security_status": 1.0,
+            "star_id": 40088638,
+            "stargates": [
+                50001721,
+                50001722
+            ],
+            "stations": [
+                60004450
+            ],
+            "system_id": 30001392
+        },
+        "(('get_universe_constellations_constellation_id',), (('constellation_id', 20000204),))": {
+            "constellation_id": 20000204,
+            "name": "Sela",
+            "position": {
+                "x": -1.4487633442116714e+17,
+                "y": 1.009726794043711e+17,
+                "z": 1.4681884616996224e+17
+            },
+            "region_id": 10000016,
+            "systems": [
+                30001392,
+                30001393,
+                30001394,
+                30001395,
+                30001396,
+                30001397
+            ]
+        },
+        "(('get_universe_regions_region_id',), (('region_id', 10000016),))": {
+            "constellations": [
+                20000198,
+                20000199,
+                20000200,
+                20000201,
+                20000202,
+                20000203,
+                20000204,
+                20000205,
+                20000206,
+                20000207,
+                20000208,
+                20000209,
+                20000210,
+                20000211,
+                20000212
+            ],
+            "description": "\"Our surveys show that there are many planets capable of sustaining life in these systems. However, the lack of a proper stargate network has drastically increased the travel time for our mission. I think it is worth it. I don't trust those Gallente further than I could throw one, and that isn't very far, given their indulgences.\n\nThe initial speculation for a fallback position seems to be sustainable, but we have one potential problem. The long-range probes we sent out have been reporting some strange readings. Our science teams think they are reading stargates and an adjoining region, which is disturbing. I do not think it possible that the Gallente have yet moved that far. Until we can confirm these readings and determine who or what these stargates belong to, it would be ill-advised to place ourselves in a position where we have our movement restricted on multiple fronts.\"\n\n<i>-Minato Zumari, Caldari Navy Commander </i>",
+            "name": "Lonetrek",
+            "region_id": 10000016
+        },
+        "(('get_universe_stations_station_id',), (('station_id', 60003466),))": {
+            "max_dockable_ship_volume": 50000000.0,
+            "name": "Jita IV - Moon 4 - Caldari Business Tribunal Bureau Offices",
+            "office_rental_cost": 130622458.0,
+            "owner": 1000033,
+            "position": {
+                "x": -107302625280.0,
+                "y": -18745221120.0,
+                "z": 436489789440.0
+            },
+            "race_id": 1,
+            "reprocessing_efficiency": 0.5,
+            "reprocessing_stations_take": 0.05,
+            "services": [
+                "bounty-missions",
+                "courier-missions",
+                "interbus",
+                "reprocessing-plant",
+                "market",
+                "stock-exchange",
+                "cloning",
+                "fitting",
+                "news",
+                "insurance",
+                "docking",
+                "office-rental",
+                "loyalty-point-store",
+                "navy-offices"
+            ],
+            "station_id": 60003466,
+            "system_id": 30000142,
+            "type_id": 1529
+        },
+        "(('get_universe_systems_system_id',), (('system_id', 30000142),))": {
+            "constellation_id": 20000020,
+            "name": "Jita",
+            "planets": [
+                {
+                    "planet_id": 40009077
+                },
+                {
+                    "planet_id": 40009078
+                },
+                {
+                    "moons": [
+                        40009081
+                    ],
+                    "planet_id": 40009080
+                },
+                {
+                    "moons": [
+                        40009083,
+                        40009084,
+                        40009085,
+                        40009087,
+                        40009088,
+                        40009089,
+                        40009090,
+                        40009091,
+                        40009092,
+                        40009093,
+                        40009094,
+                        40009097
+                    ],
+                    "planet_id": 40009082
+                },
+                {
+                    "moons": [
+                        40009099,
+                        40009100,
+                        40009101,
+                        40009102,
+                        40009103,
+                        40009104,
+                        40009105,
+                        40009106,
+                        40009107,
+                        40009108,
+                        40009109,
+                        40009110,
+                        40009111,
+                        40009112,
+                        40009113,
+                        40009114,
+                        40009115
+                    ],
+                    "planet_id": 40009098
+                },
+                {
+                    "moons": [
+                        40009118
+                    ],
+                    "planet_id": 40009116
+                },
+                {
+                    "moons": [
+                        40009121,
+                        40009122
+                    ],
+                    "planet_id": 40009119
+                },
+                {
+                    "planet_id": 40009123
+                }
+            ],
+            "position": {
+                "x": -1.2906486173487826e+17,
+                "y": 6.075530690996363e+16,
+                "z": 1.1746922706009029e+17
+            },
+            "security_class": "B",
+            "security_status": 0.9459131360054016,
+            "star_id": 40009076,
+            "stargates": [
+                50001248,
+                50001249,
+                50001250,
+                50013876,
+                50013913,
+                50013921,
+                50013928
+            ],
+            "stations": [
+                60000361,
+                60000364,
+                60000451,
+                60000463,
+                60002953,
+                60002959,
+                60003055,
+                60003460,
+                60003463,
+                60003466,
+                60003469,
+                60003757,
+                60003760,
+                60004423
+            ],
+            "system_id": 30000142
+        },
+        "(('get_universe_constellations_constellation_id',), (('constellation_id', 20000020),))": {
+            "constellation_id": 20000020,
+            "name": "Kimotoro",
+            "position": {
+                "x": -1.3499640046818544e+17,
+                "y": 6.499945263229326e+16,
+                "z": 1.0332561731752134e+17
+            },
+            "region_id": 10000002,
+            "systems": [
+                30000139,
+                30000140,
+                30000141,
+                30000142,
+                30000143,
+                30000144,
+                30000145
+            ]
+        },
+        "(('get_universe_regions_region_id',), (('region_id', 10000002),))": {
+            "constellations": [
+                20000017,
+                20000018,
+                20000019,
+                20000020,
+                20000021,
+                20000022,
+                20000023,
+                20000024,
+                20000025,
+                20000026,
+                20000027,
+                20000028,
+                20000029
+            ],
+            "description": "\"The greater the State becomes, the greater humanity under it flourishes.\"",
+            "name": "The Forge",
+            "region_id": 10000002
+        }
+    },
+    "get_paged_op": {}
+}

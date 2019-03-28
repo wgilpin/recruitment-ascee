@@ -1,6 +1,7 @@
 from routes.character.assets import *
 from routes.character.bookmarks import *
 from routes.character.calendar import *
+from routes.character.clones import *
 from routes.character.contacts import *
 from routes.character.finance import *
 from routes.character.fittings import *
