@@ -15,6 +15,7 @@ def get_character_corporation_history(character_id, current_user=None):
         if entry['is_deleted']:
             entry['corporation_name'] = 'Deleted corp {}'.format(entry['corporation_id'])
             entry['alliance_name'] = 'Unknown'
+            entry['redlisted'] = []
         else:
             corporation = Corporation.get(entry['corporation_id'])
             entry['corporation_name'] = corporation.name
@@ -22,4 +23,12 @@ def get_character_corporation_history(character_id, current_user=None):
                 entry['alliance_name'] = corporation.alliance.name
             else:
                 entry['alliance_name'] = None
+            redlisted_names = []
+            if corporation.is_redlisted:
+                redlisted_names.append('corporation_name')
+            if corporation.alliance and corporation.alliance.is_redlisted:
+                redlisted_names.append('alliance_name')
+            if character.is_redlisted:
+                redlisted_names.append('character_name')
+            entry['redlisted'] = redlisted_names
     return {'info': corporation_list}
