@@ -295,6 +295,27 @@ class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
                     self.assertIsInstance(item[attr], type, attr)
 
 
+class CharacterCorporationHistoryTests(SimpleCharacterMixin, AsceeTestCase):
+
+    api_definition = {
+        'fetch_function': character.get_character_corporation_history,
+        'required': {
+            'is_deleted': bool,
+            'record_id': int,
+            'start_date': str,
+            'corporation_name': str,
+            'alliance_name': (str, type(None)),
+            'redlisted': list,
+        },
+        'optional': {
+        },
+        'redlisting': {
+            'corporation_name': (Corporation, 'corporation_id'),
+        },
+        'entry_identifier': 'record_id',
+    }
+
+
 class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {

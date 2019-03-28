@@ -6,7 +6,7 @@ from security import character_application_access_check
 def get_character_corporation_history(character_id, current_user=None):
     character = Character.get(character_id)
     character_application_access_check(current_user, character)
-    corporation_list = character.get_paged_op(
+    corporation_list = character.get_op(
         'get_characters_character_id_corporationhistory',
         character_id=character_id,
     )
