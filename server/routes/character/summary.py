@@ -2,12 +2,12 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import jsonify
-from character.esi import get_character_esi
+from character.summary import get_character_summary
 
 
-@app.route('/api/character/<int:character_id>/esi', methods=['GET'])
+@app.route('/api/character/<int:character_id>/summary', methods=['GET'])
 @login_required
-def api_character_esi(character_id):
+def api_character_summary(character_id):
     """
     Get basic data for a given character from ESI.
 
@@ -28,6 +28,7 @@ def api_character_esi(character_id):
                 'security_status': 0.,
                 'character_id': 123421315,
                 'character_name': 'Characterus Besticus',
+                'redlisted': ['corporation_name'],
             },
         }
 
@@ -35,5 +36,5 @@ def api_character_esi(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_character_esi(character_id, current_user=current_user))
+    return jsonify(get_character_summary(character_id, current_user=current_user))
 

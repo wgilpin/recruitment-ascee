@@ -204,7 +204,7 @@ class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
 
 
 def esi_wrap_to_list(character_id, current_user=None):
-    result = character.get_character_esi(character_id, current_user=current_user)
+    result = character.get_character_summary(character_id, current_user=current_user)
     return {'info': [result['info']]}
 
 

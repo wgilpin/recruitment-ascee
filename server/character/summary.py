@@ -2,7 +2,7 @@ from models import Character, Corporation, db
 from security import character_application_access_check
 
 
-def get_character_esi(character_id, current_user=None):
+def get_character_summary(character_id, current_user=None):
     character = Character.get(character_id)
     character_application_access_check(current_user, character)
     character_data = character.get_op(
