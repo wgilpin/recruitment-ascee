@@ -203,6 +203,33 @@ class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
+def esi_wrap_to_list(character_id, current_user=None):
+    result = character.get_character_esi(character_id, current_user=current_user)
+    return {'info': [result['info']]}
+
+
+class CharacterESITests(SimpleCharacterMixin, AsceeTestCase):
+
+    api_definition = {
+        'fetch_function': esi_wrap_to_list,
+        'required': {
+            'character_name': str,
+            'character_id': int,
+            'corporation_name': str,
+            'corporation_id': int,
+            'security_status': float,
+        },
+        'optional': {
+            'alliance_name': (str, type(None)),
+        },
+        'redlisting': {
+            'corporation_name': (Corporation, 'corporation_id'),
+            'character_name': (Character, 'character_id'),
+        },
+        'entry_identifier': 'character_id',
+    }
+
+
 class CharacterCalendarTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
