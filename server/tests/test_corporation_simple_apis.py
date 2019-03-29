@@ -1,24 +1,18 @@
 import sys
 import os
 
-import character.bookmarks
-import character.contacts
-import character.finance
-import character.mining
-
 server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 from exceptions import BadRequestException, ForbiddenException
 import unittest
-import character
+import corporation
 from models import Character, User, db, Type, Region, System, Corporation, Alliance, Station
 from base import AsceeTestCase
 from flask_app import app
-import warnings
 
 
-class SimpleCharacterMixin(object):
+class SimpleCorporationMixin(object):
 
     api_definition = None
 
@@ -116,7 +110,7 @@ class SimpleCharacterMixin(object):
     def test_only_valid_types_returned(self):
         api_def = self.api_definition
         method = api_def['fetch_function']
-        response = method(self.applicant.id, current_user=self.recruiter)
+        response = method(self.applicant_character.corporation.id, current_user=self.recruiter)
         self.ensure_only_valid_types(response)
 
     def ensure_only_valid_types(self, d):
@@ -144,46 +138,33 @@ class SimpleCharacterMixin(object):
             self.helper_simple_APIs(response, api_def)
 
     def test_redlisting(self):
-        self.helper_redlisting_simple_apis(self.applicant.id, self.recruiter)
+        self.helper_redlisting_simple_apis(self.applicant_character.corporation.id, self.recruiter)
 
     def test_API(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.recruiter)
+        self.run_tests_simple_APIs(self.applicant_character.corporation.id, self.recruiter)
 
     def test_API_as_senior_recruiter(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.senior_recruiter)
+        self.run_tests_simple_APIs(self.applicant_character.corporation.id, self.senior_recruiter)
 
     def test_API_as_other_recruiter(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.other_recruiter, ForbiddenException)
-
-    def test_API_as_non_recruiter(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.not_applicant, ForbiddenException)
+        self.run_tests_simple_APIs(self.applicant_character.corporation.id, self.other_recruiter, ForbiddenException)
 
     def test_API_as_admin(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.admin, ForbiddenException)
-
-    def test_get_recruiter_API(self):
-        self.run_tests_simple_APIs(self.recruiter.id, self.recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.other_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.senior_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.admin, ForbiddenException)
-
-    def test_get_admin_API(self):
-        self.run_tests_simple_APIs(self.admin.id, self.recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.other_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.senior_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.admin, ForbiddenException)
-
-    def test_get_not_applicant_API(self):
-        self.run_tests_simple_APIs(self.not_applicant.id, self.recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.not_applicant.id, self.other_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.not_applicant.id, self.senior_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.not_applicant.id, self.admin, ForbiddenException)
+        self.run_tests_simple_APIs(self.applicant_character.corporation.id, self.admin, ForbiddenException)
 
 
-class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
+def wrap_corporation_wallet(corporation_id, current_user=None):
+    response = corporation.get_corporation_wallet(corporation_id, current_user=current_user)
+    return_list = []
+    for entry in response['info']:
+        return_list.extend(entry['info'])
+    return {'info': return_list}
+
+
+class CorporationWalletTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.get_character_wallet,
+        'fetch_function': wrap_corporation_wallet,
         'required': {
             'date': str,
             'description': str,
@@ -206,156 +187,10 @@ class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
-def esi_wrap_to_list(character_id, current_user=None):
-    result = character.get_character_summary(character_id, current_user=current_user)
-    return {'info': [result['info']]}
-
-
-class CharacterSummaryTests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationContactsTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': esi_wrap_to_list,
-        'required': {
-            'character_name': str,
-            'character_id': int,
-            'corporation_name': str,
-            'corporation_id': int,
-            'security_status': float,
-        },
-        'optional': {
-            'alliance_name': (str, type(None)),
-        },
-        'redlisting': {
-            'corporation_name': (Corporation, 'corporation_id'),
-            'character_name': (Character, 'character_id'),
-        },
-        'entry_identifier': 'character_id',
-    }
-
-
-class CharacterCalendarTests(SimpleCharacterMixin, AsceeTestCase):
-
-    api_definition = {
-        'fetch_function': character.get_character_calendar,
-        'required': {
-            'event_date': str,
-            'event_id': int,
-            'event_response': str,
-            'importance': int,
-            'title': str,
-            'duration': int,
-            'owner_id': int,
-            'owner_name': str,
-            'owner_type': str,
-            'response': str,
-            'text': str,
-        },
-        'optional': {
-        },
-        'redlisting': {
-        },
-        'entry_identifier': 'event_id',
-    }
-
-
-class CharacterFittingsTests(SimpleCharacterMixin, AsceeTestCase):
-
-    # results from ESI, Each result additionally has the key 'ship_type_name',
-    # and each item has the additional key 'type_name'.
-    api_definition = {
-        'fetch_function': character.fittings.get_character_fittings,
-        'required': {
-            'description': str,
-            'fitting_id': int,
-            'items': list,
-            'name': str,
-            'ship_type_id': int,
-            'ship_type_name': str,
-            'redlisted': list,
-        },
-        'optional': {
-        },
-        'redlisting': {
-            'ship_type_name': (Type, 'ship_type_id'),
-            'items': {
-                'type_name': (Type, 'type_id'),
-                'entry_identifier': 'type_id',
-            },
-        },
-        'entry_identifier': 'fitting_id',
-    }
-
-    def helper_simple_APIs(self, response, api_def):
-        super(CharacterFittingsTests, self).helper_simple_APIs(response, api_def)
-        for data in response['info']:
-            for item in data['items']:
-                for attr, type in (
-                        ('flag', int),
-                        ('quantity', int),
-                        ('type_id', int),
-                        ('type_name', str)):
-                    self.assertIn(attr, item, attr)
-                    self.assertIsInstance(item[attr], type, attr)
-
-
-def wrap_character_jump_clones(character_id, current_user=None):
-    response = character.get_character_clones(character_id, current_user=current_user)
-    return {'info': response['info']['jump_clones']}
-
-
-class CharacterJumpClonesTests(SimpleCharacterMixin, AsceeTestCase):
-
-    api_definition = {
-        'fetch_function': wrap_character_jump_clones,
-        'required': {
-            'location_type': str,
-            'system_id': int,
-            'system_name': str,
-            'region_id': int,
-            'region_name': str,
-        },
-        'optional': {
-            'redlisted': list,
-        },
-        'redlisting': {
-            'system_name': (System, 'system_id'),
-            'region_name': (Region, 'region_id'),
-        },
-        'entry_identifier': 'jump_clone_id',
-    }
-
-
-def wrap_character_home_location(character_id, current_user=None):
-    response = character.get_character_clones(character_id, current_user=current_user)
-    return {'info': [response['info']['home_location']]}
-
-
-class CharacterHomeLocationTests(SimpleCharacterMixin, AsceeTestCase):
-
-    api_definition = {
-        'fetch_function': wrap_character_home_location,
-        'required': {
-            'location_type': str,
-            'system_id': int,
-            'system_name': str,
-            'region_id': int,
-            'region_name': str,
-        },
-        'optional': {
-            'redlisted': list,
-        },
-        'redlisting': {
-            'system_name': (System, 'system_id'),
-            'region_name': (Region, 'region_id'),
-        },
-        'entry_identifier': 'system_id',
-    }
-
-
-class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
-
-    api_definition = {
-        'fetch_function': character.contacts.get_character_contacts,
+        'fetch_function': corporation.contacts.get_corporation_contacts,
         'required': {
             'name': str,
             'contact_id': int,
@@ -376,34 +211,10 @@ class CharacterContactsTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
-class CharacterMiningTests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationBlueprintsTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.mining.get_character_mining,
-        'required': {
-            'date': str,
-            'quantity': int,
-            'system_id': int,
-            'system_name': str,
-            'type_id': int,
-            'type_name': str,
-            'value': float,
-            'redlisted': list,
-        },
-        'optional': {
-        },
-        'redlisting': {
-            'system_name': (System, 'system_id'),
-        },
-        # it's fine that this can match multiple entries, since we're only testing system redlisting
-        'entry_identifier': 'system_id',
-    }
-
-
-class CharacterBlueprintsTests(SimpleCharacterMixin, AsceeTestCase):
-
-    api_definition = {
-        'fetch_function': character.get_character_blueprints,
+        'fetch_function': corporation.get_corporation_blueprints,
         'required': {
             'item_id': int,
             'location_flag': str,
@@ -427,35 +238,9 @@ class CharacterBlueprintsTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
-class CharacterPITests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationIndustryTests(SimpleCorporationMixin, AsceeTestCase):
     api_definition = {
-        'fetch_function': character.planetary_interaction.get_character_planetary_interaction,
-        'required': {
-            'last_update': str,
-            'num_pins': int,
-            'owner_id': int,
-            'planet_id': int,
-            'planet_type': str,
-            'system_id': int,
-            'system_name': str,
-            'region_id': int,
-            'region_name': str,
-            'upgrade_level': int,
-            'redlisted': list,
-        },
-        'optional': {
-        },
-        'redlisting': {
-            'system_name': (System, 'system_id'),
-            'region_name': (Region, 'region_id'),
-        },
-        'entry_identifier': 'planet_id',
-    }
-
-
-class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
-    api_definition = {
-        'fetch_function': character.industry.get_character_industry,
+        'fetch_function': corporation.industry.get_corporation_industry,
         'required': {
             'activity_id': int,
             'blueprint_id': int,
@@ -492,10 +277,10 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
-class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationMarketContractsTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.finance.get_character_market_contracts,
+        'fetch_function': corporation.finance.get_corporation_market_contracts,
         'required': {
             'issuer_alliance_id': (int, type(None)),
             'issuer_alliance_name': (str, type(None)),
@@ -521,45 +306,20 @@ class CharacterMarketContractsTests(SimpleCharacterMixin, AsceeTestCase):
             'end_location_name': str,
         },
         'redlisting': {
-            'issuer_name': (Character, 'issuer_id'),
-            'acceptor_name': (Character, 'acceptor_id'),
+            # 'issuer_name': (Character, 'issuer_id'),
+            # 'acceptor_name': (Character, 'acceptor_id'),
             'issuer_corporation_name': (Corporation, 'issuer_corporation_id'),
             'issuer_corporation_ticker': (Corporation, 'issuer_corporation_id'),
-            'issuer_alliance_name': (Alliance, 'issuer_alliance_id'),
+            # 'issuer_alliance_name': (Alliance, 'issuer_alliance_id'),
         },
         'entry_identifier': 'contract_id',
     }
 
 
-class CharacterBookmarksTests(SimpleCharacterMixin, AsceeTestCase):
+class CorporationMarketHistoryTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.bookmarks.get_character_bookmarks,
-        'required': {
-            'system_id': int,
-            'system_name': str,
-            'redlisted': list,
-            'bookmark_id': int,
-            'notes': str,
-            'location_id': int,
-            'creator_id': int,
-            'label': str,
-        },
-        'optional': {
-            'folder_id': int,
-            'folder_name': str,
-        },
-        'redlisting': {
-            'system_name': (System, 'system_id'),
-        },
-        'entry_identifier': 'bookmark_id',
-    }
-
-
-class CharacterMarketHistoryTests(SimpleCharacterMixin, AsceeTestCase):
-
-    api_definition = {
-        'fetch_function': character.finance.get_character_market_history,
+        'fetch_function': corporation.finance.get_corporation_market_history,
         'required': {
             'order_id': int,
             'is_buy_order': bool,

@@ -9,6 +9,10 @@ def get_character_contacts(character_id, current_user=None):
         'get_characters_character_id_contacts',
         character_id=character_id
     )
+    return process_contacts(contacts_list)
+
+
+def process_contacts(contacts_list):
     contacts_dict = {entry['contact_id']: entry for entry in contacts_list}
     sorted_contact_model_dict = get_id_data(contacts_dict.keys())
     for character_id, character in sorted_contact_model_dict.get('character', {}).items():
