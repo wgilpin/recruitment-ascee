@@ -1,0 +1,1301 @@
+{
+    "get_op": {
+        "(('get_universe_systems_system_id',), (('system_id', 30000142),))": {
+            "constellation_id": 20000020,
+            "name": "Jita",
+            "planets": [
+                {
+                    "planet_id": 40009077
+                },
+                {
+                    "planet_id": 40009078
+                },
+                {
+                    "moons": [
+                        40009081
+                    ],
+                    "planet_id": 40009080
+                },
+                {
+                    "moons": [
+                        40009083,
+                        40009084,
+                        40009085,
+                        40009087,
+                        40009088,
+                        40009089,
+                        40009090,
+                        40009091,
+                        40009092,
+                        40009093,
+                        40009094,
+                        40009097
+                    ],
+                    "planet_id": 40009082
+                },
+                {
+                    "moons": [
+                        40009099,
+                        40009100,
+                        40009101,
+                        40009102,
+                        40009103,
+                        40009104,
+                        40009105,
+                        40009106,
+                        40009107,
+                        40009108,
+                        40009109,
+                        40009110,
+                        40009111,
+                        40009112,
+                        40009113,
+                        40009114,
+                        40009115
+                    ],
+                    "planet_id": 40009098
+                },
+                {
+                    "moons": [
+                        40009118
+                    ],
+                    "planet_id": 40009116
+                },
+                {
+                    "moons": [
+                        40009121,
+                        40009122
+                    ],
+                    "planet_id": 40009119
+                },
+                {
+                    "planet_id": 40009123
+                }
+            ],
+            "position": {
+                "x": -1.2906486173487826e+17,
+                "y": 6.075530690996363e+16,
+                "z": 1.1746922706009029e+17
+            },
+            "security_class": "B",
+            "security_status": 0.9459131360054016,
+            "star_id": 40009076,
+            "stargates": [
+                50001248,
+                50001249,
+                50001250,
+                50013876,
+                50013913,
+                50013921,
+                50013928
+            ],
+            "stations": [
+                60000361,
+                60000364,
+                60000451,
+                60000463,
+                60002953,
+                60002959,
+                60003055,
+                60003460,
+                60003463,
+                60003466,
+                60003469,
+                60003757,
+                60003760,
+                60004423
+            ],
+            "system_id": 30000142
+        },
+        "(('get_universe_constellations_constellation_id',), (('constellation_id', 20000020),))": {
+            "constellation_id": 20000020,
+            "name": "Kimotoro",
+            "position": {
+                "x": -1.3499640046818544e+17,
+                "y": 6.499945263229326e+16,
+                "z": 1.0332561731752134e+17
+            },
+            "region_id": 10000002,
+            "systems": [
+                30000139,
+                30000140,
+                30000141,
+                30000142,
+                30000143,
+                30000144,
+                30000145
+            ]
+        },
+        "(('get_universe_regions_region_id',), (('region_id', 10000002),))": {
+            "constellations": [
+                20000017,
+                20000018,
+                20000019,
+                20000020,
+                20000021,
+                20000022,
+                20000023,
+                20000024,
+                20000025,
+                20000026,
+                20000027,
+                20000028,
+                20000029
+            ],
+            "description": "\"The greater the State becomes, the greater humanity under it flourishes.\"",
+            "name": "The Forge",
+            "region_id": 10000002
+        },
+        "(('get_universe_systems_system_id',), (('system_id', 30011392),))": {
+            "constellation_id": 20000201,
+            "name": "Jouvulen",
+            "planets": [
+                {
+                    "planet_id": 40341402
+                },
+                {
+                    "planet_id": 40341403
+                },
+                {
+                    "planet_id": 40341404
+                },
+                {
+                    "planet_id": 40341405
+                },
+                {
+                    "asteroid_belts": [
+                        40341407
+                    ],
+                    "planet_id": 40341406
+                },
+                {
+                    "asteroid_belts": [
+                        40341409
+                    ],
+                    "moons": [
+                        40341410
+                    ],
+                    "planet_id": 40341408
+                },
+                {
+                    "asteroid_belts": [
+                        40341412
+                    ],
+                    "moons": [
+                        40341413
+                    ],
+                    "planet_id": 40341411
+                },
+                {
+                    "moons": [
+                        40341415,
+                        40341416
+                    ],
+                    "planet_id": 40341414
+                },
+                {
+                    "asteroid_belts": [
+                        40341418
+                    ],
+                    "moons": [
+                        40341419,
+                        40341420
+                    ],
+                    "planet_id": 40341417
+                }
+            ],
+            "position": {
+                "x": -1.4850623482693107e+17,
+                "y": 1.014076619414007e+17,
+                "z": 1.286071924290557e+17
+            },
+            "security_class": "A",
+            "security_status": 0.8897628784179688,
+            "star_id": 40341401,
+            "stargates": [
+                50014146
+            ],
+            "stations": [
+                60015005
+            ],
+            "system_id": 30011392
+        },
+        "(('get_universe_constellations_constellation_id',), (('constellation_id', 20000201),))": {
+            "constellation_id": 20000201,
+            "name": "Okela",
+            "position": {
+                "x": -1.488809652390401e+17,
+                "y": 8.809805233882062e+16,
+                "z": 1.2165795147972386e+17
+            },
+            "region_id": 10000016,
+            "systems": [
+                30001374,
+                30001375,
+                30001376,
+                30001377,
+                30001378,
+                30001379,
+                30011392,
+                30031407,
+                30041407
+            ]
+        },
+        "(('get_universe_regions_region_id',), (('region_id', 10000016),))": {
+            "constellations": [
+                20000198,
+                20000199,
+                20000200,
+                20000201,
+                20000202,
+                20000203,
+                20000204,
+                20000205,
+                20000206,
+                20000207,
+                20000208,
+                20000209,
+                20000210,
+                20000211,
+                20000212
+            ],
+            "description": "\"Our surveys show that there are many planets capable of sustaining life in these systems. However, the lack of a proper stargate network has drastically increased the travel time for our mission. I think it is worth it. I don't trust those Gallente further than I could throw one, and that isn't very far, given their indulgences.\n\nThe initial speculation for a fallback position seems to be sustainable, but we have one potential problem. The long-range probes we sent out have been reporting some strange readings. Our science teams think they are reading stargates and an adjoining region, which is disturbing. I do not think it possible that the Gallente have yet moved that far. Until we can confirm these readings and determine who or what these stargates belong to, it would be ill-advised to place ourselves in a position where we have our movement restricted on multiple fronts.\"\n\n<i>-Minato Zumari, Caldari Navy Commander </i>",
+            "name": "Lonetrek",
+            "region_id": 10000016
+        },
+        "(('get_universe_systems_system_id',), (('system_id', 30002187),))": {
+            "constellation_id": 20000322,
+            "name": "Amarr",
+            "planets": [
+                {
+                    "planet_id": 40139384
+                },
+                {
+                    "asteroid_belts": [
+                        40139386
+                    ],
+                    "planet_id": 40139385
+                },
+                {
+                    "asteroid_belts": [
+                        40139388
+                    ],
+                    "planet_id": 40139387
+                },
+                {
+                    "asteroid_belts": [
+                        40139390
+                    ],
+                    "planet_id": 40139389
+                },
+                {
+                    "asteroid_belts": [
+                        40139392
+                    ],
+                    "moons": [
+                        40139393
+                    ],
+                    "planet_id": 40139391
+                },
+                {
+                    "asteroid_belts": [
+                        40139395
+                    ],
+                    "moons": [
+                        40139396,
+                        40139397
+                    ],
+                    "planet_id": 40139394
+                },
+                {
+                    "asteroid_belts": [
+                        40139399
+                    ],
+                    "moons": [
+                        40139400,
+                        40139401,
+                        40139402
+                    ],
+                    "planet_id": 40139398
+                },
+                {
+                    "asteroid_belts": [
+                        40139404,
+                        40139407,
+                        40139416,
+                        40139418,
+                        40139420,
+                        40139422,
+                        40139423
+                    ],
+                    "moons": [
+                        40139405,
+                        40139406,
+                        40139408,
+                        40139409,
+                        40139410,
+                        40139411,
+                        40139412,
+                        40139413,
+                        40139414,
+                        40139415,
+                        40139417,
+                        40139419,
+                        40139421
+                    ],
+                    "planet_id": 40139403
+                },
+                {
+                    "asteroid_belts": [
+                        40139425,
+                        40139426
+                    ],
+                    "moons": [
+                        40139427,
+                        40139428,
+                        40139429,
+                        40139430,
+                        40139431,
+                        40139432,
+                        40139433,
+                        40139434,
+                        40139435,
+                        40139436,
+                        40139437,
+                        40139438,
+                        40139439
+                    ],
+                    "planet_id": 40139424
+                }
+            ],
+            "position": {
+                "x": -2.0474870725000893e+17,
+                "y": 4.023837993657142e+16,
+                "z": -5.762127890242104e+16
+            },
+            "security_class": "A",
+            "security_status": 1.0,
+            "star_id": 40139383,
+            "stargates": [
+                50000621,
+                50000622,
+                50000623,
+                50000625,
+                50013733,
+                50013735
+            ],
+            "stations": [
+                60002569,
+                60008494,
+                60008950
+            ],
+            "system_id": 30002187
+        },
+        "(('get_universe_constellations_constellation_id',), (('constellation_id', 20000322),))": {
+            "constellation_id": 20000322,
+            "name": "Throne Worlds",
+            "position": {
+                "x": -2.1525832688023552e+17,
+                "y": 3.629541429980755e+16,
+                "z": -6.656998180725665e+16
+            },
+            "region_id": 10000043,
+            "systems": [
+                30002187,
+                30002188,
+                30002189,
+                30002190,
+                30002191,
+                30002192,
+                30002193,
+                30002194,
+                30002195,
+                30002196
+            ]
+        },
+        "(('get_universe_regions_region_id',), (('region_id', 10000043),))": {
+            "constellations": [
+                20000322,
+                20000323,
+                20000324,
+                20000325,
+                20000326,
+                20000327,
+                20000328,
+                20000329,
+                20000330,
+                20000331,
+                20000332,
+                20000333,
+                20000334,
+                20000507,
+                20000508,
+                20000509,
+                20000510,
+                20000511,
+                20000512,
+                20000513,
+                20000514,
+                20000515,
+                20000516,
+                20000517,
+                20000518,
+                20000519
+            ],
+            "description": "\"In God's name, the Amarr have reclaimed the entirety of our world. Now, blessed with the divine mandate of God, we spread our reach unto other worlds. From nearby Hedion, to the distant Misaba, to the burning southern star Penirgman, and all lands in-between. They are our birthright, our duty, our Domain.\"\r\n\r\n<i>- Emperor Heideran III, 21290 AD upon the opening of the first stargate since the collapse. </i>",
+            "name": "Domain",
+            "region_id": 10000043
+        },
+        "(('get_universe_systems_system_id',), (('system_id', 30002510),))": {
+            "constellation_id": 20000367,
+            "name": "Rens",
+            "planets": [
+                {
+                    "moons": [
+                        40159631
+                    ],
+                    "planet_id": 40159630
+                },
+                {
+                    "moons": [
+                        40159633
+                    ],
+                    "planet_id": 40159632
+                },
+                {
+                    "moons": [
+                        40159635
+                    ],
+                    "planet_id": 40159634
+                },
+                {
+                    "moons": [
+                        40159637
+                    ],
+                    "planet_id": 40159636
+                },
+                {
+                    "moons": [
+                        40159639,
+                        40159640
+                    ],
+                    "planet_id": 40159638
+                },
+                {
+                    "moons": [
+                        40159643,
+                        40159644,
+                        40159645,
+                        40159646,
+                        40159647,
+                        40159648,
+                        40159649,
+                        40159650,
+                        40159651,
+                        40159652,
+                        40159653,
+                        40159654
+                    ],
+                    "planet_id": 40159641
+                },
+                {
+                    "moons": [
+                        40159656,
+                        40159657,
+                        40159659,
+                        40159661,
+                        40159662,
+                        40159663,
+                        40159664,
+                        40159665,
+                        40159666,
+                        40159667,
+                        40159669,
+                        40159670,
+                        40159671,
+                        40159672,
+                        40159673,
+                        40159674,
+                        40159675,
+                        40159676,
+                        40159678,
+                        40159679,
+                        40159680
+                    ],
+                    "planet_id": 40159655
+                },
+                {
+                    "moons": [
+                        40159682,
+                        40159683,
+                        40159684
+                    ],
+                    "planet_id": 40159681
+                },
+                {
+                    "moons": [
+                        40159686,
+                        40159687,
+                        40159688,
+                        40159689,
+                        40159690,
+                        40159691
+                    ],
+                    "planet_id": 40159685
+                }
+            ],
+            "position": {
+                "x": -9.91223410909671e+16,
+                "y": 4.0335100631489176e+16,
+                "z": -2867728819583846.0
+            },
+            "security_class": "D",
+            "security_status": 0.8945818543434143,
+            "star_id": 40159629,
+            "stargates": [
+                50001823,
+                50001824,
+                50014078
+            ],
+            "stations": [
+                60004588,
+                60004594,
+                60005725,
+                60009106,
+                60012721,
+                60012724,
+                60012727
+            ],
+            "system_id": 30002510
+        },
+        "(('get_universe_constellations_constellation_id',), (('constellation_id', 20000367),))": {
+            "constellation_id": 20000367,
+            "name": "Ortner",
+            "position": {
+                "x": -1.0244301858521616e+17,
+                "y": 4.196754249165811e+16,
+                "z": -3279331427389417.0
+            },
+            "region_id": 10000030,
+            "systems": [
+                30002505,
+                30002506,
+                30002507,
+                30002508,
+                30002509,
+                30002510,
+                30002511,
+                30012505
+            ]
+        },
+        "(('get_universe_regions_region_id',), (('region_id', 10000030),))": {
+            "constellations": [
+                20000367,
+                20000368,
+                20000369,
+                20000370,
+                20000371,
+                20000372,
+                20000373,
+                20000374,
+                20000375,
+                20000376,
+                20000377,
+                20000378
+            ],
+            "description": "\"Never Again\"",
+            "name": "Heimatar",
+            "region_id": 10000030
+        },
+        "(('get_universe_systems_system_id',), (('system_id', 30002659),))": {
+            "constellation_id": 20000389,
+            "name": "Dodixie",
+            "planets": [
+                {
+                    "planet_id": 40169266
+                },
+                {
+                    "planet_id": 40169267
+                },
+                {
+                    "moons": [
+                        40169269
+                    ],
+                    "planet_id": 40169268
+                },
+                {
+                    "planet_id": 40169270
+                },
+                {
+                    "moons": [
+                        40169273,
+                        40169274
+                    ],
+                    "planet_id": 40169271
+                },
+                {
+                    "planet_id": 40169275
+                },
+                {
+                    "moons": [
+                        40169280,
+                        40169281,
+                        40169282,
+                        40169283
+                    ],
+                    "planet_id": 40169279
+                },
+                {
+                    "moons": [
+                        40169285,
+                        40169287,
+                        40169288,
+                        40169289,
+                        40169290,
+                        40169291,
+                        40169292,
+                        40169293,
+                        40169294,
+                        40169295,
+                        40169296,
+                        40169297,
+                        40169298,
+                        40169299,
+                        40169302
+                    ],
+                    "planet_id": 40169284
+                },
+                {
+                    "moons": [
+                        40169305,
+                        40169306,
+                        40169307,
+                        40169308,
+                        40169309,
+                        40169310,
+                        40169311,
+                        40169312,
+                        40169313,
+                        40169314,
+                        40169315,
+                        40169316,
+                        40169317,
+                        40169318,
+                        40169319,
+                        40169320,
+                        40169321,
+                        40169322,
+                        40169323,
+                        40169325,
+                        40169327,
+                        40169329
+                    ],
+                    "planet_id": 40169303
+                },
+                {
+                    "moons": [
+                        40169331,
+                        40169332,
+                        40169333,
+                        40169334,
+                        40169335,
+                        40169336
+                    ],
+                    "planet_id": 40169330
+                }
+            ],
+            "position": {
+                "x": -1.876169633817994e+17,
+                "y": 5.324129300428438e+16,
+                "z": 2.76925486338799e+16
+            },
+            "security_class": "B",
+            "security_status": 0.8684067130088806,
+            "star_id": 40169265,
+            "stargates": [
+                50007872,
+                50007873,
+                50007875,
+                50007876,
+                50013955,
+                50013957
+            ],
+            "stations": [
+                60001864,
+                60001867,
+                60011866
+            ],
+            "system_id": 30002659
+        },
+        "(('get_universe_constellations_constellation_id',), (('constellation_id', 20000389),))": {
+            "constellation_id": 20000389,
+            "name": "Coriault",
+            "position": {
+                "x": -1.837948260551778e+17,
+                "y": 5.25386274426232e+16,
+                "z": 2.4695238703659816e+16
+            },
+            "region_id": 10000032,
+            "systems": [
+                30002655,
+                30002656,
+                30002657,
+                30002658,
+                30002659,
+                30002660,
+                30002661,
+                30012715
+            ]
+        },
+        "(('get_universe_regions_region_id',), (('region_id', 10000032),))": {
+            "constellations": [
+                20000386,
+                20000387,
+                20000388,
+                20000389,
+                20000390,
+                20000391,
+                20000392,
+                20000393,
+                20000394,
+                20000395,
+                20000396,
+                20000397,
+                20000398,
+                20000399,
+                20000400
+            ],
+            "description": "Sinq Laison suffered terribly during the war with the Caldari. On the front lines for much of the conflict, many small settlements were ruthlessly destroyed by small Caldari raiding parties operating a scorched earth policy to deny any industrial use of the region. It is testament to the hardiness of the human spirit that now it is economically one of the strongest regions in the Federation, ironically owing much of its rebuilding to the vast quantities of Caldari goods that are imported and traded at the many outposts and stations in the border region.",
+            "name": "Sinq Laison",
+            "region_id": 10000032
+        },
+        "(('get_universe_systems_system_id',), (('system_id', 30002053),))": {
+            "constellation_id": 20000302,
+            "name": "Hek",
+            "planets": [
+                {
+                    "asteroid_belts": [
+                        40131016,
+                        40131017
+                    ],
+                    "planet_id": 40131015
+                },
+                {
+                    "moons": [
+                        40131019
+                    ],
+                    "planet_id": 40131018
+                },
+                {
+                    "asteroid_belts": [
+                        40131021
+                    ],
+                    "planet_id": 40131020
+                },
+                {
+                    "asteroid_belts": [
+                        40131023
+                    ],
+                    "moons": [
+                        40131024
+                    ],
+                    "planet_id": 40131022
+                },
+                {
+                    "moons": [
+                        40131026,
+                        40131027
+                    ],
+                    "planet_id": 40131025
+                },
+                {
+                    "moons": [
+                        40131029
+                    ],
+                    "planet_id": 40131028
+                },
+                {
+                    "moons": [
+                        40131031,
+                        40131032,
+                        40131033,
+                        40131034,
+                        40131035,
+                        40131036,
+                        40131037,
+                        40131038
+                    ],
+                    "planet_id": 40131030
+                },
+                {
+                    "asteroid_belts": [
+                        40131040,
+                        40131041,
+                        40131044,
+                        40131060
+                    ],
+                    "moons": [
+                        40131042,
+                        40131043,
+                        40131045,
+                        40131046,
+                        40131047,
+                        40131048,
+                        40131049,
+                        40131050,
+                        40131051,
+                        40131052,
+                        40131053,
+                        40131054,
+                        40131055,
+                        40131056,
+                        40131057,
+                        40131058,
+                        40131059
+                    ],
+                    "planet_id": 40131039
+                },
+                {
+                    "asteroid_belts": [
+                        40131062,
+                        40131065,
+                        40131066,
+                        40131077
+                    ],
+                    "moons": [
+                        40131063,
+                        40131064,
+                        40131067,
+                        40131068,
+                        40131069,
+                        40131070,
+                        40131071,
+                        40131072,
+                        40131073,
+                        40131074,
+                        40131075,
+                        40131076
+                    ],
+                    "planet_id": 40131061
+                }
+            ],
+            "position": {
+                "x": -1.2989734575079314e+17,
+                "y": 4.329466986062884e+16,
+                "z": 5.596957155456725e+16
+            },
+            "security_class": "D1",
+            "security_status": 0.5496682524681091,
+            "star_id": 40131014,
+            "stargates": [
+                50003916,
+                50003917,
+                50003918,
+                50013930,
+                50014059
+            ],
+            "stations": [
+                60004516,
+                60005236,
+                60005686,
+                60011287,
+                60015140
+            ],
+            "system_id": 30002053
+        },
+        "(('get_universe_constellations_constellation_id',), (('constellation_id', 20000302),))": {
+            "constellation_id": 20000302,
+            "name": "Barvigrard",
+            "position": {
+                "x": -1.242648694587335e+17,
+                "y": 2.894898205850837e+16,
+                "z": 5.739033517684288e+16
+            },
+            "region_id": 10000042,
+            "systems": [
+                30002048,
+                30002049,
+                30002050,
+                30002051,
+                30002052,
+                30002053
+            ]
+        },
+        "(('get_universe_regions_region_id',), (('region_id', 10000042),))": {
+            "constellations": [
+                20000302,
+                20000303,
+                20000304,
+                20000305,
+                20000306,
+                20000307,
+                20000308,
+                20000309,
+                20000492,
+                20000493,
+                20000494,
+                20000495,
+                20000496,
+                20000497,
+                20000498,
+                20000499,
+                20000500,
+                20000501,
+                20000502,
+                20000503,
+                20000504,
+                20000505,
+                20000506
+            ],
+            "description": "It has long been an established fact of civilization that wherever a seat of government lies, then so will a concentration of its subjects, the better to fuel the halls of bureaucracy.  In this, the Republic has been no exception and in locating their Parliament and Justice Department in the Gedulf constellation, they guaranteed a huge population influx.  This population needs supporting, and so some of the largest Matari corporations also have their head offices here, making the region bustle with activity, not unlike a large Metropolis.",
+            "name": "Metropolis",
+            "region_id": 10000042
+        },
+        "(('get_universe_systems_system_id',), (('system_id', 30001363),))": {
+            "constellation_id": 20000199,
+            "name": "Sobaseki",
+            "planets": [
+                {
+                    "planet_id": 40086847
+                },
+                {
+                    "planet_id": 40086848
+                },
+                {
+                    "moons": [
+                        40086850
+                    ],
+                    "planet_id": 40086849
+                },
+                {
+                    "asteroid_belts": [
+                        40086852
+                    ],
+                    "moons": [
+                        40086853
+                    ],
+                    "planet_id": 40086851
+                },
+                {
+                    "planet_id": 40086854
+                },
+                {
+                    "moons": [
+                        40086856,
+                        40086857
+                    ],
+                    "planet_id": 40086855
+                },
+                {
+                    "moons": [
+                        40086859,
+                        40086860
+                    ],
+                    "planet_id": 40086858
+                },
+                {
+                    "asteroid_belts": [
+                        40086862
+                    ],
+                    "moons": [
+                        40086863
+                    ],
+                    "planet_id": 40086861
+                },
+                {
+                    "asteroid_belts": [
+                        40086865
+                    ],
+                    "moons": [
+                        40086866,
+                        40086867,
+                        40086868,
+                        40086869,
+                        40086870,
+                        40086871,
+                        40086872,
+                        40086873,
+                        40086874
+                    ],
+                    "planet_id": 40086864
+                },
+                {
+                    "asteroid_belts": [
+                        40086876
+                    ],
+                    "moons": [
+                        40086877,
+                        40086878,
+                        40086879,
+                        40086880,
+                        40086881,
+                        40086882,
+                        40086883,
+                        40086884,
+                        40086885,
+                        40086886,
+                        40086887,
+                        40086888,
+                        40086889,
+                        40086890,
+                        40086891,
+                        40086892,
+                        40086893
+                    ],
+                    "planet_id": 40086875
+                },
+                {
+                    "moons": [
+                        40086895,
+                        40086896
+                    ],
+                    "planet_id": 40086894
+                },
+                {
+                    "asteroid_belts": [
+                        40086898
+                    ],
+                    "moons": [
+                        40086899,
+                        40086900
+                    ],
+                    "planet_id": 40086897
+                },
+                {
+                    "moons": [
+                        40086902,
+                        40086903,
+                        40086904,
+                        40086905
+                    ],
+                    "planet_id": 40086901
+                }
+            ],
+            "position": {
+                "x": -1.5027390717463706e+17,
+                "y": 8.854597959014472e+16,
+                "z": 1.3300976981782154e+17
+            },
+            "security_class": "B",
+            "security_status": 0.8410254716873169,
+            "star_id": 40086846,
+            "stargates": [
+                50004357,
+                50004358,
+                50004359,
+                50013871,
+                50013875,
+                50013890
+            ],
+            "stations": [
+                60000763,
+                60000844,
+                60000892,
+                60000895,
+                60002419,
+                60003094,
+                60003916,
+                60003925,
+                60004012,
+                60004018
+            ],
+            "system_id": 30001363
+        },
+        "(('get_universe_constellations_constellation_id',), (('constellation_id', 20000199),))": {
+            "constellation_id": 20000199,
+            "name": "Koichi",
+            "position": {
+                "x": -1.4871531888534886e+17,
+                "y": 8.88750722180518e+16,
+                "z": 1.389533148954424e+17
+            },
+            "region_id": 10000016,
+            "systems": [
+                30001362,
+                30001363,
+                30001364,
+                30001365,
+                30001366,
+                30001367,
+                30021392
+            ]
+        }
+    },
+    "get_paged_op": {
+        "(('get_characters_character_id_bookmarks',), (('character_id', 2114496483), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": [
+            {
+                "bookmark_id": 1187760387,
+                "created": "2018-09-12T01:00:00+00:00",
+                "creator_id": 2114496483,
+                "folder_id": 4052130,
+                "item": {
+                    "item_id": 60003760,
+                    "type_id": 1529
+                },
+                "label": "Jita IV - Moon 4 - Caldari Navy Assembly Plant ( Caldari Administrative Station )\t",
+                "location_id": 30000142,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1187760426,
+                "created": "2018-09-12T01:00:20+00:00",
+                "creator_id": 2114496483,
+                "item": {
+                    "item_id": 60015005,
+                    "type_id": 1529
+                },
+                "label": "Jouvulen III - Science and Trade Institute School ( Caldari Administrative Station )\t",
+                "location_id": 30011392,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1187764897,
+                "created": "2018-09-12T01:47:12+00:00",
+                "creator_id": 2114496483,
+                "folder_id": 4052130,
+                "item": {
+                    "item_id": 60008494,
+                    "type_id": 1932
+                },
+                "label": "Amarr VIII (Oris) - Emperor Family Academy ( Amarr Trade Post )\t",
+                "location_id": 30002187,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1187773183,
+                "created": "2018-09-12T03:15:15+00:00",
+                "creator_id": 2114496483,
+                "folder_id": 4052130,
+                "item": {
+                    "item_id": 60004588,
+                    "type_id": 2498
+                },
+                "label": "Rens VI - Moon 8 - Brutor Tribe Treasury ( Minmatar Military Station )\t",
+                "location_id": 30002510,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1187773220,
+                "created": "2018-09-12T03:15:40+00:00",
+                "creator_id": 2114496483,
+                "folder_id": 4052130,
+                "item": {
+                    "item_id": 60011866,
+                    "type_id": 3867
+                },
+                "label": "Dodixie IX - Moon 20 - Federation Navy Assembly Plant ( Gallente Industrial Station )\t",
+                "location_id": 30002659,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1187773265,
+                "created": "2018-09-12T03:16:04+00:00",
+                "creator_id": 2114496483,
+                "folder_id": 4052130,
+                "item": {
+                    "item_id": 60005686,
+                    "type_id": 2497
+                },
+                "label": "Hek VIII - Moon 12 - Boundless Creation Factory ( Minmatar Industrial Station )\t",
+                "location_id": 30002053,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1194268594,
+                "coordinates": {
+                    "x": -107303362777.7443,
+                    "y": -18744971707.550507,
+                    "z": 436489272358.18555
+                },
+                "created": "2018-10-16T03:02:31+00:00",
+                "creator_id": 2114496483,
+                "label": "Jita IUD\t",
+                "location_id": 30000142,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1194434035,
+                "coordinates": {
+                    "x": -518583954287.32605,
+                    "y": 30256438194.44988,
+                    "z": 1042895710678.2067
+                },
+                "created": "2018-10-17T00:24:41+00:00",
+                "creator_id": 2114496483,
+                "label": "Amarr IUD\t",
+                "location_id": 30002187,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1194642880,
+                "coordinates": {
+                    "x": 1233232470442.1177,
+                    "y": -72130437224.51747,
+                    "z": 1307047588924.3044
+                },
+                "created": "2018-10-18T03:47:04+00:00",
+                "creator_id": 2114496483,
+                "label": "Dodixie IUD\t",
+                "location_id": 30002659,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1194647874,
+                "coordinates": {
+                    "x": -107303362895.02892,
+                    "y": -18744974365.609734,
+                    "z": 436489101127.45703
+                },
+                "created": "2018-10-18T04:37:59+00:00",
+                "creator_id": 2114496483,
+                "label": "Jita ID\t",
+                "location_id": 30000142,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1195200951,
+                "coordinates": {
+                    "x": -518583953041.8396,
+                    "y": 30256606779.981064,
+                    "z": 1042895707816.0907
+                },
+                "created": "2018-10-21T01:44:42+00:00",
+                "creator_id": 2114496483,
+                "label": "Amarr ID\t",
+                "location_id": 30002187,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1195621755,
+                "coordinates": {
+                    "x": 1233232411404.1406,
+                    "y": -72130438442.54639,
+                    "z": 1307047423085.7603
+                },
+                "created": "2018-10-23T02:30:32+00:00",
+                "creator_id": 2114496483,
+                "label": "Dodixie ID\t",
+                "location_id": 30002659,
+                "notes": ""
+            },
+            {
+                "bookmark_id": 1217677300,
+                "created": "2019-02-19T01:21:07+00:00",
+                "creator_id": 2114496483,
+                "item": {
+                    "item_id": 40086851,
+                    "type_id": 11
+                },
+                "label": "Sobaseki IV ( Planet )\t",
+                "location_id": 30001363,
+                "notes": ""
+            }
+        ],
+        "(('get_characters_character_id_bookmarks_folders',), (('character_id', 2114496483), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": [
+            {
+                "folder_id": 4052130,
+                "name": "Trading Hubs"
+            }
+        ]
+    }
+}

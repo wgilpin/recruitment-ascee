@@ -68,8 +68,8 @@ export default class FetchData {
         if (res.status >= 400) {
           console.log('error', res.statusText);
           if (res.status === 401) {
-            console.log('redirect to /login');
-            window.location = '/login';
+            console.log('redirect to /auth/login');
+            window.location = '/auth/login';
           }
           console.log('returning error', res.status);
           return { error: res.statusText, status: res.status };

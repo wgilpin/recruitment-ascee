@@ -10,7 +10,10 @@ def get_character_industry(character_id, current_user=None):
         'get_characters_character_id_industry_jobs',
         character_id=character_id,
     )
+    return process_industry(character, industry_job_data)
 
+
+def process_industry(character, industry_job_data):
     type_ids = set()
     location_ids = set()
     for entry in industry_job_data:

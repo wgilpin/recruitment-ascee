@@ -5,6 +5,7 @@ import TableStyles from '../TableStyles';
 import Alt from '../Alt'
 import EditImg from '../images/edit-white.svg';
 import FindESICharacter from './FindESICharacter';
+import Confirm from '../Confirm';
 
 
 /*
@@ -20,54 +21,162 @@ const styles = {
     marginLeft: 'auto',
     marginRight: 'auto',
   },
+  textarea: {
+    width: '300px',
+    height: '300px',
+    backgroundColor: '#111',
+    color: 'white',
+    margin: '8px',
+    padding: '8px',
+  },
+  hr: {
+    ...TableStyles.hr,
+    color: 'grey',
+    width: '350px',
+  },
+  input: {
+    padding: '8px',
+    margin: '8px',
+    width: '300px',
+    backgroundColor: '#111',
+    color: 'white',
+    height: '24px',
+    borderWidth: '1px',
+    borderColor: 'grey',
+  },
+  alt:{
+    width: 'fit-content',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  }
+}
+const templateKinds = {
+  invite: 'Invitation Template',
+  reject: 'Rejection Template',
 }
 
 export default class AdminConfig extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      mailCharacterId: null,
+      mailCharacterName: '',
+      mailTemplate: '',
+      mailSubject: '',
+      showConfirm: false,
+      dirtyMailTemplate: false,
+    };
+    this.mailTemplate = React.createRef();
+    this.mailSubject = React.createRef();
+    this.mailKind = React.createRef();
   }
 
   componentDidMount() {
-    const scope = 'admin/get_config';
-    this.setState({ welcome: new FetchData({id: 'welcome_text', scope }).get() });
-    this.setState({ mailUserId: new FetchData({id: 'mail_user_id', scope }).get() });
+    new FetchData({ scope: 'mail/get_character' })
+      .get()
+      .then(({ info: { id, name }}) =>{
+        this.setState({ mailCharacterId: id, mailCharacterName: name })
+      })
+    this.handleSelectTemplate();
   }
 
-  handleEditMail = () => {
-    this.setState({ showFindChar: true });
+  handleSelectTemplate = () => {
+    const kind = this.mailKind.current.value;
+    new FetchData({ scope: `mail/template/${kind}` })
+      .get()
+      .then(({ info: { subject, text }}) =>{
+        this.setState({
+          mailKind: kind,
+          mailSubject: subject,
+          mailTemplate: text,
+          dirtyMailTemplate: false,
+        })
+      })
   }
 
-  updateSearchText(evt) {
+  doConfirmed = () => {
+    window.location ='/api/mail/set_character';
+  }
+
+  handleSaveTemplate = () => {
+    const template = {
+      name: this.mailKind.current.value,
+      subject: this.mailSubject.current.value,
+      template: this.mailTemplate.current.value,
+    }
+    new FetchData({ scope: 'mail/template' })
+      .put(template)
+      .then (() => this.setState({ dirtyMailTemplate: false }))
+  }
+
+  handleEditTemplate = () => {
     this.setState({
-      searchText: evt.target.value,
+      mailTemplate: this.mailTemplate.current.value,
+      dirtyMailTemplate:
+        this.mailTemplate.current.value.length > 0 &&
+        this.mailSubject.current.value.length > 0,
     });
   }
 
-  handleSearch() {
-    new FetchData({ scope: 'character/find', param1: this.state.searchText })
-      .get()
-      .then(res => {
-        this.setState({ searchResults: res });
-      });
-  }
+  handleEditMail = () => this.setState({ showConfirm: true });
 
   render() {
-    return (
+    return [
       <div style={styles.outer}>
-        <h2 style={styles.h2}>Welcome text</h2>
-        <div style={styles.text}>{this.state.welcome}</div>
-        <hr style={styles.hr} />
         <h2 style={styles.h2}>Mail User</h2>
-        <Alt id={this.state.mailUserId}></Alt>
-        <img style={styles.editBtn} alt='edit' src={EditImg} onClick={this.handleEditMail} />
-        {this.state.showFindChar && [
-          <FindESICharacter
-            onSelect={this.handleMove}
+        {this.state.mailCharacterId &&
+          <Alt
+            style={styles.alt}
+            id={this.state.mailCharacterId}
+            name={this.state.mailCharacterName}
           />
-        ]
         }
-      </div>
-    );
+        <button style={{ ...styles.secondaryButton, color: 'white'}} onClick={this.handleEditMail}>
+          Edit
+        </button>
+        <hr style={styles.hr} />
+        <h2 style={styles.h2}>Mail Template</h2>
+        <select
+          placeholder="Purpose"
+          ref={this.mailKind}
+          style={styles.input}
+          onChange={this.handleSelectTemplate}
+        >
+          {Object.entries(templateKinds).map(([key, val]) => (
+            <option
+              value={key}
+              selected={this.state.mailKind === key}>
+                {val}
+              </option>
+          ))}
+        </select>
+        <div>
+          <input
+            style={styles.input}
+            placeholder="  Subject Line"
+            value={this.state.mailSubject}
+            ref={this.mailSubject}
+            onChange={this.handleEditTemplate}
+          />
+        </div>
+        <textarea
+          style={styles.textarea}
+          value={this.state.mailTemplate}
+          ref={this.mailTemplate}
+          onChange={this.handleEditTemplate} />
+        {this.state.dirtyMailTemplate &&
+          <button style={styles.primaryButton} onClick={this.handleSaveTemplate}>
+            Save
+          </button>
+        }
+      </div>,
+      this.state.showConfirm &&
+        <Confirm
+          text={`You will now be asked to log in the character you want to be the mail sender.
+                This character needs to already have admin permission.` }
+          onConfirm={this.doConfirmed}
+          onClose={() => this.setState({ showConfirm: false })}
+        />
+    ];
   }
 }

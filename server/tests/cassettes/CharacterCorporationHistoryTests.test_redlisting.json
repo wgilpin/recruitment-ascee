@@ -1,0 +1,27 @@
+{
+    "get_op": {
+        "(('get_characters_character_id_corporationhistory',), (('character_id', 2114496483), ('refresh_token', 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2')))": [
+            {
+                "corporation_id": 98589569,
+                "record_id": 49254907,
+                "start_date": "2019-01-30T04:20:00+00:00"
+            },
+            {
+                "corporation_id": 1000009,
+                "record_id": 48530370,
+                "start_date": "2018-10-03T15:58:00+00:00"
+            },
+            {
+                "corporation_id": 98560652,
+                "record_id": 48401770,
+                "start_date": "2018-09-11T03:39:00+00:00"
+            },
+            {
+                "corporation_id": 1000045,
+                "record_id": 48381288,
+                "start_date": "2018-09-07T22:28:00+00:00"
+            }
+        ]
+    },
+    "get_paged_op": {}
+}

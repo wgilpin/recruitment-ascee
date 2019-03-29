@@ -52,8 +52,8 @@ def api_set_mail_template():
     will be filled using the to-character's name automatically later.
 
     Args:
-        name (str)
-        subject (str)
+        name (str) the endpoint name of the template" {'invite' | 'accept'}
+        subject (str) email subject line
         template (str)
 
     Returns:
