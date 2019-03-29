@@ -1,21 +1,15 @@
 import sys
 import os
 
-import character.bookmarks
-import character.contacts
-import character.finance
-import character.mining
-
 server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 from exceptions import BadRequestException, ForbiddenException
 import unittest
-import character
+import corporation
 from models import Character, User, db, Type, Region, System, Corporation, Alliance, Station
 from base import AsceeTestCase
 from flask_app import app
-import warnings
 
 
 class SimpleCorporationMixin(object):
@@ -116,7 +110,7 @@ class SimpleCorporationMixin(object):
     def test_only_valid_types_returned(self):
         api_def = self.api_definition
         method = api_def['fetch_function']
-        response = method(self.applicant.id, current_user=self.recruiter)
+        response = method(self.applicant_character.corporation.id, current_user=self.recruiter)
         self.ensure_only_valid_types(response)
 
     def ensure_only_valid_types(self, d):
@@ -144,43 +138,33 @@ class SimpleCorporationMixin(object):
             self.helper_simple_APIs(response, api_def)
 
     def test_redlisting(self):
-        self.helper_redlisting_simple_apis(self.applicant.id, self.recruiter)
+        self.helper_redlisting_simple_apis(self.applicant_character.corporation.id, self.recruiter)
 
     def test_API(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.recruiter)
+        self.run_tests_simple_APIs(self.applicant_character.corporation.id, self.recruiter)
 
     def test_API_as_senior_recruiter(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.senior_recruiter)
+        self.run_tests_simple_APIs(self.applicant_character.corporation.id, self.senior_recruiter)
 
     def test_API_as_other_recruiter(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.other_recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.applicant_character.corporation.id, self.other_recruiter, ForbiddenException)
 
     def test_API_as_admin(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.admin, ForbiddenException)
+        self.run_tests_simple_APIs(self.applicant_character.corporation.id, self.admin, ForbiddenException)
 
-    def test_get_recruiter_API(self):
-        self.run_tests_simple_APIs(self.recruiter.id, self.recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.other_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.senior_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.recruiter.id, self.admin, ForbiddenException)
 
-    def test_get_admin_API(self):
-        self.run_tests_simple_APIs(self.admin.id, self.recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.other_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.senior_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.admin.id, self.admin, ForbiddenException)
-
-    def test_get_not_applicant_API(self):
-        self.run_tests_simple_APIs(self.not_applicant.id, self.recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.not_applicant.id, self.other_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.not_applicant.id, self.senior_recruiter, ForbiddenException)
-        self.run_tests_simple_APIs(self.not_applicant.id, self.admin, ForbiddenException)
+def wrap_corporation_wallet(corporation_id, current_user=None):
+    response = corporation.get_corporation_wallet(corporation_id, current_user=current_user)
+    return_list = []
+    for entry in response['info']:
+        return_list.extend(entry['info'])
+    return {'info': return_list}
 
 
 class CorporationWalletTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.get_character_wallet,
+        'fetch_function': wrap_corporation_wallet,
         'required': {
             'date': str,
             'description': str,
@@ -206,7 +190,7 @@ class CorporationWalletTests(SimpleCorporationMixin, AsceeTestCase):
 class CorporationContactsTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.contacts.get_character_contacts,
+        'fetch_function': corporation.contacts.get_corporation_contacts,
         'required': {
             'name': str,
             'contact_id': int,
@@ -230,7 +214,7 @@ class CorporationContactsTests(SimpleCorporationMixin, AsceeTestCase):
 class CorporationBlueprintsTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.get_character_blueprints,
+        'fetch_function': corporation.get_corporation_blueprints,
         'required': {
             'item_id': int,
             'location_flag': str,
@@ -256,7 +240,7 @@ class CorporationBlueprintsTests(SimpleCorporationMixin, AsceeTestCase):
 
 class CorporationIndustryTests(SimpleCorporationMixin, AsceeTestCase):
     api_definition = {
-        'fetch_function': character.industry.get_character_industry,
+        'fetch_function': corporation.industry.get_corporation_industry,
         'required': {
             'activity_id': int,
             'blueprint_id': int,
@@ -296,7 +280,7 @@ class CorporationIndustryTests(SimpleCorporationMixin, AsceeTestCase):
 class CorporationMarketContractsTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.finance.get_character_market_contracts,
+        'fetch_function': corporation.finance.get_corporation_market_contracts,
         'required': {
             'issuer_alliance_id': (int, type(None)),
             'issuer_alliance_name': (str, type(None)),
@@ -322,11 +306,11 @@ class CorporationMarketContractsTests(SimpleCorporationMixin, AsceeTestCase):
             'end_location_name': str,
         },
         'redlisting': {
-            'issuer_name': (Character, 'issuer_id'),
-            'acceptor_name': (Character, 'acceptor_id'),
+            # 'issuer_name': (Character, 'issuer_id'),
+            # 'acceptor_name': (Character, 'acceptor_id'),
             'issuer_corporation_name': (Corporation, 'issuer_corporation_id'),
             'issuer_corporation_ticker': (Corporation, 'issuer_corporation_id'),
-            'issuer_alliance_name': (Alliance, 'issuer_alliance_id'),
+            # 'issuer_alliance_name': (Alliance, 'issuer_alliance_id'),
         },
         'entry_identifier': 'contract_id',
     }
@@ -335,7 +319,7 @@ class CorporationMarketContractsTests(SimpleCorporationMixin, AsceeTestCase):
 class CorporationMarketHistoryTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.finance.get_character_market_history,
+        'fetch_function': corporation.finance.get_corporation_market_history,
         'required': {
             'order_id': int,
             'is_buy_order': bool,

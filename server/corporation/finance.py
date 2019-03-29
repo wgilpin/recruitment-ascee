@@ -7,11 +7,12 @@ def get_corporation_wallet(corporation_id, current_user=None):
     corporation = Corporation.get(corporation_id)
     character = Character.get(corporation.ceo_id)
     character_application_access_check(current_user, character)
-    _, wallet_division_data = character.get_op(
+    response = character.get_op(
         'get_corporations_corporation_id_divisions',
         corporation_id=corporation_id
     )
-    divisions = {entry['division']: entry['name'] for entry in wallet_division_data}
+    wallet_division_data = response['wallet']
+    divisions = {entry['division']: entry.get('name', 'Division {}'.format(entry['division'])) for entry in wallet_division_data}
     return_data = []
     for division_id, division_name in divisions.items():
         entry = {'division_name': division_name}
@@ -20,7 +21,7 @@ def get_corporation_wallet(corporation_id, current_user=None):
             corporation_id=corporation_id,
             division=division_id,
         )
-        entry['info'] = process_wallet(character.id, wallet_data)
+        entry['info'] = process_wallet(character.id, wallet_data)['info']
         return_data.append(entry)
     return {'info': return_data}
 
@@ -31,7 +32,7 @@ def get_corporation_market_contracts(corporation_id, current_user=None):
     character_application_access_check(current_user, character)
     contract_list = character.get_paged_op(
         'get_corporations_corporation_id_contracts',
-        corporatioN_id=corporation_id,
+        corporation_id=corporation_id,
     )
     return process_contracts(character, contract_list)
 
