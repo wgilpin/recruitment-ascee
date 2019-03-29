@@ -21,6 +21,7 @@ const styles = {
     border: '1px solid grey',
     borderRadius: '4px',
     textAlign: 'left',
+    cursor: 'pointer',
   },
   image: {
     width: '22px',

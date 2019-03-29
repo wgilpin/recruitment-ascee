@@ -36,6 +36,12 @@ const styles = {
     fontWeight: 600,
     color: '#01799A',
     marginBottom: '6px',
+  },
+  corporation: {
+    width: '100px',
+  },
+  secStatus: {
+    fontWeight: 500,
   }
 };
 export default class Alts extends React.Component {
@@ -52,9 +58,20 @@ export default class Alts extends React.Component {
     }
   };
 
+  loadCharacterSummary= (alts) => {
+    Object.entries(alts).map(([id, alt]) => {
+      return new FetchData({ id, scope: 'character', param2: 'summary' })
+        .get()
+        .then(({info}) => this.setState({
+          corporation: info.corporation_name,
+          alliance: info.alliance_name,
+          secStatus: info.security_status,
+        }));
+    })
+  }
+
   componentDidMount() {
-    let fetch = new FetchData({ id: this.props.main, scope: 'user/characters' });
-    fetch
+    new FetchData({ id: this.props.main, scope: 'user/characters' })
       .get()
       .then(data => {
         let mainData;
@@ -63,6 +80,7 @@ export default class Alts extends React.Component {
           delete data.info[this.props.main];
         }
         this.setState({ alts: data.info, main: mainData });
+        this.loadCharacterSummary(data.info);
       })
       .catch(err => {
         console.log(err);
@@ -85,6 +103,10 @@ export default class Alts extends React.Component {
               onClick={this.handleClick}
               showPointer={this.props.showPointer}
             />
+            <div>
+              <span style={styles.corporation}>{this.state.corporation}</span>
+              <span style={styles.secStatus}>({this.state.secStatus})</span>
+            </div>
             <hr style={styles.hr} />
         </>}
         {hasAlts && <div style={styles.sectionTitle}>Alts</div>}
