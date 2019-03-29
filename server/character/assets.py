@@ -12,6 +12,10 @@ def get_character_assets(character_id, current_user=None):
         'get_characters_character_id_assets',
         character_id=character_id,
     )
+    return process_assets(character, asset_list)
+
+
+def process_assets(character, asset_list):
     type_set = set()
     for entry in asset_list:
         type_set.add(entry['type_id'])
@@ -30,11 +34,15 @@ def get_character_blueprints(character_id, current_user=None):
     character = Character.get(character_id)
     character_application_access_check(current_user, character)
     assets = get_character_assets(character_id, current_user=current_user)
-    asset_system_dict = get_asset_systems(assets)
     blueprints_list = character.get_paged_op(
         'get_characters_character_id_blueprints',
         character_id=character_id,
     )
+    return process_blueprints(assets, blueprints_list)
+
+
+def process_blueprints(assets, blueprints_list):
+    asset_system_dict = get_asset_systems(assets)
     type_ids = set()
     for entry in blueprints_list:
         type_ids.add(entry['type_id'])

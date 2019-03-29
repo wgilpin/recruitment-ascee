@@ -1,0 +1,6 @@
+{
+    "get_op": {
+        "(('get_search',), (('categories', ('character',)), ('disable_multi', True), ('search', 'reafldksjcjluresfda')))": {}
+    },
+    "get_paged_op": {}
+}

@@ -34,6 +34,10 @@ def get_character_wallet(character_id, current_user=None):
         'get_characters_character_id_wallet_journal',
         character_id=character_id
     )
+    return process_wallet(character_id, wallet_data)
+
+
+def process_wallet(character_id, wallet_data):
     party_ids = get_party_ids(wallet_data)
     party_data = get_party_data(party_ids)
     for wallet_entry in wallet_data:
@@ -115,10 +119,13 @@ def get_character_market_contracts(character_id, current_user=None):
         'get_characters_character_id_contracts',
         character_id=character_id,
     )
+    return process_contracts(character, contract_list)
 
+
+def process_contracts(character, contract_list):
     entry_items = character.get_op(
         'get_characters_character_id_contracts_contract_id_items',
-        character_id=character_id,
+        character_id=character.id,
         contract_id=[entry['contract_id'] for entry in contract_list],
     )
 
@@ -219,6 +226,10 @@ def get_character_market_history(character_id, current_user=None):
         'get_characters_character_id_orders_history',
         character_id=character_id,
     ))
+    return process_market_history(character, order_list)
+
+
+def process_market_history(character, order_list):
     location_ids = set()
     type_ids = set()
     for order in order_list:

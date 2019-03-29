@@ -13,7 +13,11 @@ def get_character_bookmarks(character_id, current_user=None):
     folder_list = character.get_paged_op(
                 'get_characters_character_id_bookmarks_folders',
                 character_id=character_id)
-    folders = { folder['folder_id']: folder['name'] for folder in folder_list }
+    return process_bookmarks(bookmarks_list, folder_list)
+
+
+def process_bookmarks(character, bookmarks_list, folder_list):
+    folders = {folder['folder_id']: folder['name'] for folder in folder_list}
     bookmarks_dict = {entry['bookmark_id']: entry for entry in bookmarks_list}
     for bookmark_id, entry in bookmarks_dict.items():
         entry['id'] = bookmark_id

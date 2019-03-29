@@ -315,6 +315,7 @@ class Corporation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     ticker = db.Column(db.String(20))
+    ceo_id = db.Column(db.Integer)
     alliance_id = db.Column(db.Integer, db.ForeignKey(Alliance.id))
     alliance = db.relationship(Alliance, uselist=False)
     redlisted = db.Column(db.Boolean, default=False)
@@ -330,10 +331,11 @@ class Corporation(db.Model):
             corporation = Corporation(
                 id=id,
                 name=corporation_data['name'],
-                ticker=corporation_data['ticker']
+                ticker=corporation_data['ticker'],
+                ceo_id=corporation_data['ceo_id'],
             )
             if corporation_data.get('alliance_id', None) is not None:
-                alliance = Alliance.get(corporation_data['alliance_id'])
+                Alliance.get(corporation_data['alliance_id'])
                 corporation.alliance_id = corporation_data['alliance_id']
             db.session.add(corporation)
             db.session.commit()

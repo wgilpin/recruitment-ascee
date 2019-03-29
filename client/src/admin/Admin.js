@@ -6,6 +6,7 @@ import AdminLists from './AdminLists';
 import AdminQuestions from './AdminQuestions';
 import styles from '../Applicant/ApplicantStyles';
 import FetchData from '../common/FetchData';
+import AdminConfig from './AdminConfig';
 
 
 const primary = TableStyles.styles.themeColor.color;
@@ -79,7 +80,6 @@ class Admin extends Component {
   }
 
   componentDidMount() {
-
     new FetchData({ scope: 'user/roles' })
       .get()
       .then(roles => {
@@ -88,13 +88,7 @@ class Admin extends Component {
       })
   }
 
-
-  buildConfigPanel() {
-    return < >
-    <h2>Config</h2>
-    </>
-  }
-
+  
   render() {
     return (
       < >
@@ -120,7 +114,7 @@ class Admin extends Component {
           <TabPanel><AdminQuestions/></TabPanel>
           <TabPanel><AdminRoles/></TabPanel>
           <TabPanel><AdminLists/></TabPanel>
-          <TabPanel>{this.buildConfigPanel()}</TabPanel>
+          <TabPanel><AdminConfig /></TabPanel>
         </Tabs>
       </>
     );
