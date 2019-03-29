@@ -264,6 +264,7 @@ class Alliance(db.Model):
     name = db.Column(db.String(100))
     ticker = db.Column(db.String(20))
     redlisted = db.Column(db.Boolean, default=False)
+    corporations = db.relationship('Corporation', back_populates='alliance')
 
     @classmethod
     def get(cls, id, *args, **kwargs):
@@ -317,8 +318,28 @@ class Corporation(db.Model):
     ticker = db.Column(db.String(20))
     ceo_id = db.Column(db.Integer)
     alliance_id = db.Column(db.Integer, db.ForeignKey(Alliance.id))
-    alliance = db.relationship(Alliance, uselist=False)
+    alliance = db.relationship(Alliance, uselist=False, back_populates='corporations')
     redlisted = db.Column(db.Boolean, default=False)
+
+    @classmethod
+    def refresh_from_esi(cls):
+        ids = set(item[0] for item in db.session.query(Corporation.id).all())
+        new_data_dict = esi.get_op(
+            'get_corporations_corporation_id',
+            corporation_id=list(ids)
+        )
+        alliance_ids = set()
+        for corp_data in new_data_dict.values():
+            if 'alliance_id' in corp_data:
+                alliance_ids.add(corp_data['alliance_id'])
+        Alliance.get_multi(list(alliance_ids))
+        for corporation_id, corporation_data in new_data_dict.items():
+            corporation = Corporation.get(corporation_id)
+            if corporation.ceo_id != corporation_data['ceo_id']:
+                corporation.ceo_id = corporation_data['ceo_id']
+            if corporation.alliance_id != corporation_data.get('alliance_id', None):
+                corporation.alliance_id = corporation_data['alliance_id']
+        db.session.commit()
 
     @classmethod
     def get(cls, id):
@@ -362,7 +383,8 @@ class Corporation(db.Model):
                 corporation = Corporation(
                     id=corporation_id,
                     name=corporation_data['name'],
-                    ticker=corporation_data['ticker']
+                    ticker=corporation_data['ticker'],
+                    ceo_id=corporation_data['ceo_id'],
                 )
                 if corporation_data.get('alliance_id', None) is not None:
                     corporation.alliance_id = corporation_data['alliance_id']
@@ -451,8 +473,23 @@ class Character(db.Model):
     redlisted = db.Column(db.Boolean, default=False)
     blocked_from_applying = db.Column(db.Boolean, default=False)
 
-    def __init__(self, *args, **kwargs):
-        super(Character, self).__init__(*args, **kwargs)
+    @classmethod
+    def refresh_from_esi(cls):
+        ids = set(item[0] for item in db.session.query(Character.id).all())
+        new_data_dict = esi.get_op(
+            'get_characters_character_id',
+            character_id=list(ids)
+        )
+
+        corporation_ids = set(
+            char['corporation_id'] for char in new_data_dict.values())
+        Corporation.get_multi(list(corporation_ids))
+
+        for character_id, character_data in new_data_dict.items():
+            character = Character.get(character_id)
+            if character.corporation_id != character_data['corporation_id']:
+                character.corporation_id = character_data['corporation_id']
+        db.session.commit()
 
     @classmethod
     def get(cls, id):
