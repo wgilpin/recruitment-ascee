@@ -7,7 +7,7 @@ from character.clones import get_character_clones
 
 @app.route('/api/character/<int:character_id>/clones', methods=['GET'])
 @login_required
-def api_character_summary(character_id):
+def api_character_clones(character_id):
     """
     Get clone data for a given character.
 

@@ -50,7 +50,7 @@ export default class TableFittings extends TableBase {
     return <div style={styles.itemLine}>
       <div style={styles.cell}>{quantity}</div>
       <div style={styles.cell}>
-        <img style={styles.typeIcon} alt="icon" src={imgSrc} />
+        <img style={styles.typeIcon} alt={type_name} src={imgSrc} />
       </div>
       <div style={styles.cell}>
         <span style={styles.itemName}>{type_name}</span>

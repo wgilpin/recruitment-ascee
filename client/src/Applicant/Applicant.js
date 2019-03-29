@@ -31,7 +31,7 @@ export default class Applicant extends Component {
     );
   }
 
-  questionsToState = (questions) => {
+  questionsToState = questions => {
     this.setState({ questions });
   };
 
@@ -45,31 +45,30 @@ export default class Applicant extends Component {
   };
 
   componentDidMount() {
-    new FetchData({ scope: 'questions' })
-      .get()
-      .then(this.questionsToState);
-    new FetchData({ scope: 'answers' })
-      .get()
-      .then(this.answersToState);
+    new FetchData({ scope: 'questions' }).get().then(this.questionsToState);
+    new FetchData({ scope: 'answers' }).get().then(this.answersToState);
   }
 
   handleAnswerChanged = e => {
-    this.setState({
-      dirtyAnswers: true,
-      answers: {
-        ...this.state.answers,
-        [e.target.id]: e.target.value,
+    this.setState(
+      {
+        dirtyAnswers: true,
+        answers: {
+          ...this.state.answers,
+          [e.target.id]: e.target.value,
+        },
       },
-    },
-    () => this.checkReady());
+      () => this.checkReady()
+    );
   };
 
   allQuestionsAnswered = () => {
     if (Object.keys(this.state.answers).length === 0) {
       return false;
     }
-    return Object.values(this.state.answers)
-      .filter(q => q.length === 0).length === 0;
+    return (
+      Object.values(this.state.answers).filter(q => q.length === 0).length === 0
+    );
   };
 
   checkReady = () => {
@@ -79,8 +78,12 @@ export default class Applicant extends Component {
   };
 
   getNotReadyErrorMessage = () => {
-    const altsMsg = this.state.altsDone ? '' : 'Add all your alts, then tick "I have no more alts".';
-    const questionsMsg = this.allQuestionsAnswered() ? '' : 'Answer all the questions';
+    const altsMsg = this.state.altsDone
+      ? ''
+      : 'Add all your alts, then tick "I have no more alts".';
+    const questionsMsg = this.allQuestionsAnswered()
+      ? ''
+      : 'Answer all the questions';
     return altsMsg + questionsMsg;
   };
 
@@ -184,28 +187,26 @@ export default class Applicant extends Component {
       buttonStyle = { ...styles.disabledButton, ...styles.padded };
     }
 
-    return (
-      <>
-        <div style={styles.header}>
-          <h1 style={styles.h1}>
-            <img src={AsceeImg} style={styles.logo} alt="Ascendance" />
-            Applying to Ascendance
-          </h1>
+    return [
+      <div style={styles.header}>
+        <h1 style={styles.h1}>
+          <img src={AsceeImg} style={styles.logo} alt="Ascendance" />
+          Applying to Ascendance
+        </h1>
+      </div>,
+      this.state.has_application && (
+        <div style={styles.paddedHeavily}>
+          Start with your alts, add them all. Once that's done, move on to the
+          questions.
         </div>
-        {this.state.has_application && (
-          <div style={styles.paddedHeavily}>
-            Start with your alts, add them all. Once that's done, move on to the
-            questions.
-          </div>
-        )}
-        <div>
-          <button style={buttonStyle} onClick={this.submit}>
-            {buttonLabel} Application
-          </button>
-          {!this.state.ready && this.applicationStatus()}
-        </div>
-      </>
-    );
+      ),
+      <div>
+        <button style={buttonStyle} onClick={this.submit}>
+          {buttonLabel} Application
+        </button>
+        {!this.state.ready && this.applicationStatus()}
+      </div>,
+    ];
   };
 
   buildAltsPanel = () => {

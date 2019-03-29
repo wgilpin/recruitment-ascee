@@ -132,7 +132,6 @@ export default class Evidence extends React.Component {
               onClick={() => this.changeTab('Notes')}
               label="Notes"
             />
-            <IconBtn onClick={this.doLogout} label="Sign out" src={cancelImg} />
           </Alts>
           <div>
             <span data-tip="Approve" style={styles.RoundImage}>
