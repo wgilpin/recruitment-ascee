@@ -25,7 +25,7 @@ export default class Alt extends React.Component {
   }
 
   render() {
-    const { size, name, selected } = this.props;
+    const { name, selected } = this.props;
 
     const styles = {
       ...TableStyles.styles,
