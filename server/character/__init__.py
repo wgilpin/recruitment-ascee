@@ -1,6 +1,7 @@
 from character.assets import *
 from character.bookmarks import *
 from character.calendar import *
+from character.clones import *
 from character.contacts import *
 from character.summary import *
 from character.finance import *
