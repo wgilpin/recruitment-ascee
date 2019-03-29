@@ -4,6 +4,7 @@ from character.calendar import *
 from character.clones import *
 from character.contacts import *
 from character.summary import *
+from character.corporation import *
 from character.finance import *
 from character.fittings import *
 from character.industry import *

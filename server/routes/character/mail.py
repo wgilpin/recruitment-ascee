@@ -31,7 +31,7 @@ def api_character_mail(character_id):
             a recruiter who has claimed the given user
     """
     return jsonify(get_character_mail(
-        character_id, last_mail_id=request.form.get('last_mail_id', None), current_user=current_user
+        character_id, last_mail_id=request.args.get('last_mail_id', None), current_user=current_user
     ))
 
 

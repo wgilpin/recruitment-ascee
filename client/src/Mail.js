@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import FetchData from './common/FetchData';
 import TableStyles from './TableStyles';
+import FirstPageImg from './images/first_page_white.png';
+import NextPageImg from './images/chevron_right.png';
+import IconBtn from './common/IconBtn';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -31,6 +34,10 @@ const styles = {
   redList: {
     fontWeight: 600,
     color: 'red',
+  },
+  iconBtn: {
+    width: '60px',
+    float: 'left',
   }
 }
 
@@ -40,6 +47,8 @@ export default class Mail extends React.Component {
     this.state = {
       mailList: [],
       loading: true,
+      lastMailId: null,
+      endPageOneId: null,
     };
   }
 
@@ -53,26 +62,26 @@ export default class Mail extends React.Component {
     return list;
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     let newList;
 
     // get the mail headers by API
     new FetchData(
       { id: this.props.alt, scope: 'character', param1: 'mail' },
-    ).get()
+    ).get(this.state.lastMailId ? { last_mail_id: this.state.lastMailId} : {})
       .then(data => {
         // got the list of mail headers
-        return newList = Mail.jsonToMailList(data);
+        newList = Mail.jsonToMailList(data);
+        this.setState({ lastMailId: newList[newList.length-1].mail_id });
+        if (! this.state.endPageOneId) {
+          this.setState({ endPageOneId: newList[newList.length-1].mail_id });
+        }
       })
       .then(() => {
-        if (newList.length !== (this.state.mailList || []).length) {
-          const updatedList = [];
-          newList.forEach(item => {
-            updatedList.push({ ...item, collapsed: true });
-          })
-          const sortedMailList = updatedList.sort((a,b) => (new Date(b.timestamp) - new Date(a.timestamp)))
-          this.setState({ mailList: sortedMailList, loading: false })
-        }
+        const sortedMailList = newList
+          .map(item => ({ ...item, collapsed: true }))
+          .sort((a,b) => (new Date(b.timestamp) - new Date(a.timestamp)))
+        this.setState({ mailList: sortedMailList, loading: false })
       })
       .catch((err) => {
         console.error(err);
@@ -189,6 +198,17 @@ export default class Mail extends React.Component {
     )
   }
 
+  showFirst = () => {
+    this.setState({
+      lastMailId: null,
+      loading: true,
+    },
+      this.componentDidMount,
+    )
+  }
+
+  showMore = () => this.setState({ loading: true }, this.componentDidMount);
+
   render() {
     if (this.state.loading) {
       return(
@@ -197,7 +217,7 @@ export default class Mail extends React.Component {
         color="#01799A"
         height="100"
         width="100"
-     />)
+      />)
     }
     return (
       <div style={styles.table}>
@@ -215,6 +235,24 @@ export default class Mail extends React.Component {
           );
         })
         }
+        <div>
+          {this.state.lastMailId !== this.state.endPageOneId &&
+            <IconBtn
+              src={FirstPageImg}
+              alt="first"
+              onClick={this.showFirst}
+              label="First"
+              style={styles.iconBtn}
+            />
+          }
+          <IconBtn
+            src={NextPageImg}
+            alt="next"
+            onClick={this.showMore}
+            label="Next"
+            style={styles.iconBtn}
+          />
+        </div>
       </div>
     )
   }
