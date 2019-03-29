@@ -3,6 +3,7 @@ from routes.character.bookmarks import *
 from routes.character.calendar import *
 from routes.character.clones import *
 from routes.character.contacts import *
+from routes.character.corporation import *
 from routes.character.finance import *
 from routes.character.fittings import *
 from routes.character.mail import *
