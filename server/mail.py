@@ -17,12 +17,20 @@ def get_mail_character():
 def get_mail_character_data(current_user=None):
     user_admin_access_check(current_user)
     character = get_mail_character()
-    return {
-        'info': {
-            'id': character.id,
-            'name': character.name,
+    if character:
+        return {
+            'info': {
+                'id': character.id,
+                'name': character.name,
+            }
         }
-    }
+    else:
+        return {
+            'info': {
+                'id': None,
+                'name': '',
+            }
+        }
 
 
 def get_mail_text(template_name, **kwargs):

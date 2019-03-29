@@ -21,7 +21,7 @@ export default class Styles {
     },
     secondaryButton: {
       ...Styles.button,
-      colour: Styles.themeColors.primary,
+      color: Styles.themeColors.prmary,
       backgroundColor: Styles.themeColors.secondary,
       borderColor: Styles.themeColors.primary,
     },
