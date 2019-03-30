@@ -25,6 +25,10 @@ const styles = {
   structure: {
     width: '100%',
   },
+  red: {
+    color: 'red',
+    fontWeight: 500,
+  },
 };
 
 const isEmpty = obj => {
@@ -94,9 +98,9 @@ export default class AssetContainer extends React.Component {
 
   expansionButton = () => {
     return [
-        !this.state.collapsed && <img src={expandedImg} alt="+" />,
-        this.state.collapsed && <img src={collapsedImg} alt="-" />
-     ];
+      !this.state.collapsed && <img src={expandedImg} alt="+" />,
+      this.state.collapsed && <img src={collapsedImg} alt="-" />,
+    ];
   };
 
   render() {
@@ -113,6 +117,9 @@ export default class AssetContainer extends React.Component {
       paddingLeft: depthPadding,
       ...styles.structure,
     };
+    if ((this.props.asset.redlisted || []).length > 0) {
+      lineStyle = { ...lineStyle, ...styles.red };
+    }
     // orphans is a list of keys of items which are not containers
     return (
       <div>
