@@ -213,7 +213,9 @@ export default class AdminLists extends React.Component {
           )}
         </select>
         <div style={styles.listbox}>
-          {(lists[kind] || []).map((item, idx) => this.makeListLine(item, idx))}
+          {(lists[kind] || [])
+            .sort((a, b) => (a.name < b.name ? -1 : ( a.name > b.name ? 1 : 0)))
+            .map((item, idx) => this.makeListLine(item, idx))}
         </div>
         {this.state.showInput && (
           <FindItem kind={this.state.kind} onChange={this.doLoad} />
