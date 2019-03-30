@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactModal from 'react-modal';
+import Loader from 'react-loader-spinner';
 import TableStyles from '../TableStyles';
 import Styles from '../common/Styles';
 import RoundImage from '../common/RoundImage';
@@ -7,6 +7,7 @@ import FabButton from '../common/fabButton';
 import deleteImg from '../images/delete-white.svg';
 import FetchData from '../common/FetchData';
 import FindItem from './FindItem';
+import Confirm from '../Confirm';
 
 const propTypes = {};
 
@@ -57,7 +58,7 @@ const styles = {
     color: 'white',
     backgroundColor: Styles.themeColors.primary,
     border: 'none',
-    marginBottom: '12px',
+    marginBottom: '24px',
   },
   fab: {
     float: 'right',
@@ -73,13 +74,14 @@ export default class AdminLists extends React.Component {
       lists: [],
       kind: 'character',
       selectedItem: {},
-      showModal: false,
+      showConfirm: false,
+      loading: true,
     };
   }
 
   static list_kinds = {
     character: 'Red Character',
-    type: 'Flagged Type',
+    inventory_type: 'Flagged Type',
     alliance: 'Red Alliance',
     corporation: 'Red Corporation',
     system: 'Red System',
@@ -91,7 +93,7 @@ export default class AdminLists extends React.Component {
   }
 
   componentDidMount() {
-    this.doLoad()
+    this.doLoad();
   }
 
   doLoad = () => {
@@ -107,16 +109,16 @@ export default class AdminLists extends React.Component {
     Promise.all(promises).then(() => {
       const showInput =
         lists.length === 0 || lists[this.state.kind].length === 0;
-      this.setState({ lists, showInput });
+      this.setState({ lists, showInput, loading: false });
     });
-  }
+  };
 
   handleConfirmDelete(id) {
     const selectedItem = this.state.lists[this.state.kind].filter(
       it => it.id === id
     )[0];
     this.setState({
-      showModal: true,
+      showConfirm: true,
       selectedItem: selectedItem,
     });
   }
@@ -128,7 +130,7 @@ export default class AdminLists extends React.Component {
       param1: 'delete',
       param2: this.state.selectedItem.id,
     }).delete();
-    this.setState({ showModal: false });
+    this.setState({ showConfirm: false });
     this.componentDidMount();
   };
 
@@ -158,14 +160,27 @@ export default class AdminLists extends React.Component {
       ...(idx % 2 === 0 ? styles.isOdd : {}),
       ...styles.row,
     };
-    const imgSrc = `https://image.eveonline.com/Character/${item.id}_64.jpg`;
+    const characterImgSrc = `https://image.eveonline.com/Character/${
+      item.id
+    }_64.jpg`;
+    const typeImgSrc = `https://image.eveonline.com/Type/${item.id}_64.png`;
     return (
       <div key={item} style={lineStyle}>
         {this.state.kind === 'character' && (
           <div style={styles.cell}>
-            <RoundImage src={imgSrc} />
+            <RoundImage src={characterImgSrc} />
           </div>
         )}
+        {this.state.kind === 'inventory_type' && (
+          <div style={styles.cell}>
+            <img
+              style={{ width: '20px', height: '20px' }}
+              src={typeImgSrc}
+              alt=" "
+            />
+          </div>
+        )}
+
         <div style={{ ...styles.cell, verticalAlign: 'middle' }}>
           {item.name}
         </div>
@@ -183,19 +198,26 @@ export default class AdminLists extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return <Loader type="Puff" color="#01799A" height="100" width="100" />;
+    }
     const { kind, lists } = this.state;
     return (
       <div style={styles.outer}>
         <h2>Redlists</h2>
         <select style={styles.selectPrimary} onChange={this.handleChangeKind}>
-          {Object.entries(AdminLists.list_kinds).map(([option_kind, option_text]) => (
-            <option value={option_kind}>{option_text}</option>
-          ))}
+          {Object.entries(AdminLists.list_kinds).map(
+            ([option_kind, option_text]) => (
+              <option value={option_kind}>{option_text}</option>
+            )
+          )}
         </select>
         <div style={styles.listbox}>
           {(lists[kind] || []).map((item, idx) => this.makeListLine(item, idx))}
         </div>
-        {this.state.showInput && <FindItem kind={this.state.kind} onChange={this.doLoad}/>}
+        {this.state.showInput && (
+          <FindItem kind={this.state.kind} onChange={this.doLoad} />
+        )}
         {!this.state.showInput && (
           <FabButton
             onClick={this.handleAddFab}
@@ -205,22 +227,13 @@ export default class AdminLists extends React.Component {
             style={styles.fab}
           />
         )}
-
-        <ReactModal isOpen={this.state.showModal} style={styles.modal}>
-          <h2 style={styles.modal.title}>
-            Delete {this.state.selectedItem.name} from {this.state.kind}s
-          </h2>
-          <p style={styles.modal.text}>Are you sure?</p>
-          <button
-            style={styles.smallSecondary}
-            onClick={() => this.setState({ showModal: false })}
-          >
-            No
-          </button>
-          <button style={styles.smallPrimary} onClick={this.handleDelete}>
-            yes
-          </button>
-        </ReactModal>
+        {this.state.showConfirm && (
+          <Confirm
+            text={`Remove item from redlist`}
+            onConfirm={this.handleDelete}
+            onClose={() => this.setState({ showConfirm: false })}
+          />
+        )}
       </div>
     );
   }
