@@ -3,8 +3,6 @@ import FetchData from '../common/FetchData';
 import Styles from '../common/Styles';
 import TableStyles from '../TableStyles';
 import Alt from '../Alt'
-import EditImg from '../images/edit-white.svg';
-import FindESICharacter from './FindESICharacter';
 import Confirm from '../Confirm';
 
 

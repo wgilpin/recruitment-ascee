@@ -1,5 +1,4 @@
 import React, { Component } from 'reactn';
-import queryString from 'query-string';
 import ApplicantImg from './images/Rifter.png';
 class MainMenu extends Component {
   constructor(props) {
@@ -25,17 +24,13 @@ class MainMenu extends Component {
     recruiter: 'recruiter',
     applicant: 'applicant',
     admin: 'admin',
-  }
+  };
 
   render() {
     return (
       <div style={this.styles.outer}>
         <a href="/auth/login">
-          <img
-            src={ApplicantImg}
-            style={this.styles.image}
-            alt="log in"
-          />
+          <img src={ApplicantImg} style={this.styles.image} alt="log in" />
         </a>
       </div>
     );

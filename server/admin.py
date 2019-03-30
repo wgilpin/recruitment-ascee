@@ -9,7 +9,7 @@ SECONDS_TO_CACHE = 10 * 60
 
 kind_dict = {
     'character': Character,
-    'type': Type,
+    'inventory_type': Type,
     'alliance': Alliance,
     'corporation': Corporation,
     'system': System,

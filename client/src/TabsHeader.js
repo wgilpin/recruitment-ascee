@@ -49,7 +49,7 @@ const styles = {
   selected: {
     textDecoration: 'underline overline',
     fontWeight: 600,
-  }
+  },
 };
 
 export default class TabsHeader extends React.Component {
@@ -61,7 +61,7 @@ export default class TabsHeader extends React.Component {
     };
   }
 
-  showTab = (name) => {
+  showTab = name => {
     //open the tab
     console.log('tabsHeader click ');
 
@@ -69,110 +69,77 @@ export default class TabsHeader extends React.Component {
       console.log('tabsHeader click handled ');
 
       this.props.onTabChange(name);
-      this.setState({ selected: name })
+      this.setState({ selected: name });
     }
+  };
+
+  build_tab_icons(col, image, name) {
+    let textStyle;
+    if (this.state.selected === name) {
+      textStyle = { gridColumn: col, ...styles.span, ...styles.selected };
+    } else {
+      textStyle = { gridColumn: col, ...styles.span };
+    }
+    return [
+      <RoundImage
+        style={{ gridColumn: col, gridRow: 1 }}
+        size={40}
+        src={image}
+        onClick={this.showTab}
+        name={name}
+      />,
+      <span style={textStyle} onClick={this.showTab} name={name}>
+        {name}
+      </span>,
+    ];
   }
 
-  build_tab_icons(col,image, name) {
-    let textStyle;
-    if (this.state.selected === name){
-      textStyle = { gridColumn: col, ...styles.span, ...styles.selected };
-    }
-    else {
-      textStyle = { gridColumn: col, ...styles.span }
-    }
-    return (
-      <React.Fragment>
-      <RoundImage style={{ gridColumn: col, gridRow: 1 }} size={40} src={image} onClick={this.showTab} name={name}/>
-      <span style={textStyle} onClick={this.showTab} name={name}>{name}</span>
-      </React.Fragment>
-    )
-  }
+  static displayOrder = {
+    1: { name: 'Wallet', src: walletImg, includeForCorp: true },
+    2: { name: 'Contacts', src: contactsImg, includeForCorp: true },
+    3: { name: 'Assets', src: assetsImg, includeForCorp: true },
+    4: { name: 'Bookmarks', src: bookmarkImg, includeForCorp: true },
+    5: { name: 'Industry', src: industryImg, includeForCorp: true },
+    6: { name: 'Skills', src: skillsImg },
+    7: { name: 'Blueprints', src: blueprintImg },
+    8: { name: 'Mail', src: mailImg },
+    9: { name: 'Calendar', src: calendarImg },
+    10: { name: 'Market', src: marketImg },
+    11: { name: 'Fittings', src: fittingsImg },
+    12: { name: 'Contracts', src: contractsImg },
+    13: { name: 'PI', src: PIImg },
+  };
 
   render() {
+    const displayOrder = TabsHeader.displayOrder;
+    const pageIsACorp = !!this.props.corporation;
+    const displayItems = Object.entries(displayOrder)
+      .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp)
+      .sort()
+      .map(seq => displayOrder[seq]);
     return (
       <div style={styles.div}>
         <div style={styles.headerRow}>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={walletImg} onClick={this.showTab} name={ 'Wallet'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={contactsImg} onClick={this.showTab} name={'Contacts'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={assetsImg} onClick={this.showTab} name={'Assets'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={skillsImg} onClick={this.showTab} name={'Skills'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={bookmarkImg} onClick={this.showTab} name={'Bookmarks'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={blueprintImg} onClick={this.showTab} name={'Blueprints'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={mailImg} onClick={this.showTab} name={'Mail'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={contractsImg} onClick={this.showTab} name={'Contracts'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={calendarImg} onClick={this.showTab} name={'Calendar'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={marketImg} onClick={this.showTab} name={'Market'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={fittingsImg} onClick={this.showTab} name={'Fittings'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={industryImg} onClick={this.showTab} name={'Industry'} />
-          </div>
-          <div style={styles.cell}>
-            <RoundImage size={40} src={PIImg} onClick={this.showTab} name={'PI'} />
-          </div>
+          {displayItems.map(({ src, name }) => (
+            <div style={styles.cell}>
+              <RoundImage
+                size={40}
+                src={src}
+                onClick={this.showTab}
+                name={displayOrder[name]}
+                corporation={pageIsACorp}
+              />
+            </div>
+          ))}
         </div>
         <div style={styles.textRow}>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Wallet')}>Wallet</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Contacts')}>Contacts</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Assets')}>Assets</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Skills')}>Skills</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Bookmarks')}>Bookmarks</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Blueprints')}>Blueprints</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Mail')}>Mail</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Contracts')}>Contracts</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Calendar')}>Calendar</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Market')}>Market</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Fittings')}>Fittings</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('Industry')}>Industry</div>
-          </div>
-          <div style={styles.cell}>
-            <div style={styles.span} onClick={() => this.showTab('PI')}>PI</div>
-          </div>
+          {displayItems.map(({ src, name }) => (
+            <div style={styles.cell}>
+              <div style={styles.span} onClick={() => this.showTab(name)}>
+                {name}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     );
