@@ -12,9 +12,14 @@ def api_character_skills(character_id):
     Get current and queued skills for a given character.
 
     Returned dictionary is of the form
-    {'skills': skill_list, 'queue': queue_list}. skill_list is a list of
-    skill dictionaries as returned by ESI, and queue_list is a list of
-    queued skill dictionaries as returned by ESI. All skill dictionaries
+        {
+            'skills': skill_list,
+            'queue': queue_list,
+            'total_sp': int
+        }.
+    total_sp is the characters total skill points
+    skill_list is a list of skill dictionaries as returned by ESI
+    queue_list is a list of queued skill dictionaries as returned by ESI. All skill dictionaries
     have the additional keys `skill_name` and `group_name`.
 
     Skills will not be redlisted.
