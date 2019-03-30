@@ -45,12 +45,14 @@ export default class AssetContainer extends React.Component {
   getItemLine(item, index) {
     const depthPadding = 40 * this.props.depth + 20;
     let lineStyle = this.props.index % 2 === 0 ? styles.isOdd : {};
-    lineStyle = { ...lineStyle, ...styles.cell, ...styles.row, paddingLeft: depthPadding };
+    lineStyle = {
+      ...lineStyle,
+      ...styles.cell,
+      ...styles.row,
+      paddingLeft: depthPadding,
+    };
     return (
-      <div
-        style={lineStyle}
-        key={item.item_id}
-      >
+      <div style={lineStyle} key={item.item_id}>
         <div>
           {item.name}&emsp;
           <span style={styles.isk}>
@@ -67,7 +69,7 @@ export default class AssetContainer extends React.Component {
     const containers = Object.keys(items).map(it => {
       // TODO: check for empty object
       if (!isEmpty(items[it].items)) {
-        console.log('step into AC',items[it])
+        console.log('step into AC', items[it]);
         return (
           <AssetContainer asset={items[it]} depth={this.props.depth + 1} />
         );
@@ -76,7 +78,9 @@ export default class AssetContainer extends React.Component {
         return null;
       }
     });
-    const sortedOrphans = orphans.sort((a, b) => (items[b].price - items[a].price));
+    const sortedOrphans = orphans.sort(
+      (a, b) => items[b].price - items[a].price
+    );
     const orphanItems = sortedOrphans.map((it, idx) => (
       <AssetItem asset={items[it]} depth={this.props.depth + 1} index={idx} />
     ));
@@ -89,28 +93,34 @@ export default class AssetContainer extends React.Component {
   };
 
   expansionButton = () => {
-    return < >
-      {!this.state.collapsed && <img src={expandedImg} alt="+" />}
-      {this.state.collapsed && <img src={collapsedImg} alt="-" />}
-    </>
-  }
+    return [
+        !this.state.collapsed && <img src={expandedImg} alt="+" />,
+        this.state.collapsed && <img src={collapsedImg} alt="-" />
+     ];
+  };
 
   render() {
-    let { item_id, name, asset: { items, value, type }} = this.props;
+    let {
+      item_id,
+      name,
+      asset: { items, value, type },
+    } = this.props;
     name = name || this.props.asset.name;
     const depthPadding = 40 * this.props.depth;
     const iskText = `${Misc.commarize(value)} ISK`;
-    let lineStyle = { ...styles.nonTableCell, paddingLeft: depthPadding, ...styles.structure };
+    let lineStyle = {
+      ...styles.nonTableCell,
+      paddingLeft: depthPadding,
+      ...styles.structure,
+    };
     // orphans is a list of keys of items which are not containers
     return (
       <div>
-        <div style={lineStyle} key={item_id || name} onClick={this.handleClick} >
+        <div style={lineStyle} key={item_id || name} onClick={this.handleClick}>
           <div>
             {this.expansionButton()}&emsp;
             {name || type}
-            {!!value && (
-              <span style={styles.isk}>{iskText}</span>
-            )}
+            {!!value && <span style={styles.isk}>{iskText}</span>}
           </div>
         </div>
         {!this.state.collapsed && this.listOfItemLines(items)}

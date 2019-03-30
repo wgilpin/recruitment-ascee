@@ -38,10 +38,17 @@ const styles = {
     marginBottom: '6px',
   },
   corporation: {
-    width: '100px',
+    maxWidth: '300px',
   },
   secStatus: {
     fontWeight: 500,
+  },
+  red: {
+    color: 'red',
+    fontWeight: 500,
+  },
+  summary: {
+    backgroundColor: '#222',
   }
 };
 export default class Alts extends React.Component {
@@ -50,25 +57,27 @@ export default class Alts extends React.Component {
     this.state = { alts: props.alts };
   }
 
-  handleClick = alt => {
-    console.log('alts click ', alt);
-    this.setState({ selected: alt });
+  handleClick = altId => {
+    console.log('alts click ', altId);
+    this.loadCharacterSummary(altId);
+    this.setState({ selected: altId });
     if (this.props.onAltSelect) {
-      this.props.onAltSelect(alt);
+      this.props.onAltSelect(altId);
     }
   };
 
-  loadCharacterSummary= (alts) => {
-    Object.entries(alts).map(([id, alt]) => {
-      return new FetchData({ id, scope: 'character', param2: 'summary' })
-        .get()
-        .then(({info}) => this.setState({
+  loadCharacterSummary = altId => {
+    return new FetchData({ id: altId, scope: 'character', param2: 'summary' })
+      .get()
+      .then(({ info }) =>
+        this.setState({
           corporation: info.corporation_name,
           alliance: info.alliance_name,
           secStatus: info.security_status,
-        }));
-    })
-  }
+          corpRedlisted: 'corporation_name' in info.redlisted,
+        })
+      );
+  };
 
   componentDidMount() {
     new FetchData({ id: this.props.main, scope: 'user/characters' })
@@ -80,51 +89,64 @@ export default class Alts extends React.Component {
           delete data.info[this.props.main];
         }
         this.setState({ alts: data.info, main: mainData });
-        this.loadCharacterSummary(data.info);
       })
       .catch(err => {
         console.log(err);
       });
   }
 
+  renderSummary() {
+    const corpStyle = this.state.corpRedlisted
+      ? { ...styles.corporation, ...styles.red }
+      : styles.corporation;
+    return (
+      <div style={styles.summary}>
+        <div>
+          <div style={styles.secStatus}>
+            Sec Status: {Math.round(this.state.secStatus * 100) / 100}
+          </div>
+          <div style={corpStyle}>Corp: {this.state.corporation}</div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const hasAlts = Object.keys(this.state.alts || {}).length > 0;
     return (
-      <div style={{...styles.outer, ...this.props.style }}>
+      <div style={{ ...styles.outer, ...this.props.style }}>
         {this.props.childrenTop && this.props.children}
         <hr style={styles.hr} />
-        {this.props.highlightMain && this.state.main && <>
-          <div style={styles.sectionTitle}>Main</div>
-          <Alt
+        {this.props.highlightMain &&
+          this.state.main && [
+            <div style={styles.sectionTitle}>Main</div>,
+            <Alt
               style={styles.div}
               name={this.state.main.name}
               id={this.props.main}
               selected={this.state.selected === this.props.main}
               onClick={this.handleClick}
               showPointer={this.props.showPointer}
-            />
-            <div>
-              <span style={styles.corporation}>{this.state.corporation}</span>
-              <span style={styles.secStatus}>({this.state.secStatus})</span>
-            </div>
-            <hr style={styles.hr} />
-        </>}
+            />,
+            this.state.selected === this.props.main && this.renderSummary(),
+            <hr style={styles.hr} />,
+          ]}
         {hasAlts && <div style={styles.sectionTitle}>Alts</div>}
         {Object.keys(this.state.alts || {}).map(key => {
           const alt = this.state.alts[key];
-          return (
+          return [
             <Alt
               style={styles.div}
               name={alt.name}
               id={key}
               selected={this.state.selected === key}
               onClick={this.handleClick}
-            />
-          );
+            />,
+            this.state.selected === key && this.renderSummary(),
+          ];
         })}
         {!this.props.childrenTop && this.props.children}
-        {hasAlts &&
-          <hr style={styles.hr} />}
+        {hasAlts && <hr style={styles.hr} />}
       </div>
     );
   }
