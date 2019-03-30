@@ -1,8 +1,10 @@
 import React from 'reactn';
 import Loader from 'react-loader-spinner';
 import FetchData from '../common/FetchData';
-import ClaimedIcon from 'react-ionicons/lib/MdStar';
+import ClaimedMineIcon from 'react-ionicons/lib/MdStar';
+import ClaimedOtherIcon from 'react-ionicons/lib/MdStarOutline';
 import ApproveIcon from 'react-ionicons/lib/MdCheckboxOutline';
+import ApproveIconMine from 'react-ionicons/lib/MdCheckbox';
 import Evidence from '../Evidence';
 import Misc from '../common/Misc';
 import RoundImage from '../common/RoundImage';
@@ -56,7 +58,7 @@ const localStyles = {
     gridColumn: 1,
     gridRow: 1,
   },
-  approved: {
+  accepted: {
     gridColumn: 1,
     gridRow: 2,
   },
@@ -104,7 +106,7 @@ export default class Recruiter extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      activeRecruit: null,
+      activeRecruitId: null,
       recruits: {},
       roles: {
         is_recruiter: false,
@@ -127,13 +129,13 @@ export default class Recruiter extends React.Component {
     // Hydrate the  state with the response from /api/recruits
     // api recruits returns 3 lists:
     //   claimed: my recruits to process
-    //   approved: recruits I claimed then approved
+    //   accepted: recruits I claimed then accepted
     //   unclaimed: all unclaimed
     new FetchData({ id: this.state.id, scope: 'applicant_list' })
       .get()
       // Set the state `recruits` list, and set no recruit selected
       .then(recruits =>
-        this.setState({ recruits: recruits.info, activeRecruit: null })
+        this.setState({ recruits: recruits.info, activeRecruitId: null })
       )
       .then(() => {
         return new FetchData({ scope: 'user/roles' }).get().then(roles => {
@@ -239,19 +241,30 @@ export default class Recruiter extends React.Component {
   handleClick(id) {
     console.log(`activate recruit ${id}`);
     if (this.state.recruits[id].status !== Recruiter.statuses.unclaimed)
-      this.setState({ activeRecruit: id });
+      this.setState({ activeRecruitId: id });
   }
 
   recruitLine(id, recruit, isEnabled) {
     const avatarImg = `https://image.eveonline.com/Character/${id}_64.jpg`;
+    const recruitIsMine = recruit.recruiter_id === this.state.roles.user_id;
+    const recruitIsClaimed = recruit.status === Recruiter.statuses.claimed;
+    const recruitIsAccepted = recruit.status === Recruiter.statuses.accepted;
     return (
       <div key={id} style={localStyles.recruit}>
-        {recruit.status === Recruiter.statuses.claimed && (
-          <ClaimedIcon style={localStyles.icon} fontSize="24px" />
-        )}
-        {recruit.status === Recruiter.statuses.approved && (
-          <ApproveIcon style={localStyles.icon} fontSize="24px" />
-        )}
+        {[
+          recruitIsClaimed &&
+            (recruitIsMine ? (
+              <ClaimedMineIcon style={localStyles.icon} fontSize="24px" />
+            ) : (
+              <ClaimedOtherIcon style={localStyles.icon} fontSize="24px" />
+            )),
+          recruitIsAccepted &&
+            (recruitIsMine ? (
+              <ApproveIconMine style={localStyles.icon} fontSize="24px" />
+            ) : (
+              <ApproveIcon style={localStyles.icon} fontSize="24px" />
+            )),
+        ]}
         <span onClick={() => this.handleClick(id)} style={localStyles.altSpan}>
           <RoundImage src={avatarImg} />
           <span style={localStyles.name}>{recruit.name}</span>
@@ -296,7 +309,7 @@ export default class Recruiter extends React.Component {
   }
 
   handleBack = () => {
-    this.setState({ activeRecruit: null });
+    this.setState({ activeRecruitId: null });
   };
 
   closeAlert = () => {
@@ -321,11 +334,11 @@ export default class Recruiter extends React.Component {
     }
     console.log('loaded');
 
-    // 3 sections in order: claimed, approved, unclaimed.
+    // 3 sections in order: claimed, accepted, unclaimed.
     const claimed = this.applyFilter(Recruiter.statuses.claimed);
     const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
     const accepted = this.applyFilter(Recruiter.statuses.accepted);
-
+    const activeRecruit = this.state.recruits[this.state.activeRecruitId];
     return [
       this.state.roles.is_admin && (
         <a href="/app/admin">
@@ -334,7 +347,7 @@ export default class Recruiter extends React.Component {
           </button>
         </a>
       ),
-      !this.state.activeRecruit && (
+      !this.state.activeRecruitId && (
         <div style={localStyles.outer}>
           <h1 style={localStyles.headerText}>Applications Pending</h1>
           <div style={localStyles.logout}>
@@ -349,7 +362,7 @@ export default class Recruiter extends React.Component {
               this.state.roles.is_recruiter
             )}
           </div>
-          <div style={localStyles.approved}>
+          <div style={localStyles.accepted}>
             {this.sectionList(
               'Accepted',
               accepted,
@@ -365,9 +378,8 @@ export default class Recruiter extends React.Component {
           </div>
         </div>
       ),
-      this.state.activeRecruit &&
-        this.state.recruits[this.state.activeRecruit].status !==
-          Recruiter.statuses.unclaimed && [
+      this.state.activeRecruitId &&
+        activeRecruit.status !== Recruiter.statuses.unclaimed && [
           <IconBtn
             src={BackImg}
             alt="back"
@@ -377,7 +389,13 @@ export default class Recruiter extends React.Component {
           />,
           <Evidence
             style={localStyles.evidence}
-            main={this.state.activeRecruit}
+            main={this.state.activeRecruitId}
+            recruiterName={activeRecruit.recruiter_name}
+            showRecruiter={
+              activeRecruit.recruiter_id !== this.state.roles.user_id
+                ? activeRecruit.recruiter_id
+                : null
+            }
           />,
         ],
       this.state.showAlert && (

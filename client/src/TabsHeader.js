@@ -82,10 +82,10 @@ export default class TabsHeader extends React.Component {
       textStyle = { gridColumn: col, ...styles.span }
     }
     return (
-      <>
+      <React.Fragment>
       <RoundImage style={{ gridColumn: col, gridRow: 1 }} size={40} src={image} onClick={this.showTab} name={name}/>
       <span style={textStyle} onClick={this.showTab} name={name}>{name}</span>
-      </>
+      </React.Fragment>
     )
   }
 

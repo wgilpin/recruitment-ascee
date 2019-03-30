@@ -1,7 +1,8 @@
 import React from 'react';
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 import TabsHeader from './TabsHeader';
 import Alts from './Alts';
+import Alt from './Alt';
 import Mail from './Mail';
 import Assets from './Assets';
 import Skills from './Skills';
@@ -25,8 +26,6 @@ import IconBtn from './common/IconBtn';
 import RoundImage from './common/RoundImage';
 import FetchData from './common/FetchData';
 
-
-
 const styles = {
   outer: {
     display: 'flex',
@@ -44,7 +43,17 @@ const styles = {
     display: 'flex-column',
     width: '100%',
   },
-
+  sectionTitle: {
+    fontWeight: 600,
+    color: '#01799A',
+    marginBottom: '6px',
+  },
+  recruiter: {
+    backgroundColor: '#111',
+    paddingTop: '8px',
+    paddingLeft: '8px',
+    marginBottom: '12px',
+  },
   tabHeader: {
     left: '50px',
   },
@@ -70,6 +79,9 @@ const styles = {
     paddingRight: '20px',
     paddingTop: '8px',
     paddingBottom: '16px',
+  },
+  acceptReject: {
+    paddingBottom: '12px',
   }
 };
 
@@ -82,50 +94,70 @@ export default class Evidence extends React.Component {
     };
   }
 
-  changeTab = (tabId) => {
+  async componentDidMount() {
+    const roles = await new FetchData({ scope: 'user/roles' }).get();
+    this.setState({ roles: roles.info, loading: false });
+  }
+
+  changeTab = tabId => {
     console.log('evidence click ', tabId);
     this.setState({ activeTab: tabId });
     this.forceUpdate();
-  }
+  };
 
-  changeAlt = (altId) => {
+  changeAlt = altId => {
     console.log('change alt', altId);
     this.setState({ currentAlt: altId, activeTab: null });
-  }
+  };
 
   doLogout() {
     new FetchData({ scope: 'logout' })
       .get()
-      .then(() => window.location = '/app/');
+      .then(() => (window.location = '/app/'));
   }
 
   doReject = () => {
-    if (window.confirm("Reject this applicant?")) {
-      new FetchData({ id: this.props.main, scope: 'recruits/reject'})
+    if (window.confirm('Reject this applicant?')) {
+      new FetchData({ id: this.props.main, scope: 'recruits/reject' })
         .get()
-        .then(() => { window.location = '/app/recruiter'})
+        .then(() => {
+          window.location = '/app/recruiter';
+        });
     }
-  }
+  };
 
   doApprove = () => {
-    if (window.confirm("Approve this applicant?")) {
-      new FetchData({ id: this.props.main, scope: 'recruits/approve'})
+    if (window.confirm('Approve this applicant?')) {
+      new FetchData({ id: this.props.main, scope: 'recruits/approve' })
         .get()
-        .then(() => { window.location = '/app/recruiter'})
+        .then(() => {
+          window.location = '/app/recruiter';
+        });
     }
-  }
+  };
 
   render() {
     let active = (this.state || {}).activeTab;
     return (
       <div style={styles.outer}>
         <div style={styles.alts}>
-          <Alts main={this.props.main}
+          <Alts
+            main={this.props.main}
             onAltSelect={this.changeAlt}
             childrenTop={true}
             highlightMain={true}
             showPointer={true}
           >
+            {this.props.showRecruiter && (
+              <div style={styles.recruiter}>
+                <div style={styles.sectionTitle}>Recruiter</div>
+                <Alt
+                  style={styles.div}
+                  name={this.props.recruiterName}
+                  id={this.props.showRecruiter}
+                />
+              </div>
+            )}
             <IconBtn
               src={notesImg}
               alt="notes"
@@ -133,51 +165,97 @@ export default class Evidence extends React.Component {
               label="Notes"
             />
           </Alts>
-          <div>
+          <div style={styles.acceptReject}>
             <span data-tip="Approve" style={styles.RoundImage}>
-            <RoundImage src={checkImg} color="green" onClick={this.doApprove} />
+              <RoundImage
+                src={checkImg}
+                color="green"
+                onClick={this.doApprove}
+              />
             </span>
             <span data-tip="Reject" style={styles.RoundImage}>
-            <RoundImage src={closeImg} color="red" onClick={this.doReject}  />
+              <RoundImage src={closeImg} color="red" onClick={this.doReject} />
             </span>
             <ReactTooltip />
           </div>
         </div>
-        <div style={styles.right} >
+        <div style={styles.right}>
           <div style={styles.tabHeader}>
-            {this.state.currentAlt && <TabsHeader onTabChange={this.changeTab} />}
+            <TabsHeader onTabChange={this.changeTab} onlyFirst={this.state.currentAlt ? null : 1} />
           </div>
           <div style={styles.tabBody}>
-            {(active === 'Notes') &&
-              <NotesPage style={styles.tabBody} alt={this.state.currentAlt || this.props.main}></NotesPage>}
-            {(active === 'Wallet') &&
-              <TableWallet style={styles.tabBody} alt={this.state.currentAlt}></TableWallet>}
-            {(active === 'Assets') &&
-              <Assets style={styles.tabBody} alt={this.state.currentAlt}></Assets>}
-            {(active === 'Mail') &&
-              <Mail style={styles.tabBody} alt={this.state.currentAlt}></Mail>}
-            {(active === 'Skills') &&
-              <Skills style={styles.tabBody} alt={this.state.currentAlt}></Skills>}
-            {(active === 'Bookmarks') &&
-              <TableBookmarks style={styles.tabBody} alt={this.state.currentAlt}></TableBookmarks>}
-            {(active === 'Contacts') &&
-              <TableContacts style={styles.tabBody} alt={this.state.currentAlt}></TableContacts>}
-            {(active === 'Contracts') &&
-              <TableContracts style={styles.tabBody} alt={this.state.currentAlt}></TableContracts>}
-            {(active === 'Calendar') &&
-              <TableCalendar style={styles.tabBody} alt={this.state.currentAlt}></TableCalendar>}
-            {(active === 'Blueprints') &&
-              <TableBlueprints style={styles.tabBody} alt={this.state.currentAlt}></TableBlueprints>}
-            {(active === 'Market') &&
-              <TableMarket style={styles.tabBody} alt={this.state.currentAlt}></TableMarket>}
-            {(active === 'Fittings') &&
-              <TableFittings style={styles.tabBody} alt={this.state.currentAlt}></TableFittings>}
-            {(active === 'Industry') &&
-              <TableIndustry style={styles.tabBody} alt={this.state.currentAlt}></TableIndustry>}
-            {(active === 'PI') &&
-              <TablePI style={styles.tabBody} alt={this.state.currentAlt}></TablePI>}
-            {(active === 'Standings') &&
-              <TableStandings style={styles.tabBody} alt={this.state.currentAlt}></TableStandings>}
+            {active === 'Notes' && (
+              <NotesPage
+                style={styles.tabBody}
+                alt={this.state.currentAlt || this.props.main}
+              />
+            )}
+            {active === 'Wallet' && (
+              <TableWallet style={styles.tabBody} alt={this.state.currentAlt} />
+            )}
+            {active === 'Assets' && (
+              <Assets style={styles.tabBody} alt={this.state.currentAlt} />
+            )}
+            {active === 'Mail' && (
+              <Mail style={styles.tabBody} alt={this.state.currentAlt} />
+            )}
+            {active === 'Skills' && (
+              <Skills style={styles.tabBody} alt={this.state.currentAlt} />
+            )}
+            {active === 'Bookmarks' && (
+              <TableBookmarks
+                style={styles.tabBody}
+                alt={this.state.currentAlt}
+              />
+            )}
+            {active === 'Contacts' && (
+              <TableContacts
+                style={styles.tabBody}
+                alt={this.state.currentAlt}
+              />
+            )}
+            {active === 'Contracts' && (
+              <TableContracts
+                style={styles.tabBody}
+                alt={this.state.currentAlt}
+              />
+            )}
+            {active === 'Calendar' && (
+              <TableCalendar
+                style={styles.tabBody}
+                alt={this.state.currentAlt}
+              />
+            )}
+            {active === 'Blueprints' && (
+              <TableBlueprints
+                style={styles.tabBody}
+                alt={this.state.currentAlt}
+              />
+            )}
+            {active === 'Market' && (
+              <TableMarket style={styles.tabBody} alt={this.state.currentAlt} />
+            )}
+            {active === 'Fittings' && (
+              <TableFittings
+                style={styles.tabBody}
+                alt={this.state.currentAlt}
+              />
+            )}
+            {active === 'Industry' && (
+              <TableIndustry
+                style={styles.tabBody}
+                alt={this.state.currentAlt}
+              />
+            )}
+            {active === 'PI' && (
+              <TablePI style={styles.tabBody} alt={this.state.currentAlt} />
+            )}
+            {active === 'Standings' && (
+              <TableStandings
+                style={styles.tabBody}
+                alt={this.state.currentAlt}
+              />
+            )}
           </div>
         </div>
       </div>
