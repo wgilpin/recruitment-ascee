@@ -13,16 +13,13 @@ export default class TableIndustry extends TableBase {
     this.state.sortBy = 'name';
     this.scope = 'industry';
     this.addField(TableBase.kinds().text, 'blueprint_type_name', 'Type');
-    this.addField(TableBase.kinds().number, 'blueprint_type_id');
     this.addField(TableBase.kinds().number, 'cost');
     this.addField(TableBase.kinds().number, 'duration');
     this.addField(TableBase.kinds().date,'end_date');
     this.addField(TableBase.kinds().number, 'licensed_runs');
-    this.addField(TableBase.kinds().number, 'output_location_id');
     this.addField(TableBase.kinds().text, 'output_location_name');
     this.addField(TableBase.kinds().number, 'runs');
     this.addField(TableBase.kinds().date, 'start_date');
-    this.addField(TableBase.kinds().number, 'station_id');
     this.addField(TableBase.kinds().text, 'station_name');
     this.addField(TableBase.kinds().text, 'status');
   }
