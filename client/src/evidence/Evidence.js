@@ -105,12 +105,22 @@ export default class Evidence extends React.Component {
 
   changeAlt = altId => {
     console.log('change alt', altId);
-    this.setState({ currentAlt: altId, currentCorp: null, activeTab: null });
+    this.setState({
+      currentAlt: altId,
+      currentCorp: null,
+      activeTab: 'Notes',
+      currentTargetId: altId,
+    });
   };
 
   changeCorp = corpId => {
     console.log('change corp', corpId);
-    this.setState({ currentAlt: null, currentCorp: corpId, activeTab: null });
+    this.setState({
+      currentAlt: null,
+      currentCorp: corpId,
+      activeTab: 'Notes',
+      currentTargetId: corpId,
+    });
   };
 
   doLogout() {
@@ -139,12 +149,9 @@ export default class Evidence extends React.Component {
     }
   };
 
-
-
   render() {
-    const currentTargetId = this.state.curentAlt || this.state.currentCorp;
     let active = (this.state || {}).activeTab;
-    const { currentAlt, currentCorp } = this.state;
+    const { currentAlt, currentCorp, currentTargetId } = this.state;
     return (
       <div style={styles.outer}>
         <div style={styles.alts}>
@@ -193,93 +200,84 @@ export default class Evidence extends React.Component {
             {active === 'Notes' && (
               <NotesPage
                 style={styles.tabBody}
-                targetId={ currentTargetId || this.props.main}
+                targetId={currentTargetId || this.props.main}
               />
             )}
             {active === 'Wallet' && (
               <TableWallet
                 style={styles.tabBody}
                 corporation={currentCorp}
-                targetId={ currentTargetId}
+                targetId={currentTargetId}
               />
             )}
             {active === 'Assets' && (
               <Assets
                 style={styles.tabBody}
                 corporation={currentCorp}
-                targetId={ currentTargetId}
+                targetId={currentTargetId}
               />
             )}
             {active === 'Mail' && (
-              <Mail style={styles.tabBody} targetId={ currentTargetId} />
+              <Mail style={styles.tabBody} targetId={currentTargetId} />
             )}
             {active === 'Skills' && (
-              <Skills
-                style={styles.tabBody}
-                targetId={ currentTargetId}
-              />
+              <Skills style={styles.tabBody} targetId={currentTargetId} />
             )}
             {active === 'Bookmarks' && (
               <TableBookmarks
                 style={styles.tabBody}
                 corporation={currentCorp}
-                targetId={ currentTargetId}
+                targetId={currentTargetId}
               />
             )}
             {active === 'Contacts' && (
               <TableContacts
                 style={styles.tabBody}
                 corporation={currentCorp}
-                targetId={ currentTargetId}
+                targetId={currentTargetId}
               />
             )}
             {active === 'Contracts' && (
               <TableContracts
                 style={styles.tabBody}
-                targetId={ currentTargetId}
+                targetId={currentTargetId}
               />
             )}
             {active === 'Calendar' && (
               <TableCalendar
                 style={styles.tabBody}
-                targetId={ currentTargetId}
+                targetId={currentTargetId}
               />
             )}
             {active === 'Blueprints' && (
               <TableBlueprints
                 style={styles.tabBody}
-                targetId={ currentTargetId}
+                targetId={currentTargetId}
               />
             )}
             {active === 'Market' && (
-              <TableMarket
-                style={styles.tabBody}
-                targetId={ currentTargetId}
-              />
+              <TableMarket style={styles.tabBody} targetId={currentTargetId} />
             )}
             {active === 'Fittings' && (
               <TableFittings
                 style={styles.tabBody}
-                targetId={ currentTargetId}
+                targetId={currentTargetId}
               />
             )}
             {active === 'Industry' && (
               <TableIndustry
                 style={styles.tabBody}
                 corporation={currentCorp}
-                targetId={ currentTargetId}
+                targetId={currentTargetId}
               />
             )}
             {active === 'PI' && (
-              <TablePI
-                style={styles.tabBody}
-                targetId={ currentTargetId}
-              />
+              <TablePI style={styles.tabBody} targetId={currentTargetId} />
             )}
             {active === 'Standings' && (
               <TableStandings
                 style={styles.tabBody}
-                targetId={ currentTargetId}
+                targetId={currentTargetId}
               />
             )}
           </div>
