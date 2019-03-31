@@ -13,6 +13,7 @@ import marketImg from './images/market.png';
 import contactsImg from './images/contacts.png';
 import PIImg from './images/planetarycommodities.png';
 import fittingsImg from './images/fitting.png';
+import clonesImg from './images/cloneBay.png';
 import industryImg from './images/Industry.png';
 
 const propTypes = {
@@ -106,14 +107,15 @@ export default class TabsHeader extends React.Component {
     9: { name: 'Calendar', src: calendarImg },
     10: { name: 'Market', src: marketImg },
     11: { name: 'Fittings', src: fittingsImg },
-    12: { name: 'Contracts', src: contractsImg },
-    13: { name: 'PI', src: PIImg },
+    12: { name: 'Clones', src: clonesImg },
+    13: { name: 'Contracts', src: contractsImg },
+    14: { name: 'PI', src: PIImg },
   };
 
   render() {
     const displayOrder = TabsHeader.displayOrder;
     const pageIsACorp = !!this.props.corporation;
-    const displayItems = Object.entries(displayOrder)
+    const displayItems = Object.keys(displayOrder)
       .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp)
       .sort()
       .map(seq => displayOrder[seq]);
@@ -125,7 +127,7 @@ export default class TabsHeader extends React.Component {
               <RoundImage
                 size={40}
                 src={src}
-                onClick={this.showTab}
+                onClick={() => this.showTab(name)}
                 name={displayOrder[name]}
                 corporation={pageIsACorp}
               />

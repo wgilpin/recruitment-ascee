@@ -7,6 +7,7 @@ import Mail from './Mail';
 import Assets from './Assets';
 import Skills from './Skills';
 import TableBookmarks from './TableBookmarks';
+import TableClones from './TableClones';
 import TableContacts from './TableContacts';
 import TableCalendar from './TableCalendar';
 import TableContracts from './TableContracts';
@@ -252,6 +253,12 @@ export default class Evidence extends React.Component {
             )}
             {active === 'Standings' && (
               <TableStandings
+                style={styles.tabBody}
+                alt={this.state.currentAlt}
+              />
+            )}
+            {active === 'Clones' && (
+              <TableClones
                 style={styles.tabBody}
                 alt={this.state.currentAlt}
               />
