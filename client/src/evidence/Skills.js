@@ -74,7 +74,7 @@ export default class Skill extends React.Component {
 
   componentDidMount() {
     new FetchData(
-      { id: this.props.alt, scope: 'character', param1: 'skills' },
+      { id: this.props.targetId, scope: 'character', param1: 'skills' },
       this.onLoaded,
       this.onError
     ).get()

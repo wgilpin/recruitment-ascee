@@ -67,7 +67,7 @@ export default class Mail extends React.Component {
 
     // get the mail headers by API
     new FetchData(
-      { id: this.props.alt, scope: 'character', param1: 'mail' },
+      { id: this.props.targetId, scope: 'character', param1: 'mail' },
     ).get(this.state.lastMailId ? { last_mail_id: this.state.lastMailId} : {})
       .then(data => {
         // got the list of mail headers
@@ -111,7 +111,7 @@ export default class Mail extends React.Component {
       return null;
     }
     let encodedList = encodeURIComponent(JSON.stringify(linksList));
-    return new FetchData({ scope: 'link', id: this.props.alt, param1: encodedList }).get();
+    return new FetchData({ scope: 'link', id: this.props.targetId, param1: encodedList }).get();
   }
 
   processLinks(links, body){
@@ -148,7 +148,7 @@ export default class Mail extends React.Component {
     this.setState({ mailList: updatedMailList });
     if (!thisMail.body) {
       return new FetchData(
-        { id: this.props.alt, scope: 'character', param1: 'mail', param2: thisMail.mail_id },
+        { id: this.props.targetId, scope: 'character', param1: 'mail', param2: thisMail.mail_id },
       ).get()
         .then((body) => {
           rawBody = this.badlyRemoveFontSizeColor(body);
