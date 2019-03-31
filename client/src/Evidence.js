@@ -82,7 +82,7 @@ const styles = {
   },
   acceptReject: {
     paddingBottom: '12px',
-  }
+  },
 };
 
 export default class Evidence extends React.Component {
@@ -91,6 +91,7 @@ export default class Evidence extends React.Component {
     this.state = {
       activeTab: null,
       currentAlt: null,
+      currentCorp: null,
     };
   }
 
@@ -107,7 +108,12 @@ export default class Evidence extends React.Component {
 
   changeAlt = altId => {
     console.log('change alt', altId);
-    this.setState({ currentAlt: altId, activeTab: null });
+    this.setState({ currentAlt: altId, currentCorp: null, activeTab: null });
+  };
+
+  changeCorp = corpId => {
+    console.log('change corp', corpId);
+    this.setState({ currentAlt: null, currentCorp: corpId, activeTab: null });
   };
 
   doLogout() {
@@ -136,14 +142,19 @@ export default class Evidence extends React.Component {
     }
   };
 
+
+
   render() {
+    const currentTargetId = this.state.curentAlt || this.state.currentCorp;
     let active = (this.state || {}).activeTab;
+    const { currentAlt, currentCorp } = this.state;
     return (
       <div style={styles.outer}>
         <div style={styles.alts}>
           <Alts
             main={this.props.main}
             onAltSelect={this.changeAlt}
+            onCorpSelect={this.changeCorp}
             childrenTop={true}
             highlightMain={true}
             showPointer={true}
@@ -158,12 +169,6 @@ export default class Evidence extends React.Component {
                 />
               </div>
             )}
-            <IconBtn
-              src={notesImg}
-              alt="notes"
-              onClick={() => this.changeTab('Notes')}
-              label="Notes"
-            />
           </Alts>
           <div style={styles.acceptReject}>
             <span data-tip="Approve" style={styles.RoundImage}>
@@ -181,79 +186,103 @@ export default class Evidence extends React.Component {
         </div>
         <div style={styles.right}>
           <div style={styles.tabHeader}>
-            <TabsHeader onTabChange={this.changeTab} onlyFirst={this.state.currentAlt ? null : 1} />
+            <TabsHeader
+              onTabChange={this.changeTab}
+              onlyFirst={currentAlt || currentCorp ? false : true}
+              corporation={currentCorp}
+            />
           </div>
           <div style={styles.tabBody}>
             {active === 'Notes' && (
               <NotesPage
                 style={styles.tabBody}
-                alt={this.state.currentAlt || this.props.main}
+                targetId={ currentTargetId || this.props.main}
               />
             )}
             {active === 'Wallet' && (
-              <TableWallet style={styles.tabBody} alt={this.state.currentAlt} />
+              <TableWallet
+                style={styles.tabBody}
+                corporation={currentCorp}
+                targetId={ currentTargetId}
+              />
             )}
             {active === 'Assets' && (
-              <Assets style={styles.tabBody} alt={this.state.currentAlt} />
+              <Assets
+                style={styles.tabBody}
+                corporation={currentCorp}
+                targetId={ currentTargetId}
+              />
             )}
             {active === 'Mail' && (
-              <Mail style={styles.tabBody} alt={this.state.currentAlt} />
+              <Mail style={styles.tabBody} targetId={ currentTargetId} />
             )}
             {active === 'Skills' && (
-              <Skills style={styles.tabBody} alt={this.state.currentAlt} />
+              <Skills
+                style={styles.tabBody}
+                targetId={ currentTargetId}
+              />
             )}
             {active === 'Bookmarks' && (
               <TableBookmarks
                 style={styles.tabBody}
-                alt={this.state.currentAlt}
+                corporation={currentCorp}
+                targetId={ currentTargetId}
               />
             )}
             {active === 'Contacts' && (
               <TableContacts
                 style={styles.tabBody}
-                alt={this.state.currentAlt}
+                corporation={currentCorp}
+                targetId={ currentTargetId}
               />
             )}
             {active === 'Contracts' && (
               <TableContracts
                 style={styles.tabBody}
-                alt={this.state.currentAlt}
+                targetId={ currentTargetId}
               />
             )}
             {active === 'Calendar' && (
               <TableCalendar
                 style={styles.tabBody}
-                alt={this.state.currentAlt}
+                targetId={ currentTargetId}
               />
             )}
             {active === 'Blueprints' && (
               <TableBlueprints
                 style={styles.tabBody}
-                alt={this.state.currentAlt}
+                targetId={ currentTargetId}
               />
             )}
             {active === 'Market' && (
-              <TableMarket style={styles.tabBody} alt={this.state.currentAlt} />
+              <TableMarket
+                style={styles.tabBody}
+                targetId={ currentTargetId}
+              />
             )}
             {active === 'Fittings' && (
               <TableFittings
                 style={styles.tabBody}
-                alt={this.state.currentAlt}
+                targetId={ currentTargetId}
               />
             )}
             {active === 'Industry' && (
               <TableIndustry
                 style={styles.tabBody}
-                alt={this.state.currentAlt}
+                corporation={currentCorp}
+                targetId={ currentTargetId}
               />
             )}
             {active === 'PI' && (
-              <TablePI style={styles.tabBody} alt={this.state.currentAlt} />
+              <TablePI
+                style={styles.tabBody}
+                targetId={ currentTargetId}
+              />
             )}
             {active === 'Standings' && (
               <TableStandings
                 style={styles.tabBody}
-                alt={this.state.currentAlt}
+                targetId={ currentTargetId}
               />
             )}
           </div>

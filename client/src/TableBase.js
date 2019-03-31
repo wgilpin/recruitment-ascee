@@ -100,8 +100,8 @@ export default class TableBase extends React.Component {
 
   componentDidMount() {
     new FetchData({
-        id: this.props.alt,
-        scope: this.props.corporation ? 'corporation':'characater',
+        id: this.props.targetId,
+        scope: this.props.corporation ? 'corporation':'character',
         param1: this.scope })
       .get()
       .then(data => {
@@ -132,7 +132,7 @@ export default class TableBase extends React.Component {
       return null;
     }
     const fetchParams = {
-      id: this.props.alt,
+      id: this.props.targetId,
       scope: 'character',
       param1: this.detailScope,
       param2: forId

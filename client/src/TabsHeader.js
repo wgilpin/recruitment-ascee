@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RoundImage from './common/RoundImage';
+import notesImg from './images/notepad.png';
 import walletImg from './images/wallet.png';
 import assetsImg from './images/assets.png';
 import mailImg from './images/evemail.png';
@@ -40,6 +41,7 @@ const styles = {
     display: 'table-cell',
     width: '50px',
     padding: '8px',
+    cursor: 'pointer',
   },
   span: {
     color: '#01799A',
@@ -51,6 +53,24 @@ const styles = {
     fontWeight: 600,
   },
 };
+
+const displayOrder = {
+  0: { name: 'Notes', src: notesImg, includeForCorp: true },
+  1: { name: 'Wallet', src: walletImg, includeForCorp: true },
+  2: { name: 'Mail', src: mailImg },
+  3: { name: 'Assets', src: assetsImg, includeForCorp: true },
+  4: { name: 'Contacts', src: contactsImg, includeForCorp: true },
+  5: { name: 'Skills', src: skillsImg },
+  6: { name: 'Bookmarks', src: bookmarkImg, includeForCorp: true },
+  7: { name: 'Market', src: marketImg },
+  8: { name: 'Fittings', src: fittingsImg },
+  9: { name: 'Industry', src: industryImg, includeForCorp: true },
+  10: { name: 'Blueprints', src: blueprintImg },
+  11: { name: 'Contracts', src: contractsImg },
+  12: { name: 'PI', src: PIImg },
+  13: { name: 'Calendar', src: calendarImg },
+};
+
 
 export default class TabsHeader extends React.Component {
   constructor(props) {
@@ -94,29 +114,9 @@ export default class TabsHeader extends React.Component {
     ];
   }
 
-  static displayOrder = {
-    1: { name: 'Wallet', src: walletImg, includeForCorp: true },
-    2: { name: 'Contacts', src: contactsImg, includeForCorp: true },
-    3: { name: 'Assets', src: assetsImg, includeForCorp: true },
-    4: { name: 'Bookmarks', src: bookmarkImg, includeForCorp: true },
-    5: { name: 'Industry', src: industryImg, includeForCorp: true },
-    6: { name: 'Skills', src: skillsImg },
-    7: { name: 'Blueprints', src: blueprintImg },
-    8: { name: 'Mail', src: mailImg },
-    9: { name: 'Calendar', src: calendarImg },
-    10: { name: 'Market', src: marketImg },
-    11: { name: 'Fittings', src: fittingsImg },
-    12: { name: 'Contracts', src: contractsImg },
-    13: { name: 'PI', src: PIImg },
-  };
 
-  render() {
-    const displayOrder = TabsHeader.displayOrder;
+  renderItems(displayItems) {
     const pageIsACorp = !!this.props.corporation;
-    const displayItems = Object.entries(displayOrder)
-      .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp)
-      .sort()
-      .map(seq => displayOrder[seq]);
     return (
       <div style={styles.div}>
         <div style={styles.headerRow}>
@@ -125,7 +125,7 @@ export default class TabsHeader extends React.Component {
               <RoundImage
                 size={40}
                 src={src}
-                onClick={this.showTab}
+                onClick={() => this.showTab(name)}
                 name={displayOrder[name]}
                 corporation={pageIsACorp}
               />
@@ -143,6 +143,23 @@ export default class TabsHeader extends React.Component {
         </div>
       </div>
     );
+  }
+
+  render() {
+    const pageIsACorp = !!this.props.corporation;
+    if (this.props.onlyFirst) {
+      return (
+        <React.Fragment>
+          {this.renderItems([displayOrder[0]])}
+          <hr style={styles.hr} />
+        </React.Fragment>
+      );
+    }
+    const displayItems = Object.keys(displayOrder)
+      .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp)
+      .sort()
+      .map(seq => displayOrder[seq]);
+    return this.renderItems(displayItems);
   }
 }
 

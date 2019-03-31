@@ -5,6 +5,7 @@ import FetchData from './common/FetchData';
 
 const propTypes = {
   onAltSelect: PropTypes.func,
+  onCorpSelect: PropTypes.func,
   main: PropTypes.number,
   childrenTop: PropTypes.bool,
   highlightMain: PropTypes.bool,
@@ -39,6 +40,9 @@ const styles = {
   },
   corporation: {
     maxWidth: '300px',
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    color: '#01799A',
   },
   secStatus: {
     fontWeight: 500,
@@ -49,7 +53,8 @@ const styles = {
   },
   summary: {
     backgroundColor: '#222',
-  }
+    padding: '4px',
+  },
 };
 export default class Alts extends React.Component {
   constructor(props) {
@@ -57,7 +62,7 @@ export default class Alts extends React.Component {
     this.state = { alts: props.alts };
   }
 
-  handleClick = altId => {
+  handleClickAlt = altId => {
     console.log('alts click ', altId);
     this.loadCharacterSummary(altId);
     this.setState({ selected: altId });
@@ -66,12 +71,19 @@ export default class Alts extends React.Component {
     }
   };
 
+  handleClickCorp = corpId => {
+    if (this.props.onCorpSelect) {
+      this.props.onCorpSelect(corpId);
+    }
+  };
+
   loadCharacterSummary = altId => {
     return new FetchData({ id: altId, scope: 'character', param2: 'summary' })
       .get()
       .then(({ info }) =>
         this.setState({
-          corporation: info.corporation_name,
+          corporationName: info.corporation_name,
+          corporationId: info.corporation_id,
           alliance: info.alliance_name,
           secStatus: info.security_status,
           corpRedlisted: 'corporation_name' in info.redlisted,
@@ -105,7 +117,15 @@ export default class Alts extends React.Component {
           <div style={styles.secStatus}>
             Sec Status: {Math.round(this.state.secStatus * 100) / 100}
           </div>
-          <div style={corpStyle}>Corp: {this.state.corporation}</div>
+          <div>
+            Corp &emsp;
+            <span
+              style={corpStyle}
+              onClick={() => this.handleClickCorp(this.state.corporationId)}
+            >
+              {this.state.corporationName}
+            </span>
+          </div>
         </div>
       </div>
     );
@@ -125,7 +145,7 @@ export default class Alts extends React.Component {
               name={this.state.main.name}
               id={this.props.main}
               selected={this.state.selected === this.props.main}
-              onClick={this.handleClick}
+              onClick={this.handleClickAlt}
               showPointer={this.props.showPointer}
             />,
             this.state.selected === this.props.main && this.renderSummary(),
@@ -140,7 +160,7 @@ export default class Alts extends React.Component {
               name={alt.name}
               id={key}
               selected={this.state.selected === key}
-              onClick={this.handleClick}
+              onClick={this.handleClickAlt}
             />,
             this.state.selected === key && this.renderSummary(),
           ];
