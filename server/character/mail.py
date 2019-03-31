@@ -17,30 +17,31 @@ def get_character_mail(character_id, last_mail_id=None, current_user=None):
     )
 
     from_ids = set(entry['from'] for entry in mail_list)
-    character_ids = set()
-    corp_ids = set()
-    alliance_ids = set()
-    id_set_dict = {
-        'character': character_ids,
-        'corporation': corp_ids,
-        'alliance': alliance_ids
-    }
-    name_data = get_op(
-        'post_universe_names', ids=list(from_ids)
-    )
-    for entry in name_data:
-        id_set_dict[entry['category']].add(entry['id'])
-    for entry in mail_list:
-        for recipient in entry['recipients']:
-            id_set_dict[recipient['recipient_type']].add(recipient['recipient_id'])
+    if from_ids:
+        character_ids = set()
+        corp_ids = set()
+        alliance_ids = set()
+        id_set_dict = {
+            'character': character_ids,
+            'corporation': corp_ids,
+            'alliance': alliance_ids
+        }
+        name_data = get_op(
+            'post_universe_names', ids=list(from_ids)
+        )
+        for entry in name_data:
+            id_set_dict[entry['category']].add(entry['id'])
+        for entry in mail_list:
+            for recipient in entry['recipients']:
+                id_set_dict[recipient['recipient_type']].add(recipient['recipient_id'])
 
-    characters = Character.get_multi(character_ids)
-    corporations = Corporation.get_multi(corp_ids)
-    alliances = Alliance.get_multi(alliance_ids)
-    all_parties = {}
-    all_parties.update(characters)
-    all_parties.update(corporations)
-    all_parties.update(alliances)
+        characters = Character.get_multi(character_ids)
+        corporations = Corporation.get_multi(corp_ids)
+        alliances = Alliance.get_multi(alliance_ids)
+        all_parties = {}
+        all_parties.update(characters)
+        all_parties.update(corporations)
+        all_parties.update(alliances)
 
     for entry in mail_list:
         entry['redlisted'] = []
