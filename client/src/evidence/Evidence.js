@@ -94,7 +94,7 @@ export default class Evidence extends React.Component {
 
   async componentDidMount() {
     const roles = await new FetchData({ scope: 'user/roles' }).get();
-    this.setState({ roles: roles.info, loading: false });
+    this.setState({ roles: roles.info, loading: false, activeTab: 'Notes' });
   }
 
   changeTab = tabId => {
@@ -105,22 +105,28 @@ export default class Evidence extends React.Component {
 
   changeAlt = altId => {
     console.log('change alt', altId);
-    this.setState({
-      currentAlt: altId,
-      currentCorp: null,
-      activeTab: 'Notes',
-      currentTargetId: altId,
-    });
+    this.setState(
+      {
+        currentAlt: altId,
+        currentCorp: null,
+        activeTab: null,
+        currentTargetId: altId,
+      },
+      () => this.setState({ activeTab: 'Notes' })
+    );
   };
 
   changeCorp = corpId => {
     console.log('change corp', corpId);
-    this.setState({
-      currentAlt: null,
-      currentCorp: corpId,
-      activeTab: 'Notes',
-      currentTargetId: corpId,
-    });
+    this.setState(
+      {
+        currentAlt: null,
+        currentCorp: corpId,
+        activeTab: null,
+        currentTargetId: corpId,
+      },
+      () => this.setState({ activeTab: 'Notes' })
+    );
   };
 
   doLogout() {
@@ -200,7 +206,7 @@ export default class Evidence extends React.Component {
             {active === 'Notes' && (
               <NotesPage
                 style={styles.tabBody}
-                targetId={currentTargetId || this.props.main}
+                targetId={this.props.main}
               />
             )}
             {active === 'Wallet' && (

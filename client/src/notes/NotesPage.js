@@ -17,10 +17,11 @@ const defaultProps = {};
 const styles = {
   outer: {
     display: 'flex',
-    width: '100%',
+    maxWidth: '800px',
   },
   column: {
     flex: '50%',
+    minWidth: '300px',
     padding: '12px',
   },
   h2: {
@@ -40,7 +41,7 @@ export default class NotesPage extends React.Component {
   }
 
   fetchNotes(){
-    new FetchData({ id: this.props.alt, scope: 'recruits', param1: 'notes' })
+    new FetchData({ id: this.props.targetId, scope: 'recruits', param1: 'notes' })
       .get()
       // Set the  `notes` and 'logs' lists
       .then(data => {
@@ -59,7 +60,7 @@ export default class NotesPage extends React.Component {
 
   handleAddNote = (text, title) => {
     const scope = title ? 'recruits/add_chat_log' : 'recruits/add_note';
-    new FetchData({ id: this.props.alt, scope })
+    new FetchData({ id: this.props.targetId, scope })
       .put({ text, title: title || '' })
       .then(() => {
         // TODO: check for errors
