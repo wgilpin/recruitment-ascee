@@ -85,6 +85,7 @@ export default class Mail extends React.Component {
       })
       .catch((err) => {
         console.error(err);
+        this.setState({ loading: false })
       })
   }
 
@@ -219,6 +220,9 @@ export default class Mail extends React.Component {
         width="100"
       />)
     }
+    if (this.state.mailList.length === 0){
+      return <div>No Mail</div>
+    }
     return (
       <div style={styles.table}>
         <div style={styles.header}>
@@ -228,10 +232,10 @@ export default class Mail extends React.Component {
         </div>
         {Object.keys(this.state.mailList).map((line, idx) => {
           return (
-            < >
+            <React.Fragment>
               {this.mailItem(idx, this.state.mailList[line])}
               {this.mailBody(line)}
-            </>
+            </React.Fragment>
           );
         })
         }
