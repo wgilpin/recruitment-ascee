@@ -90,6 +90,7 @@ def api_get_user_roles():
                 is_recruiter: bool,
                 is_senior_recruiter: bool,
                 is_admin: bool,
+                user_id: int,
             }
         }
 
