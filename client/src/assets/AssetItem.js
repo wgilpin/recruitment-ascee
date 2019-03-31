@@ -1,6 +1,6 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
-import TableStyles from '../TableStyles';
+import TableStyles from '../evidence/TableStyles';
 import Misc from '../common/Misc';
 
 const propTypes = {

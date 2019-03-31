@@ -1,8 +1,8 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
-import FetchData from './common/FetchData';
-import AssetRegion from './assets/AssetRegion';
+import FetchData from '../common/FetchData';
+import AssetRegion from '../assets/AssetRegion';
 
 const propTypes = {
   alt: PropTypes.string,

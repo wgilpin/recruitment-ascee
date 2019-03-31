@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
-import FetchData from './common/FetchData';
+import FetchData from '../common/FetchData';
 import TableStyles from './TableStyles';
-import FirstPageImg from './images/first_page_white.png';
-import NextPageImg from './images/chevron_right.png';
-import IconBtn from './common/IconBtn';
+import FirstPageImg from '../images/first_page_white.png';
+import NextPageImg from '../images/chevron_right.png';
+import IconBtn from '../common/IconBtn';
 
 const propTypes = {
   alt: PropTypes.string,

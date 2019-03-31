@@ -1,4 +1,4 @@
-import TableStyles from '../TableStyles';
+import TableStyles from '../evidence/TableStyles';
 import Styles from '../common/Styles';
 
 const button = {

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import TabsHeader from './TabsHeader';
 import Alts from './Alts';
-import Alt from './Alt';
+import Alt from '../common/Alt';
 import Mail from './Mail';
 import Assets from './Assets';
 import Skills from './Skills';
@@ -17,14 +17,11 @@ import TablePI from './TablePI';
 import TableStandings from './TableStandings';
 import TableFittings from './TableFittings';
 import TableIndustry from './TableIndustry';
-import NotesPage from './notes/NotesPage';
-import notesImg from './images/notepad.png';
-import cancelImg from './images/cancel.png';
-import closeImg from './images/close.png';
-import checkImg from './images/check.png';
-import IconBtn from './common/IconBtn';
-import RoundImage from './common/RoundImage';
-import FetchData from './common/FetchData';
+import NotesPage from '../notes/NotesPage';
+import closeImg from '../images/close.png';
+import checkImg from '../images/check.png';
+import RoundImage from '../common/RoundImage';
+import FetchData from '../common/FetchData';
 
 const styles = {
   outer: {
