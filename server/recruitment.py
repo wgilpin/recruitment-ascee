@@ -264,7 +264,6 @@ def get_application_note_data(application):
     return result
 
 
-@cachetools.cached(cachetools.LRUCache(maxsize=1000))
 def get_user_characters(user_id, current_user=None):
     user = User.get(user_id)
     if not has_applicant_access(current_user, user, self_access=True):
@@ -279,6 +278,23 @@ def get_user_characters(user_id, current_user=None):
             'corporation_name': character.corporation.name,
         }
     return {'info': character_dict}
+
+
+def get_user_corporations(user_id, current_user=None):
+    user = User.get(user_id)
+    if not has_applicant_access(current_user, user):
+        raise ForbiddenException('User {} does not have access.'.format(current_user))
+    if not db.session.query(db.exists().where(User.id==user_id)).scalar():
+        raise BadRequestException('User with id={} does not exist.'.format(user_id))
+    corporation_dict = {}
+    for character in db.session.query(Character).filter(Character.user_id==user_id):
+        if character.corporation.ceo_id == character.id:
+            corporation_dict[character.corporation.id] = {
+                'corporation_name': character.corporation.name,
+                'ceo_id': character.id,
+                'ceo_name': character.name,
+            }
+    return {'info': corporation_dict}
 
 
 def application_history(applicant_id, current_user=None):

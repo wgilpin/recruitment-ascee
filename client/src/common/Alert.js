@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import Styles from './common/Styles';
+import Styles from '../common/Styles';
 
 const propTypes = {
-  onConfirm: PropTypes.func,
+  onClose: PropTypes.func,
   text: PropTypes.string,
 };
 
@@ -35,9 +35,6 @@ const styles = {
       fontWeight: 600,
       textAlign: 'center',
     },
-    text: {
-      textAlign: 'center',
-    },
     buttons: {
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -46,10 +43,10 @@ const styles = {
   },
 };
 
-export default class Confirm extends React.Component {
+export default class Alert extends React.Component {
   onClick = () => {
-    if (this.props.onConfirm) {
-      this.props.onConfirm();
+    if (this.props.onClose) {
+      this.props.onClose();
     }
   };
 
@@ -57,16 +54,9 @@ export default class Confirm extends React.Component {
     return (
       <ReactModal isOpen={true} style={styles.modal}>
         <h2 style={styles.modal.title}>{this.props.text}</h2>
-        <p style={styles.modal.text}>Are you sure?</p>
         <div style={styles.modal.buttons}>
-          <button
-            style={styles.smallSecondary}
-            onClick={() => this.props.onClose()}
-          >
-            No
-          </button>
           <button style={styles.smallPrimary} onClick={this.onClick}>
-            Yes
+            Close
           </button>
         </div>
       </ReactModal>
@@ -74,4 +64,4 @@ export default class Confirm extends React.Component {
   }
 }
 
-Confirm.propTypes = propTypes;
+Alert.propTypes = propTypes;

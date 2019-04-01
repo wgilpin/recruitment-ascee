@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TableStyles from '../TableStyles';
+import Loader from 'react-loader-spinner';
+import TableStyles from '../evidence/TableStyles';
 import Styles from '../common/Styles';
 import RoundImage from '../common/RoundImage';
 import FetchData from '../common/FetchData';
@@ -66,7 +67,7 @@ const styles = {
   line: {
     height: '1px',
     color: 'grey',
-  }
+  },
 };
 
 export default class FindItem extends React.Component {
@@ -75,6 +76,7 @@ export default class FindItem extends React.Component {
     this.state = {
       showInput: true,
       searchResults: {},
+      loading: false,
     };
     this.textInput = React.createRef();
     this.textArea = React.createRef();
@@ -112,22 +114,27 @@ export default class FindItem extends React.Component {
   };
 
   handleAdd = (id, name) => {
-    return new FetchData({ id: this.props.kind, scope: 'admin/list', param1: 'add' })
+    this.setState({ loading: true });
+    return new FetchData({
+      id: this.props.kind,
+      scope: 'admin/list',
+      param1: 'add',
+    })
       .put({
         replace: false,
         item: { id, name },
       })
-      .then (res => {
-        if (res.status  === 'ok'){
-          const newResults = { ...this.state.searchResults }
+      .then(res => {
+        if (res.status === 'ok') {
+          const newResults = { ...this.state.searchResults };
           delete newResults[name];
           this.setState({ searchResults: newResults });
-          this.textInput.current.value = '';
           if (this.props.onChange) {
             this.props.onChange();
           }
         }
-      })
+        this.setState({ loading: false });
+      });
   };
 
   handleReject = id => {
@@ -185,10 +192,13 @@ export default class FindItem extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return <Loader type="Puff" color="#01799A" height="100" width="100" />;
+    }
     return (
       <React.Fragment>
         {this.state.showInput && (
-          <>
+          <React.Fragment>
             <div style={styles.centreDiv}>
               <hr style={styles.line} />
               <input
@@ -215,10 +225,10 @@ export default class FindItem extends React.Component {
                 }
               )}
             </div>
-          </>
+          </React.Fragment>
         )}
         {!this.state.showInput && (
-          <>
+          <React.Fragment>
             <div style={styles.centreDiv}>
               <hr style={styles.line} />
               <textarea
@@ -234,11 +244,10 @@ export default class FindItem extends React.Component {
             </div>
             <div style={styles.listbox}>
               {Object.entries(this.state.searchResults).map(
-                ([name, id], idx) =>{
+                ([name, id], idx) => {
                   console.log(name, id);
                   return this.makeResultLine(name, id, idx);
                 }
-
               )}
             </div>
             {this.state.searchResults.length > 0 && (
@@ -251,7 +260,7 @@ export default class FindItem extends React.Component {
                 </button>
               </div>
             )}
-          </>
+          </React.Fragment>
         )}
       </React.Fragment>
     );

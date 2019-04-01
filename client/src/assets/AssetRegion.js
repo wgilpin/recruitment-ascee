@@ -1,6 +1,6 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
-import TableStyles from '../TableStyles';
+import TableStyles from '../evidence/TableStyles';
 import AssetContainer from './AssetContainer';
 import Misc from '../common/Misc';
 
@@ -18,12 +18,21 @@ const styles = {
   ...TableStyles.styles,
   system: {
     width: '100%',
+  },
+  red: {
+    color: 'red',
+    fontWeight: 500,
   }
 }
 
 export default class AssetRegion extends React.Component {
+
   render() {
-    const { name, items, value } = this.global.assetSystems[this.props.region];
+    let lineStyle = styles.system;
+    const { name, items, value, redlisted } = this.global.assetSystems[this.props.region];
+    if ((redlisted ||[]).length > 0) {
+      lineStyle = { ...styles.system, ...styles.red };
+    }
     return (
       <div style={styles.system}>
         <div style={{ ...styles.folderHeader, ...styles.system }} key={name}>

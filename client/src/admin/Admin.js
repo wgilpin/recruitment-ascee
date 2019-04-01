@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import TableStyles from '../TableStyles';
+import TableStyles from '../evidence/TableStyles';
 import AdminRoles from './AdminRoles';
 import AdminLists from './AdminLists';
 import AdminQuestions from './AdminQuestions';
@@ -88,7 +88,7 @@ class Admin extends Component {
       })
   }
 
-  
+
   render() {
     return (
       < >

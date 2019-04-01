@@ -1,6 +1,6 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
-import TableStyles from '../TableStyles';
+import TableStyles from '../evidence/TableStyles';
 import AssetItem from './AssetItem';
 import Misc from '../common/Misc';
 import collapsedImg from '../images/collapsed.png';
@@ -24,6 +24,10 @@ const styles = {
   ...TableStyles.styles,
   structure: {
     width: '100%',
+  },
+  red: {
+    color: 'red',
+    fontWeight: 500,
   },
 };
 
@@ -94,9 +98,9 @@ export default class AssetContainer extends React.Component {
 
   expansionButton = () => {
     return [
-        !this.state.collapsed && <img src={expandedImg} alt="+" />,
-        this.state.collapsed && <img src={collapsedImg} alt="-" />
-     ];
+      !this.state.collapsed && <img src={expandedImg} alt="+" />,
+      this.state.collapsed && <img src={collapsedImg} alt="-" />,
+    ];
   };
 
   render() {
@@ -113,6 +117,9 @@ export default class AssetContainer extends React.Component {
       paddingLeft: depthPadding,
       ...styles.structure,
     };
+    if ((this.props.asset.redlisted || []).length > 0) {
+      lineStyle = { ...lineStyle, ...styles.red };
+    }
     // orphans is a list of keys of items which are not containers
     return (
       <div>

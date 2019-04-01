@@ -9,7 +9,7 @@ SECONDS_TO_CACHE = 10 * 60
 
 kind_dict = {
     'character': Character,
-    'type': Type,
+    'inventory_type': Type,
     'alliance': Alliance,
     'corporation': Corporation,
     'system': System,
@@ -24,6 +24,7 @@ def get_user_roles(current_user=None):
             'is_admin': is_admin(current_user),
             'is_recruiter': is_recruiter(current_user),
             'is_senior_recruiter': is_senior_recruiter(current_user),
+            'user_id': current_user.id,
         }
     }
     return res

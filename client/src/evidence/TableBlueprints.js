@@ -16,7 +16,6 @@ export default class TableBlueprints extends TableBase {
     this.addField(TableBase.kinds().standing, 'system_name', 'System');
     this.addField(TableBase.kinds().standing, 'location_name', 'Location');
     this.addField(TableBase.kinds().bool, 'is_blueprint_copy', 'BPC');
-    this.addField(TableBase.kinds().bool, 'quantity',);
   }
 }
 

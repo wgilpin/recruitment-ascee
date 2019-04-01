@@ -21,4 +21,8 @@ def get_character_skills(character_id, current_user=None):
                 'group_name': group.name,
                 'skill_name': skill.name,
             }
-    return {'info': {'skills': skill_data['skills'], 'queue': queue_data}}
+    return {'info': {
+        'skills': skill_data['skills'],
+        'queue': queue_data,
+        'total_sp': skill_data['total_sp']
+    }}

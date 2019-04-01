@@ -20,7 +20,7 @@ class AdminListTestCase(AsceeTestCase):
         self.assertIsInstance(result['info'], list)
         self.assertEqual(len(result['info']), 2)
 
-        result = get_admin_list('type', current_user=self.admin)
+        result = get_admin_list('inventory_type', current_user=self.admin)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], list)
         self.assertEqual(len(result['info']), 0)

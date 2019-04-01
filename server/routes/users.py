@@ -2,7 +2,10 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import jsonify
-from recruitment import get_applicant_list, get_user_characters, get_users, get_character_search_list
+from recruitment import (
+    get_applicant_list, get_user_characters, get_user_corporations, get_users,
+    get_character_search_list
+)
 from admin import get_user_roles
 
 
@@ -75,6 +78,43 @@ def api_get_user_characters(user_id=None):
     return jsonify(get_user_characters(user_id, current_user=current_user))
 
 
+@app.route('/api/user/corporations/')
+@app.route('/api/user/corporations/<int:user_id>')
+@login_required
+def api_get_user_corporations(user_id=None):
+    """
+    Gets a list of all corporations for a given user.
+
+    Corporations are redlisted if they are directly redlisted, or if they are
+    in an alliance that is redlisted.
+
+    Args:
+        user_id: User key of a user
+
+    Returns:
+        response (dict)
+
+    Example:
+        response = {
+            'info': {
+                1937622137: {  # Corporation ID
+                    'corporation_name': 'Corporation Calico',  # corporation name
+                    'ceo_id': 10223421,
+                    'ceo_name': 'CEO Clancy',
+                },
+                [...]
+            }
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter,
+            a recruiter who has claimed the given user, or the user themself
+    """
+    if not user_id:
+        user_id = current_user.get_id()
+    return jsonify(get_user_corporations(user_id, current_user=current_user))
+
+
 @app.route('/api/user/roles')
 @login_required
 def api_get_user_roles():
@@ -90,6 +130,7 @@ def api_get_user_roles():
                 is_recruiter: bool,
                 is_senior_recruiter: bool,
                 is_admin: bool,
+                user_id: int,
             }
         }
 

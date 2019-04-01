@@ -1,4 +1,5 @@
 from routes.character import *
+from routes.corporation import *
 from routes.application import *
 from routes.login import *
 from routes.mail import *

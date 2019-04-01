@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
-import FetchData from './common/FetchData';
+import FetchData from '../common/FetchData';
 import TableStyles from './TableStyles';
 import SkillLights from './SkillLights';
-import collapsedImg from './images/collapsed.png';
-import expandedImg from './images/expanded.png';
+import collapsedImg from '../images/collapsed.png';
+import expandedImg from '../images/expanded.png';
+import Misc from '../common/Misc';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -26,6 +27,10 @@ const styles = {
   },
   div: {
     maxWidth: 800,
+  },
+  total: {
+    fontWeight: 500,
+    paddingBottom: '12px',
   }
 }
 
@@ -39,12 +44,12 @@ export default class Skill extends React.Component {
     };
   }
 
-  static jsonToskillList(json) {
+  static jsonToskillList({ info: { queue, skills, total_sp }}) {
     let trainLevels = {};
-    let queue = [];
-    for (let idx in json.info.queue) {
-      queue.push(json.info.queue[idx]);
-      let { finished_level, skill_id: { skill_name } } = json.info.queue[idx];
+    let newQueue = [];
+    for (let idx in queue) {
+      newQueue.push(queue[idx]);
+      let { finished_level, skill_id: { skill_name } } = queue[idx];
       // store the level being trained to for later
       if (trainLevels[skill_name]) {
         trainLevels[skill_name].finish = finished_level;
@@ -54,8 +59,8 @@ export default class Skill extends React.Component {
       }
     }
     let groupedList = {};
-    for (let idx in json.info.skills) {
-      let sk = json.info.skills[idx];
+    for (let idx in skills) {
+      let sk = skills[idx];
       let group = sk.skill_id.group_name;
       if (!(group in groupedList)) {
         groupedList[group] = { items: {}, collapsed: true, summary: { spTotal: 0, count: 0 } };
@@ -64,23 +69,26 @@ export default class Skill extends React.Component {
       groupedList[group].summary.spTotal += sk.skillpoints_in_skill;
       groupedList[group].summary.count += 1;
     }
-    return { queue, groupedList, trainLevels };
+    return { queue: newQueue, groupedList, trainLevels, total_sp };
   }
 
   componentDidMount() {
     new FetchData(
-      { id: this.props.alt, scope: 'character', param1: 'skills' },
+      { id: this.props.targetId, scope: 'character', param1: 'skills' },
       this.onLoaded,
       this.onError
     ).get()
       .then(data => {
-        let { queue, groupedList, trainLevels } = Skill.jsonToskillList(data);
+        let { queue, groupedList, trainLevels, total_sp } = Skill.jsonToskillList(data);
+        const newState = { loading: false, total_sp };
         if (queue.length !== (this.state.skillQueue || []).length) {
-          this.setState({ skillQueue: queue, trainLevels });
+          newState.skillQueue = queue;
+          newState.trainLevels = trainLevels;
         };
         if (Object.keys(groupedList).length !== Object.keys(this.state.skillList || {}).length) {
-          this.setState({ skillList: groupedList, loading: false });
+          newState.skillList = groupedList;
         };
+        this.setState(newState)
       });
   }
 
@@ -197,6 +205,7 @@ export default class Skill extends React.Component {
     this.skillQueueLinesShown = 0;
     return (
       <div style={styles.div}>
+        <div style={styles.total}>Total Skill Points: {Misc.commarize(this.state.total_sp)}</div>
         {this.renderSkillQueue()}
         <br />
         <br />
