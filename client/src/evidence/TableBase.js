@@ -100,7 +100,7 @@ export default class TableBase extends React.Component {
 
   componentDidMount() {
     new FetchData({
-      id: this.props.alt,
+      id: this.props.targetId,
       scope: this.props.corporation ? 'corporation' : 'character',
       param1: this.scope,
     })
@@ -425,7 +425,7 @@ export default class TableBase extends React.Component {
     }
     // not a leaf node
     return (
-      <>
+      <React.Fragment>
         {tree.level !== 'root' && this.makeFolderLine(tree.level)}
         {!tree.collapsed && (
           <div>
@@ -439,7 +439,7 @@ export default class TableBase extends React.Component {
               })}
           </div>
         )}
-      </>
+      </React.Fragment>
     );
   }
 
@@ -489,12 +489,11 @@ export default class TableBase extends React.Component {
       this.showHeader? this.showHeader(this.state.rawData) : null,
       <div style={styles.div}>
         <div style={styles.table}>
-          {}
           {!this.groupBy.length ? (
-            <>
+            <React.Fragment>
               {this.makeHeader()}
               {this.makeSection(this.state.data)}
-            </>
+            </React.Fragment>
           ) : (
             this.makeGroupLines(null, this.state.groups, 0)
           )}

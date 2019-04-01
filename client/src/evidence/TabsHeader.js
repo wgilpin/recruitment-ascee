@@ -14,7 +14,7 @@ import marketImg from '../images/market.png';
 import contactsImg from '../images/contacts.png';
 import PIImg from '../images/planetarycommodities.png';
 import fittingsImg from '../images/fitting.png';
-import clonesImg from './images/cloneBay.png';
+import clonesImg from '../images/cloneBay.png';
 import industryImg from '../images/Industry.png';
 
 const propTypes = {
@@ -55,22 +55,23 @@ const styles = {
   },
 };
 
-const displayOrder = {
-  0: { name: 'Notes', src: notesImg, includeForCorp: true },
-  1: { name: 'Wallet', src: walletImg, includeForCorp: true },
-  2: { name: 'Mail', src: mailImg },
-  3: { name: 'Assets', src: assetsImg, includeForCorp: true },
-  4: { name: 'Contacts', src: contactsImg, includeForCorp: true },
-  5: { name: 'Skills', src: skillsImg },
-  6: { name: 'Bookmarks', src: bookmarkImg, includeForCorp: true },
-  7: { name: 'Market', src: marketImg },
-  8: { name: 'Fittings', src: fittingsImg },
-  9: { name: 'Industry', src: industryImg, includeForCorp: true },
-  10: { name: 'Blueprints', src: blueprintImg },
-  11: { name: 'Contracts', src: contractsImg },
-  12: { name: 'PI', src: PIImg },
-  13: { name: 'Calendar', src: calendarImg },
-};
+const displayOrder = [
+  { name: 'Notes', src: notesImg, includeForCorp: true },
+  { name: 'Wallet', src: walletImg, includeForCorp: true },
+  { name: 'Mail', src: mailImg },
+  { name: 'Assets', src: assetsImg, includeForCorp: true },
+  { name: 'Contacts', src: contactsImg, includeForCorp: true },
+  { name: 'Clones', src: clonesImg },
+  { name: 'Bookmarks', src: bookmarkImg, includeForCorp: true },
+  { name: 'Skills', src: skillsImg },
+  { name: 'Market', src: marketImg },
+  { name: 'Fittings', src: fittingsImg },
+  { name: 'Industry', src: industryImg, includeForCorp: true },
+  { name: 'Blueprints', src: blueprintImg },
+  { name: 'Contracts', src: contractsImg },
+  { name: 'PI', src: PIImg },
+  { name: 'Calendar', src: calendarImg },
+];
 
 
 export default class TabsHeader extends React.Component {
@@ -115,30 +116,9 @@ export default class TabsHeader extends React.Component {
     ];
   }
 
-  static displayOrder = {
-    1: { name: 'Wallet', src: walletImg, includeForCorp: true },
-    2: { name: 'Contacts', src: contactsImg, includeForCorp: true },
-    3: { name: 'Assets', src: assetsImg, includeForCorp: true },
-    4: { name: 'Bookmarks', src: bookmarkImg, includeForCorp: true },
-    5: { name: 'Industry', src: industryImg, includeForCorp: true },
-    6: { name: 'Skills', src: skillsImg },
-    7: { name: 'Blueprints', src: blueprintImg },
-    8: { name: 'Mail', src: mailImg },
-    9: { name: 'Calendar', src: calendarImg },
-    10: { name: 'Market', src: marketImg },
-    11: { name: 'Fittings', src: fittingsImg },
-    12: { name: 'Clones', src: clonesImg },
-    13: { name: 'Contracts', src: contractsImg },
-    14: { name: 'PI', src: PIImg },
-  };
-
 
   renderItems(displayItems) {
     const pageIsACorp = !!this.props.corporation;
-    const displayItems = Object.keys(displayOrder)
-      .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp)
-      .sort()
-      .map(seq => displayOrder[seq]);
     return (
       <div style={styles.div}>
         <div style={styles.headerRow}>
@@ -177,10 +157,8 @@ export default class TabsHeader extends React.Component {
         </React.Fragment>
       );
     }
-    const displayItems = Object.keys(displayOrder)
-      .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp)
-      .sort()
-      .map(seq => displayOrder[seq]);
+    const displayItems = displayOrder
+      .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp);
     return this.renderItems(displayItems);
   }
 }

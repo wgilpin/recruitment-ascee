@@ -290,7 +290,7 @@ export default class Evidence extends React.Component {
             {active === 'Clones' && (
               <TableClones
                 style={styles.tabBody}
-                alt={this.state.currentAlt}
+                targetId={this.state.currentAlt}
               />
             )}
           </div>
