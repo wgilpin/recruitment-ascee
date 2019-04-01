@@ -9,7 +9,7 @@ from recruitment import (
     get_questions, get_answers, get_user_characters, get_users,
     add_applicant_note, get_character_search_list, get_applicant_list, set_answers,
     start_application, set_questions, remove_question, get_applicant_notes,
-    application_history, submit_application
+    application_history, submit_application, get_user_corporations,
 )
 from status import reject_applicant, accept_applicant, invite_applicant, claim_applicant
 from models import Character, User, Question, Answer, Application, db
@@ -643,6 +643,41 @@ class MiscRecruitmentTests(AsceeTestCase):
         character = character_dict[self.applicant.id]
         for property in ('name', 'corporation_name'):
             self.assertTrue(property in character.keys(), property)
+
+    def test_user_corporation_list_as_recruiter(self):
+        self.applicant_character.corporation.ceo_id = self.applicant_character.id
+        db.session.commit()
+        result = get_user_corporations(self.applicant.id, current_user=self.recruiter)
+        self.assertTrue('info' in result)
+        corporation_dict = result['info']
+        self.assertEqual(len(corporation_dict), 1)
+        self.assertTrue(self.applicant_character.corporation.id in corporation_dict)
+        corporation = corporation_dict[self.applicant_character.corporation.id]
+        for property in ('corporation_name', 'ceo_id', 'ceo_name'):
+            self.assertTrue(property in corporation.keys(), property)
+        self.assertEqual(corporation['ceo_id'], self.applicant.id)
+        self.assertEqual(corporation['ceo_name'], self.applicant.name)
+        self.assertEqual(corporation['corporation_name'], self.applicant_character.corporation.name)
+
+    def test_user_corporation_list_as_senior_recruiter(self):
+        self.applicant_character.corporation.ceo_id = self.applicant_character.id
+        db.session.commit()
+        result = get_user_corporations(self.applicant.id, current_user=self.senior_recruiter)
+        self.assertTrue('info' in result)
+        corporation_dict = result['info']
+        self.assertEqual(len(corporation_dict), 1)
+        self.assertTrue(self.applicant_character.corporation.id in corporation_dict)
+        corporation = corporation_dict[self.applicant_character.corporation.id]
+        for property in ('corporation_name', 'ceo_id', 'ceo_name'):
+            self.assertTrue(property in corporation.keys(), property)
+        self.assertEqual(corporation['ceo_id'], self.applicant.id)
+        self.assertEqual(corporation['ceo_name'], self.applicant.name)
+        self.assertEqual(corporation['corporation_name'], self.applicant_character.corporation.name)
+
+    def test_user_corporation_list_forbidden(self):
+        for user in (self.not_applicant, self.applicant, self.other_recruiter):
+            with self.assertRaises(ForbiddenException):
+                get_user_corporations(self.applicant.id, current_user=user)
 
 
 class ApplicationHistoryTests(AsceeTestCase):
