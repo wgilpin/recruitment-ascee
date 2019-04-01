@@ -27,6 +27,7 @@ import FetchData from '../common/FetchData';
 const styles = {
   outer: {
     display: 'flex',
+    maxWidth: '800px',
   },
   alts: {
     display: 'flex flex-column',

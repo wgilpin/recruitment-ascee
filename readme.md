@@ -1,3 +1,11 @@
+# Running the app
+
+https://ascee-recruit.herokuapp.com/
+
+Login via eve. If you are a recruiter you can stop at the scopes page - no need to give us scopes. Then we can add you as a recruiter.
+
+# The codebase
+
 /server is the node backend
 
 /client/src is the react frontend. Ignore the other files in /client
