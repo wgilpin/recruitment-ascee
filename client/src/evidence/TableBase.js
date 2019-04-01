@@ -1,10 +1,10 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
-import FetchData from './common/FetchData';
+import FetchData from '../common/FetchData';
 import TableStyles from './TableStyles';
-import collapsedImg from './images/collapsed.png';
-import expandedImg from './images/expanded.png';
+import collapsedImg from '../images/collapsed.png';
+import expandedImg from '../images/expanded.png';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -134,7 +134,7 @@ export default class TableBase extends React.Component {
       return null;
     }
     const fetchParams = {
-      id: this.props.alt,
+      id: this.props.targetId,
       scope: 'character',
       param1: this.detailScope,
       param2: forId,

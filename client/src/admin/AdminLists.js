@@ -1,13 +1,13 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
-import TableStyles from '../TableStyles';
+import TableStyles from '../evidence/TableStyles';
 import Styles from '../common/Styles';
 import RoundImage from '../common/RoundImage';
 import FabButton from '../common/fabButton';
 import deleteImg from '../images/delete-white.svg';
 import FetchData from '../common/FetchData';
 import FindItem from './FindItem';
-import Confirm from '../Confirm';
+import Confirm from '../common/Confirm';
 
 const propTypes = {};
 

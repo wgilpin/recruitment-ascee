@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
-import FetchData from './common/FetchData';
+import FetchData from '../common/FetchData';
 import TableStyles from './TableStyles';
 import SkillLights from './SkillLights';
-import collapsedImg from './images/collapsed.png';
-import expandedImg from './images/expanded.png';
-import Misc from './common/Misc';
+import collapsedImg from '../images/collapsed.png';
+import expandedImg from '../images/expanded.png';
+import Misc from '../common/Misc';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -74,7 +74,7 @@ export default class Skill extends React.Component {
 
   componentDidMount() {
     new FetchData(
-      { id: this.props.alt, scope: 'character', param1: 'skills' },
+      { id: this.props.targetId, scope: 'character', param1: 'skills' },
       this.onLoaded,
       this.onError
     ).get()

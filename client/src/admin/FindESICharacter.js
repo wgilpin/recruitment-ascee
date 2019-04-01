@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SearchImg from '../images/magnifying_glass_24x24.png';
 import FetchData from '../common/FetchData';
-import TableStyles from '../TableStyles';
+import TableStyles from '../evidence/TableStyles';
 
 const propTypes = {
   iconList: PropTypes.array,

@@ -1,12 +1,12 @@
 import React from 'react';
-import Alt from '../Alt';
+import Alt from '../common/Alt';
 import TrueImg from '../images/check_box_white.png';
 import FalseImg from '../images/check_box_outline_blank.png';
 import PromoteImg from '../images/add_circle_outline_white_24dp.png';
-import TableStyles from '../TableStyles';
+import TableStyles from '../evidence/TableStyles';
 import FetchData from '../common/FetchData';
 import FindESICharacter from './FindESICharacter';
-import Confirm from '../Confirm';
+import Confirm from '../common/Confirm';
 
 const primary = TableStyles.styles.themeColor.color;
 

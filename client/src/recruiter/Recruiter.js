@@ -5,16 +5,16 @@ import ClaimedMineIcon from 'react-ionicons/lib/MdStar';
 import ClaimedOtherIcon from 'react-ionicons/lib/MdStarOutline';
 import ApproveIcon from 'react-ionicons/lib/MdCheckboxOutline';
 import ApproveIconMine from 'react-ionicons/lib/MdCheckbox';
-import Evidence from '../Evidence';
+import Evidence from '../evidence/Evidence';
 import Misc from '../common/Misc';
 import RoundImage from '../common/RoundImage';
 import BackImg from '../images/back.png';
 import RecruitButtonBar from './RecruitButtonBar';
 import IconBtn from '../common/IconBtn';
-import TableStyles from '../TableStyles';
+import TableStyles from '../evidence/TableStyles';
 import styles from '../Applicant/ApplicantStyles';
-import Alert from '../Alert';
-import Confirm from '../Confirm';
+import Alert from '../common/Alert';
+import Confirm from '../common/Confirm';
 
 const localStyles = {
   ...styles,

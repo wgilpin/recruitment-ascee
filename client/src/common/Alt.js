@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RoundImage from './common/RoundImage';
-import TableStyles from './TableStyles';
+import RoundImage from './RoundImage';
+import TableStyles from '../evidence/TableStyles';
 
 const propTypes = {
   name: PropTypes.string,

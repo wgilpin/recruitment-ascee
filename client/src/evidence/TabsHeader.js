@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RoundImage from './common/RoundImage';
-import walletImg from './images/wallet.png';
-import assetsImg from './images/assets.png';
-import mailImg from './images/evemail.png';
-import skillsImg from './images/skills.png';
-import blueprintImg from './images/blueprints.png';
-import bookmarkImg from './images/personallocations.png';
-import contractsImg from './images/contracts.png';
-import calendarImg from './images/calendar.png';
-import marketImg from './images/market.png';
-import contactsImg from './images/contacts.png';
-import PIImg from './images/planetarycommodities.png';
-import fittingsImg from './images/fitting.png';
+import RoundImage from '../common/RoundImage';
+import notesImg from '../images/notepad.png';
+import walletImg from '../images/wallet.png';
+import assetsImg from '../images/assets.png';
+import mailImg from '../images/evemail.png';
+import skillsImg from '../images/skills.png';
+import blueprintImg from '../images/blueprints.png';
+import bookmarkImg from '../images/personallocations.png';
+import contractsImg from '../images/contracts.png';
+import calendarImg from '../images/calendar.png';
+import marketImg from '../images/market.png';
+import contactsImg from '../images/contacts.png';
+import PIImg from '../images/planetarycommodities.png';
+import fittingsImg from '../images/fitting.png';
 import clonesImg from './images/cloneBay.png';
-import industryImg from './images/Industry.png';
+import industryImg from '../images/Industry.png';
 
 const propTypes = {
   onTabChange: PropTypes.func,
@@ -41,6 +42,7 @@ const styles = {
     display: 'table-cell',
     width: '50px',
     padding: '8px',
+    cursor: 'pointer',
   },
   span: {
     color: '#01799A',
@@ -52,6 +54,24 @@ const styles = {
     fontWeight: 600,
   },
 };
+
+const displayOrder = {
+  0: { name: 'Notes', src: notesImg, includeForCorp: true },
+  1: { name: 'Wallet', src: walletImg, includeForCorp: true },
+  2: { name: 'Mail', src: mailImg },
+  3: { name: 'Assets', src: assetsImg, includeForCorp: true },
+  4: { name: 'Contacts', src: contactsImg, includeForCorp: true },
+  5: { name: 'Skills', src: skillsImg },
+  6: { name: 'Bookmarks', src: bookmarkImg, includeForCorp: true },
+  7: { name: 'Market', src: marketImg },
+  8: { name: 'Fittings', src: fittingsImg },
+  9: { name: 'Industry', src: industryImg, includeForCorp: true },
+  10: { name: 'Blueprints', src: blueprintImg },
+  11: { name: 'Contracts', src: contractsImg },
+  12: { name: 'PI', src: PIImg },
+  13: { name: 'Calendar', src: calendarImg },
+};
+
 
 export default class TabsHeader extends React.Component {
   constructor(props) {
@@ -112,8 +132,8 @@ export default class TabsHeader extends React.Component {
     14: { name: 'PI', src: PIImg },
   };
 
-  render() {
-    const displayOrder = TabsHeader.displayOrder;
+
+  renderItems(displayItems) {
     const pageIsACorp = !!this.props.corporation;
     const displayItems = Object.keys(displayOrder)
       .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp)
@@ -145,6 +165,23 @@ export default class TabsHeader extends React.Component {
         </div>
       </div>
     );
+  }
+
+  render() {
+    const pageIsACorp = !!this.props.corporation;
+    if (this.props.onlyFirst) {
+      return (
+        <React.Fragment>
+          {this.renderItems([displayOrder[0]])}
+          <hr style={styles.hr} />
+        </React.Fragment>
+      );
+    }
+    const displayItems = Object.keys(displayOrder)
+      .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp)
+      .sort()
+      .map(seq => displayOrder[seq]);
+    return this.renderItems(displayItems);
   }
 }
 

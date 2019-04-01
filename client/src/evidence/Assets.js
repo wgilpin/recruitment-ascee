@@ -1,8 +1,8 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
-import FetchData from './common/FetchData';
-import AssetRegion from './assets/AssetRegion';
+import FetchData from '../common/FetchData';
+import AssetRegion from '../assets/AssetRegion';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -45,7 +45,7 @@ export default class Assets extends React.Component {
 
   jsonToSystemsList(systems) {
     this.setState({ loading: false });
-    if (systems) {
+    if (!systems.error) {
       Object.keys(systems).forEach(sysKey => {
         systems[sysKey].redlisted = systems[sysKey].redlisted || [];
         const systemValues = this.recurseValuesAndRedlist(systems[sysKey]);
@@ -64,7 +64,11 @@ export default class Assets extends React.Component {
 
   componentDidMount() {
     let fetch = new FetchData(
-      { id: this.props.alt, scope: 'character', param1: 'assets' },
+      {
+        id: this.props.targetId,
+        scope: this.props.corporation ? 'corporation' : 'character',
+        param1: 'assets',
+      },
       this.onLoaded,
       this.onError
     );
@@ -75,7 +79,13 @@ export default class Assets extends React.Component {
     if (this.state.loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
-    return Object.keys(this.global.assetSystems || {})
+    const assetIds = Object.keys(this.global.assetSystems || {})
+    if (!assetIds.length) {
+      return (
+        <div>None Found</div>
+      )
+    }
+    return assetIds
       .sort(
         (a, b) =>
           this.global.assetSystems[b].value - this.global.assetSystems[a].value

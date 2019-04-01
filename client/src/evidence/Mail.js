@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
-import FetchData from './common/FetchData';
+import FetchData from '../common/FetchData';
 import TableStyles from './TableStyles';
-import FirstPageImg from './images/first_page_white.png';
-import NextPageImg from './images/chevron_right.png';
-import IconBtn from './common/IconBtn';
+import FirstPageImg from '../images/first_page_white.png';
+import NextPageImg from '../images/chevron_right.png';
+import IconBtn from '../common/IconBtn';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -67,7 +67,7 @@ export default class Mail extends React.Component {
 
     // get the mail headers by API
     new FetchData(
-      { id: this.props.alt, scope: 'character', param1: 'mail' },
+      { id: this.props.targetId, scope: 'character', param1: 'mail' },
     ).get(this.state.lastMailId ? { last_mail_id: this.state.lastMailId} : {})
       .then(data => {
         // got the list of mail headers
@@ -85,6 +85,7 @@ export default class Mail extends React.Component {
       })
       .catch((err) => {
         console.error(err);
+        this.setState({ loading: false })
       })
   }
 
@@ -110,7 +111,7 @@ export default class Mail extends React.Component {
       return null;
     }
     let encodedList = encodeURIComponent(JSON.stringify(linksList));
-    return new FetchData({ scope: 'link', id: this.props.alt, param1: encodedList }).get();
+    return new FetchData({ scope: 'link', id: this.props.targetId, param1: encodedList }).get();
   }
 
   processLinks(links, body){
@@ -147,7 +148,7 @@ export default class Mail extends React.Component {
     this.setState({ mailList: updatedMailList });
     if (!thisMail.body) {
       return new FetchData(
-        { id: this.props.alt, scope: 'character', param1: 'mail', param2: thisMail.mail_id },
+        { id: this.props.targetId, scope: 'character', param1: 'mail', param2: thisMail.mail_id },
       ).get()
         .then((body) => {
           rawBody = this.badlyRemoveFontSizeColor(body);
@@ -219,6 +220,9 @@ export default class Mail extends React.Component {
         width="100"
       />)
     }
+    if (this.state.mailList.length === 0){
+      return <div>No Mail</div>
+    }
     return (
       <div style={styles.table}>
         <div style={styles.header}>
@@ -228,10 +232,10 @@ export default class Mail extends React.Component {
         </div>
         {Object.keys(this.state.mailList).map((line, idx) => {
           return (
-            < >
+            <React.Fragment>
               {this.mailItem(idx, this.state.mailList[line])}
               {this.mailBody(line)}
-            </>
+            </React.Fragment>
           );
         })
         }
