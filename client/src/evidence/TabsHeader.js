@@ -14,6 +14,7 @@ import marketImg from '../images/market.png';
 import contactsImg from '../images/contacts.png';
 import PIImg from '../images/planetarycommodities.png';
 import fittingsImg from '../images/fitting.png';
+import clonesImg from './images/cloneBay.png';
 import industryImg from '../images/Industry.png';
 
 const propTypes = {
@@ -114,9 +115,30 @@ export default class TabsHeader extends React.Component {
     ];
   }
 
+  static displayOrder = {
+    1: { name: 'Wallet', src: walletImg, includeForCorp: true },
+    2: { name: 'Contacts', src: contactsImg, includeForCorp: true },
+    3: { name: 'Assets', src: assetsImg, includeForCorp: true },
+    4: { name: 'Bookmarks', src: bookmarkImg, includeForCorp: true },
+    5: { name: 'Industry', src: industryImg, includeForCorp: true },
+    6: { name: 'Skills', src: skillsImg },
+    7: { name: 'Blueprints', src: blueprintImg },
+    8: { name: 'Mail', src: mailImg },
+    9: { name: 'Calendar', src: calendarImg },
+    10: { name: 'Market', src: marketImg },
+    11: { name: 'Fittings', src: fittingsImg },
+    12: { name: 'Clones', src: clonesImg },
+    13: { name: 'Contracts', src: contractsImg },
+    14: { name: 'PI', src: PIImg },
+  };
+
 
   renderItems(displayItems) {
     const pageIsACorp = !!this.props.corporation;
+    const displayItems = Object.keys(displayOrder)
+      .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp)
+      .sort()
+      .map(seq => displayOrder[seq]);
     return (
       <div style={styles.div}>
         <div style={styles.headerRow}>

@@ -39,7 +39,7 @@ const styles = {
   },
   ISKpositive: {
     color: 'lightblue',
-  }
+  },
 };
 
 export default class TableBase extends React.Component {
@@ -56,6 +56,7 @@ export default class TableBase extends React.Component {
     this.detailScope = null;
     this.detailFormatter = null;
     this.keyField = null;
+    this.listName = null;
   }
 
   static kinds() {
@@ -89,39 +90,40 @@ export default class TableBase extends React.Component {
   }
 
   jsonToList(json) {
-    let list = [];
     if (json && json.info) {
-      for (let we in json.info) {
-        list.push(json.info[we]);
-      }
+      const sourceList = this.listName ? json.info[this.listName] : json.info;
+      const list = Object.values(sourceList);
+      return list;
     }
-    return list;
+    return [];
   }
 
   componentDidMount() {
     new FetchData({
-        id: this.props.targetId,
-        scope: this.props.corporation ? 'corporation':'character',
-        param1: this.scope })
+      id: this.props.alt,
+      scope: this.props.corporation ? 'corporation' : 'character',
+      param1: this.scope,
+    })
       .get()
       .then(data => {
         if (data && data.error) {
           return this.setState({ ...data.error, loading: false });
         }
+        this.setState({ rawData: data.info });
         let newList = this.jsonToList(data);
-        this.setState({ data: newList, loading: false },
-          () => {
-            // after state set
-            if (!!this.sortBy) {
-              const found = this.fields.filter(
-                f => f.id === this.sortBy || f.id === this.sortBy.substring(1));
-              if (found.length > 0) {
-                this.sortColumn(found[0]);
-              }
+        this.setState({ data: newList, loading: false }, () => {
+          // after state set
+          if (!!this.sortBy) {
+            const found = this.fields.filter(
+              f => f.id === this.sortBy || f.id === this.sortBy.substring(1)
+            );
+            if (found.length > 0) {
+              this.sortColumn(found[0]);
             }
-            if (this.groupBy.length > 0) {
-              this.buildGroups();
-            }
+          }
+          if (this.groupBy.length > 0) {
+            this.buildGroups();
+          }
         });
       });
   }
@@ -135,16 +137,14 @@ export default class TableBase extends React.Component {
       id: this.props.targetId,
       scope: 'character',
       param1: this.detailScope,
-      param2: forId
-    }
-    return new FetchData(fetchParams)
-      .get()
-      .then(data => {
-        return this.detailFormatter(
-          data.info,
-          this.state.data.find(it => it[this.keyField] === forId),
-        );
-      });
+      param2: forId,
+    };
+    return new FetchData(fetchParams).get().then(data => {
+      return this.detailFormatter(
+        data.info,
+        this.state.data.find(it => it[this.keyField] === forId)
+      );
+    });
   }
 
   makeDateField(date, field, final) {
@@ -171,7 +171,7 @@ export default class TableBase extends React.Component {
       }
     } catch (e) {
       if (e instanceof TypeError) {
-        console.error('API - redlisted')
+        console.error('API - redlisted');
       } else {
         throw e;
       }
@@ -266,7 +266,7 @@ export default class TableBase extends React.Component {
       const details = await this.fetchDetails(key, key2);
       copyData[idx].details = details;
     } else {
-      copyData[idx].details = this.detailFormatter(copyData[idx])
+      copyData[idx].details = this.detailFormatter(copyData[idx]);
     }
     copyData[idx].open = !copyData[idx].open;
     this.setState({ data: copyData });
@@ -286,17 +286,26 @@ export default class TableBase extends React.Component {
         onClick={() => this.handleClickLine(values)}
       >
         {this.fields.map((field, i) =>
-          this.makeField(field, values[field.id], i === this.fields.length - 1, idx),
+          this.makeField(
+            field,
+            values[field.id],
+            i === this.fields.length - 1,
+            idx
+          )
         )}
       </div>,
-      values.open && <div style={{ display: 'table-cell', width: '100%' }}>{values.details}</div>,
+      values.open && (
+        <div style={{ display: 'table-cell', width: '100%' }}>
+          {values.details}
+        </div>
+      ),
     ];
   }
 
   makeSection(lines, heading, collapsible, depth) {
     const depthPx = `${INDENT * (depth || 0)}px`;
     return (
-      < >
+      <React.Fragment>
         {heading && (
           <div style={{ ...styles.groupRow, marginLeft: depthPx }}>
             &ensp;{heading}
@@ -308,14 +317,14 @@ export default class TableBase extends React.Component {
           }
           return this.makeLine(line, idx, depth + 1);
         })}
-      </>
+      </React.Fragment>
     );
   }
 
   titleise(text) {
-    let words = text.split('_')
-    if (words.length > 1 && words[words.length-1] === 'name'){
-      words = words.splice(0, words.length-1);
+    let words = text.split('_');
+    if (words.length > 1 && words[words.length - 1] === 'name') {
+      words = words.splice(0, words.length - 1);
     }
     text = words.join(' ');
     return (text[0].toUpperCase() + text.slice(1)).replace(/_/g, ' ');
@@ -324,18 +333,19 @@ export default class TableBase extends React.Component {
   sortFn(property, numeric) {
     const defaultVal = numeric ? 0 : 'zzzz';
     var sortOrder = 1;
-    if (property[0] === "-") {
+    if (property[0] === '-') {
       sortOrder = -1;
       property = property.substr(1);
     }
     const fn = (a, b) => {
-      var result = ((a[property] || defaultVal) < (b[property] || defaultVal))
-        ? -1
-        : ((a[property] || defaultVal) > (b[property] || defaultVal))
+      var result =
+        (a[property] || defaultVal) < (b[property] || defaultVal)
+          ? -1
+          : (a[property] || defaultVal) > (b[property] || defaultVal)
           ? 1
           : 0;
       return result * sortOrder;
-    }
+    };
     return fn.bind(defaultVal);
   }
 
@@ -345,8 +355,8 @@ export default class TableBase extends React.Component {
       // can't sort if grouped
       return;
     }
-    if (this.sortBy === field.id){
-      this.sortBy =`-${field.id}`
+    if (this.sortBy === field.id) {
+      this.sortBy = `-${field.id}`;
     } else {
       this.sortBy = field.id;
     }
@@ -389,14 +399,14 @@ export default class TableBase extends React.Component {
         {this.fields.map(field =>
           // ignore fields in grouping -= they are headers
           this.groupBy.slice(0, this.groupBy.length - 1).indexOf(field.id) >
-            -1 ? null : (
-              <div
-                style={{ ...styles.cell, ...styles.sortHeader }}
-                onClick={() => this.sortColumn(field)}
-              >
-                {field.header}
-              </div>
-            ),
+          -1 ? null : (
+            <div
+              style={{ ...styles.cell, ...styles.sortHeader }}
+              onClick={() => this.sortColumn(field)}
+            >
+              {field.header}
+            </div>
+          )
         )}
       </div>
     );
@@ -415,7 +425,7 @@ export default class TableBase extends React.Component {
     }
     // not a leaf node
     return (
-      < >
+      <>
         {tree.level !== 'root' && this.makeFolderLine(tree.level)}
         {!tree.collapsed && (
           <div>
@@ -461,33 +471,36 @@ export default class TableBase extends React.Component {
 
   render() {
     if (this.state.error) {
-      return <div>
-        {this.state.error}
-        <br />
-        Error {this.state.status}
-      </div>
+      return (
+        <div>
+          {this.state.error}
+          <br />
+          Error {this.state.status}
+        </div>
+      );
     }
     if (this.state.loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
     if (this.state.data.length === 0) {
-      return <div>None found</div>
+      return <div>None found</div>;
     }
-    return (
+    return [
+      this.showHeader? this.showHeader(this.state.rawData) : null,
       <div style={styles.div}>
         <div style={styles.table}>
           {}
           {!this.groupBy.length ? (
-            < >
+            <>
               {this.makeHeader()}
               {this.makeSection(this.state.data)}
             </>
           ) : (
-              this.makeGroupLines(null, this.state.groups, 0)
-            )}
+            this.makeGroupLines(null, this.state.groups, 0)
+          )}
         </div>
       </div>
-    );
+          ];
   }
 }
 
