@@ -1,6 +1,6 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
-import TableStyles from '../TableStyles';
+import TableStyles from '../evidence/TableStyles';
 import AssetItem from './AssetItem';
 import Misc from '../common/Misc';
 import collapsedImg from '../images/collapsed.png';

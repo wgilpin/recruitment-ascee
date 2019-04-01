@@ -4,7 +4,7 @@ import FetchData from '../common/FetchData';
 import DeleteImg from '../images/baseline_delete_white_24dp.png';
 import CommonStyles from '../common/Styles';
 import FabButton from '../common/fabButton';
-import Confirm from '../Confirm';
+import Confirm from '../common/Confirm';
 
 
 const styles = {

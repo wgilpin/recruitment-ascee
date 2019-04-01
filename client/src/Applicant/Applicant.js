@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import Alts from '../Alts';
+import Alts from '../evidence/Alts';
 import FetchData from '../common/FetchData';
 import styles from './ApplicantStyles';
 import AsceeImg from '../images/ascee_logo.png';
