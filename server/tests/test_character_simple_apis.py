@@ -316,6 +316,8 @@ class CharacterCorporationHistoryTests(SimpleCharacterMixin, AsceeTestCase):
             'corporation_name': (Corporation, 'corporation_id'),
         },
         'entry_identifier': 'record_id',
+    }
+
 
 def wrap_character_jump_clones(character_id, current_user=None):
     response = character.get_character_clones(character_id, current_user=current_user)
