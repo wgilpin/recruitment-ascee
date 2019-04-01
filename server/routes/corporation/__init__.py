@@ -1,6 +1,6 @@
-from corporation.assets import *
-# from corporation.blueprints import *
-from corporation.bookmarks import *
-from corporation.contacts import *
-from corporation.finance import *
-from corporation.industry import *
+from routes.corporation.assets import *
+from routes.corporation.blueprints import *
+from routes.corporation.bookmarks import *
+from routes.corporation.contacts import *
+from routes.corporation.finance import *
+from routes.corporation.industry import *
