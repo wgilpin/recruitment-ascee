@@ -817,6 +817,7 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIn('info', result)
         self.assertEqual(len(result['info']), 2)
 
+
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
