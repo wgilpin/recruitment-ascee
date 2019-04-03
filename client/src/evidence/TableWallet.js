@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TableBase from "./TableBase";
+import Misc from "../common/Misc";
 
 const propTypes = {
   alt: PropTypes.string
@@ -33,8 +34,8 @@ export default class TableWallet extends TableBase {
   }
 
   handleSelect = division => {
-    this.setState({ division: division.target.value }, 
-      () => this.processData(this.preProcessData(this.state.rawData))
+    this.setState({ division: division.target.value }, () =>
+      this.processData(this.preProcessData(this.state.rawData))
     );
   };
 
@@ -69,9 +70,18 @@ export default class TableWallet extends TableBase {
               </option>
             ))}
           </select>
+          {data && data.length && (
+            <div>Balance {Misc.commarize(data[0].balance)}</div>
+          )}
         </div>
       );
     } else {
+      if (data && data.length) {
+        if (data && data.length) {
+          return <div>Balance {Misc.commarize(data[0].balance)}</div>;
+        }
+        return null;
+      }
       return null;
     }
   }
