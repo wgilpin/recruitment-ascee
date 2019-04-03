@@ -8,10 +8,11 @@ import unittest
 from recruitment import (
     get_questions, get_answers, get_user_characters, get_users,
     add_applicant_note, get_character_search_list, get_applicant_list, set_answers,
-    start_application, set_questions, remove_question, get_applicant_notes,
-    application_history, submit_application, get_user_corporations,
+    set_questions, remove_question, get_applicant_notes,
+    application_history, get_user_corporations,
 )
-from status import reject_applicant, accept_applicant, invite_applicant, claim_applicant
+from status import reject_applicant, accept_applicant, invite_applicant, \
+    claim_applicant, submit_application, start_application
 from models import Character, User, Question, Answer, Application, db
 from base import AsceeTestCase
 from flask_app import app
@@ -815,6 +816,7 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertEqual(len(result['info']), 2)
+
 
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
