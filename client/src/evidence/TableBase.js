@@ -165,7 +165,7 @@ export default class TableBase extends React.Component {
     }
     // TODO: This shouldn't need a try..catch but the API needs updating
     try {
-      if (field.id in (this.state.data[idx].redlisted || {})) {
+      if ((this.state.data[idx].redlisted || []).indexOf(field.id) >-1) {
         style.color = 'red';
         style.fontWeight = '600';
       }
