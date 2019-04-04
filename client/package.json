@@ -5,6 +5,7 @@
   "homepage": "http://ascee-recruit.herokuapp.com/",
   "dependencies": {
     "cross-env": "^5.2.0",
+    "moment": "^2.24.0",
     "prettier-eslint": "^8.8.2",
     "query-string": "^6.2.0",
     "react": "^16.5.2",
@@ -16,8 +17,7 @@
     "react-scripts": "^2.1.3",
     "react-tabs": "^3.0.0",
     "react-tooltip": "^3.10.0",
-    "reactn": "^0.1.8",
-    "tiny-relative-date": "^1.3.0"
+    "reactn": "^0.1.8"
   },
   "scripts": {
     "start": "cross-env PORT=3003 DEV_ENV=1 react-scripts start",
@@ -35,5 +35,11 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {}
+  "devDependencies": {},
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true
+  }
 }
