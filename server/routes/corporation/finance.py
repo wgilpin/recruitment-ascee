@@ -65,15 +65,6 @@ def api_corporation_market_history(corporation_id):
     return jsonify(get_corporation_market_history(corporation_id, current_user=current_user))
 
 
-{
-    'info': {
-        1: {  # division number
-           'division_name': 'Division 1',
-            'info': [entry_1, entry_2, ...],
-        },
-    }
-}
-
 @app.route('/api/corporation/<int:corporation_id>/wallet', methods=['GET'])
 @login_required
 def api_corporation_wallet(corporation_id):
@@ -83,13 +74,13 @@ def api_corporation_wallet(corporation_id):
     Returned dictionary is of the form
 
     {
-        'info': {
-            1: {  # division number
-               'division_name': 'Division 1',
+        'info': [
+            {
+                'division_name': 'Division 1',
                 'info': [entry_1, entry_2, ...],
             },
             ...
-        }
+        ]
     }
 
     Each entry is as returned by ESI. If
