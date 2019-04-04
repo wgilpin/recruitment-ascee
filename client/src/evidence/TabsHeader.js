@@ -158,7 +158,7 @@ export default class TabsHeader extends React.Component {
       );
     }
     const displayItems = displayOrder
-      .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp);
+      .filter(item => !pageIsACorp || item.includeForCorp);
     return this.renderItems(displayItems);
   }
 }

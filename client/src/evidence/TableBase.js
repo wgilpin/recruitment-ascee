@@ -110,22 +110,29 @@ export default class TableBase extends React.Component {
           return this.setState({ ...data.error, loading: false });
         }
         this.setState({ rawData: data.info });
-        let newList = this.jsonToList(data);
-        this.setState({ data: newList, loading: false }, () => {
-          // after state set
-          if (!!this.sortBy) {
-            const found = this.fields.filter(
-              f => f.id === this.sortBy || f.id === this.sortBy.substring(1)
-            );
-            if (found.length > 0) {
-              this.sortColumn(found[0]);
-            }
-          }
-          if (this.groupBy.length > 0) {
-            this.buildGroups();
-          }
-        });
+        if (this.preProcessData) {
+          data = this.preProcessData(data)
+        }
+        this.processData(data);
       });
+  }
+
+  processData(data) {
+    let newList = this.jsonToList(data);
+    this.setState({ data: newList, loading: false }, () => {
+      // after state set
+      if (!!this.sortBy) {
+        const found = this.fields.filter(
+          f => f.id === this.sortBy || f.id === this.sortBy.substring(1)
+        );
+        if (found.length > 0) {
+          this.sortColumn(found[0]);
+        }
+      }
+      if (this.groupBy.length > 0) {
+        this.buildGroups();
+      }
+    });
   }
 
   async fetchDetails(forId) {
@@ -165,7 +172,7 @@ export default class TableBase extends React.Component {
     }
     // TODO: This shouldn't need a try..catch but the API needs updating
     try {
-      if (field.id in (this.state.data[idx].redlisted || {})) {
+      if ((this.state.data[idx].redlisted || []).indexOf(field.id) >-1) {
         style.color = 'red';
         style.fontWeight = '600';
       }
@@ -483,7 +490,10 @@ export default class TableBase extends React.Component {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
     if (this.state.data.length === 0) {
-      return <div>None found</div>;
+      return [
+        this.showHeader? this.showHeader(this.state.rawData) : null,
+        <div>None found</div>
+      ];
     }
     return [
       this.showHeader? this.showHeader(this.state.rawData) : null,

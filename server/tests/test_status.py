@@ -132,9 +132,11 @@ class ApplicantStatusTests(AsceeTestCase):
         db.session.commit()
 
     def test_claim_applicant(self):
-        response = claim_applicant(self.applicant.id, current_user=self.other_recruiter)
-        self.assertDictEqual(response, {'status': 'ok'})
         application = Application.get_for_user(self.applicant.id)
+        self.assertEqual(len(application.notes), 0)
+        response = claim_applicant(self.applicant.id, current_user=self.other_recruiter)
+        self.assertEqual(len(application.notes), 1)
+        self.assertDictEqual(response, {'status': 'ok'})
         self.assertEqual(application.recruiter_id, self.other_recruiter.id)
         self.assertFalse(application.is_concluded)
         self.assertFalse(application.is_accepted)
@@ -165,10 +167,13 @@ class ApplicantStatusTests(AsceeTestCase):
             claim_applicant(self.not_applicant.id, current_user=self.recruiter)
 
     def test_release_applicant(self):
+        self.assertEqual(len(self.application.notes), 0)
         response = claim_applicant(self.applicant.id, current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
+        self.assertEqual(len(self.application.notes), 1)
         response = release_applicant(self.applicant.id, current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
+        self.assertEqual(len(self.application.notes), 2)
 
     def test_release_not_applicant(self):
         with self.assertRaises(BadRequestException):
@@ -190,9 +195,12 @@ class ApplicantStatusTests(AsceeTestCase):
             release_applicant(self.applicant.id, current_user=self.admin)
 
     def test_accept_applicant(self):
+        self.assertEqual(len(self.application.notes), 0)
         claim_applicant(self.applicant.id, current_user=self.recruiter)
+        self.assertEqual(len(self.application.notes), 1)
         response = accept_applicant(self.applicant.id, current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
+        self.assertEqual(len(self.application.notes), 2)
         self.assertTrue(self.application.is_accepted)
         self.assertTrue(self.application.is_concluded)
         self.assertFalse(self.application.is_invited)
@@ -204,9 +212,13 @@ class ApplicantStatusTests(AsceeTestCase):
             reject_applicant(self.applicant.id, current_user=self.recruiter)
 
     def test_sr_reject_accepted_applicant(self):
+        self.assertEqual(len(self.application.notes), 0)
         claim_applicant(self.applicant.id, current_user=self.recruiter)
+        self.assertEqual(len(self.application.notes), 1)
         accept_applicant(self.applicant.id, current_user=self.recruiter)
+        self.assertEqual(len(self.application.notes), 2)
         response = reject_applicant(self.applicant.id, current_user=self.senior_recruiter)
+        self.assertEqual(len(self.application.notes), 3)
         self.assertDictEqual(response, {'status': 'ok'})
         self.assertFalse(self.application.is_accepted)
         self.assertTrue(self.application.is_concluded)
