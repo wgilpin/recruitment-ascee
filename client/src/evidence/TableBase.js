@@ -5,6 +5,7 @@ import FetchData from '../common/FetchData';
 import TableStyles from './TableStyles';
 import collapsedImg from '../images/collapsed.png';
 import expandedImg from '../images/expanded.png';
+import moment from 'moment';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -57,6 +58,8 @@ export default class TableBase extends React.Component {
     this.detailFormatter = null;
     this.keyField = null;
     this.listName = null;
+    const locale = window.navigator.userLanguage || window.navigator.language;
+    moment.locale(locale);
   }
 
   static kinds() {
@@ -159,9 +162,7 @@ export default class TableBase extends React.Component {
     if (final) {
       style = { ...style, width: '100%' };
     }
-    const newdate = new Date(date);
-    const theDate =
-      newdate.toLocaleDateString() + ' ' + newdate.toLocaleTimeString();
+    const theDate = moment(date).format('DD-MMM-YYYY HH:MM')
     return <div style={style}>{theDate}</div>;
   }
 
