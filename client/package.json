@@ -5,6 +5,7 @@
   "homepage": "http://ascee-recruit.herokuapp.com/",
   "dependencies": {
     "cross-env": "^5.2.0",
+    "moment": "^2.24.0",
     "prettier-eslint": "^8.8.2",
     "query-string": "^6.2.0",
     "react": "^16.5.2",
