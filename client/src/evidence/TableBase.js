@@ -162,7 +162,7 @@ export default class TableBase extends React.Component {
     if (final) {
       style = { ...style, width: '100%' };
     }
-    const theDate = moment(date).format('HH:MM   DD MMM YYYY ')
+    const theDate = moment(date).format('DD-MMM-YYYY HH:MM')
     return <div style={style}>{theDate}</div>;
   }
 

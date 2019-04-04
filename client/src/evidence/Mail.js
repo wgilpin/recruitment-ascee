@@ -173,7 +173,7 @@ export default class Mail extends React.Component {
     lineStyle = (key % 2 === 0 ? styles.isOdd : {});
     lineStyle = { ...lineStyle, ...readStyle, ...styles.cell };
     let newdate = new Date(timestamp);
-    formattedDate = moment(timestamp).format('HH:MM   DD MMM YYYY ')
+    formattedDate = moment(timestamp).format('DD-MMM-YYYY HH:MM')
     let nameStyle = {...lineStyle};
     if (redlisted.indexOf('from_name') > -1) {
       nameStyle = { ...lineStyle, ...styles.redList };
