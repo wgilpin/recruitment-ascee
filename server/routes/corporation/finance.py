@@ -72,7 +72,18 @@ def api_corporation_wallet(corporation_id):
     Get wallet journal for a given corporation.
 
     Returned dictionary is of the form
-    {'info': [entry_1, entry_2, ...]}. Each entry is as returned by ESI. If
+
+    {
+        'info': [
+            {
+                'division_name': 'Division 1',
+                'info': [entry_1, entry_2, ...],
+            },
+            ...
+        ]
+    }
+
+    Each entry is as returned by ESI. If
     `first_party_id` and/or `second_party_id` are present, the entry will also
     have the key `first_party` and/or `second_party` whose value is a dict with
     keys `id`, `name`, `party_type` ('corporation' or 'corporation'),
