@@ -14,4 +14,4 @@ def get_corporation_bookmarks(corporation_id, current_user=None):
     folder_list = character.get_paged_op(
                 'get_corporations_corporation_id_bookmarks_folders',
                 corporation_id=corporation_id)
-    return process_bookmarks(bookmarks_list, folder_list)
+    return process_bookmarks(corporation_id, bookmarks_list, folder_list)
