@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Alt from "../common/Alt";
 import FetchData from "../common/FetchData";
+import ApplicationHistory from "./ApplicationHistory";
 
 const propTypes = {
   onAltSelect: PropTypes.func,
@@ -92,7 +93,8 @@ export default class Alts extends React.Component {
           corporationId: info.corporation_id,
           alliance: info.alliance_name,
           secStatus: info.security_status,
-          corpRedlisted: "corporation_name" in info.redlisted
+          corpRedlisted: "corporation_name" in info.redlisted,
+          applicationId: info.current_application_id,
         })
       );
   };
@@ -106,7 +108,9 @@ export default class Alts extends React.Component {
           mainData = data.info[this.props.main];
           delete data.info[this.props.main];
         }
-        this.setState({ alts: data.info, main: mainData });
+        this.setState({ alts: data.info, main: mainData },
+          () => this.loadCharacterSummary(this.props.main));
+
       })
       .catch(err => console.log(err));
     new FetchData({ id: this.props.main, scope: "user/corporations" })
@@ -145,39 +149,44 @@ export default class Alts extends React.Component {
 
   render() {
     const hasAlts = Object.keys(this.state.alts || {}).length > 0;
+    const { selected, alts, applicationId } = this.state;
+    const { main, children } = this.props;
     return (
       <div style={{ ...styles.outer, ...this.props.style }}>
-        {this.props.childrenTop && this.props.children}
+        {this.props.childrenTop && children}
         <hr style={styles.hr} />
         {this.props.highlightMain &&
-          this.state.main && [
+          main && this.state.main && [
             <div style={styles.sectionTitle}>Main</div>,
             <Alt
               style={styles.div}
               name={this.state.main.name}
-              id={this.props.main}
-              selected={this.state.selected === this.props.main}
+              id={main}
+              selected={selected === main}
               onClick={this.handleClickAlt}
               showPointer={this.props.showPointer}
             />,
-            this.state.selected === this.props.main && this.renderSummary(),
+            selected === main && this.renderSummary(),
+            <div style={styles.summary}>
+              <ApplicationHistory applicantId={main} applicationId={applicationId}/>
+            </div>,
             <hr style={styles.hr} />
           ]}
         {hasAlts && <div style={styles.sectionTitle}>Alts</div>}
-        {Object.keys(this.state.alts || {}).map(key => {
-          const alt = this.state.alts[key];
+        {Object.keys(alts || {}).map(key => {
+          const alt = alts[key];
           return [
             <Alt
               style={styles.div}
               name={alt.name}
               id={key}
-              selected={this.state.selected === key}
+              selected={selected === key}
               onClick={this.handleClickAlt}
             />,
-            this.state.selected === key && this.renderSummary()
+            selected === key && this.renderSummary()
           ];
         })}
-        {!this.props.childrenTop && this.props.children}
+        {!this.props.childrenTop && children}
         {hasAlts && <hr style={styles.hr} />}
       </div>
     );
