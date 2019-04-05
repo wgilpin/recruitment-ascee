@@ -699,8 +699,8 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], dict)
-        self.assertEqual(len(result['info'])), 1
-        the_key = result['info'][0]
+        self.assertEqual(len(result['info']), 1)
+        the_key = list(result['info'].keys())[0]
         app_data = result['info'][the_key]
         self.assertEqual(app_data['recruiter_id'], None)
         self.assertEqual(app_data['recruiter_name'], None)
@@ -714,8 +714,8 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], dict)
-        self.assertEqual(len(result['info'])), 1
-        the_key = result['info'][0]
+        self.assertEqual(len(result['info']), 1)
+        the_key = list(result['info'].keys())[0]
         app_data = result['info'][the_key]
         self.assertEqual(app_data['recruiter_id'], None)
         self.assertEqual(app_data['recruiter_name'], None)
@@ -727,8 +727,8 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], dict)
-        self.assertEqual(len(result['info'])), 1
-        the_key = result['info'][0]
+        self.assertEqual(len(result['info']), 1)
+        the_key = list(result['info'].keys())[0]
         app_data = result['info'][the_key]
         self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
         self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
@@ -740,8 +740,8 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], dict)
-        self.assertEqual(len(result['info'])), 1
-        the_key = result['info'][0]
+        self.assertEqual(len(result['info']), 1)
+        the_key = list(result['info'].keys())[0]
         app_data = result['info'][the_key]
         self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
         self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
@@ -753,8 +753,8 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], dict)
-        self.assertEqual(len(result['info'])), 1
-        the_key = result['info'][0]
+        self.assertEqual(len(result['info']), 1)
+        the_key = list(result['info'].keys())[0]
         app_data = result['info'][the_key]
         self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
         self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
@@ -767,13 +767,13 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], dict)
-        self.assertEqual(len(result['info'])), 1
-        the_key = result['info'][0]
+        self.assertEqual(len(result['info']), 1)
+        the_key = list(result['info'].keys())[0]
         app_data = result['info'][the_key]
         self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
         self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
         self.assertEqual(app_data['status'], 'rejected')
-        self.assertEqual(len(app_data['notes']), 0)
+        self.assertEqual(len(app_data['notes']), 1)
 
     def test_accepted_history(self):
         accept_applicant(self.applicant.id, current_user=self.recruiter)
@@ -781,13 +781,13 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], dict)
-        self.assertEqual(len(result['info'])), 1
-        the_key = result['info'][0]
+        self.assertEqual(len(result['info']), 1)
+        the_key = list(result['info'].keys())[0]
         app_data = result['info'][the_key]
         self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
         self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
         self.assertEqual(app_data['status'], 'accepted')
-        self.assertEqual(len(app_data['notes']), 0)
+        self.assertEqual(len(app_data['notes']), 1)
 
     def test_accepted_history_with_note(self):
         add_applicant_note(self.applicant.id, "A note", title='A Title', is_chat_log=True, current_user=self.recruiter)
@@ -796,13 +796,13 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], dict)
-        self.assertEqual(len(result['info'])), 1
-        the_key = result['info'][0]
+        self.assertEqual(len(result['info']), 1)
+        the_key = list(result['info'].keys())[0]
         app_data = result['info'][the_key]
         self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
         self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
         self.assertEqual(app_data['status'], 'accepted')
-        self.assertEqual(len(app_data['notes']), 1)
+        self.assertEqual(len(app_data['notes']), 2)
         note_data = app_data['notes'][0]
         self.assertEqual(note_data['text'], 'A note')
         self.assertEqual(note_data['title'], 'A Title')
@@ -818,13 +818,13 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], dict)
-        self.assertEqual(len(result['info'])), 1
-        the_key = result['info'][0]
+        self.assertEqual(len(result['info']), 1)
+        the_key = list(result['info'].keys())[0]
         app_data = result['info'][the_key]
         self.assertEqual(app_data['recruiter_id'], self.recruiter.id)
         self.assertEqual(app_data['recruiter_name'], self.recruiter.name)
         self.assertEqual(app_data['status'], 'invited')
-        self.assertEqual(len(app_data['notes']), 0)
+        self.assertEqual(len(app_data['notes']), 2)
 
     def test_two_applications(self):
         reject_applicant(self.applicant.id, current_user=self.recruiter)
@@ -836,7 +836,7 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result, dict)
         self.assertIn('info', result)
         self.assertIsInstance(result['info'], dict)
-        self.assertEqual(len(result['info'])), 2
+        self.assertEqual(len(result['info']), 2)
 
 
 if __name__ == '__main__':
