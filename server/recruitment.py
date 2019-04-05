@@ -277,7 +277,7 @@ def application_history(applicant_id, current_user=None):
     user = User.get(applicant_id)
     if not (is_senior_recruiter(current_user) or is_admin(current_user)):
         user_application_access_check(current_user, user)
-    application_list = []
+    applications = {}
     for application in user.applications:
         app_dict = {}
         app_dict['recruiter_id'] = application.recruiter_id
@@ -287,7 +287,7 @@ def application_history(applicant_id, current_user=None):
             app_dict['recruiter_name'] = User.get(application.recruiter_id).name
 
         app_dict['status'] = get_application_status(application)
-        application_list.append(app_dict)
         app_dict['notes'] = get_application_note_data(application)
-    return {'info': application_list}
+        applications[application.id] = app_dict
+    return {'info': applications}
 

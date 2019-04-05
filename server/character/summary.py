@@ -1,4 +1,4 @@
-from models import Character, Corporation, db
+from models import Character, Corporation, db, Application
 from security import character_application_access_check
 
 
@@ -9,6 +9,7 @@ def get_character_summary(character_id, current_user=None):
         'get_characters_character_id',
         character_id=character_id,
     )
+    character_data['current_application_id'] = Application.get_for_user(character.user_id).id
     character_data['security_status'] = character_data.get('security_status', 0.)
     corporation = Corporation.get(character_data['corporation_id'])
     if character.corporation_id != corporation.id:
