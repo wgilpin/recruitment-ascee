@@ -260,6 +260,7 @@ export default class Evidence extends React.Component {
             {active === 'Blueprints' && (
               <TableBlueprints
                 style={styles.tabBody}
+                corporation={currentCorp}
                 targetId={currentTargetId}
               />
             )}
