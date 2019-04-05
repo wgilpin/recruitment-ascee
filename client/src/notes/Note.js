@@ -94,11 +94,8 @@ export default class Note extends React.Component {
   };
 
   render() {
-    console.log(`render note ${this.props.id} ${this.props.title}`);
     const { author, title, body } = this.props;
     const bodyLines = body.split('\n');
-    console.log(bodyLines);
-
     return (
       <div style={styles.outer}>
         {title && title.length > 0 && <div style={styles.title}>{title}</div>}
@@ -111,7 +108,7 @@ export default class Note extends React.Component {
             {this.state.collapsed && bodyLines[0]}{' '}
           </div>
           <div style={styles.date}>
-            {moment().calendar(this.props.timestamp, {
+            {moment(this.props.timestamp).calendar(null, {
               sameElse: 'D MMM YYYY',
             })}
             {this.expansionButton()}
