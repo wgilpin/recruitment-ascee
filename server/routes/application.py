@@ -177,7 +177,8 @@ def api_application_history(applicant_id):
     Example:
 
     {
-        'info': [
+        'info': {
+            <application_id>:
             {
                 'recruiter_id': 10233421,  # could be None
                 'recruiter_name': 'Recruiter Rachel',  # could be None
@@ -196,7 +197,7 @@ def api_application_history(applicant_id):
                 ],
             },
             (...)
-        ]
+        }
     }
 
     Error codes:
