@@ -67,7 +67,7 @@ const displayOrder = [
   { name: 'Market', src: marketImg },
   { name: 'Fittings', src: fittingsImg },
   { name: 'Industry', src: industryImg, includeForCorp: true },
-  { name: 'Blueprints', src: blueprintImg },
+  { name: 'Blueprints', src: blueprintImg, includeForCorp: true },
   { name: 'Contracts', src: contractsImg },
   { name: 'PI', src: PIImg },
   { name: 'Calendar', src: calendarImg },

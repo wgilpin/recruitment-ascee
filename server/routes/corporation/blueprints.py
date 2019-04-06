@@ -12,7 +12,7 @@ def api_corporation_blueprints(corporation_id):
     Get blueprints for a given corporation.
 
     Returned dictionary is as returned by ESI, but with additional keys `type_name`,
-    `system_id`, and `system_name`.
+    `system_id`, `system_name` and `is_blueprint_copy`.
 
     Args:
         corporation_id (int)
