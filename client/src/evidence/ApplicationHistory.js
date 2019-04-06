@@ -42,13 +42,27 @@ export default class ApplicationHistory extends React.Component {
     };
   }
 
+  getHistory() {
+    if (this.props.applicantId) {
+      new FetchData({
+        id: this.props.applicantId,
+        scope: 'recruits/application_history',
+      })
+        .get()
+        .then(data => this.setState({ applications: data.info }));
+    } else {
+      this.setState({ applications: {} });
+    }
+  }
+
   componentDidMount() {
-    new FetchData({
-      id: this.props.applicantId,
-      scope: 'recruits/application_history',
-    })
-      .get()
-      .then(data => this.setState({ applications: data.info }));
+    this.getHistory();
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (prevProps.applicantId !== this.props.applicantId){
+      this.getHistory();
+    }
   }
 
   handleClickShow = () =>
@@ -58,26 +72,26 @@ export default class ApplicationHistory extends React.Component {
     return (
       moment((b.notes || {})[0].timestamp) -
       moment((a.notes || {})[0].timestamp)
-    )
+    );
   }
 
   render() {
     const { applicationId } = this.props;
+    const min_history = this.props.showall ? 0 : 1;
     const { applications, showOldApps } = this.state;
-    if (!applicationId || !Object.keys(applications).length) {
+    if (!applicationId && Object.keys(applications).length === 0) {
       return null;
     }
-    const hasOldApps = Object.keys(applications).length > 1;
-    console.log('found', hasOldApps);
-
+    const hasOldApps = Object.keys(applications).length > min_history;
+    
     return (
       <React.Fragment>
-        {hasOldApps && (
+        {hasOldApps && !this.props.showall &&(
           <button style={styles.alertButton} onClick={this.handleClickShow}>
             Old Applications
           </button>
         )}
-        {showOldApps && (
+        {(showOldApps || this.props.showall) && (
           <div style={styles.appsList}>
             {Object.values(applications)
               .sort(this.sortApps)
@@ -93,7 +107,7 @@ export default class ApplicationHistory extends React.Component {
                     <div style={styles.appNote}>
                       {(val.notes[0] || {}).text}
                     </div>
-                    <hr/>
+                    <hr />
                   </div>
                 );
               })}
