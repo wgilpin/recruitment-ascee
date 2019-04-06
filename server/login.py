@@ -17,6 +17,7 @@ from exceptions import ForbiddenException, AppException
 import backoff
 from functools import wraps
 from security import is_admin, is_recruiter
+from status import add_status_note
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -98,6 +99,10 @@ def route_login(login_type, character):
 
 def link_alt(character, user):
     character.user_id = user.get_id()
+    application = Application.get_submitted_for_user(user.id)
+    add_status_note(
+        application, 'added an alt: {} / {}.'.format(
+            character.name, character.id))
     db.session.commit()
     if character.blocked_from_applying:
         block_user_from_applying(user)
@@ -111,7 +116,8 @@ def block_user_from_applying(user):
     for character in user.characters:
         character.blocked_from_applying = True
     application = db.session.Query(Application).filter(
-        db.and_(Application.user_id==user.id, db.not_(Application.is_concluded))
+        db.and_(Application.user_id == user.id,
+                db.not_(Application.is_concluded))
     ).one_or_none()
     if application:
         application.is_concluded = True
