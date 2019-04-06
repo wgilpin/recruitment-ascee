@@ -227,6 +227,7 @@ class CorporationBlueprintsTests(SimpleCorporationMixin, AsceeTestCase):
             'type_name': str,
             'system_id': int,
             'system_name': str,
+            'is_blueprint_copy': bool,
         },
         'optional': {
         },

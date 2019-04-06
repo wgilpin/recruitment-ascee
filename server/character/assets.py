@@ -50,6 +50,7 @@ def process_blueprints(assets, blueprints_list):
     system_dict = System.get_multi(list(set(asset_system_dict.values())))
     for entry in blueprints_list:
         entry['redlisted'] = []
+        entry['is_blueprint_copy'] = entry['quantity'] == -2
         type = type_dict[entry['type_id']]
         entry['type_name'] = type.name
         if entry['item_id'] in asset_system_dict:
