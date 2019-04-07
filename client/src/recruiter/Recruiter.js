@@ -244,7 +244,7 @@ export default class Recruiter extends React.Component {
       if (res.status === 'ok') {
         this.setRecruitStatus(id, Recruiter.statuses.rejected);
       } else {
-        this.setState({ showAlert: true, alertText: "User can't be rejected" });
+        this.setState({ showAlert: true, alertText: "User can't be rejected. \nCheck with an dmain that a evemail \nsender is configured" });
       }
     });
   };
