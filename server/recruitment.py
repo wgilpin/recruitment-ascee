@@ -78,14 +78,15 @@ def set_answers(user_id, answers=None, current_user=None):
     if not application:
         raise ForbiddenException(f'User {user_id} is not an applicant')
     for answer in answers:
-        answer_record = Answer.query\
-            .filter_by(question_id=answer['question_id'], application_id=application.id)\
-            .one_or_none()
+        answer_record = Answer.query.filter_by(
+            question_id=answer['question_id'], application_id=application.id
+        ).one_or_none()
         if not answer_record:
             answer_record = Answer(
                 question_id=answer['question_id'], text=answer.get('text', ''), application_id=application.id)
             db.session.add(answer_record)
-        answer_record.text = answer['text']
+        else:
+            answer_record.text = answer.get('text', '')
         db.session.commit()
     db.session.commit()
 
