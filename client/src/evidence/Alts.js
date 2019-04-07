@@ -121,6 +121,9 @@ export default class Alts extends React.Component {
 
   renderSummary() {
     const { corporations, selected, corporationId, corpRedlisted } = this.state;
+    if (!corporations) {
+      return;
+    }
     const isCEO =
       (corporations[corporationId] || {}).ceo_id === parseInt(selected);
     let corpStyle = isCEO ? styles.corpCEO : styles.corporation;
