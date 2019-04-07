@@ -156,6 +156,7 @@ export default class Applicant extends Component {
             <div key={key}>
               <div style={styles.padded}>{question}</div>
               <textarea
+                maxLength={2000}
                 style={styles.answer}
                 id={key}
                 onChange={this.handleAnswerChanged}
