@@ -20,6 +20,8 @@ const styles = {
   },
   label: {
     textAlign: 'left',
+    fontSize: 'large',
+    marginBottom: '6px',
   },
   paddedHeavily: {
     padding: 24,
@@ -85,6 +87,7 @@ const styles = {
     color: 'darkgrey',
     backgroundColor: Styles.themeColors.secondary,
   },
+  themeColors: Styles.themeColors,
 };
 
 export default styles;

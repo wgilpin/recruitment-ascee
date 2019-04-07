@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import ReactTooltip from 'react-tooltip';
 import Alts from '../evidence/Alts';
 import FetchData from '../common/FetchData';
 import styles from './ApplicantStyles';
@@ -178,13 +179,16 @@ export default class Applicant extends Component {
   buildHeader = () => {
     let buttonLabel = 'Start';
     let buttonStyle;
+    let buttonTip;
     if (this.state.has_application) {
       buttonLabel = 'Submit';
     }
     if (this.state.has_application && this.state.ready) {
       buttonStyle = { ...styles.submit, ...styles.padded };
+      buttonTip = 'Ready to submit';
     } else {
       buttonStyle = { ...styles.disabledButton, ...styles.padded };
+      buttonTip = 'All fields not complete';
     }
 
     return [
@@ -201,7 +205,7 @@ export default class Applicant extends Component {
         </div>
       ),
       <div>
-        <button style={buttonStyle} onClick={this.submit}>
+        <button style={buttonStyle} onClick={this.submit} data-tip={buttonTip}>
           {buttonLabel} Application
         </button>
         {!this.state.ready && this.applicationStatus()}
@@ -213,7 +217,7 @@ export default class Applicant extends Component {
     return (
       <TabPanel>
         <h2 style={styles.headingLeft}>My Alts</h2>
-        <div style={styles.padded}>
+        <div style={styles.padded} data-tip="Check here when you have added all you alts">
           <label style={styles.label}>
             I have no more alts&emsp;
             <input
@@ -225,12 +229,17 @@ export default class Applicant extends Component {
           </label>
         </div>
         <Alts style={styles.alts}>
-          <a href="/auth/link_alt">
+          <a href="/auth/link_alt" data-tip="Add an alt">
             {!this.state.ready && (
-              <FabButton icon="add" color="#c00" size="40px" />
+              <FabButton
+                icon="add"
+                color={styles.themeColors.primary}
+                size="40px"
+              />
             )}
           </a>
         </Alts>
+        <ReactTooltip />
       </TabPanel>
     );
   };
