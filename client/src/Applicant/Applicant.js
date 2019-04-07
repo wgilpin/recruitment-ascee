@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, setGlobal } from 'reactn';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import ReactTooltip from 'react-tooltip';
 import Alts from '../evidence/Alts';
 import FetchData from '../common/FetchData';
 import styles from './ApplicantStyles';
 import AsceeImg from '../images/ascee_logo.png';
 import FabButton from '../common/fabButton';
+import Answers from './Answers';
+
+setGlobal({ questions: [], answers: {} });
 
 export default class Applicant extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: [],
       altsDone: false,
       ready: false,
       has_application: false,
       submitted: false,
-      dirtyAnswers: false,
-      answers: {},
     };
   }
 
@@ -32,7 +33,7 @@ export default class Applicant extends Component {
   }
 
   questionsToState = questions => {
-    this.setState({ questions });
+    this.setGlobal({ questions });
   };
 
   answersToState = ({ has_application, questions }) => {
@@ -41,7 +42,8 @@ export default class Applicant extends Component {
     Object.keys(questions).forEach(key => {
       newAnswers[key] = questions[key].answer;
     });
-    this.setState({ answers: newAnswers, has_application: true });
+    this.setGlobal({ answers: newAnswers });
+    this.setState({ has_application: true });
   };
 
   componentDidMount() {
@@ -49,25 +51,15 @@ export default class Applicant extends Component {
     new FetchData({ scope: 'answers' }).get().then(this.answersToState);
   }
 
-  handleAnswerChanged = e => {
-    this.setState(
-      {
-        dirtyAnswers: true,
-        answers: {
-          ...this.state.answers,
-          [e.target.id]: e.target.value,
-        },
-      },
-      () => this.checkReady()
-    );
-  };
+  
 
   allQuestionsAnswered = () => {
-    if (Object.keys(this.state.answers).length === 0) {
+    if (Object.keys(this.global.answers).length === 0) {
       return false;
     }
     return (
-      Object.values(this.state.answers).filter(q => q.length === 0).length === 0
+      Object.values(this.global.answers).filter(q => q.length === 0).length ===
+      0
     );
   };
 
@@ -93,7 +85,7 @@ export default class Applicant extends Component {
 
   stateToParams = () => {
     return {
-      answers: Object.entries(this.state.answers).map(
+      answers: Object.entries(this.global.answers).map(
         ([question_id, text]) => ({ question_id, text })
       ),
     };
@@ -148,29 +140,7 @@ export default class Applicant extends Component {
   buildQuestionsPanel = () => {
     return (
       <TabPanel>
-        <h2 style={styles.heading}>Recruitment Questions</h2>
-        {Object.keys(this.state.questions || {}).map(key => {
-          const question = this.state.questions[key];
-          const answer = this.state.answers[key];
-          return (
-            <div key={key}>
-              <div style={styles.padded}>{question}</div>
-              <textarea
-                style={styles.answer}
-                id={key}
-                onChange={this.handleAnswerChanged}
-              >
-                {answer}
-              </textarea>
-              <hr style={styles.hr} />
-            </div>
-          );
-        })}
-        {this.state.dirtyAnswers && (
-          <button style={styles.primaryButton} onClick={this.handleSaveAnswers}>
-            Save
-          </button>
-        )}
+        <Answers onChange={this.checkReady} />
       </TabPanel>
     );
   };
@@ -178,13 +148,16 @@ export default class Applicant extends Component {
   buildHeader = () => {
     let buttonLabel = 'Start';
     let buttonStyle;
+    let buttonTip;
     if (this.state.has_application) {
       buttonLabel = 'Submit';
     }
     if (this.state.has_application && this.state.ready) {
       buttonStyle = { ...styles.submit, ...styles.padded };
+      buttonTip = 'Ready to submit';
     } else {
       buttonStyle = { ...styles.disabledButton, ...styles.padded };
+      buttonTip = 'All fields not complete';
     }
 
     return [
@@ -201,7 +174,7 @@ export default class Applicant extends Component {
         </div>
       ),
       <div>
-        <button style={buttonStyle} onClick={this.submit}>
+        <button style={buttonStyle} onClick={this.submit} data-tip={buttonTip}>
           {buttonLabel} Application
         </button>
         {!this.state.ready && this.applicationStatus()}
@@ -213,7 +186,10 @@ export default class Applicant extends Component {
     return (
       <TabPanel>
         <h2 style={styles.headingLeft}>My Alts</h2>
-        <div style={styles.padded}>
+        <div
+          style={styles.padded}
+          data-tip="Check here when you have added all you alts"
+        >
           <label style={styles.label}>
             I have no more alts&emsp;
             <input
@@ -225,12 +201,17 @@ export default class Applicant extends Component {
           </label>
         </div>
         <Alts style={styles.alts}>
-          <a href="/auth/link_alt">
+          <a href="/auth/link_alt" data-tip="Add an alt">
             {!this.state.ready && (
-              <FabButton icon="add" color="#c00" size="40px" />
+              <FabButton
+                icon="add"
+                color={styles.themeColors.primary}
+                size="40px"
+              />
             )}
           </a>
         </Alts>
+        <ReactTooltip />
       </TabPanel>
     );
   };

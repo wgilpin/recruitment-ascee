@@ -183,7 +183,6 @@ def api_application_history(applicant_id):
                 'recruiter_id': 10233421,  # could be None
                 'recruiter_name': 'Recruiter Rachel',  # could be None
                 'status': 'rejected',  # one of 'new', 'submitted', 'claimed, 'rejected', 'accepted', 'invited'
-                'status_update_timestamp': 'ISO Date string',
                 'notes': [
                     {
                         "timestamp": "ISO Date string",
