@@ -45,13 +45,17 @@ def process_wallet(character_id, wallet_data):
         if wallet_entry['amount'] == 0:
             wallet_entry['redlisted'].append('amount')
         if 'first_party_id' in wallet_entry:
-            wallet_entry['first_party'] = party_data[wallet_entry['first_party_id']]
+            wallet_entry['first_party'] = party_data.get(wallet_entry['first_party_id'])
         if 'second_party_id' in wallet_entry:
-            wallet_entry['second_party'] = party_data[wallet_entry['second_party_id']]
+            wallet_entry['second_party'] = party_data.get(wallet_entry['second_party_id'])
         if wallet_entry.get('first_party_id', None) == character_id:
             wallet_entry['other_party'] = wallet_entry.get('second_party', {'name': ''})['name']
         else:
             wallet_entry['other_party'] = wallet_entry.get('first_party', {'name': ''})['name']
+        if len(wallet_entry['first_party'].get('redlisted', [])) > 0:
+            wallet_entry['redlisted'].append('first_party')
+        if len(wallet_entry['second_party'].get('redlisted', [])) > 0:
+            wallet_entry['redlisted'].append('second_party')
     return {'info': wallet_data}
 
 
@@ -92,6 +96,16 @@ def get_party_data(party_ids):
             party_data[character.id]['redlisted'].append('name')
         if character.corporation.is_redlisted:
             party_data[character.id]['redlisted'].extend(['corporation_name', 'corporation_ticker'])
+    unresolved_ids = set(party_ids).difference(party_data.keys())
+    for id in unresolved_ids:
+        party_data[id] = {
+            'id': id,
+            'name': 'Unresolved party {}'.format(id),
+            'party_type': 'unknown',
+            'corporation_name': '',
+            'corporation_ticker': '',
+            'redlisted': ['name'],
+        }
     return party_data
 
 

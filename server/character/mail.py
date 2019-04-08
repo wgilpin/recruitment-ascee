@@ -3,6 +3,14 @@ from models import Character, Corporation, Alliance
 from security import character_application_access_check
 
 
+class MailingList(object):
+
+    is_redlisted = False
+    
+    def __init__(self, name):
+        self.name = name
+
+
 def get_character_mail(character_id, last_mail_id=None, current_user=None):
     target_character = Character.get(character_id)
     character_application_access_check(current_user, target_character)
@@ -21,10 +29,12 @@ def get_character_mail(character_id, last_mail_id=None, current_user=None):
         character_ids = set()
         corp_ids = set()
         alliance_ids = set()
+        mailing_list_ids = set()
         id_set_dict = {
             'character': character_ids,
             'corporation': corp_ids,
-            'alliance': alliance_ids
+            'alliance': alliance_ids,
+            'mailing_list': mailing_list_ids,
         }
         name_data = get_op(
             'post_universe_names', ids=list(from_ids)
@@ -42,6 +52,8 @@ def get_character_mail(character_id, last_mail_id=None, current_user=None):
         all_parties.update(characters)
         all_parties.update(corporations)
         all_parties.update(alliances)
+        for id in mailing_list_ids:
+            all_parties[id] = MailingList('Mailing List {}'.format(id))
 
     for entry in mail_list:
         entry['redlisted'] = []

@@ -5,8 +5,9 @@ from flask_app import app
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask import session, redirect, request
 from esi_config import (
-    callback_url, client_id, secret_key, scopes, login_url, app_url,
-    react_app_url, applicant_url, recruiter_url, admin_url, rejection_url
+    callback_url, client_id, secret_key, scopes, login_url,
+    react_app_url, applicant_url, recruiter_url, admin_url, rejection_url,
+    send_mail_scope,
 )
 from mail import set_mail_character
 import random
@@ -30,18 +31,24 @@ def load_user(user_id):
 
 
 def login_helper(login_type):
-    session['token'] = login_type + ':' + generate_token()
-    params = {
-        'redirect_uri': callback_url,
-        'client_id': client_id,
-        'response_type': 'code',
-        'state': session['token'],
-    }
-    if login_type in ('scopes', 'link', 'mail'):
-        params['scope'] = scopes
-    eve_login_url = login_url + '?' + '&'.join(
-        '{}={}'.format(k, v) for k, v in params.items())
-    return redirect(eve_login_url)
+    if login_type == 'login' and current_user.is_authenticated:
+        character = Character.get(current_user.id)
+        return route_to_app_home(current_user, character)
+    else:
+        session['token'] = login_type + ':' + generate_token()
+        params = {
+            'redirect_uri': callback_url,
+            'client_id': client_id,
+            'response_type': 'code',
+            'state': session['token'],
+        }
+        if login_type in ('scopes', 'link'):
+            params['scope'] = scopes
+        elif login_type == 'mail':
+            params['scope'] = send_mail_scope
+        eve_login_url = login_url + '?' + '&'.join(
+            '{}={}'.format(k, v) for k, v in params.items())
+        return redirect(eve_login_url)
 
 
 @app.route('/auth/oauth_callback', methods=['GET'])
@@ -59,6 +66,22 @@ def api_oauth_callback():
     return route_login(login_type, character)
 
 
+def route_to_app_home(user, character):
+    if not (is_recruiter(user) or is_admin(user)):
+        if Application.get_for_user(user.id) is None:
+            if character.blocked_from_applying:
+                logout_user()
+                return redirect(rejection_url)
+        if character.refresh_token is None:
+            return login_helper('scopes')
+        else:
+            return redirect(applicant_url)
+    elif is_recruiter(user):
+        return redirect(recruiter_url)
+    elif is_admin(user):
+        return redirect(admin_url)
+
+
 def route_login(login_type, character):
     if login_type == 'login':
         print('char', character)
@@ -68,19 +91,7 @@ def route_login(login_type, character):
             db.session.commit()
         user = User.get(character.user_id)
         login_user(user)
-        if not (is_recruiter(user) or is_admin(user)):
-            if Application.get_for_user(user.id) is None:
-                if character.blocked_from_applying:
-                    logout_user()
-                    return redirect(rejection_url)
-            if character.refresh_token is None:
-                return login_helper('scopes')
-            else:
-                return redirect(applicant_url)
-        elif is_recruiter(user):
-            return redirect(recruiter_url)
-        elif is_admin(user):
-            return redirect(admin_url)
+        return route_to_app_home(user, character)
     elif login_type == 'scopes':
         if current_user is not None and current_user.id != character.id:
             logout_user()
