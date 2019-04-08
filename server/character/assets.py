@@ -118,7 +118,9 @@ def organize_assets_by_location(character, asset_list):
     for location_id in location_model_dict:
         location = location_model_dict[location_id]
         location_data_dict[location_id]['name'] = location.name
-        if location.system_id is not None:
+        if isinstance(location, System):
+            system = location
+        elif location.system_id is not None:
             system = System.get(location.system_id)
         else:
             system = DummySystem
