@@ -5,8 +5,9 @@ from flask_app import app
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask import session, redirect, request
 from esi_config import (
-    callback_url, client_id, secret_key, scopes, login_url, app_url,
-    react_app_url, applicant_url, recruiter_url, admin_url, rejection_url
+    callback_url, client_id, secret_key, scopes, login_url,
+    react_app_url, applicant_url, recruiter_url, admin_url, rejection_url,
+    send_mail_scope,
 )
 from mail import set_mail_character
 import random
@@ -36,8 +37,10 @@ def login_helper(login_type):
         'response_type': 'code',
         'state': session['token'],
     }
-    if login_type in ('scopes', 'link', 'mail'):
+    if login_type in ('scopes', 'link'):
         params['scope'] = scopes
+    elif login_type == 'mail':
+        params['scope'] = send_mail_scope
     eve_login_url = login_url + '?' + '&'.join(
         '{}={}'.format(k, v) for k, v in params.items())
     return redirect(eve_login_url)
