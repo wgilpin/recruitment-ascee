@@ -60,10 +60,7 @@ def get_character_mail(character_id, last_mail_id=None, current_user=None):
         entry['from_name'] = all_parties[entry['from']].name
         recipients_redlisted = False
         for recipient in entry['recipients']:
-            if recipient['recipient_id'] in mailing_list_ids:
-                recipient['recipient_name'] = 'Mailing list {}'.format(recipient['recipient_id'])
-            else:
-                recipient['recipient_name'] = all_parties[recipient['recipient_id']].name
+            recipient['recipient_name'] = all_parties[recipient['recipient_id']].name
             if all_parties[recipient['recipient_id']].is_redlisted:
                 recipient['redlisted'] = ['recipient_name']
             else:
