@@ -108,7 +108,7 @@ export default class Applicant extends Component {
         .get()
         .then(res => {
           if (res.status === 401) {
-            return (window.location = '/app/');
+            return (window.location = '/auth/logout/');
           }
           window.location.reload();
         })
@@ -122,7 +122,7 @@ export default class Applicant extends Component {
             .put()
             .then(res => {
               if (res.status === 401) {
-                return (window.location = '/app/');
+                return (window.location = '/auth/logout/');
               }
               if (res.status > 401) {
                 return alert('Error submitting\n' + res.statusText);
