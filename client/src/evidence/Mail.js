@@ -99,29 +99,8 @@ export default class Mail extends React.Component {
     return small + '<hr/>';
   }
 
-  findLinks(body, linksList) {
-    /* Trawl through the body for CCP links
-     *  These are of the form showinfo:<typeId>//<itemId>
-     *  Then fetch the text from the API for each of them
-     */
-    let regexp = /showinfo:(\d+)\/\/(\d+)">([\w\s]+)</g;
-    let matches;
-    // eslint-disable-next-line no-cond-assign
-    while ((matches = regexp.exec(body))) {
-      linksList.push({ typeId: matches[1], itemId: matches[2] });
-    }
-    if (linksList.length === 0) {
-      return null;
-    }
-    let encodedList = encodeURIComponent(JSON.stringify(linksList));
-    return new FetchData({
-      scope: 'link',
-      id: this.props.targetId,
-      param1: encodedList,
-    }).get();
-  }
 
-  processLinks(links, body) {
+  processLinks(links, body){
     /* Given a list of text values for links, from this.findLinks(),
      *  replace the links with the text
      */
@@ -165,7 +144,6 @@ export default class Mail extends React.Component {
         .get()
         .then(body => {
           rawBody = this.badlyRemoveFontSizeColor(body);
-          this.findLinks(rawBody, linksList);
         })
         .then(links => this.processLinks(links, rawBody))
         .then(body => {

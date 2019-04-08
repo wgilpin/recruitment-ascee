@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import FetchData from '../common/FetchData';
 import Loader from 'react-loader-spinner';
 import Styles from '../common/Styles';
 import Chat from './Chat';
 import NoteInput from './NoteInput';
 import FabButton from '../common/fabButton';
-
 
 const propTypes = {
   alt: PropTypes.number,
@@ -40,6 +40,8 @@ export default class NotesPage extends React.Component {
     this.state = {};
   }
 
+  sortNotes = (a, b) => moment(a.timestamp) - moment(b.timestamp);
+
   fetchNotes(){
     new FetchData({ id: this.props.targetId, scope: 'recruits', param1: 'notes' })
       .get()
@@ -47,8 +49,8 @@ export default class NotesPage extends React.Component {
       .then(data => {
         this.setState({ loading: false });
         console.log(`fetched notes`, data);
-        const notes = data.info.filter(note => (note.title || '').length === 0);
-        const logs = data.info.filter(note => (note.title || '').length > 0);
+        const notes = data.info.filter(note => (note.title || '').length === 0).sort(this.sortNotes);
+        const logs = data.info.filter(note => (note.title || '').length > 0).sort(this.sortNotes);
         this.setState({ notes, logs, showAddLog: false });
       });
   }

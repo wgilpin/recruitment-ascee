@@ -171,8 +171,7 @@ export default class AdminConfig extends React.Component {
       </div>,
       this.state.showConfirm &&
         <Confirm
-          text={`You will now be asked to log in the character you want to be the mail sender.
-                This character needs to already have admin permission.` }
+          text={'You will now be asked to log in the character you want to be the mail sender.' }
           onConfirm={this.doConfirmed}
           onClose={() => this.setState({ showConfirm: false })}
         />

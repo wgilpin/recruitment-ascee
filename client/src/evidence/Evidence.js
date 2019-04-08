@@ -150,7 +150,7 @@ export default class Evidence extends React.Component {
   doLogout() {
     new FetchData({ scope: 'logout' })
       .get()
-      .then(() => (window.location = '/app/'));
+      .then(() => (window.location = '/auth/logout/'));
   }
 
   doReject = () => {
