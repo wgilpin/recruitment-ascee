@@ -1,9 +1,10 @@
-from models import Corporation, Note, Question, Answer, User, Character, db, Application, Admin, Recruiter
-from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter,\
-    is_applicant_user_id, user_admin_access_check, user_application_access_check
+from models import Note, Answer, User, Character, db, Application, Admin, Recruiter
+from security import has_applicant_access, is_admin, is_senior_recruiter, is_recruiter, \
+    user_admin_access_check, user_application_access_check
 import cachetools
 from exceptions import BadRequestException, ForbiddenException
 from models import Question
+from status import get_application_status
 
 
 def set_questions(data, current_user=None):
@@ -31,15 +32,6 @@ def remove_question(question_id, current_user=None):
     else:
         db.session.delete(question)
         db.session.commit()
-    return {'status': 'ok'}
-
-
-def submit_application(current_user=None):
-    application = Application.get_for_user(current_user.id)
-    if not application:
-        raise BadRequestException(f'User {current_user.id} is not an applicant.')
-    application.is_submitted = True
-    db.session.commit()
     return {'status': 'ok'}
 
 
@@ -78,14 +70,15 @@ def set_answers(user_id, answers=None, current_user=None):
     if not application:
         raise ForbiddenException(f'User {user_id} is not an applicant')
     for answer in answers:
-        answer_record = Answer.query\
-            .filter_by(question_id=answer['question_id'], application_id=application.id)\
-            .one_or_none()
+        answer_record = Answer.query.filter_by(
+            question_id=answer['question_id'], application_id=application.id
+        ).one_or_none()
         if not answer_record:
             answer_record = Answer(
                 question_id=answer['question_id'], text=answer.get('text', ''), application_id=application.id)
             db.session.add(answer_record)
-        answer_record.text = answer['text']
+        else:
+            answer_record.text = answer.get('text', '')
         db.session.commit()
     db.session.commit()
 
@@ -123,22 +116,6 @@ def get_answers(user_id, current_user=None):
                 'answer': '',
             }
     return response
-
-
-def start_application(current_user=None):
-    if is_admin(current_user) or is_recruiter(current_user) or is_senior_recruiter(current_user):
-        raise BadRequestException('Recruiters cannot apply')
-    character = Character.get(current_user.id)
-    if character.blocked_from_applying:
-        raise ForbiddenException('User is blocked')
-    application = Application.get_for_user(current_user.id)
-    if application:
-        raise BadRequestException('An application is already open')
-    # no application, start one
-    application = Application(user_id=current_user.id, is_concluded=False)
-    db.session.add(application)
-    db.session.commit()
-    return {'status': 'ok'}
 
 
 def add_applicant_note(applicant_user_id, text, title=None, is_chat_log=False, current_user=None):
@@ -301,7 +278,7 @@ def application_history(applicant_id, current_user=None):
     user = User.get(applicant_id)
     if not (is_senior_recruiter(current_user) or is_admin(current_user)):
         user_application_access_check(current_user, user)
-    application_list = []
+    applications = {}
     for application in user.applications:
         app_dict = {}
         app_dict['recruiter_id'] = application.recruiter_id
@@ -311,22 +288,7 @@ def application_history(applicant_id, current_user=None):
             app_dict['recruiter_name'] = User.get(application.recruiter_id).name
 
         app_dict['status'] = get_application_status(application)
-        application_list.append(app_dict)
         app_dict['notes'] = get_application_note_data(application)
-    return {'info': application_list}
+        applications[application.id] = app_dict
+    return {'info': applications}
 
-
-def get_application_status(application):
-    if application.is_concluded and not application.is_accepted:
-        status = 'rejected'
-    elif application.is_accepted and not application.is_invited:
-        status = 'accepted'
-    elif application.is_invited:
-        status = 'invited'
-    elif application.recruiter is not None:
-        status = 'claimed'
-    elif application.is_submitted:
-        status = 'submitted'
-    else:
-        status = 'new'
-    return status

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 import ReactTooltip from 'react-tooltip';
 import TabsHeader from './TabsHeader';
 import Alts from './Alts';
@@ -23,6 +23,7 @@ import closeImg from '../images/close.png';
 import checkImg from '../images/check.png';
 import RoundImage from '../common/RoundImage';
 import FetchData from '../common/FetchData';
+import Answers from '../Applicant/Answers';
 
 const styles = {
   outer: {
@@ -93,8 +94,23 @@ export default class Evidence extends React.Component {
       currentCorp: null,
     };
   }
+  questionsToState = questions => {
+    this.setGlobal({ questions });
+  };
+
+  answersToState = ({ has_application, questions }) => {
+    console.log('got answers');
+    const newAnswers = { ...this.state.answers };
+    Object.keys(questions).forEach(key => {
+      newAnswers[key] = questions[key].answer;
+    });
+    this.setGlobal({ answers: newAnswers });
+    this.setState({ has_application: true });
+  };
 
   async componentDidMount() {
+    new FetchData({ scope: 'questions' }).get().then(this.questionsToState);
+    new FetchData({ scope: 'answers' , id: this.props.main }).get().then(this.answersToState);
     const roles = await new FetchData({ scope: 'user/roles' }).get();
     this.setState({ roles: roles.info, loading: false, activeTab: 'Notes' });
   }
@@ -211,6 +227,13 @@ export default class Evidence extends React.Component {
                 targetId={this.props.main}
               />
             )}
+            {active === 'Answers' && (
+              <Answers
+                style={styles.tabBody}
+                targetId={this.props.main}
+                readonly
+              />
+            )}
             {active === 'Wallet' && (
               <TableWallet
                 style={styles.tabBody}
@@ -260,6 +283,7 @@ export default class Evidence extends React.Component {
             {active === 'Blueprints' && (
               <TableBlueprints
                 style={styles.tabBody}
+                corporation={currentCorp}
                 targetId={currentTargetId}
               />
             )}

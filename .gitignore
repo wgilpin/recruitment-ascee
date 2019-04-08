@@ -23,3 +23,5 @@ server/tests/cassettes/*.yaml
 server/tests/e2e_data.py
 server/tests/cassettes/*.swp
 server/tests/cassettes/*.json
+*.DS_Store
+

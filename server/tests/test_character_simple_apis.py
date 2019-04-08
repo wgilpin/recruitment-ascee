@@ -218,6 +218,7 @@ class CharacterSummaryTests(SimpleCharacterMixin, AsceeTestCase):
         'required': {
             'character_name': str,
             'character_id': int,
+            'current_application_id': int,
             'corporation_name': str,
             'corporation_id': int,
             'security_status': float,

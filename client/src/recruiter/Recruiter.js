@@ -9,12 +9,15 @@ import Evidence from '../evidence/Evidence';
 import Misc from '../common/Misc';
 import RoundImage from '../common/RoundImage';
 import BackImg from '../images/back.png';
+import OpenImg from '../images/arrow_forward.png';
 import RecruitButtonBar from './RecruitButtonBar';
 import IconBtn from '../common/IconBtn';
 import TableStyles from '../evidence/TableStyles';
 import styles from '../Applicant/ApplicantStyles';
 import Alert from '../common/Alert';
 import Confirm from '../common/Confirm';
+import FindESICharacter from '../admin/FindESICharacter';
+import ApplicationHistory from '../evidence/ApplicationHistory';
 
 const localStyles = {
   ...styles,
@@ -66,6 +69,9 @@ const localStyles = {
     gridColumn: 1,
     gridRow: 3,
   },
+  search: {
+    marginTop: '20px',
+  },
   evidence: {
     gridColumn: 2,
     gridRow: '1/3',
@@ -99,6 +105,9 @@ const localStyles = {
     position: 'absolute',
     left: '400px',
   },
+  find: {
+    margin: '12px',
+  },
 };
 
 export default class Recruiter extends React.Component {
@@ -115,6 +124,8 @@ export default class Recruiter extends React.Component {
       },
       showAlert: false,
       showConfirm: false,
+      showHistory: false,
+      historyId: null,
     };
   }
 
@@ -233,7 +244,7 @@ export default class Recruiter extends React.Component {
       if (res.status === 'ok') {
         this.setRecruitStatus(id, Recruiter.statuses.rejected);
       } else {
-        this.setState({ showAlert: true, alertText: "User can't be rejected" });
+        this.setState({ showAlert: true, alertText: "User can't be rejected. \nCheck with an admin that a evemail \nsender is configured" });
       }
     });
   };
@@ -316,6 +327,83 @@ export default class Recruiter extends React.Component {
     this.setState({ showAlert: false });
   };
 
+  handleOpenFromSearch = (id, _, name) => {
+    this.setState({
+      showHistory: id !== null,
+      historyId: id,
+    });
+  };
+
+  renderList = () => {
+    // 3 sections in order: claimed, accepted, unclaimed.
+    const claimed = this.applyFilter(Recruiter.statuses.claimed);
+    const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
+    const accepted = this.applyFilter(Recruiter.statuses.accepted);
+    return (
+      <div style={localStyles.outer}>
+        <h1 style={localStyles.headerText}>Applications Pending</h1>
+        <div style={localStyles.logout}>
+          <a href="/auth/logout">
+            <button style={styles.secondaryButton}>Sign Out</button>
+          </a>
+        </div>
+        <div style={localStyles.claimed}>
+          {this.sectionList('Claimed', claimed, this.state.roles.is_recruiter)}
+        </div>
+        <div style={localStyles.accepted}>
+          {this.sectionList(
+            'Accepted',
+            accepted,
+            this.state.roles.is_senior_recruiter
+          )}
+        </div>
+        <div style={localStyles.unclaimed}>
+          {this.sectionList(
+            'Unclaimed',
+            unclaimed,
+            this.state.roles.is_recruiter
+          )}
+        </div>
+        {this.state.roles.is_senior_recruiter && (
+          <div style={localStyles.search}>
+            <div style={{...localStyles.section, padding: '12px'}}>
+              <ApplicationHistory applicantId={this.state.historyId} showall/>
+              <div>
+                <FindESICharacter
+                  onChange={this.handleOpenFromSearch}
+                  iconList={[{ name: 'open', img: OpenImg }]}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  renderEvidence = () => {
+    const activeRecruit = this.state.recruits[this.state.activeRecruitId];
+    return [
+      <IconBtn
+        src={BackImg}
+        alt="back"
+        label="Back"
+        onClick={this.handleBack}
+        style={{ border: 'none' }}
+      />,
+      <Evidence
+        style={localStyles.evidence}
+        main={this.state.activeRecruitId}
+        recruiterName={activeRecruit.recruiter_name}
+        showRecruiter={
+          activeRecruit.recruiter_id !== this.state.roles.user_id
+            ? activeRecruit.recruiter_id
+            : null
+        }
+      />,
+    ];
+  };
+
   render() {
     if (this.state.loading) {
       console.log('loading');
@@ -333,11 +421,6 @@ export default class Recruiter extends React.Component {
       window.location = '/';
     }
     console.log('loaded');
-
-    // 3 sections in order: claimed, accepted, unclaimed.
-    const claimed = this.applyFilter(Recruiter.statuses.claimed);
-    const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
-    const accepted = this.applyFilter(Recruiter.statuses.accepted);
     const activeRecruit = this.state.recruits[this.state.activeRecruitId];
     return [
       this.state.roles.is_admin && (
@@ -347,57 +430,10 @@ export default class Recruiter extends React.Component {
           </button>
         </a>
       ),
-      !this.state.activeRecruitId && (
-        <div style={localStyles.outer}>
-          <h1 style={localStyles.headerText}>Applications Pending</h1>
-          <div style={localStyles.logout}>
-            <a href="/auth/logout">
-              <button style={styles.secondaryButton}>Sign Out</button>
-            </a>
-          </div>
-          <div style={localStyles.claimed}>
-            {this.sectionList(
-              'Claimed',
-              claimed,
-              this.state.roles.is_recruiter
-            )}
-          </div>
-          <div style={localStyles.accepted}>
-            {this.sectionList(
-              'Accepted',
-              accepted,
-              this.state.roles.is_senior_recruiter
-            )}
-          </div>
-          <div style={localStyles.unclaimed}>
-            {this.sectionList(
-              'Unclaimed',
-              unclaimed,
-              this.state.roles.is_recruiter
-            )}
-          </div>
-        </div>
-      ),
+      !this.state.activeRecruitId && this.renderList(),
       this.state.activeRecruitId &&
-        activeRecruit.status !== Recruiter.statuses.unclaimed && [
-          <IconBtn
-            src={BackImg}
-            alt="back"
-            label="Back"
-            onClick={this.handleBack}
-            style={{ border: 'none' }}
-          />,
-          <Evidence
-            style={localStyles.evidence}
-            main={this.state.activeRecruitId}
-            recruiterName={activeRecruit.recruiter_name}
-            showRecruiter={
-              activeRecruit.recruiter_id !== this.state.roles.user_id
-                ? activeRecruit.recruiter_id
-                : null
-            }
-          />,
-        ],
+        activeRecruit.status !== Recruiter.statuses.unclaimed &&
+        this.renderEvidence(),
       this.state.showAlert && (
         <Alert text={this.state.alertText} onClose={this.closeAlert} />
       ),

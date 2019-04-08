@@ -50,6 +50,7 @@ def process_blueprints(assets, blueprints_list):
     system_dict = System.get_multi(list(set(asset_system_dict.values())))
     for entry in blueprints_list:
         entry['redlisted'] = []
+        entry['is_blueprint_copy'] = entry['quantity'] == -2
         type = type_dict[entry['type_id']]
         entry['type_name'] = type.name
         if entry['item_id'] in asset_system_dict:
@@ -117,7 +118,9 @@ def organize_assets_by_location(character, asset_list):
     for location_id in location_model_dict:
         location = location_model_dict[location_id]
         location_data_dict[location_id]['name'] = location.name
-        if location.system_id is not None:
+        if isinstance(location, System):
+            system = location
+        elif location.system_id is not None:
             system = System.get(location.system_id)
         else:
             system = DummySystem

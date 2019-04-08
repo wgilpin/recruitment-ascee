@@ -6,6 +6,7 @@ import TableStyles from './TableStyles';
 import FirstPageImg from '../images/first_page_white.png';
 import NextPageImg from '../images/chevron_right.png';
 import IconBtn from '../common/IconBtn';
+import moment from 'moment';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -171,8 +172,7 @@ export default class Mail extends React.Component {
 
     lineStyle = (key % 2 === 0 ? styles.isOdd : {});
     lineStyle = { ...lineStyle, ...readStyle, ...styles.cell };
-    let newdate = new Date(timestamp);
-    formattedDate = newdate.toLocaleDateString() + ' ' + newdate.toLocaleTimeString();
+    formattedDate = moment(timestamp).format('DD-MMM-YYYY HH:MM')
     let nameStyle = {...lineStyle};
     if (redlisted.indexOf('from_name') > -1) {
       nameStyle = { ...lineStyle, ...styles.redList };

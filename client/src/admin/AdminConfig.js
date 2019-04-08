@@ -110,6 +110,7 @@ export default class AdminConfig extends React.Component {
   handleEditTemplate = () => {
     this.setState({
       mailTemplate: this.mailTemplate.current.value,
+      mailSubject: this.mailSubject.current.value,
       dirtyMailTemplate:
         this.mailTemplate.current.value.length > 0 &&
         this.mailSubject.current.value.length > 0,

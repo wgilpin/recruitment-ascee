@@ -16,6 +16,7 @@ import PIImg from '../images/planetarycommodities.png';
 import fittingsImg from '../images/fitting.png';
 import clonesImg from '../images/cloneBay.png';
 import industryImg from '../images/Industry.png';
+import answersImg from '../images/question_answer.png';
 
 const propTypes = {
   onTabChange: PropTypes.func,
@@ -57,6 +58,7 @@ const styles = {
 
 const displayOrder = [
   { name: 'Notes', src: notesImg, includeForCorp: true },
+  { name: 'Answers', src: answersImg, includeForCorp: true },
   { name: 'Wallet', src: walletImg, includeForCorp: true },
   { name: 'Mail', src: mailImg },
   { name: 'Assets', src: assetsImg, includeForCorp: true },
@@ -67,7 +69,7 @@ const displayOrder = [
   { name: 'Market', src: marketImg },
   { name: 'Fittings', src: fittingsImg },
   { name: 'Industry', src: industryImg, includeForCorp: true },
-  { name: 'Blueprints', src: blueprintImg },
+  { name: 'Blueprints', src: blueprintImg, includeForCorp: true },
   { name: 'Contracts', src: contractsImg },
   { name: 'PI', src: PIImg },
   { name: 'Calendar', src: calendarImg },
@@ -152,13 +154,13 @@ export default class TabsHeader extends React.Component {
     if (this.props.onlyFirst) {
       return (
         <React.Fragment>
-          {this.renderItems([displayOrder[0]])}
+          {this.renderItems([displayOrder[0], displayOrder[1]])}
           <hr style={styles.hr} />
         </React.Fragment>
       );
     }
     const displayItems = displayOrder
-      .filter(seq => !pageIsACorp || displayOrder[seq].includeForCorp);
+      .filter(item => !pageIsACorp || item.includeForCorp);
     return this.renderItems(displayItems);
   }
 }

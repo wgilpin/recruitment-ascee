@@ -1,9 +1,11 @@
 from flask_login import current_user
 from flask_app import app
 from flask import request, jsonify
-from recruitment import start_application, submit_application, application_history
-from status import claim_applicant, release_applicant, accept_applicant, reject_applicant,\
-    own_application_status, invite_applicant
+from recruitment import application_history
+from status import claim_applicant, release_applicant, accept_applicant, \
+    reject_applicant, \
+    own_application_status, invite_applicant, submit_application, \
+    start_application
 from security import login_required
 
 
@@ -175,12 +177,12 @@ def api_application_history(applicant_id):
     Example:
 
     {
-        'info': [
+        'info': {
+            <application_id>:
             {
                 'recruiter_id': 10233421,  # could be None
                 'recruiter_name': 'Recruiter Rachel',  # could be None
                 'status': 'rejected',  # one of 'new', 'submitted', 'claimed, 'rejected', 'accepted', 'invited'
-                'status_update_timestamp': 'ISO Date string',
                 'notes': [
                     {
                         "timestamp": "ISO Date string",
@@ -194,7 +196,7 @@ def api_application_history(applicant_id):
                 ],
             },
             (...)
-        ]
+        }
     }
 
     Error codes:

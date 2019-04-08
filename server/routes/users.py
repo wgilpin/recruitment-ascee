@@ -115,7 +115,7 @@ def api_get_user_corporations(user_id=None):
     return jsonify(get_user_corporations(user_id, current_user=current_user))
 
 
-@app.route('/api/user/roles')
+@app.route('/api/user/roles/')
 @login_required
 def api_get_user_roles():
     """
