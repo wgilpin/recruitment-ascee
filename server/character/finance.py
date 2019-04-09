@@ -36,7 +36,6 @@ def get_character_wallet(character_id, current_user=None):
     )
     return process_wallet(character_id, wallet_data)
 
-
 def process_wallet(character_id, wallet_data):
     party_ids = get_party_ids(wallet_data)
     party_data = get_party_data(party_ids)
@@ -48,13 +47,11 @@ def process_wallet(character_id, wallet_data):
             wallet_entry['first_party'] = party_data.get(wallet_entry['first_party_id'])
         if 'second_party_id' in wallet_entry:
             wallet_entry['second_party'] = party_data.get(wallet_entry['second_party_id'])
-            if len(wallet_entry['second_party'].get('redlisted', [])) > 0:
-                wallet_entry['redlisted'].append('second_party')
+        which_other_party = 'first_party'
         if wallet_entry.get('first_party_id', None) == character_id:
-            wallet_entry['other_party'] = wallet_entry.get('second_party', {'name': ''})['name']
-        else:
-            wallet_entry['other_party'] = wallet_entry.get('first_party', {'name': ''})['name']
-            if len(wallet_entry['first_party'].get('redlisted', [])) > 0:
+            which_other_party = 'second_party'
+        wallet_entry['other_party'] = wallet_entry.get(which_other_party, {'name': ''})['name']
+        if len(wallet_entry[which_other_party].get('redlisted', [])) > 0:
                 wallet_entry['redlisted'].append('other_party')
     return {'info': wallet_data}
 
