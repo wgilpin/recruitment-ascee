@@ -19,8 +19,14 @@ const styles = {
     height: "24px",
     borderWidth: "1px",
     borderColor: "grey"
+  },
+  header: {
+    fontWeight: 500,
+    fontSize: 'large',
+    paddingBottom: '6px',
   }
 };
+
 export default class TableWallet extends TableBase {
   constructor(props) {
     super(props);
@@ -71,14 +77,14 @@ export default class TableWallet extends TableBase {
             ))}
           </select>
           {data && data.length && (
-            <div>Balance {Misc.commarize(data[0].balance)}</div>
+            <div style={styles.header}>Balance {Misc.commarize(data[0].balance)} ISK</div>
           )}
         </div>
       );
     } else {
       if (data && data.length) {
         if (data && data.length) {
-          return <div>Balance {Misc.commarize(data[0].balance)}</div>;
+          return <div style={styles.header}>Balance {Misc.commarize(data[0].balance)} ISK</div>;
         }
         return null;
       }
