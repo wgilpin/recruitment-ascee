@@ -24,6 +24,7 @@ import checkImg from '../images/check.png';
 import RoundImage from '../common/RoundImage';
 import FetchData from '../common/FetchData';
 import Answers from '../Applicant/Answers';
+import NotesHistory from '../notes/NotesHistory';
 
 const styles = {
   outer: {
@@ -173,6 +174,10 @@ export default class Evidence extends React.Component {
     }
   };
 
+  showAppHistory = appHistory => {
+    this.setState({ activeTab: 'History', appHistory })
+  }
+
   render() {
     let active = (this.state || {}).activeTab;
     const { currentAlt, currentCorp, currentTargetId } = this.state;
@@ -183,6 +188,7 @@ export default class Evidence extends React.Component {
             main={this.props.main}
             onAltSelect={this.changeAlt}
             onCorpSelect={this.changeCorp}
+            onShowHistory={this.showAppHistory}
             childrenTop={true}
             highlightMain={true}
             showPointer={true}
@@ -225,6 +231,14 @@ export default class Evidence extends React.Component {
               <NotesPage
                 style={styles.tabBody}
                 targetId={this.props.main}
+              />
+            )}
+            {active === 'History' && (
+              <NotesHistory
+                style={styles.tabBody}
+                notes={this.state.appHistory.notes}
+                recruiter_name={this.state.appHistory.recruiter_name}
+                status={this.state.appHistory.status}
               />
             )}
             {active === 'Answers' && (

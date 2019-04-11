@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import FetchData from '../common/FetchData';
 import Styles from '../common/Styles';
+import LaunchImg from '../images/launch_white_18dp.png';
 
 const propTypes = {
   applicantId: PropTypes.number,
@@ -59,8 +60,8 @@ export default class ApplicationHistory extends React.Component {
     this.getHistory();
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if (prevProps.applicantId !== this.props.applicantId){
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.applicantId !== this.props.applicantId) {
       this.getHistory();
     }
   }
@@ -75,6 +76,12 @@ export default class ApplicationHistory extends React.Component {
     );
   }
 
+  showHistory = application => {
+    if (this.props.onShowHistory) {
+      this.props.onShowHistory(application);
+    }
+  };
+
   render() {
     const { applicationId } = this.props;
     const min_history = this.props.showall ? 0 : 1;
@@ -83,10 +90,10 @@ export default class ApplicationHistory extends React.Component {
       return null;
     }
     const hasOldApps = Object.keys(applications).length > min_history;
-    
+
     return (
       <React.Fragment>
-        {hasOldApps && !this.props.showall &&(
+        {hasOldApps && !this.props.showall && (
           <button style={styles.alertButton} onClick={this.handleClickShow}>
             Old Applications
           </button>
@@ -102,7 +109,15 @@ export default class ApplicationHistory extends React.Component {
                     <div style={styles.appTimestamp}>
                       {moment(note.timestamp).calendar()}
                     </div>
-                    <div style={styles.appStatus}>{val.status}</div>
+                    <div style={styles.appStatus}>
+                      {val.status}
+                      <img
+                        src={LaunchImg}
+                        style={{ marginLeft: '6px' }}
+                        onClick={() => this.showHistory(val)}
+                        alt="open"
+                      />
+                    </div>
                     <div style={styles.assRecruiter}>{val.recruiter_name}</div>
                     <div style={styles.appNote}>
                       {(val.notes[0] || {}).text}
