@@ -19,6 +19,7 @@ export default class Applicant extends Component {
       ready: false,
       has_application: false,
       submitted: false,
+      pictures: []
     };
   }
 
@@ -231,6 +232,7 @@ export default class Applicant extends Component {
             <TabList>
               <Tab>Alts</Tab>
               <Tab>Questions</Tab>
+              <Tab>Screenshots</Tab>
             </TabList>
             {this.buildAltsPanel()}
             {this.buildQuestionsPanel()}
