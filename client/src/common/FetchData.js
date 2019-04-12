@@ -93,18 +93,6 @@ export default class FetchData {
     });
   }
 
-  post(payload) {
-    const url = this.buildUrl();
-    console.log(`fetch put ${url}`);
-    return fetch(url, {
-      method: 'post',
-      headers: { 'Content-Type': 'mime/multipart' },
-      body: payload,
-    }).then(response => {
-      return response.json();
-    });
-  }
-
   delete() {
     const url = this.buildUrl();
     console.log(`fetch delete ${url}`);

@@ -2,14 +2,12 @@ import React, { Component, setGlobal } from 'reactn';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import ReactTooltip from 'react-tooltip';
-import ImageUploader from 'react-images-upload';
 import Alts from '../evidence/Alts';
 import FetchData from '../common/FetchData';
 import styles from './ApplicantStyles';
 import AsceeImg from '../images/ascee_logo.png';
 import FabButton from '../common/fabButton';
 import Answers from './Answers';
-import ImagesUpload from './ImagesUpload';
 
 setGlobal({ questions: [], answers: {} });
 
@@ -218,12 +216,6 @@ export default class Applicant extends Component {
       </TabPanel>
     );
   };
-
-  onDrop = (pictureFiles, pictureDataURLs) => {
-		this.setState({
-            pictures: this.state.pictures.concat(pictureFiles),
-        });
-	}
 
   render() {
     if (!this.state.has_application) {
