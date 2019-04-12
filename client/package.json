@@ -10,6 +10,7 @@
     "query-string": "^6.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-images-upload": "^1.2.6",
     "react-ionicons": "^3.0.1",
     "react-loader-spinner": "^2.3.0",
     "react-modal": "^3.8.1",
