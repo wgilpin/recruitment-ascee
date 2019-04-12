@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Alt from "../common/Alt";
-import FetchData from "../common/FetchData";
-import ApplicationHistory from "./ApplicationHistory";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Alt from '../common/Alt';
+import FetchData from '../common/FetchData';
+import ApplicationHistory from './ApplicationHistory';
 
 const propTypes = {
   onAltSelect: PropTypes.func,
@@ -11,54 +11,54 @@ const propTypes = {
   childrenTop: PropTypes.bool,
   highlightMain: PropTypes.bool,
   showPointer: PropTypes.bool,
-  style: {}
+  style: {},
 };
 
 const defaultProps = {
   main: null,
   childrenTop: false,
   highlightMain: false,
-  showPointer: false
+  showPointer: false,
 };
 
 const styles = {
   outer: {
-    height: "100%",
-    position: "relative",
-    textAlign: "left",
-    padding: "8px"
+    height: '100%',
+    position: 'relative',
+    textAlign: 'left',
+    padding: '8px',
   },
   div: {
-    display: "block"
+    display: 'block',
   },
   hr: {
-    borderColor: "#555"
+    borderColor: '#555',
   },
   sectionTitle: {
     fontWeight: 600,
-    color: "#01799A",
-    marginBottom: "6px"
+    color: '#01799A',
+    marginBottom: '6px',
   },
   corporation: {
-    maxWidth: "300px"
+    maxWidth: '300px',
   },
   corpCEO: {
-    cursor: "pointer",
-    textDecoration: "underline",
-    color: "#01799A",
-    maxWidth: "300px"
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    color: '#01799A',
+    maxWidth: '300px',
   },
   secStatus: {
-    fontWeight: 500
+    fontWeight: 500,
   },
   red: {
-    color: "red",
-    fontWeight: 500
+    color: 'red',
+    fontWeight: 500,
   },
   summary: {
-    backgroundColor: "#222",
-    padding: "4px"
-  }
+    backgroundColor: '#222',
+    padding: '4px',
+  },
 };
 export default class Alts extends React.Component {
   constructor(props) {
@@ -85,7 +85,7 @@ export default class Alts extends React.Component {
   };
 
   loadCharacterSummary = altId => {
-    return new FetchData({ id: altId, scope: "character", param2: "summary" })
+    return new FetchData({ id: altId, scope: 'character', param2: 'summary' })
       .get()
       .then(({ info }) =>
         this.setState({
@@ -93,14 +93,14 @@ export default class Alts extends React.Component {
           corporationId: info.corporation_id,
           alliance: info.alliance_name,
           secStatus: info.security_status,
-          corpRedlisted: "corporation_name" in info.redlisted,
+          corpRedlisted: 'corporation_name' in info.redlisted,
           applicationId: info.current_application_id,
         })
       );
   };
 
   componentDidMount() {
-    new FetchData({ id: this.props.main, scope: "user/characters" })
+    new FetchData({ id: this.props.main, scope: 'user/characters' })
       .get()
       .then(data => {
         let mainData;
@@ -108,12 +108,12 @@ export default class Alts extends React.Component {
           mainData = data.info[this.props.main];
           delete data.info[this.props.main];
         }
-        this.setState({ alts: data.info, main: mainData },
-          () => this.loadCharacterSummary(this.props.main));
-
+        this.setState({ alts: data.info, main: mainData }, () =>
+          this.loadCharacterSummary(this.props.main)
+        );
       })
       .catch(err => console.log(err));
-    new FetchData({ id: this.props.main, scope: "user/corporations" })
+    new FetchData({ id: this.props.main, scope: 'user/corporations' })
       .get()
       .then(data => this.setState({ corporations: data.info }))
       .catch(err => console.log(err));
@@ -137,7 +137,7 @@ export default class Alts extends React.Component {
             Sec Status: {Math.round(this.state.secStatus * 100) / 100}
           </div>
           <div>
-            Corp {isCEO && "[CEO]"}&emsp;
+            Corp {isCEO && '[CEO]'}&emsp;
             <span
               style={corpStyle}
               onClick={() => this.handleClickCorp(this.state.corporationId)}
@@ -150,6 +150,12 @@ export default class Alts extends React.Component {
     );
   }
 
+  showHistory = appHistory => {
+    if (this.props.onShowHistory) {
+      this.props.onShowHistory(appHistory);
+    }
+  };
+
   render() {
     const hasAlts = Object.keys(this.state.alts || {}).length > 0;
     const { selected, alts, applicationId } = this.state;
@@ -159,7 +165,8 @@ export default class Alts extends React.Component {
         {this.props.childrenTop && children}
         <hr style={styles.hr} />
         {this.props.highlightMain &&
-          main && this.state.main && [
+          main &&
+          this.state.main && [
             <div style={styles.sectionTitle}>Main</div>,
             <Alt
               style={styles.div}
@@ -171,9 +178,13 @@ export default class Alts extends React.Component {
             />,
             selected === main && this.renderSummary(),
             <div style={styles.summary}>
-              <ApplicationHistory applicantId={main} applicationId={applicationId}/>
+              <ApplicationHistory
+                applicantId={main}
+                applicationId={applicationId}
+                onShowHistory={this.showHistory}
+              />
             </div>,
-            <hr style={styles.hr} />
+            <hr style={styles.hr} />,
           ]}
         {hasAlts && <div style={styles.sectionTitle}>Alts</div>}
         {Object.keys(alts || {}).map(key => {
@@ -186,7 +197,7 @@ export default class Alts extends React.Component {
               selected={selected === key}
               onClick={this.handleClickAlt}
             />,
-            selected === key && this.renderSummary()
+            selected === key && this.renderSummary(),
           ];
         })}
         {!this.props.childrenTop && children}
