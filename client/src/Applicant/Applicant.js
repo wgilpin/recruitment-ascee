@@ -244,9 +244,6 @@ export default class Applicant extends Component {
             </TabList>
             {this.buildAltsPanel()}
             {this.buildQuestionsPanel()}
-            <TabPanel>
-              <ImagesUpload />
-            </TabPanel>
           </Tabs>
         </React.Fragment>
       ),
