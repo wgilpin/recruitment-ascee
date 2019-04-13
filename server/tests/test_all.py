@@ -12,6 +12,7 @@ from test_character_assets import *
 from test_character_mail import *
 from test_character_simple_apis import *
 from test_character_wallet import *
+from test_images import *
 from test_login import *
 from test_mail import *
 from test_recruitment import *
