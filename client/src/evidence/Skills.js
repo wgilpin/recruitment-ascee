@@ -8,6 +8,7 @@ import collapsedImg from '../images/collapsed.png';
 import expandedImg from '../images/expanded.png';
 import Misc from '../common/Misc';
 import SkillLine from './SkillLine';
+import SkillQLine from './SkillQLine';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -17,11 +18,6 @@ const defaultProps = {};
 
 const styles = {
   ...TableStyles.styles,
-  progress: {
-    backgroundColor: '#444',
-    color: '#0084A8',
-    height: '7px',
-  },
   div: {
     maxWidth: 800,
   },
@@ -110,34 +106,7 @@ export default class Skill extends React.Component {
 
   skillQueueLinesShown = 0;
 
-  skillQLine(key, { finish_date, start_date, finished_level, skill_id }) {
-    let lineStyle = this.skillQueueLinesShown % 2 === 0 ? styles.isOdd : {};
-    lineStyle = { ...lineStyle, ...styles.cell };
-    let startDate = new Date(start_date),
-      endDate = new Date(finish_date),
-      today = new Date(),
-      fullRange = endDate - startDate,
-      soFar = today - startDate;
-    let { start, finish } = this.state.trainLevels[skill_id.skill_name];
-    if (finished_level !== finish) {
-      return null;
-    }
-    this.skillQueueLinesShown += 1;
-    return (
-      <div style={styles.row} key={key}>
-        <div style={lineStyle}>{skill_id.skill_name}</div>
-        <div style={lineStyle}>
-          <SkillLights currentLevel={start - 1} trainLevel={finish} />
-        </div>
-        <div style={lineStyle}>
-          {soFar > 0.0 ? (
-            <progress style={styles.progress} value={soFar} max={fullRange} />
-          ) : null}
-        </div>
-      </div>
-    );
-  }
-
+  
   toggleGroup = e => {
     let updatedGroup = this.state.skillList[e];
     updatedGroup.collapsed = !updatedGroup.collapsed;
@@ -153,7 +122,13 @@ export default class Skill extends React.Component {
           <div style={styles.cell}>PROGRESS</div>
         </div>
         {this.state.skillQueue.map((line, idx) => {
-          return this.skillQLine(idx, line);
+          const { start, finish } = this.state.trainLevels[line.skill_id.skill_name];
+          return <SkillQLine
+            index={idx}
+            start={start}
+            finish={finish}
+            line={line}
+          />
         })}
       </div>
     );
