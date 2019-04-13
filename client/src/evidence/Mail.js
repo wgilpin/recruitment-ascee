@@ -6,7 +6,8 @@ import TableStyles from './TableStyles';
 import FirstPageImg from '../images/first_page_white.png';
 import NextPageImg from '../images/chevron_right.png';
 import IconBtn from '../common/IconBtn';
-import moment from 'moment';
+import MailItem from './MailItem';
+import MailBody from './MailBody';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -17,24 +18,6 @@ const defaultProps = {};
 
 const styles = {
   ...TableStyles.styles,
-  isRead: {
-    fontWeight: 'normal',
-  },
-  isUnread: {
-    fontWeight: 'bold',
-  },
-  body: {
-    textAlign: 'left',
-    color: 'white',
-    fontStyle: 'italic',
-    a: { color: 'white' },
-    paddingLeft: '60px',
-    width: '120%',
-  },
-  redList: {
-    fontWeight: 600,
-    color: 'red',
-  },
   iconBtn: {
     width: '60px',
     float: 'left',
@@ -99,8 +82,7 @@ export default class Mail extends React.Component {
     return small + '<hr/>';
   }
 
-
-  processLinks(links, body){
+  processLinks(links, body) {
     /* Given a list of text values for links, from this.findLinks(),
      *  replace the links with the text
      */
@@ -127,7 +109,6 @@ export default class Mail extends React.Component {
 
   toggleMessage = idx => {
     // toggle message body visibility, loading if needed
-    let linksList = [];
     let { mailList } = this.state;
     let thisMail = mailList[idx];
     let rawBody;
@@ -152,48 +133,6 @@ export default class Mail extends React.Component {
           this.setState({ mailList: updatedMailList });
         });
     }
-  };
-
-  mailItem(
-    key,
-    { timestamp, from, from_name, recipients, subject, is_read, redlisted }
-  ) {
-    // a react item
-    let lineStyle, formattedDate;
-    let readStyle = is_read ? styles.isRead : styles.isUnread;
-
-    lineStyle = key % 2 === 0 ? styles.isOdd : {};
-    lineStyle = { ...lineStyle, ...readStyle, ...styles.cell };
-    formattedDate = moment(timestamp).format('DD-MMM-YYYY HH:MM');
-    let nameStyle = { ...lineStyle };
-    const { recipient_name, recipient_id } = recipients[0];
-    let otherParty = from_name;
-    if (this.props.targetId === from.toString()) {
-      otherParty = `TO: ${recipient_name}`;
-    }
-    if (redlisted.indexOf('from_name') > -1) {
-      nameStyle = { ...lineStyle, ...styles.redList };
-    }
-    return (
-      <div key={key} style={styles.row} onClick={() => this.toggleMessage(key)}>
-        <div style={lineStyle}>{formattedDate}</div>
-        <div style={nameStyle}>{otherParty}</div>
-        <div style={lineStyle}>{subject}</div>
-      </div>
-    );
-  }
-
-  mailBody = line => {
-    return (
-      !this.state.mailList[line].collapsed && (
-        <div style={styles.row}>
-          <div
-            style={styles.body}
-            dangerouslySetInnerHTML={{ __html: this.state.mailList[line].body }}
-          />
-        </div>
-      )
-    );
   };
 
   showFirst = () => {
@@ -225,8 +164,16 @@ export default class Mail extends React.Component {
         {Object.keys(this.state.mailList).map((line, idx) => {
           return (
             <React.Fragment>
-              {this.mailItem(idx, this.state.mailList[line])}
-              {this.mailBody(line)}
+              <MailItem
+                key={idx}
+                msgId={idx}
+                message={this.state.mailList[line]}
+                targetId={this.props.targetId}
+                onClickMessage={this.toggleMessage}
+              />
+              {!this.state.mailList[line].collapsed && (
+                <MailBody line={this.state.mailList[line]} />
+              )}
             </React.Fragment>
           );
         })}
