@@ -116,7 +116,7 @@ export default class Alts extends React.Component {
       corporationId,
       corpRedlisted,
       corporationName,
-      secStatus
+      secStatus,
     } = this.state;
     const { main, children } = this.props;
     return (
@@ -166,7 +166,17 @@ export default class Alts extends React.Component {
               selected={selected === key}
               onClick={this.handleClickAlt}
             />,
-            selected === key && this.renderSummary(),
+            selected === key && (
+              <AltSummary
+                corporations={corporations}
+                selected={selected}
+                corporationId={corporationId}
+                corpRedlisted={corpRedlisted}
+                corporationName={corporationName}
+                secStatus={secStatus}
+                onClickCorp={this.handleClickCorp}
+              />
+            ),
           ];
         })}
         {!this.props.childrenTop && children}
