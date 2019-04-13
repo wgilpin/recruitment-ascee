@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import FetchData from '../common/FetchData';
 import TableStyles from './TableStyles';
-import SkillLights from './SkillLights';
 import collapsedImg from '../images/collapsed.png';
 import expandedImg from '../images/expanded.png';
 import Misc from '../common/Misc';
