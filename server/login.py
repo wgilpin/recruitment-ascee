@@ -110,9 +110,9 @@ def route_login(login_type, character):
 
 def link_alt(character, user):
     character.user_id = user.get_id()
-    application = Application.get_submitted_for_user(user.id)
+    application = Application.get_for_user(user.id)
     add_status_note(
-        application, 'added an alt: {} / {}.'.format(
+        application, 'Added an alt: {} / {}.'.format(
             character.name, character.id))
     db.session.commit()
     if character.blocked_from_applying:
