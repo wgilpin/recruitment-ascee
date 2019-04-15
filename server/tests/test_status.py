@@ -311,6 +311,7 @@ class ApplicantStatusTests(AsceeTestCase):
         self.assertEqual(response['info'][0]['user_name'], self.applicant.name)
         self.assertEqual(response['info'][0]['recruiter_id'], self.recruiter.id)
         self.assertEqual(response['info'][0]['recruiter_name'], self.recruiter.name)
+        self.assertIsInstance(response['info'][0]['last_note_time'], str)
 
     def test_recently_invited_applicants_forbidden(self):
         for user in (self.applicant, self.not_applicant, self.recruiter, self.senior_recruiter):
