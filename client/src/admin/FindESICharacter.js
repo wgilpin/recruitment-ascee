@@ -135,7 +135,7 @@ export default class FindESICharacter extends React.Component {
       return;
     }
     this.setState({ searchResults: {} }); 
-    this.handleClick();
+    //this.handleClick();
   };
 
   render() {
