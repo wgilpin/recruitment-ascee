@@ -1,23 +1,17 @@
 import React from 'reactn';
 import Loader from 'react-loader-spinner';
 import FetchData from '../common/FetchData';
-import ClaimedMineIcon from 'react-ionicons/lib/MdStar';
-import ClaimedOtherIcon from 'react-ionicons/lib/MdStarOutline';
-import ApproveIcon from 'react-ionicons/lib/MdCheckboxOutline';
-import ApproveIconMine from 'react-ionicons/lib/MdCheckbox';
 import Evidence from '../evidence/Evidence';
-import Misc from '../common/Misc';
-import RoundImage from '../common/RoundImage';
 import BackImg from '../images/back.png';
-import OpenImg from '../images/arrow_forward.png';
-import RecruitButtonBar from './RecruitButtonBar';
 import IconBtn from '../common/IconBtn';
 import TableStyles from '../evidence/TableStyles';
 import styles from '../Applicant/ApplicantStyles';
 import Alert from '../common/Alert';
 import Confirm from '../common/Confirm';
-import FindESICharacter from '../admin/FindESICharacter';
-import ApplicationHistory from '../evidence/ApplicationHistory';
+import SectionList from './SectionList';
+import { RecruiterProvider } from './RecruiterContext';
+import Search from './Search';
+
 
 const localStyles = {
   ...styles,
@@ -27,61 +21,8 @@ const localStyles = {
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-  h2: {
-    ...TableStyles.styles.headerText,
-    textAlign: 'left',
-    fontSize: 'larger',
-    paddingLeft: '12px',
-    marginTop: '16px',
-  },
-  noneText: {
-    textAlign: 'left',
-    paddingLeft: '26px',
-    paddingBottom: '16px',
-    marginTop: '12px',
-  },
-  grid: {
-    width: '100%',
-    display: 'grid',
-    gridTemplateColumns: '1fr auto',
-    gridTemplateRows: '1fr 1fr 1fr',
-    gridColumnGap: '20px',
-    gridRowGap: '10px',
-    margin: 'auto',
-    justifyItems: 'left',
-    textAlign: 'left',
-  },
-  name: {
-    fontWeight: 500,
-    verticalAlign: 'super',
-    paddingLeft: '12px',
-    cursor: 'pointer',
-  },
-  claimed: {
-    gridColumn: 1,
-    gridRow: 1,
-  },
-  accepted: {
-    gridColumn: 1,
-    gridRow: 2,
-  },
-  unclaimed: {
-    gridColumn: 1,
-    gridRow: 3,
-  },
-  search: {
-    marginTop: '20px',
-  },
-  evidence: {
-    gridColumn: 2,
-    gridRow: '1/3',
-  },
-  recruit: {
-    justifyItems: 'left',
-    textAlign: 'left',
-    padding: '12px',
-    position: 'relative',
-  },
+
+  
   recruitButton: {
     marginLeft: '12px',
     padding: '6px',
@@ -92,19 +33,7 @@ const localStyles = {
     left: '350px',
     marginTop: '8px',
   },
-  icon: {
-    marginRight: '32px',
-    height: '32px',
-    width: '32px',
-    fill: TableStyles.styles.themeColor.color,
-  },
-  section: {
-    backgroundColor: '#333',
-  },
-  buttons: {
-    position: 'absolute',
-    left: '400px',
-  },
+
   find: {
     margin: '12px',
   },
@@ -244,7 +173,11 @@ export default class Recruiter extends React.Component {
       if (res.status === 'ok') {
         this.setRecruitStatus(id, Recruiter.statuses.rejected);
       } else {
-        this.setState({ showAlert: true, alertText: "User can't be rejected. \nCheck with an admin that a evemail \nsender is configured" });
+        this.setState({
+          showAlert: true,
+          alertText:
+            "User can't be rejected. \nCheck with an admin that a evemail \nsender is configured",
+        });
       }
     });
   };
@@ -253,60 +186,6 @@ export default class Recruiter extends React.Component {
     console.log(`activate recruit ${id}`);
     if (this.state.recruits[id].status !== Recruiter.statuses.unclaimed)
       this.setState({ activeRecruitId: id });
-  }
-
-  recruitLine(id, recruit, isEnabled) {
-    const avatarImg = `https://image.eveonline.com/Character/${id}_64.jpg`;
-    const recruitIsMine = recruit.recruiter_id === this.state.roles.user_id;
-    const recruitIsClaimed = recruit.status === Recruiter.statuses.claimed;
-    const recruitIsAccepted = recruit.status === Recruiter.statuses.accepted;
-    return (
-      <div key={id} style={localStyles.recruit}>
-        {[
-          recruitIsClaimed &&
-            (recruitIsMine ? (
-              <ClaimedMineIcon style={localStyles.icon} fontSize="24px" />
-            ) : (
-              <ClaimedOtherIcon style={localStyles.icon} fontSize="24px" />
-            )),
-          recruitIsAccepted &&
-            (recruitIsMine ? (
-              <ApproveIconMine style={localStyles.icon} fontSize="24px" />
-            ) : (
-              <ApproveIcon style={localStyles.icon} fontSize="24px" />
-            )),
-        ]}
-        <span onClick={() => this.handleClick(id)} style={localStyles.altSpan}>
-          <RoundImage src={avatarImg} />
-          <span style={localStyles.name}>{recruit.name}</span>
-        </span>
-        <RecruitButtonBar
-          status={recruit.status}
-          style={localStyles.buttons}
-          id={id}
-          onClaim={isEnabled && this.handleClaim}
-          onReject={isEnabled && this.handleReject}
-          onDrop={isEnabled && this.handleDrop}
-          onApprove={isEnabled && this.handleAccept}
-          onMail={isEnabled && this.handleMail}
-        />
-      </div>
-    );
-  }
-
-  sectionList(label, list, isEnabled) {
-    return (
-      <div style={localStyles.section}>
-        <div style={localStyles.h2}>{label}</div>
-        {Misc.dictLen(list) > 0 ? (
-          Object.keys(list).map(key =>
-            this.recruitLine(key, list[key], isEnabled)
-          )
-        ) : (
-          <div style={localStyles.noneText}>None</div>
-        )}
-      </div>
-    );
   }
 
   applyFilter(status) {
@@ -339,6 +218,8 @@ export default class Recruiter extends React.Component {
     const claimed = this.applyFilter(Recruiter.statuses.claimed);
     const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
     const accepted = this.applyFilter(Recruiter.statuses.accepted);
+    console.log('provider', this.state.roles);
+    
     return (
       <div style={localStyles.outer}>
         <h1 style={localStyles.headerText}>Applications Pending</h1>
@@ -348,35 +229,35 @@ export default class Recruiter extends React.Component {
           </a>
         </div>
         <div style={localStyles.claimed}>
-          {this.sectionList('Claimed', claimed, this.state.roles.is_recruiter)}
+          <RecruiterProvider value={this.state.roles}>
+            <SectionList
+              label="Claimed"
+              list={claimed}
+              isEnabled={this.state.roles.is_recruiter}
+            />
+          </RecruiterProvider>
         </div>
         <div style={localStyles.accepted}>
-          {this.sectionList(
-            'Accepted',
-            accepted,
-            this.state.roles.is_senior_recruiter
-          )}
+          <RecruiterProvider value={this.state.roles}>
+            <SectionList
+              label="Accepted"
+              list={accepted}
+              isEnabled={this.state.roles.is_senior_recruiter}
+            />
+          </RecruiterProvider>
         </div>
         <div style={localStyles.unclaimed}>
-          {this.sectionList(
-            'Unclaimed',
-            unclaimed,
-            this.state.roles.is_recruiter
-          )}
+          <RecruiterProvider value={this.state.roles}>
+            <SectionList
+              label="Unclaimed"
+              list={unclaimed}
+              isEnabled={this.state.roles.is_recruiter}
+            />
+          </RecruiterProvider>
         </div>
-        {this.state.roles.is_senior_recruiter && (
-          <div style={localStyles.search}>
-            <div style={{...localStyles.section, padding: '12px'}}>
-              <ApplicationHistory applicantId={this.state.historyId} showall/>
-              <div>
-                <FindESICharacter
-                  onChange={this.handleOpenFromSearch}
-                  iconList={[{ name: 'open', img: OpenImg }]}
-                />
-              </div>
-            </div>
-          </div>
-        )}
+        {this.state.roles.is_senior_recruiter && 
+          <Search id={this.state.historyId} onChoose={this.handleOpenFromSearch}/>
+        }
       </div>
     );
   };
