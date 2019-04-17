@@ -101,7 +101,6 @@ export default class Recruiter extends React.Component {
   }
 
   handleAccept = id => {
-    console.log(`handleAccept ${id}`);
     const status = this.state.recruits[id].status;
     if (
       status === Recruiter.statuses.claimed &&
@@ -115,7 +114,6 @@ export default class Recruiter extends React.Component {
   };
 
   handleMail = id => {
-    console.log(`handleMail ${id}`);
     const status = this.state.recruits[id].status;
     if (
       status === Recruiter.statuses.accepted &&
@@ -134,7 +132,6 @@ export default class Recruiter extends React.Component {
   };
 
   handleClaim = id => {
-    console.log(`handleClaim ${id}`);
     new FetchData({ id, scope: 'recruits/claim' }).get().then(res => {
       if (res.status === 'ok') {
         this.setRecruitStatus(id, Recruiter.statuses.claimed);
@@ -145,7 +142,6 @@ export default class Recruiter extends React.Component {
   };
 
   handleDrop = id => {
-    console.log(`handleDrop ${id}`);
     new FetchData({ id, scope: 'recruits/release' }).get().then(res => {
       if (res.status === 'ok') {
         this.setRecruitStatus(id, Recruiter.statuses.unclaimed);
@@ -167,7 +163,6 @@ export default class Recruiter extends React.Component {
 
   doReject = () => {
     const id = this.state.currentApplicant;
-    console.log(`doReject ${id}`);
     this.setState({ showConfirm: false });
     new FetchData({ id, scope: 'recruits/reject' }).get().then(res => {
       if (res.status === 'ok') {
@@ -183,7 +178,6 @@ export default class Recruiter extends React.Component {
   };
 
   handleClick(id) {
-    console.log(`activate recruit ${id}`);
     if (this.state.recruits[id].status !== Recruiter.statuses.unclaimed)
       this.setState({ activeRecruitId: id });
   }
@@ -218,7 +212,6 @@ export default class Recruiter extends React.Component {
     const claimed = this.applyFilter(Recruiter.statuses.claimed);
     const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
     const accepted = this.applyFilter(Recruiter.statuses.accepted);
-    console.log('provider', this.state.roles);
     
     return (
       <div style={localStyles.outer}>
@@ -287,7 +280,6 @@ export default class Recruiter extends React.Component {
 
   render() {
     if (this.state.loading) {
-      console.log('loading');
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
     if (
@@ -301,7 +293,6 @@ export default class Recruiter extends React.Component {
       // no roles? wrong place
       window.location = '/';
     }
-    console.log('loaded');
     const activeRecruit = this.state.recruits[this.state.activeRecruitId];
     return [
       this.state.roles.is_admin && (

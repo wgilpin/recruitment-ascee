@@ -53,7 +53,6 @@ export default class RecruitItem extends React.Component {
     return (
       <RecruiterConsumer>
       {roles => {
-          console.log(roles.is_recruiter, roles.is_admin, roles.user_id);
           const recruitIsMine = recruit.recruiter_id === roles.user_id;
           return (
             <div key={id} style={localStyles.recruit}>
