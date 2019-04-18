@@ -7,6 +7,7 @@ from recruitment import (
     get_character_search_list
 )
 from admin import get_user_roles
+from ia import get_recently_invited_applicants
 
 
 @app.route('/api/applicant_list/')
@@ -39,6 +40,35 @@ def api_get_applicant_list():
         Forbidden (403): If logged in user is not a recruiter or senior recruiter
     """
     return jsonify(get_applicant_list(current_user=current_user))
+
+
+@app.route('/api/invite_list/')
+@login_required
+def api_get_recently_invited_applicants():
+    """
+    Gets the list of recently invited applicants.
+
+    Returns:
+        response (dict)
+
+    Example:
+        response = {
+            'info':[
+                {
+                    'user_id': 1321797421,
+                    'user_name': Invited Isaac,
+                    'last_note_time': ISO format time string,
+                    'recruiter_id': 123747421,
+                    'recruiter_name': Recruiter Randy,
+                },
+                ...
+            ]
+        }
+
+    Error codes:
+        Forbidden (403): If logged in user is not an admin
+    """
+    return jsonify(get_recently_invited_applicants(current_user=current_user))
 
 
 @app.route('/api/user/characters/')

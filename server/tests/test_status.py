@@ -11,6 +11,7 @@ from models import Character, User, Application, db
 from base import AsceeTestCase
 from flask_app import app
 from exceptions import ForbiddenException, BadRequestException
+from ia import get_recently_invited_applicants
 
 
 class OwnApplicationStatusTests(AsceeTestCase):
@@ -295,6 +296,27 @@ class ApplicantStatusTests(AsceeTestCase):
         invite_applicant(self.applicant.id, current_user=self.senior_recruiter)
         self.assertTrue(self.application.is_accepted)
         self.assertTrue(self.application.is_invited)
+
+    def test_invited_is_recently_invited(self):
+        response = get_recently_invited_applicants(current_user=self.admin)
+        self.assertEqual(len(response['info']), 0)
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        response = get_recently_invited_applicants(current_user=self.admin)
+        self.assertEqual(len(response['info']), 0)
+        invite_applicant(self.applicant.id, current_user=self.senior_recruiter)
+        response = get_recently_invited_applicants(current_user=self.admin)
+        self.assertEqual(len(response['info']), 1)
+        self.assertEqual(response['info'][0]['user_id'], self.applicant.id)
+        self.assertEqual(response['info'][0]['user_name'], self.applicant.name)
+        self.assertEqual(response['info'][0]['recruiter_id'], self.recruiter.id)
+        self.assertEqual(response['info'][0]['recruiter_name'], self.recruiter.name)
+        self.assertIsInstance(response['info'][0]['last_note_time'], str)
+
+    def test_recently_invited_applicants_forbidden(self):
+        for user in (self.applicant, self.not_applicant, self.recruiter, self.senior_recruiter):
+            with self.assertRaises(ForbiddenException):
+                get_recently_invited_applicants(current_user=user)
 
     def test_invite_rejected_applicant(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
