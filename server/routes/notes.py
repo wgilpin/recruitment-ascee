@@ -2,7 +2,7 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import request, jsonify
-from recruitment import add_applicant_note, get_applicant_notes
+from recruitment import add_applicant_note, get_applicant_notes, edit_applicant_note
 
 
 @app.route('/api/recruits/<int:applicant_id>/notes', methods=['GET'])
@@ -54,6 +54,29 @@ def api_add_applicant_note(applicant_id):
         Bad request (400): If the given user is not an applicant
     """
     return jsonify(add_applicant_note(applicant_id, text=request.get_json().get('text'), current_user=current_user))
+
+
+@app.route(
+    '/api/recruits/edit_note/<int:note_id>', methods=['PUT'])
+@login_required
+def api_edit_applicant_note(note_id):
+    """
+    Edit a note for an applicant.
+
+    Args:
+        note_id (int)
+        text (in body): The new note
+        title (in body, optional): The new title
+
+    Returns:
+        {'status': 'ok'} if note is successfully edited
+
+    Error codes:
+        Forbidden (403): If logged in user is not the author of the note or the
+            note does not exist.
+    """
+    request_data = request.get_json()
+    return jsonify(edit_applicant_note(note_id, text=request_data.get('text'), title=request_data.get('title'), current_user=current_user))
 
 
 @app.route(
