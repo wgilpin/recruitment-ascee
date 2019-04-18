@@ -167,12 +167,32 @@ class SetRolesTests(AsceeTestCase):
         response = set_roles(self.applicant.id, is_recruiter=True, current_user=self.admin)
         self.assertEqual(response, {'status': 'ok'})
         self.assertTrue(self.applicant.recruiter)
-        self.assertTrue(db.session.query(db.exists().where(
-            db.and_(
-                Application.user_id==self.applicant.id,
-                Application.is_concluded==False
-            )
-        )).scalar())
+        self.assertIsNone(Application.get_for_user(self.applicant.id))
+
+    def test_promote_applicant_to_senior_recruiter(self):
+        response = set_roles(self.applicant.id, is_recruiter=True, is_senior_recruiter=True, current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
+        self.assertTrue(self.applicant.recruiter)
+        self.assertTrue(self.applicant.recruiter.is_senior)
+        self.assertIsNone(Application.get_for_user(self.applicant.id))
+
+    def test_promote_user_to_admin(self):
+        response = set_roles(self.not_applicant.id, is_admin=True, current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
+        self.assertTrue(self.not_applicant.admin)
+
+    def test_promote_applicant_to_admin(self):
+        response = set_roles(self.applicant.id, is_admin=True, current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
+        self.assertTrue(self.applicant.admin)
+        self.assertIsNone(Application.get_for_user(self.applicant.id))
+
+    def test_promote_recruiter_to_admin(self):
+        self.assertFalse(self.recruiter.admin)
+        response = set_roles(self.recruiter.id, is_admin=True, current_user=self.admin)
+        self.assertEqual(response, {'status': 'ok'})
+        self.assertTrue(self.recruiter.admin)
+        self.assertTrue(self.recruiter.recruiter)
 
     def test_demote_admin(self):
         response = set_roles(self.admin.id, is_admin=False, current_user=self.admin)
