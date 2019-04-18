@@ -8,7 +8,8 @@ sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
 from models import (
     Character, User, Admin, Recruiter, Question, Answer, Application, db, Note,
-    Type, Region, System, Station, Structure, Group, MailTemplate, ConfigItem
+    Type, Region, System, Station, Structure, Group, MailTemplate, ConfigItem,
+    Image,
 )
 import warnings
 import time
@@ -177,7 +178,7 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
     def clearDB(self):
         db.session.rollback()
         for model in \
-            Character, User, Recruiter, Admin, Application, Question, Answer,\
+            Character, User, Recruiter, Admin, Application, Question, Answer, Image,\
             Note, Station, Structure, Type, Group, Region, System, MailTemplate, ConfigItem:
             db.session.query(model).delete()
         # for model in Type, Region, System:

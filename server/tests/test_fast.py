@@ -8,6 +8,7 @@ import unittest
 from flask_app import app
 from models import db
 from test_admin_lists import *
+from test_images import *
 from test_login import *
 from test_mail import *
 from test_recruitment import *

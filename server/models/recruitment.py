@@ -1,6 +1,9 @@
 from models.database import db
 from models.user import User, Recruiter
 from datetime import datetime
+import boto3
+from flask_app import app
+from esi_config import aws_bucket_name
 
 
 class Application(db.Model):
@@ -14,8 +17,9 @@ class Application(db.Model):
     is_concluded = db.Column(db.Boolean, default=False)
     is_accepted = db.Column(db.Boolean, default=False)
     is_invited = db.Column(db.Boolean, default=False)
-    answers = db.relationship("Answer", uselist=True, back_populates="application")
-    notes = db.relationship("Note", uselist=True, back_populates="application")
+    answers = db.relationship('Answer', uselist=True, back_populates='application')
+    notes = db.relationship('Note', uselist=True, back_populates='application')
+    images = db.relationship('Image', uselist=True, back_populates='application')
 
     @classmethod
     def get_for_user(cls, user_id):
@@ -75,3 +79,26 @@ class Note(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     application_id = db.Column(db.Integer, db.ForeignKey(Application.id))
     application = db.relationship("Application", uselist=False, back_populates="notes")
+
+
+class Image(db.Model):
+    __tablename__ = 'images'
+    id = db.Column(db.Integer, primary_key=True)
+    application_id = db.Column(db.Integer, db.ForeignKey(Application.id))
+    application = db.relationship(Application, back_populates='images')
+    is_confirmed = db.Column(db.Boolean, default=False, nullable=False)
+
+    @property
+    def url(self):
+        if not app.config.get('TESTING'):
+            conn = boto3.resource('s3')
+            bucket = conn.get_bucket(aws_bucket_name)
+            key = bucket.get_key(self.filename, validate=False)
+            url = key.generate_url(3600)
+        else:
+            url = 'placeholder url for {}'.format(self.id)
+        return url
+
+    @property
+    def filename(self):
+        return str(self.id)
