@@ -143,6 +143,21 @@ def add_applicant_note(applicant_user_id, text, title=None, is_chat_log=False, c
         return {'status': 'ok'}
 
 
+def edit_applicant_note(note_id, text, title=None, current_user=None):
+    note = Note.query.get(note_id)
+    if note is None:
+        raise ForbiddenException()
+    else:
+        user_application_access_check(current_user, note.application.user)
+        if current_user.id != note.author_id:
+            raise ForbiddenException('Only author may modify a note')
+        else:
+            note.text = text
+            note.title = title
+            db.session.commit()
+            return {'status': 'ok'}
+
+
 def get_character_search_list(search_text, current_user=None):
     # list of all chars with name beginning with search_text
     if not (is_recruiter(current_user) or is_admin(current_user)):

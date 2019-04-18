@@ -9,7 +9,7 @@ from recruitment import (
     get_questions, get_answers, get_user_characters, get_users,
     add_applicant_note, get_character_search_list, get_applicant_list, set_answers,
     set_questions, remove_question, get_applicant_notes,
-    application_history, get_user_corporations,
+    application_history, get_user_corporations, edit_applicant_note,
 )
 from status import reject_applicant, accept_applicant, invite_applicant, \
     claim_applicant, submit_application, start_application
@@ -532,6 +532,45 @@ class MiscRecruitmentTests(AsceeTestCase):
                 "A note",
                 current_user=self.senior_recruiter
             )
+
+    def test_recruiter_modify_own_note(self):
+        add_applicant_note(self.applicant.id, 'A note', current_user=self.recruiter)
+        note_data = get_applicant_notes(self.applicant.id, current_user=self.recruiter)['info'][0]
+        edit_applicant_note(note_data['id'], 'Edited note', current_user=self.recruiter)
+        new_note_data = get_applicant_notes(self.applicant.id, current_user=self.recruiter)['info'][0]
+        self.assertEqual(note_data['id'], new_note_data['id'])
+        self.assertEqual(new_note_data['text'], 'Edited note')
+
+    def test_senior_recruiter_modify_own_note(self):
+        add_applicant_note(self.applicant.id, 'A note', current_user=self.senior_recruiter)
+        note_data = get_applicant_notes(self.applicant.id, current_user=self.senior_recruiter)['info'][0]
+        edit_applicant_note(note_data['id'], 'Edited note', current_user=self.senior_recruiter)
+        new_note_data = get_applicant_notes(self.applicant.id, current_user=self.senior_recruiter)['info'][0]
+        self.assertEqual(note_data['id'], new_note_data['id'])
+        self.assertEqual(new_note_data['text'], 'Edited note')
+
+    def test_modify_own_note_title(self):
+        add_applicant_note(self.applicant.id, 'A note', title='Title', current_user=self.senior_recruiter)
+        note_data = get_applicant_notes(self.applicant.id, current_user=self.senior_recruiter)['info'][0]
+        response = edit_applicant_note(note_data['id'], 'Edited note', title='New Title', current_user=self.senior_recruiter)
+        self.assertEqual(response, {'status': 'ok'})
+        new_note_data = get_applicant_notes(self.applicant.id, current_user=self.senior_recruiter)['info'][0]
+        self.assertEqual(note_data['id'], new_note_data['id'])
+        self.assertEqual(new_note_data['title'], 'New Title')
+        self.assertEqual(new_note_data['text'], 'Edited note')
+
+    def test_cannot_modify_others_note(self):
+        add_applicant_note(self.applicant.id, 'A note', current_user=self.senior_recruiter)
+        note_data = get_applicant_notes(self.applicant.id, current_user=self.senior_recruiter)['info'][0]
+        with self.assertRaises(ForbiddenException):
+            edit_applicant_note(note_data['id'], 'Edited note', current_user=self.recruiter)
+
+    def test_edit_note_forbidden(self):
+        add_applicant_note(self.applicant.id, 'A note', title='Title', current_user=self.recruiter)
+        note_data = get_applicant_notes(self.applicant.id, current_user=self.recruiter)['info'][0]
+        for user in (self.applicant, self.not_applicant, self.other_recruiter):
+            with self.assertRaises(ForbiddenException):
+                edit_applicant_note(note_data['id'], 'Edited note', title='New Title', current_user=user)
 
     def test_get_character_search_list_invalid(self):
         with self.assertRaises(ForbiddenException):
