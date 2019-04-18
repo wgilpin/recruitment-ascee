@@ -72,9 +72,8 @@ def api_edit_applicant_note(note_id):
         {'status': 'ok'} if note is successfully edited
 
     Error codes:
-        Forbidden (403): If logged in user is not a senior recruiter or a
-            recruiter who has claimed this applicant
-        Bad request (400): If the given user is not an applicant
+        Forbidden (403): If logged in user is not the author of the note or the
+            note does not exist.
     """
     request_data = request.get_json()
     return jsonify(edit_applicant_note(note_id, text=request_data.get('text'), title=request_data.get('title'), current_user=current_user))
