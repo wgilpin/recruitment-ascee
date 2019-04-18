@@ -36,6 +36,7 @@ def get_character_wallet(character_id, current_user=None):
     )
     return process_wallet(character_id, wallet_data)
 
+
 def process_wallet(character_id, wallet_data):
     party_ids = get_party_ids(wallet_data)
     party_data = get_party_data(party_ids)
@@ -233,10 +234,15 @@ def get_character_market_history(character_id, current_user=None):
         'get_characters_character_id_orders',
         character_id=character_id,
     ))
-    order_list.extend(character.get_paged_op(
+    for entry in order_list:
+        entry['is_open'] = True
+    historical_orders = character.get_paged_op(
         'get_characters_character_id_orders_history',
         character_id=character_id,
-    ))
+    )
+    for entry in historical_orders:
+        entry['is_open'] = False
+    order_list.extend(historical_orders)
     return process_market_history(character, order_list)
 
 
