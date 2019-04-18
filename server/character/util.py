@@ -1,13 +1,14 @@
 from models import (
     Station, Structure, System
 )
+from exceptions import BadLocationError
 
 
 def get_location(character, location_id):
     return get_location_multi(character, [location_id])[location_id]
 
 
-def get_location_multi(character, location_id_list):
+def get_location_multi(character, location_id_list, raise_on_missing=True):
     station_id_list = []
     structure_id_list = []
     system_id_list = []
@@ -18,8 +19,8 @@ def get_location_multi(character, location_id_list):
             system_id_list.append(location_id)
         elif location_id > 50000000:  # structure
             structure_id_list.append(location_id)
-        else:
-            raise ValueError(
+        elif raise_on_missing:
+            raise BadLocationError(
                 'location_id {} does not correspond to station'
                 ', system, or structure'.format(location_id)
             )
