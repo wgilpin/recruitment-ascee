@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Alt from '../common/Alt';
 import FetchData from '../common/FetchData';
 import ApplicationHistory from './ApplicationHistory';
+import AltSummary from './AltSummary';
 
 const propTypes = {
   onAltSelect: PropTypes.func,
@@ -38,26 +39,6 @@ const styles = {
     fontWeight: 600,
     color: '#01799A',
     marginBottom: '6px',
-  },
-  corporation: {
-    maxWidth: '300px',
-  },
-  corpCEO: {
-    cursor: 'pointer',
-    textDecoration: 'underline',
-    color: '#01799A',
-    maxWidth: '300px',
-  },
-  secStatus: {
-    fontWeight: 500,
-  },
-  red: {
-    color: 'red',
-    fontWeight: 500,
-  },
-  summary: {
-    backgroundColor: '#222',
-    padding: '4px',
   },
 };
 export default class Alts extends React.Component {
@@ -119,37 +100,6 @@ export default class Alts extends React.Component {
       .catch(err => console.log(err));
   }
 
-  renderSummary() {
-    const { corporations, selected, corporationId, corpRedlisted } = this.state;
-    if (!corporations) {
-      return;
-    }
-    const isCEO =
-      (corporations[corporationId] || {}).ceo_id === parseInt(selected);
-    let corpStyle = isCEO ? styles.corpCEO : styles.corporation;
-    if (corpRedlisted) {
-      corpStyle = { ...corpStyle, ...styles.red };
-    }
-    return (
-      <div style={styles.summary}>
-        <div>
-          <div style={styles.secStatus}>
-            Sec Status: {Math.round(this.state.secStatus * 100) / 100}
-          </div>
-          <div>
-            Corp {isCEO && '[CEO]'}&emsp;
-            <span
-              style={corpStyle}
-              onClick={() => this.handleClickCorp(this.state.corporationId)}
-            >
-              {this.state.corporationName}
-            </span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   showHistory = appHistory => {
     if (this.props.onShowHistory) {
       this.props.onShowHistory(appHistory);
@@ -158,7 +108,16 @@ export default class Alts extends React.Component {
 
   render() {
     const hasAlts = Object.keys(this.state.alts || {}).length > 0;
-    const { selected, alts, applicationId } = this.state;
+    const {
+      selected,
+      alts,
+      applicationId,
+      corporations,
+      corporationId,
+      corpRedlisted,
+      corporationName,
+      secStatus,
+    } = this.state;
     const { main, children } = this.props;
     return (
       <div style={{ ...styles.outer, ...this.props.style }}>
@@ -176,7 +135,17 @@ export default class Alts extends React.Component {
               onClick={this.handleClickAlt}
               showPointer={this.props.showPointer}
             />,
-            selected === main && this.renderSummary(),
+            selected === main && (
+              <AltSummary
+                corporations={corporations}
+                selected={selected}
+                corporationId={corporationId}
+                corpRedlisted={corpRedlisted}
+                corporationName={corporationName}
+                secStatus={secStatus}
+                onClickCorp={this.handleClickCorp}
+              />
+            ),
             <div style={styles.summary}>
               <ApplicationHistory
                 applicantId={main}
@@ -197,7 +166,17 @@ export default class Alts extends React.Component {
               selected={selected === key}
               onClick={this.handleClickAlt}
             />,
-            selected === key && this.renderSummary(),
+            selected === key && (
+              <AltSummary
+                corporations={corporations}
+                selected={selected}
+                corporationId={corporationId}
+                corpRedlisted={corpRedlisted}
+                corporationName={corporationName}
+                secStatus={secStatus}
+                onClickCorp={this.handleClickCorp}
+              />
+            ),
           ];
         })}
         {!this.props.childrenTop && children}

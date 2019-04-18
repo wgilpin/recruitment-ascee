@@ -1,4 +1,4 @@
-from models import db, Character, Type, System, Corporation, Alliance, Region, User, Recruiter, Admin
+from models import db, Character, Type, System, Corporation, Alliance, Region, User, Recruiter, Admin, Application
 from flask_app import app
 from security import user_admin_access_check
 from exceptions import BadRequestException, ForbiddenException
@@ -53,7 +53,16 @@ def set_roles(
     elif is_admin == False and user.admin:
         db.session.delete(user.admin)
     db.session.commit()
+    if is_recruiter or is_senior_recruiter or is_admin:
+        delete_any_open_application(user_id)
     return {'status': 'ok'}
+
+
+def delete_any_open_application(user_id):
+    application = Application.get_for_user(user_id)
+    if application is not None:
+        db.session.delete(application)
+        db.session.commit()
 
 
 def remove_recruiter(recruiter):

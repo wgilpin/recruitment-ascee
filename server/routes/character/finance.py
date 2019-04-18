@@ -45,8 +45,9 @@ def api_character_market_history(character_id):
 
     Returned dictionary is of the form
     {'info': [order_1, order_2, ...]}. Each order is as returned by
-    ESI, with the additional keys `location_name`, `region_name`, `value`, and
-    `type_name`. If redlisted then will include `redlisted` whose value is True.
+    ESI, with the additional keys `location_name`, `region_name`, `value`,
+    `is_open` (bool), and `type_name`. If redlisted then will
+    include `redlisted` whose value is True.
     If the order is a buy order, `price` and `value` will be negative.
 
     An order is redlisted if it includes items that are redlisted, or is
