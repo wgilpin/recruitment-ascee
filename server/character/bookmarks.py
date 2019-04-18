@@ -1,6 +1,7 @@
-from character.util import get_location
+from character.util import get_location_multi
 from models import Character, System
 from security import character_application_access_check
+from exceptions import BadLocationError
 
 
 def get_character_bookmarks(character_id, current_user=None):
@@ -19,6 +20,10 @@ def get_character_bookmarks(character_id, current_user=None):
 def process_bookmarks(character, bookmarks_list, folder_list):
     folders = {folder['folder_id']: folder['name'] for folder in folder_list}
     bookmarks_dict = {entry['bookmark_id']: entry for entry in bookmarks_list}
+    location_ids = set()
+    for entry in bookmarks_dict.values():
+        location_ids.add(entry['location_id'])
+    locations = get_location_multi(character, location_ids, raise_on_missing=False)
     for bookmark_id, entry in bookmarks_dict.items():
         entry['id'] = bookmark_id
         entry['redlisted'] = []
@@ -30,8 +35,11 @@ def process_bookmarks(character, bookmarks_list, folder_list):
                 entry['folder_name'] = esi_folder_name
             else:
                 entry['folder_name'] = 'Personal Locations'
-        location = get_location(character, entry['location_id'])
-        if isinstance(location, System):
+        location = locations.get(entry['location_id'])
+        if location is None:
+            entry['system_id'] = None
+            entry['system_name'] = None
+        elif isinstance(location, System):
             entry['system_id'] = location.id
             entry['system_name'] = location.name
             if location.is_redlisted:

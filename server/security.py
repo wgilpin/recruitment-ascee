@@ -2,6 +2,7 @@ from models import User, Character, Admin, Recruiter, Application, db
 from exceptions import ForbiddenException, BadRequestException, UnauthorizedException
 from functools import wraps
 from flask_login import current_user
+import boto3
 
 
 def login_required(func):
@@ -60,15 +61,19 @@ def is_applicant_character_id(character_id):
 def character_application_access_check(current_user, target_character):
     if not has_applicant_access(current_user, target_character.user):
         raise ForbiddenException(
-            'User {} does not have access to character {}'.format(
-                current_user.id, target_character.id
+            'User {} does not have access.'.format(
+                current_user.id
             )
         )
 
 
 def user_admin_access_check(current_user):
     if not is_admin(current_user):
-        raise ForbiddenException('Insufficient Privilege')
+        raise ForbiddenException(
+            'User {} does not have access.'.format(
+                current_user.id
+            )
+        )
 
 
 def user_application_access_check(current_user, target_user):

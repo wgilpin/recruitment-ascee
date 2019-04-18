@@ -30,6 +30,21 @@ or
 
 The front end url is /app
 
+## How to migrate the db
+
+The migrations folder should already exist, as created by `flask db init`.
+
+To update the migration state, run
+
+python manage.py db migrate
+
+Review the new file created in migrations/versions, and ensure the upgrade steps that were auto-generated are accurate.
+
+Then run
+
+python manage.py db upgrade
+
+
 ## Loading test data
 
 The file `e2e_data.template.py` should be copied locally to `e2e_data.py`. This file is gitignored as it will contain your account refresh tokens which you don't want in the repo!

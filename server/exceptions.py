@@ -25,6 +25,10 @@ def handle_unauthorized(error):
     return response
 
 
+class BadLocationError(ValueError):
+    pass
+
+
 class ESIException(AppException):
     pass
 
