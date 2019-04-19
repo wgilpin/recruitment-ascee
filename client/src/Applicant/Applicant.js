@@ -1,13 +1,13 @@
 import React, { Component, setGlobal } from 'reactn';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import ReactTooltip from 'react-tooltip';
-import Alts from '../evidence/Alts';
 import FetchData from '../common/FetchData';
 import styles from './ApplicantStyles';
-import AsceeImg from '../images/ascee_logo.png';
-import FabButton from '../common/fabButton';
 import Answers from './Answers';
+import ImagesUpload from './ImagesUpload';
+import { ApplicantProvider } from './ApplicantContext';
+import AltsPanel from './AltsPanel';
+import ApplicantHeader from './ApplicantHeader';
 
 setGlobal({ questions: [], answers: {} });
 
@@ -19,18 +19,8 @@ export default class Applicant extends Component {
       ready: false,
       has_application: false,
       submitted: false,
-      pictures: []
+      pictures: [],
     };
-  }
-
-  applicationStatus() {
-    return (
-      <div style={{ ...styles.padded, ...styles.heading }}>
-        {this.state.has_application
-          ? 'Application not completed'
-          : 'Application not started'}
-      </div>
-    );
   }
 
   questionsToState = questions => {
@@ -51,8 +41,6 @@ export default class Applicant extends Component {
     new FetchData({ scope: 'questions' }).get().then(this.questionsToState);
     new FetchData({ scope: 'answers' }).get().then(this.answersToState);
   }
-
-  
 
   allQuestionsAnswered = () => {
     if (Object.keys(this.global.answers).length === 0) {
@@ -138,108 +126,3 @@ export default class Applicant extends Component {
     }
   };
 
-  buildQuestionsPanel = () => {
-    return (
-      <TabPanel>
-        <Answers onChange={this.checkReady} />
-      </TabPanel>
-    );
-  };
-
-  buildHeader = () => {
-    let buttonLabel = 'Start';
-    let buttonStyle;
-    let buttonTip;
-    if (this.state.has_application) {
-      buttonLabel = 'Submit';
-    }
-    if (this.state.has_application && this.state.ready) {
-      buttonStyle = { ...styles.submit, ...styles.padded };
-      buttonTip = 'Ready to submit';
-    } else {
-      buttonStyle = { ...styles.disabledButton, ...styles.padded };
-      buttonTip = 'All fields not complete';
-    }
-
-    return [
-      <div style={styles.header}>
-        <h1 style={styles.h1}>
-          <img src={AsceeImg} style={styles.logo} alt="Ascendance" />
-          Applying to Ascendance
-        </h1>
-      </div>,
-      this.state.has_application && (
-        <div style={styles.paddedHeavily}>
-          Start with your alts, add them all. Once that's done, move on to the
-          questions.
-        </div>
-      ),
-      <div>
-        <button style={buttonStyle} onClick={this.submit} data-tip={buttonTip}>
-          {buttonLabel} Application
-        </button>
-        {!this.state.ready && this.applicationStatus()}
-      </div>,
-    ];
-  };
-
-  buildAltsPanel = () => {
-    return (
-      <TabPanel>
-        <h2 style={styles.headingLeft}>My Alts</h2>
-        <div
-          style={styles.padded}
-          data-tip="Check here when you have added all you alts"
-        >
-          <label style={styles.label}>
-            I have no more alts&emsp;
-            <input
-              style={styles.checkbox}
-              type="checkbox"
-              onClick={this.handleAltsDone}
-              checked={this.state.altsDone}
-            />
-          </label>
-        </div>
-        <Alts style={styles.alts}>
-          <a href="/auth/link_alt" data-tip="Add an alt">
-            {!this.state.ready && (
-              <FabButton
-                icon="add"
-                color={styles.themeColors.primary}
-                size="40px"
-              />
-            )}
-          </a>
-        </Alts>
-        <ReactTooltip />
-      </TabPanel>
-    );
-  };
-
-  render() {
-    if (!this.state.has_application) {
-      return this.buildHeader();
-    }
-    return [
-      !this.state.submitted && (
-        <React.Fragment>
-          <div style={styles.logout}>
-            <a href="/auth/logout">Sign out</a>
-          </div>
-          {this.buildHeader()}
-          <Tabs>
-            <TabList>
-              <Tab>Alts</Tab>
-              <Tab>Questions</Tab>
-              <Tab>Screenshots</Tab>
-            </TabList>
-            {this.buildAltsPanel()}
-            {this.buildQuestionsPanel()}
-          </Tabs>
-        </React.Fragment>
-      ),
-      this.state.submitted && <h1>Application Submitted</h1>,
-    ];
-  }
-}
