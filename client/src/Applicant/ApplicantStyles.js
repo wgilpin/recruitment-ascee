@@ -38,8 +38,12 @@ const styles = {
     paddingLeft: '12px',
   },
   answer: {
-    width: '300px',
+    width: '90%',
     height: '60px',
+    padding: '6px',
+    backgroundColor: '#222',
+    color: 'white',
+    border: 'none',
   },
   answerText: {
     minHeight: '60px',
