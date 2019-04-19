@@ -1,4 +1,4 @@
-import React, { Component, setGlobal } from 'reactn';
+import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import FetchData from '../common/FetchData';
@@ -9,8 +9,6 @@ import { ApplicantProvider } from './ApplicantContext';
 import AltsPanel from './AltsPanel';
 import ApplicantHeader from './ApplicantHeader';
 
-setGlobal({ questions: [], answers: {} });
-
 export default class Applicant extends Component {
   constructor(props) {
     super(props);
@@ -18,23 +16,26 @@ export default class Applicant extends Component {
       altsDone: false,
       ready: false,
       has_application: false,
+      answersReady: false,
       submitted: false,
       pictures: [],
+      questions: [],
     };
   }
 
   questionsToState = questions => {
-    this.setGlobal({ questions });
+    this.setState({ questions });
   };
 
   answersToState = ({ has_application, questions }) => {
     console.log('got answers');
     const newAnswers = { ...this.state.answers };
+    let answersReady = true;
     Object.keys(questions).forEach(key => {
       newAnswers[key] = questions[key].answer;
+      answersReady = newAnswers[key].length === 0 ? false : answersReady;
     });
-    this.setGlobal({ answers: newAnswers });
-    this.setState({ has_application: true });
+    this.setState({ answers: newAnswers, has_application, answersReady });
   };
 
   componentDidMount() {
@@ -42,19 +43,9 @@ export default class Applicant extends Component {
     new FetchData({ scope: 'answers' }).get().then(this.answersToState);
   }
 
-  allQuestionsAnswered = () => {
-    if (Object.keys(this.global.answers).length === 0) {
-      return false;
-    }
-    return (
-      Object.values(this.global.answers).filter(q => q.length === 0).length ===
-      0
-    );
-  };
-
   checkReady = () => {
     this.setState({
-      ready: this.state.altsDone && this.allQuestionsAnswered(),
+      ready: this.state.altsDone && this.state.answersReady,
     });
   };
 
@@ -70,21 +61,6 @@ export default class Applicant extends Component {
 
   handleAltsDone = cb => {
     this.setState({ altsDone: cb.target.checked }, this.checkReady);
-  };
-
-  stateToParams = () => {
-    return {
-      answers: Object.entries(this.global.answers).map(
-        ([question_id, text]) => ({ question_id, text })
-      ),
-    };
-  };
-
-  handleSaveAnswers = () => {
-    new FetchData({ scope: 'answers' }).put(this.stateToParams()).then(() => {
-      this.setState({ dirtyAnswers: false });
-      window.alert('Saved');
-    });
   };
 
   submit = () => {
@@ -126,3 +102,55 @@ export default class Applicant extends Component {
     }
   };
 
+  onDrop = (pictureFiles, pictureDataURLs) => {
+    this.setState({
+      pictures: this.state.pictures.concat(pictureFiles),
+    });
+  };
+
+  setAnswersStatus = ready => this.setState({ answersReady: ready }, this.checkReady)
+
+  render() {
+    const { altsDone, ready, answers, questions, has_application } = this.state;
+    if (!this.state.has_application) {
+      return (
+        <ApplicantProvider value={{ altsDone, ready }}>
+          <ApplicantHeader onSubmit={this.submit} />
+        </ApplicantProvider>
+      );
+    }
+    return [
+      !this.state.submitted && (
+        <React.Fragment>
+          <div style={styles.logout}>
+            <a href="/auth/logout">Sign out</a>
+          </div>
+          <ApplicantProvider value={{ altsDone, ready, has_application }}>
+            <ApplicantHeader onSubmit={this.submit} />
+            <Tabs>
+              <TabList>
+                <Tab>Alts</Tab>
+                <Tab>Questions</Tab>
+                <Tab>Screenshots</Tab>
+              </TabList>
+              <TabPanel>
+                <AltsPanel onAltsDone={this.handleAltsDone} />
+              </TabPanel>
+              <TabPanel>
+                <Answers
+                  answers={answers}
+                  questions={questions}
+                  onReadyStatus={this.setAnswersStatus}
+                />
+              </TabPanel>
+              <TabPanel>
+                <ImagesUpload />
+              </TabPanel>
+            </Tabs>
+          </ApplicantProvider>
+        </React.Fragment>
+      ),
+      this.state.submitted && <h1>Application Submitted</h1>,
+    ];
+  }
+}
