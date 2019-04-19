@@ -24,11 +24,8 @@ import checkImg from '../images/check.png';
 import RoundImage from '../common/RoundImage';
 import FetchData from '../common/FetchData';
 import Answers from '../Applicant/Answers';
-<<<<<<< HEAD
 import NotesHistory from '../notes/NotesHistory';
-=======
 import Screenshots from './Screenshots';
->>>>>>> added screenshots to evidence page
 
 const styles = {
   outer: {
