@@ -17,6 +17,7 @@ import fittingsImg from '../images/fitting.png';
 import clonesImg from '../images/cloneBay.png';
 import industryImg from '../images/Industry.png';
 import answersImg from '../images/question_answer.png';
+import screenshotImg from '../images/images.png';
 
 const propTypes = {
   onTabChange: PropTypes.func,
@@ -73,6 +74,7 @@ const displayOrder = [
   { name: 'Contracts', src: contractsImg },
   { name: 'PI', src: PIImg },
   { name: 'Calendar', src: calendarImg },
+  { name: 'Screenshots', src: screenshotImg },
 ];
 
 
