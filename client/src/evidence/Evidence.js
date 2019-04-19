@@ -24,7 +24,11 @@ import checkImg from '../images/check.png';
 import RoundImage from '../common/RoundImage';
 import FetchData from '../common/FetchData';
 import Answers from '../Applicant/Answers';
+<<<<<<< HEAD
 import NotesHistory from '../notes/NotesHistory';
+=======
+import Screenshots from './Screenshots';
+>>>>>>> added screenshots to evidence page
 
 const styles = {
   outer: {
@@ -328,6 +332,12 @@ export default class Evidence extends React.Component {
             )}
             {active === 'Clones' && (
               <TableClones
+                style={styles.tabBody}
+                targetId={this.state.currentAlt}
+              />
+            )}
+            {active === 'Screenshots' && (
+              <Screenshots
                 style={styles.tabBody}
                 targetId={this.state.currentAlt}
               />
