@@ -37,7 +37,7 @@ def get_application_images(application_id, current_user=None):
 
 def sign_s3(current_user=None):
     application = Application.get_for_user(current_user.id)
-    if application is None or application.is_submitted:
+    if application is None:
         raise ForbiddenException(
             'User {} does not have access.'.format(
                 current_user.id
@@ -51,17 +51,21 @@ def sign_s3(current_user=None):
         if app.config.get('TESTING'):
             presigned_post = 'placeholder for presigned_post'
         else:
-            s3 = boto3.client('s3')
-            presigned_post = s3.generate_presigned_post(
-                Bucket=aws_bucket_name,
-                Key=file_name,
-                Fields={"acl": "public-read", "Content-Type": 'image'},
-                Conditions=[
-                    {"acl": "public-read"},
-                    {"Content-Type": 'image'}
-                ],
-                ExpiresIn=3600,
-            )
+            try:
+                s3 = boto3.client('s3')
+                presigned_post = s3.generate_presigned_post(
+                    Bucket=aws_bucket_name,
+                    Key=file_name,
+                    Fields={"acl": "public-read", "Content-Type": 'image'},
+                    Conditions=[
+                        {"acl": "public-read"},
+                        {"Content-Type": 'image'}
+                    ],
+                    ExpiresIn=3600,
+                )
+            except AttributeError as e:
+                print('Attribute Error in S3 Access. Check S3 env vars are set',e)
+                return {'info': {}}
         return {
             'info': {
                 'image_id': image.id,
@@ -83,4 +87,3 @@ def confirm_s3(image_id, current_user=None):
         image.is_confirmed = True
         db.session.commit()
         return {'status': 'ok'}
-
