@@ -22,13 +22,13 @@ const localStyles = {
   },
 };
 
-export default ({ label, list, isEnabled }) => {
+export default ({ label, list, isEnabled, onSelect }) => {
   return (
     <div style={localStyles.section}>
       <div style={localStyles.h2}>{label}</div>
       {Misc.dictLen(list) > 0 ? (
         Object.keys(list).map(key => (
-          <RecruitItem id={key} recruit={list[key]} isEnabled={isEnabled} />
+          <RecruitItem id={key} recruit={list[key]} isEnabled={isEnabled} onSelect={onSelect}/>
         ))
       ) : (
         <div style={localStyles.noneText}>None</div>

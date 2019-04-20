@@ -177,7 +177,7 @@ export default class Recruiter extends React.Component {
     });
   };
 
-  handleClick(id) {
+  handleClick = (id) => {
     if (this.state.recruits[id].status !== Recruiter.statuses.unclaimed)
       this.setState({ activeRecruitId: id });
   }
@@ -227,6 +227,7 @@ export default class Recruiter extends React.Component {
               label="Claimed"
               list={claimed}
               isEnabled={this.state.roles.is_recruiter}
+              onSelect={this.handleClick}
             />
           </RecruiterProvider>
         </div>
