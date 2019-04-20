@@ -5,8 +5,8 @@ import TableStyles from '../evidence/TableStyles';
 import Styles from '../common/Styles';
 import RoundImage from '../common/RoundImage';
 import FetchData from '../common/FetchData';
-import addImg from '../images/add_circle_outline_white_24dp.png';
-import deleteImg from '../images/baseline_clear_white_24dp.png';
+import addImg from '../images/add_circle_outline.png';
+import deleteImg from '../images/clear.png';
 
 const propTypes = {
   kind: PropTypes.string,
