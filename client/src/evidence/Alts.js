@@ -77,7 +77,8 @@ export default class Alts extends React.Component {
           corpRedlisted: 'corporation_name' in info.redlisted,
           applicationId: info.current_application_id,
         })
-      );
+      )
+      .catch(e => console.log(e));
   };
 
   componentDidMount() {
