@@ -9,6 +9,7 @@
     "prettier-eslint": "^8.8.2",
     "query-string": "^6.2.0",
     "react": "^16.5.2",
+    "react-autosize-textarea": "^7.0.0",
     "react-dom": "^16.5.2",
     "react-images-upload": "^1.2.6",
     "react-ionicons": "^3.0.1",
