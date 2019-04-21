@@ -1,6 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
-import DeleteImg from '../images/baseline_delete_white_24dp.png';
+import DeleteImg from '../images/delete.png';
 import FetchData from '../common/FetchData';
 
 const styles = {
