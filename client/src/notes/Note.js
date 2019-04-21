@@ -81,6 +81,8 @@ const styles = {
   },
   line: {
     textAlign: 'left',
+    paddingLeft: '6px',
+    paddingRight: '6px',
   },
 };
 export default class Note extends React.Component {
@@ -190,14 +192,6 @@ export default class Note extends React.Component {
         <div style={styles.body} onClick={this.handleExpandClick}>
           <div style={styles.author}>
             {author}
-            {this.props.can_edit && (
-              <img
-                style={styles.editBtn}
-                alt="edit"
-                onClick={this.editNote}
-                src={editImg}
-              />
-            )}
             &emsp;
           </div>
           <div style={styles.titleBody}>
