@@ -23,6 +23,7 @@ def api_get_applicant_notes_and_logs(applicant_id):
             {
                 "timestamp": "ISO Date string",
                 "author": "Tommy Tattle",
+                "can_edit": True,
                 "is_chat_log": True,
                 "id": 101052109,
                 "title": "Chat log from friday",

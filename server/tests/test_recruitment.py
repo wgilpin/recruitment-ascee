@@ -422,6 +422,9 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.assertEqual(len(notes), 1)
         self.assertEqual(notes[0].text, "A note")
         self.assertEqual(notes[0].title, None)
+        augmented_notes = get_applicant_notes(self.applicant.id, current_user=self.recruiter)['info']
+        self.assertEqual(augmented_notes[0]['can_edit'], True)
+        
         response = add_applicant_note(self.applicant.id, "Another note", current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
         notes = self.application.notes
@@ -445,6 +448,8 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.assertEqual(len(notes), 1)
         self.assertEqual(notes[0].text, "A note")
         self.assertEqual(notes[0].title, "A Title")
+        augmented_notes = get_applicant_notes(self.applicant.id, current_user=self.recruiter)['info']
+        self.assertEqual(augmented_notes[0]['can_edit'], True)
         response = add_applicant_note(self.applicant.id, "Another note", current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
         notes = self.application.notes
@@ -476,6 +481,13 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.assertEqual(data['text'], 'A note')
         self.assertEqual(data['is_chat_log'], False)
 
+    def test_get_another_recruiters_note(self):
+        add_applicant_note(self.applicant.id, "A note", current_user=self.senior_recruiter)
+        notes = get_applicant_notes(self.applicant.id, current_user=self.senior_recruiter)['info']
+        self.assertEqual(notes[0]['can_edit'], True)
+        other_view_of_notes = get_applicant_notes(self.applicant.id, current_user=self.recruiter)['info']
+        self.assertEqual(other_view_of_notes[0]['can_edit'], False)
+
     def test_get_applicant_notes_forbidden(self):
         add_applicant_note(self.applicant.id, "A note", current_user=self.recruiter)
         for user in (self.other_recruiter, self.not_applicant):
@@ -488,6 +500,8 @@ class MiscRecruitmentTests(AsceeTestCase):
         notes = self.application.notes
         self.assertEqual(len(notes), 1)
         self.assertEqual(notes[0].text, "A note")
+        augmented_notes = get_applicant_notes(self.applicant.id, current_user=self.recruiter)['info']
+        self.assertEqual(augmented_notes[0]['can_edit'], True)
         response = add_applicant_note(self.applicant.id, "Another note", current_user=self.senior_recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
         notes = self.application.notes
