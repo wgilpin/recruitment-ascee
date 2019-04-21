@@ -14,19 +14,27 @@ export default class Chat extends React.Component {
     this.state = {};
   }
 
-  buildNote({id, author, title, text, timestamp, can_edit}) {
-    return <Note id={id} author={author} title={title} body={text} timestamp={timestamp}/>
+  buildNote({ id, author, title, text, timestamp, can_edit }) {
+    return (
+      <Note
+        id={id}
+        author={author}
+        title={title}
+        body={text}
+        timestamp={timestamp}
+        can_edit={can_edit}
+      />
+    );
   }
 
   render() {
-    if (!this.props.items){
+    if (!this.props.items) {
       return null;
     }
-    console.log('got data', this.props.show)
+    console.log('got data', this.props.show);
     return (
       <React.Fragment>
-        {this.props.items
-          .map(note => this.buildNote(note))}
+        {this.props.items.map(note => this.buildNote(note))}
       </React.Fragment>
     );
   }

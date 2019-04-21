@@ -61,6 +61,7 @@ export default class NotesColumns extends React.Component {
 
   render() {
     const { onlyShow } = this.state;
+    const { notes, logs } = this.props;
     return (
       <React.Fragment>
         <div style={styles.outer}>
@@ -75,7 +76,7 @@ export default class NotesColumns extends React.Component {
                   onClick={() => this.expand('left')}
                 />
               </h2>
-              <Chat items={this.props.notes} />
+              <Chat items={notes} />
               <NoteInput onSubmit={this.props.onAddNote} />
             </div>
           )}
@@ -90,7 +91,7 @@ export default class NotesColumns extends React.Component {
                   onClick={() => this.expand('right')}
                 />
               </h2>
-              <Chat items={this.props.logs} />
+              <Chat items={logs && logs.map(log => ({...log, can_edit: false}))} />
               <div>
                 {!this.props.canAddLog && (
                   <FabButton
