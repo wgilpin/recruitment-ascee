@@ -14,7 +14,7 @@ export default class Chat extends React.Component {
     this.state = {};
   }
 
-  buildNote({id, author, title, text, timestamp}) {
+  buildNote({id, author, title, text, timestamp, can_edit}) {
     return <Note id={id} author={author} title={title} body={text} timestamp={timestamp}/>
   }
 
