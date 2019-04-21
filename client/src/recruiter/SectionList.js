@@ -2,6 +2,8 @@ import React from 'react';
 import TableStyles from '../evidence/TableStyles';
 import Misc from '../common/Misc';
 import RecruitItem from './RecruitItem';
+import collapsedImg from '../images/collapsed.png';
+import expandedImg from '../images/expanded.png';
 
 const localStyles = {
   h2: {
@@ -10,6 +12,7 @@ const localStyles = {
     fontSize: 'larger',
     paddingLeft: '12px',
     marginTop: '16px',
+    height: '36px',
   },
   noneText: {
     textAlign: 'left',
@@ -20,19 +23,47 @@ const localStyles = {
   section: {
     backgroundColor: '#333',
   },
+  collapse: {
+    float: 'right',
+    margin: '8px',
+    height: '20px',
+    cursor: 'pointer',
+  },
 };
 
-export default ({ label, list, isEnabled, onSelect }) => {
-  return (
-    <div style={localStyles.section}>
-      <div style={localStyles.h2}>{label}</div>
-      {Misc.dictLen(list) > 0 ? (
-        Object.keys(list).map(key => (
-          <RecruitItem id={key} recruit={list[key]} isEnabled={isEnabled} onSelect={onSelect}/>
-        ))
-      ) : (
-        <div style={localStyles.noneText}>None</div>
-      )}
-    </div>
-  );
-};
+export default class SectionList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: true,
+    };
+  }
+
+  handleExpand = () => {
+    this.setState({ expanded: !this.state.expanded });
+  };
+
+  render() {
+    const { label, list, isEnabled } = this.props;
+    const { expanded } = this.state;
+    return (
+      <div style={localStyles.section}>
+        <img
+          style={localStyles.collapse}
+          src={expanded ? expandedImg : collapsedImg}
+          alt=""
+          onClick={this.handleExpand}
+        />
+        <div style={localStyles.h2}>{label}</div>
+        {this.state.expanded &&
+          (Misc.dictLen(list) > 0 ? (
+            Object.keys(list).map(key => (
+              <RecruitItem id={key} recruit={list[key]} isEnabled={isEnabled} />
+            ))
+          ) : (
+            <div style={localStyles.noneText}>None</div>
+          ))}
+      </div>
+    );
+  }
+}
