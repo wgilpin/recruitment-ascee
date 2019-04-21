@@ -14,6 +14,7 @@ const propTypes = {
   id: PropTypes.number,
   recruit: PropTypes.object,
   isEnabled: PropTypes.bool,
+  onSelect: PropTypes.func,
 };
 
 const defaultProps = {};
@@ -74,7 +75,7 @@ export default class RecruitItem extends React.Component {
                   )),
               ]}
               <span
-                onClick={() => this.handleClick(id)}
+                onClick={() => this.props.onSelect(id)}
                 style={localStyles.altSpan}
               >
                 <RoundImage src={avatarImg} />

@@ -3,36 +3,14 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import FetchData from '../common/FetchData';
 import Loader from 'react-loader-spinner';
-import Styles from '../common/Styles';
-import Chat from './Chat';
-import NoteInput from './NoteInput';
-import FabButton from '../common/fabButton';
+
+import NotesColumns from './NotesColumns';
 
 const propTypes = {
   alt: PropTypes.number,
 };
 
 const defaultProps = {};
-
-const styles = {
-  outer: {
-    display: 'flex',
-    maxWidth: '800px',
-  },
-  column: {
-    flex: '50%',
-    minWidth: '300px',
-    padding: '12px',
-  },
-  h2: {
-    color: Styles.themeColors.primary,
-  },
-  fab: {
-    position: 'relative',
-    top: '0px',
-    float: 'right',
-  }
-}
 
 export default class NotesPage extends React.Component {
   constructor(props) {
@@ -42,21 +20,29 @@ export default class NotesPage extends React.Component {
 
   sortNotes = (a, b) => moment(a.timestamp) - moment(b.timestamp);
 
-  fetchNotes(){
-    new FetchData({ id: this.props.targetId, scope: 'recruits', param1: 'notes' })
+  fetchNotes() {
+    new FetchData({
+      id: this.props.targetId,
+      scope: 'recruits',
+      param1: 'notes',
+    })
       .get()
       // Set the  `notes` and 'logs' lists
       .then(data => {
         this.setState({ loading: false });
         console.log(`fetched notes`, data);
-        const notes = data.info.filter(note => (note.title || '').length === 0).sort(this.sortNotes);
-        const logs = data.info.filter(note => (note.title || '').length > 0).sort(this.sortNotes);
+        const notes = data.info
+          .filter(note => (note.title || '').length === 0)
+          .sort(this.sortNotes);
+        const logs = data.info
+          .filter(note => (note.title || '').length > 0)
+          .sort(this.sortNotes);
         this.setState({ notes, logs, showAddLog: false });
       });
   }
 
   componentDidMount() {
-    console.log('set global')
+    console.log('set global');
     this.fetchNotes();
   }
 
@@ -67,44 +53,22 @@ export default class NotesPage extends React.Component {
       .then(() => {
         // TODO: check for errors
         this.fetchNotes();
-      })
-  }
-
-  clickAddLog = () => {
-    this.setState({ showAddLog: true })
-  }
+      });
+  };
 
   render() {
     if (this.state.loading) {
-      console.log('loading')
-      return <Loader type="Puff" color="#01799A" height="100" width="100" />
+      console.log('loading');
+      return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
-    console.log('loaded')
+    console.log('loaded');
     return (
-      <div style={styles.outer}>
-        <div style={styles.column}>
-          <h2 style={styles.h2}>Notes</h2>
-          <Chat items={this.state.notes} />
-          <NoteInput onSubmit={this.handleAddNote}/>
-        </div>
-        <div style={styles.column}>
-          <h2 style={styles.h2}>Chat Transcripts</h2>
-          <Chat items={this.state.logs} />
-          <div>
-            { !this.state.showAddLog &&
-              <FabButton
-                icon="add"
-                color="#c00"
-                size="40px"
-                style={styles.fab}
-                onClick={this.clickAddLog}/>
-            }
-            { this.state.showAddLog &&
-              <NoteInput log="true" onSubmit={this.handleAddNote}/>
-            }
-          </div>
-        </div>
-      </div>
+      <NotesColumns
+        canAddLog
+        notes={this.state.notes}
+        logs={this.state.logs}
+        onAddNote={this.handleAddNote}
+      />
     );
   }
 }
