@@ -29,7 +29,6 @@ import NotesHistory from '../notes/NotesHistory';
 const styles = {
   outer: {
     display: 'flex',
-    maxWidth: '800px',
   },
   alts: {
     display: 'flex flex-column',
