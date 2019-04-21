@@ -125,7 +125,7 @@ export default class TabsHeader extends React.Component {
       <div style={styles.div}>
         <div style={styles.headerRow}>
           {displayItems.map(({ src, name }) => (
-            <div style={styles.cell}>
+            <div style={{...styles.cell, paddingBottom: 0 }}>
               <RoundImage
                 size={40}
                 src={src}
@@ -138,7 +138,7 @@ export default class TabsHeader extends React.Component {
         </div>
         <div style={styles.textRow}>
           {displayItems.map(({ src, name }) => (
-            <div style={styles.cell}>
+            <div style={{...styles.cell, paddingTop: 0 }}>
               <div style={styles.span} onClick={() => this.showTab(name)}>
                 {name}
               </div>

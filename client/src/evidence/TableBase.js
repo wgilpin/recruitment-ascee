@@ -114,7 +114,7 @@ export default class TableBase extends React.Component {
         }
         this.setState({ rawData: data.info });
         if (this.preProcessData) {
-          data = this.preProcessData(data)
+          data = this.preProcessData(data);
         }
         this.processData(data);
       });
@@ -162,7 +162,7 @@ export default class TableBase extends React.Component {
     if (final) {
       style = { ...style, width: '100%' };
     }
-    const theDate = moment(date).format('DD-MMM-YYYY HH:MM')
+    const theDate = moment(date).format('DD-MMM-YYYY HH:MM');
     return <div style={style}>{theDate}</div>;
   }
 
@@ -173,7 +173,7 @@ export default class TableBase extends React.Component {
     }
     // TODO: This shouldn't need a try..catch but the API needs updating
     try {
-      if ((this.state.data[idx].redlisted || []).indexOf(field.id) >-1) {
+      if ((this.state.data[idx].redlisted || []).indexOf(field.id) > -1) {
         style.color = 'red';
         style.fontWeight = '600';
       }
@@ -338,12 +338,16 @@ export default class TableBase extends React.Component {
     return (text[0].toUpperCase() + text.slice(1)).replace(/_/g, ' ');
   }
 
-  sortFn(property, numeric) {
-    const defaultVal = numeric ? 0 : 'zzzz';
+  sortFn(property, fieldKind) {
+    const defaultVal = fieldKind === 'standing' ? 0 : 'zzzz';
     var sortOrder = 1;
     if (property[0] === '-') {
       sortOrder = -1;
       property = property.substr(1);
+    }
+    if (fieldKind === 'YN') {
+      return (a, b) =>
+        a[property] === b[property] ? 0 : a[property] ? -sortOrder : sortOrder;
     }
     const fn = (a, b) => {
       var result =
@@ -368,7 +372,7 @@ export default class TableBase extends React.Component {
     } else {
       this.sortBy = field.id;
     }
-    let sortFn = this.sortFn(this.sortBy, field.kind === 'standing');
+    let sortFn = this.sortFn(this.sortBy, field.kind);
     const resorted = this.state.data.sort(sortFn);
     this.setState({ data: resorted });
   }
@@ -492,12 +496,12 @@ export default class TableBase extends React.Component {
     }
     if (this.state.data.length === 0) {
       return [
-        this.showHeader? this.showHeader(this.state.rawData) : null,
-        <div>None found</div>
+        this.showHeader ? this.showHeader(this.state.rawData) : null,
+        <div>None found</div>,
       ];
     }
     return [
-      this.showHeader? this.showHeader(this.state.rawData) : null,
+      this.showHeader ? this.showHeader(this.state.rawData) : null,
       <div style={styles.div}>
         <div style={styles.table}>
           {!this.groupBy.length ? (
@@ -509,8 +513,8 @@ export default class TableBase extends React.Component {
             this.makeGroupLines(null, this.state.groups, 0)
           )}
         </div>
-      </div>
-          ];
+      </div>,
+    ];
   }
 }
 
