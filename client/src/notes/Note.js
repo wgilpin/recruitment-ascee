@@ -172,6 +172,10 @@ export default class Note extends React.Component {
     this.setState({ dirty: true, text: this.textRef.current.value });
   };
 
+  editNote = () => {
+    this.setState({ collapsed: false, editing: true });
+  };
+
   render() {
     const { author, title } = this.props;
     const bodyLines = this.state.text.split('\n');
@@ -183,6 +187,14 @@ export default class Note extends React.Component {
           <div style={styles.author}>
             
             {author}
+            {this.props.can_edit && (
+              <img
+                style={styles.editBtn}
+                alt="edit"
+                onClick={this.editNote}
+                src={editImg}
+              />
+            )}
             &emsp;
           </div>
           <div style={styles.titleBody}>
