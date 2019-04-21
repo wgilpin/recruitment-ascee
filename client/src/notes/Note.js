@@ -96,7 +96,7 @@ export default class Note extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ text: this.props.body })
+    this.setState({ text: this.props.body });
   }
   handleExpandClick = e => {
     if (!this.state.editing) {
@@ -123,7 +123,7 @@ export default class Note extends React.Component {
         text: this.state.text,
       })
       .then(() => window.alert('saved'));
-  }
+  };
 
   getButtons() {
     const editBtn = (
@@ -182,10 +182,13 @@ export default class Note extends React.Component {
     const bodyText = this.state.text;
     return (
       <div style={styles.outer}>
-        {title && title.length > 0 && <div style={styles.title}>{title}</div>}
+        {title && title.length > 0 && (
+          <div onClick={this.handleExpandClick} style={styles.title}>
+            {title}
+          </div>
+        )}
         <div style={styles.body} onClick={this.handleExpandClick}>
           <div style={styles.author}>
-            
             {author}
             {this.props.can_edit && (
               <img
