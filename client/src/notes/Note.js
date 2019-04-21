@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import collapsedImg from '../images/collapsed.png';
 import expandedImg from '../images/expanded.png';
+import editImg from '../images/edit-white.svg';
 
 const propTypes = {
   id: PropTypes.number,
   kind: PropTypes.string,
+  can_edit: PropTypes.bool,
 };
 
 const defaultProps = {};
@@ -61,12 +63,19 @@ const styles = {
     overflow: 'hidden',
     fontSize: 'small',
   },
+  editBtn: {
+    float: 'right',
+    marginTop: '6px',
+    marginRight: '6px',
+    cursor: 'pointer',
+  },
 };
 export default class Note extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       collapsed: true,
+      editing: false,
     };
   }
 
@@ -93,6 +102,10 @@ export default class Note extends React.Component {
     );
   };
 
+  editNote = () => {
+    this.setState({ collapsed: false, editing: true });
+  };
+
   render() {
     const { author, title, body } = this.props;
     const bodyLines = body.split('\n');
@@ -102,6 +115,14 @@ export default class Note extends React.Component {
         <div style={styles.body}>
           <div style={styles.author}>
             {author}
+            {this.props.can_edit && (
+              <img
+                style={styles.editBtn}
+                alt="edit"
+                onClick={this.editNote}
+                src={editImg}
+              />
+            )}
             &emsp;
           </div>
           <div style={styles.titleBody}>
@@ -113,7 +134,12 @@ export default class Note extends React.Component {
             })}
             {this.expansionButton()}
           </div>
-          {this.state.collapsed || bodyLines.map(line => <div>{line}</div>)}
+          {this.state.collapsed ||
+            (this.state.editing ? (
+              <textarea style={styles.editBox} value={bodyLines} />
+            ) : (
+              bodyLines.map(line => <div>{line}</div>)
+            ))}
         </div>
       </div>
     );
