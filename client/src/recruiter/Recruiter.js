@@ -177,7 +177,7 @@ export default class Recruiter extends React.Component {
     });
   };
 
-  handleClick(id) {
+  handleClick = (id) => {
     if (this.state.recruits[id].status !== Recruiter.statuses.unclaimed)
       this.setState({ activeRecruitId: id });
   }
@@ -227,6 +227,7 @@ export default class Recruiter extends React.Component {
               label="Claimed"
               list={claimed}
               isEnabled={this.state.roles.is_recruiter}
+              onSelect={this.handleClick}
             />
           </RecruiterProvider>
         </div>
@@ -236,6 +237,7 @@ export default class Recruiter extends React.Component {
               label="Accepted"
               list={accepted}
               isEnabled={this.state.roles.is_senior_recruiter}
+              onSelect={this.handleClick}
             />
           </RecruiterProvider>
         </div>
@@ -245,6 +247,7 @@ export default class Recruiter extends React.Component {
               label="Unclaimed"
               list={unclaimed}
               isEnabled={this.state.roles.is_recruiter}
+              onSelect={this.handleClick}tf            
             />
           </RecruiterProvider>
         </div>
@@ -279,31 +282,32 @@ export default class Recruiter extends React.Component {
   };
 
   render() {
-    if (this.state.loading) {
+    const { roles, recruits, activeRecruitId, loading } = this.state;
+    if (loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
     if (
       !(
-        this.state.loading ||
-        this.state.roles.is_admin ||
-        this.state.roles.is_recruiter ||
-        this.state.roles.is_senior_recruiter
+        loading ||
+        roles.is_admin ||
+        roles.is_recruiter ||
+        roles.is_senior_recruiter
       )
     ) {
       // no roles? wrong place
       window.location = '/';
     }
-    const activeRecruit = this.state.recruits[this.state.activeRecruitId];
+    const activeRecruit = activeRecruitId && recruits[activeRecruitId];
     return [
-      this.state.roles.is_admin && (
+      roles.is_admin && (
         <a href="/app/admin">
           <button style={{ ...localStyles.primaryButton, float: 'right' }}>
             Admin
           </button>
         </a>
       ),
-      !this.state.activeRecruitId && this.renderList(),
-      this.state.activeRecruitId &&
+      !activeRecruitId && this.renderList(),
+      activeRecruitId &&
         activeRecruit.status !== Recruiter.statuses.unclaimed &&
         this.renderEvidence(),
       this.state.showAlert && (

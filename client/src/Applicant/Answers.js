@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styles from './ApplicantStyles';
 import FetchData from '../common/FetchData';
 
-
 const propTypes = {
   onChange: PropTypes.func,
   onHasApplication: PropTypes.func,
@@ -22,6 +21,9 @@ export default class Answers extends React.Component {
   }
 
   handleAnswerChanged = e => {
+    if (this.props.readonly) {
+      return;
+    }
     const { id, value } = e.target;
     this.setState(
       {
@@ -34,7 +36,7 @@ export default class Answers extends React.Component {
             [id]: value,
           },
         });
-        if (this.props.onChange && ! this.props.readonly) {
+        if (this.props.onChange && !this.props.readonly) {
           this.props.onChange();
         }
       }
@@ -56,7 +58,6 @@ export default class Answers extends React.Component {
     });
   };
 
-
   render() {
     return (
       <React.Fragment>
@@ -67,18 +68,25 @@ export default class Answers extends React.Component {
           return (
             <div key={key}>
               <div style={styles.padded}>{question}</div>
-              <textarea
-                style={styles.answer}
-                id={key}
-                onChange={this.handleAnswerChanged}
-              >
-                {answer}
-              </textarea>
+              {this.props.readonly ? (
+                <div style={styles.answerText} id={key} >
+                  {answer.split('\n').map(line => <div>{line}</div>)}
+                </div>
+              ) : (
+                <textarea
+                  style={styles.answer}
+                  id={key}
+                  readonly={this.props.readonly}
+                  onChange={this.handleAnswerChanged}
+                >
+                  {answer}
+                </textarea>
+              )}
               <hr style={styles.hr} />
             </div>
           );
         })}
-        {this.state.dirtyAnswers && !this.props.readonly &&(
+        {this.state.dirtyAnswers && !this.props.readonly && (
           <button style={styles.primaryButton} onClick={this.handleSaveAnswers}>
             Save
           </button>
