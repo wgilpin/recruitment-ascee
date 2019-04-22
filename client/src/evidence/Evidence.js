@@ -245,6 +245,8 @@ export default class Evidence extends React.Component {
               <Answers
                 style={styles.tabBody}
                 targetId={this.props.main}
+                answers={this.global.answers}
+                questions={this.global.questions}
                 readonly
               />
             )}
