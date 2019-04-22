@@ -4,8 +4,9 @@ import Styles from '../common/Styles';
 import FabButton from '../common/fabButton';
 import Chat from './Chat';
 import NoteInput from './NoteInput';
-import arrowRight from '../images/arrow_forward.png';
-import arrowLeft from '../images/arrow_back.png';
+import arrowRightImg from '../images/arrow_forward.png';
+import arrowLeftImg from '../images/arrow_back.png';
+import columnsImg from '../images/columns.png';
 
 const propTypes = {
   canAddLog: PropTypes.func,
@@ -61,6 +62,7 @@ export default class NotesColumns extends React.Component {
 
   render() {
     const { onlyShow } = this.state;
+    const { notes, logs } = this.props;
     return (
       <React.Fragment>
         <div style={styles.outer}>
@@ -70,7 +72,7 @@ export default class NotesColumns extends React.Component {
                 Notes
                 <img
                   style={styles.img}
-                  src={onlyShow ? arrowLeft : arrowRight}
+                  src={onlyShow ? columnsImg : arrowRightImg}
                   alt=""
                   onClick={() => this.expand('left')}
                 />
@@ -85,12 +87,14 @@ export default class NotesColumns extends React.Component {
                 Chat Transcripts
                 <img
                   style={styles.img}
-                  src={onlyShow ? arrowRight : arrowLeft}
+                  src={onlyShow ? columnsImg : arrowLeftImg}
                   alt=""
                   onClick={() => this.expand('right')}
                 />
               </h2>
-              <Chat items={this.props.logs} />
+              <Chat
+                items={logs && logs.map(log => ({ ...log, can_edit: false }))}
+              />
               <div>
                 {!this.props.canAddLog && (
                   <FabButton

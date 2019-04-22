@@ -11,3 +11,4 @@ from routes.search import *
 from routes.users import *
 from routes.list import *
 from routes.roles import *
+from routes.images import *

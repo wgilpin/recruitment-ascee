@@ -25,11 +25,11 @@ import RoundImage from '../common/RoundImage';
 import FetchData from '../common/FetchData';
 import Answers from '../Applicant/Answers';
 import NotesHistory from '../notes/NotesHistory';
+import Screenshots from './Screenshots';
 
 const styles = {
   outer: {
     display: 'flex',
-    maxWidth: '800px',
   },
   alts: {
     display: 'flex flex-column',
@@ -328,6 +328,12 @@ export default class Evidence extends React.Component {
             )}
             {active === 'Clones' && (
               <TableClones
+                style={styles.tabBody}
+                targetId={this.state.currentAlt}
+              />
+            )}
+            {active === 'Screenshots' && (
+              <Screenshots
                 style={styles.tabBody}
                 targetId={this.state.currentAlt}
               />

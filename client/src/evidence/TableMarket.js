@@ -16,6 +16,7 @@ export default class TableMarket extends TableBase {
     this.addField(TableBase.kinds().text,'type_name');
     this.addField(TableBase.kinds().ISK,'price');
     this.addField(TableBase.kinds().number,'volume_total', 'Volume');
+    this.addField(TableBase.kinds().number,'volume_remain', 'Remaining');
     this.addField(TableBase.kinds().text,'location_name');
     this.addField(TableBase.kinds().text,'region_name');
   }
