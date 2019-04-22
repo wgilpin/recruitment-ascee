@@ -44,7 +44,7 @@ export default class SectionList extends React.Component {
   };
 
   render() {
-    const { label, list, isEnabled } = this.props;
+    const { label, list, isEnabled, onSelect } = this.props;
     const { expanded } = this.state;
     return (
       <div style={localStyles.section}>
@@ -58,7 +58,12 @@ export default class SectionList extends React.Component {
         {this.state.expanded &&
           (Misc.dictLen(list) > 0 ? (
             Object.keys(list).map(key => (
-              <RecruitItem id={key} recruit={list[key]} isEnabled={isEnabled} />
+              <RecruitItem
+                id={key}
+                recruit={list[key]}
+                isEnabled={isEnabled}
+                onSelect={onSelect}
+              />
             ))
           ) : (
             <div style={localStyles.noneText}>None</div>

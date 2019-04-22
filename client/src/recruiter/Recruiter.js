@@ -247,7 +247,7 @@ export default class Recruiter extends React.Component {
               label="Unclaimed"
               list={unclaimed}
               isEnabled={this.state.roles.is_recruiter}
-              onSelect={this.handleClick}tf            
+              onSelect={this.handleClick}           
             />
           </RecruiterProvider>
         </div>
