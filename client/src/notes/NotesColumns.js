@@ -47,9 +47,9 @@ const styles = {
 export default class NotesColumns extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state={
       onlyShow: false,
-    };
+    }
   }
 
   expand = onlyShow => {
@@ -77,7 +77,7 @@ export default class NotesColumns extends React.Component {
                   onClick={() => this.expand('left')}
                 />
               </h2>
-              <Chat items={notes} />
+              <Chat items={this.props.notes} />
               <NoteInput onSubmit={this.props.onAddNote} />
             </div>
           )}

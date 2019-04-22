@@ -1,15 +1,13 @@
-import React, { Component, setGlobal } from 'reactn';
+import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import ReactTooltip from 'react-tooltip';
-import Alts from '../evidence/Alts';
 import FetchData from '../common/FetchData';
 import styles from './ApplicantStyles';
-import AsceeImg from '../images/ascee_logo.png';
-import FabButton from '../common/fabButton';
 import Answers from './Answers';
-
-setGlobal({ questions: [], answers: {} });
+import ImagesUpload from './ImagesUpload';
+import { ApplicantProvider } from './ApplicantContext';
+import AltsPanel from './AltsPanel';
+import ApplicantHeader from './ApplicantHeader';
 
 export default class Applicant extends Component {
   constructor(props) {
@@ -18,33 +16,26 @@ export default class Applicant extends Component {
       altsDone: false,
       ready: false,
       has_application: false,
+      answersReady: false,
       submitted: false,
-      pictures: []
+      pictures: [],
+      questions: [],
     };
   }
 
-  applicationStatus() {
-    return (
-      <div style={{ ...styles.padded, ...styles.heading }}>
-        {this.state.has_application
-          ? 'Application not completed'
-          : 'Application not started'}
-      </div>
-    );
-  }
-
   questionsToState = questions => {
-    this.setGlobal({ questions });
+    this.setState({ questions });
   };
 
   answersToState = ({ has_application, questions }) => {
     console.log('got answers');
     const newAnswers = { ...this.state.answers };
+    let answersReady = true;
     Object.keys(questions).forEach(key => {
       newAnswers[key] = questions[key].answer;
+      answersReady = newAnswers[key].length === 0 ? false : answersReady;
     });
-    this.setGlobal({ answers: newAnswers });
-    this.setState({ has_application: true });
+    this.setState({ answers: newAnswers, has_application, answersReady });
   };
 
   componentDidMount() {
@@ -52,21 +43,9 @@ export default class Applicant extends Component {
     new FetchData({ scope: 'answers' }).get().then(this.answersToState);
   }
 
-  
-
-  allQuestionsAnswered = () => {
-    if (Object.keys(this.global.answers).length === 0) {
-      return false;
-    }
-    return (
-      Object.values(this.global.answers).filter(q => q.length === 0).length ===
-      0
-    );
-  };
-
   checkReady = () => {
     this.setState({
-      ready: this.state.altsDone && this.allQuestionsAnswered(),
+      ready: this.state.altsDone && this.state.answersReady,
     });
   };
 
@@ -82,21 +61,6 @@ export default class Applicant extends Component {
 
   handleAltsDone = cb => {
     this.setState({ altsDone: cb.target.checked }, this.checkReady);
-  };
-
-  stateToParams = () => {
-    return {
-      answers: Object.entries(this.global.answers).map(
-        ([question_id, text]) => ({ question_id, text })
-      ),
-    };
-  };
-
-  handleSaveAnswers = () => {
-    new FetchData({ scope: 'answers' }).put(this.stateToParams()).then(() => {
-      this.setState({ dirtyAnswers: false });
-      window.alert('Saved');
-    });
   };
 
   submit = () => {
@@ -138,88 +102,22 @@ export default class Applicant extends Component {
     }
   };
 
-  buildQuestionsPanel = () => {
-    return (
-      <TabPanel>
-        <Answers onChange={this.checkReady} />
-      </TabPanel>
-    );
+  onDrop = (pictureFiles, pictureDataURLs) => {
+    this.setState({
+      pictures: this.state.pictures.concat(pictureFiles),
+    });
   };
 
-  buildHeader = () => {
-    let buttonLabel = 'Start';
-    let buttonStyle;
-    let buttonTip;
-    if (this.state.has_application) {
-      buttonLabel = 'Submit';
-    }
-    if (this.state.has_application && this.state.ready) {
-      buttonStyle = { ...styles.submit, ...styles.padded };
-      buttonTip = 'Ready to submit';
-    } else {
-      buttonStyle = { ...styles.disabledButton, ...styles.padded };
-      buttonTip = 'All fields not complete';
-    }
-
-    return [
-      <div style={styles.header}>
-        <h1 style={styles.h1}>
-          <img src={AsceeImg} style={styles.logo} alt="Ascendance" />
-          Applying to Ascendance
-        </h1>
-      </div>,
-      this.state.has_application && (
-        <div style={styles.paddedHeavily}>
-          Start with your alts, add them all. Once that's done, move on to the
-          questions.
-        </div>
-      ),
-      <div>
-        <button style={buttonStyle} onClick={this.submit} data-tip={buttonTip}>
-          {buttonLabel} Application
-        </button>
-        {!this.state.ready && this.applicationStatus()}
-      </div>,
-    ];
-  };
-
-  buildAltsPanel = () => {
-    return (
-      <TabPanel>
-        <h2 style={styles.headingLeft}>My Alts</h2>
-        <div
-          style={styles.padded}
-          data-tip="Check here when you have added all you alts"
-        >
-          <label style={styles.label}>
-            I have no more alts&emsp;
-            <input
-              style={styles.checkbox}
-              type="checkbox"
-              onClick={this.handleAltsDone}
-              checked={this.state.altsDone}
-            />
-          </label>
-        </div>
-        <Alts style={styles.alts}>
-          <a href="/auth/link_alt" data-tip="Add an alt">
-            {!this.state.ready && (
-              <FabButton
-                icon="add"
-                color={styles.themeColors.primary}
-                size="40px"
-              />
-            )}
-          </a>
-        </Alts>
-        <ReactTooltip />
-      </TabPanel>
-    );
-  };
+  setAnswersStatus = ready => this.setState({ answersReady: ready }, this.checkReady)
 
   render() {
+    const { altsDone, ready, answers, questions, has_application } = this.state;
     if (!this.state.has_application) {
-      return this.buildHeader();
+      return (
+        <ApplicantProvider value={{ altsDone, ready }}>
+          <ApplicantHeader onSubmit={this.submit} />
+        </ApplicantProvider>
+      );
     }
     return [
       !this.state.submitted && (
@@ -227,16 +125,29 @@ export default class Applicant extends Component {
           <div style={styles.logout}>
             <a href="/auth/logout">Sign out</a>
           </div>
-          {this.buildHeader()}
-          <Tabs>
-            <TabList>
-              <Tab>Alts</Tab>
-              <Tab>Questions</Tab>
-              <Tab>Screenshots</Tab>
-            </TabList>
-            {this.buildAltsPanel()}
-            {this.buildQuestionsPanel()}
-          </Tabs>
+          <ApplicantProvider value={{ altsDone, ready, has_application }}>
+            <ApplicantHeader onSubmit={this.submit} />
+            <Tabs>
+              <TabList>
+                <Tab>Alts</Tab>
+                <Tab>Questions</Tab>
+                <Tab>Screenshots</Tab>
+              </TabList>
+              <TabPanel>
+                <AltsPanel onAltsDone={this.handleAltsDone} />
+              </TabPanel>
+              <TabPanel>
+                <Answers
+                  answers={answers}
+                  questions={questions}
+                  onReadyStatus={this.setAnswersStatus}
+                />
+              </TabPanel>
+              <TabPanel>
+                <ImagesUpload />
+              </TabPanel>
+            </Tabs>
+          </ApplicantProvider>
         </React.Fragment>
       ),
       this.state.submitted && <h1>Application Submitted</h1>,
