@@ -62,7 +62,7 @@ export default class NotesColumns extends React.Component {
 
   render() {
     const { onlyShow } = this.state;
-    const { notes, logs } = this.props;
+    const { logs } = this.props;
     return (
       <React.Fragment>
         <div style={styles.outer}>
