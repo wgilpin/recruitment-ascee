@@ -1,5 +1,5 @@
 from models import db, Application, User, Image
-from exceptions import ForbiddenException, BadRequestException
+from exceptions import ForbiddenException, BadRequestException, AppException
 from security import user_application_access_check
 from esi_config import aws_bucket_name
 from flask_app import app
@@ -65,7 +65,7 @@ def sign_s3(current_user=None):
                 )
             except AttributeError as e:
                 print('Attribute Error in S3 Access. Check S3 env vars are set',e)
-                return {'info': {}}
+                raise AppException('Attribute Error in S3 Access. Check S3 env vars are set', 500)
         return {
             'info': {
                 'image_id': image.id,
