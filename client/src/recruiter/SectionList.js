@@ -23,6 +23,8 @@ const localStyles = {
   },
   section: {
     backgroundColor: '#333',
+    marginBottom: '16px',
+    animation: 'fadein 2s',
   },
   collapse: {
     float: 'right',
