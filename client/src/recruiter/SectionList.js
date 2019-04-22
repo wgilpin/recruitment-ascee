@@ -40,6 +40,7 @@ export default class SectionList extends React.Component {
     this.state = {
       expanded: true,
     };
+    this.roles = {};
   }
 
   handleExpand = () => {
