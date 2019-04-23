@@ -94,6 +94,7 @@ export default class Note extends React.Component {
       editing: false,
       dirty: false,
       text: '',
+      oldText: '',
     };
     this.textRef = React.createRef();
   }
@@ -102,20 +103,19 @@ export default class Note extends React.Component {
     this.setState({ text: this.props.body });
   }
   handleExpandClick = e => {
+    console.log('expand');
+
     if (!this.state.editing) {
       this.setState({ collapsed: !this.state.collapsed });
     }
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
   };
 
   editNote = e => {
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
+    console.log('edit');
     if (this.state.editing) {
-      this.setState({ editing: false });
+      this.setState({ editing: false, text: this.state.oldText });
     } else {
-      this.setState({ collapsed: false, editing: true });
+      this.setState({ collapsed: false, editing: true, oldText: this.state.text });
     }
   };
 
@@ -175,16 +175,13 @@ export default class Note extends React.Component {
     this.setState({ dirty: true, text: this.textRef.current.value });
   };
 
-  editNote = () => {
-    this.setState({ collapsed: false, editing: true });
-  };
-
   render() {
     const { author, title } = this.props;
     const bodyLines = this.state.text.split('\n');
     const bodyText = this.state.text;
     return (
       <div style={styles.outer}>
+        {this.getButtons()}
         {title && title.length > 0 && (
           <div onClick={this.handleExpandClick} style={styles.title}>
             {title}
@@ -202,7 +199,6 @@ export default class Note extends React.Component {
             {moment(this.props.timestamp).calendar(null, {
               sameElse: 'D MMM YYYY',
             })}
-            {this.getButtons()}
           </div>
         </div>
         {this.state.collapsed ||
