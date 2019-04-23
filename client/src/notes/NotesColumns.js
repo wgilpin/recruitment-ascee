@@ -9,7 +9,7 @@ import arrowLeftImg from '../images/arrow_back.png';
 import columnsImg from '../images/columns.png';
 
 const propTypes = {
-  canAddLog: PropTypes.func,
+  canAddLog: PropTypes.bool,
   notes: PropTypes.array,
   logs: PropTypes.array,
   onAddNote: PropTypes.func,
