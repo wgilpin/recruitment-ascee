@@ -38,8 +38,21 @@ const styles = {
     paddingLeft: '12px',
   },
   answer: {
-    width: '300px',
+    width: '90%',
     height: '60px',
+    padding: '6px',
+    backgroundColor: '#222',
+    color: 'white',
+    border: 'none',
+  },
+  answerText: {
+    minHeight: '60px',
+    maxHeight: '160px',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    backgroundColor: '#222',
+    textAlign: 'left',
+    padding: '6px',
   },
   hr: {
     borderColor: '#555555',

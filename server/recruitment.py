@@ -233,23 +233,24 @@ def get_applicant_notes(applicant_user_id, current_user=None):
         return {'error': 'User {} is not an applicant'.format(applicant_name)}
     else:
         application = Application.get_for_user(applicant_user_id)
-        return {'info': get_application_note_data(application)}
+        return {'info': get_application_note_data(application, current_user)}
 
 
-def get_application_note_data(application):
+def get_application_note_data(application, current_user):
     result = []
     authors = {}
     for note in application.notes:
         if note.author_id in authors:
             author = authors[note.author_id]
         else:
-            author = Character.get(note.author_id).name
+            author = Character.get(note.author_id)
             authors[note.author_id] = author
         result.append({
             'id': note.id,
             'text': note.text,
             'title': note.title,
-            'author': author,
+            'author': author.name,
+            'can_edit': author.id == current_user.id,
             'is_chat_log': note.is_chat_log,
             'timestamp': note.timestamp,
         })
@@ -303,7 +304,7 @@ def application_history(applicant_id, current_user=None):
             app_dict['recruiter_name'] = User.get(application.recruiter_id).name
 
         app_dict['status'] = get_application_status(application)
-        app_dict['notes'] = get_application_note_data(application)
+        app_dict['notes'] = get_application_note_data(application, current_user)
         applications[application.id] = app_dict
     return {'info': applications}
 

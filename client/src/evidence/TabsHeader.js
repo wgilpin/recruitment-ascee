@@ -17,6 +17,7 @@ import fittingsImg from '../images/fitting.png';
 import clonesImg from '../images/cloneBay.png';
 import industryImg from '../images/Industry.png';
 import answersImg from '../images/question_answer.png';
+import screenshotImg from '../images/images.png';
 
 const propTypes = {
   onTabChange: PropTypes.func,
@@ -73,6 +74,7 @@ const displayOrder = [
   { name: 'Contracts', src: contractsImg },
   { name: 'PI', src: PIImg },
   { name: 'Calendar', src: calendarImg },
+  { name: 'Screenshots', src: screenshotImg },
 ];
 
 
@@ -125,7 +127,7 @@ export default class TabsHeader extends React.Component {
       <div style={styles.div}>
         <div style={styles.headerRow}>
           {displayItems.map(({ src, name }) => (
-            <div style={styles.cell}>
+            <div style={{...styles.cell, paddingBottom: 0 }}>
               <RoundImage
                 size={40}
                 src={src}
@@ -138,7 +140,7 @@ export default class TabsHeader extends React.Component {
         </div>
         <div style={styles.textRow}>
           {displayItems.map(({ src, name }) => (
-            <div style={styles.cell}>
+            <div style={{...styles.cell, paddingTop: 0 }}>
               <div style={styles.span} onClick={() => this.showTab(name)}>
                 {name}
               </div>
