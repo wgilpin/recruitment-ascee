@@ -202,7 +202,7 @@ export default class TableBase extends React.Component {
   }
 
   makeISKField(value, field, final) {
-    let style = { ...styles.cell };
+    let style = { ...styles.cell, textAlign: 'right' };
     if (final) {
       style = { ...style, width: '100%' };
     }
@@ -413,7 +413,11 @@ export default class TableBase extends React.Component {
           this.groupBy.slice(0, this.groupBy.length - 1).indexOf(field.id) >
           -1 ? null : (
             <div
-              style={{ ...styles.cell, ...styles.sortHeader }}
+              style={{
+                ...styles.cell,
+                ...styles.sortHeader,
+                ...(field.kind === 'ISK' && { textAlign: 'right' }),
+              }}
               onClick={() => this.sortColumn(field)}
             >
               {field.header}
@@ -494,20 +498,21 @@ export default class TableBase extends React.Component {
     if (this.state.loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
-    if (this.state.data.length === 0) {
+    const { data, rawData } = this.state;
+    if (data.length === 0) {
       return [
-        this.showHeader ? this.showHeader(this.state.rawData) : null,
+        this.showHeader ? this.showHeader(rawData) : null,
         <div>None found</div>,
       ];
     }
     return [
-      this.showHeader ? this.showHeader(this.state.rawData) : null,
+      this.showHeader ? this.showHeader(rawData) : null,
       <div style={styles.div}>
         <div style={styles.table}>
           {!this.groupBy.length ? (
             <React.Fragment>
               {this.makeHeader()}
-              {this.makeSection(this.state.data)}
+              {this.makeSection(data)}
             </React.Fragment>
           ) : (
             this.makeGroupLines(null, this.state.groups, 0)
