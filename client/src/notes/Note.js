@@ -115,7 +115,11 @@ export default class Note extends React.Component {
     if (this.state.editing) {
       this.setState({ editing: false, text: this.state.oldText });
     } else {
-      this.setState({ collapsed: false, editing: true, oldText: this.state.text });
+      this.setState({
+        collapsed: false,
+        editing: true,
+        oldText: this.state.text,
+      });
     }
   };
 
@@ -125,7 +129,10 @@ export default class Note extends React.Component {
         note_id: this.props.id,
         text: this.state.text,
       })
-      .then(() => window.alert('saved'));
+      .then(() => {
+        window.alert('saved');
+        this.setState({ editing: false, oldText: this.state.text });
+      });
   };
 
   getButtons() {
