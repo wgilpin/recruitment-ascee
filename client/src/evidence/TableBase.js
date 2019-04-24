@@ -77,11 +77,12 @@ export default class TableBase extends React.Component {
     this.groupBy = groups;
   }
 
-  addField(kind, id, header) {
+  addField(kind, id, header, displayValues) {
     this.fields.push({
       id,
       kind,
       header: header || this.titleise(id),
+      displayValues
     });
   }
 
@@ -192,17 +193,18 @@ export default class TableBase extends React.Component {
 
   makeBoolField(value, field, final) {
     let style = { paddingLeft: INDENT, ...styles.cell, whiteSpace: 'nowrap' };
+    const displayValues = field.displayValues || ['Y', 'N'];
     if (final) {
       style = { ...style, width: '99%' };
     }
     if (!value) {
-      return <div style={style}>N</div>;
+      return <div style={style}>{displayValues[1]}</div>;
     }
-    return <div style={style}>{!!value ? 'Y' : 'N'}</div>;
+    return <div style={style}>{!!value ? displayValues[0] : displayValues[1]}</div>;
   }
 
   makeISKField(value, field, final) {
-    let style = { ...styles.cell };
+    let style = { ...styles.cell, textAlign: 'right' };
     if (final) {
       style = { ...style, width: '100%' };
     }
@@ -413,7 +415,11 @@ export default class TableBase extends React.Component {
           this.groupBy.slice(0, this.groupBy.length - 1).indexOf(field.id) >
           -1 ? null : (
             <div
-              style={{ ...styles.cell, ...styles.sortHeader }}
+              style={{
+                ...styles.cell,
+                ...styles.sortHeader,
+                ...(field.kind === 'ISK' && { textAlign: 'right' }),
+              }}
               onClick={() => this.sortColumn(field)}
             >
               {field.header}
@@ -494,20 +500,21 @@ export default class TableBase extends React.Component {
     if (this.state.loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
-    if (this.state.data.length === 0) {
+    const { data, rawData } = this.state;
+    if (data.length === 0) {
       return [
-        this.showHeader ? this.showHeader(this.state.rawData) : null,
+        this.showHeader ? this.showHeader(rawData) : null,
         <div>None found</div>,
       ];
     }
     return [
-      this.showHeader ? this.showHeader(this.state.rawData) : null,
+      this.showHeader ? this.showHeader(rawData) : null,
       <div style={styles.div}>
         <div style={styles.table}>
           {!this.groupBy.length ? (
             <React.Fragment>
               {this.makeHeader()}
-              {this.makeSection(this.state.data)}
+              {this.makeSection(data)}
             </React.Fragment>
           ) : (
             this.makeGroupLines(null, this.state.groups, 0)
