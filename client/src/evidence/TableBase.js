@@ -77,11 +77,12 @@ export default class TableBase extends React.Component {
     this.groupBy = groups;
   }
 
-  addField(kind, id, header) {
+  addField(kind, id, header, displayValues) {
     this.fields.push({
       id,
       kind,
       header: header || this.titleise(id),
+      displayValues
     });
   }
 
@@ -192,13 +193,14 @@ export default class TableBase extends React.Component {
 
   makeBoolField(value, field, final) {
     let style = { paddingLeft: INDENT, ...styles.cell, whiteSpace: 'nowrap' };
+    const displayValues = field.displayValues || ['Y', 'N'];
     if (final) {
       style = { ...style, width: '99%' };
     }
     if (!value) {
-      return <div style={style}>N</div>;
+      return <div style={style}>{displayValues[1]}</div>;
     }
-    return <div style={style}>{!!value ? 'Y' : 'N'}</div>;
+    return <div style={style}>{!!value ? displayValues[0] : displayValues[1]}</div>;
   }
 
   makeISKField(value, field, final) {
