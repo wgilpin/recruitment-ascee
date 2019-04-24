@@ -56,7 +56,17 @@ export default class SectionList extends React.Component {
   };
 
   render() {
-    const { label, list, isEnabled, onSelect } = this.props;
+    const {
+      label,
+      list,
+      isEnabled,
+      onSelect,
+      onClaim,
+      onApprove,
+      onDrop,
+      onReject,
+      onMail,
+    } = this.props;
     const { expanded } = this.state;
     return (
       <RecruiterConsumer>
@@ -80,7 +90,12 @@ export default class SectionList extends React.Component {
                         id={key}
                         recruit={list[key]}
                         isEnabled={isEnabled}
-                        onSelect={onSelect}
+                        onSelect={this.props.onSelect}
+                        onClaim={this.props.onClaim}
+                        onApprove={this.props.onApprove}
+                        onDrop={this.props.onDrop}
+                        onReject={this.props.onReject}
+                        onMail={this.props.onMail}
                       />
                     ))
                 ) : (
