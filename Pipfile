@@ -1,0 +1,28 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+
+[packages]
+cachetools = "==3.0.0"
+backoff = "==1.8.0"
+vcrpy-unittest = "*"
+mock = "*"
+contextlib2 = "*"
+asgiref = "*"
+psycopg2 = "*"
+gunicorn = "*"
+boto3 = "*"
+EsiPy = "==1.0.0"
+Flask = "==1.0.2"
+Flask-Login = "==0.4.1"
+SQLAlchemy = "==1.2.17"
+Flask-SQLAlchemy = "==2.1"
+Flask-Migrate = "*"
+Flask-Script = "*"
+
+[requires]
+python_version = "3.7"

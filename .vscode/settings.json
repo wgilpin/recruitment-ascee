@@ -1,5 +1,10 @@
 {
   "debug.node.autoAttach": "on",
-  "python.pythonPath": "/anaconda3/envs/env37/bin/python",
-  "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]
+  "python.pythonPath": "C:\\Users\\Will\\.virtualenvs\\recruitment-ascee-8KeT4MH5\\Scripts\\python.exe",
+  "python.linting.pylintArgs": [
+    "--load-plugins",
+    "pylint_flask"
+  ],
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true
 }

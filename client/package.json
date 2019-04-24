@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://ascee-recruit.herokuapp.com/",
   "dependencies": {
+    "create-react-app": "^3.0.0",
     "cross-env": "^5.2.0",
     "moment": "^2.24.0",
     "prettier-eslint": "^8.8.2",
@@ -26,7 +27,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postbuild": "rm -rf  ../server/public; cp -R ./build/ ../server/public/"
+    "prebuild": "rm -rf  ../server/public",
+    "postbuild": "cp -R ./build/ ../server/public/"
   },
   "eslintConfig": {
     "extends": "react-app"

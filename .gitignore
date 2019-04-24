@@ -25,3 +25,4 @@ server/tests/cassettes/*.swp
 server/tests/cassettes/*.json
 *.DS_Store
 
+.env
