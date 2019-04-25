@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import addImg from '../images/send.png';
 
-
 const propTypes = {
   onSubmit: PropTypes.func,
   log: PropTypes.bool,
@@ -19,7 +18,6 @@ const styles = {
     borderColor: '#555',
     borderWidth: '2px',
     borderStyle: 'none',
-
   },
   inInner: {
     display: 'table-row',
@@ -34,6 +32,7 @@ const styles = {
   },
   input: {
     display: 'table-cell',
+    font: 'inherit',
     borderColor: '#555',
     backgroundColor: '#222',
     top: '6px',
@@ -45,8 +44,8 @@ const styles = {
     color: 'white',
     paddingLeft: '6px',
   },
-  inImg:{
-    width:'30px',
+  inImg: {
+    width: '30px',
     backgroundColor: '#0000',
     display: 'inline',
     marginLeft: '4px',
@@ -55,6 +54,7 @@ const styles = {
   },
   textArea: {
     width: '85%',
+    font: 'inherit',
     display: 'table-cell',
     borderColor: '#555',
     color: 'white',
@@ -64,11 +64,11 @@ const styles = {
     borderRadius: '2px',
     textAlign: 'left',
     marginTop: '6px',
-  }
-}
+    marginLeft: '3px',
+  },
+};
 
 export default class NoteInput extends React.Component {
-
   constructor(props) {
     super(props);
     this.textInput = React.createRef();
@@ -79,20 +79,20 @@ export default class NoteInput extends React.Component {
     if (this.textInput.current.value.length > 0) {
       if (this.props.onSubmit) {
         const title = this.props.log ? this.textInput.current.value : '';
-        const text  = this.props.log ?
-          this.textArea.current.value :
-          this.textInput.current.value;
+        const text = this.props.log
+          ? this.textArea.current.value
+          : this.textInput.current.value;
         this.props.onSubmit(text, title);
         this.textInput.current.value = '';
-        if (this.textArea.current){
+        if (this.textArea.current) {
           this.textArea.current.value = '';
         }
       }
     }
-  }
+  };
 
-  handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
+  handleKeyPress = event => {
+    if (event.key === 'Enter') {
       if (this.props.log) {
         if (this.textInput.current.value.length > 0) {
           this.textArea.current.focus();
@@ -101,7 +101,7 @@ export default class NoteInput extends React.Component {
         this.handleSubmit();
       }
     }
-  }
+  };
 
   render() {
     const inputStyles = styles.input;
@@ -113,25 +113,30 @@ export default class NoteInput extends React.Component {
     const placeHolder = this.props.log ? 'Enter Log Description' : 'Add a note';
     return (
       <div style={styles.inOuter}>
-      <div style={styles.inInner}>
-        <input
-          ref={this.textInput}
-          style={styles.input}
-          type="text"
-          placeholder={placeHolder}
-          onKeyPress={this.handleKeyPress}
-        />
-        {this.props.log
-          && <textarea
-            style={styles.textArea}
-            ref={this.textArea}
-            placeholder="paste logs here"
-            rows="10"
+        <div style={styles.inInner}>
+          <input
+            ref={this.textInput}
+            style={styles.input}
+            type="text"
+            placeholder={placeHolder}
+            onKeyPress={this.handleKeyPress}
           />
-        }
-        <img onClick={this.handleSubmit} style={imgStyles} alt="Add" src={addImg} />
+          {this.props.log && (
+            <textarea
+              style={styles.textArea}
+              ref={this.textArea}
+              placeholder="paste logs here"
+              rows="10"
+            />
+          )}
+          <img
+            onClick={this.handleSubmit}
+            style={imgStyles}
+            alt="Add"
+            src={addImg}
+          />
+        </div>
       </div>
-    </div>
     );
   }
 }

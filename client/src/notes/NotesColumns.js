@@ -43,6 +43,11 @@ const styles = {
     paddingLeft: '6px',
     paddingRight: '6px',
   },
+  fab: {
+    position: 'unset',
+    float: 'right',
+    marginBottom: '8px',
+  }
 };
 export default class NotesColumns extends React.Component {
   constructor(props) {
@@ -96,13 +101,13 @@ export default class NotesColumns extends React.Component {
                 items={logs && logs.map(log => ({ ...log, can_edit: false }))}
               />
               <div>
-                {!this.props.canAddLog && (
+                {this.props.canAddLog && (
                   <FabButton
                     icon="add"
                     color="#c00"
                     size="40px"
                     style={styles.fab}
-                    onClick={this.onClickAddLog}
+                    onClick={this.clickAddLog}
                   />
                 )}
                 {this.state.showAddLog && (
