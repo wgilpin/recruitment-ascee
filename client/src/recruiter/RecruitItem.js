@@ -85,11 +85,11 @@ export default class RecruitItem extends React.Component {
                 status={recruit.status}
                 style={localStyles.buttons}
                 id={id}
-                onClaim={isEnabled && this.handleClaim}
-                onReject={isEnabled && this.handleReject}
-                onDrop={isEnabled && this.handleDrop}
-                onApprove={isEnabled && this.handleAccept}
-                onMail={isEnabled && this.handleMail}
+                onClaim={this.props.onClaim}
+                onReject={this.props.onReject}
+                onDrop={this.props.onDrop}
+                onApprove={this.props.onAccept}
+                onMail={this.props.onMail}
               />
             </div>
           );

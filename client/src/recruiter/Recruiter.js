@@ -228,6 +228,11 @@ export default class Recruiter extends React.Component {
               list={claimed}
               isEnabled={this.state.roles.is_recruiter}
               onSelect={this.handleClick}
+              onClaim={this.handleClaim}
+              onApprove={this.handleAccept}
+              onDrop={this.handleDrop}
+              onReject={this.handleReject}
+              onMail={this.handleMail}
             />
           </RecruiterProvider>
         </div>
@@ -238,6 +243,11 @@ export default class Recruiter extends React.Component {
               list={accepted}
               isEnabled={this.state.roles.is_senior_recruiter}
               onSelect={this.handleClick}
+              onClaim={this.handleClaim}
+              onApprove={this.handleAccept}
+              onDrop={this.handleDrop}
+              onReject={this.handleReject}
+              onMail={this.handleMail}
             />
           </RecruiterProvider>
         </div>
@@ -247,7 +257,12 @@ export default class Recruiter extends React.Component {
               label="Unclaimed"
               list={unclaimed}
               isEnabled={this.state.roles.is_recruiter}
-              onSelect={this.handleClick}           
+              onSelect={this.handleClick}  
+              onClaim={this.handleClaim}
+              onApprove={this.handleAccept}
+              onDrop={this.handleDrop}
+              onReject={this.handleReject}
+              onMail={this.handleMail}         
             />
           </RecruiterProvider>
         </div>
