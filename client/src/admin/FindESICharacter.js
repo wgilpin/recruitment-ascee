@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner';
 import SearchImg from '../images/magnifying_glass_24x24.png';
 import FetchData from '../common/FetchData';
 import TableStyles from '../evidence/TableStyles';
 import RoundImage from '../common/RoundImage';
+import Styles from '../common/Styles';
 
 const propTypes = {
   iconList: PropTypes.array,
@@ -19,7 +21,7 @@ const primary = TableStyles.styles.themeColor.color;
 
 const styles = {
   outer: {
-    maxWidth: '400px',
+    maxWidth: '350px',
     marginLeft: 'auto',
     marginRight: 'auto',
   },
@@ -27,6 +29,10 @@ const styles = {
     width: '50%',
     marginLeft: 'auto',
     marginRight: 'auto',
+  },
+  searchInner: {
+    display: 'inline-block',
+    padding: '6px',
   },
   names: {
     float: 'left',
@@ -75,35 +81,43 @@ const styles = {
     color: 'white',
   },
   searchBtnOuter: {
-    float: 'right',
+    display: 'inline-block',
     cursor: 'pointer',
     marginRight: '12px',
   },
   tab: {
     width: '20%',
   },
+  results: {
+    width: '300px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
 };
 
 export default class FindESICharacter extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      loading: false,
+    };
     this.textInput = React.createRef();
   }
 
   handleSearch = () => {
     if (this.textInput.current.value.length < 3) {
-      this.handleClick();
       return;
     }
-    new FetchData({
-      scope: 'character/find',
-      param1: this.textInput.current.value,
-    })
-      .get()
-      .then(res => {
-        this.setState({ searchResults: res });
-      });
+    this.setState({ loading: true }, () => {
+      new FetchData({
+        scope: 'character/find',
+        param1: this.textInput.current.value,
+      })
+        .get()
+        .then(res => {
+          this.setState({ searchResults: res, loading: false });
+        });
+    });
   };
 
   handleClick = (id, label, userName) => {
@@ -113,8 +127,8 @@ export default class FindESICharacter extends React.Component {
   makeSearchResultLine = (char, id) => {
     const imgSrc = `https://image.eveonline.com/Character/${id}_64.jpg`;
     return (
-      <div>
-        <RoundImage style={{position: 'relative', top: '6px'}} src={imgSrc} />
+      <div style={{textAling: 'left'}}>
+        <RoundImage style={{ position: 'relative', top: '6px' }} src={imgSrc} />
         &ensp;
         {char.name}
         {(this.props.iconList || []).map(icon => (
@@ -134,19 +148,24 @@ export default class FindESICharacter extends React.Component {
       this.handleSearch();
       return;
     }
-    this.setState({ searchResults: {} }); 
+    this.setState({ searchResults: {} });
   };
 
   render() {
     return (
       <React.Fragment>
-        <div style={styles.searchOuter}>
-          <div style={styles.searchBtnOuter}>
-            <button onClick={this.handleSearch} style={styles.searchButton}>
-              <img style={styles.smallButtonImg} src={SearchImg} alt="Search" />
-            </button>
+        {this.state.loading && (
+          <Loader type="Puff" color="#01799A" height="100" width="100" />
+        )}
+        {this.state.searchResults && (
+          <div style={styles.results}>
+            {Object.entries(this.state.searchResults).map(([id, char]) =>
+              this.makeSearchResultLine(char, id)
+            )}
           </div>
-          <div style={{ padding: '6px' }}>
+        )}
+        <div style={styles.searchOuter}>
+          <div style={styles.searchInner}>
             <input
               on
               onKeyDown={this.handleKeyPress}
@@ -157,14 +176,12 @@ export default class FindESICharacter extends React.Component {
               value={this.state.searchText}
             />
           </div>
-        </div>
-        {this.state.searchResults && (
-          <div>
-            {Object.entries(this.state.searchResults).map(([id, char]) =>
-              this.makeSearchResultLine(char, id)
-            )}
+          <div style={styles.searchBtnOuter}>
+            <button onClick={this.handleSearch} style={styles.searchButton}>
+              <img style={styles.smallButtonImg} src={SearchImg} alt="Search" />
+            </button>
           </div>
-        )}
+        </div>
       </React.Fragment>
     );
   }
