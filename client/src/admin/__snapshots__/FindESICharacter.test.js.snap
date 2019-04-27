@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Find ESI matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "width": "50%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "cursor": "pointer",
+        "float": "right",
+        "marginRight": "12px",
+      }
+    }
+  >
+    <button
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#0000",
+          "borderStyle": "none",
+          "padding": "6px",
+        }
+      }
+    >
+      <img
+        alt="Search"
+        src="magnifying_glass_24x24.png"
+        style={
+          Object {
+            "height": "20px",
+            "width": "20px",
+          }
+        }
+      />
+    </button>
+  </div>
+  <div
+    style={
+      Object {
+        "padding": "6px",
+      }
+    }
+  >
+    <input
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="search..."
+      style={
+        Object {
+          "backgroundColor": "black",
+          "borderBottom": "1px white solid",
+          "borderColor": "darkgray",
+          "borderLeft": "black",
+          "borderRight": "black",
+          "borderStyle": "solid",
+          "borderTop": "black",
+          "borderWidth": "1px",
+          "color": "white",
+          "padding": "6px",
+        }
+      }
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;

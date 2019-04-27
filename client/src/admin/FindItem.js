@@ -137,9 +137,9 @@ export default class FindItem extends React.Component {
       });
   };
 
-  handleReject = id => {
+  handleReject = name => {
     const newList = Object.assign({}, this.state.searchResults);
-    delete newList[id];
+    delete newList[name];
     this.setState({ searchResults: newList });
   };
 
@@ -183,7 +183,7 @@ export default class FindItem extends React.Component {
           <img
             style={styles.img}
             src={deleteImg}
-            onClick={() => this.handleReject(id)}
+            onClick={() => this.handleReject(name)}
             alt="delete"
           />
         </div>

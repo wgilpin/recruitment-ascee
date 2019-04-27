@@ -95,29 +95,31 @@ const styles = {
   },
 };
 
+const doFetch = text => {
+  return new FetchData({
+    scope: 'character/find',
+    param1: text,
+  }).get();
+};
+
 export default class FindESICharacter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
+      searchText: '',
     };
-    this.textInput = React.createRef();
   }
 
-  handleSearch = () => {
-    if (this.textInput.current.value.length < 3) {
+  handleSearch = async () => {
+    console.log('handleSearch');
+    
+    if (this.state.searchText.length < 3) {
       return;
     }
-    this.setState({ loading: true }, () => {
-      new FetchData({
-        scope: 'character/find',
-        param1: this.textInput.current.value,
-      })
-        .get()
-        .then(res => {
-          this.setState({ searchResults: res, loading: false });
-        });
-    });
+    const fetcher = this.props.fetcher || doFetch;
+    const searchResults = await fetcher(this.state.searchText);
+    this.setState({ searchResults, loading: false });
   };
 
   handleClick = (id, label, userName) => {
@@ -127,7 +129,7 @@ export default class FindESICharacter extends React.Component {
   makeSearchResultLine = (char, id) => {
     const imgSrc = `https://image.eveonline.com/Character/${id}_64.jpg`;
     return (
-      <div style={{textAling: 'left'}}>
+      <div style={{textAling: 'left'}} key={id}>
         <RoundImage style={{ position: 'relative', top: '6px' }} src={imgSrc} />
         &ensp;
         {char.name}
@@ -144,11 +146,14 @@ export default class FindESICharacter extends React.Component {
   };
 
   handleKeyPress = event => {
-    if (this.textInput.current.value.length > 0 && event.key === 'Enter') {
-      this.handleSearch();
-      return;
+    const { value } = event.target;
+    if (value.length > 0 && event.key === 'Enter') {
+      this.setState({ searchResults: {}, searchText: value }, () => {
+        this.handleSearch();
+      })
+    } else {
+      this.setState({ searchResults: {}, searchText: value });
     }
-    this.setState({ searchResults: {} });
   };
 
   render() {
@@ -167,19 +172,17 @@ export default class FindESICharacter extends React.Component {
         <div style={styles.searchOuter}>
           <div style={styles.searchInner}>
             <input
-              on
+              onChange={this.handleKeyPress}
               onKeyDown={this.handleKeyPress}
               style={styles.searchInput}
               type="text"
               placeholder="search..."
-              ref={this.textInput}
-              value={this.state.searchText}
             />
           </div>
           <div style={styles.searchBtnOuter}>
             <button onClick={this.handleSearch} style={styles.searchButton}>
               <img style={styles.smallButtonImg} src={SearchImg} alt="Search" />
-            </button>
+            </button> 
           </div>
         </div>
       </React.Fragment>
