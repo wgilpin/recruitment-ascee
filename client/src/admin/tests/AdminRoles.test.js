@@ -59,9 +59,10 @@ describe('<AdminRoles>', () => {
 
   it('allows toggling recruiter', async (done) => {
     var wrapper = mount(<AdminRoles fetcher={mockFetch} />);
-    
-    done()
-    
+    setImmediate(() => {
+      const {staff, showConfirm} = wrapper.state();
+      done();
+    });
   });
 
   it('has a search component', () => {
