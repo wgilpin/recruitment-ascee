@@ -6,7 +6,7 @@ import FindESICharacter from '../FindESICharacter';
 let mockFetch;
 
 beforeEach(() => {
-  mockFetch = jest.fn().mockImplementationOnce(() =>{
+  mockFetch = jest.fn().mockImplementation(() =>{
     return Promise.resolve({
       1234: {
         user_id: 1234,
@@ -35,7 +35,8 @@ describe('Find ESI', () => {
       wrapper.update() 
       const results = wrapper.state().searchResults;
       expect(Object.keys(results).sort()).toEqual(['1234', '4321'].sort());
-      const resultsDOM = wrapper.find('#searchResults')
+      const resultsDOM = wrapper.find('#results')
+      
       expect(resultsDOM).toBeDefined();
       expect(resultsDOM.children().length).toEqual(2);
       done();

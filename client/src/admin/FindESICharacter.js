@@ -5,7 +5,6 @@ import SearchImg from '../images/magnifying_glass_24x24.png';
 import FetchData from '../common/FetchData';
 import TableStyles from '../evidence/TableStyles';
 import RoundImage from '../common/RoundImage';
-import Styles from '../common/Styles';
 
 const propTypes = {
   iconList: PropTypes.array,
@@ -119,6 +118,8 @@ export default class FindESICharacter extends React.Component {
     }
     const fetcher = this.props.fetcher || doFetch;
     const searchResults = await fetcher(this.state.searchText);
+    console.log('handlSearch', searchResults);
+    
     this.setState({ searchResults, loading: false });
   };
 
@@ -135,6 +136,7 @@ export default class FindESICharacter extends React.Component {
         {char.name}
         {(this.props.iconList || []).map(icon => (
           <img
+            key={icon.name}
             style={styles.moveButtons}
             src={icon.img}
             alt={icon.name}
@@ -163,7 +165,7 @@ export default class FindESICharacter extends React.Component {
           <Loader type="Puff" color="#01799A" height="100" width="100" />
         )}
         {this.state.searchResults && (
-          <div style={styles.results}>
+          <div style={styles.results} id="results">
             {Object.entries(this.state.searchResults).map(([id, char]) =>
               this.makeSearchResultLine(char, id)
             )}

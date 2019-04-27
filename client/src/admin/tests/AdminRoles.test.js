@@ -6,7 +6,7 @@ import AdminRoles from './../AdminRoles';
 let mockFetch;
 
 beforeEach(() => {
-  mockFetch = jest.fn().mockImplementationOnce(() => {
+  mockFetch = jest.fn().mockImplementation(() => {
     return Promise.resolve({
       info: [
         {
@@ -60,7 +60,7 @@ describe('<AdminRoles>', () => {
   it('allows toggling recruiter', async (done) => {
     var wrapper = mount(<AdminRoles fetcher={mockFetch} />);
     
-    
+    done()
     
   });
 

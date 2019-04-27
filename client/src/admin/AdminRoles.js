@@ -105,10 +105,8 @@ export default class AdminRoles extends React.Component {
     const field = this.state.changedField;
     if (this.state.staff[id]) {
       params = { ...this.state.staff[id] };
-      console.log('from', params[field], 'to', !params[field]);
       params[field] = !params[field];
     } else {
-      console.log('new');
       params = {
         is_recruiter: true,
       };
@@ -169,13 +167,13 @@ export default class AdminRoles extends React.Component {
     }
     return [
       <div style={{ ...styles.table, ...styles.outer }}>
-        <div style={styles.header}>
+        <div style={styles.header} key="header">
           <div style={styles.cell}>Name</div>
           <div style={styles.cell}>Recruiter</div>
           <div style={styles.cell}>Senior</div>
           <div style={styles.cell}>Admin</div>
         </div>
-        <div style={styles.body}>
+        <div style={styles.body} key="t-body">
           {Object.entries(this.state.staff)
             .sort(this.sortByNameFn)
             .map(this.buildStaffRow)}

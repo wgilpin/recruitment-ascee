@@ -165,7 +165,7 @@ export default class AdminLists extends React.Component {
     }_64.jpg`;
     const typeImgSrc = `https://image.eveonline.com/Type/${item.id}_64.png`;
     return (
-      <div key={item} style={lineStyle}>
+      <div key={item.id} style={lineStyle}>
         {this.state.kind === 'character' && (
           <div style={styles.cell}>
             <RoundImage src={characterImgSrc} />
