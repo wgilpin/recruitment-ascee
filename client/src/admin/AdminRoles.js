@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from 'react-loader-spinner';
 import Alt from '../common/Alt';
 import TrueImg from '../images/check_box_white.png';
 import FalseImg from '../images/check_box_outline_blank.png';
@@ -49,6 +50,7 @@ const styles = {
   },
   find: {
     marginTop: '24px',
+    marginBottom: '24px',
   }
 };
 
@@ -64,6 +66,7 @@ export default class AdminRoles extends React.Component {
       showConfirm: false,
       changedId: null,
       changedField: null,
+      loading: true,
     };
   }
 
@@ -78,6 +81,7 @@ export default class AdminRoles extends React.Component {
         this.setState({
           staff: this.arrayToObject(data.info || {}, 'id'),
           showConfirm: false,
+          loading: false
         })
       );
   };
@@ -156,6 +160,9 @@ export default class AdminRoles extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return <Loader type="Puff" color="#01799A" height="100" width="100" />;
+    }
     return [
       <div style={{ ...styles.table, ...styles.outer }}>
         <div style={styles.header}>
