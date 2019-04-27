@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import FindESICharacter from './FindESICharacter';
+import FindESICharacter from '../FindESICharacter';
 
 let mockFetch;
 

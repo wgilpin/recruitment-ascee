@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import FindItem from './FindItem';
+import FindItem from '../FindItem';
 
 let mockFetch;
 

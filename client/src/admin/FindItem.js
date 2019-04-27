@@ -205,7 +205,6 @@ export default class FindItem extends React.Component {
 
   render() {
     const { showInput, searchResults } = this.state;
-    console.log(Object.keys(searchResults).length);
 
     if (this.state.loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
