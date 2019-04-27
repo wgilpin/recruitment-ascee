@@ -13,8 +13,37 @@ exports[`Find ESI matches snapshot 1`] = `
   <div
     style={
       Object {
+        "display": "inline-block",
+        "padding": "6px",
+      }
+    }
+  >
+    <input
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="search..."
+      style={
+        Object {
+          "backgroundColor": "black",
+          "borderBottom": "1px white solid",
+          "borderColor": "darkgray",
+          "borderLeft": "black",
+          "borderRight": "black",
+          "borderStyle": "solid",
+          "borderTop": "black",
+          "borderWidth": "1px",
+          "color": "white",
+          "padding": "6px",
+        }
+      }
+      type="text"
+    />
+  </div>
+  <div
+    style={
+      Object {
         "cursor": "pointer",
-        "float": "right",
+        "display": "inline-block",
         "marginRight": "12px",
       }
     }
@@ -40,35 +69,6 @@ exports[`Find ESI matches snapshot 1`] = `
         }
       />
     </button>
-  </div>
-  <div
-    style={
-      Object {
-        "padding": "6px",
-      }
-    }
-  >
-    <input
-      onChange={[Function]}
-      onKeyDown={[Function]}
-      placeholder="search..."
-      style={
-        Object {
-          "backgroundColor": "black",
-          "borderBottom": "1px white solid",
-          "borderColor": "darkgray",
-          "borderLeft": "black",
-          "borderRight": "black",
-          "borderStyle": "solid",
-          "borderTop": "black",
-          "borderWidth": "1px",
-          "color": "white",
-          "padding": "6px",
-        }
-      }
-      type="text"
-      value=""
-    />
   </div>
 </div>
 `;

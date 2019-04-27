@@ -1,158 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<AdminRoles> matches snapshot 1`] = `
-Array [
-  <div
-    style={
-      Object {
-        "display": "table",
-        "marginLeft": "auto",
-        "marginRight": "auto",
-        "maxWidth": "500px",
-        "width": "100%",
-      }
-    }
+<div>
+  <svg
+    height="100"
+    stroke="#01799A"
+    viewBox="0 0 44 44"
+    width="100"
+    xmlns="http://www.w3.org/2000/svg"
   >
-    <div
-      style={
-        Object {
-          "color": "#01799A",
-          "display": "table-header-group",
-          "fontWeight": "bold",
-          "paddingBottom": "19px",
-        }
-      }
+    <g
+      fill="none"
+      fillRule="evenodd"
+      strokeWidth="2"
     >
-      <div
-        style={
-          Object {
-            "display": "table-cell",
-            "padding": "6px",
-            "textAlign": "left",
-          }
-        }
+      <circle
+        cx="22"
+        cy="22"
+        r="1"
       >
-        Name
-      </div>
-      <div
-        style={
-          Object {
-            "display": "table-cell",
-            "padding": "6px",
-            "textAlign": "left",
-          }
-        }
-      >
-        Recruiter
-      </div>
-      <div
-        style={
-          Object {
-            "display": "table-cell",
-            "padding": "6px",
-            "textAlign": "left",
-          }
-        }
-      >
-        Senior
-      </div>
-      <div
-        style={
-          Object {
-            "display": "table-cell",
-            "padding": "6px",
-            "textAlign": "left",
-          }
-        }
-      >
-        Admin
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "table-row-group",
-        }
-      }
-    />
-  </div>,
-  <div
-    style={
-      Object {
-        "marginTop": "24px",
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "marginLeft": "auto",
-          "marginRight": "auto",
-          "width": "50%",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "cursor": "pointer",
-            "float": "right",
-            "marginRight": "12px",
-          }
-        }
-      >
-        <button
-          onClick={[Function]}
-          style={
-            Object {
-              "backgroundColor": "#0000",
-              "borderStyle": "none",
-              "padding": "6px",
-            }
-          }
-        >
-          <img
-            alt="Search"
-            src="magnifying_glass_24x24.png"
-            style={
-              Object {
-                "height": "20px",
-                "width": "20px",
-              }
-            }
-          />
-        </button>
-      </div>
-      <div
-        style={
-          Object {
-            "padding": "6px",
-          }
-        }
-      >
-        <input
-          onChange={[Function]}
-          onKeyDown={[Function]}
-          placeholder="search..."
-          style={
-            Object {
-              "backgroundColor": "black",
-              "borderBottom": "1px white solid",
-              "borderColor": "darkgray",
-              "borderLeft": "black",
-              "borderRight": "black",
-              "borderStyle": "solid",
-              "borderTop": "black",
-              "borderWidth": "1px",
-              "color": "white",
-              "padding": "6px",
-            }
-          }
-          type="text"
-          value=""
+        <animate
+          attributeName="r"
+          begin="0s"
+          calcMode="spline"
+          dur="1.8s"
+          keySplines="0.165, 0.84, 0.44, 1"
+          keyTimes="0; 1"
+          repeatCount="indefinite"
+          values="1; 20"
         />
-      </div>
-    </div>
-  </div>,
-]
+        <animate
+          attributeName="strokeOpacity"
+          begin="0s"
+          calcMode="spline"
+          dur="1.8s"
+          keySplines="0.3, 0.61, 0.355, 1"
+          keyTimes="0; 1"
+          repeatCount="indefinite"
+          values="1; 0"
+        />
+      </circle>
+      <circle
+        cx="22"
+        cy="22"
+        r="1"
+      >
+        <animate
+          attributeName="r"
+          begin="-0.9s"
+          calcMode="spline"
+          dur="1.8s"
+          keySplines="0.165, 0.84, 0.44, 1"
+          keyTimes="0; 1"
+          repeatCount="indefinite"
+          values="1; 20"
+        />
+        <animate
+          attributeName="strokeOpacity"
+          begin="-0.9s"
+          calcMode="spline"
+          dur="1.8s"
+          keySplines="0.3, 0.61, 0.355, 1"
+          keyTimes="0; 1"
+          repeatCount="indefinite"
+          values="1; 0"
+        />
+      </circle>
+    </g>
+  </svg>
+</div>
 `;
