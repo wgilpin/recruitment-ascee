@@ -8,6 +8,7 @@ import TableStyles from '../evidence/TableStyles';
 import FetchData from '../common/FetchData';
 import FindESICharacter from './FindESICharacter';
 import Confirm from '../common/Confirm';
+import PropTypes from 'prop-types';
 
 const primary = TableStyles.styles.themeColor.color;
 
@@ -54,7 +55,9 @@ const styles = {
   }
 };
 
-const propTypes = {};
+const propTypes = {
+  fetcher: PropTypes.func,
+};
 
 const defaultProps = {};
 
@@ -74,16 +77,16 @@ export default class AdminRoles extends React.Component {
     return arr.reduce((acc, val) => ({ ...acc, [val[keyField]]: val }), {});
   }
 
-  componentWillMount = () => {
-    new FetchData({ scope: 'admin/users' })
-      .get()
-      .then(data =>
-        this.setState({
-          staff: this.arrayToObject(data.info || {}, 'id'),
-          showConfirm: false,
-          loading: false
-        })
-      );
+  doFetch = (scope, params) => new FetchData(scope).get(params);
+
+  componentWillMount = async () => {
+    const fetcher = this.props.fetcher || this.doFetch;
+    const data = await fetcher({ scope: 'admin/users' });
+    this.setState({
+      staff: this.arrayToObject(data.info || {}, 'id'),
+      showConfirm: false,
+      loading: false
+    })
   };
 
   sortByNameFn([aId, aData], [bId, bData]) {
@@ -96,33 +99,35 @@ export default class AdminRoles extends React.Component {
     return 0;
   }
 
-  doChange = () => {
+  doChange =async  () => {
     let params;
     const id = this.state.changedId;
     const field = this.state.changedField;
     if (this.state.staff[id]) {
       params = { ...this.state.staff[id] };
-      console.log('from',params[field],'to',!params[field])
+      console.log('from', params[field], 'to', !params[field]);
       params[field] = !params[field];
     } else {
-      console.log('new')
+      console.log('new');
       params = {
-        is_recruiter: true
-      }
+        is_recruiter: true,
+      };
     }
-    return new FetchData({ id, scope: 'admin', param1: 'set_roles' })
-      .get(params)
-      .then(this.componentWillMount);
+    const fetcher = this.props.fetcher || this.doFetch;
+    await fetcher({ id, scope: 'admin', param1: 'set_roles' }, params);
+    this.componentWillMount();
   };
 
-  handleClickCheck = (changedId, changedField)  => {
+  handleClickCheck = (changedId, changedField) => {
     this.setState({
       showConfirm: true,
       changedField,
       changedId,
-      confirmText:
-        `Set ${this.state.staff[changedId].name} ${changedField} to ${!this.state.staff[changedId][changedField]}`})
-  }
+      confirmText: `Set ${
+        this.state.staff[changedId].name
+      } ${changedField} to ${!this.state.staff[changedId][changedField]}`,
+    });
+  };
 
   buildCheck = (id, data, field) => (
     <img
@@ -134,7 +139,7 @@ export default class AdminRoles extends React.Component {
 
   buildStaffRow = ([id, data]) => {
     return (
-      <div style={styles.row}>
+      <div style={styles.row} key={id}>
         <div style={styles.cell}>
           <Alt id={id} name={data.name} />
         </div>
@@ -154,10 +159,9 @@ export default class AdminRoles extends React.Component {
       showConfirm: true,
       changedField: 'is_recruiter',
       changedId: userId,
-      confirmText:
-        `Promote ${userName} to Recruiter`,
-    })
-  }
+      confirmText: `Promote ${userName} to Recruiter`,
+    });
+  };
 
   render() {
     if (this.state.loading) {
@@ -172,7 +176,9 @@ export default class AdminRoles extends React.Component {
           <div style={styles.cell}>Admin</div>
         </div>
         <div style={styles.body}>
-          {Object.entries(this.state.staff).sort(this.sortByNameFn).map(this.buildStaffRow)}
+          {Object.entries(this.state.staff)
+            .sort(this.sortByNameFn)
+            .map(this.buildStaffRow)}
         </div>
       </div>,
       <div style={styles.find}>
@@ -181,12 +187,13 @@ export default class AdminRoles extends React.Component {
           iconList={[{ name: 'recruiter', img: PromoteImg }]}
         />
       </div>,
-      this.state.showConfirm &&
+      this.state.showConfirm && (
         <Confirm
           text={this.state.confirmText}
           onConfirm={this.doChange}
           onClose={() => this.setState({ showConfirm: false })}
         />
+      ),
     ];
   }
 }
