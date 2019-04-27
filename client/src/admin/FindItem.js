@@ -11,6 +11,7 @@ import deleteImg from '../images/clear.png';
 const propTypes = {
   kind: PropTypes.string,
   onChange: PropTypes.func,
+  fetcher: PropTypes.func,
 };
 
 const defaultProps = {
@@ -98,11 +99,16 @@ export default class FindItem extends React.Component {
     return { ...this.state.searchResults, ...list };
   }
 
-  search(names) {
-    // if it's a user, need to search for character
+  doFetch(names){
     const kind = this.props.kind === 'user' ? 'character' : this.props.kind;
     return new FetchData({ scope: 'names_to_ids' })
       .put({ category: kind, names })
+  }
+
+  search(names) {
+    // if it's a user, need to search for character
+    const fetcher = this.props.fetcher || this.doFetch;
+    return fetcher()
       .then(data => {
         this.setState({ searchResults: this.appendResults(data.info) || [] });
         this.removeMatches(data.info);
@@ -218,7 +224,7 @@ export default class FindItem extends React.Component {
                 Add Many
               </button>
             </div>
-            <div style={styles.listbox}>
+            <div style={styles.listbox} id="results" >
               {Object.entries(this.state.searchResults).map(
                 ([name, id], idx) => {
                   return this.makeResultLine(name, id, idx);

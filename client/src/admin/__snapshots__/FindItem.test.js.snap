@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Find Item matches snapshot 1`] = `
+Array [
+  <div
+    style={
+      Object {
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "padding": "8px",
+      }
+    }
+  >
+    <hr
+      style={
+        Object {
+          "color": "grey",
+          "height": "1px",
+        }
+      }
+    />
+    <input
+      placeholder="add name"
+      style={
+        Object {
+          "backgroundColor": "#333",
+          "border": "none",
+          "color": "white",
+          "height": "33px",
+          "padding": "4px",
+          "textAlign": "left",
+          "width": "140px",
+        }
+      }
+      type="text"
+    />
+    <button
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#01799A",
+          "borderRadius": "3px",
+          "borderStyle": "none",
+          "color": "white",
+          "fontSize": "large",
+          "margin": "12px",
+          "padding": "6px",
+          "width": "70px",
+        }
+      }
+    >
+      Search
+    </button>
+    <br />
+    <button
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#0000",
+          "border": "none",
+          "color": "#01799A",
+          "cursor": "pointer",
+          "fontSize": "large",
+          "marginTop": "6px",
+          "textDecoration": "underline",
+        }
+      }
+    >
+      Add Many
+    </button>
+  </div>,
+  <div
+    id="results"
+    style={
+      Object {
+        "display": "table",
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "width": "300px",
+      }
+    }
+  />,
+]
+`;
