@@ -39,7 +39,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "prettier-eslint": "^8.8.2"
+    "prettier-eslint": "^8.8.2",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "react-test-renderer": "^16.8.6"
   },
   "prettier": {
     "trailingComma": "es5",
