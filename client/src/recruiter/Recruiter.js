@@ -12,7 +12,6 @@ import SectionList from './SectionList';
 import { RecruiterProvider } from './RecruiterContext';
 import Search from './Search';
 
-
 const localStyles = {
   ...styles,
   ...TableStyles.styles,
@@ -22,7 +21,6 @@ const localStyles = {
     marginRight: 'auto',
   },
 
-  
   recruitButton: {
     marginLeft: '12px',
     padding: '6px',
@@ -146,7 +144,10 @@ export default class Recruiter extends React.Component {
       if (res.status === 'ok') {
         this.setRecruitStatus(id, Recruiter.statuses.unclaimed);
       } else if (res.status === 406) {
-        alert('User has not completed their application');
+        this.setState({
+          showAlert: true,
+          alertText: 'User has not completed their application',
+        });
       } else {
         this.setState({ showAlert: true, alertText: "User can't be dropped" });
       }
@@ -177,10 +178,10 @@ export default class Recruiter extends React.Component {
     });
   };
 
-  handleClick = (id) => {
+  handleClick = id => {
     if (this.state.recruits[id].status !== Recruiter.statuses.unclaimed)
       this.setState({ activeRecruitId: id });
-  }
+  };
 
   applyFilter(status) {
     const res = {};
@@ -196,10 +197,6 @@ export default class Recruiter extends React.Component {
     this.setState({ activeRecruitId: null });
   };
 
-  closeAlert = () => {
-    this.setState({ showAlert: false });
-  };
-
   handleOpenFromSearch = (id, _, name) => {
     this.setState({
       showHistory: id !== null,
@@ -212,7 +209,7 @@ export default class Recruiter extends React.Component {
     const claimed = this.applyFilter(Recruiter.statuses.claimed);
     const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
     const accepted = this.applyFilter(Recruiter.statuses.accepted);
-    
+
     return (
       <div style={localStyles.outer}>
         <h1 style={localStyles.headerText}>Applications Pending</h1>
@@ -257,18 +254,21 @@ export default class Recruiter extends React.Component {
               label="Unclaimed"
               list={unclaimed}
               isEnabled={this.state.roles.is_recruiter}
-              onSelect={this.handleClick}  
+              onSelect={this.handleClick}
               onClaim={this.handleClaim}
               onApprove={this.handleAccept}
               onDrop={this.handleDrop}
               onReject={this.handleReject}
-              onMail={this.handleMail}         
+              onMail={this.handleMail}
             />
           </RecruiterProvider>
         </div>
-        {this.state.roles.is_senior_recruiter && 
-          <Search id={this.state.historyId} onChoose={this.handleOpenFromSearch}/>
-        }
+        {this.state.roles.is_senior_recruiter && (
+          <Search
+            id={this.state.historyId}
+            onChoose={this.handleOpenFromSearch}
+          />
+        )}
       </div>
     );
   };
@@ -326,7 +326,10 @@ export default class Recruiter extends React.Component {
         activeRecruit.status !== Recruiter.statuses.unclaimed &&
         this.renderEvidence(),
       this.state.showAlert && (
-        <Alert text={this.state.alertText} onClose={this.closeAlert} />
+        <Alert
+          text={this.state.alertText}
+          onClose={() => this.setState({ showAlert: false })}
+        />
       ),
       this.state.showConfirm && (
         <Confirm

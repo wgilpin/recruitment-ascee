@@ -2,6 +2,7 @@ import React from 'reactn';
 import PropTypes from 'prop-types';
 import styles from './ApplicantStyles';
 import FetchData from '../common/FetchData';
+import Alert from './../common/Alert';
 
 const propTypes = {
   onChange: PropTypes.func,
@@ -53,8 +54,7 @@ export default class Answers extends React.Component {
 
   handleSaveAnswers = () => {
     new FetchData({ scope: 'answers' }).put(this.stateToParams()).then(() => {
-      this.setState({ dirtyAnswers: false });
-      window.alert('Saved');
+      this.setState({ dirtyAnswers: false, showSavedAlert: true });
     });
   };
 
@@ -69,8 +69,10 @@ export default class Answers extends React.Component {
             <div key={key}>
               <div style={styles.padded}>{question}</div>
               {this.props.readonly ? (
-                <div style={styles.answerText} id={key} >
-                  {answer.split('\n').map(line => <div>{line}</div>)}
+                <div style={styles.answerText} id={key}>
+                  {answer.split('\n').map(line => (
+                    <div>{line}</div>
+                  ))}
                 </div>
               ) : (
                 <textarea
@@ -90,6 +92,12 @@ export default class Answers extends React.Component {
           <button style={styles.primaryButton} onClick={this.handleSaveAnswers}>
             Save
           </button>
+        )}
+        {this.state.showSavedAlert && (
+          <Alert
+            text="Saved"
+            onClose={() => this.setState({ showSavedAlert: false })}
+          />
         )}
       </React.Fragment>
     );
