@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import Answers from '../Answers';
 
@@ -8,6 +8,7 @@ let mockFetch;
 let serverState;
 
 beforeEach(() => {
+  window.alert = () => {};
   serverState = {
     questions: {
       '7': 'How long have you been playing Eve for?',
@@ -69,17 +70,9 @@ beforeEach(() => {
   };
 
   mockFetch = jest.fn().mockImplementation((scope, params) => {
-    if (scope.scope === 'mail/get_character') {
-      return Promise.resolve({
-        info: serverState.get_character,
-      });
-    } else if (scope.scope.indexOf('mail/template') !== -1) {
-      return Promise.resolve({
-        info: serverState.template,
-      });
-    } else {
-      throw new Error('Scope Not Valid');
-    }
+    return Promise.resolve({
+      info: serverState[scope.scope],
+    });
   });
 });
 
@@ -95,17 +88,32 @@ describe('<Answers>', () => {
     );
   });
 
-  it('matches snapshot', async () => {
-    let ready=false;
-    const adminConfig =mount(
+  it('checks when all questions have answers', () => {
+    const onReadyFn = jest.fn();
+    const wrapper = shallow(
       <Answers
         fetcher={mockFetch}
         answers={serverState.answers}
         questions={serverState.questions}
-        onReadyStatus={() => { ready=true; }}
+        onReadyStatus={onReadyFn}
+      />
+    )
+      .instance()
+      .handleSaveAnswers();
+    expect(onReadyFn).toHaveBeenCalled();
+  });
+
+  
+  it('matches snapshot', async () => {
+    const adminConfig = mount(
+      <Answers
+        fetcher={mockFetch}
+        answers={serverState.answers}
+        questions={serverState.questions}
+        onReadyStatus={() => null}
       />
     );
-    
+
     const tree = renderer.create(adminConfig);
     await Promise.resolve();
     expect(tree.toJSON()).toMatchSnapshot();
