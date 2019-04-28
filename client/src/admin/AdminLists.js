@@ -96,12 +96,16 @@ export default class AdminLists extends React.Component {
     this.doLoad();
   }
 
+  doFetch = (scope) => new FetchData(scope).get();
+  doFetchDelete = (scope) => new FetchData(scope).delete();
+
   doLoad = () => {
     const lists = {};
     const promises = [];
+    const fetcher = this.props.fetcher || this.doFetch;
     for (let kind of Object.keys(AdminLists.list_kinds)) {
       promises.push(
-        new FetchData({ id: kind, scope: 'admin/list' }).get().then(list => {
+        fetcher({ id: kind, scope: 'admin/list' }).then(list => {
           lists[kind] = list.info;
         })
       );
@@ -124,12 +128,13 @@ export default class AdminLists extends React.Component {
   }
 
   handleDelete = async () => {
-    await new FetchData({
+    const fetcher = this.props.fetcher || this.doFetchDelete;
+    await fetcher({
       id: this.state.kind,
       scope: 'admin/list',
       param1: 'delete',
       param2: this.state.selectedItem.id,
-    }).delete();
+    });
     this.setState({ showConfirm: false });
     this.componentDidMount();
   };

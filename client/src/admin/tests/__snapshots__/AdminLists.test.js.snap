@@ -1,0 +1,275 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AdminRoles> matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": "400px",
+    }
+  }
+>
+  <h2>
+    Redlists
+  </h2>
+  <select
+    onChange={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#01799A",
+        "border": "none",
+        "color": "white",
+        "marginBottom": "24px",
+        "transform": "scale(1.5)",
+      }
+    }
+  >
+    <option
+      value="character"
+    >
+      Red Character
+    </option>
+    <option
+      value="inventory_type"
+    >
+      Flagged Type
+    </option>
+    <option
+      value="alliance"
+    >
+      Red Alliance
+    </option>
+    <option
+      value="corporation"
+    >
+      Red Corporation
+    </option>
+    <option
+      value="system"
+    >
+      Red System
+    </option>
+    <option
+      value="user"
+    >
+      User Blocked From Applying
+    </option>
+  </select>
+  <div
+    style={
+      Object {
+        "display": "table",
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "width": "300px",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "#151515",
+          "display": "table-row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+          }
+        }
+      >
+        <img
+          alt="Avatar"
+          onClick={[Function]}
+          src="https://image.eveonline.com/Character/299590276_64.jpg"
+          style={
+            Object {
+              "backgroundColor": "black",
+              "borderRadius": "50%",
+              "boxShadow": "1px 3px 1px #111",
+              "height": 32,
+              "width": 32,
+            }
+          }
+        />
+      </div>
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+            "verticalAlign": "middle",
+          }
+        }
+      >
+        Major Sniper
+      </div>
+      <div
+        style={
+          Object {
+            "cursor": "pointer",
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+            "verticalAlign": "middle",
+          }
+        }
+      >
+        <img
+          alt="delete"
+          onClick={[Function]}
+          src="delete-white.svg"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "table-row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+          }
+        }
+      >
+        <img
+          alt="Avatar"
+          onClick={[Function]}
+          src="https://image.eveonline.com/Character/94476783_64.jpg"
+          style={
+            Object {
+              "backgroundColor": "black",
+              "borderRadius": "50%",
+              "boxShadow": "1px 3px 1px #111",
+              "height": 32,
+              "width": 32,
+            }
+          }
+        />
+      </div>
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+            "verticalAlign": "middle",
+          }
+        }
+      >
+        Miyogi San
+      </div>
+      <div
+        style={
+          Object {
+            "cursor": "pointer",
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+            "verticalAlign": "middle",
+          }
+        }
+      >
+        <img
+          alt="delete"
+          onClick={[Function]}
+          src="delete-white.svg"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "backgroundColor": "#151515",
+          "display": "table-row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+          }
+        }
+      >
+        <img
+          alt="Avatar"
+          onClick={[Function]}
+          src="https://image.eveonline.com/Character/91027948_64.jpg"
+          style={
+            Object {
+              "backgroundColor": "black",
+              "borderRadius": "50%",
+              "boxShadow": "1px 3px 1px #111",
+              "height": 32,
+              "width": 32,
+            }
+          }
+        />
+      </div>
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+            "verticalAlign": "middle",
+          }
+        }
+      >
+        Recruiter TS
+      </div>
+      <div
+        style={
+          Object {
+            "cursor": "pointer",
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+            "verticalAlign": "middle",
+          }
+        }
+      >
+        <img
+          alt="delete"
+          onClick={[Function]}
+          src="delete-white.svg"
+        />
+      </div>
+    </div>
+  </div>
+  <img
+    alt="Add Alt"
+    onClick={[Function]}
+    src="add.gif"
+    style={
+      Object {
+        "backgroundColor": "#c00",
+        "borderRadius": "50%",
+        "bottom": "30px",
+        "boxShadow": "1px 3px 1px #111",
+        "float": "right",
+        "height": 32,
+        "marginTop": "30px",
+        "position": "inherited",
+        "right": "30px",
+        "width": 32,
+      }
+    }
+  />
+</div>
+`;
