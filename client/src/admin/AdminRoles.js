@@ -79,14 +79,19 @@ export default class AdminRoles extends React.Component {
 
   doFetch = (scope, params) => new FetchData(scope).get(params);
 
-  componentWillMount = async () => {
+  loadRoles = async () => {
     const fetcher = this.props.fetcher || this.doFetch;
     const data = await fetcher({ scope: 'admin/users' });
+    
     this.setState({
       staff: this.arrayToObject(data.info || {}, 'id'),
       showConfirm: false,
       loading: false
-    })
+    });
+  }
+
+  componentWillMount = () => {
+    this.loadRoles();
   };
 
   sortByNameFn([aId, aData], [bId, bData]) {
@@ -99,7 +104,7 @@ export default class AdminRoles extends React.Component {
     return 0;
   }
 
-  doChange =async  () => {
+  doChange =  () => {
     let params;
     const id = this.state.changedId;
     const field = this.state.changedField;
@@ -112,8 +117,10 @@ export default class AdminRoles extends React.Component {
       };
     }
     const fetcher = this.props.fetcher || this.doFetch;
-    await fetcher({ id, scope: 'admin', param1: 'set_roles' }, params);
-    this.componentWillMount();
+    this.setState({ loading: true }, async () => {
+      await fetcher({ id, scope: 'admin', param1: 'set_roles' }, params);
+      this.loadRoles();
+    })
   };
 
   handleClickCheck = (changedId, changedField) => {
@@ -131,7 +138,7 @@ export default class AdminRoles extends React.Component {
     <img
       src={!!data[field] ? TrueImg : FalseImg}
       onClick={() => this.handleClickCheck(id, field)}
-      alt={!!data[field] ? 'Yes' : 'No'}
+      alt={field}
     />
   );
 
@@ -166,14 +173,14 @@ export default class AdminRoles extends React.Component {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
     return [
-      <div style={{ ...styles.table, ...styles.outer }}>
+      <div style={{ ...styles.table, ...styles.outer }} >
         <div style={styles.header} key="header">
           <div style={styles.cell}>Name</div>
           <div style={styles.cell}>Recruiter</div>
           <div style={styles.cell}>Senior</div>
           <div style={styles.cell}>Admin</div>
         </div>
-        <div style={styles.body} key="t-body">
+        <div style={styles.body} key="t-body" id="roles-list">
           {Object.entries(this.state.staff)
             .sort(this.sortByNameFn)
             .map(this.buildStaffRow)}

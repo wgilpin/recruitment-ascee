@@ -83,7 +83,6 @@ class Admin extends Component {
     new FetchData({ scope: 'user/roles' })
       .get()
       .then(roles => {
-        console.log(roles);
         this.setState({ roles: roles.info });
       })
   }

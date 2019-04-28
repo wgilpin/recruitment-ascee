@@ -111,14 +111,12 @@ export default class FindESICharacter extends React.Component {
   }
 
   handleSearch = async () => {
-    console.log('handleSearch');
     
     if (this.state.searchText.length < 3) {
       return;
     }
     const fetcher = this.props.fetcher || doFetch;
     const searchResults = await fetcher(this.state.searchText);
-    console.log('handlSearch', searchResults);
     
     this.setState({ searchResults, loading: false });
   };

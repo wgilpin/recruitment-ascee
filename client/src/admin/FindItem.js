@@ -257,7 +257,6 @@ export default class FindItem extends React.Component {
             </div>
             <div style={styles.listbox}>
               {Object.entries(searchResults).map(([name, id], idx) => {
-                console.log(name, id);
                 return this.makeResultLine(name, id, idx);
               })}
             </div>
