@@ -4,12 +4,16 @@ import styles from './ApplicantStyles';
 import FetchData from '../common/FetchData';
 
 const propTypes = {
-  onReadyStatus: PropTypes.bool,
+  onReadyStatus: PropTypes.func,
   readonly: PropTypes.bool,
   targetId: PropTypes.number,
+  answers: PropTypes.object,
+  questions: PropTypes.object,
 };
 
-const defaultProps = {};
+const defaultProps = {
+  answers: {},
+};
 
 export default class Answers extends React.Component {
   constructor(props) {
@@ -42,8 +46,11 @@ export default class Answers extends React.Component {
     };
   };
 
+  doPut = (scope, params) => new FetchData(scope).put(params);
+
   handleSaveAnswers = () => {
-    new FetchData({ scope: 'answers' }).put(this.stateToParams()).then(() => {
+    const fetcher = this.props.fetcher || this.doPut;
+    fetcher({ scope: 'answers' }, this.stateToParams()).then(() => {
       this.setState({ dirtyAnswers: false }, this.checkAllQuestionsAnswered);
       window.alert('Saved');
     });
@@ -82,7 +89,7 @@ export default class Answers extends React.Component {
                 <textarea
                   style={styles.answer}
                   id={key}
-                  readonly={this.props.readonly}
+                  readOnly={this.props.readonly}
                   onChange={this.handleAnswerChanged}
                 >
                   {answer}
