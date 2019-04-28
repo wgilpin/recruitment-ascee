@@ -56,7 +56,7 @@ beforeEach(() => {
 
 describe('<AdminRoles>', () => {
   it('renders without crashing', () => {
-    shallow(<AdminRoles />);
+    shallow(<AdminRoles fetcher={mockFetch} />);
   });
 
   it('loads', async done => {

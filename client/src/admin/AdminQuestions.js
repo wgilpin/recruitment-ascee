@@ -159,7 +159,6 @@ export default class AdminQuestions extends React.Component {
     if (!questions) {
       return;
     }
-    Object.entries(questions).map(([k, v]) => console.log(k, v));
     return (
       <div style={styles.outer}>
         <h2 style={styles.heading}>Applicant Questions</h2>
