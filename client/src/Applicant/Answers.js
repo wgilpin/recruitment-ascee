@@ -29,6 +29,9 @@ export default class Answers extends React.Component {
   }
 
   checkAllQuestionsAnswered = () => {
+    if (!this.props.onReadyStatus) {
+      return;
+    }
     const { answers, dirtyAnswers } = this.state;
     if (Object.keys(answers).length === 0 || dirtyAnswers) {
       this.props.onReadyStatus(false);
