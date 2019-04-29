@@ -51,6 +51,7 @@ export default class Alert extends React.Component {
   };
 
   render() {
+    ReactModal.setAppElement(document.documentElement)
     return (
       <ReactModal isOpen={true} style={styles.modal}>
         <h2 style={styles.modal.title}>{this.props.text}</h2>

@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AdminConfig> matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": "400px",
+    }
+  }
+>
+  <h2>
+    Mail User
+  </h2>
+  <div
+    onClick={[Function]}
+    style={
+      Object {
+        "cursor": null,
+        "display": "table",
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "padding": 8,
+        "width": "fit-content",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "display": "table-row",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+          }
+        }
+      >
+        <img
+          alt="Avatar"
+          onClick={[Function]}
+          src="https://image.eveonline.com/Character/1234_64.jpg"
+          style={
+            Object {
+              "backgroundColor": "black",
+              "borderRadius": "50%",
+              "boxShadow": "1px 3px 1px #111",
+              "height": 32,
+              "width": 32,
+            }
+          }
+        />
+      </div>
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "height": "24px",
+            "marginBottom": "auto",
+            "marginTop": "auto",
+            "paddingLeft": "8px",
+            "size": 14,
+            "textAlign": "left",
+            "verticalAlign": "middle",
+          }
+        }
+      >
+        user 1
+      </div>
+    </div>
+  </div>
+  <button
+    onClick={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#333",
+        "borderColor": "#01799A",
+        "borderRadius": "3px",
+        "borderStyle": "none",
+        "color": "white",
+        "fontSize": "large",
+        "margin": "12px",
+        "padding": "6px",
+        "width": "200px",
+      }
+    }
+  >
+    Edit
+  </button>
+  <hr
+    style={
+      Object {
+        "color": "grey",
+        "width": "350px",
+      }
+    }
+  />
+  <h2>
+    Mail Template
+  </h2>
+  <select
+    defaultValue=""
+    onChange={[Function]}
+    placeholder="Purpose"
+    style={
+      Object {
+        "backgroundColor": "#111",
+        "borderColor": "grey",
+        "borderWidth": "1px",
+        "color": "white",
+        "height": "unset",
+        "margin": "8px",
+        "padding": "8px",
+        "width": "300px",
+      }
+    }
+  >
+    <option
+      value="invite"
+    >
+      Invitation Template
+    </option>
+    <option
+      value="reject"
+    >
+      Rejection Template
+    </option>
+  </select>
+  <div>
+    <input
+      onChange={[Function]}
+      placeholder="  Subject Line"
+      style={
+        Object {
+          "backgroundColor": "#111",
+          "borderColor": "grey",
+          "borderWidth": "1px",
+          "color": "white",
+          "height": "24px",
+          "margin": "8px",
+          "padding": "8px",
+          "width": "300px",
+        }
+      }
+      value="Test Rejection Email"
+    />
+  </div>
+  <textarea
+    onChange={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#111",
+        "color": "white",
+        "height": "300px",
+        "margin": "8px",
+        "padding": "8px",
+        "width": "300px",
+      }
+    }
+    value="Ignore this - you haven't really been rejected"
+  />
+</div>
+`;

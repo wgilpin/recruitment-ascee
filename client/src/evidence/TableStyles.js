@@ -23,7 +23,6 @@ export default class TableStyles {
     },
     row: {
       display: 'table-row',
-      padding: '6px',
     },
     nowrap: {
       whiteSpace: 'nowrap',
@@ -31,7 +30,8 @@ export default class TableStyles {
     cell: {
       textAlign: 'left',
       display: 'table-cell',
-      padding: '6px',
+      paddingLeft: '6px',
+      paddingLeft: '6px',
     },
     nonTableCell: {
       textAlign: 'left',

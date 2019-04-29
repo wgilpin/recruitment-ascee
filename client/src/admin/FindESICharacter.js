@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner';
 import SearchImg from '../images/magnifying_glass_24x24.png';
 import FetchData from '../common/FetchData';
 import TableStyles from '../evidence/TableStyles';
@@ -19,7 +20,7 @@ const primary = TableStyles.styles.themeColor.color;
 
 const styles = {
   outer: {
-    maxWidth: '400px',
+    maxWidth: '350px',
     marginLeft: 'auto',
     marginRight: 'auto',
   },
@@ -27,6 +28,10 @@ const styles = {
     width: '50%',
     marginLeft: 'auto',
     marginRight: 'auto',
+  },
+  searchInner: {
+    display: 'inline-block',
+    padding: '6px',
   },
   names: {
     float: 'left',
@@ -75,35 +80,45 @@ const styles = {
     color: 'white',
   },
   searchBtnOuter: {
-    float: 'right',
+    display: 'inline-block',
     cursor: 'pointer',
     marginRight: '12px',
   },
   tab: {
     width: '20%',
   },
+  results: {
+    width: '300px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+};
+
+const doFetch = text => {
+  return new FetchData({
+    scope: 'character/find',
+    param1: text,
+  }).get();
 };
 
 export default class FindESICharacter extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    this.textInput = React.createRef();
+    this.state = {
+      loading: false,
+      searchText: '',
+    };
   }
 
-  handleSearch = () => {
-    if (this.textInput.current.value.length < 3) {
-      this.handleClick();
+  handleSearch = async () => {
+    
+    if (this.state.searchText.length < 3) {
       return;
     }
-    new FetchData({
-      scope: 'character/find',
-      param1: this.textInput.current.value,
-    })
-      .get()
-      .then(res => {
-        this.setState({ searchResults: res });
-      });
+    const fetcher = this.props.fetcher || doFetch;
+    const searchResults = await fetcher(this.state.searchText);
+    
+    this.setState({ searchResults, loading: false });
   };
 
   handleClick = (id, label, userName) => {
@@ -113,12 +128,13 @@ export default class FindESICharacter extends React.Component {
   makeSearchResultLine = (char, id) => {
     const imgSrc = `https://image.eveonline.com/Character/${id}_64.jpg`;
     return (
-      <div>
-        <RoundImage style={{position: 'relative', top: '6px'}} src={imgSrc} />
+      <div style={{textAling: 'left'}} key={id}>
+        <RoundImage style={{ position: 'relative', top: '6px' }} src={imgSrc} />
         &ensp;
         {char.name}
         {(this.props.iconList || []).map(icon => (
           <img
+            key={icon.name}
             style={styles.moveButtons}
             src={icon.img}
             alt={icon.name}
@@ -130,41 +146,45 @@ export default class FindESICharacter extends React.Component {
   };
 
   handleKeyPress = event => {
-    if (this.textInput.current.value.length > 0 && event.key === 'Enter') {
-      this.handleSearch();
-      return;
+    const { value } = event.target;
+    if (value.length > 0 && event.key === 'Enter') {
+      this.setState({ searchResults: {}, searchText: value }, () => {
+        this.handleSearch();
+      })
+    } else {
+      this.setState({ searchResults: {}, searchText: value });
     }
-    this.setState({ searchResults: {} }); 
   };
 
   render() {
     return (
       <React.Fragment>
-        <div style={styles.searchOuter}>
-          <div style={styles.searchBtnOuter}>
-            <button onClick={this.handleSearch} style={styles.searchButton}>
-              <img style={styles.smallButtonImg} src={SearchImg} alt="Search" />
-            </button>
-          </div>
-          <div style={{ padding: '6px' }}>
-            <input
-              on
-              onKeyDown={this.handleKeyPress}
-              style={styles.searchInput}
-              type="text"
-              placeholder="search..."
-              ref={this.textInput}
-              value={this.state.searchText}
-            />
-          </div>
-        </div>
+        {this.state.loading && (
+          <Loader type="Puff" color="#01799A" height="100" width="100" />
+        )}
         {this.state.searchResults && (
-          <div>
+          <div style={styles.results} id="results">
             {Object.entries(this.state.searchResults).map(([id, char]) =>
               this.makeSearchResultLine(char, id)
             )}
           </div>
         )}
+        <div style={styles.searchOuter}>
+          <div style={styles.searchInner}>
+            <input
+              onChange={this.handleKeyPress}
+              onKeyDown={this.handleKeyPress}
+              style={styles.searchInput}
+              type="text"
+              placeholder="search..."
+            />
+          </div>
+          <div style={styles.searchBtnOuter}>
+            <button onClick={this.handleSearch} style={styles.searchButton}>
+              <img style={styles.smallButtonImg} src={SearchImg} alt="Search" />
+            </button> 
+          </div>
+        </div>
       </React.Fragment>
     );
   }

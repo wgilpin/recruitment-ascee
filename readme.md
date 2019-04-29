@@ -30,6 +30,13 @@ or
 
 The front end url is /app
 
+## Running Front End tests
+
+   cd <Project Root>/client
+
+   yarn test
+
+
 ## How to migrate the db
 
 The migrations folder should already exist, as created by `flask db init`.

@@ -56,7 +56,7 @@ export default class RecruitItem extends React.Component {
       {roles => {
           const recruitIsMine = recruit.recruiter_id === roles.user_id;
           return (
-            <div key={id} style={localStyles.recruit}>
+            <div key={id} id={`recruitItem${id}`} style={localStyles.recruit}>
               {[
                 recruitIsClaimed &&
                   (recruitIsMine ? (

@@ -54,8 +54,9 @@ export default class Confirm extends React.Component {
   };
 
   render() {
+    ReactModal.setAppElement(document.documentElement)
     return (
-      <ReactModal isOpen={true} style={styles.modal}>
+      <ReactModal isOpen={true} style={styles.modal}> 
         <h2 style={styles.modal.title}>{this.props.text}</h2>
         <p style={styles.modal.text}>Are you sure?</p>
         <div style={styles.modal.buttons}>
