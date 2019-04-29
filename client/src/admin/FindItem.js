@@ -11,6 +11,7 @@ import deleteImg from '../images/clear.png';
 const propTypes = {
   kind: PropTypes.string,
   onChange: PropTypes.func,
+  fetcher: PropTypes.func,
 };
 
 const defaultProps = {
@@ -77,6 +78,7 @@ export default class FindItem extends React.Component {
       showInput: true,
       searchResults: {},
       loading: false,
+      noneFound: false,
     };
     this.textInput = React.createRef();
     this.textArea = React.createRef();
@@ -98,16 +100,26 @@ export default class FindItem extends React.Component {
     return { ...this.state.searchResults, ...list };
   }
 
-  search(names) {
-    // if it's a user, need to search for character
+  doFetch = names => {
     const kind = this.props.kind === 'user' ? 'character' : this.props.kind;
-    return new FetchData({ scope: 'names_to_ids' })
-      .put({ category: kind, names })
-      .then(data => {
-        this.setState({ searchResults: this.appendResults(data.info) || [] });
-        this.removeMatches(data.info);
+    return new FetchData({ scope: 'names_to_ids' }).put({
+      category: kind,
+      names,
+    });
+  };
+
+  search = names => {
+    // if it's a user, need to search for character
+    const fetcher = this.props.fetcher || this.doFetch;
+    return fetcher(names).then(data => {
+      const searchResults = this.appendResults(data.info) || [];
+      this.setState({
+        searchResults,
+        noneFound: Object.keys(searchResults).length === 0,
       });
-  }
+      this.removeMatches(data.info);
+    });
+  };
 
   handleClickAddMany = () => {
     this.setState({ showAddMany: true, showInput: false });
@@ -137,9 +149,9 @@ export default class FindItem extends React.Component {
       });
   };
 
-  handleReject = id => {
+  handleReject = name => {
     const newList = Object.assign({}, this.state.searchResults);
-    delete newList[id];
+    delete newList[name];
     this.setState({ searchResults: newList });
   };
 
@@ -183,7 +195,7 @@ export default class FindItem extends React.Component {
           <img
             style={styles.img}
             src={deleteImg}
-            onClick={() => this.handleReject(id)}
+            onClick={() => this.handleReject(name)}
             alt="delete"
           />
         </div>
@@ -192,12 +204,14 @@ export default class FindItem extends React.Component {
   }
 
   render() {
+    const { showInput, searchResults } = this.state;
+
     if (this.state.loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
     }
     return (
       <React.Fragment>
-        {this.state.showInput && (
+        {showInput && (
           <React.Fragment>
             <div style={styles.centreDiv}>
               <hr style={styles.line} />
@@ -218,16 +232,15 @@ export default class FindItem extends React.Component {
                 Add Many
               </button>
             </div>
-            <div style={styles.listbox}>
-              {Object.entries(this.state.searchResults).map(
-                ([name, id], idx) => {
-                  return this.makeResultLine(name, id, idx);
-                }
-              )}
+            <div style={styles.listbox} id="results">
+              {Object.entries(searchResults).map(([name, id], idx) => {
+                return this.makeResultLine(name, id, idx);
+              })}
             </div>
+            {this.state.noneFound && <div>None Found</div>}
           </React.Fragment>
         )}
-        {!this.state.showInput && (
+        {!showInput && (
           <React.Fragment>
             <div style={styles.centreDiv}>
               <hr style={styles.line} />
@@ -243,14 +256,11 @@ export default class FindItem extends React.Component {
               </button>
             </div>
             <div style={styles.listbox}>
-              {Object.entries(this.state.searchResults).map(
-                ([name, id], idx) => {
-                  console.log(name, id);
-                  return this.makeResultLine(name, id, idx);
-                }
-              )}
+              {Object.entries(searchResults).map(([name, id], idx) => {
+                return this.makeResultLine(name, id, idx);
+              })}
             </div>
-            {this.state.searchResults.length > 0 && (
+            {Object.keys(searchResults).length > 0 && (
               <div style={styles.listbox}>
                 <button
                   style={styles.primaryButton}

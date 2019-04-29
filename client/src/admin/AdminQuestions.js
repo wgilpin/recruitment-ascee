@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactModal from 'react-modal';
 import FetchData from '../common/FetchData';
 import DeleteImg from '../images/delete.png';
 import CommonStyles from '../common/Styles';
@@ -21,11 +20,17 @@ const styles = {
     cursor: 'pointer',
   },
   buttonBar: {
-    display: 'inline-block',
+    display: 'table-cell',
+    verticalAlign: 'middle',
   },
   answer: {
-    display: 'inline-block',
-    marginBottom: '12px',
+    display: 'table-cell',
+    marginBottom: '8px',
+    marginTop: '8px',
+    backgroundColor: '#222',
+    color: 'white',
+    padding: '6px',
+    border: 'none',
   },
   fab: {
     float: 'right',
@@ -57,12 +62,13 @@ class AdminQuestion extends React.Component {
   render() {
     const { id, text } = this.props;
     return (
-      <>
+      <div key={id} style={{display: 'table-row'}}>
         <textarea
           style={styles.answer}
           id={id}
           onChange={this.handleChange}
           cols="50"
+          rows="3"
           value={text}
           ref={this.textareaRef}
         />
@@ -74,8 +80,8 @@ class AdminQuestion extends React.Component {
             alt="delete"
           />
         </div>
-        <hr style={styles.hr} />
-      </>
+        
+      </div>
     );
   }
 }
@@ -153,7 +159,6 @@ export default class AdminQuestions extends React.Component {
     if (!questions) {
       return;
     }
-    Object.entries(questions).map(([k, v]) => console.log(k, v));
     return (
       <div style={styles.outer}>
         <h2 style={styles.heading}>Applicant Questions</h2>

@@ -2,9 +2,9 @@ import React from 'react';
 import FetchData from '../common/FetchData';
 import Styles from '../common/Styles';
 import TableStyles from '../evidence/TableStyles';
-import Alt from '../common/Alt'
+import Alt from '../common/Alt';
 import Confirm from '../common/Confirm';
-
+import Alert from '../common/Alert';
 
 /*
 api required
@@ -42,16 +42,16 @@ const styles = {
     borderWidth: '1px',
     borderColor: 'grey',
   },
-  alt:{
+  alt: {
     width: 'fit-content',
     marginLeft: 'auto',
     marginRight: 'auto',
-  }
-}
+  },
+};
 const templateKinds = {
   invite: 'Invitation Template',
   reject: 'Rejection Template',
-}
+};
 
 export default class AdminConfig extends React.Component {
   constructor(props) {
@@ -63,59 +63,67 @@ export default class AdminConfig extends React.Component {
       mailSubject: '',
       showConfirm: false,
       dirtyMailTemplate: false,
+      mailKind: '',
     };
-    this.mailTemplate = React.createRef();
-    this.mailSubject = React.createRef();
-    this.mailKind = React.createRef();
   }
 
   componentDidMount() {
-    new FetchData({ scope: 'mail/get_character' })
-      .get()
-      .then(({ info: { id, name }}) =>{
-        this.setState({ mailCharacterId: id, mailCharacterName: name })
-      })
-    this.handleSelectTemplate();
+    this.loadConfig();
+    this.loadTemplate();
   }
 
-  handleSelectTemplate = () => {
-    const kind = this.mailKind.current.value;
-    new FetchData({ scope: `mail/template/${kind}` })
-      .get()
-      .then(({ info: { subject, text }}) =>{
+  doFetch = (scope, params) => new FetchData(scope).get(params);
+
+  loadConfig = () => {
+    const fetcher = this.props.fetcher || this.doFetch;
+    new fetcher({ scope: 'mail/get_character' })
+      .then(({ info: { id, name } }) => {
+        this.setState({ mailCharacterId: id, mailCharacterName: name });
+      });
+  }
+
+  loadTemplate = () => {
+    const fetcher = this.props.fetcher || this.doFetch;
+    const kind = this.state.mailKind;
+    new fetcher({ scope: `mail/template/${kind}` })
+      .then(({ info: { subject, text } }) => {
+        console.log('loadTemplate',subject, text, kind);
+        
         this.setState({
           mailKind: kind,
           mailSubject: subject,
           mailTemplate: text,
           dirtyMailTemplate: false,
-        })
-      })
-  }
+        });
+      });
+  };
 
   doConfirmed = () => {
-    window.location ='/api/mail/set_character';
-  }
+    window.location = '/api/mail/set_character';
+  };
 
   handleSaveTemplate = () => {
     const template = {
-      name: this.mailKind.current.value,
-      subject: this.mailSubject.current.value,
-      template: this.mailTemplate.current.value,
-    }
+      name: this.state.mailKind,
+      subject: this.state.mailSubject,
+      template: this.state.mailTemplate,
+    };
     new FetchData({ scope: 'mail/template' })
       .put(template)
-      .then (() => this.setState({ dirtyMailTemplate: false }))
-  }
+      .then(() =>
+        this.setState({ dirtyMailTemplate: false, showSavedAlert: true })
+      );
+  };
 
-  handleEditTemplate = () => {
+  handleEditTemplate = e => {
     this.setState({
-      mailTemplate: this.mailTemplate.current.value,
-      mailSubject: this.mailSubject.current.value,
+      mailTemplate: e.target.value,
+      mailSubject: this.state.mailSubject,
       dirtyMailTemplate:
-        this.mailTemplate.current.value.length > 0 &&
-        this.mailSubject.current.value.length > 0,
+        this.target.value.length > 0 &&
+        this.state.mailSubject.length > 0,
     });
-  }
+  };
 
   handleEditMail = () => this.setState({ showConfirm: true });
 
@@ -123,30 +131,31 @@ export default class AdminConfig extends React.Component {
     return [
       <div style={styles.outer}>
         <h2 style={styles.h2}>Mail User</h2>
-        {this.state.mailCharacterId &&
+        {this.state.mailCharacterId && (
           <Alt
             style={styles.alt}
-            id={this.state.mailCharacterId}
+            id={this.state.mailCharacterId.toString()}
             name={this.state.mailCharacterName}
           />
-        }
-        <button style={{ ...styles.secondaryButton, color: 'white'}} onClick={this.handleEditMail}>
+        )}
+        <button
+          style={{ ...styles.secondaryButton, color: 'white' }}
+          onClick={this.handleEditMail}
+        >
           Edit
         </button>
         <hr style={styles.hr} />
         <h2 style={styles.h2}>Mail Template</h2>
         <select
           placeholder="Purpose"
-          ref={this.mailKind}
-          style={styles.input}
-          onChange={this.handleSelectTemplate}
+          style={{ ...styles.input, height: 'unset' }}
+          onChange={this.loadTemplate}
+          defaultValue={this.state.mailKind}
         >
           {Object.entries(templateKinds).map(([key, val]) => (
-            <option
-              value={key}
-              selected={this.state.mailKind === key}>
-                {val}
-              </option>
+            <option value={key} >
+              {val}
+            </option>
           ))}
         </select>
         <div>
@@ -154,27 +163,38 @@ export default class AdminConfig extends React.Component {
             style={styles.input}
             placeholder="  Subject Line"
             value={this.state.mailSubject}
-            ref={this.mailSubject}
             onChange={this.handleEditTemplate}
           />
         </div>
         <textarea
           style={styles.textarea}
           value={this.state.mailTemplate}
-          ref={this.mailTemplate}
-          onChange={this.handleEditTemplate} />
-        {this.state.dirtyMailTemplate &&
-          <button style={styles.primaryButton} onClick={this.handleSaveTemplate}>
+          onChange={this.handleEditTemplate}
+        />
+        {this.state.dirtyMailTemplate && (
+          <button
+            style={styles.primaryButton}
+            onClick={this.handleSaveTemplate}
+          >
             Save
           </button>
-        }
+        )}
       </div>,
-      this.state.showConfirm &&
+      this.state.showConfirm && (
         <Confirm
-          text={'You will now be asked to log in the character you want to be the mail sender.' }
+          text={
+            'You will now be asked to log in the character you want to be the mail sender.'
+          }
           onConfirm={this.doConfirmed}
           onClose={() => this.setState({ showConfirm: false })}
         />
+      ),
+      this.state.showSavedAlert && (
+        <Alert
+          text="Saved"
+          onClose={() => this.setState({ showSavedAlert: false })}
+        />
+      ),
     ];
   }
 }

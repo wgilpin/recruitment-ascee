@@ -1,0 +1,649 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AdminRoles> matches snapshot 1`] = `
+Array [
+  <div
+    style={
+      Object {
+        "display": "table",
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "maxWidth": "500px",
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "color": "#01799A",
+          "display": "table-header-group",
+          "fontWeight": "bold",
+          "paddingBottom": "19px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+          }
+        }
+      >
+        Name
+      </div>
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+          }
+        }
+      >
+        Recruiter
+      </div>
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+          }
+        }
+      >
+        Senior
+      </div>
+      <div
+        style={
+          Object {
+            "display": "table-cell",
+            "paddingLeft": "6px",
+            "textAlign": "left",
+          }
+        }
+      >
+        Admin
+      </div>
+    </div>
+    <div
+      id="roles-list"
+      style={
+        Object {
+          "display": "table-row-group",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "table-row",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "cursor": null,
+                "display": "table",
+                "padding": 8,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "table-row",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "table-cell",
+                    "paddingLeft": "6px",
+                    "textAlign": "left",
+                  }
+                }
+              >
+                <img
+                  alt="Avatar"
+                  onClick={[Function]}
+                  src="https://image.eveonline.com/Character/1234_64.jpg"
+                  style={
+                    Object {
+                      "backgroundColor": "black",
+                      "borderRadius": "50%",
+                      "boxShadow": "1px 3px 1px #111",
+                      "height": 32,
+                      "width": 32,
+                    }
+                  }
+                />
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "table-cell",
+                    "height": "24px",
+                    "marginBottom": "auto",
+                    "marginTop": "auto",
+                    "paddingLeft": "8px",
+                    "size": 14,
+                    "textAlign": "left",
+                    "verticalAlign": "middle",
+                  }
+                }
+              >
+                user 1
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_recruiter"
+            onClick={[Function]}
+            src="check_box_white.png"
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_senior_recruiter"
+            onClick={[Function]}
+            src="check_box_outline_blank.png"
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_admin"
+            onClick={[Function]}
+            src="check_box_outline_blank.png"
+          />
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "table-row",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "cursor": null,
+                "display": "table",
+                "padding": 8,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "table-row",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "table-cell",
+                    "paddingLeft": "6px",
+                    "textAlign": "left",
+                  }
+                }
+              >
+                <img
+                  alt="Avatar"
+                  onClick={[Function]}
+                  src="https://image.eveonline.com/Character/4321_64.jpg"
+                  style={
+                    Object {
+                      "backgroundColor": "black",
+                      "borderRadius": "50%",
+                      "boxShadow": "1px 3px 1px #111",
+                      "height": 32,
+                      "width": 32,
+                    }
+                  }
+                />
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "table-cell",
+                    "height": "24px",
+                    "marginBottom": "auto",
+                    "marginTop": "auto",
+                    "paddingLeft": "8px",
+                    "size": 14,
+                    "textAlign": "left",
+                    "verticalAlign": "middle",
+                  }
+                }
+              >
+                user 2
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_recruiter"
+            onClick={[Function]}
+            src="check_box_white.png"
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_senior_recruiter"
+            onClick={[Function]}
+            src="check_box_white.png"
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_admin"
+            onClick={[Function]}
+            src="check_box_outline_blank.png"
+          />
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "table-row",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "cursor": null,
+                "display": "table",
+                "padding": 8,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "table-row",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "table-cell",
+                    "paddingLeft": "6px",
+                    "textAlign": "left",
+                  }
+                }
+              >
+                <img
+                  alt="Avatar"
+                  onClick={[Function]}
+                  src="https://image.eveonline.com/Character/1289_64.jpg"
+                  style={
+                    Object {
+                      "backgroundColor": "black",
+                      "borderRadius": "50%",
+                      "boxShadow": "1px 3px 1px #111",
+                      "height": 32,
+                      "width": 32,
+                    }
+                  }
+                />
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "table-cell",
+                    "height": "24px",
+                    "marginBottom": "auto",
+                    "marginTop": "auto",
+                    "paddingLeft": "8px",
+                    "size": 14,
+                    "textAlign": "left",
+                    "verticalAlign": "middle",
+                  }
+                }
+              >
+                user 3
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_recruiter"
+            onClick={[Function]}
+            src="check_box_white.png"
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_senior_recruiter"
+            onClick={[Function]}
+            src="check_box_white.png"
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_admin"
+            onClick={[Function]}
+            src="check_box_white.png"
+          />
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "table-row",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "cursor": null,
+                "display": "table",
+                "padding": 8,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "table-row",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "table-cell",
+                    "paddingLeft": "6px",
+                    "textAlign": "left",
+                  }
+                }
+              >
+                <img
+                  alt="Avatar"
+                  onClick={[Function]}
+                  src="https://image.eveonline.com/Character/8921_64.jpg"
+                  style={
+                    Object {
+                      "backgroundColor": "black",
+                      "borderRadius": "50%",
+                      "boxShadow": "1px 3px 1px #111",
+                      "height": 32,
+                      "width": 32,
+                    }
+                  }
+                />
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "table-cell",
+                    "height": "24px",
+                    "marginBottom": "auto",
+                    "marginTop": "auto",
+                    "paddingLeft": "8px",
+                    "size": 14,
+                    "textAlign": "left",
+                    "verticalAlign": "middle",
+                  }
+                }
+              >
+                user 4
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_recruiter"
+            onClick={[Function]}
+            src="check_box_outline_blank.png"
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_senior_recruiter"
+            onClick={[Function]}
+            src="check_box_outline_blank.png"
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="is_admin"
+            onClick={[Function]}
+            src="check_box_white.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    style={
+      Object {
+        "marginBottom": "24px",
+        "marginTop": "24px",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "marginLeft": "auto",
+          "marginRight": "auto",
+          "width": "50%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "inline-block",
+            "padding": "6px",
+          }
+        }
+      >
+        <input
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          placeholder="search..."
+          style={
+            Object {
+              "backgroundColor": "black",
+              "borderBottom": "1px white solid",
+              "borderColor": "darkgray",
+              "borderLeft": "black",
+              "borderRight": "black",
+              "borderStyle": "solid",
+              "borderTop": "black",
+              "borderWidth": "1px",
+              "color": "white",
+              "padding": "6px",
+            }
+          }
+          type="text"
+        />
+      </div>
+      <div
+        style={
+          Object {
+            "cursor": "pointer",
+            "display": "inline-block",
+            "marginRight": "12px",
+          }
+        }
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#0000",
+              "borderStyle": "none",
+              "padding": "6px",
+            }
+          }
+        >
+          <img
+            alt="Search"
+            src="magnifying_glass_24x24.png"
+            style={
+              Object {
+                "height": "20px",
+                "width": "20px",
+              }
+            }
+          />
+        </button>
+      </div>
+    </div>
+  </div>,
+]
+`;

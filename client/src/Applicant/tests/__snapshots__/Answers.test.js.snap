@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Answers> matches snapshot 1`] = `
+Array [
+  <h2
+    style={
+      Object {
+        "color": "#01799A",
+      }
+    }
+  >
+    Recruitment Questions
+  </h2>,
+  <div>
+    <div
+      style={
+        Object {
+          "padding": 6,
+        }
+      }
+    >
+      How long have you been playing Eve for?
+    </div>
+    <textarea
+      id="7"
+      onChange={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#222",
+          "border": "none",
+          "color": "white",
+          "height": "60px",
+          "padding": "6px",
+          "width": "90%",
+        }
+      }
+    />
+    <hr
+      style={
+        Object {
+          "borderColor": "#555555",
+          "borderWidth": "1px",
+        }
+      }
+    />
+  </div>,
+  <div>
+    <div
+      style={
+        Object {
+          "padding": 6,
+        }
+      }
+    >
+      PVP or PVE? Why?
+    </div>
+    <textarea
+      id="15"
+      onChange={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#222",
+          "border": "none",
+          "color": "white",
+          "height": "60px",
+          "padding": "6px",
+          "width": "90%",
+        }
+      }
+    />
+    <hr
+      style={
+        Object {
+          "borderColor": "#555555",
+          "borderWidth": "1px",
+        }
+      }
+    />
+  </div>,
+  <div>
+    <div
+      style={
+        Object {
+          "padding": 6,
+        }
+      }
+    >
+      Do you like this new application ?
+    </div>
+    <textarea
+      id="16"
+      onChange={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#222",
+          "border": "none",
+          "color": "white",
+          "height": "60px",
+          "padding": "6px",
+          "width": "90%",
+        }
+      }
+    />
+    <hr
+      style={
+        Object {
+          "borderColor": "#555555",
+          "borderWidth": "1px",
+        }
+      }
+    />
+  </div>,
+  <div>
+    <div
+      style={
+        Object {
+          "padding": 6,
+        }
+      }
+    >
+      Can you write reactJs? If so, why am I writing this app??
+    </div>
+    <textarea
+      id="17"
+      onChange={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#222",
+          "border": "none",
+          "color": "white",
+          "height": "60px",
+          "padding": "6px",
+          "width": "90%",
+        }
+      }
+    />
+    <hr
+      style={
+        Object {
+          "borderColor": "#555555",
+          "borderWidth": "1px",
+        }
+      }
+    />
+  </div>,
+  <div>
+    <div
+      style={
+        Object {
+          "padding": 6,
+        }
+      }
+    >
+      Can you confirm that you are a spai ?
+    </div>
+    <textarea
+      id="18"
+      onChange={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#222",
+          "border": "none",
+          "color": "white",
+          "height": "60px",
+          "padding": "6px",
+          "width": "90%",
+        }
+      }
+    />
+    <hr
+      style={
+        Object {
+          "borderColor": "#555555",
+          "borderWidth": "1px",
+        }
+      }
+    />
+  </div>,
+]
+`;

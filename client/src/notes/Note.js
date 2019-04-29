@@ -6,6 +6,7 @@ import editImg from '../images/edit-white.svg';
 import saveImg from '../images/check.png';
 import closeImg from '../images/close.png';
 import FetchData from '../common/FetchData';
+import Alert from './../common/Alert';
 
 const propTypes = {
   id: PropTypes.number,
@@ -129,10 +130,13 @@ export default class Note extends React.Component {
         note_id: this.props.id,
         text: this.state.text,
       })
-      .then(() => {
-        window.alert('saved');
-        this.setState({ editing: false, oldText: this.state.text });
-      });
+      .then(() =>
+        this.setState({
+          editing: false,
+          oldText: this.state.text,
+          showSavedAlert: true,
+        })
+      );
   };
 
   getButtons() {
@@ -221,6 +225,12 @@ export default class Note extends React.Component {
           ) : (
             bodyLines.map(line => <div style={styles.line}>{line}</div>)
           ))}
+        {this.state.showSavedAlert && (
+          <Alert
+            text="Saved"
+            onClose={() => this.setState({ showSavedAlert: false })}
+          />
+        )}
       </div>
     );
   }

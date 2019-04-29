@@ -5,9 +5,10 @@ export default class Misc {
     if (!num) {
       return '0';
     }
-    if (num >= min) {
+    const abs_num = Math.abs(num);
+    if (abs_num >= min) {
       const units = ['k', 'M', 'B', 'T'];
-      const order = Math.floor(Math.log(num) / Math.log(1000));
+      const order = Math.floor(Math.log(abs_num) / Math.log(1000));
       const unitname = units[order - 1];
       let out = Math.round(num / (1000 ** order));
       // output number remainder + unitname
