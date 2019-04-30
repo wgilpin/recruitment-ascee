@@ -9,6 +9,7 @@ const propTypes = {
   targetId: PropTypes.number,
   answers: PropTypes.object,
   questions: PropTypes.object,
+  onSaved: PropTypes.func,
 };
 
 const defaultProps = {
@@ -55,6 +56,7 @@ export default class Answers extends React.Component {
     const fetcher = this.props.fetcher || this.doPut;
     fetcher({ scope: 'answers' }, this.stateToParams()).then(() => {
       this.setState({ dirtyAnswers: false }, this.checkAllQuestionsAnswered);
+      this.props.onSaved && this.props.onSaved();
       window.alert('Saved');
     });
   };
