@@ -129,8 +129,8 @@ export default class Applicant extends Component {
             <ApplicantHeader onSubmit={this.submit} />
             <Tabs>
               <TabList>
-                <Tab>Alts</Tab>
-                <Tab>Questions</Tab>
+                <Tab>   Alts   </Tab>
+                <Tab> Questions </Tab>
                 <Tab>Screenshots</Tab>
               </TabList>
               <TabPanel>
