@@ -20,13 +20,31 @@ def process_assets(character, asset_list):
     for entry in asset_list:
         type_set.add(entry['type_id'])
     type_dict = Type.get_multi(list(type_set))
+    item_ids = set()
     for entry in asset_list:
         type = type_dict[entry['type_id']]
         entry['name'] = type.name
         entry['price'] = type.price
         entry['redlisted'] = []
+        item_ids.add(entry['item_id'])
         if type.is_redlisted:
             entry['redlisted'].append('name')
+    item_names = []
+    for i_start in range(0, len(item_ids), 1000):
+        item_names.extend(
+            character.get_op(
+                'post_characters_character_id_assets_names',
+                character_id=character.id,
+                item_ids=item_ids,
+            )
+        )
+    item_names = {
+        entry['item_id']: entry['name'] for entry in item_names
+    }
+    for entry in asset_list:
+        item_id = entry['item_id']
+        if item_names[item_id] != 'None' and entry['name'] != item_names[item_id]:
+            entry['name'] += ' ({})'.format(item_names[item_id])
     return organize_assets_by_location(character, asset_list)
 
 
