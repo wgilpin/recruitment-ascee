@@ -104,6 +104,21 @@ export default class Recruiter extends React.Component {
       status === Recruiter.statuses.claimed &&
       this.state.roles.is_recruiter
     ) {
+      this.setState({
+        showConfirm: true,
+        currentApplicant: id,
+        confirmText: `Accept ${this.state.recruits[id].name}`,
+        onConfirm: this.doAccept,
+      });
+    };
+  }
+  
+  doAccept = id => {
+    const status = this.state.recruits[id].status;
+    if (
+      status === Recruiter.statuses.claimed &&
+      this.state.roles.is_recruiter
+    ) {
       // I can accept
       new FetchData({ id, scope: 'recruits/accept' })
         .get()
@@ -159,6 +174,7 @@ export default class Recruiter extends React.Component {
       showConfirm: true,
       currentApplicant: id,
       confirmText: `Reject ${this.state.recruits[id].name}`,
+      onConfirm: this.doReject,
     });
   };
 
@@ -179,8 +195,9 @@ export default class Recruiter extends React.Component {
   };
 
   handleClick = id => {
-    if (this.state.recruits[id].status !== Recruiter.statuses.unclaimed)
+    if (this.state.recruits[id].status !== Recruiter.statuses.unclaimed){
       this.setState({ activeRecruitId: id });
+    }
   };
 
   applyFilter(status) {
@@ -191,7 +208,7 @@ export default class Recruiter extends React.Component {
         res[key] = this.state.recruits[key];
       });
     return res;
-  }
+  };
 
   handleBack = () => {
     this.setState({ activeRecruitId: null });
@@ -226,7 +243,7 @@ export default class Recruiter extends React.Component {
               isEnabled={this.state.roles.is_recruiter}
               onSelect={this.handleClick}
               onClaim={this.handleClaim}
-              onApprove={this.handleAccept}
+              onAccept={this.handleAccept}
               onDrop={this.handleDrop}
               onReject={this.handleReject}
               onMail={this.handleMail}
@@ -241,7 +258,7 @@ export default class Recruiter extends React.Component {
               isEnabled={this.state.roles.is_senior_recruiter}
               onSelect={this.handleClick}
               onClaim={this.handleClaim}
-              onApprove={this.handleAccept}
+              onAccept={this.handleAccept}
               onDrop={this.handleDrop}
               onReject={this.handleReject}
               onMail={this.handleMail}
@@ -256,7 +273,7 @@ export default class Recruiter extends React.Component {
               isEnabled={this.state.roles.is_recruiter}
               onSelect={this.handleClick}
               onClaim={this.handleClaim}
-              onApprove={this.handleAccept}
+              onAccept={this.handleAccept}
               onDrop={this.handleDrop}
               onReject={this.handleReject}
               onMail={this.handleMail}
@@ -335,7 +352,7 @@ export default class Recruiter extends React.Component {
         <Confirm
           text={this.state.confirmText}
           onClose={() => this.setState({ showConfirm: false })}
-          onConfirm={this.doReject}
+          onConfirm={() => this.state.onConfirm()}
         />
       ),
     ];
