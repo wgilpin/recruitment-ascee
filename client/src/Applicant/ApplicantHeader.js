@@ -16,7 +16,7 @@ export default class ApplicantHeader extends Component {
       <ApplicantConsumer>
         {({ has_application }) => {
           return (
-            <div style={{ ...styles.padded, ...styles.heading }}>
+            <div style={{ ...styles.heading, paddingBottom: '18px' }}>
               {has_application
                 ? 'Application not completed'
                 : 'Application not started'}
@@ -53,8 +53,15 @@ export default class ApplicantHeader extends Component {
             </div>,
             has_application && (
               <div style={styles.paddedHeavily}>
-                Start with your alts, add them all. Once that's done, move on to
-                the questions.
+                <p>Instructions</p>
+                <ol style={styles.list}>
+                  <li>Start with your alts, add them all</li>
+                  <li> Once that's done, move on to the questions</li>
+                  <li> Finally add screenshots.</li>
+                </ol>
+                <p>
+                  Once you've done all three, you can submit the application
+                </p>
               </div>
             ),
             <div>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 
 import ClaimIcon from 'react-ionicons/lib/MdStarOutline';
-import ApprovedIcon from 'react-ionicons/lib/MdCheckmark';
+import AcceptdIcon from 'react-ionicons/lib/MdCheckmark';
 import RejectIcon from 'react-ionicons/lib/MdClose';
 import DropIcon from 'react-ionicons/lib/MdArrowDown';
 import MailIcon from 'react-ionicons/lib/MdMail';
@@ -40,7 +40,7 @@ export default class RecruitButtonBar extends Component {
     const { status } = this.props;
     this.state = {
       showClaim: status === statuses.unclaimed,
-      showApprove: status === statuses.claimed,
+      showAccept: status === statuses.claimed,
       showReject: status === statuses.accepted || status === statuses.claimed,
       showDrop: status === statuses.claimed,
       showMail: status === statuses.accepted,
@@ -48,54 +48,73 @@ export default class RecruitButtonBar extends Component {
   }
 
   handleClaim = () => {
-    if (this.props.onClaim){
-      ReactTooltip.hide()
+    if (this.props.onClaim) {
+      ReactTooltip.hide();
       this.props.onClaim(this.props.id);
     }
-  }
+  };
 
   handleReject = () => {
-    if (this.props.onReject){
+    if (this.props.onReject) {
       this.props.onReject(this.props.id);
     }
-  }
+  };
 
   handleMail = () => {
-    if (this.props.onMail){
+    if (this.props.onMail) {
       this.props.onMail(this.props.id);
     }
-  }
+  };
 
-  handleApprove = () => {
-    if (this.props.onApprove){
-      this.props.onApprove(this.props.id);
+  handleAccept = () => {
+    if (this.props.onAccept) {
+      this.props.onAccept(this.props.id);
     }
-  }
+  };
 
   handleDrop = () => {
-    if (this.props.onDrop){
-      ReactTooltip.hide()
+    if (this.props.onDrop) {
+      ReactTooltip.hide();
       this.props.onDrop(this.props.id);
     }
-  }
+  };
 
   showButton(icon, tip) {
-    return <span data-tip={tip} style={styles.buttonOuter}>{icon}</span>;
+    return (
+      <span data-tip={tip} style={styles.buttonOuter}>
+        {icon}
+      </span>
+    );
   }
 
   render() {
     return (
       <span style={{ ...this.props.style, ...styles.bar }}>
         {this.state.showClaim &&
-          this.showButton(<ClaimIcon style={styles.image} onClick={this.handleClaim}/>, 'Claim')}
-        {this.state.showApprove &&
-          this.showButton(<ApprovedIcon style={styles.image} onClick={this.handleApprove}/>, 'Accept')}
+          this.showButton(
+            <ClaimIcon style={styles.image} onClick={this.handleClaim} />,
+            'Claim'
+          )}
+        {this.state.showAccept &&
+          this.showButton(
+            <AcceptdIcon style={styles.image} onClick={this.handleAccept} />,
+            'Accept'
+          )}
         {this.state.showDrop &&
-          this.showButton(<DropIcon style={styles.image} onClick={this.handleDrop}/>, 'Drop')}
+          this.showButton(
+            <DropIcon style={styles.image} onClick={this.handleDrop} />,
+            'Drop'
+          )}
         {this.state.showReject &&
-          this.showButton(<RejectIcon style={styles.image} onClick={this.handleReject}/>, 'Reject')}
+          this.showButton(
+            <RejectIcon style={styles.image} onClick={this.handleReject} />,
+            'Reject'
+          )}
         {this.state.showMail &&
-          this.showButton(<MailIcon style={styles.image} onClick={this.handleMail}/>, 'Mail')}
+          this.showButton(
+            <MailIcon style={styles.image} onClick={this.handleMail} />,
+            'Mail'
+          )}
         <ReactTooltip />
       </span>
     );

@@ -60,12 +60,6 @@ export default class SectionList extends React.Component {
       label,
       list,
       isEnabled,
-      onSelect,
-      onClaim,
-      onApprove,
-      onDrop,
-      onReject,
-      onMail,
     } = this.props;
     const { expanded } = this.state;
     return (
@@ -90,9 +84,9 @@ export default class SectionList extends React.Component {
                         id={key}
                         recruit={list[key]}
                         isEnabled={isEnabled}
-                        onSelect={this.props.onSelect}
+                        onSelect={this.props.isEnabled && this.props.onSelect}
                         onClaim={this.props.onClaim}
-                        onApprove={this.props.onApprove}
+                        onAccept={this.props.onAccept}
                         onDrop={this.props.onDrop}
                         onReject={this.props.onReject}
                         onMail={this.props.onMail}

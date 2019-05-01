@@ -111,7 +111,9 @@ export default class Evidence extends React.Component {
 
   async componentDidMount() {
     new FetchData({ scope: 'questions' }).get().then(this.questionsToState);
-    new FetchData({ scope: 'answers' , id: this.props.main }).get().then(this.answersToState);
+    new FetchData({ scope: 'answers', id: this.props.main })
+      .get()
+      .then(this.answersToState);
     const roles = await new FetchData({ scope: 'user/roles' }).get();
     this.setState({ roles: roles.info, loading: false, activeTab: 'Notes' });
   }
@@ -164,9 +166,9 @@ export default class Evidence extends React.Component {
     }
   };
 
-  doApprove = () => {
-    if (window.confirm('Approve this applicant?')) {
-      new FetchData({ id: this.props.main, scope: 'recruits/approve' })
+  doAccept = () => {
+    if (window.confirm('Accept this applicant?')) {
+      new FetchData({ id: this.props.main, scope: 'recruits/accept' })
         .get()
         .then(() => {
           window.location = '/app/recruiter';
@@ -175,8 +177,8 @@ export default class Evidence extends React.Component {
   };
 
   showAppHistory = appHistory => {
-    this.setState({ activeTab: 'History', appHistory })
-  }
+    this.setState({ activeTab: 'History', appHistory });
+  };
 
   render() {
     let active = (this.state || {}).activeTab;
@@ -205,11 +207,11 @@ export default class Evidence extends React.Component {
             )}
           </Alts>
           <div style={styles.acceptReject}>
-            <span data-tip="Approve" style={styles.RoundImage}>
+            <span data-tip="Accept" style={styles.RoundImage}>
               <RoundImage
                 src={checkImg}
                 color="green"
-                onClick={this.doApprove}
+                onClick={this.doAccept}
               />
             </span>
             <span data-tip="Reject" style={styles.RoundImage}>
@@ -228,10 +230,7 @@ export default class Evidence extends React.Component {
           </div>
           <div style={styles.tabBody}>
             {active === 'Notes' && (
-              <NotesPage
-                style={styles.tabBody}
-                targetId={this.props.main}
-              />
+              <NotesPage style={styles.tabBody} targetId={this.props.main} />
             )}
             {active === 'History' && (
               <NotesHistory

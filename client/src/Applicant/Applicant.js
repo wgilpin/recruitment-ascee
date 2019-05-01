@@ -38,9 +38,13 @@ export default class Applicant extends Component {
     this.setState({ answers: newAnswers, has_application, answersReady });
   };
 
+  loadAnswers = () => new FetchData({ scope: 'answers' }).get().then(this.answersToState);
+
+  loadQuestions = () => new FetchData({ scope: 'questions' }).get().then(this.questionsToState);
+
   componentDidMount() {
-    new FetchData({ scope: 'questions' }).get().then(this.questionsToState);
-    new FetchData({ scope: 'answers' }).get().then(this.answersToState);
+    this.loadAnswers();
+    this.loadQuestions()  
   }
 
   checkReady = () => {
@@ -129,8 +133,8 @@ export default class Applicant extends Component {
             <ApplicantHeader onSubmit={this.submit} />
             <Tabs>
               <TabList>
-                <Tab>Alts</Tab>
-                <Tab>Questions</Tab>
+                <Tab>   Alts   </Tab>
+                <Tab> Questions </Tab>
                 <Tab>Screenshots</Tab>
               </TabList>
               <TabPanel>
@@ -141,6 +145,7 @@ export default class Applicant extends Component {
                   answers={answers}
                   questions={questions}
                   onReadyStatus={this.setAnswersStatus}
+                  onSaved={this.loadAnswers}
                 />
               </TabPanel>
               <TabPanel>

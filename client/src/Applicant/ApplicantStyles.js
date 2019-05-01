@@ -25,6 +25,12 @@ const styles = {
   },
   paddedHeavily: {
     padding: 24,
+    maxWidth: '350px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  list: {
+    textAlign: 'left',
   },
   tabHeader: {
     color: TableStyles.styles.header.color,
@@ -65,7 +71,7 @@ const styles = {
   header: {
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: 'fit-content',
+    maxWidth: '500px',
     paddingBottom: '32px',
   },
   h1: {

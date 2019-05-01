@@ -103,6 +103,23 @@ describe('<Answers>', () => {
     expect(onReadyFn).toHaveBeenCalled();
   });
 
+  if('triggers onSave', () => {
+    const onSaveFn = jest.fn();
+    const wrapper = shallow(
+      <Answers
+        fetcher={mockFetch}
+        answers={serverState.answers}
+        questions={serverState.questions}
+        onReadyStatus={() => {}}
+        onSave = {onSaveFn}
+      />
+    )
+      .instance()
+      .handleSaveAnswers();
+    expect(onSaveFn).toHaveBeenCalled();
+  });
+
+
   
   it('matches snapshot', async () => {
     const adminConfig = mount(

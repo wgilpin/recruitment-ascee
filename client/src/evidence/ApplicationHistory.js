@@ -43,6 +43,9 @@ export default class ApplicationHistory extends React.Component {
     };
   }
 
+  arrayToObject = (arr, keyField) =>
+    Object.assign({}, ...arr.map(item => ({ [item[keyField]]: item })));
+
   getHistory() {
     if (this.props.applicantId) {
       new FetchData({
@@ -50,7 +53,18 @@ export default class ApplicationHistory extends React.Component {
         scope: 'recruits/application_history',
       })
         .get()
-        .then(data => this.setState({ applications: data.info }));
+        .then(data =>
+          // add id to each entry
+          this.setState({
+            applications: this.arrayToObject(
+              Object.entries(data.info).map(([key, val]) => ({
+                ...val,
+                id: key,
+              })),
+              'id'
+            ),
+          })
+        );
     } else {
       this.setState({ applications: {} });
     }
@@ -69,11 +83,18 @@ export default class ApplicationHistory extends React.Component {
   handleClickShow = () =>
     this.setState({ showOldApps: !this.state.showOldApps });
 
-  sortApps(a, b) {
-    return (
-      moment((b.notes || {})[0].timestamp) -
-      moment((a.notes || {})[0].timestamp)
-    );
+  sortApps(recentFirst) {
+    const direction = recentFirst ? 1 : -1;
+    return (a, b) =>
+      direction * moment((b.notes || {})[b.notes.length - 1].timestamp) -
+      direction * moment((a.notes || {})[a.notes.length - 1].timestamp);
+  }
+
+  sortNotes(recentFirst) {
+    const direction = recentFirst ? 1 : -1;
+    return (a, b) =>
+      direction * moment(b.timestamp) -
+      direction * moment(a.timestamp);
   }
 
   showHistory = application => {
@@ -81,6 +102,30 @@ export default class ApplicationHistory extends React.Component {
       this.props.onShowHistory(application);
     }
   };
+
+  renderOldApplication(application, finalNote) {
+    return (
+      <div style={styles.appDetail}>
+        <div style={styles.appTimestamp}>
+          {moment(finalNote.timestamp).calendar()}
+        </div>
+        <div style={styles.appStatus}>
+          {application.status}
+          <img
+            src={LaunchImg}
+            style={{ marginLeft: '6px' }}
+            onClick={() => this.showHistory(application)}
+            alt="open"
+          />
+        </div>
+        <div style={styles.assRecruiter}>{application.recruiter_name}</div>
+        <div style={styles.appNote}>
+          {(finalNote || {}).text}
+        </div>
+        <hr />
+      </div>
+    );
+  }
 
   render() {
     const { applicationId } = this.props;
@@ -101,30 +146,14 @@ export default class ApplicationHistory extends React.Component {
         {(showOldApps || this.props.showall) && (
           <div style={styles.appsList}>
             {Object.values(applications)
-              .sort(this.sortApps)
-              .map(val => {
-                const note = val.notes[0] || {};
-                return (
-                  <div style={styles.appDetail}>
-                    <div style={styles.appTimestamp}>
-                      {moment(note.timestamp).calendar()}
-                    </div>
-                    <div style={styles.appStatus}>
-                      {val.status}
-                      <img
-                        src={LaunchImg}
-                        style={{ marginLeft: '6px' }}
-                        onClick={() => this.showHistory(val)}
-                        alt="open"
-                      />
-                    </div>
-                    <div style={styles.assRecruiter}>{val.recruiter_name}</div>
-                    <div style={styles.appNote}>
-                      {(val.notes[0] || {}).text}
-                    </div>
-                    <hr />
-                  </div>
-                );
+              .sort(this.sortApps())
+              .map(app => {
+                if (parseInt(app.id) === applicationId && !this.props.showall) {
+                  // skip the current if we're not showing all
+                  return null;
+                }
+                const note = app.notes.sort(this.sortNotes(true)).filter(it => !it.title)[0] || {};
+                return this.renderOldApplication(app, note)
               })}
           </div>
         )}

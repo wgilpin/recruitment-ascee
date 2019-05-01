@@ -82,9 +82,9 @@ export default class AdminConfig extends React.Component {
       });
   }
 
-  loadTemplate = () => {
+  loadTemplate = e => {
     const fetcher = this.props.fetcher || this.doFetch;
-    const kind = this.state.mailKind;
+    const kind = e ? e.target.value : Object.keys(templateKinds)[0];
     new fetcher({ scope: `mail/template/${kind}` })
       .then(({ info: { subject, text } }) => {
         console.log('loadTemplate',subject, text, kind);
@@ -116,13 +116,15 @@ export default class AdminConfig extends React.Component {
   };
 
   handleEditTemplate = e => {
-    this.setState({
-      mailTemplate: e.target.value,
-      mailSubject: this.state.mailSubject,
+    console.log('handleEditTemplate ', e.target.value);
+    const newState = {
       dirtyMailTemplate:
-        this.target.value.length > 0 &&
+        e.target.value.length > 0 &&
         this.state.mailSubject.length > 0,
-    });
+    }
+    const changedField = e.target.type === 'text' ? 'mailSubject' : 'mailTemplate';
+    newState[changedField] = e.target.value;
+    this.setState(newState);
   };
 
   handleEditMail = () => this.setState({ showConfirm: true });
@@ -150,7 +152,7 @@ export default class AdminConfig extends React.Component {
           placeholder="Purpose"
           style={{ ...styles.input, height: 'unset' }}
           onChange={this.loadTemplate}
-          defaultValue={this.state.mailKind}
+          value={this.state.mailKind}
         >
           {Object.entries(templateKinds).map(([key, val]) => (
             <option value={key} >
