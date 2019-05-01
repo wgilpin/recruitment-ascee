@@ -4,11 +4,11 @@ import TableStyles from '../evidence/TableStyles';
 import Recruiter from './Recruiter';
 import ClaimedMineIcon from 'react-ionicons/lib/MdStar';
 import ClaimedOtherIcon from 'react-ionicons/lib/MdStarOutline';
-import ApproveIcon from 'react-ionicons/lib/MdCheckboxOutline';
-import ApproveIconMine from 'react-ionicons/lib/MdCheckbox';
+import AcceptIcon from 'react-ionicons/lib/MdCheckboxOutline';
+import AcceptIconMine from 'react-ionicons/lib/MdCheckbox';
 import RoundImage from '../common/RoundImage';
 import RecruitButtonBar from './RecruitButtonBar';
-import {RecruiterConsumer} from './RecruiterContext';
+import { RecruiterConsumer } from './RecruiterContext';
 
 const propTypes = {
   id: PropTypes.number,
@@ -53,7 +53,7 @@ export default class RecruitItem extends React.Component {
     const recruitIsAccepted = recruit.status === Recruiter.statuses.accepted;
     return (
       <RecruiterConsumer>
-      {roles => {
+        {roles => {
           const recruitIsMine = recruit.recruiter_id === roles.user_id;
           return (
             <div key={id} id={`recruitItem${id}`} style={localStyles.recruit}>
@@ -69,9 +69,9 @@ export default class RecruitItem extends React.Component {
                   )),
                 recruitIsAccepted &&
                   (recruitIsMine ? (
-                    <ApproveIconMine style={localStyles.icon} fontSize="24px" />
+                    <AcceptIconMine style={localStyles.icon} fontSize="24px" />
                   ) : (
-                    <ApproveIcon style={localStyles.icon} fontSize="24px" />
+                    <AcceptIcon style={localStyles.icon} fontSize="24px" />
                   )),
               ]}
               <span
@@ -88,7 +88,7 @@ export default class RecruitItem extends React.Component {
                 onClaim={this.props.onClaim}
                 onReject={this.props.onReject}
                 onDrop={this.props.onDrop}
-                onApprove={this.props.onAccept}
+                onAccept={this.props.onAccept}
                 onMail={this.props.onMail}
               />
             </div>
