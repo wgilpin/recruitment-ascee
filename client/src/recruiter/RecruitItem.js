@@ -75,7 +75,7 @@ export default class RecruitItem extends React.Component {
                   )),
               ]}
               <span
-                onClick={() => this.props.onSelect(id)}
+                onClick={() => this.props.isEnabled && this.props.onSelect(id)}
                 style={localStyles.altSpan}
               >
                 <RoundImage src={avatarImg} />
@@ -85,11 +85,11 @@ export default class RecruitItem extends React.Component {
                 status={recruit.status}
                 style={localStyles.buttons}
                 id={id}
-                onClaim={this.props.onClaim}
-                onReject={this.props.onReject}
-                onDrop={this.props.onDrop}
-                onAccept={this.props.onAccept}
-                onMail={this.props.onMail}
+                onClaim={this.props.isEnabled && this.props.onClaim}
+                onReject={this.props.isEnabled && this.props.onReject}
+                onDrop={this.props.isEnabled && this.props.onDrop}
+                onAccept={this.props.isEnabled && this.props.onAccept}
+                onMail={this.props.isEnabled && this.props.onMail}
               />
             </div>
           );

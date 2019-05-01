@@ -110,9 +110,9 @@ export default class Recruiter extends React.Component {
         confirmText: `Accept ${this.state.recruits[id].name}`,
         onConfirm: this.doAccept,
       });
-    };
-  }
-  
+    }
+  };
+
   doAccept = id => {
     const status = this.state.recruits[id].status;
     if (
@@ -120,9 +120,14 @@ export default class Recruiter extends React.Component {
       this.state.roles.is_recruiter
     ) {
       // I can accept
-      new FetchData({ id, scope: 'recruits/accept' })
-        .get()
-        .then(this.componentDidMount);
+      new FetchData({ id, scope: 'recruits/accept' }).get().then(
+        this.setState(
+          {
+            showConfirm: false,
+          },
+          this.componentDidMount
+        )
+      );
     }
   };
 
@@ -195,7 +200,8 @@ export default class Recruiter extends React.Component {
   };
 
   handleClick = id => {
-    if (this.state.recruits[id].status !== Recruiter.statuses.unclaimed){
+    const {status} = this.state.recruits[id];
+    if (status !== Recruiter.statuses.unclaimed) {
       this.setState({ activeRecruitId: id });
     }
   };
@@ -208,7 +214,7 @@ export default class Recruiter extends React.Component {
         res[key] = this.state.recruits[key];
       });
     return res;
-  };
+  }
 
   handleBack = () => {
     this.setState({ activeRecruitId: null });
@@ -352,7 +358,7 @@ export default class Recruiter extends React.Component {
         <Confirm
           text={this.state.confirmText}
           onClose={() => this.setState({ showConfirm: false })}
-          onConfirm={() => this.state.onConfirm()}
+          onConfirm={() => this.state.onConfirm(this.state.currentApplicant)}
         />
       ),
     ];

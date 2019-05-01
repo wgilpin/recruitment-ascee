@@ -84,7 +84,7 @@ export default class SectionList extends React.Component {
                         id={key}
                         recruit={list[key]}
                         isEnabled={isEnabled}
-                        onSelect={this.props.onSelect}
+                        onSelect={this.props.isEnabled && this.props.onSelect}
                         onClaim={this.props.onClaim}
                         onAccept={this.props.onAccept}
                         onDrop={this.props.onDrop}
