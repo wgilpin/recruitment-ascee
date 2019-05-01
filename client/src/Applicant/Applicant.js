@@ -38,13 +38,15 @@ export default class Applicant extends Component {
     this.setState({ answers: newAnswers, has_application, answersReady });
   };
 
-  loadAnswers = () => new FetchData({ scope: 'answers' }).get().then(this.answersToState);
+  loadAnswers = () =>
+    new FetchData({ scope: 'answers' }).get().then(this.answersToState);
 
-  loadQuestions = () => new FetchData({ scope: 'questions' }).get().then(this.questionsToState);
+  loadQuestions = () =>
+    new FetchData({ scope: 'questions' }).get().then(this.questionsToState);
 
   componentDidMount() {
     this.loadAnswers();
-    this.loadQuestions()  
+    this.loadQuestions();
   }
 
   checkReady = () => {
@@ -84,20 +86,16 @@ export default class Applicant extends Component {
         .catch(() => alert('Error creating application'));
     }
     if (this.state.ready || this.state.has_application) {
-      new FetchData({ scope: 'answers' })
-        .put(this.stateToParams())
-        .then(() => {
-          new FetchData({ scope: 'recruits/submit_application' })
-            .put()
-            .then(res => {
-              if (res.status === 401) {
-                return (window.location = '/auth/logout/');
-              }
-              if (res.status > 401) {
-                return alert('Error submitting\n' + res.statusText);
-              }
-              this.setState({ submitted: true });
-            });
+      new FetchData({ scope: 'recruits/submit_application' })
+        .put()
+        .then(res => {
+          if (res.status === 401) {
+            return (window.location = '/auth/logout/');
+          }
+          if (res.status > 401) {
+            return alert('Error submitting\n' + res.statusText);
+          }
+          this.setState({ submitted: true });
         })
         .catch(e => {
           console.log(e.message);
@@ -112,7 +110,8 @@ export default class Applicant extends Component {
     });
   };
 
-  setAnswersStatus = ready => this.setState({ answersReady: ready }, this.checkReady)
+  setAnswersStatus = ready =>
+    this.setState({ answersReady: ready }, this.checkReady);
 
   render() {
     const { altsDone, ready, answers, questions, has_application } = this.state;
@@ -133,7 +132,7 @@ export default class Applicant extends Component {
             <ApplicantHeader onSubmit={this.submit} />
             <Tabs>
               <TabList>
-                <Tab>   Alts   </Tab>
+                <Tab> Alts </Tab>
                 <Tab> Questions </Tab>
                 <Tab>Screenshots</Tab>
               </TabList>

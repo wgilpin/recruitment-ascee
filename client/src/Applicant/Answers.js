@@ -35,7 +35,7 @@ export default class Answers extends React.Component {
     }
     const { answers, dirtyAnswers } = this.state;
     if (Object.keys(answers).length === 0 || dirtyAnswers) {
-      this.props.onReadyStatus(false);
+      return this.props.onReadyStatus(false);
     }
     this.props.onReadyStatus (
       Object.values(answers).filter(q => q.length === 0).length === 0
