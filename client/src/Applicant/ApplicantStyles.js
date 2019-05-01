@@ -71,7 +71,7 @@ const styles = {
   header: {
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: 'fit-content',
+    display: 'table',
     paddingBottom: '32px',
   },
   h1: {
