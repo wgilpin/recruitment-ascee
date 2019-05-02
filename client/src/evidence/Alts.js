@@ -48,9 +48,9 @@ export default class Alts extends React.Component {
   }
 
   handleClickAlt = altId => {
-    this.loadCharacterSummary(altId);
-    this.setState({ selected: altId });
     if (this.props.onAltSelect) {
+      this.loadCharacterSummary(altId);
+      this.setState({ selected: altId });
       this.props.onAltSelect(altId);
     }
   };

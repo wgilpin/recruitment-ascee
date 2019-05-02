@@ -111,7 +111,7 @@ export default class NotesColumns extends React.Component {
                   />
                 )}
                 {this.state.showAddLog && (
-                  <NoteInput log="true" onSubmit={this.clickAddNote} />
+                  <NoteInput log="true" onSubmit={this.props.onAddNote} />
                 )}
               </div>
             </div>
