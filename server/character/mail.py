@@ -1,6 +1,8 @@
 from esi import get_op
 from models import Character, Corporation, Alliance
 from security import character_application_access_check
+from exceptions import ESIException
+import sys
 
 
 class MailingList(object):
@@ -9,6 +11,27 @@ class MailingList(object):
     
     def __init__(self, name):
         self.name = name
+
+
+def get_from_names(from_id_list):
+    try:
+        name_data = get_op(
+            'post_universe_names', ids=from_id_list,
+        )
+    except ESIException as err:
+        exc_info = sys.exc_info()
+        if 'Ensure all IDs' in str(err):
+            if len(from_id_list) == 1:
+                name_data = [
+                    {'id': from_id_list[0], 'category': 'mailing_list',
+                     'name': 'Mailing List {}'.format(from_id_list[0])}]
+            else:
+                i_half = len(from_id_list) // 2
+                name_data = get_from_names(from_id_list[:i_half])
+                name_data.extend(get_from_names(from_id_list[i_half:]))
+        else:
+            raise exc_info[0].with_traceback(exc_info[1], exc_info[2])
+    return name_data
 
 
 def get_character_mail(character_id, last_mail_id=None, current_user=None):
@@ -36,9 +59,7 @@ def get_character_mail(character_id, last_mail_id=None, current_user=None):
             'alliance': alliance_ids,
             'mailing_list': mailing_list_ids,
         }
-        name_data = get_op(
-            'post_universe_names', ids=list(from_ids)
-        )
+        name_data = get_from_names(list(from_ids))
         for entry in name_data:
             id_set_dict[entry['category']].add(entry['id'])
         for entry in mail_list:
