@@ -191,9 +191,9 @@ export default class Evidence extends React.Component {
             onAltSelect={this.changeAlt}
             onCorpSelect={this.changeCorp}
             onShowHistory={this.showAppHistory}
-            childrenTop={true}
-            highlightMain={true}
-            showPointer={true}
+            childrenTop
+            highlightMain
+            showPointer
           >
             {this.props.showRecruiter && (
               <div style={styles.recruiter}>

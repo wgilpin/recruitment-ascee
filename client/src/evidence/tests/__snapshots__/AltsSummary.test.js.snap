@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AltSummary> matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "#222",
+      "padding": "4px",
+    }
+  }
+>
+  <div>
+    <div
+      style={
+        Object {
+          "fontWeight": 500,
+        }
+      }
+    >
+      Sec Status: 
+      5
+    </div>
+    <div>
+      Corp 
+       
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "maxWidth": "300px",
+          }
+        }
+      >
+        Winnits and Other Things
+      </span>
+    </div>
+  </div>
+</div>
+`;

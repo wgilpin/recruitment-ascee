@@ -12,7 +12,7 @@ const propTypes = {
   childrenTop: PropTypes.bool,
   highlightMain: PropTypes.bool,
   showPointer: PropTypes.bool,
-  style: {},
+  style: PropTypes.object,
 };
 
 const defaultProps = {
@@ -66,10 +66,11 @@ export default class Alts extends React.Component {
   };
 
   loadCharacterSummary = altId => {
-    return new FetchData({ id: altId, scope: 'character', param2: 'summary' })
-      .get()
-      .then(({ info }) =>
-        this.setState({
+    const fetcher = this.props.fetcher || this.doFetch;
+
+    return fetcher({ id: altId, scope: 'character', param2: 'summary' })
+      .then(({ info }) => {
+        return this.setState({
           corporationName: info.corporation_name,
           corporationId: info.corporation_id,
           alliance: info.alliance_name,
@@ -77,13 +78,14 @@ export default class Alts extends React.Component {
           corpRedlisted: 'corporation_name' in info.redlisted,
           applicationId: info.current_application_id,
         })
+      }
       )
       .catch(e => console.log(e));
   };
 
-  componentDidMount() {
-    new FetchData({ id: this.props.main, scope: 'user/characters' })
-      .get()
+  loadCharacters = () => {
+    const fetcher = this.props.fetcher || this.doFetch;
+    fetcher({ id: this.props.main, scope: 'user/characters' })
       .then(data => {
         let mainData;
         if (this.props.highlightMain) {
@@ -95,10 +97,20 @@ export default class Alts extends React.Component {
         );
       })
       .catch(err => console.log(err));
-    new FetchData({ id: this.props.main, scope: 'user/corporations' })
-      .get()
+  };
+
+  loadCorporations = () => {
+    const fetcher = this.props.fetcher || this.doFetch;
+    fetcher({ id: this.props.main, scope: 'user/corporations' })
       .then(data => this.setState({ corporations: data.info }))
       .catch(err => console.log(err));
+  };
+
+  doFetch = (scope, params) => new FetchData(scope).get(params);
+
+  componentDidMount() {
+    this.loadCharacters();
+    this.loadCorporations();
   }
 
   showHistory = appHistory => {
@@ -159,15 +171,15 @@ export default class Alts extends React.Component {
         {hasAlts && <div style={styles.sectionTitle}>Alts</div>}
         {Object.keys(alts || {}).map(key => {
           const alt = alts[key];
-          return [
+          return <div key={key}>
             <Alt
               style={styles.div}
               name={alt.name}
               id={key}
               selected={selected === key}
               onClick={this.handleClickAlt}
-            />,
-            selected === key && (
+            />
+            {selected === key && (
               <AltSummary
                 corporations={corporations}
                 selected={selected}
@@ -177,8 +189,8 @@ export default class Alts extends React.Component {
                 secStatus={secStatus}
                 onClickCorp={this.handleClickCorp}
               />
-            ),
-          ];
+            )}
+          </div>
         })}
         {!this.props.childrenTop && children}
         {hasAlts && <hr style={styles.hr} />}
