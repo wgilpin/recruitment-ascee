@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AltsPanel> matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "height": "100%",
+      "padding": "8px",
+      "position": "relative",
+      "textAlign": "left",
+    }
+  }
+>
+  <hr
+    style={
+      Object {
+        "borderColor": "#555",
+      }
+    }
+  />
+  <div
+    style={
+      Object {
+        "color": "#01799A",
+        "fontWeight": 600,
+        "marginBottom": "6px",
+      }
+    }
+  >
+    Alts
+  </div>
+  <div>
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "cursor": null,
+          "display": "block",
+          "padding": 8,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "table-row",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="Avatar"
+            onClick={[Function]}
+            src="https://image.eveonline.com/Character/94399527_64.jpg"
+            style={
+              Object {
+                "backgroundColor": "black",
+                "borderRadius": "50%",
+                "boxShadow": "1px 3px 1px #111",
+                "height": 32,
+                "width": 32,
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "height": "24px",
+              "marginBottom": "auto",
+              "marginTop": "auto",
+              "paddingLeft": "8px",
+              "size": 14,
+              "textAlign": "left",
+              "verticalAlign": "middle",
+            }
+          }
+        >
+          Semirhage Boan
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "cursor": null,
+          "display": "block",
+          "padding": 8,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "table-row",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "paddingLeft": "6px",
+              "textAlign": "left",
+            }
+          }
+        >
+          <img
+            alt="Avatar"
+            onClick={[Function]}
+            src="https://image.eveonline.com/Character/2114725334_64.jpg"
+            style={
+              Object {
+                "backgroundColor": "black",
+                "borderRadius": "50%",
+                "boxShadow": "1px 3px 1px #111",
+                "height": 32,
+                "width": 32,
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "table-cell",
+              "height": "24px",
+              "marginBottom": "auto",
+              "marginTop": "auto",
+              "paddingLeft": "8px",
+              "size": 14,
+              "textAlign": "left",
+              "verticalAlign": "middle",
+            }
+          }
+        >
+          Entropics Applicant
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr
+    style={
+      Object {
+        "borderColor": "#555",
+      }
+    }
+  />
+</div>
+`;
