@@ -58,7 +58,7 @@ describe('<AltsPanel>', () => {
     const wrapper = shallow(
       <AltsPanel
         fetcher={mockFetch}
-        onAltsDone={this.handleAltsDone}
+        onAltsDone={onReadyFn}
       />
     )
       .instance()
