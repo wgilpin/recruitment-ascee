@@ -69,7 +69,7 @@ beforeEach(() => {
   });
 });
 
-describe('<AltsPanel>', () => {
+describe('<Alts>', () => {
   it('matches snapshot', async () => {
     const adminConfig = mount(
       <Alts
