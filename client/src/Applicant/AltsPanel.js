@@ -13,32 +13,32 @@ const defaultProps = {};
 export default function AltsPanel(props) {
   return (
     <ApplicantConsumer>
-      {({ altsDone, ready }) => (
+      {({ altsDone, ready, status }) => (
         <React.Fragment>
           <h2 style={styles.headingLeft}>My Alts</h2>
-          <div
-            style={styles.padded}
-            data-tip="Check here when you have added all you alts"
-          >
-            <label style={styles.label}>
-              I have no more alts&emsp;
-              <input
-                style={styles.checkbox}
-                type="checkbox"
-                onClick={props.onAltsDone}
-                checked={altsDone}
-              />
-            </label>
-          </div>
+          {status !== 'submitted' && (
+            <div style={styles.padded}>
+              <label
+                style={styles.label}
+                data-tip="Check here when you have added all you alts"
+              >
+                I have no more alts&emsp;
+                <input
+                  style={styles.checkbox}
+                  type="checkbox"
+                  onClick={props.onAltsDone}
+                  checked={altsDone}
+                />
+              </label>
+            </div>
+          )}
           <Alts>
             <a href="/auth/link_alt" data-tip="Add an alt">
-              {!ready && (
-                <FabButton
-                  icon="add"
-                  color={styles.themeColors.primary}
-                  size="40px"
-                />
-              )}
+              <FabButton
+                icon="add"
+                color={styles.themeColors.primary}
+                size="40px"
+              />
             </a>
           </Alts>
           <ReactTooltip />

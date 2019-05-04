@@ -62,6 +62,9 @@ export default class Answers extends React.Component {
   };
 
   handleAnswerChanged = e => {
+    if (this.props.readOnly){
+      return;
+    }
     const { id, value } = e.target;
     this.setState(
       {
@@ -94,7 +97,7 @@ export default class Answers extends React.Component {
                 <textarea
                   style={styles.answer}
                   id={key}
-                  readOnly={this.props.readonly}
+                  readOnly={this.props.readOnly}
                   onChange={this.handleAnswerChanged}
                 >
                   {answer}
