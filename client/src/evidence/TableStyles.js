@@ -31,7 +31,7 @@ export default class TableStyles {
       textAlign: 'left',
       display: 'table-cell',
       paddingLeft: '6px',
-      paddingLeft: '6px',
+      paddingRight: '6px',
     },
     nonTableCell: {
       textAlign: 'left',
