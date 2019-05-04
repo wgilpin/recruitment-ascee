@@ -28,10 +28,6 @@ const defaultProps = {};
 const styles = {
   div: {
     display: 'table',
-    // gridTemplateColumns: 'auto',
-    // gridTemplateRows: 'auto 32px',
-    // gridColumnGap: '20px',
-    // gridRowGap: '10px',
     justifyItems: 'center',
   },
   headerRow: {
@@ -52,7 +48,7 @@ const styles = {
     fontWeight: 600,
   },
   selected: {
-    borderBottom: 'solid 2px #178',
+    borderBottom: 'solid 2px #01799A',
     fontWeight: 600,
   },
 };
