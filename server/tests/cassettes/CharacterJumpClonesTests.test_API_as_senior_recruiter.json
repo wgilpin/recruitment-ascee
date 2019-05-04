@@ -17,7 +17,7 @@
         "(('get_universe_stations_station_id',), (('station_id', 60004450),))": {
             "max_dockable_ship_volume": 50000000.0,
             "name": "Amsen VI - Moon 1 - Science and Trade Institute School",
-            "office_rental_cost": 12478449.0,
+            "office_rental_cost": 22959802.0,
             "owner": 1000045,
             "position": {
                 "x": 273625620480.0,
@@ -165,7 +165,7 @@
         "(('get_universe_stations_station_id',), (('station_id', 60003466),))": {
             "max_dockable_ship_volume": 50000000.0,
             "name": "Jita IV - Moon 4 - Caldari Business Tribunal Bureau Offices",
-            "office_rental_cost": 130622458.0,
+            "office_rental_cost": 107575630.0,
             "owner": 1000033,
             "position": {
                 "x": -107302625280.0,

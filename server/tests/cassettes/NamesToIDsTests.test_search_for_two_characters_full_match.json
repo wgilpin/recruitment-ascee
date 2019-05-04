@@ -3,12 +3,12 @@
         "(('post_universe_ids',), (('disable_multi', True), ('names', ('Twine Enaka', 'Takeschi Kovacs'))))": {
             "characters": [
                 {
-                    "id": 2112166943,
-                    "name": "Takeschi Kovacs"
-                },
-                {
                     "id": 2114496483,
                     "name": "Twine Enaka"
+                },
+                {
+                    "id": 2112166943,
+                    "name": "Takeschi Kovacs"
                 }
             ]
         }
