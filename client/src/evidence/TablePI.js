@@ -10,10 +10,10 @@ const defaultProps = {};
 export default class TablePI extends TableBase {
   constructor(props) {
     super(props);
-    this.state.sortBy = 'name';
-    this.groupBy = ['region']
+    this.sortBy = 'name';
+    this.groupBy = ['region'];
     this.scope = 'planetary_interaction';
-    this.addField(TableBase.kinds().date,'last_update');
+    this.addField(TableBase.kinds().date, 'last_update');
     this.addField(TableBase.kinds().number, 'num_pins', '# Pins');
     this.addField(TableBase.kinds().text, 'planet_type');
     this.addField(TableBase.kinds().text, 'solar_system_name');

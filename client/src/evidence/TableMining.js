@@ -10,9 +10,9 @@ const defaultProps = {};
 export default class TableBlueprints extends TableBase {
   constructor(props) {
     super(props);
-    this.state.sortBy = 'name';
+    this.sortBy = 'name';
     this.scope = 'assets/blueprints';
-    this.addField(TableBase.kinds().date,'type');
+    this.addField(TableBase.kinds().date, 'type');
     this.addField(TableBase.kinds().number, 'quantity');
     this.addField(TableBase.kinds().text, 'system');
     this.addField(TableBase.kinds().number, 'ore');

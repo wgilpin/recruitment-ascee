@@ -10,7 +10,7 @@ const defaultProps = {};
 export default class TableContacts extends TableBase {
   constructor(props) {
     super(props);
-    this.state.sortBy = 'standing';
+    this.sortBy = 'standing';
     this.scope = 'contacts';
     this.addField(TableBase.kinds().standing,'standing');
     this.addField(TableBase.kinds().text,'name');
