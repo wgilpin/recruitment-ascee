@@ -21,12 +21,11 @@ const styles = {
     cursor: 'pointer',
   },
   standing: {
-    neutral: {
-      color: 'yellow',
-    },
-    poor: {
-      color: 'red',
-    },
+    excellent: { color: '#25f' },
+    good: { color: '#4af' },
+    neutral: { color: 'white' },
+    poor: { color: 'orange' },
+    bad: { color: 'red' },
   },
   groupRow: {
     paddingTop: '12px',
@@ -228,10 +227,18 @@ export default class TableBase extends React.Component {
 
   makeStandingField(value, field, final) {
     let style = { ...styles.cell };
-    if (value === 0) {
       style = { ...style, ...styles.standing.neutral };
-    } else if (value < 0) {
+    if (value < 0) {
       style = { ...style, ...styles.standing.poor };
+    }
+    if (value < -5) {
+      style = { ...style, ...styles.standing.bad };
+    }
+    if (value > 0) {
+      style = { ...style, ...styles.standing.good };
+    }
+    if (value > 5) {
+      style = { ...style, ...styles.standing.excellent };
     }
     if (final) {
       style = { ...style, width: '100%' };
@@ -356,7 +363,7 @@ export default class TableBase extends React.Component {
     return (a, b) => {
       const aPrime = a.hasOwnProperty(property) ? a[property] : defaultVal;
       const bPrime = b.hasOwnProperty(property) ? b[property] : defaultVal;
-      let result = aPrime < bPrime ? -1 : (aPrime > bPrime ? 1 : 0);
+      let result = aPrime < bPrime ? -1 : aPrime > bPrime ? 1 : 0;
       return result * sortOrder;
     };
   }
