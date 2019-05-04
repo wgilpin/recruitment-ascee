@@ -27,7 +27,7 @@
             "creator_id": 1,
             "description": "Caldari Provisions is one of the companies that were created by war veterans of the Gallente-Caldari War. Specializing in the distribution of supply and logistics, Caldari Provisions have carved themselves a nice little niche within the Caldari State and are looking towards expanding their operation in other empires.",
             "home_station_id": 60000856,
-            "member_count": 251648,
+            "member_count": 253476,
             "name": "Caldari Provisions",
             "shares": 2750495824,
             "tax_rate": 0.11,
@@ -39,23 +39,12 @@
             "date_founded": "2018-05-22T10:51:49+00:00",
             "description": "<font size=\"12\" color=\"#bfffffff\"><br></font><font size=\"14\" color=\"#bfffffff\">We are a beginner corp for new players.<br>We speak english and german.<br>Our corp does not require taxes from its members. (</font><font size=\"14\" color=\"#ff00ff00\">0,0%</font><font size=\"14\" color=\"#bfffffff\"> Taxes)<br>No spam, no scams. no piracy!<br><br>We operate mostly in HighSec-systems. (Security: </font><font size=\"14\" color=\"#ff00ffff\">1,0</font><font size=\"14\" color=\"#bfffffff\"> - </font><font size=\"14\" color=\"#ffffff00\">0,5</font><font size=\"14\" color=\"#bfffffff\">)<br></font><font size=\"14\" color=\"#ffffe400\"><loc><a href=\"http://www.cva-eve.org/guide-faq/\">NRDS</a></loc></font><font size=\"14\" color=\"#bfffffff\"> Policy in Region Providence. (Security: </font><font size=\"14\" color=\"#ffff0000\">0,0</font><font size=\"14\" color=\"#bfffffff\">)<br><br>If you want to say hello or talk with friends:<br>Join </font><font size=\"14\" color=\"#ff6868e1\"><a href=\"joinChannel:player_dc8fdef0510611e8af0e9abe94f5a167\">Miners-Inn</a></font><font size=\"14\" color=\"#bfffffff\"> Channel.<br><br>Diplomacy Channel: </font><font size=\"14\" color=\"#ff6868e1\"><a href=\"joinChannel:player_99d25b4f41ca11e99d279abe94f5a39b\">Miners-Diplo</a></font><font size=\"14\" color=\"#bfffffff\"> </font>",
             "home_station_id": 60003760,
-            "member_count": 60,
+            "member_count": 61,
             "name": "Miners Inn",
             "shares": 1000,
             "tax_rate": 0.0,
             "ticker": "0MIN0",
             "url": ""
-        },
-        "(('get_corporations_corporation_id',), (('corporation_id', 1000045),))": {
-            "ceo_id": 3004185,
-            "creator_id": 1,
-            "description": "Like all Caldari schools STI has a very formal curriculum that focuses primarily on the practical side of education. This results in a very dull and tedious learning process, but one that is remarkably efficient.",
-            "home_station_id": 60004450,
-            "member_count": 863179,
-            "name": "Science and Trade Institute",
-            "shares": 100000000,
-            "tax_rate": 0.11,
-            "ticker": "STI"
         }
     },
     "get_paged_op": {}
