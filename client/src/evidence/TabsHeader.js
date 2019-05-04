@@ -52,7 +52,7 @@ const styles = {
     fontWeight: 600,
   },
   selected: {
-    textDecoration: 'underline overline',
+    borderBottom: 'solid 2px #178',
     fontWeight: 600,
   },
 };
@@ -77,7 +77,6 @@ const displayOrder = [
   { name: 'Screenshots', src: screenshotImg },
 ];
 
-
 export default class TabsHeader extends React.Component {
   constructor(props) {
     super(props);
@@ -99,35 +98,14 @@ export default class TabsHeader extends React.Component {
     }
   };
 
-  build_tab_icons(col, image, name) {
-    let textStyle;
-    if (this.state.selected === name) {
-      textStyle = { gridColumn: col, ...styles.span, ...styles.selected };
-    } else {
-      textStyle = { gridColumn: col, ...styles.span };
-    }
-    return [
-      <RoundImage
-        style={{ gridColumn: col, gridRow: 1 }}
-        size={40}
-        src={image}
-        onClick={this.showTab}
-        name={name}
-      />,
-      <span style={textStyle} onClick={this.showTab} name={name}>
-        {name}
-      </span>,
-    ];
-  }
-
-
   renderItems(displayItems) {
     const pageIsACorp = !!this.props.corporation;
+    const { selected } = this.state;
     return (
       <div style={styles.div}>
         <div style={styles.headerRow}>
           {displayItems.map(({ src, name }) => (
-            <div style={{...styles.cell, paddingBottom: 0 }}>
+            <div style={{ ...styles.cell, paddingBottom: 0 }}>
               <RoundImage
                 size={40}
                 src={src}
@@ -140,7 +118,13 @@ export default class TabsHeader extends React.Component {
         </div>
         <div style={styles.textRow}>
           {displayItems.map(({ src, name }) => (
-            <div style={{...styles.cell, paddingTop: 0 }}>
+            <div
+              style={{
+                ...styles.cell,
+                paddingTop: 0,
+                ...(selected === name ? styles.selected : {}),
+              }}
+            >
               <div style={styles.span} onClick={() => this.showTab(name)}>
                 {name}
               </div>
@@ -161,8 +145,9 @@ export default class TabsHeader extends React.Component {
         </React.Fragment>
       );
     }
-    const displayItems = displayOrder
-      .filter(item => !pageIsACorp || item.includeForCorp);
+    const displayItems = displayOrder.filter(
+      item => !pageIsACorp || item.includeForCorp
+    );
     return this.renderItems(displayItems);
   }
 }
