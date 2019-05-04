@@ -11,6 +11,10 @@ const button = {
 }
 
 const styles = {
+  panel: {
+    maxWidth: '600px',
+    margin: '0 auto',
+  },
   submit: {
     ...button,
     backgroundColor: TableStyles.styles.header.color,
@@ -69,8 +73,7 @@ const styles = {
     marginRight: '100px',
   },
   header: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    margin: '0 auto',
     display: 'table',
     paddingBottom: '32px',
   },
