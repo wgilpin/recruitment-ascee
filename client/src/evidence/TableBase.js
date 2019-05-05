@@ -21,12 +21,11 @@ const styles = {
     cursor: 'pointer',
   },
   standing: {
-    neutral: {
-      color: 'yellow',
-    },
-    poor: {
-      color: 'red',
-    },
+    excellent: { color: '#25f' },
+    good: { color: '#4af' },
+    neutral: { color: 'white' },
+    poor: { color: 'orange' },
+    bad: { color: 'red' },
   },
   groupRow: {
     paddingTop: '12px',
@@ -82,7 +81,7 @@ export default class TableBase extends React.Component {
       id,
       kind,
       header: header || this.titleise(id),
-      displayValues
+      displayValues,
     });
   }
 
@@ -200,7 +199,9 @@ export default class TableBase extends React.Component {
     if (!value) {
       return <div style={style}>{displayValues[1]}</div>;
     }
-    return <div style={style}>{!!value ? displayValues[0] : displayValues[1]}</div>;
+    return (
+      <div style={style}>{!!value ? displayValues[0] : displayValues[1]}</div>
+    );
   }
 
   makeISKField(value, field, final) {
@@ -226,10 +227,18 @@ export default class TableBase extends React.Component {
 
   makeStandingField(value, field, final) {
     let style = { ...styles.cell };
-    if (value === 0) {
       style = { ...style, ...styles.standing.neutral };
-    } else if (value < 0) {
+    if (value < 0) {
       style = { ...style, ...styles.standing.poor };
+    }
+    if (value < -5) {
+      style = { ...style, ...styles.standing.bad };
+    }
+    if (value > 0) {
+      style = { ...style, ...styles.standing.good };
+    }
+    if (value > 5) {
+      style = { ...style, ...styles.standing.excellent };
     }
     if (final) {
       style = { ...style, width: '100%' };
@@ -342,7 +351,7 @@ export default class TableBase extends React.Component {
 
   sortFn(property, fieldKind) {
     const defaultVal = fieldKind === 'standing' ? 0 : 'zzzz';
-    var sortOrder = 1;
+    let sortOrder = 1;
     if (property[0] === '-') {
       sortOrder = -1;
       property = property.substr(1);
@@ -351,16 +360,12 @@ export default class TableBase extends React.Component {
       return (a, b) =>
         a[property] === b[property] ? 0 : a[property] ? -sortOrder : sortOrder;
     }
-    const fn = (a, b) => {
-      var result =
-        (a[property] || defaultVal) < (b[property] || defaultVal)
-          ? -1
-          : (a[property] || defaultVal) > (b[property] || defaultVal)
-          ? 1
-          : 0;
+    return (a, b) => {
+      const aPrime = a.hasOwnProperty(property) ? a[property] : defaultVal;
+      const bPrime = b.hasOwnProperty(property) ? b[property] : defaultVal;
+      let result = aPrime < bPrime ? -1 : aPrime > bPrime ? 1 : 0;
       return result * sortOrder;
     };
-    return fn.bind(defaultVal);
   }
 
   sortColumn(field) {

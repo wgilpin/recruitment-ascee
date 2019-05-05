@@ -2,26 +2,26 @@
     "get_op": {
         "(('get_search',), (('categories', ('corporation',)), ('disable_multi', True), ('search', 'Ascendance')))": {
             "corporation": [
-                98481530,
                 98511855,
-                418519701,
-                550787541,
+                98481530,
                 1785936510,
                 98561994,
                 98189468,
-                98549377,
                 98255959,
                 98348813,
-                98533756,
-                98136302,
+                418519701,
+                550787541,
+                98549377,
                 98321746,
+                98136302,
                 98409330,
+                98533756,
                 98498941,
                 119586414,
                 98124993,
+                98191283,
                 98024637,
-                98028431,
-                98191283
+                98028431
             ]
         },
         "(('get_corporations_corporation_id',), (('corporation_id', (98549377, 98124993, 98561994, 98348813, 98028431, 98321746, 418519701, 550787541, 98255959, 98189468, 98136302, 98511855, 119586414, 98498941, 98191283, 98481530, 98533756, 98024637, 1785936510)),))": {
@@ -218,7 +218,7 @@
                 "date_founded": "2013-04-04T16:27:18+00:00",
                 "description": "<font size=\"12\" color=\"#bfffffff\">ASCENDANCE CORPORATION<br><br>DIPLOMATS:<br><br></font><font size=\"12\" color=\"#ffd98d00\"><a href=\"showinfo:1377//93337973\">Raznoc</a></font><font size=\"12\" color=\"#bfffffff\"> (Chief Diplomat)<br></font><font size=\"12\" color=\"#ffd98d00\"><a href=\"showinfo:1377//93209051\">Sylvio Abruzzi</a></font><font size=\"12\" color=\"#bfffffff\"> (Trade, Industry &amp; Commerce)<br></font><font size=\"12\" color=\"#ffd98d00\"><a href=\"showinfo:1379//1290853836\">Commendatore</a></font><font size=\"12\" color=\"#bfffffff\"> (Military &amp; Security)<br></font><font size=\"12\" color=\"#ffd98d00\"><a href=\"showinfo:1377//93156545\">Glarfist Gaterau</a></font><font size=\"12\" color=\"#bfffffff\"> (Corporation CEO)<br><br>To join, submit a recruitment request.</font>",
                 "home_station_id": 60010342,
-                "member_count": 19,
+                "member_count": 22,
                 "name": "Ascendance Corporation",
                 "shares": 1000,
                 "tax_rate": 0.1,

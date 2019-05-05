@@ -29,6 +29,10 @@ const styles = {
     color: 'red',
     fontWeight: 500,
   },
+  containerIsk: {
+    ...TableStyles.styles.isk,
+    right: '64px',
+  }
 };
 
 const isEmpty = obj => {
@@ -44,27 +48,6 @@ export default class AssetContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { collapsed: true };
-  }
-
-  getItemLine(item, index) {
-    const depthPadding = 40 * this.props.depth + 20;
-    let lineStyle = this.props.index % 2 === 0 ? styles.isOdd : {};
-    lineStyle = {
-      ...lineStyle,
-      ...styles.cell,
-      ...styles.row,
-      paddingLeft: depthPadding,
-    };
-    return (
-      <div style={lineStyle} key={item.item_id}>
-        <div>
-          {item.name}&emsp;
-          <span style={styles.isk}>
-            ({Misc.commarize(this.props.asset.price)} ISK)
-          </span>
-        </div>
-      </div>
-    );
   }
 
   listOfItemLines(items) {
@@ -116,6 +99,7 @@ export default class AssetContainer extends React.Component {
       ...styles.nonTableCell,
       paddingLeft: depthPadding,
       ...styles.structure,
+      width: '-webkit-fill-available',
     };
     if ((this.props.asset.redlisted || []).length > 0) {
       lineStyle = { ...lineStyle, ...styles.red };
@@ -124,10 +108,10 @@ export default class AssetContainer extends React.Component {
     return (
       <div>
         <div style={lineStyle} key={item_id || name} onClick={this.handleClick}>
-          <div>
+          <div style={{position: 'relative'}}>
             {this.expansionButton()}&emsp;
             {name || type}
-            {!!value && <span style={styles.isk}>{iskText}</span>}
+            {!!value && <span style={styles.containerIsk}>{iskText}</span>}
           </div>
         </div>
         {!this.state.collapsed && this.listOfItemLines(items)}

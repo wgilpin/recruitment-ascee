@@ -20,6 +20,7 @@ export default class Applicant extends Component {
       submitted: false,
       pictures: [],
       questions: [],
+      applicationStatus: '',
     };
   }
 
@@ -44,9 +45,23 @@ export default class Applicant extends Component {
   loadQuestions = () =>
     new FetchData({ scope: 'questions' }).get().then(this.questionsToState);
 
+  loadCharacterSummary = () => {
+
+    new FetchData({ scope: 'character/summary' })
+      .get()
+      .then(({ info }) => {
+        return this.setState({
+          applicationStatus: info.current_application_status,
+          altsDone: info.current_application_status === 'submitted',
+        })
+      })
+      .catch(e => console.log(e));
+  };
+
   componentDidMount() {
     this.loadAnswers();
     this.loadQuestions();
+    this.loadCharacterSummary();
   }
 
   checkReady = () => {
@@ -114,10 +129,10 @@ export default class Applicant extends Component {
     this.setState({ answersReady: ready }, this.checkReady);
 
   render() {
-    const { altsDone, ready, answers, questions, has_application } = this.state;
+    const { altsDone, ready, answers, questions, has_application, applicationStatus } = this.state;
     if (!this.state.has_application) {
       return (
-        <ApplicantProvider value={{ altsDone, ready }}>
+        <ApplicantProvider value={{ altsDone, ready, status: applicationStatus }}>
           <ApplicantHeader onSubmit={this.submit} />
         </ApplicantProvider>
       );
@@ -128,7 +143,7 @@ export default class Applicant extends Component {
           <div style={styles.logout}>
             <a href="/auth/logout">Sign out</a>
           </div>
-          <ApplicantProvider value={{ altsDone, ready, has_application }}>
+          <ApplicantProvider value={{ altsDone, ready, has_application, status: applicationStatus }}>
             <ApplicantHeader onSubmit={this.submit} />
             <Tabs>
               <TabList>
@@ -136,15 +151,16 @@ export default class Applicant extends Component {
                 <Tab> Questions </Tab>
                 <Tab>Screenshots</Tab>
               </TabList>
-              <TabPanel>
+              <TabPanel style={styles.panel}>
                 <AltsPanel onAltsDone={this.handleAltsDone} />
               </TabPanel>
-              <TabPanel>
+              <TabPanel style={styles.panel}>
                 <Answers
                   answers={answers}
                   questions={questions}
                   onReadyStatus={this.setAnswersStatus}
                   onSaved={this.loadAnswers}
+                  readOnly={applicationStatus === 'submitted'}
                 />
               </TabPanel>
               <TabPanel>

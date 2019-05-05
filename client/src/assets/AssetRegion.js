@@ -4,7 +4,6 @@ import TableStyles from '../evidence/TableStyles';
 import AssetContainer from './AssetContainer';
 import Misc from '../common/Misc';
 
-
 const propTypes = {
   region: PropTypes.number,
 };
@@ -22,31 +21,50 @@ const styles = {
   red: {
     color: 'red',
     fontWeight: 500,
-  }
-}
+  },
+  regionName: {
+    display: 'inline-block',
+    textAlign: 'left',
+    paddingLeft: '6px',
+  },
+  regionIsk: {
+    display: 'inline-block',
+    right: '64px',
+    position: 'absolute',
+  },
+  regionHeader: {
+    ...TableStyles.styles.folderHeader,
+    ...TableStyles.styles.system,
+    position: 'relative',
+  },
+};
 
 export default class AssetRegion extends React.Component {
+  sortByValue = (a, b) => {
+    const region = this.global.assetSystems[this.props.region];
+    return region.items[b].value - region.items[a].value;
+  };
 
   render() {
-    let lineStyle = styles.system;
-    const { name, items, value, redlisted } = this.global.assetSystems[this.props.region];
-    if ((redlisted ||[]).length > 0) {
-      lineStyle = { ...styles.system, ...styles.red };
-    }
+    const { name, items, value } = this.global.assetSystems[this.props.region];
     return (
       <div style={styles.system}>
-        <div style={{ ...styles.folderHeader, ...styles.system }} key={name}>
-          <div style={styles.cell}>{name}
-            <span style={styles.isk}>{Misc.commarize(value)} ISK</span>
-          </div>
+        <div style={styles.regionHeader} key={name}>
+          <div style={styles.regionName}>{name}</div>
+          <div style={styles.regionIsk}>{Misc.commarize(value)} ISK</div>
         </div>
         <div>
-        {
-          // systems first
-          Object.keys(items).map((it, idx) =>
-              <AssetContainer name={items[it].name} asset={items[it]} index={idx} depth={1}/>
-          )
-        }
+          {// systems first
+          Object.keys(items)
+            .sort(this.sortByValue)
+            .map((it, idx) => (
+              <AssetContainer
+                name={items[it].name}
+                asset={items[it]}
+                index={idx}
+                depth={1}
+              />
+            ))}
         </div>
       </div>
     );

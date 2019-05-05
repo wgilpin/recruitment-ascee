@@ -10,12 +10,12 @@ const defaultProps = {};
 export default class TableStandings extends TableBase {
   constructor(props) {
     super(props);
-    this.state.sortBy = 'name';
+    this.sortBy = 'name';
     this.scope = 'standings';
-    this.addField(TableBase.kinds().text,'name');
-    this.addField(TableBase.kinds().text,'corp');
-    this.addField(TableBase.kinds().text,'alliance');
-    this.addField(TableBase.kinds().standing,'standing');
+    this.addField(TableBase.kinds().text, 'name');
+    this.addField(TableBase.kinds().text, 'corp');
+    this.addField(TableBase.kinds().text, 'alliance');
+    this.addField(TableBase.kinds().standing, 'standing');
   }
 }
 
