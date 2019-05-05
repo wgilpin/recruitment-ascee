@@ -125,28 +125,40 @@ export default class FindItem extends React.Component {
     this.setState({ showAddMany: true, showInput: false });
   };
 
-  handleAdd = (id, name) => {
+  doAdd = items => {
     this.setState({ loading: true });
     return new FetchData({
       id: this.props.kind,
       scope: 'admin/list',
-      param1: 'add',
     })
-      .put({
-        replace: false,
-        item: { id, name },
-      })
+      .put({ items })
       .then(res => {
         if (res.status === 'ok') {
           const newResults = { ...this.state.searchResults };
-          delete newResults[name];
+          items.forEach(it => delete newResults[it.name]);
           this.setState({ searchResults: newResults });
           if (this.props.onChange) {
             this.props.onChange();
           }
         }
         this.setState({ loading: false });
-      });
+      })
+      .catch(() => {
+        this.setState({ loading: false });
+      })
+  };
+
+  handleAddAll = () => {
+    this.doAdd(
+      Object.entries(this.state.searchResults).map(([name, id]) => ({
+        name,
+        id,
+      }))
+    );
+  };
+
+  handleAdd = (id, name) => {
+    this.setState({ loading: true }, () => this.doAdd([{ id, name }]));
   };
 
   handleReject = name => {
