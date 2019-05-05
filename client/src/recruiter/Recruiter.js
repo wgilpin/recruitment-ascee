@@ -63,27 +63,31 @@ export default class Recruiter extends React.Component {
     rejected: 'rejected',
   };
 
+  loadList = () => {
+    return new FetchData({ id: this.state.id, scope: 'applicant_list' })
+    .get()
+    // Set the state `recruits` list, and set no recruit selected
+    .then(recruits =>
+      this.setState({ recruits: recruits.info, activeRecruitId: null })
+    )
+  }
+
   componentDidMount = () => {
     // Hydrate the  state with the response from /api/recruits
     // api recruits returns 3 lists:
     //   claimed: my recruits to process
     //   accepted: recruits I claimed then accepted
     //   unclaimed: all unclaimed
-    new FetchData({ id: this.state.id, scope: 'applicant_list' })
-      .get()
-      // Set the state `recruits` list, and set no recruit selected
-      .then(recruits =>
-        this.setState({ recruits: recruits.info, activeRecruitId: null })
-      )
-      .then(() => {
-        return new FetchData({ scope: 'user/roles' }).get().then(roles => {
-          return this.setState({ roles: roles.info, loading: false });
-        });
-      })
-      .catch(err => {
-        console.log('mounting error');
-        return { error: err };
+    this.loadList()
+    .then(() => {
+      return new FetchData({ scope: 'user/roles' }).get().then(roles => {
+        return this.setState({ roles: roles.info, loading: false });
       });
+    })
+    .catch(err => {
+      console.log('mounting error');
+      return { error: err };
+    });
   };
 
   setRecruitStatus(id, status) {
@@ -120,11 +124,11 @@ export default class Recruiter extends React.Component {
       this.state.roles.is_recruiter
     ) {
       // I can accept
-      new FetchData({ id, scope: 'recruits/accept' }).get().then(
+      new FetchData({ id, scope: 'recruits/accept' }).get()
+      .then(this.loadList)
+      .then(
         this.setState(
-          {
-            showConfirm: false,
-          },
+          { showConfirm: false },
           this.componentDidMount
         )
       );
@@ -140,7 +144,7 @@ export default class Recruiter extends React.Component {
       // I can invite
       new FetchData({ id, scope: 'recruits/invite' })
         .get()
-        .then(this.componentDidMount);
+        .then(this.loadList);
     } else {
       this.setState({
         showAlert: true,
@@ -152,7 +156,7 @@ export default class Recruiter extends React.Component {
   handleClaim = id => {
     new FetchData({ id, scope: 'recruits/claim' }).get().then(res => {
       if (res.status === 'ok') {
-        this.setRecruitStatus(id, Recruiter.statuses.claimed);
+        this.loadList();
       } else {
         this.setState({ showAlert: true, alertText: "User can't be claimed" });
       }
@@ -162,7 +166,7 @@ export default class Recruiter extends React.Component {
   handleDrop = id => {
     new FetchData({ id, scope: 'recruits/release' }).get().then(res => {
       if (res.status === 'ok') {
-        this.setRecruitStatus(id, Recruiter.statuses.unclaimed);
+        this.loadList();
       } else if (res.status === 406) {
         this.setState({
           showAlert: true,
@@ -188,7 +192,7 @@ export default class Recruiter extends React.Component {
     this.setState({ showConfirm: false });
     new FetchData({ id, scope: 'recruits/reject' }).get().then(res => {
       if (res.status === 'ok') {
-        this.setRecruitStatus(id, Recruiter.statuses.rejected);
+        this.loadList()
       } else {
         this.setState({
           showAlert: true,
