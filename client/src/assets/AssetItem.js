@@ -18,6 +18,8 @@ export default class AssetItem extends React.Component {
         ...TableStyles.row,
         paddingLeft: 40 * (this.props.depth || 0),
         ...lineStyle,
+        position: 'relative',
+        width: '-webkit-fill-available',
       },
       typeIcon: {
         width: '20px',
