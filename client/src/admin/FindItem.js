@@ -282,6 +282,7 @@ export default class FindItem extends React.Component {
                 </button>
               </div>
             )}
+            {this.state.noneFound && <div>None Found</div>}
           </React.Fragment>
         )}
       </React.Fragment>
