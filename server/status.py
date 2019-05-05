@@ -43,9 +43,8 @@ def claim_applicant(applicant_user_id, current_user=current_user):
         add_status_note(application, 'Application claimed by {}.'.format(current_user.name))
         return {'status': 'ok'}
 
-
 def release_applicant(applicant_user_id, current_user=current_user):
-    if not is_recruiter(current_user):
+    if not (is_recruiter(current_user) or is_senior_recruiter(current_user)):
         raise ForbiddenException('User {} is not a recruiter'.format(current_user.id))
     application = Application.get_submitted_for_user(applicant_user_id)
     if application is None:
@@ -59,9 +58,14 @@ def release_applicant(applicant_user_id, current_user=current_user):
             current_user.id, applicant_user_id
         ))
     else:
-        application.recruiter_id = None
+        if is_senior_recruiter(current_user):
+            add_status_note(application, 'Application un-accepted by {}.'.format(current_user.name))
+            application.is_accepted = False
+            application.is_concluded = False
+        elif is_recruiter(current_user):
+            add_status_note(application, 'Application released by {}.'.format(current_user.name))
+            application.recruiter_id = None
         db.session.commit()
-        add_status_note(application, 'Application released by {}.'.format(current_user.name))
         return {'status': 'ok'}
 
 
