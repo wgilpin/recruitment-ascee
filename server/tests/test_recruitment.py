@@ -305,6 +305,8 @@ class QuestionAnswerTests(AsceeTestCase):
             get_answers(self.applicant.id, current_user=self.admin)
 
     def test_set_answers_applicant_with_application_applicant(self):
+        self.application.is_submitted = False
+        db.session.commit()
         for i in range(3):
             question = Question(text='Question {}?'.format(i))
             db.session.add(question)
@@ -322,6 +324,22 @@ class QuestionAnswerTests(AsceeTestCase):
         self.assertEqual(len(after_set_result['questions']), 3)
         for k in question_keys:
             self.assertEqual(after_set_result['questions'][k]['answer'], f'answer for {k}')
+
+    def test_cannot_set_answers_for_submitted_application(self):
+        self.application.is_submitted = True
+        db.session.commit()
+        for i in range(3):
+            question = Question(text='Question {}?'.format(i))
+            db.session.add(question)
+            db.session.commit()
+        result = get_questions(current_user=self.applicant)
+        question_keys = []
+        answers = []
+        for k in result:
+            question_keys.append(k)
+            answers.append({'question_id': k, 'text': f'answer for {k}'})
+        with self.assertRaises(ForbiddenException):
+            set_answers(self.applicant.id, answers=answers, current_user=self.applicant)
 
     def test_set_answers_applicant_with_application_non_applicant(self):
         answers = [{'question_id': 1, 'text': f'answer for 1'}]
