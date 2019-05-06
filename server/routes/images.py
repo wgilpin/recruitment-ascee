@@ -2,7 +2,7 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import jsonify
-from images import get_user_images, get_application_images, sign_s3, confirm_s3, upload_image
+from images import get_user_images, get_application_images, confirm_s3, upload_image
 
 
 @app.route('/api/user/images/', methods=['GET'])
@@ -70,34 +70,6 @@ def api_upload_image():
             with an unsubmitted application.
     """
     return jsonify(upload_image(current_user=current_user))
-
-
-@app.route('/api/user/sign_s3', methods=['PUT'])
-@login_required
-def api_sign_s3():
-    """
-    Get s3 data for an image upload.
-
-    Args:
-        user_id (int)
-
-    Returns:
-        response
-
-    Example:
-        {
-            'info': {
-                'data': presigned_post,
-                'url': 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, file_name)
-                'image_id': 132101,
-            }
-        }
-
-    Error codes:
-        Forbidden (403): If logged in user is not an applicant
-            with an unsubmitted application.
-    """
-    return jsonify(sign_s3(current_user=current_user))
 
 
 @app.route('/api/user/confirm_s3/<int:image_id>', methods=['PUT'])

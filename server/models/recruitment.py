@@ -105,7 +105,7 @@ class Image(db.Model):
                 ExpiresIn=3600)
         else:
             url = 'placeholder url for {}'.format(self.id)
-        return { 'id': self.filename, 'url': url }
+        return url
 
     @property
     def filename(self):
