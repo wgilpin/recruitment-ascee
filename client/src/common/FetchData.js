@@ -93,6 +93,18 @@ export default class FetchData {
     });
   }
 
+  post_files(files) {
+    const url = this.buildUrl();
+    console.log(`fetch put ${url}`);
+    return fetch(url, {
+      method: 'post',
+      headers: { 'Content-Type': 'image' },
+      body: files,
+    }).then(response => {
+      return response.json();
+    });
+  }
+
   delete() {
     const url = this.buildUrl();
     console.log(`fetch delete ${url}`);
@@ -103,4 +115,25 @@ export default class FetchData {
       return response.json();
     });
   }
+
+  upload_to_server = (files, onSent, onError) => {
+    var xhr = new XMLHttpRequest();
+    let url = `${config.client.server}/api/user/upload_image`;
+    xhr.open('POST', url);
+
+    var postData = new FormData();
+    files.forEach((file, i) => {
+      postData.append(i, file);
+    });
+    xhr.send(postData);
+    xhr.onreadystatechange = e => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          onSent();
+        } else {
+          onError();
+        }
+      }
+    };
+  };
 }

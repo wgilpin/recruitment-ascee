@@ -2,7 +2,7 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import jsonify
-from images import get_user_images, get_application_images, sign_s3, confirm_s3
+from images import get_user_images, get_application_images, sign_s3, confirm_s3, upload_image
 
 
 @app.route('/api/user/images/', methods=['GET'])
@@ -26,9 +26,7 @@ def api_get_user_images(user_id=None):
             to the applicant, a senior recruiter, an admin, or the applicant
             if they have an unsubmitted application.
     """
-    if not user_id:
-        user_id = current_user.get_id()
-    return jsonify(get_user_images(user_id, current_user=user_id))
+    return jsonify(get_user_images(user_id, current_user=current_user))
 
 
 @app.route('/api/application/images/<int:application_id>', methods=['GET'])
@@ -52,6 +50,26 @@ def api_get_application_images(application_id):
             if they have an unsubmitted application.
     """
     return jsonify(get_application_images(application_id, current_user=current_user))
+
+
+@app.route('/api/user/upload_image', methods=['POST'])
+@login_required
+def api_upload_image():
+    """
+    recieve images in a form and submit to s3
+
+    Args:
+        form data
+
+    Returns:
+        response
+
+
+    Error codes:
+        Forbidden (403): If logged in user is not an applicant
+            with an unsubmitted application.
+    """
+    return jsonify(upload_image(current_user=current_user))
 
 
 @app.route('/api/user/sign_s3', methods=['PUT'])

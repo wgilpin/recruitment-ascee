@@ -1,10 +1,8 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
 import Images from './Images';
-import Buttons from './Buttons';
 import FetchData from '../common/FetchData';
 import styles from './ApplicantStyles';
-import LoginImg from '../images/LoginScreen.png';
 
 export default class ImagesUpload extends React.Component {
   state = {
@@ -12,8 +10,9 @@ export default class ImagesUpload extends React.Component {
     images: [],
   };
 
-  uploadFiles = (files, s3Data, url, image_id) => {
+  uploadFiles = (files, s3Data, image_id) => {
     var xhr = new XMLHttpRequest();
+    // xhr.withCredentials = "true";
     xhr.open('POST', s3Data.url);
 
     var postData = new FormData();
@@ -45,48 +44,28 @@ export default class ImagesUpload extends React.Component {
   getSignedRequest = files => {
     new FetchData({ scope: 'user/sign_s3' })
       .put()
-      .then(({ info: { data, url, image_id } }) => {
-        this.uploadFiles(files, data, url, image_id);
+      .then(({ info: { data, image_id } }) => {
+        this.uploadFiles(files, data, image_id);
       });
   };
 
   onChange = e => {
     const files = Array.from(e.target.files);
-    this.setState({ uploading: true }, () => this.getSignedRequest(files));
-  };
-
-  removeImage = id => {
-    this.setState({
-      images: this.state.images.filter(image => image.public_id !== id),
+    this.setState({ uploading: true }, () => {
+      new FetchData({}).upload_to_server(files, () => {
+        this.setState({ uploading: false });
+      });
     });
   };
+
+ 
 
   render() {
     const { uploading, images } = this.state;
 
-    const content = () => {
-      switch (true) {
-        case uploading:
-          return <Loader />;
-        case images.length === 0:
-          return (
-            <React.Fragment>
-              <p>For example</p>
-              <img style={{ width: '200px' }} src={LoginImg} alt="" />
-              <Buttons onChange={this.onChange} />
-            </React.Fragment>
-          );
-        case images.length > 0:
-          return (
-            <React.Fragment>
-              <Buttons onChange={this.onChange} />;
-              <Images images={images} removeImage={this.removeImage} />;
-            </React.Fragment>
-          );
-        default:
-          return <Buttons onChange={this.onChange} />;
-      }
-    };
+    if (uploading) {
+      return <Loader type="Puff" color="#01799A" height="100" width="100" />;
+    }
 
     return (
       <div>
@@ -95,7 +74,9 @@ export default class ImagesUpload extends React.Component {
           For ALL of your accounts, take a screenshot, save it then upload them
           all here.
         </p>
-        <div className="buttons">{content()}</div>
+        <div className="buttons">
+          <Images onChange={this.onChange} removeImage={this.removeImage} />
+        </div>
       </div>
     );
   }

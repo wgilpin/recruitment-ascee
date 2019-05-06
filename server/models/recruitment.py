@@ -3,7 +3,8 @@ from models.user import User, Recruiter
 from datetime import datetime
 import boto3
 from flask_app import app
-from esi_config import aws_bucket_name
+from esi_config import aws_bucket_name, aws_region_name, aws_endpoint_url, aws_signature_version
+from botocore.client import Config
 
 
 class Application(db.Model):
@@ -91,13 +92,20 @@ class Image(db.Model):
     @property
     def url(self):
         if not app.config.get('TESTING'):
-            conn = boto3.resource('s3')
-            bucket = conn.get_bucket(aws_bucket_name)
-            key = bucket.get_key(self.filename, validate=False)
-            url = key.generate_url(3600)
+            s3 = boto3.client(
+                's3',
+                region_name=aws_region_name,
+                endpoint_url=aws_endpoint_url,
+                config=Config(signature_version=aws_signature_version),
+            )
+            url = s3.generate_presigned_url(
+                'get_object',
+                Params={'Bucket': aws_bucket_name,
+                        'Key': self.filename},
+                ExpiresIn=3600)
         else:
             url = 'placeholder url for {}'.format(self.id)
-        return url
+        return { 'id': self.filename, 'url': url }
 
     @property
     def filename(self):
