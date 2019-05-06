@@ -30,12 +30,13 @@ def process_assets(character, asset_list):
         if type.is_redlisted:
             entry['redlisted'].append('name')
     item_names = []
+    item_ids = list(item_ids)
     for i_start in range(0, len(item_ids), 1000):
         item_names.extend(
             character.get_op(
                 'post_characters_character_id_assets_names',
                 character_id=character.id,
-                item_ids=item_ids,
+                item_ids=item_ids[i_start:i_start+1000],
             )
         )
     item_names = {
