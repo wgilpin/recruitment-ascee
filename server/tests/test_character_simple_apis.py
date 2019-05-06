@@ -104,14 +104,14 @@ class SimpleCharacterMixin(object):
             target_dict = target_redlist.get(entry[entry_identifier], {'redlisted': []})
             entry_redlist = set(entry.get('redlisted', []))
             for red_name in target_dict['redlisted']:
-                self.assertIn(red_name, entry_redlist, red_name)
+                self.assertIn(red_name, entry_redlist)
             list_names = set(target_dict.keys()).difference(['redlisted'])
             for list_name in list_names:
                 for item in entry.get(list_name, []):
                     second_identifier = self.api_definition['redlisting'][list_name]['entry_identifier']
                     target_second_redlist = target_dict[list_name].get(item[second_identifier], {'redlisted': []})['redlisted']
                     for red_name in target_second_redlist:
-                        self.assertIn(red_name, item.get('redlisted', []), red_name)
+                        self.assertIn(red_name, item.get('redlisted', []))
 
     def test_only_valid_types_returned(self):
         api_def = self.api_definition

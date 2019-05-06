@@ -43,7 +43,7 @@ class CharacterIndustryTests(SimpleCharacterMixin, AsceeTestCase):
             'product_type_id': int,
             'successful_runs': int,
         },
-        'entry_identifier': 'activity_id',
+        'entry_identifier': 'job_id',
         'redlisting': {
             'station_name': (Station, 'station_id'),
             'blueprint_type_name': (Type, 'blueprint_type_id'),
