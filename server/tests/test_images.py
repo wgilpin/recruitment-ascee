@@ -8,7 +8,7 @@ from flask_app import app
 from models import db
 from base import AsceeTestCase
 from exceptions import BadRequestException, ForbiddenException
-from images import get_user_images, get_application_images, confirm_s3
+from images import get_user_images, get_application_images
 import unittest
 
 
@@ -38,12 +38,6 @@ class ImagesTests(AsceeTestCase):
         db.session.commit()
         response = get_user_images(self.applicant.id, current_user=self.applicant)
         self.assertEqual(response, {'info': []})
-
-    def test_sign_s3_forbidden(self):
-        for user in (self.not_applicant, self.recruiter, self.senior_recruiter, self.admin, self.applicant):
-            with self.assertRaises(ForbiddenException):
-                sign_s3(current_user=user)
-
 
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
