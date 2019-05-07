@@ -66,8 +66,8 @@ class WalletTests(AsceeTestCase):
                     self.assertIsInstance(entry['second_party'][attr_name], attr_type)
 
     def test_get_applicant_wallet_as_other_recruiter(self):
-        with self.assertRaises(ForbiddenException):
-            get_character_wallet(self.applicant.id, current_user=self.other_recruiter)
+        result = get_character_wallet(self.applicant.id, current_user=self.other_recruiter)
+        self.helper_test_wallet_success(result)
 
     def test_get_applicant_wallet_as_admin(self):
         with self.assertRaises(ForbiddenException):

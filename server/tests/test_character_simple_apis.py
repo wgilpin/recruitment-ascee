@@ -153,7 +153,7 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.applicant.id, self.senior_recruiter)
 
     def test_API_as_other_recruiter(self):
-        self.run_tests_simple_APIs(self.applicant.id, self.other_recruiter, ForbiddenException)
+        self.run_tests_simple_APIs(self.applicant.id, self.other_recruiter)
 
     def test_API_as_non_recruiter(self):
         self.run_tests_simple_APIs(self.applicant.id, self.not_applicant, ForbiddenException)
