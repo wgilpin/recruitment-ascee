@@ -110,3 +110,20 @@ class Image(db.Model):
     @property
     def filename(self):
         return str(self.id)
+
+    @classmethod
+    def delete(cls, id, key):
+        if not app.config.get('TESTING'):
+            s3 = boto3.client(
+                's3',
+                region_name=aws_region_name,
+                endpoint_url=aws_endpoint_url,
+                config=Config(signature_version=aws_signature_version),
+            )
+            s3.delete_object(
+                Bucket=aws_bucket_name,
+                Key=key,
+            )
+            Image.query.filter_by(id=id).delete()
+            db.session.commit()
+

@@ -2,7 +2,7 @@ from flask_login import current_user
 from security import login_required
 from flask_app import app
 from flask import jsonify
-from images import get_user_images, get_application_images, confirm_s3, upload_image
+from images import get_user_images, get_application_images, upload_image, delete_s3
 
 
 @app.route('/api/user/images/', methods=['GET'])
@@ -72,11 +72,11 @@ def api_upload_image():
     return jsonify(upload_image(current_user=current_user))
 
 
-@app.route('/api/user/confirm_s3/<int:image_id>', methods=['PUT'])
+@app.route('/api/user/image/<int:image_id>/delete', methods=['GET'])
 @login_required
-def api_confirm_s3(image_id):
+def api_delete_image(image_id):
     """
-    Confirm upload of image data to s3.
+    delete an image from s3.
 
     Args:
         image_id (int)
@@ -90,7 +90,7 @@ def api_confirm_s3(image_id):
     Error codes:
         Forbidden (403): If logged in user is not an applicant
             with an unsubmitted application.
-        Bad Request (400): If the image id is invalid, already confirmed, or
+        Bad Request (400): If the image id is invalid, or
             does not belong to the logged-in applicant.
     """
-    return jsonify(confirm_s3(image_id, current_user=current_user))
+    return jsonify(delete_s3(image_id, current_user=current_user))

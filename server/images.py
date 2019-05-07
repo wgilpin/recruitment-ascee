@@ -1,7 +1,7 @@
 import os
 from models import db, Application, User, Image
 from exceptions import ForbiddenException, BadRequestException, AppException
-from security import user_application_access_check
+from security import user_application_access_check, has_applicant_access
 from esi_config import aws_bucket_name, aws_endpoint_url, aws_region_name, aws_signature_version
 from flask_app import app
 from flask import request
@@ -18,13 +18,11 @@ def get_user_images(user_id, current_user=None):
         raise ForbiddenException(
             'User {} does not have access.'.format(current_user.id)
         )
-    elif application.user == current_user:
+    elif not has_applicant_access(current_user, user, self_access=True):
         if application.is_concluded:
             raise ForbiddenException(
                 'User {} does not have access.'.format(current_user.id)
             )
-    else:
-        user_application_access_check(current_user, user)
     return {'info': [{'url': image.url, 'id': image.filename} for image in application.images]}
 
 
@@ -80,16 +78,18 @@ def upload_image(current_user=None):
 
             return {'status': 'ok'}
 
-
-def confirm_s3(image_id, current_user=None):
+def delete_s3(image_id, current_user=None):
     image = Image.query.get(image_id)
-    if image is None or image.is_confirmed or image.application.user_id != current_user.id:
+    application = Application.get_for_user(current_user.id)
+    if Image == None:
+        raise BadRequestException('Image does not exist')
+    elif application is None or application.id != image.application_id:
         raise ForbiddenException(
-            'User {} does not have access.'.format(
-                current_user.id
+            'User {} does not have access to image {}.'.format(
+                current_user.id, image_id
             )
         )
     else:
-        image.is_confirmed = True
-        db.session.commit()
+        Image.delete(image_id, image.filename)
         return {'status': 'ok'}
+    
