@@ -19,10 +19,9 @@ def get_user_images(user_id, current_user=None):
             'User {} does not have access.'.format(current_user.id)
         )
     elif not has_applicant_access(current_user, user, self_access=True):
-        if application.is_concluded:
-            raise ForbiddenException(
-                'User {} does not have access.'.format(current_user.id)
-            )
+        raise ForbiddenException(
+            'User {} does not have access.'.format(current_user.id)
+        )
     return {'info': [{'url': image.url, 'id': image.filename} for image in application.images]}
 
 
