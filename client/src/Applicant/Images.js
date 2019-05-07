@@ -6,7 +6,6 @@ import LoginImg from '../images/LoginScreen.png';
 import Buttons from './Buttons';
 import Confirm from '../common/Confirm';
 
-
 const styles = {
   fadein: {
     animation: 'fadein 2s',
@@ -20,7 +19,6 @@ export default class Images extends React.Component {
       images: [],
       loading: true,
       showConfirm: false,
-
     };
   }
 
@@ -42,11 +40,22 @@ export default class Images extends React.Component {
   };
 
   doConfirmed = () => {
-    this.setState({
-      images: this.state.images.filter(image => image.id !== this.state.selectedImageId),
-      showConfirm: false,
-    });
-  }
+    new FetchData({
+      scope: 'user/image',
+      id: this.state.selectedImageId,
+      param1: 'delete',
+    })
+      .get()
+      .then(() =>
+        this.setState({
+          images: this.state.images.filter(
+            image => image.id !== this.state.selectedImageId
+          ),
+          showConfirm: false,
+          selectedImageId: null,
+        })
+      );
+  };
 
   render() {
     if (this.state.loading) {
@@ -64,7 +73,8 @@ export default class Images extends React.Component {
         <Buttons onChange={this.props.onChange} />
         {images.map((image, i) => (
           <div key={i} style={styles.fadein}>
-            <div style={{display: 'inline-block'}}
+            <div
+              style={{ display: 'inline-block' }}
               onClick={() => this.removeImage(image.id)}
               className="delete"
             >
@@ -74,12 +84,12 @@ export default class Images extends React.Component {
           </div>
         ))}
         {this.state.showConfirm && (
-        <Confirm
-          text={'Delete Image'}
-          onConfirm={this.doConfirmed}
-          onClose={() => this.setState({ showConfirm: false })}
-        />
-      )}
+          <Confirm
+            text={'Delete Image'}
+            onConfirm={this.doConfirmed}
+            onClose={() => this.setState({ showConfirm: false })}
+          />
+        )}
       </div>
     );
   }
