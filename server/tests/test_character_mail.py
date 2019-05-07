@@ -61,8 +61,8 @@ class CharacterMailTests(AsceeTestCase):
                 self.assertTrue(len(extra_attributes) == 0, extra_attributes)
 
     def test_get_applicant_mail_as_other_recruiter(self):
-        with self.assertRaises(ForbiddenException):
-            get_character_mail(self.applicant.id, current_user=self.other_recruiter)
+        result = get_character_mail(self.applicant.id, current_user=self.other_recruiter)
+        self.helper_test_mail_success(result)
 
     def test_get_applicant_mail_as_admin(self):
         with self.assertRaises(ForbiddenException):
@@ -117,19 +117,19 @@ class CharacterMailTests(AsceeTestCase):
             'recipient_name': str,
         }
         for property_name, property_type in mail_attributes.items():
-            self.assertTrue(property_name in mail_data)
+            self.assertIn(property_name, mail_data)
             self.assertIsInstance(mail_data[property_name], property_type)
         self.assertTrue(len(mail_attributes) == len(mail_data), mail_data)
         for recipient in mail_data['recipients']:
             for property_name, property_type in recipient_attributes.items():
-                self.assertTrue(property_name in recipient)
+                self.assertIn(property_name, recipient)
                 self.assertIsInstance(recipient[property_name], property_type)
             self.assertTrue(len(recipient_attributes) == len(recipient), recipient)
 
     def mail_body_test_as_other_recruiter(self):
         mail_id = get_character_mail(self.applicant.id, current_user=self.recruiter)['info'][0]['mail_id']
-        with self.assertRaises(ForbiddenException):
-            get_mail_body(mail_id, current_user=self.other_recruiter)
+        result = get_mail_body(mail_id, current_user=self.other_recruiter)
+        self.helper_test_mail_body_success(result['info'])
 
     def mail_body_test_as_admin(self):
         mail_id = get_character_mail(self.applicant.id, current_user=self.recruiter)['info'][0]['mail_id']

@@ -58,8 +58,8 @@ def is_applicant_character_id(character_id):
     return character is not None
 
 
-def character_application_access_check(current_user, target_character):
-    if not has_applicant_access(current_user, target_character.user):
+def character_application_access_check(current_user, target_character, write=False):
+    if not has_applicant_access(current_user, target_character.user, write=write):
         raise ForbiddenException(
             'User {} does not have access.'.format(
                 current_user.id
@@ -76,8 +76,8 @@ def user_admin_access_check(current_user):
         )
 
 
-def user_application_access_check(current_user, target_user):
-    if not has_applicant_access(current_user, target_user):
+def user_application_access_check(current_user, target_user, write=True):
+    if not has_applicant_access(current_user, target_user, write=write):
         raise ForbiddenException(
             'User {} does not have access.'.format(
                 current_user.id
@@ -85,7 +85,7 @@ def user_application_access_check(current_user, target_user):
         )
 
 
-def has_applicant_access(user, target_user, self_access=False):
+def has_applicant_access(user, target_user, self_access=False, write=True):
     if self_access and (user.id == target_user.id):
         return True
     elif not is_recruiter(user):
@@ -102,4 +102,6 @@ def has_applicant_access(user, target_user, self_access=False):
             elif not application.recruiter_id:
                 # unclaimed application
                 return_value = True
+            elif not write:
+                return_value = True  # all recruiters can read
         return return_value

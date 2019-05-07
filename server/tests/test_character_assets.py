@@ -89,8 +89,8 @@ class CharacterAssetsTests(AsceeTestCase):
                     raise err
 
     def test_get_applicant_assets_as_other_recruiter(self):
-        with self.assertRaises(ForbiddenException):
-            get_character_assets(self.applicant.id, current_user=self.other_recruiter)
+        result = get_character_assets(self.applicant.id, current_user=self.other_recruiter)
+        self.helper_test_assets_success(result)
 
     def test_get_applicant_assets_as_admin(self):
         with self.assertRaises(ForbiddenException):
