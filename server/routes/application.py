@@ -5,7 +5,7 @@ from recruitment import application_history
 from status import claim_applicant, release_applicant, accept_applicant, \
     reject_applicant, \
     own_application_status, invite_applicant, submit_application, \
-    start_application
+    start_application, unaccept_applicant
 from security import login_required
 
 
@@ -96,6 +96,25 @@ def api_release_applicant(applicant_id):
             is not an applicant claimed by the recruiter
     """
     return jsonify(release_applicant(applicant_id, current_user=current_user))
+
+@app.route(
+    '/api/recruits/unaccept/<int:applicant_id>', methods=['GET'])
+@login_required
+def api_unaccept_applicant(applicant_id):
+    """
+    Returns an accepted applicant back to claimed status with the original recruiter.
+
+    Args:
+        applicant_id (int): User key of applicant claimed by recruiter
+
+    Returns:
+        {'status': 'ok'} if applicant is successfully unaccepted
+
+    Error codes:
+        Forbidden (403): If recruiter_id is not a senior recruiter, or logged in user
+            is not an admin or senior recruiter
+    """
+    return jsonify(unaccept_applicant(applicant_id, current_user=current_user))
 
 
 @app.route(

@@ -23,7 +23,8 @@ def own_application_status(current_user):
 
 def claim_applicant(applicant_user_id, current_user=current_user):
     if not is_recruiter(current_user):
-        raise ForbiddenException('User {} is not a recruiter'.format(current_user.id))
+        raise ForbiddenException(
+            'User {} is not a recruiter'.format(current_user.id))
     application = Application.get_submitted_for_user(applicant_user_id)
     if application is None:
         raise BadRequestException(
@@ -40,12 +41,15 @@ def claim_applicant(applicant_user_id, current_user=current_user):
     else:
         application.recruiter_id = current_user.id
         db.session.commit()
-        add_status_note(application, 'Application claimed by {}.'.format(current_user.name))
+        add_status_note(
+            application, 'Application claimed by {}.'.format(current_user.name))
         return {'status': 'ok'}
 
+
 def release_applicant(applicant_user_id, current_user=current_user):
-    if not (is_recruiter(current_user) or is_senior_recruiter(current_user)):
-        raise ForbiddenException('User {} is not a recruiter'.format(current_user.id))
+    if not is_recruiter(current_user):
+        raise ForbiddenException(
+            'User {} is not a recruiter'.format(current_user.id))
     application = Application.get_submitted_for_user(applicant_user_id)
     if application is None:
         raise BadRequestException(
@@ -58,13 +62,38 @@ def release_applicant(applicant_user_id, current_user=current_user):
             current_user.id, applicant_user_id
         ))
     else:
-        if is_senior_recruiter(current_user):
-            add_status_note(application, 'Application un-accepted by {}.'.format(current_user.name))
-            application.is_accepted = False
-            application.is_concluded = False
-        elif is_recruiter(current_user):
-            add_status_note(application, 'Application released by {}.'.format(current_user.name))
-            application.recruiter_id = None
+        application.recruiter_id = None
+        db.session.commit()
+        add_status_note(
+            application, 'Application released by {}.'.format(current_user.name))
+        return {'status': 'ok'}
+
+
+def unaccept_applicant(applicant_user_id, current_user=current_user):
+    if not is_senior_recruiter(current_user):
+        raise ForbiddenException(
+            'User {} is not a senior recruiter'.format(current_user.id))
+    application = Application.get_submitted_for_user(applicant_user_id)
+    if application is None:
+        raise BadRequestException(
+            'User {} is not in an open application.'.format(
+                applicant_user_id
+            )
+        )
+    elif not has_applicant_access(current_user, User.get(applicant_user_id)):
+        raise ForbiddenException('User {} does not have access to user {}'.format(
+            current_user.id, applicant_user_id
+        ))
+    else:
+        if not application.is_accepted:
+            raise ForbiddenException(
+                'User {} cant unaccept app from user {} as its not accepted'.format(
+                    current_user.id, applicant_user_id
+                ))
+        add_status_note(
+            application, 'Application un-accepted by {}.'.format(current_user.name))
+        application.is_accepted = False
+        application.is_concluded = False
         db.session.commit()
         return {'status': 'ok'}
 
@@ -77,7 +106,8 @@ def reject_applicant(applicant_user_id, current_user=current_user):
     application.is_concluded = True
     application.is_accepted = False
     db.session.commit()
-    add_status_note(application, 'Application rejected by {}.'.format(current_user.name))
+    add_status_note(
+        application, 'Application rejected by {}.'.format(current_user.name))
     return {'status': 'ok'}
 
 
@@ -88,13 +118,15 @@ def accept_applicant(applicant_user_id, current_user=current_user):
     application.is_accepted = True
     application.is_concluded = True
     db.session.commit()
-    add_status_note(application, 'Application accepted by {}.'.format(current_user.name))
+    add_status_note(
+        application, 'Application accepted by {}.'.format(current_user.name))
     return {'status': 'ok'}
 
 
 def invite_applicant(applicant_user_id, current_user=current_user):
     if not is_senior_recruiter(current_user):
-        raise ForbiddenException('User {} cannot invite applicants.'.format(current_user.id))
+        raise ForbiddenException(
+            'User {} cannot invite applicants.'.format(current_user.id))
     else:
         application = Application.get_submitted_for_user(applicant_user_id)
         if application is None:
@@ -119,13 +151,15 @@ def invite_applicant(applicant_user_id, current_user=current_user):
             send_mail(applicant_user_id, 'invite')
             application.is_invited = True
             db.session.commit()
-            add_status_note(application, 'Application invited by {}.'.format(current_user.name))
+            add_status_note(
+                application, 'Application invited by {}.'.format(current_user.name))
 
 
 def submit_application(current_user=None):
     application = Application.get_for_user(current_user.id)
     if not application:
-        raise BadRequestException(f'User {current_user.id} is not an applicant.')
+        raise BadRequestException(
+            f'User {current_user.id} is not an applicant.')
     application.is_submitted = True
     db.session.commit()
     add_status_note(application, 'Application submitted.')
