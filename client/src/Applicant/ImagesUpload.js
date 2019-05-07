@@ -10,45 +10,6 @@ export default class ImagesUpload extends React.Component {
     images: [],
   };
 
-  uploadFiles = (files, s3Data, image_id) => {
-    var xhr = new XMLHttpRequest();
-    // xhr.withCredentials = "true";
-    xhr.open('POST', s3Data.url);
-
-    var postData = new FormData();
-    for (let key in s3Data.fields) {
-      postData.append(key, s3Data.fields[key]);
-    }
-    files.forEach((file, i) => {
-      postData.append(i, file);
-    });
-
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200 || xhr.status === 204) {
-          new FetchData({ scope: 'user/confirm_s3/', id: image_id })
-            .put()
-            .then(() =>
-              this.setState({
-                uploading: false,
-              })
-            );
-        } else {
-          alert('Could not upload file.');
-        }
-      }
-    };
-    xhr.send(postData);
-  };
-
-  getSignedRequest = files => {
-    new FetchData({ scope: 'user/sign_s3' })
-      .put()
-      .then(({ info: { data, image_id } }) => {
-        this.uploadFiles(files, data, image_id);
-      });
-  };
-
   onChange = e => {
     const files = Array.from(e.target.files);
     this.setState({ uploading: true }, () => {
@@ -57,8 +18,6 @@ export default class ImagesUpload extends React.Component {
       });
     });
   };
-
- 
 
   render() {
     const { uploading, images } = this.state;
