@@ -18,6 +18,8 @@ class IDsToNamesTests(AsceeTestCase):
             [self.applicant.id],
             current_user=self.admin,
         )
+        self.applicant.redlisted = False
+        db.session.commit()
         self.assertIn('info', response)
         data = response['info']
         self.assertIn(self.applicant.id, data)
