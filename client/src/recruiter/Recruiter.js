@@ -178,6 +178,21 @@ export default class Recruiter extends React.Component {
     });
   };
 
+  handleUnaccept = id => {
+    new FetchData({ id, scope: 'recruits/unaccept' }).get().then(res => {
+      if (res.status === 'ok') {
+        this.loadList();
+      } else if (res.status === 406) {
+        this.setState({
+          showAlert: true,
+          alertText: 'User has not completed their application',
+        });
+      } else {
+        this.setState({ showAlert: true, alertText: "User can't be unaccepted" });
+      }
+    });
+  };
+
   handleReject = id => {
     this.setState({
       showConfirm: true,
@@ -269,7 +284,7 @@ export default class Recruiter extends React.Component {
               onSelect={this.handleClick}
               onClaim={this.handleClaim}
               onAccept={this.handleAccept}
-              onDrop={this.handleDrop}
+              onDrop={this.handleUnaccept}
               onReject={this.handleReject}
               onMail={this.handleMail}
             />
