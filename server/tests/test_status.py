@@ -213,7 +213,7 @@ class ApplicantStatusTests(AsceeTestCase):
         with self.assertRaises(BadRequestException):
             unaccept_applicant(self.not_applicant.id, current_user=self.senior_recruiter)
 
-    def test_unaccept_before_Accept(self):
+    def test_unaccept_before_accept(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
             unaccept_applicant(self.applicant.id, current_user=self.senior_recruiter)
