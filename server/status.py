@@ -90,12 +90,13 @@ def unaccept_applicant(applicant_user_id, current_user=current_user):
                 'User {} cant unaccept app from user {} as its not accepted'.format(
                     current_user.id, applicant_user_id
                 ))
-        add_status_note(
-            application, 'Application un-accepted by {}.'.format(current_user.name))
-        application.is_accepted = False
-        application.is_concluded = False
-        db.session.commit()
-        return {'status': 'ok'}
+        else:
+            add_status_note(
+                application, 'Application un-accepted by {}.'.format(current_user.name))
+            application.is_accepted = False
+            application.is_concluded = False
+            db.session.commit()
+            return {'status': 'ok'}
 
 
 def reject_applicant(applicant_user_id, current_user=current_user):
