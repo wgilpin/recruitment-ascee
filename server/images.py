@@ -36,6 +36,7 @@ def get_application_images(application_id, current_user=None):
     else:
         return get_user_images(application.user.id, current_user=current_user)
 
+
 def upload_image(current_user=None):
     application = Application.get_for_user(current_user.id)
     if application is None:
@@ -56,7 +57,7 @@ def upload_image(current_user=None):
             )
             for key, file in request.files.items():
                 if file.filename == "":
-                    raise BadRequestException("No file selected");
+                    raise BadRequestException("No file selected")
 
                 image = Image(application_id=application.id)
                 db.session.add(image)
@@ -77,12 +78,13 @@ def upload_image(current_user=None):
 
             return {'status': 'ok'}
 
+
 def delete_s3(image_id, current_user=None):
     image = Image.query.get(image_id)
     application = Application.get_for_user(current_user.id)
     if Image == None:
         raise BadRequestException('Image does not exist')
-    elif application is None or application.id != image.application_id:
+    elif application is None or application.is_submitted or application.id != image.application_id:
         raise ForbiddenException(
             'User {} does not have access to image {}.'.format(
                 current_user.id, image_id
@@ -91,4 +93,3 @@ def delete_s3(image_id, current_user=None):
     else:
         Image.delete(image_id, image.filename)
         return {'status': 'ok'}
-    
