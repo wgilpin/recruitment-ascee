@@ -78,25 +78,19 @@ def unaccept_applicant(applicant_user_id, current_user=current_user):
         raise BadRequestException(
             'User {} is not in an open application.'.format(
                 applicant_user_id
-            )
-        )
-    elif not has_applicant_access(current_user, User.get(applicant_user_id)):
-        raise ForbiddenException('User {} does not have access to user {}'.format(
-            current_user.id, applicant_user_id
-        ))
+            ))
+    elif not application.is_accepted:
+        raise ForbiddenException(
+            'User {} cant unaccept app from user {} as its not accepted'.format(
+                current_user.id, applicant_user_id
+            ))
     else:
-        if not application.is_accepted:
-            raise ForbiddenException(
-                'User {} cant unaccept app from user {} as its not accepted'.format(
-                    current_user.id, applicant_user_id
-                ))
-        else:
-            add_status_note(
-                application, 'Application un-accepted by {}.'.format(current_user.name))
-            application.is_accepted = False
-            application.is_concluded = False
-            db.session.commit()
-            return {'status': 'ok'}
+        add_status_note(
+            application, 'Application un-accepted by {}.'.format(current_user.name))
+        application.is_accepted = False
+        application.is_concluded = False
+        db.session.commit()
+        return {'status': 'ok'}
 
 
 def reject_applicant(applicant_user_id, current_user=current_user):
