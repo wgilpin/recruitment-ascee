@@ -111,8 +111,11 @@ def api_unaccept_applicant(applicant_id):
         {'status': 'ok'} if applicant is successfully unaccepted
 
     Error codes:
-        Forbidden (403): If recruiter_id is not a senior recruiter, or logged in user
-            is not an admin or senior recruiter
+        Forbidden (403): 
+            the current user is not a senior recruiter, or 
+            the applicant has no open application.
+        Forbidden (403): If current user is not a senior recruiter.
+        Bad Request (400): If the applicant is not in an open application.
     """
     return jsonify(unaccept_applicant(applicant_id, current_user=current_user))
 
