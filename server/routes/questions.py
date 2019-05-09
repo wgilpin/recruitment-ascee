@@ -82,7 +82,8 @@ def api_user_answers(user_id=None):
 
     Error codes:
         Forbidden (403): If logged in user is not a senior recruiter,
-            a recruiter who has claimed the given user, or the user themself
+            a recruiter who has claimed the given user, or the user themself,
+            or if there is not an unsubmitted application for the user.
     """
     if request.method == 'GET':
         user_id = user_id or current_user.id

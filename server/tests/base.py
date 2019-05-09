@@ -131,7 +131,7 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
             test_applicant_id,
         )
         self.applicant_character.user_id = test_applicant_id
-        self.applicant_character.refresh_token = 'rrexor5etNE5-o1BHAKNp8dDZZuLgVqVh7_CQjoU1nInnLOgLUlla8-1kudP2CnLMi4RI6mGADSRdtkHHKRZ935LXdiIhtlOJtpNwik5gRrAXVivVfQek9ZqRdYR5fwoZVflLPIqkCMMG2Yr7XfBbVGUkheAV3tXmYuaXYEHLiZ1ZdG8cOxjY5SDFVQfAz4RlgI7JasjNLhzNuSlPij9S-S2-_7AdwD95PCJeKtRqNte80ztXGJ4IqlOwSWarvmVkNxBJdPfMwy-8KCcTY_FrKSbpWSnXevV0R5Xs2gsXjUEUxv_RIfDwcvz0Ao-IdSes0cpgSDmzs-kpoJQ0y-V2_3JFC9WywXyk80WeKGFkRxspdXKsOnDHXl7GYMPNDSJngWltcpUmcQCMA25DrGCRQ2'
+        self.applicant_character.refresh_token = 'GCe-dZ58iNCRfX2sXf9DcGiP0T-ig8kyIHjr6vK9zHwfL3ij8R0emIuuy2m-gqHPGB_rn5CVUBTv8uhgmN9Tkvmnjp3uOPihHmOlfAqwooN-xbJTmR8w7wWOAhcvCRK62wm6mYMRaz2tI0--a65jeV4OKNxRYFUDiMvM-YMvF6D8AHTr8N9Gl5uCSsgXAz66ewrX7hega5DRGYlOlyFZZmpZRCX8l095aDBDk_GXwljRD4o4FoRfesc6DGsyQ3MUuxlbkwuJbeiyJxWjBkaCgLQEiJkLJf35NMclkU14EEy8nDwf4zjg1ZqXlUAxcjV7DosWh9nZU33_cmKTmKkD8apD3Ozsq5QSjji0TWzZA3Y'
         self.applicant_character.user_id = test_applicant_id
         db.session.add(self.applicant_character)
 

@@ -69,6 +69,8 @@ def set_answers(user_id, answers=None, current_user=None):
     application = Application.get_for_user(user_id)
     if not application:
         raise ForbiddenException(f'User {user_id} is not an applicant')
+    elif application.is_submitted:
+        raise ForbiddenException(f'Cannot modify answers to a submitted application')
     for answer in answers:
         answer_record = Answer.query.filter_by(
             question_id=answer['question_id'], application_id=application.id

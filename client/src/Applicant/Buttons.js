@@ -37,7 +37,7 @@ const styles = {
 };
 
 export default props => (
-  <div style={{ ...styles.table, ...styles.centre }}>
+  <div style={{ ...styles.table, ...styles.centre, marginBottom: '12px', }}>
     <div style={{ ...styles.fadein, ...styles.row }}>
       <div style={styles.button}>
         <label htmlFor="single">

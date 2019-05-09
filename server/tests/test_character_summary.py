@@ -5,7 +5,7 @@ server_dir = os.environ["ASCEE_RECRUIT_SERVER_DIR"]
 sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 import unittest
-import character
+from character import get_character_summary
 from models import Character, User, db, Type, Region, System, Corporation, Alliance, Station
 from base import AsceeTestCase
 from flask_app import app
@@ -13,7 +13,7 @@ from test_character_simple_apis import SimpleCharacterMixin
 
 
 def esi_wrap_to_list(character_id, current_user=None):
-    result = character.get_character_summary(character_id, current_user=current_user)
+    result = get_character_summary(character_id, current_user=current_user)
     return {'info': [result['info']]}
 
 
@@ -39,6 +39,14 @@ class CharacterSummaryTests(SimpleCharacterMixin, AsceeTestCase):
         },
         'entry_identifier': 'character_id',
     }
+
+
+    def test_get_admin_API(self):
+        pass  # admin isn't a real character
+
+    def test_get_recruiter_API(self):
+        pass  # recruiter isn't a real character
+
 
 
 if __name__ == '__main__':
