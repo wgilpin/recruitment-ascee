@@ -59,11 +59,9 @@ def upload_image(current_user=None):
                 if file.filename == "":
                     raise BadRequestException("No file selected")
 
-                image = Image(application_id=application.id)
-                db.session.add(image)
-                db.session.commit()
-
                 if file and file.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+                    image = Image(application_id=application.id)
+                    db.session.add(image)
                     s3.upload_fileobj(
                         file,
                         aws_bucket_name,
@@ -73,8 +71,9 @@ def upload_image(current_user=None):
                             "ContentType": file.content_type
                         }
                     )
+                    db.session.commit()
                 else:
-                    raise AppException('File storage failed')
+                    raise ForbiddenException('File was not an allowed type')
 
             return {'status': 'ok'}
 

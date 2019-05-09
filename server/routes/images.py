@@ -19,7 +19,12 @@ def api_get_user_images(user_id=None):
         response
 
     Example:
-        {"info": [url_1, url_2, ...]}
+        {"info": [
+            {"id": id_1, "url": url_1},
+            {"id": id_2, "url": url_2},
+            ...
+            ]
+        }
 
     Error codes:
         Forbidden (403): If logged in user is not a recruiter with access
@@ -56,18 +61,22 @@ def api_get_application_images(application_id):
 @login_required
 def api_upload_image():
     """
-    recieve images in a form and submit to s3
+    Recieve images in a form and submit to s3.
 
     Args:
-        form data
+        form data including files object, as per
+            https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL/FileGuide/FileUpDown
 
     Returns:
         response
 
+    Example:
+        {'status': 'ok'}
 
     Error codes:
+        Bad Request (400): If the form data contains no files.
         Forbidden (403): If logged in user is not an applicant
-            with an unsubmitted application.
+            with an unsubmitted application, or if file is not an allowed type.
     """
     return jsonify(upload_image(current_user=current_user))
 
@@ -76,7 +85,7 @@ def api_upload_image():
 @login_required
 def api_delete_image(image_id):
     """
-    delete an image from s3.
+    Delete an image from s3.
 
     Args:
         image_id (int)
