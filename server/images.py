@@ -75,7 +75,7 @@ def upload_image(current_user=None):
                         )
                     except Exception as e:
                         Image.delete(image.id, image.filename)
-                        raise AppException('Image storage failed') from e
+                        raise AppException() from e
                 else:
                     raise ForbiddenException('File was not an allowed type')
 
