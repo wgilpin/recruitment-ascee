@@ -1,10 +1,8 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
 import Images from './Images';
-import Buttons from './Buttons';
 import FetchData from '../common/FetchData';
 import styles from './ApplicantStyles';
-import LoginImg from '../images/LoginScreen.png';
 
 export default class ImagesUpload extends React.Component {
   state = {
@@ -12,81 +10,30 @@ export default class ImagesUpload extends React.Component {
     images: [],
   };
 
-  uploadFiles = (files, s3Data, url, image_id) => {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', s3Data.url);
-
-    var postData = new FormData();
-    for (let key in s3Data.fields) {
-      postData.append(key, s3Data.fields[key]);
-    }
-    files.forEach((file, i) => {
-      postData.append(i, file);
-    });
-
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200 || xhr.status === 204) {
-          new FetchData({ scope: 'user/confirm_s3/', id: image_id })
-            .put()
-            .then(() =>
-              this.setState({
-                uploading: false,
-              })
-            );
-        } else {
-          alert('Could not upload file.');
-        }
-      }
-    };
-    xhr.send(postData);
-  };
-
-  getSignedRequest = files => {
-    new FetchData({ scope: 'user/sign_s3' })
-      .put()
-      .then(({ info: { data, url, image_id } }) => {
-        this.uploadFiles(files, data, url, image_id);
-      });
-  };
+  onUploadError = () => {
+    this.setState({ uploading: false });
+    window.alert('Image Storage Failed');
+  }
 
   onChange = e => {
     const files = Array.from(e.target.files);
-    this.setState({ uploading: true }, () => this.getSignedRequest(files));
-  };
-
-  removeImage = id => {
-    this.setState({
-      images: this.state.images.filter(image => image.public_id !== id),
+    this.setState({ uploading: true }, () => {
+      new FetchData({}).upload_to_server(
+        files, 
+        () => {
+        this.setState({ uploading: false });
+        },
+        this.onUploadError,
+        );
     });
   };
 
   render() {
     const { uploading, images } = this.state;
 
-    const content = () => {
-      switch (true) {
-        case uploading:
-          return <Loader />;
-        case images.length === 0:
-          return (
-            <React.Fragment>
-              <p>For example</p>
-              <img style={{ width: '200px' }} src={LoginImg} alt="" />
-              <Buttons onChange={this.onChange} />
-            </React.Fragment>
-          );
-        case images.length > 0:
-          return (
-            <React.Fragment>
-              <Buttons onChange={this.onChange} />;
-              <Images images={images} removeImage={this.removeImage} />;
-            </React.Fragment>
-          );
-        default:
-          return <Buttons onChange={this.onChange} />;
-      }
-    };
+    if (uploading) {
+      return <Loader type="Puff" color="#01799A" height="100" width="100" />;
+    }
 
     return (
       <div>
@@ -95,7 +42,9 @@ export default class ImagesUpload extends React.Component {
           For ALL of your accounts, take a screenshot, save it then upload them
           all here.
         </p>
-        <div className="buttons">{content()}</div>
+        <div className="buttons">
+          <Images onChange={this.onChange} removeImage={this.removeImage} />
+        </div>
       </div>
     );
   }
