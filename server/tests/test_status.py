@@ -218,17 +218,29 @@ class ApplicantStatusTests(AsceeTestCase):
         with self.assertRaises(ForbiddenException):
             unaccept_applicant(self.applicant.id, current_user=self.senior_recruiter)
 
-    def test_unaccept_applicant_as_other_recruiter(self):
+    def test_reject_unaccept_applicant_as_other_recruiter(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
         accept_applicant(self.applicant.id, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
             unaccept_applicant(self.applicant.id, current_user=self.other_recruiter)
 
-    def test_unaccept_applicant_as_admin(self):
+    def test_reject_unaccept_applicant_as_admin(self):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
         accept_applicant(self.applicant.id, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
             unaccept_applicant(self.applicant.id, current_user=self.admin)
+    
+    def test_reject_unaccept_applicant_as_applicant(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            unaccept_applicant(self.applicant.id, current_user=self.applicant)
+
+    def test_reject_unaccept_applicant_as_not_applicant(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            unaccept_applicant(self.applicant.id, current_user=self.not_applicant)
 
     def test_accept_applicant(self):
         self.assertEqual(len(self.application.notes), 0)
