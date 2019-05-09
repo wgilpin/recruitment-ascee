@@ -15,19 +15,17 @@ import unittest
 class ImagesTests(AsceeTestCase):
 
     def test_get_user_images_forbidden(self):
-        for user in (self.other_recruiter, self.not_applicant):
-            with self.assertRaises(ForbiddenException):
-                get_user_images(self.applicant.id, current_user=user)
-        for user in (self.other_recruiter, self.not_applicant, self.recruiter, self.admin):
+        with self.assertRaises(ForbiddenException):
+            get_user_images(self.applicant.id, current_user=self.not_applicant)
+        for user in (self.not_applicant, self.recruiter, self.admin):
             with self.assertRaises(ForbiddenException):
                 get_user_images(self.not_applicant.id, current_user=user)
             with self.assertRaises(ForbiddenException):
                 get_user_images(self.recruiter.id, current_user=user)
 
     def test_get_application_images_forbidden(self):
-        for user in (self.other_recruiter, self.not_applicant):
-            with self.assertRaises(ForbiddenException):
-                get_application_images(self.application.id, current_user=user)
+        with self.assertRaises(ForbiddenException):
+            get_application_images(self.application.id, current_user=self.not_applicant)
 
     def test_get_user_images_empty(self):
         response = get_user_images(self.applicant.id, current_user=self.recruiter)
