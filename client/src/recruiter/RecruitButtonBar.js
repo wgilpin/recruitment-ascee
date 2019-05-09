@@ -42,7 +42,7 @@ export default class RecruitButtonBar extends Component {
       showClaim: status === statuses.unclaimed,
       showAccept: status === statuses.claimed,
       showReject: status === statuses.accepted || status === statuses.claimed,
-      showDrop: status === statuses.claimed,
+      showDrop: status === statuses.claimed || (status === statuses.accepted && this.props.onDrop),
       showMail: status === statuses.accepted,
     };
   }

@@ -5,7 +5,8 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 import unittest
-from status import claim_applicant, release_applicant, accept_applicant, reject_applicant, invite_applicant, own_application_status
+from status import claim_applicant, release_applicant, accept_applicant, reject_applicant,\
+    invite_applicant, own_application_status, unaccept_applicant
 from recruitment import get_applicant_list
 from models import Character, User, Application, db
 from base import AsceeTestCase
@@ -194,6 +195,52 @@ class ApplicantStatusTests(AsceeTestCase):
         claim_applicant(self.applicant.id, current_user=self.recruiter)
         with self.assertRaises(ForbiddenException):
             release_applicant(self.applicant.id, current_user=self.admin)
+
+    def test_unaccept_applicant(self):
+        self.assertEqual(len(self.application.notes), 0)
+        response = claim_applicant(self.applicant.id, current_user=self.recruiter)
+        self.assertDictEqual(response, {'status': 'ok'})
+        self.assertEqual(len(self.application.notes), 1)
+        response = accept_applicant(self.applicant.id, current_user=self.recruiter)
+        self.assertTrue(self.application.is_accepted)
+        response = unaccept_applicant(self.applicant.id, current_user=self.senior_recruiter)
+        self.assertFalse(self.application.is_accepted)
+        self.assertEqual(self.application.recruiter_id, self.recruiter.id)
+        self.assertDictEqual(response, {'status': 'ok'})
+        self.assertEqual(len(self.application.notes), 3)
+
+    def test_release_not_applicant(self):
+        with self.assertRaises(BadRequestException):
+            unaccept_applicant(self.not_applicant.id, current_user=self.senior_recruiter)
+
+    def test_unaccept_before_accept(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            unaccept_applicant(self.applicant.id, current_user=self.senior_recruiter)
+
+    def test_reject_unaccept_applicant_as_other_recruiter(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            unaccept_applicant(self.applicant.id, current_user=self.other_recruiter)
+
+    def test_reject_unaccept_applicant_as_admin(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            unaccept_applicant(self.applicant.id, current_user=self.admin)
+    
+    def test_reject_unaccept_applicant_as_applicant(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            unaccept_applicant(self.applicant.id, current_user=self.applicant)
+
+    def test_reject_unaccept_applicant_as_not_applicant(self):
+        claim_applicant(self.applicant.id, current_user=self.recruiter)
+        accept_applicant(self.applicant.id, current_user=self.recruiter)
+        with self.assertRaises(ForbiddenException):
+            unaccept_applicant(self.applicant.id, current_user=self.not_applicant)
 
     def test_accept_applicant(self):
         self.assertEqual(len(self.application.notes), 0)

@@ -56,7 +56,7 @@ export default class RecruitItem extends React.Component {
         {roles => {
           const recruitIsMine = recruit.recruiter_id === roles.user_id;
           return (
-            <div key={id} id={`recruitItem${id}`} style={localStyles.recruit}>
+            <div key={id} id={'recruitItem'+id} style={localStyles.recruit}>
               {[
                 recruitIsClaimed &&
                   (recruitIsMine ? (
@@ -81,16 +81,16 @@ export default class RecruitItem extends React.Component {
                 <RoundImage src={avatarImg} />
                 <span style={localStyles.name}>{recruit.name}</span>
               </span>
-              <RecruitButtonBar
+              {this.props.isEnabled && <RecruitButtonBar
                 status={recruit.status}
                 style={localStyles.buttons}
                 id={id}
-                onClaim={this.props.isEnabled && this.props.onClaim}
-                onReject={this.props.isEnabled && this.props.onReject}
-                onDrop={this.props.isEnabled && this.props.onDrop}
-                onAccept={this.props.isEnabled && this.props.onAccept}
-                onMail={this.props.isEnabled && this.props.onMail}
-              />
+                onClaim={this.props.onClaim}
+                onReject={this.props.onReject}
+                onDrop={this.props.onDrop}
+                onAccept={this.props.onAccept}
+                onMail={this.props.onMail}
+              />}
             </div>
           );
         }}
