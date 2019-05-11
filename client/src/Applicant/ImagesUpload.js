@@ -13,18 +13,18 @@ export default class ImagesUpload extends React.Component {
   onUploadError = () => {
     this.setState({ uploading: false });
     window.alert('Image Storage Failed');
-  }
+  };
 
   onChange = e => {
     const files = Array.from(e.target.files);
     this.setState({ uploading: true }, () => {
       new FetchData({}).upload_to_server(
-        files, 
+        files,
         () => {
-        this.setState({ uploading: false });
+          this.setState({ uploading: false });
         },
-        this.onUploadError,
-        );
+        this.onUploadError
+      );
     });
   };
 
@@ -43,7 +43,11 @@ export default class ImagesUpload extends React.Component {
           all here.
         </p>
         <div className="buttons">
-          <Images onChange={this.onChange} removeImage={this.removeImage} />
+          <Images
+            onChange={this.onChange}
+            removeImage={this.removeImage}
+            canDelete={this.props.canDelete}
+          />
         </div>
       </div>
     );
