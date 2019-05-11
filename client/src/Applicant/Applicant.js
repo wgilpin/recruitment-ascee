@@ -25,14 +25,14 @@ export default class Applicant extends Component {
   }
 
   questionsToState = questions => {
-    this.setState({ questions });
+    this.setState({ questions: questions || {} });
   };
 
   answersToState = ({ has_application, questions }) => {
     console.log('got answers');
     const newAnswers = { ...this.state.answers };
     let answersReady = true;
-    Object.keys(questions).forEach(key => {
+    Object.keys(questions || []).forEach(key => {
       newAnswers[key] = questions[key].answer;
       answersReady = newAnswers[key].length === 0 ? false : answersReady;
     });
@@ -46,14 +46,13 @@ export default class Applicant extends Component {
     new FetchData({ scope: 'questions' }).get().then(this.questionsToState);
 
   loadCharacterSummary = () => {
-
     new FetchData({ scope: 'character/summary' })
       .get()
       .then(({ info }) => {
         return this.setState({
-          applicationStatus: info.current_application_status,
-          altsDone: info.current_application_status === 'submitted',
-        })
+          applicationStatus: (info || {}).current_application_status,
+          altsDone: (info || {}).current_application_status === 'submitted',
+        });
       })
       .catch(e => console.log(e));
   };
@@ -129,10 +128,24 @@ export default class Applicant extends Component {
     this.setState({ answersReady: ready }, this.checkReady);
 
   render() {
-    const { altsDone, ready, answers, questions, has_application, applicationStatus } = this.state;
+    const {
+      altsDone,
+      ready,
+      answers,
+      questions,
+      has_application,
+      applicationStatus,
+    } = this.state;
     if (!this.state.has_application) {
       return (
-        <ApplicantProvider value={{ altsDone, ready, status: applicationStatus }}>
+        <ApplicantProvider
+          value={{
+            altsDone,
+            ready,
+            status: applicationStatus || '',
+            has_application: false,
+          }}
+        >
           <ApplicantHeader onSubmit={this.submit} />
         </ApplicantProvider>
       );
@@ -143,7 +156,14 @@ export default class Applicant extends Component {
           <div style={styles.logout}>
             <a href="/auth/logout">Sign out</a>
           </div>
-          <ApplicantProvider value={{ altsDone, ready, has_application, status: applicationStatus }}>
+          <ApplicantProvider
+            value={{
+              altsDone,
+              ready,
+              has_application,
+              status: applicationStatus || '',
+            }}
+          >
             <ApplicantHeader onSubmit={this.submit} />
             <Tabs>
               <TabList>

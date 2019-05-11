@@ -40,7 +40,7 @@ export default class ApplicantHeader extends Component {
             has_application && !status === 'submitted' && (
               this.buildInstructions()
             ),
-            !status === 'submitted' && (
+            status !== 'submitted' && (
               this.buildSubmitButton(has_application, ready)
             ),
           ];
