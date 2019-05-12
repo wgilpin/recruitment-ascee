@@ -184,7 +184,7 @@ export default class Applicant extends Component {
                 />
               </TabPanel>
               <TabPanel>
-                <ImagesUpload />
+                <ImagesUpload canDelete={applicationStatus !== 'submitted'} />
               </TabPanel>
             </Tabs>
           </ApplicantProvider>

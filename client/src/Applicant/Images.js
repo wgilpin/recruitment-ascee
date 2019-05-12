@@ -73,14 +73,20 @@ export default class Images extends React.Component {
         <Buttons onChange={this.props.onChange} />
         {images.map((image, i) => (
           <div key={i} style={styles.fadein}>
-            <div
-              style={{ display: 'inline-block' }}
-              onClick={() => this.removeImage(image.id)}
-              className="delete"
-            >
-              <img style={{ cursor: 'pointer' }} src={DeleteImg} alt="delete" />
-            </div>
-            <img src={image.url} alt="" />
+            {this.props.canDelete && (
+              <div
+                style={{ display: 'inline-block' }}
+                onClick={() => this.removeImage(image.id)}
+                className="delete"
+              >
+                <img
+                  style={{ cursor: 'pointer' }}
+                  src={DeleteImg}
+                  alt="delete"
+                />
+              </div>
+            )}
+            <img src={image.url} alt="screenshot" />
           </div>
         ))}
         {this.state.showConfirm && (
