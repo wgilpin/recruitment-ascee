@@ -38,6 +38,7 @@ exports[`<AdminConfig> matches snapshot 1`] = `
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
           }
         }
@@ -65,6 +66,7 @@ exports[`<AdminConfig> matches snapshot 1`] = `
             "marginBottom": "auto",
             "marginTop": "auto",
             "paddingLeft": "8px",
+            "paddingRight": "6px",
             "size": 14,
             "textAlign": "left",
             "verticalAlign": "middle",
@@ -105,7 +107,6 @@ exports[`<AdminConfig> matches snapshot 1`] = `
     Mail Template
   </h2>
   <select
-    defaultValue=""
     onChange={[Function]}
     placeholder="Purpose"
     style={
@@ -120,6 +121,7 @@ exports[`<AdminConfig> matches snapshot 1`] = `
         "width": "300px",
       }
     }
+    value="invite"
   >
     <option
       value="invite"

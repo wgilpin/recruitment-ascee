@@ -28,6 +28,7 @@ Array [
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
           }
         }
@@ -39,6 +40,7 @@ Array [
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
           }
         }
@@ -50,6 +52,7 @@ Array [
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
           }
         }
@@ -61,6 +64,7 @@ Array [
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
           }
         }
@@ -88,6 +92,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -114,6 +119,7 @@ Array [
                   Object {
                     "display": "table-cell",
                     "paddingLeft": "6px",
+                    "paddingRight": "6px",
                     "textAlign": "left",
                   }
                 }
@@ -141,6 +147,7 @@ Array [
                     "marginBottom": "auto",
                     "marginTop": "auto",
                     "paddingLeft": "8px",
+                    "paddingRight": "6px",
                     "size": 14,
                     "textAlign": "left",
                     "verticalAlign": "middle",
@@ -157,6 +164,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -172,6 +180,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -187,6 +196,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -210,6 +220,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -236,6 +247,7 @@ Array [
                   Object {
                     "display": "table-cell",
                     "paddingLeft": "6px",
+                    "paddingRight": "6px",
                     "textAlign": "left",
                   }
                 }
@@ -263,6 +275,7 @@ Array [
                     "marginBottom": "auto",
                     "marginTop": "auto",
                     "paddingLeft": "8px",
+                    "paddingRight": "6px",
                     "size": 14,
                     "textAlign": "left",
                     "verticalAlign": "middle",
@@ -279,6 +292,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -294,6 +308,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -309,6 +324,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -332,6 +348,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -358,6 +375,7 @@ Array [
                   Object {
                     "display": "table-cell",
                     "paddingLeft": "6px",
+                    "paddingRight": "6px",
                     "textAlign": "left",
                   }
                 }
@@ -385,6 +403,7 @@ Array [
                     "marginBottom": "auto",
                     "marginTop": "auto",
                     "paddingLeft": "8px",
+                    "paddingRight": "6px",
                     "size": 14,
                     "textAlign": "left",
                     "verticalAlign": "middle",
@@ -401,6 +420,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -416,6 +436,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -431,6 +452,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -454,6 +476,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -480,6 +503,7 @@ Array [
                   Object {
                     "display": "table-cell",
                     "paddingLeft": "6px",
+                    "paddingRight": "6px",
                     "textAlign": "left",
                   }
                 }
@@ -507,6 +531,7 @@ Array [
                     "marginBottom": "auto",
                     "marginTop": "auto",
                     "paddingLeft": "8px",
+                    "paddingRight": "6px",
                     "size": 14,
                     "textAlign": "left",
                     "verticalAlign": "middle",
@@ -523,6 +548,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -538,6 +564,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -553,6 +580,7 @@ Array [
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
