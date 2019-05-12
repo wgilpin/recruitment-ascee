@@ -79,6 +79,7 @@ exports[`<AdminRoles> matches snapshot 1`] = `
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
           }
         }
@@ -103,6 +104,7 @@ exports[`<AdminRoles> matches snapshot 1`] = `
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
             "verticalAlign": "middle",
           }
@@ -116,6 +118,7 @@ exports[`<AdminRoles> matches snapshot 1`] = `
             "cursor": "pointer",
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
             "verticalAlign": "middle",
           }
@@ -140,6 +143,7 @@ exports[`<AdminRoles> matches snapshot 1`] = `
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
           }
         }
@@ -164,6 +168,7 @@ exports[`<AdminRoles> matches snapshot 1`] = `
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
             "verticalAlign": "middle",
           }
@@ -177,6 +182,7 @@ exports[`<AdminRoles> matches snapshot 1`] = `
             "cursor": "pointer",
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
             "verticalAlign": "middle",
           }
@@ -202,6 +208,7 @@ exports[`<AdminRoles> matches snapshot 1`] = `
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
           }
         }
@@ -226,6 +233,7 @@ exports[`<AdminRoles> matches snapshot 1`] = `
           Object {
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
             "verticalAlign": "middle",
           }
@@ -239,6 +247,7 @@ exports[`<AdminRoles> matches snapshot 1`] = `
             "cursor": "pointer",
             "display": "table-cell",
             "paddingLeft": "6px",
+            "paddingRight": "6px",
             "textAlign": "left",
             "verticalAlign": "middle",
           }

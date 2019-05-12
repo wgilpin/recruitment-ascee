@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<AltsPanel> matches snapshot 1`] = `
+exports[`<Alts> matches snapshot 1`] = `
 <div
   style={
     Object {
@@ -52,6 +52,7 @@ exports[`<AltsPanel> matches snapshot 1`] = `
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -79,6 +80,7 @@ exports[`<AltsPanel> matches snapshot 1`] = `
               "marginBottom": "auto",
               "marginTop": "auto",
               "paddingLeft": "8px",
+              "paddingRight": "6px",
               "size": 14,
               "textAlign": "left",
               "verticalAlign": "middle",
@@ -113,6 +115,7 @@ exports[`<AltsPanel> matches snapshot 1`] = `
             Object {
               "display": "table-cell",
               "paddingLeft": "6px",
+              "paddingRight": "6px",
               "textAlign": "left",
             }
           }
@@ -140,6 +143,7 @@ exports[`<AltsPanel> matches snapshot 1`] = `
               "marginBottom": "auto",
               "marginTop": "auto",
               "paddingLeft": "8px",
+              "paddingRight": "6px",
               "size": 14,
               "textAlign": "left",
               "verticalAlign": "middle",
