@@ -24,6 +24,11 @@ class ImagesTests(AsceeTestCase):
         with self.assertRaises(ForbiddenException):
             delete_s3(image_id, current_user=self.applicant)
 
+    def test_upload_image_forbidden(self):
+        for user in (self.not_applicant, self.recruiter, self.senior_recruiter, self.admin):
+            with self.assertRaises(ForbiddenException):
+                upload_image(current_user=user)
+
     def test_get_user_images_forbidden(self):
         with self.assertRaises(ForbiddenException):
             get_user_images(self.applicant.id, current_user=self.not_applicant)
