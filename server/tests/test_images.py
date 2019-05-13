@@ -5,14 +5,24 @@ sys.path.insert(1, server_dir)
 sys.path.insert(1, os.path.join(server_dir, 'lib'))
 
 from flask_app import app
-from models import db
+from models import db, Image
 from base import AsceeTestCase
 from exceptions import BadRequestException, ForbiddenException
-from images import get_user_images, get_application_images
+from images import get_user_images, get_application_images, delete_s3, upload_image
 import unittest
 
 
 class ImagesTests(AsceeTestCase):
+
+    def test_delete_image_forbidden(self):
+        upload_image(current_user=self.applicant)
+        image_id, = db.session.query(Image.id).filter(Image.application_id == self.application.id).one()
+        for user in (self.not_applicant, self.recruiter, self.senior_recruiter):
+            with self.assertRaises(ForbiddenException):
+                delete_s3(image_id, current_user=user)
+        self.application.submitted = True
+        with self.assertRaises(ForbiddenException):
+            delete_s3(image_id, current_user=self.applicant)
 
     def test_get_user_images_forbidden(self):
         with self.assertRaises(ForbiddenException):

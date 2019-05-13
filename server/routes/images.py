@@ -98,8 +98,7 @@ def api_delete_image(image_id):
 
     Error codes:
         Forbidden (403): If logged in user is not an applicant
-            with an unsubmitted application.
-        Bad Request (400): If the image id is invalid, or
-            does not belong to the logged-in applicant.
+            with an unsubmitted application that has the corresponding
+            image_id attached. Includes case where the image_id is invalid.
     """
     return jsonify(delete_s3(image_id, current_user=current_user))
