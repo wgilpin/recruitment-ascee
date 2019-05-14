@@ -20,7 +20,7 @@ export default class TableIndustry extends TableBase {
     this.addField(TableBase.kinds().date, 'end_date');
     this.addField(TableBase.kinds().text, 'station_name');
     this.addField(TableBase.kinds().text, 'status');
-    this.addField(TableBase.kinds().number, 'duration');
+    this.addField(TableBase.kinds().duration, 'duration');
     this.addField(TableBase.kinds().text, 'output_location_name');
   }
 }

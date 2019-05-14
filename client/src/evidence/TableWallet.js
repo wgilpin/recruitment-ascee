@@ -66,7 +66,7 @@ export default class TableWallet extends TableBase {
   }
 
   showHeader(data) {
-    if (data.length && data[0].division_name) {
+    if (data && data.length && data[0].division_name) {
       return (
         <div>
           <select style={styles.select} onChange={this.handleSelect}>
