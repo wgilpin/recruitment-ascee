@@ -1,8 +1,8 @@
 from flask_login import current_user
 from security import login_required
 from flask_app import app
-from flask import jsonify
-from corporation.finance import get_corporation_wallet, \
+from flask import request, jsonify
+from corporation.finance import get_corporation_journal, get_corporation_transactions, \
     get_corporation_market_contracts, get_corporation_market_history
 
 
@@ -100,6 +100,44 @@ def api_corporation_wallet(corporation_id):
 
     Error codes:
         Forbidden (403): If logged in user is not a senior recruiter or
-            a recruiter who has claimed the given user
+            a recruiter who has claimed the user owning the corporation
     """
-    return jsonify(get_corporation_wallet(corporation_id, current_user=current_user))
+    return jsonify(get_corporation_journal(corporation_id, current_user=current_user))
+
+
+@app.route('/api/corporation/<int:corporation_id>/transactions', methods=['GET'])
+@login_required
+def api_character_transactions(corporation_id):
+    """
+    Get wallet transactions for a given corporation.
+
+    Returned dictionary is of the form
+
+    {
+        'info': [
+            {
+                'division_name': 'Division 1',
+                'info': [entry_1, entry_2, ...],
+                'lowest_id': integer,
+            },
+            ...
+        ]
+    }
+    {'info': [entry_1, entry_2, ...], 'lowest_id': integer}.
+    Each entry is as returned by ESI, with
+    an additional 'redlisted' list of redlisted column names. Returns a
+    maximum of 2500 entries.
+
+    Args:
+        corporation_id (int)
+        highest_id (int, optional): the highest transaction ID to return.
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or
+            a recruiter who has claimed the user owning the corporation
+    """
+    highest_id = request.args.get('highest_id')
+    return jsonify(get_corporation_transactions(corporation_id, highest_id=highest_id, current_user=current_user))

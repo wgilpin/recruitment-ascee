@@ -27,17 +27,63 @@ def get_transaction_party(party_id):
         return Corporation.is_redlisted, return_dict
 
 
-def get_character_wallet(character_id, current_user=None):
+def get_character_transactions(character_id, highest_id=None, current_user=None):
+    character = Character.get(character_id)
+    character_application_access_check(current_user, character)
+    if highest_id is not None:
+        kwargs = {'highest_id': highest_id}
+    else:
+        kwargs = {}
+    wallet_data = character.get_op(
+        'get_characters_character_id_wallet_transactions',
+        character_id=character_id,
+        **kwargs
+    )
+    return process_transactions(character, wallet_data)
+
+
+def process_transactions(character, transaction_data):
+    client_ids = list(set(entry['client_id'] for entry in transaction_data))
+    type_ids = list(set(entry['type_id'] for entry in transaction_data))
+    location_ids = list(set(entry['location_id'] for entry in transaction_data))
+    clients = get_id_data(client_ids, sorted=False)
+    types = Type.get_multi(type_ids)
+    location_dict = get_location_multi(character, list(location_ids))
+    for entry in transaction_data:
+        entry['redlisted'] = []
+        client = clients[entry['client_id']]
+        type_id = entry['type_id']
+        location = location_dict[entry['location_id']]
+        entry['client_name'] = client.name
+        if client.is_redlisted:
+            entry['redlisted'].append('client_name')
+        entry['type_name'] = types[type_id].name
+        if types[type_id].is_redlisted:
+            entry['redlisted'].append('type_name')
+        entry['location_name'] = location.name
+        if location.is_redlisted:
+            entry['redlisted'].append('location_name')
+        entry['total_value'] = entry['quantity'] * entry['unit_price']
+        if abs(entry['total_value']) > 1e9:
+            entry['redlisted'].append('total_value')
+    if len(transaction_data) > 0:
+        lowest_id = min(entry['transaction_id'] for entry in transaction_data)
+    else:
+        lowest_id = None
+    return {'info': transaction_data, 'lowest_id': lowest_id}
+
+
+def get_character_journal(character_id, current_user=None):
     character = Character.get(character_id)
     character_application_access_check(current_user, character)
     wallet_data = character.get_paged_op(
         'get_characters_character_id_wallet_journal',
         character_id=character_id
     )
-    return process_wallet(character_id, wallet_data)
+    return process_journal(character_id, wallet_data)
 
 
-def process_wallet(character_id, wallet_data):
+def process_journal(character_id, wallet_data):
     party_ids = get_party_ids(wallet_data)
     party_data = get_party_data(party_ids)
     for wallet_entry in wallet_data:
