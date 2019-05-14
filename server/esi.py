@@ -10,6 +10,7 @@ import os
 from exceptions import ESIException
 import pyswagger.primitives
 from datetime import datetime
+from ast import literal_eval
 
 
 @backoff.on_exception(
@@ -77,7 +78,7 @@ def get_op(op_name, refresh_token=None, disable_multi=False, **kwargs):
         try:
             response = esi_client.request(esi_app.op[op_name](**kwargs), raise_on_error=True)
         except APIException as err:
-            raise ESIException(err)
+            raise ESIException(literal_eval(err.response.decode("utf-8")))
         if isinstance(response.data, dict) and 'error' in response.data.keys():
             raise ESIException(response.data['error'])
         else:
@@ -106,7 +107,7 @@ def get_paged_op(op_name, refresh_token=None, **kwargs):
     try:
         response = esi_client.request(esi_app.op[op_name](page=1, **kwargs))
     except APIException as err:
-        raise ESIException(err)
+        raise ESIException(literal_eval(err.response.decode("utf-8")))
     if isinstance(response.data, dict) and 'error' in response.data.keys():
         raise ESIException(response.data['error'])
     return_list = []
