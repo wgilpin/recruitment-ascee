@@ -177,7 +177,7 @@ export default class TableBase extends React.Component {
     }
     const dur = moment.duration(durationSeconds, 'seconds');
     const durString = 
-      `${dur.asDays().padStart(2, "0")}d ${dur.asHours().padStart(2, "0")}:${dur.asMinutes().padStart(2, "0")}`;
+      `${Math.floor(dur.asDays())}d ${Math.floor(dur.asHours() % 24)}h ${Math.floor(dur.asMinutes()%60)}m`;
     return <div style={style}>{durString}</div>;
   }
 
