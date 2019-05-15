@@ -19,6 +19,8 @@ def get_location_multi(character, location_id_list, raise_on_missing=True):
             system_id_list.append(location_id)
         elif location_id > 50000000:  # structure
             structure_id_list.append(location_id)
+        elif location_id == 2004:
+            structure_id_list.append(location_id)
         elif raise_on_missing:
             raise BadLocationError(
                 'location_id {} does not correspond to station'
