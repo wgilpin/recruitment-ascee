@@ -17,7 +17,7 @@
 import logging
 from flask_app import app
 from flask import send_from_directory
-from models import db
+from models import db, init_db
 import os
 import routes
 from esi_config import database_url

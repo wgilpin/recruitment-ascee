@@ -3,7 +3,7 @@
 from e2e_data import initDbForE2e
 import main
 from flask_app import app
-from models import db
+from models import db, init_db
 import esi_config
 
 
@@ -12,7 +12,7 @@ def run_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     with app.app_context():
         db.init_app(app)
-        db.create_all()
+        init_db()
         initDbForE2e(wipe=False)
         app.run(host='localhost', port='8080')
 
