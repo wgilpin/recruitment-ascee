@@ -30,12 +30,16 @@ def load_user(user_id):
     return User.get(user_id)
 
 
-def login_helper(login_type):
+def login_helper(login_type, user=None):
     if login_type == 'login' and current_user.is_authenticated:
         character = Character.get(current_user.id)
         return route_to_app_home(current_user, character)
     else:
-        session['token'] = login_type + ':' + generate_token()
+        if user is None:
+            user_id = -1
+        else:
+            user_id = user.id
+        session['token'] = login_type + ':' + str(user_id) + ':' + generate_token()
         params = {
             'redirect_uri': callback_url,
             'client_id': client_id,
@@ -62,18 +66,23 @@ def api_oauth_callback():
               ' {} and session_token {}'.format(token, session_token))
         return redirect(react_app_url)
     login_type = session_token.split(':')[0]
+    user_id = int(session_token.split(':')[1])
+    if user_id < 0:
+        user_id = None
     character = process_oauth(login_type, code)
-    return route_login(login_type, character)
+    return route_login(login_type, character, user_id=user_id)
 
 
 def route_to_app_home(user, character):
+    login_user(user)
     if not (is_recruiter(user) or is_admin(user)):
         if Application.get_for_user(user.id) is None:
             if character.blocked_from_applying:
                 logout_user()
                 return redirect(rejection_url)
         if character.refresh_token is None:
-            return login_helper('scopes')
+            logout_user()
+            return login_helper('scopes', user=user)
         else:
             return redirect(applicant_url)
     elif is_recruiter(user):
@@ -82,7 +91,7 @@ def route_to_app_home(user, character):
         return redirect(admin_url)
 
 
-def route_login(login_type, character):
+def route_login(login_type, character, user_id=None):
     if login_type == 'login':
         print('char', character)
         if character.user_id is None:
@@ -90,13 +99,13 @@ def route_login(login_type, character):
             character.user_id = character.id
             db.session.commit()
         user = User.get(character.user_id)
-        login_user(user)
         return route_to_app_home(user, character)
     elif login_type == 'scopes':
-        if current_user is not None and current_user.id != character.id:
+        if user_id != character.id:
             logout_user()
             return redirect(react_app_url)
         else:
+            login_user(User.get(character.id))
             return redirect(applicant_url)
     elif login_type == 'link':
         return link_alt(character, current_user)
