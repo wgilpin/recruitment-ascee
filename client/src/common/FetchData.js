@@ -129,9 +129,9 @@ export default class FetchData {
     xhr.onreadystatechange = e => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          onSent();
+          onSent(xhr);
         } else {
-          onError();
+          onError(xhr);
         }
       }
     };

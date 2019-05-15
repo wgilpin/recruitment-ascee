@@ -10,8 +10,9 @@ export default class ImagesUpload extends React.Component {
     images: [],
   };
 
-  onUploadError = () => {
+  onUploadError = (e) => {
     this.setState({ uploading: false });
+    console.log('Image Storage Failed', e);
     window.alert('Image Storage Failed');
   };
 
@@ -23,7 +24,7 @@ export default class ImagesUpload extends React.Component {
         () => {
           this.setState({ uploading: false });
         },
-        this.onUploadError
+        () => this.onUploadError(e),
       );
     });
   };
