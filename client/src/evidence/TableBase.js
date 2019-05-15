@@ -69,6 +69,7 @@ export default class TableBase extends React.Component {
       number: 'number',
       standing: 'standing',
       bool: 'YN',
+      duration: 'duration',
     };
   }
 
@@ -110,6 +111,9 @@ export default class TableBase extends React.Component {
       .get()
       .then(data => {
         if (data && data.error) {
+          if (data.body && data.body.message && data.body.message.error){
+            window.alert(data.body.message.error);
+          }
           return this.setState({ ...data.error, loading: false });
         }
         this.setState({ rawData: data.info });
@@ -164,6 +168,17 @@ export default class TableBase extends React.Component {
     }
     const theDate = moment(date).format('DD-MMM-YYYY HH:MM');
     return <div style={style}>{theDate}</div>;
+  }
+
+  makeDurationField(durationSeconds, field, final) {
+    let style = { ...styles.cell, whiteSpace: 'nowrap' };
+    if (final) {
+      style = { ...style, width: '100%' };
+    }
+    const dur = moment.duration(durationSeconds, 'seconds');
+    const durString = 
+      `${Math.floor(dur.asDays())}d ${Math.floor(dur.asHours() % 24)}h ${Math.floor(dur.asMinutes()%60)}m`;
+    return <div style={style}>{durString}</div>;
   }
 
   makeTextField(text, field, final, idx) {
@@ -267,6 +282,9 @@ export default class TableBase extends React.Component {
       }
       case TableBase.kinds().standing: {
         return this.makeStandingField(value, field, final);
+      }
+      case TableBase.kinds().duration: {
+        return this.makeDurationField(value, field, final);
       }
       default: {
         return this.makeTextField(value, field, final, idx);

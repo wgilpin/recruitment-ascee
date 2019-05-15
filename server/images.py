@@ -47,7 +47,10 @@ def upload_image(current_user=None):
         )
     else:
         if app.config.get('TESTING'):
-            presigned_post = 'placeholder for presigned_post'
+            image = Image(application_id=application.id)
+            db.session.add(image)
+            db.session.commit()
+            return {'status': 'ok'}
         else:
             s3 = boto3.client(
                 's3',
@@ -78,16 +81,24 @@ def upload_image(current_user=None):
                         raise AppException() from e
                 else:
                     raise ForbiddenException('File was not an allowed type')
-
             return {'status': 'ok'}
 
 
 def delete_s3(image_id, current_user=None):
     image = Image.query.get(image_id)
     application = Application.get_for_user(current_user.id)
-    if Image == None:
-        raise BadRequestException('Image does not exist')
-    elif application is None or application.is_submitted or application.id != image.application_id:
+    if application is not None:
+        self_access = not application.is_submitted
+        has_access = has_applicant_access(current_user, application.user, self_access=self_access)
+    else:
+        has_access = False
+    if (
+            not has_access or
+            image is None or
+            application is None or
+            application.is_submitted or
+            application.id != image.application_id
+        ):
         raise ForbiddenException(
             'User {} does not have access to image {}.'.format(
                 current_user.id, image_id
