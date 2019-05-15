@@ -154,7 +154,9 @@ export default class Applicant extends Component {
       !this.state.submitted && (
         <React.Fragment>
           <div style={styles.logout}>
-            <a href="/auth/logout">Sign out</a>
+            <a href="/auth/logout">
+              <button style={styles.secondaryButton}>Sign Out</button>
+            </a>
           </div>
           <ApplicantProvider
             value={{
