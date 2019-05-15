@@ -21,6 +21,7 @@ export default class Applicant extends Component {
       pictures: [],
       questions: [],
       applicationStatus: '',
+      dirtyAnswers: false,
     };
   }
 
@@ -36,7 +37,7 @@ export default class Applicant extends Component {
       newAnswers[key] = questions[key].answer;
       answersReady = newAnswers[key].length === 0 ? false : answersReady;
     });
-    this.setState({ answers: newAnswers, has_application, answersReady });
+    this.setState({ answers: newAnswers, has_application, answersReady, dirtyAnswers: false });
   };
 
   loadAnswers = () =>
@@ -68,6 +69,8 @@ export default class Applicant extends Component {
       ready: this.state.altsDone && this.state.answersReady,
     });
   };
+
+  handleAnswersDirty = isDirty => this.setState({ dirtyAnswers: isDirty });
 
   getNotReadyErrorMessage = () => {
     const altsMsg = this.state.altsDone
@@ -127,6 +130,12 @@ export default class Applicant extends Component {
   setAnswersStatus = ready =>
     this.setState({ answersReady: ready }, this.checkReady);
 
+  handleSelectTab = () => {
+    if (this.state.dirtyAnswers){
+      alert('Please Save or Cancel your answers')
+    }
+    return !this.state.dirtyAnswers};
+
   render() {
     const {
       altsDone,
@@ -165,7 +174,7 @@ export default class Applicant extends Component {
             }}
           >
             <ApplicantHeader onSubmit={this.submit} />
-            <Tabs>
+            <Tabs onSelect={this.handleSelectTab}>
               <TabList>
                 <Tab> Alts </Tab>
                 <Tab> Questions </Tab>
@@ -181,6 +190,7 @@ export default class Applicant extends Component {
                   onReadyStatus={this.setAnswersStatus}
                   onSaved={this.loadAnswers}
                   readOnly={applicationStatus === 'submitted'}
+                  onSetDirty={this.handleAnswersDirty}
                 />
               </TabPanel>
               <TabPanel>

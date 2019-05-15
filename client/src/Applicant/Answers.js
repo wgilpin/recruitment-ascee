@@ -37,7 +37,7 @@ export default class Answers extends React.Component {
     if (Object.keys(answers).length === 0 || dirtyAnswers) {
       return this.props.onReadyStatus(false);
     }
-    this.props.onReadyStatus (
+    this.props.onReadyStatus(
       Object.values(answers).filter(q => q.length === 0).length === 0
     );
   };
@@ -61,8 +61,13 @@ export default class Answers extends React.Component {
     });
   };
 
+  handleCancelAnswers = () => {
+      this.setState({ dirtyAnswers: false, answers: this.props.answers }, this.checkAllQuestionsAnswered);
+      this.props.onSetDirty(false);
+  };
+
   handleAnswerChanged = e => {
-    if (this.props.readOnly){
+    if (this.props.readOnly) {
       return;
     }
     const { id, value } = e.target;
@@ -74,8 +79,9 @@ export default class Answers extends React.Component {
           [id]: value,
         },
       },
-      this.checkAllQuestionsAnswered,
+      this.checkAllQuestionsAnswered
     );
+    this.props.onSetDirty(true);
   };
 
   render() {
@@ -83,15 +89,41 @@ export default class Answers extends React.Component {
     return (
       <React.Fragment>
         <h2 style={styles.heading}>Recruitment Questions</h2>
+        {this.state.dirtyAnswers && !this.props.readonly && (
+          <div style={{ display: 'table', margin: '0 auto', width: '150px' }}>
+            <div style={{ display: 'table-row' }}>
+              <div style={{ display: 'table-cell' }}>
+                <button
+                  style={styles.secondaryButton}
+                  onClick={this.handleCancelAnswers}
+                >
+                  Cancel
+                </button>
+              </div>
+              <div style={{ display: 'table-cell' }}>
+                <button
+                  style={styles.primaryButton}
+                  onClick={this.handleSaveAnswers}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         {Object.keys(questions || {}).map(key => {
           const question = questions[key];
           const answer = this.state.answers[key];
+          console.log(question, answer);
+          
           return (
             <div key={key}>
               <div style={styles.padded}>{question}</div>
               {this.props.readonly ? (
-                <div style={styles.answerText} id={key} >
-                  {answer.split('\n').map(line => <div>{line}</div>)}
+                <div style={styles.answerText} id={key}>
+                  {answer.split('\n').map(line => (
+                    <div>{line}</div>
+                  ))}
                 </div>
               ) : (
                 <textarea
@@ -99,19 +131,13 @@ export default class Answers extends React.Component {
                   id={key}
                   readOnly={this.props.readOnly}
                   onChange={this.handleAnswerChanged}
-                >
-                  {answer}
-                </textarea>
+                  value={answer}
+                />
               )}
               <hr style={styles.hr} />
             </div>
           );
         })}
-        {this.state.dirtyAnswers && !this.props.readonly && (
-          <button style={styles.primaryButton} onClick={this.handleSaveAnswers}>
-            Save
-          </button>
-        )}
       </React.Fragment>
     );
   }
