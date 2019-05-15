@@ -86,7 +86,7 @@ export default class Images extends React.Component {
                 />
               </div>
             )}
-            <img src={image.url} alt="screenshot" />
+            <img src={image.url} alt="screenshot" style={{ maxWidth: '100%' }} />
           </div>
         ))}
         {this.state.showConfirm && (
