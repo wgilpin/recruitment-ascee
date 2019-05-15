@@ -40,9 +40,22 @@ export default class ImagesUpload extends React.Component {
       <div>
         <h2 style={styles.heading}>Upload Character Selection Screenshots</h2>
         <p>
-          For ALL of your accounts, take a screenshot, save it then upload them
-          all here.
+          For ALL of your accounts, take a screenshot, save it then upload them here.
         </p>
+        <div style={styles.padded}>
+          <label
+            style={styles.label}
+            data-tip="Check here when you have added all you login screens"
+          >
+            I have added login screenshots for ALL accounts&emsp;
+            <input
+              style={styles.checkbox}
+              type="checkbox"
+              onClick={this.props.onImagesDone}
+              checked={this.props.imagesDone}
+            />
+          </label>
+        </div>
         <div className="buttons">
           <Images
             onChange={this.onChange}

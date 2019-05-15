@@ -14,6 +14,7 @@ export default class Applicant extends Component {
     super(props);
     this.state = {
       altsDone: false,
+      altsImages: false,
       ready: false,
       has_application: false,
       answersReady: false,
@@ -65,7 +66,8 @@ export default class Applicant extends Component {
 
   checkReady = () => {
     this.setState({
-      ready: this.state.altsDone && this.state.answersReady,
+      ready:
+        this.state.altsDone && this.state.answersReady && this.state.imagesDone,
     });
   };
 
@@ -81,6 +83,10 @@ export default class Applicant extends Component {
 
   handleAltsDone = cb => {
     this.setState({ altsDone: cb.target.checked }, this.checkReady);
+  };
+
+  handleImagesDone = cb => {
+    this.setState({ imagesDone: cb.target.checked }, this.checkReady);
   };
 
   submit = () => {
@@ -130,6 +136,7 @@ export default class Applicant extends Component {
   render() {
     const {
       altsDone,
+      imagesDone,
       ready,
       answers,
       questions,
@@ -184,7 +191,11 @@ export default class Applicant extends Component {
                 />
               </TabPanel>
               <TabPanel>
-                <ImagesUpload canDelete={applicationStatus !== 'submitted'} />
+                <ImagesUpload
+                  canDelete={applicationStatus !== 'submitted'}
+                  imagesDone={imagesDone}
+                  onImagesDone={this.handleImagesDone}
+                />
               </TabPanel>
             </Tabs>
           </ApplicantProvider>
