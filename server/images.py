@@ -77,9 +77,11 @@ def upload_image(current_user=None):
                             }
                         )
                     except Exception as e:
+                        print('ERROR upload_image AppException', e)
                         Image.delete(image.id, image.filename)
                         raise AppException() from e
                 else:
+                    print('ERROR upload_image File was not an allowed type')
                     raise ForbiddenException('File was not an allowed type')
             return {'status': 'ok'}
 
