@@ -444,8 +444,8 @@ class Structure(db.Model):
 
     @classmethod
     def get_multi(cls, character, id_list):
-        existing_items = db.session.query(Corporation).filter(
-            Corporation.id.in_(id_list))
+        existing_items = db.session.query(Structure).filter(
+            Structure.id.in_(id_list))
         return_items = {item.id: item for item in existing_items}
         missing_ids = set(id_list).difference(
             [item.id for item in existing_items])
