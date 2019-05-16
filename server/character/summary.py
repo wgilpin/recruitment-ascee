@@ -1,6 +1,6 @@
 from models import Character, Corporation, db, Application
 from security import character_application_access_check
-from status import own_application_status
+from status import own_application_status, get_application_status
 
 
 def get_character_summary(character_id, current_user=None):
@@ -11,10 +11,17 @@ def get_character_summary(character_id, current_user=None):
         'get_characters_character_id',
         character_id=character_id,
     )
-    character_data['current_application_id'] = Application.get_for_user(
-        character.user_id).id
-    if character_id == current_user.id:
-        character_data['current_application_status'] = own_application_status(current_user)['status']
+    application = Application.get_for_user(
+        character.user_id)
+    if application is not None:
+        character_data['current_application_id'] = application.id
+        if character_id == current_user.id:
+            character_data['current_application_status'] = own_application_status(current_user)['status']
+        else:
+            character_data['current_application_status'] = get_application_status(application)
+    else:
+        character_data['current_application_id'] = None
+        character_data['current_application_status'] = None
     character_data['security_status'] = character_data.get(
         'security_status', 0.)
     corporation = Corporation.get(character_data['corporation_id'])
