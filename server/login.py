@@ -7,7 +7,7 @@ from flask import session, redirect, request
 from esi_config import (
     callback_url, client_id, secret_key, scopes, login_url,
     react_app_url, applicant_url, recruiter_url, admin_url, rejection_url,
-    send_mail_scope,
+    wrong_character_url, send_mail_scope,
 )
 from mail import set_mail_character
 import random
@@ -104,7 +104,7 @@ def route_login(login_type, character, user_id=None):
     elif login_type == 'scopes':
         if user_id != character.id:
             logout_user()
-            return redirect(react_app_url)
+            return redirect(wrong_character_url)
         else:
             login_user(User.get(character.id))
             return redirect(applicant_url)
