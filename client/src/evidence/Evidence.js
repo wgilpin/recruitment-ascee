@@ -257,7 +257,7 @@ export default class Evidence extends React.Component {
                 targetId={currentTargetId}
               />
             )}
-            {active === 'Wallet' && (
+            {active === 'Transactions' && (
               <TableWallet
                 style={styles.tabBody}
                 corporation={currentCorp}
