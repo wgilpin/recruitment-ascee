@@ -17,8 +17,8 @@ function WrongCharacter() {
         Wrong Character
       </h1>
       <p>
-        When you add scopes to a character, be careful that the character name
-        is actually selected in the drop-down list.
+        When logging in and then addding scopes to a character, be careful that the same character
+        name is selected in the drop down list on both pages.
       </p>
       <p>PLEASE SELECT YOUR CHARACTER WHEN YOU SEE THIS SCREEN</p>
       <img style={{ width: '400px' }} alt="" src={exampleImg} />
