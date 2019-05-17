@@ -74,7 +74,8 @@ def api_oauth_callback():
 
 
 def route_to_app_home(user, character):
-    login_user(user)
+    if not current_user.is_authenticated:
+        login_user(user)
     if not (is_recruiter(user) or is_admin(user)):
         if Application.get_for_user(user.id) is None:
             if character.blocked_from_applying:
