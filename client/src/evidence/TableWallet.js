@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TableBase from './TableBase';
 import Misc from '../common/Misc';
+import RadioGroup from './RadioGroup';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -47,13 +48,17 @@ export default class TableWallet extends TableBase {
     );
   };
 
+  applySigns (items) {
+    // return then list, but all Buy Orders (is_buy===True) are set to negative
+    return items.map(item => ({
+      ...item,
+      total_value: (item.is_buy ? -1 : 1) * item.total_value,
+    }));
+  }
+
   preProcessData(data) {
-    const signedData = {
-      info: data.info.map(item => ({
-        ...item,
-        total_value: (item.is_buy ? -1 : 1) * item.total_value,
-      })),
-    };
+    // filter by division if one is selected.
+    const signedData = { info: this.applySigns(data.info) };
     if (this.state.rawData.length && this.state.rawData[0].division_name) {
       if (!this.state.division) {
         console.log('no state div');
@@ -72,6 +77,16 @@ export default class TableWallet extends TableBase {
     console.log('no divisions, return data');
     return signedData;
   }
+
+  handleFilter = filterId => {
+    // filter by radio button selection
+    //  0 - show all
+    //  1 - show only |x| > 1 billion 
+    const newData = this.state.rawData.filter(
+      it => filterId === 0 || Math.abs(it.total_value) > 1000000000
+    );
+    this.setState({ data: this.applySigns(newData) });
+  };
 
   showHeader(data) {
     if (data && data.length && data[0].division_name) {
@@ -94,11 +109,15 @@ export default class TableWallet extends TableBase {
     } else {
       if (data && data.length) {
         if (data && data.length) {
-          return (
+          return [
+            <RadioGroup
+              items={['Show All', '  > 1B ISK  ']}
+              onChange={this.handleFilter}
+            />,
             <div style={styles.header}>
               Balance {Misc.commarize(data[0].balance)} ISK
-            </div>
-          );
+            </div>,
+          ];
         }
         return null;
       }
