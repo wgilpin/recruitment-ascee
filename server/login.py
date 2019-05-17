@@ -161,7 +161,7 @@ def route_to_app_home():
     elif is_admin(user):
         return redirect(admin_url)
 
-
+      
 def block_user_from_applying(user):
     for character in user.characters:
         character.blocked_from_applying = True

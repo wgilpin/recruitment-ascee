@@ -10,7 +10,8 @@ import os
 def run_app():
     basedir = os.path.abspath(os.path.dirname(__file__))
     sqlite_location = os.path.join(basedir, 'data.sqlite')
-    os.remove(sqlite_location)
+    if os.path.exists(sqlite_location):
+        os.remove(sqlite_location)
     print('Sqlite:', sqlite_location)
     app.config['SQLALCHEMY_DATABASE_URI'] =\
         'sqlite:///' + sqlite_location
