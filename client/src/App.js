@@ -5,6 +5,7 @@ import MainMenu from './MainMenu';
 import Applicant from './Applicant/Applicant';
 import Recruiter from './recruiter/Recruiter';
 import Admin from './admin/Admin';
+import WrongCharacter from './common/WrongCharacter';
 
 // Set an initial global state directly:
 setGlobal({
@@ -28,7 +29,8 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route path="/" exact component={MainMenu} />
-          <Route path="/app/" exact component={MainMenu} />
+          <Route path="/" exact component={MainMenu} />
+          <Route path="/app/wrong_character" exact component={WrongCharacter} />
           <Route path="/app/apply" component={Applicant} />
           <Route path="/app/recruiter" component={Recruiter} />
           <Route path="/app/admin" component={Admin} />
