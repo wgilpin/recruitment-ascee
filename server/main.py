@@ -17,17 +17,22 @@
 import logging
 from flask_app import app
 from flask import send_from_directory
+from login import route_to_app_home
 from models import db, init_db
 import os
 import routes
 from esi_config import database_url
+from flask_login import current_user
 
 app.url_map.strict_slashes = False
 
 # Serve React App
 @app.route('/')
 def serve():
-    return send_from_directory('public', 'index.html')
+    if current_user.is_authenticated:
+        return route_to_app_home()  # will redirect a logged-in user
+    else:
+        return send_from_directory('public', 'index.html')
 
 
 @app.route('/app', defaults={'path': ''})
@@ -35,6 +40,8 @@ def serve():
 def serve_root(path):
     if path != "" and os.path.exists("public/" + path):
         return send_from_directory('public', path)
+    elif path == '' and current_user.is_authenticated:
+        return route_to_app_home()  # will redirect a logged-in user
     else:
         return send_from_directory('public', 'index.html')
 
