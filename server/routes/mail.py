@@ -4,7 +4,7 @@ from flask_app import app
 from flask import request, jsonify
 from mail import set_mail_template, get_mail_character_data, get_mail_template
 from exceptions import BadRequestException
-from login import login_helper
+from login import sso
 
 
 @app.route('/api/mail/set_character')
@@ -17,7 +17,7 @@ def api_set_mail_character():
         Forbidden (403): If logged in user is not an admin.
     """
     user_admin_access_check(current_user)
-    return login_helper('mail')
+    return sso.call_sso('mail')
 
 
 @app.route('/api/mail/get_character')
