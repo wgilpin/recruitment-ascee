@@ -29,4 +29,4 @@ def api_link_alt():
     """
     Redirects user to ESI SSO login for the purposes of linking an alt.
     """
-    return sso.call_sso('link_alt', user_id=current_user.id)
+    return sso.call_sso('link_alt')
