@@ -14,6 +14,7 @@ import TableContracts from './TableContracts';
 import TableBlueprints from './TableBlueprints';
 import TableMarket from './TableMarket';
 import TableJournal from './TableJournal';
+import TableWallet from './TableWallet';
 import TablePI from './TablePI';
 import TableStandings from './TableStandings';
 import TableFittings from './TableFittings';
@@ -257,7 +258,7 @@ export default class Evidence extends React.Component {
               />
             )}
             {active === 'Wallet' && (
-              <TableJournal
+              <TableWallet
                 style={styles.tabBody}
                 corporation={currentCorp}
                 targetId={currentTargetId}

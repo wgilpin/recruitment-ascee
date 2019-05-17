@@ -27,16 +27,18 @@ const styles = {
   },
 };
 
-export default class TableJournal extends TableBase {
+export default class TableWallet extends TableBase {
   constructor(props) {
     super(props);
     this.sortBy = 'date';
-    this.scope = 'wallet';
+    this.scope = 'transactions';
     this.addField(TableBase.kinds().date, 'date');
-    this.addField(TableBase.kinds().ISK, 'amount');
-    this.addField(TableBase.kinds().ISK, 'balance');
-    this.addField(TableBase.kinds().text, 'other_party');
-    this.addField(TableBase.kinds().text, 'description');
+    this.addField(TableBase.kinds().number, 'quantity', '#');
+    this.addField(TableBase.kinds().ISK, 'unit_price');
+    this.addField(TableBase.kinds().ISK, 'total_value', 'Total');
+    this.addField(TableBase.kinds().text, 'type_name', 'Item');
+    this.addField(TableBase.kinds().text, 'client_name', 'Other Party');
+    this.addField(TableBase.kinds().text, 'location_name', 'Location');
   }
 
   handleSelect = division => {
@@ -46,6 +48,12 @@ export default class TableJournal extends TableBase {
   };
 
   preProcessData(data) {
+    const signedData = {
+      info: data.info.map(item => ({
+        ...item,
+        total_value: (item.is_buy ? -1 : 1) * item.total_value,
+      })),
+    };
     if (this.state.rawData.length && this.state.rawData[0].division_name) {
       if (!this.state.division) {
         console.log('no state div');
@@ -53,7 +61,7 @@ export default class TableJournal extends TableBase {
         this.setState({ division: this.state.rawData[0].division_name });
         return this.state.rawData[0];
       }
-      const the_div = data.filter(
+      const the_div = signedData.filter(
         div => div.division_name === this.state.division
       )[0];
       if (the_div) {
@@ -62,7 +70,7 @@ export default class TableJournal extends TableBase {
       }
     }
     console.log('no divisions, return data');
-    return data;
+    return signedData;
   }
 
   showHeader(data) {
