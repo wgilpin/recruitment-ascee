@@ -31,7 +31,7 @@ export default class TableJournal extends TableBase {
   constructor(props) {
     super(props);
     this.sortBy = 'date';
-    this.scope = 'wallet';
+    this.scope = 'journal';
     this.addField(TableBase.kinds().date, 'date');
     this.addField(TableBase.kinds().ISK, 'amount');
     this.addField(TableBase.kinds().ISK, 'balance');

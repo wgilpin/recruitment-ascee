@@ -235,7 +235,7 @@ export default class Mocks {
       ]
   };
 
-  static mockWallet = {
+  static mockJournal = {
     "blacklist": [],
     "info": [
       {
