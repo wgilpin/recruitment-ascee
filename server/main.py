@@ -32,7 +32,6 @@ def serve():
     if current_user.is_authenticated:
         return route_to_app_home()  # will redirect a logged-in user
     else:
-        print('')
         return send_from_directory('public', 'index.html')
 
 
@@ -40,13 +39,10 @@ def serve():
 @app.route('/app/<path:path>')
 def serve_root(path):
     if path != "" and os.path.exists("public/" + path):
-        print('Sending from directory')
         return send_from_directory('public', path)
     elif path == '' and current_user.is_authenticated:
-        print('Routing from root to app home')
         return route_to_app_home()  # will redirect a logged-in user
     else:
-        print('Sending index')
         return send_from_directory('public', 'index.html')
 
 
