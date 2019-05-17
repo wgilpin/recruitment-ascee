@@ -1,8 +1,8 @@
 from flask_login import current_user
 from security import login_required
 from flask_app import app
-from flask import jsonify
-from character.finance import get_character_wallet, \
+from flask import request, jsonify
+from character.finance import get_character_journal, get_character_transactions, \
     get_character_market_contracts, get_character_market_history
 
 
@@ -66,9 +66,9 @@ def api_character_market_history(character_id):
     return jsonify(get_character_market_history(character_id, current_user=current_user))
 
 
-@app.route('/api/character/<int:character_id>/wallet', methods=['GET'])
+@app.route('/api/character/<int:character_id>/journal', methods=['GET'])
 @login_required
-def api_character_wallet(character_id):
+def api_character_journal(character_id):
     """
     Get wallet journal for a given character.
 
@@ -77,10 +77,8 @@ def api_character_wallet(character_id):
     `first_party_id` and/or `second_party_id` are present, the entry will also
     have the key `first_party` and/or `second_party` whose value is a dict with
     keys `id`, `name`, `party_type` ('corporation' or 'character'),
-    `corporation_name`, and `corporation_ticker`. If an entry is redlisted, it
-    will have the key `redlisted` with value True.
-
-    Entries are redlisted if first_party or second_party is redlisted.
+    `corporation_name`, and `corporation_ticker`. Each entry also has a
+    'redlisted' list of redlisted column names.
 
     Args:
         character_id (int)
@@ -92,4 +90,31 @@ def api_character_wallet(character_id):
         Forbidden (403): If logged in user is not a senior recruiter or
             a recruiter who has claimed the given user
     """
-    return jsonify(get_character_wallet(character_id, current_user=current_user))
+    return jsonify(get_character_journal(character_id, current_user=current_user))
+
+
+@app.route('/api/character/<int:character_id>/transactions', methods=['GET'])
+@login_required
+def api_character_transactions(character_id):
+    """
+    Get wallet transactions for a given character.
+
+    Returned dictionary is of the form
+    {'info': [entry_1, entry_2, ...], 'lowest_id': integer}.
+    Each entry is as returned by ESI, with
+    an additional 'redlisted' list of redlisted column names. Returns a
+    maximum of 2500 entries.
+
+    Args:
+        character_id (int)
+        highest_id (int, optional): the highest transaction ID to return.
+
+    Returns:
+        response (dict)
+
+    Error codes:
+        Forbidden (403): If logged in user is not a senior recruiter or
+            a recruiter who has claimed the given user
+    """
+    highest_id = request.args.get('highest_id')
+    return jsonify(get_character_transactions(character_id, highest_id=highest_id, current_user=current_user))

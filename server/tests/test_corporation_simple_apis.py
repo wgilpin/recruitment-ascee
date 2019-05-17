@@ -153,18 +153,18 @@ class SimpleCorporationMixin(object):
         self.run_tests_simple_APIs(self.applicant_character.corporation.id, self.admin, ForbiddenException)
 
 
-def wrap_corporation_wallet(corporation_id, current_user=None):
-    response = corporation.get_corporation_wallet(corporation_id, current_user=current_user)
+def wrap_corporation_journal(corporation_id, current_user=None):
+    response = corporation.get_corporation_journal(corporation_id, current_user=current_user)
     return_list = []
     for entry in response['info']:
         return_list.extend(entry['info'])
     return {'info': return_list}
 
 
-class CorporationWalletTests(SimpleCorporationMixin, AsceeTestCase):
+class CorporationJournalTests(SimpleCorporationMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': wrap_corporation_wallet,
+        'fetch_function': wrap_corporation_journal,
         'required': {
             'date': str,
             'description': str,
@@ -184,6 +184,41 @@ class CorporationWalletTests(SimpleCorporationMixin, AsceeTestCase):
         'redlisting': {
         },
         'entry_identifier': 'id',
+    }
+
+
+def wrap_corporation_transactions(corporation_id, current_user=None):
+    response = corporation.get_corporation_transactions(corporation_id, current_user=current_user)
+    return_list = []
+    for entry in response['info']:
+        return_list.extend(entry['info'])
+    return {'info': return_list}
+
+
+class CorporationTransactionsTests(SimpleCorporationMixin, AsceeTestCase):
+
+    api_definition = {
+        'fetch_function': wrap_corporation_transactions,
+        'required': {
+            'client_id': int,
+            'date': str,
+            'is_buy': bool,
+            'is_personal': bool,
+            'journal_ref_id': int,
+            'location_id': int,
+            'location_name': str,
+            'quantity': int,
+            'transaction_id': int,
+            'type_id': int,
+            'type_name': str,
+            'unit_price': float,
+            'total_value': float,
+        },
+        'optional': {},
+        'redlisting': {
+            'type_name': (Type, 'type_id'),
+        },
+        'entry_identifier': 'transaction_id',
     }
 
 

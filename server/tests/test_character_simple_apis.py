@@ -180,10 +180,10 @@ class SimpleCharacterMixin(object):
         self.run_tests_simple_APIs(self.not_applicant.id, self.admin, ForbiddenException)
 
 
-class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
+class CharacterJournalTests(SimpleCharacterMixin, AsceeTestCase):
 
     api_definition = {
-        'fetch_function': character.get_character_wallet,
+        'fetch_function': character.get_character_journal,
         'required': {
             'date': str,
             'description': str,
@@ -206,10 +206,31 @@ class CharacterWalletTests(SimpleCharacterMixin, AsceeTestCase):
     }
 
 
+class CharacterTransactionsTests(SimpleCharacterMixin, AsceeTestCase):
 
-
-
-
+    api_definition = {
+        'fetch_function': character.get_character_transactions,
+        'required': {
+            'client_id': int,
+            'date': str,
+            'is_buy': bool,
+            'is_personal': bool,
+            'journal_ref_id': int,
+            'location_id': int,
+            'location_name': str,
+            'quantity': int,
+            'transaction_id': int,
+            'type_id': int,
+            'type_name': str,
+            'unit_price': float,
+            'total_value': float,
+        },
+        'optional': {},
+        'redlisting': {
+            'type_name': (Type, 'type_id'),
+        },
+        'entry_identifier': 'transaction_id',
+    }
 
 
 if __name__ == '__main__':
