@@ -26,3 +26,4 @@ server/tests/cassettes/*.json
 *.DS_Store
 
 .env
+server/tests/data.sqlite
