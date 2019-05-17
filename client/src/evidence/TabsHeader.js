@@ -56,6 +56,7 @@ const styles = {
 const displayOrder = [
   { name: 'Notes', src: notesImg, includeForCorp: true },
   { name: 'Answers', src: answersImg, includeForCorp: true },
+  { name: 'Journal', src: walletImg, includeForCorp: true },
   { name: 'Wallet', src: walletImg, includeForCorp: true },
   { name: 'Mail', src: mailImg },
   { name: 'Assets', src: assetsImg, includeForCorp: true },

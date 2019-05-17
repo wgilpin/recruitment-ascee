@@ -35,7 +35,7 @@ const styles = {
     fontWeight: 600,
   },
   ISKnegative: {
-    color: 'red',
+    color: '#e57272',
   },
   ISKpositive: {
     color: 'lightblue',

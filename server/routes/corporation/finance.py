@@ -107,7 +107,7 @@ def api_corporation_wallet(corporation_id):
 
 @app.route('/api/corporation/<int:corporation_id>/transactions', methods=['GET'])
 @login_required
-def api_character_transactions(corporation_id):
+def api_corporation_transactions(corporation_id):
     """
     Get wallet transactions for a given corporation.
 
