@@ -341,10 +341,12 @@ export default class TableBase extends React.Component {
 
   makeSection(lines, heading, collapsible, depth) {
     const depthPx = `${INDENT * (depth || 0)}px`;
+    const isRedlisted = !!lines.find(line => line.redlisted && line.redlisted.length > 0);
+    const color = isRedlisted ? { color: 'red' } : {};
     return (
       <React.Fragment>
         {heading && (
-          <div style={{ ...styles.groupRow, marginLeft: depthPx }}>
+          <div style={{ ...styles.groupRow, marginLeft: depthPx, ...color }}>
             &ensp;{heading}
           </div>
         )}
