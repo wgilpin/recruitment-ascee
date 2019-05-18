@@ -8,6 +8,7 @@ import ImagesUpload from './ImagesUpload';
 import { ApplicantProvider } from './ApplicantContext';
 import AltsPanel from './AltsPanel';
 import ApplicantHeader from './ApplicantHeader';
+import Screenshots from './../evidence/Screenshots';
 
 export default class Applicant extends Component {
   constructor(props) {
@@ -23,6 +24,8 @@ export default class Applicant extends Component {
       questions: [],
       applicationStatus: '',
       dirtyAnswers: false,
+      screenshotsCount: 0,
+      altsCount: 0,
     };
   }
 
@@ -38,7 +41,12 @@ export default class Applicant extends Component {
       newAnswers[key] = questions[key].answer;
       answersReady = newAnswers[key].length === 0 ? false : answersReady;
     });
-    this.setState({ answers: newAnswers, has_application, answersReady, dirtyAnswers: false });
+    this.setState({
+      answers: newAnswers,
+      has_application,
+      answersReady,
+      dirtyAnswers: false,
+    });
   };
 
   loadAnswers = () =>
@@ -66,22 +74,34 @@ export default class Applicant extends Component {
   }
 
   checkReady = () => {
+    const {
+      altsDone,
+      answersReady,
+      imagesDone,
+      altsCount,
+      screenshotsCount,
+    } = this.state;
     this.setState({
       ready:
-        this.state.altsDone && this.state.answersReady && this.state.imagesDone,
+        altsDone &&
+        answersReady &&
+        imagesDone &&
+        screenshotsCount * 3 >= altsCount,
     });
   };
 
   handleAnswersDirty = isDirty => this.setState({ dirtyAnswers: isDirty });
 
   getNotReadyErrorMessage = () => {
-    const altsMsg = this.state.altsDone
-      ? ''
-      : 'Add all your alts, then tick "I have no more alts".';
-    const questionsMsg = this.allQuestionsAnswered()
-      ? ''
-      : 'Answer all the questions';
-    return altsMsg + questionsMsg;
+    const { altsDone, screenshotsCount, altsCount, answersReady, imagesDone } = this.state;
+
+    const messages = [
+      altsDone || 'Add all your alts, then tick "I have no more alts".',
+      answersReady || 'Answer all the questions.',
+      (screenshotsCount * 3 >= altsCount) || "You haven't added enough login screenshots for your alts.",
+      imagesDone || "Check the box to say you've added all screenshots.",
+    ];
+    return messages.filter(it => it !== true).join('\n\n');
   };
 
   handleAltsDone = cb => {
@@ -137,10 +157,16 @@ export default class Applicant extends Component {
     this.setState({ answersReady: ready }, this.checkReady);
 
   handleSelectTab = () => {
-    if (this.state.dirtyAnswers){
-      alert('Please Save or Cancel your answers')
+    if (this.state.dirtyAnswers) {
+      alert('Please Save or Cancel your answers');
     }
-    return !this.state.dirtyAnswers};
+    return !this.state.dirtyAnswers;
+  };
+
+  handleChangeScreenshots = screenshotsCount =>
+    this.setState({ screenshotsCount }, this.checkReady);
+
+  handleAltsCount = altsCount => this.setState({ altsCount }, this.checkReady);
 
   render() {
     const {
@@ -190,7 +216,10 @@ export default class Applicant extends Component {
                 <Tab>Screenshots</Tab>
               </TabList>
               <TabPanel style={styles.panel}>
-                <AltsPanel onAltsDone={this.handleAltsDone} />
+                <AltsPanel
+                  onAltsDone={this.handleAltsDone}
+                  onChangeCount={this.handleAltsCount}
+                />
               </TabPanel>
               <TabPanel style={styles.panel}>
                 <Answers
@@ -207,6 +236,7 @@ export default class Applicant extends Component {
                   canDelete={applicationStatus !== 'submitted'}
                   imagesDone={imagesDone}
                   onImagesDone={this.handleImagesDone}
+                  onChangeCount={this.handleChangeScreenshots}
                 />
               </TabPanel>
             </Tabs>

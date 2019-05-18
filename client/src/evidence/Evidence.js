@@ -127,6 +127,7 @@ export default class Evidence extends React.Component {
 
   changeAlt = altId => {
     console.log('change alt', altId);
+    const oldTab = this.state.activeTab;
     this.setState(
       {
         currentAlt: altId,
@@ -134,7 +135,7 @@ export default class Evidence extends React.Component {
         activeTab: null,
         currentTargetId: altId,
       },
-      () => this.setState({ activeTab: 'Notes' })
+      () => this.setState({ activeTab: oldTab })
     );
   };
 

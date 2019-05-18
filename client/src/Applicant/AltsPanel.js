@@ -32,7 +32,9 @@ export default function AltsPanel(props) {
               </label>
             </div>
           )}
-          <Alts>
+          <Alts
+            onChangeCount={props.onChangeCount}
+          >
             <a href="/auth/link_alt" data-tip="Add an alt">
               <FabButton
                 icon="add"
