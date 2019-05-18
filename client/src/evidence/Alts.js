@@ -8,6 +8,7 @@ import AltSummary from './AltSummary';
 const propTypes = {
   onAltSelect: PropTypes.func,
   onCorpSelect: PropTypes.func,
+  onChangeCount: PropTypes.func,
   main: PropTypes.number,
   childrenTop: PropTypes.bool,
   highlightMain: PropTypes.bool,
@@ -77,9 +78,8 @@ export default class Alts extends React.Component {
           secStatus: info.security_status,
           corpRedlisted: 'corporation_name' in info.redlisted,
           applicationId: info.current_application_id,
-        })
-      }
-      )
+        });
+      })
       .catch(e => console.log(e));
   };
 
@@ -92,9 +92,12 @@ export default class Alts extends React.Component {
           mainData = data.info[this.props.main];
           delete data.info[this.props.main];
         }
-        this.setState({ alts: data.info, main: mainData }, () =>
-          this.loadCharacterSummary(this.props.main)
-        );
+        this.setState({ alts: data.info, main: mainData }, () => {
+          this.loadCharacterSummary(this.props.main);
+          if (this.props.onChangeCount) {
+            this.props.onChangeCount(Object.keys(data.info).length);
+          }
+        });
       })
       .catch(err => console.log(err));
   };
@@ -171,26 +174,28 @@ export default class Alts extends React.Component {
         {hasAlts && <div style={styles.sectionTitle}>Alts</div>}
         {Object.keys(alts || {}).map(key => {
           const alt = alts[key];
-          return <div key={key}>
-            <Alt
-              style={styles.div}
-              name={alt.name}
-              id={key}
-              selected={selected === key}
-              onClick={this.handleClickAlt}
-            />
-            {selected === key && (
-              <AltSummary
-                corporations={corporations}
-                selected={selected}
-                corporationId={corporationId}
-                corpRedlisted={corpRedlisted}
-                corporationName={corporationName}
-                secStatus={secStatus}
-                onClickCorp={this.handleClickCorp}
+          return (
+            <div key={key}>
+              <Alt
+                style={styles.div}
+                name={alt.name}
+                id={key}
+                selected={selected === key}
+                onClick={this.handleClickAlt}
               />
-            )}
-          </div>
+              {selected === key && (
+                <AltSummary
+                  corporations={corporations}
+                  selected={selected}
+                  corporationId={corporationId}
+                  corpRedlisted={corpRedlisted}
+                  corporationName={corporationName}
+                  secStatus={secStatus}
+                  onClickCorp={this.handleClickCorp}
+                />
+              )}
+            </div>
+          );
         })}
         {!this.props.childrenTop && children}
         {hasAlts && <hr style={styles.hr} />}

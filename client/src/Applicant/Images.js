@@ -25,7 +25,11 @@ export default class Images extends React.Component {
   fetchImages = () => {
     new FetchData({ scope: 'user/images' })
       .get()
-      .then(({ info }) => this.setState({ images: info, loading: false }));
+      .then(({ info }) => {
+        if (info.length !== this.state.images.length){
+          this.props.onChangeCount(info.length);
+        }
+        this.setState({ images: info, loading: false })});
   };
 
   componentDidMount() {

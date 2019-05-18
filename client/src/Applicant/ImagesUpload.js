@@ -61,6 +61,7 @@ export default class ImagesUpload extends React.Component {
             onChange={this.onChange}
             removeImage={this.removeImage}
             canDelete={this.props.canDelete}
+            onChangeCount={this.props.onChangeCount}
           />
         </div>
       </div>
