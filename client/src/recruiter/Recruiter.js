@@ -64,13 +64,15 @@ export default class Recruiter extends React.Component {
   };
 
   loadList = () => {
-    return new FetchData({ id: this.state.id, scope: 'applicant_list' })
-    .get()
-    // Set the state `recruits` list, and set no recruit selected
-    .then(recruits =>
-      this.setState({ recruits: recruits.info, activeRecruitId: null })
-    )
-  }
+    return (
+      new FetchData({ id: this.state.id, scope: 'applicant_list' })
+        .get()
+        // Set the state `recruits` list, and set no recruit selected
+        .then(recruits =>
+          this.setState({ recruits: recruits.info, activeRecruitId: null })
+        )
+    );
+  };
 
   componentDidMount = () => {
     // Hydrate the  state with the response from /api/recruits
@@ -79,15 +81,15 @@ export default class Recruiter extends React.Component {
     //   accepted: recruits I claimed then accepted
     //   unclaimed: all unclaimed
     this.loadList()
-    .then(() => {
-      return new FetchData({ scope: 'user/roles' }).get().then(roles => {
-        return this.setState({ roles: roles.info, loading: false });
+      .then(() => {
+        return new FetchData({ scope: 'user/roles' }).get().then(roles => {
+          return this.setState({ roles: roles.info, loading: false });
+        });
+      })
+      .catch(err => {
+        console.log('mounting error');
+        return { error: err };
       });
-    })
-    .catch(err => {
-      console.log('mounting error');
-      return { error: err };
-    });
   };
 
   setRecruitStatus(id, status) {
@@ -124,25 +126,19 @@ export default class Recruiter extends React.Component {
       this.state.roles.is_recruiter
     ) {
       // I can accept
-      new FetchData({ id, scope: 'recruits/accept' }).get()
-      .then(this.loadList)
-      .then(
-        this.setState(
-          { showConfirm: false },
-          this.componentDidMount
-        )
-      );
+      new FetchData({ id, scope: 'recruits/accept' })
+        .get()
+        .then(this.loadList)
+        .then(this.setState({ showConfirm: false }, this.componentDidMount));
     }
   };
 
-  handleMail = id => {
-    const status = this.state.recruits[id].status;
-    if (
-      status === Recruiter.statuses.accepted &&
-      this.state.roles.is_senior_recruiter
-    ) {
+  doSendMail = () => {
+    const { currentApplicant, roles } = this.state;
+    const { status } = this.state.recruits[currentApplicant];
+    if (status === Recruiter.statuses.accepted && roles.is_senior_recruiter) {
       // I can invite
-      new FetchData({ id, scope: 'recruits/invite' })
+      new FetchData({ id: currentApplicant, scope: 'recruits/invite' })
         .get()
         .then(this.loadList);
     } else {
@@ -151,6 +147,16 @@ export default class Recruiter extends React.Component {
         alertText: "You don't have permission to invite",
       });
     }
+    this.setState({ showConfirm: false }, this.loadList);
+  };
+
+  handleMail = id => {
+    this.setState({
+      showConfirm: true,
+      currentApplicant: id,
+      confirmText: `Invite ${this.state.recruits[id].name}`,
+      onConfirm: this.doSendMail,
+    });
   };
 
   handleClaim = id => {
@@ -188,7 +194,10 @@ export default class Recruiter extends React.Component {
           alertText: 'User has not completed their application',
         });
       } else {
-        this.setState({ showAlert: true, alertText: "User can't be unaccepted" });
+        this.setState({
+          showAlert: true,
+          alertText: "User can't be unaccepted",
+        });
       }
     });
   };
@@ -207,7 +216,7 @@ export default class Recruiter extends React.Component {
     this.setState({ showConfirm: false });
     new FetchData({ id, scope: 'recruits/reject' }).get().then(res => {
       if (res.status === 'ok') {
-        this.loadList()
+        this.loadList();
       } else {
         this.setState({
           showAlert: true,
@@ -219,7 +228,7 @@ export default class Recruiter extends React.Component {
   };
 
   handleClick = id => {
-    const {status} = this.state.recruits[id];
+    const { status } = this.state.recruits[id];
     if (status !== Recruiter.statuses.unclaimed) {
       this.setState({ activeRecruitId: id });
     }
@@ -251,6 +260,7 @@ export default class Recruiter extends React.Component {
     const claimed = this.applyFilter(Recruiter.statuses.claimed);
     const unclaimed = this.applyFilter(Recruiter.statuses.unclaimed);
     const accepted = this.applyFilter(Recruiter.statuses.accepted);
+    const { roles } = this.state;
 
     return (
       <div style={localStyles.outer}>
@@ -261,11 +271,11 @@ export default class Recruiter extends React.Component {
           </a>
         </div>
         <div style={localStyles.claimed}>
-          <RecruiterProvider value={this.state.roles}>
+          <RecruiterProvider value={roles}>
             <SectionList
               label="Claimed"
               list={claimed}
-              isEnabled={this.state.roles.is_recruiter}
+              isEnabled={roles.is_recruiter}
               onSelect={this.handleClick}
               onClaim={this.handleClaim}
               onAccept={this.handleAccept}
@@ -276,11 +286,11 @@ export default class Recruiter extends React.Component {
           </RecruiterProvider>
         </div>
         <div style={localStyles.accepted}>
-          <RecruiterProvider value={this.state.roles}>
+          <RecruiterProvider value={roles}>
             <SectionList
               label="Accepted"
               list={accepted}
-              isEnabled={this.state.roles.is_senior_recruiter}
+              isEnabled={roles.is_senior_recruiter}
               onSelect={this.handleClick}
               onClaim={this.handleClaim}
               onAccept={this.handleAccept}
@@ -291,11 +301,11 @@ export default class Recruiter extends React.Component {
           </RecruiterProvider>
         </div>
         <div style={localStyles.unclaimed}>
-          <RecruiterProvider value={this.state.roles}>
+          <RecruiterProvider value={roles}>
             <SectionList
               label="Unclaimed"
               list={unclaimed}
-              isEnabled={this.state.roles.is_recruiter}
+              isEnabled={roles.is_recruiter}
               onSelect={this.handleClick}
               onClaim={this.handleClaim}
               onAccept={this.handleAccept}
@@ -305,7 +315,7 @@ export default class Recruiter extends React.Component {
             />
           </RecruiterProvider>
         </div>
-        {this.state.roles.is_senior_recruiter && (
+        {roles.is_senior_recruiter && (
           <Search
             id={this.state.historyId}
             onChoose={this.handleOpenFromSearch}
