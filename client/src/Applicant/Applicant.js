@@ -74,28 +74,34 @@ export default class Applicant extends Component {
   }
 
   checkReady = () => {
-    const { altsDone, answersReady, imagesDone, altsCount, screenshotsCount } = this.state;
+    const {
+      altsDone,
+      answersReady,
+      imagesDone,
+      altsCount,
+      screenshotsCount,
+    } = this.state;
     this.setState({
       ready:
-        altsDone && answersReady && imagesDone && (screenshotsCount*3) >= altsCount,
+        altsDone &&
+        answersReady &&
+        imagesDone &&
+        screenshotsCount * 3 >= altsCount,
     });
   };
 
   handleAnswersDirty = isDirty => this.setState({ dirtyAnswers: isDirty });
 
   getNotReadyErrorMessage = () => {
-    const{ altsDone, screenshotsCount, altsCount } = this.state;
+    const { altsDone, screenshotsCount, altsCount, answersReady, imagesDone } = this.state;
 
-    const altsMsg = altsDone
-      ? ''
-      : 'Add all your alts, then tick "I have no more alts". ';
-    const questionsMsg = this.allQuestionsAnswered()
-      ? ''
-      : 'Answer all the questions. ';
-    const screenshotMsg = (screenshotsCount*3) >= altsCount
-      ? ''
-      : "You haven't added enough login screenshots for your alts. "
-    return altsMsg + questionsMsg + screenshotMsg;
+    const messages = [
+      altsDone || 'Add all your alts, then tick "I have no more alts".',
+      answersReady || 'Answer all the questions.',
+      (screenshotsCount * 3 >= altsCount) || "You haven't added enough login screenshots for your alts.",
+      imagesDone || "Check the box to say you've added all screenshots.",
+    ];
+    return messages.filter(it => it !== true).join('\n\n');
   };
 
   handleAltsDone = cb => {
@@ -160,8 +166,7 @@ export default class Applicant extends Component {
   handleChangeScreenshots = screenshotsCount =>
     this.setState({ screenshotsCount }, this.checkReady);
 
-  handleAltsCount = altsCount =>
-    this.setState({ altsCount }, this.checkReady);
+  handleAltsCount = altsCount => this.setState({ altsCount }, this.checkReady);
 
   render() {
     const {
@@ -211,7 +216,10 @@ export default class Applicant extends Component {
                 <Tab>Screenshots</Tab>
               </TabList>
               <TabPanel style={styles.panel}>
-                <AltsPanel onAltsDone={this.handleAltsDone} onChangeCount={this.handleAltsCount} />
+                <AltsPanel
+                  onAltsDone={this.handleAltsDone}
+                  onChangeCount={this.handleAltsCount}
+                />
               </TabPanel>
               <TabPanel style={styles.panel}>
                 <Answers
@@ -228,7 +236,7 @@ export default class Applicant extends Component {
                   canDelete={applicationStatus !== 'submitted'}
                   imagesDone={imagesDone}
                   onImagesDone={this.handleImagesDone}
-                  onChange={this.handleChangeScreenshots}
+                  onChangeCount={this.handleChangeScreenshots}
                 />
               </TabPanel>
             </Tabs>
