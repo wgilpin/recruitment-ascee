@@ -19,6 +19,7 @@ from flask_app import app
 from flask import render_template, send_from_directory, json
 from models import db
 import os
+import sys
 import pyswagger
 from datetime import datetime, date
 import routes
@@ -53,6 +54,8 @@ def serve_static(filename):
 def api_server_error(e):
     # Log the error and stacktrace.
     logging.exception('An error occurred during a request.')
+    print(e)
+    print(sys.exc_info())
     return 'An internal error occurred.', 500
 # [END app]
 
