@@ -56,6 +56,8 @@ def serve_static(filename):
 def api_server_error(e):
     # Log the error and stacktrace.
     logging.exception('An error occurred during a request.')
+    print(e)
+    print(sys.exc_info())
     return 'An internal error occurred.', 500
 # [END app]
 
