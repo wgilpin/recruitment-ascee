@@ -20,20 +20,43 @@ const localStyles = {
   },
 };
 
-export default function Search(props) {
-  return (
-    <div style={localStyles.search}>
-      <div style={{ ...localStyles.section, padding: '12px' }}>
-        <ApplicationHistory applicantId={props.id} showall />
-        <div>
-          <FindESICharacter
-            onChange={props.onChoose}
-            iconList={[{ name: 'open', img: OpenImg }]}
-          />
+export default class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showHistory: false,
+    };
+    this.roles = {};
+  }
+
+  handleOpenFromSearch = (id, _, name) => {
+    this.setState({
+      showHistory: id !== null,
+      historyId: id,
+    }, () => this.props.onChoose(id, null, name));
+  };
+
+  render() {
+    return (
+      <div style={localStyles.search}>
+        <div style={{ ...localStyles.section, padding: '12px' }}>
+          {this.state.showHistory && (
+            <ApplicationHistory
+              applicantId={this.state.historyId}
+              onShowHistory={this.props.onShowHistory}
+              showall
+            />
+          )}
+          <div>
+            <FindESICharacter
+              onChange={this.handleOpenFromSearch}
+              iconList={[{ name: 'open', img: OpenImg }]}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 Search.propTypes = propTypes;
