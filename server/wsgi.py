@@ -56,11 +56,14 @@ def api_server_error(e):
     logging.exception('An error occurred during a request.')
     print(e)
     print(sys.exc_info())
+    sys.stdout.flush()
     return 'An internal error occurred.', 500
 # [END app]
 
 
 def run_app():
+    print('Running WSGI')
+    sys.stdout.flush()
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', database_url)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     with app.app_context():
