@@ -56,6 +56,7 @@ export default class NotesHistory extends React.Component {
         <NotesColumns
           notes={this.state.notes}
           logs={this.state.logs}
+          readonly={true}
         />
       </React.Fragment>
     );
