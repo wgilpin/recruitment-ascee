@@ -1,5 +1,6 @@
 from flask_app import app
 from flask import jsonify
+import traceback
 
 
 class AppException(Exception):
@@ -22,6 +23,8 @@ class AppException(Exception):
 def handle_unauthorized(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
+    print('{} error caught'.format(error.status_code))
+    print(traceback.format_exc())
     return response
 
 
