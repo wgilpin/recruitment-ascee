@@ -20,6 +20,7 @@ from flask import send_from_directory
 from login import route_to_app_home
 from models import db, init_db
 import os
+import sys
 import routes
 from esi_config import database_url
 from flask_login import current_user
@@ -63,6 +64,8 @@ def api_server_error(e):
 
 
 def run_app():
+    print('Running Main')
+    sys.stdout.flush()
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', database_url)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     with app.app_context():
