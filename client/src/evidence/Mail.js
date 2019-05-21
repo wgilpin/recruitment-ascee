@@ -6,8 +6,7 @@ import TableStyles from './TableStyles';
 import FirstPageImg from '../images/first_page_white.png';
 import NextPageImg from '../images/chevron_right.png';
 import IconBtn from '../common/IconBtn';
-import MailItem from './MailItem';
-import MailBody from './MailBody';
+import moment from 'moment';
 
 const propTypes = {
   alt: PropTypes.string,
@@ -21,6 +20,19 @@ const styles = {
   iconBtn: {
     width: '60px',
     float: 'left',
+  },
+  gridOuter: {
+    display: 'grid',
+    gridTemplateColumns: '200px 300px auto',
+  },
+  gridCell: {
+    fontWeight: 800,
+    textAlign: 'left',
+    color: TableStyles.styles.themeColor.color,
+  },
+  body: {
+    textAlign: 'left',
+    gridColumn: '1/4',
   },
 };
 
@@ -147,6 +159,58 @@ export default class Mail extends React.Component {
 
   showMore = () => this.setState({ loading: true }, this.componentDidMount);
 
+  renderMailItem(line, msgId) {
+    const {
+      timestamp,
+      from,
+      from_name,
+      recipients,
+      subject,
+      is_read,
+      redlisted,
+      collapsed,
+      body,
+    } = line;
+    // },
+    // msgId) {
+    let lineStyle, formattedDate;
+    let readStyle = is_read ? styles.isRead : styles.isUnread;
+
+    lineStyle = msgId % 2 === 0 ? styles.isOdd : {};
+    lineStyle = {
+      ...lineStyle,
+      ...readStyle,
+      textAlign: 'left',
+      fontWeight: 600,
+    };
+    formattedDate = moment(timestamp).format('DD-MMM-YYYY HH:MM');
+    let nameStyle = { ...lineStyle };
+    const { recipient_name } = recipients[0];
+    let otherParty = from_name;
+    let mailSubject = subject;
+    if (this.props.targetId === from.toString()) {
+      otherParty = `TO: ${recipient_name}`;
+      mailSubject = `${otherParty}>${subject}`;
+    }
+    if (redlisted.indexOf('from_name') > -1) {
+      nameStyle = { ...lineStyle, ...styles.redList };
+    }
+    const doClick = () => this.toggleMessage(msgId);
+    return [
+      <div style={{ ...lineStyle, gridColumn: 1 }} onClick={doClick}>
+        {formattedDate}
+      </div>,
+      <div style={{ ...nameStyle, gridColumn: 2 }} onClick={doClick}>
+        {otherParty}
+      </div>,
+      <div style={{ ...lineStyle, gridColumn: 3 }} onClick={doClick}>
+        {mailSubject}
+      </div>,
+      !collapsed && (
+        <div style={styles.body} dangerouslySetInnerHTML={{ __html: body }} />
+      ),
+    ];
+  }
   render() {
     if (this.state.loading) {
       return <Loader type="Puff" color="#01799A" height="100" width="100" />;
@@ -155,27 +219,12 @@ export default class Mail extends React.Component {
       return <div>No Mail</div>;
     }
     return (
-      <div style={styles.table}>
-        <div style={styles.header}>
-          <div style={styles.cell}>DATE</div>
-          <div style={styles.cell}>WITH</div>
-          <div style={styles.cell}>SUBJECT</div>
-        </div>
+      <div style={styles.gridOuter}>
+        <div style={{ ...styles.gridCell, gridColumn: 1 }}>DATE</div>
+        <div style={{ ...styles.gridCell, gridColumn: 2 }}>WITH</div>
+        <div style={{ ...styles.gridCell, gridColumn: 3 }}>SUBJECT</div>
         {Object.keys(this.state.mailList).map((line, idx) => {
-          return (
-            <React.Fragment>
-              <MailItem
-                key={idx}
-                msgId={idx}
-                message={this.state.mailList[line]}
-                targetId={this.props.targetId}
-                onClickMessage={this.toggleMessage}
-              />
-              {!this.state.mailList[line].collapsed && (
-                <MailBody line={this.state.mailList[line]} />
-              )}
-            </React.Fragment>
-          );
+          return this.renderMailItem(this.state.mailList[line], idx);
         })}
         <div>
           {this.state.lastMailId !== this.state.endPageOneId && (
