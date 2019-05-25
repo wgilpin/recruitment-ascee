@@ -44,6 +44,7 @@ const styles = {
     borderStyle: 'none',
     backgroundColor: '#0000',
     padding: '6px',
+    verticalAlign: 'middle',
   },
   smallButtonImg: {
     width: '20px',
@@ -128,7 +129,7 @@ export default class FindESICharacter extends React.Component {
   makeSearchResultLine = (char, id) => {
     const imgSrc = `https://image.eveonline.com/Character/${id}_64.jpg`;
     return (
-      <div style={{textAling: 'left'}} key={id}>
+      <div style={{textAling: 'left', paddingBottom: '8px'}} key={id}>
         <RoundImage style={{ position: 'relative', top: '6px' }} src={imgSrc} />
         &ensp;
         {char.name}

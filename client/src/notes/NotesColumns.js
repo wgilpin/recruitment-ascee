@@ -83,7 +83,7 @@ export default class NotesColumns extends React.Component {
                 />
               </h2>
               <Chat items={this.props.notes} />
-              <NoteInput onSubmit={this.props.onAddNote} />
+              {!this.props.readonly && <NoteInput onSubmit={this.props.onAddNote} />}
             </div>
           )}
           {this.state.onlyShow !== 'left' && (
@@ -110,9 +110,9 @@ export default class NotesColumns extends React.Component {
                     onClick={this.clickAddLog}
                   />
                 )}
-                {this.state.showAddLog && (
+                {this.state.showAddLog && !this.props.readonly && 
                   <NoteInput log="true" onSubmit={this.props.onAddNote} />
-                )}
+                }
               </div>
             </div>
           )}

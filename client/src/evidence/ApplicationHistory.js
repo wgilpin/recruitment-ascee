@@ -85,9 +85,12 @@ export default class ApplicationHistory extends React.Component {
 
   sortApps(recentFirst) {
     const direction = recentFirst ? 1 : -1;
-    return (a, b) =>
-      direction * moment((b.notes || {})[b.notes.length - 1].timestamp) -
-      direction * moment((a.notes || {})[a.notes.length - 1].timestamp);
+    return (a, b) =>{
+      if (!a.notes || !b.notes || a.notes.length===0 || b.notes.length===0) {
+        return 0;
+      }
+      return direction * moment((b.notes)[b.notes.length - 1].timestamp) -
+        direction * moment((a.notes)[a.notes.length - 1].timestamp);}
   }
 
   sortNotes(recentFirst) {

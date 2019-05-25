@@ -11,6 +11,8 @@ import Confirm from '../common/Confirm';
 import SectionList from './SectionList';
 import { RecruiterProvider } from './RecruiterContext';
 import Search from './Search';
+import NotesHistory from './../notes/NotesHistory';
+import HistoryDialog from './HistoryDialog';
 
 const localStyles = {
   ...styles,
@@ -230,7 +232,7 @@ export default class Recruiter extends React.Component {
   handleClick = id => {
     const { status } = this.state.recruits[id];
     if (status !== Recruiter.statuses.unclaimed) {
-      this.setState({ activeRecruitId: id });
+      this.setState({ activeRecruitId: id, isAppHistory: null });
     }
   };
 
@@ -254,6 +256,10 @@ export default class Recruiter extends React.Component {
       historyId: id,
     });
   };
+
+  handleOpenHistoryFromSearch = (app) => {
+    this.setState({ isAppHistory: app });
+  }
 
   renderList = () => {
     // 3 sections in order: claimed, accepted, unclaimed.
@@ -319,11 +325,25 @@ export default class Recruiter extends React.Component {
           <Search
             id={this.state.historyId}
             onChoose={this.handleOpenFromSearch}
+            onShowHistory={this.handleOpenHistoryFromSearch}
           />
         )}
       </div>
     );
   };
+
+  doCloseHistory = () => {
+    this.setState({ isAppHistory: null, historyId: null})
+  }
+  
+  renderAppHistory = () => {
+    const { isAppHistory, historyId } = this.state;
+    return <HistoryDialog 
+    appHistory={isAppHistory} 
+    characterName={this.state.recruits[historyId].name} 
+    onCloseHistory={this.doCloseHistory}
+    />
+  }
 
   renderEvidence = () => {
     const activeRecruit = this.state.recruits[this.state.activeRecruitId];
@@ -362,7 +382,10 @@ export default class Recruiter extends React.Component {
       )
     ) {
       // no roles? wrong place
-      window.location = '/';
+      window.location = '/auth/logout';
+    }
+    if (this.state.isAppHistory){
+      return this.renderAppHistory();
     }
     const activeRecruit = activeRecruitId && recruits[activeRecruitId];
     return [
@@ -377,6 +400,7 @@ export default class Recruiter extends React.Component {
       activeRecruitId &&
         activeRecruit.status !== Recruiter.statuses.unclaimed &&
         this.renderEvidence(),
+      this.state.isAppHistory && this.renderEvidence(),
       this.state.showAlert && (
         <Alert
           text={this.state.alertText}
