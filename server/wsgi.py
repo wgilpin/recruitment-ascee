@@ -61,15 +61,16 @@ def api_server_error(e):
 # [END app]
 
 
-def run_app():
-    print('Running WSGI')
-    sys.stdout.flush()
+def init_app():
+    print('Initializing app for  WSGI')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', database_url)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     with app.app_context():
         db.init_app(app)
         db.create_all()
-        if os.environ.get('CURRENT_ENV', '') != 'heroku':
-            app.run(host='localhost', port='8080')
+        # if os.environ.get('CURRENT_ENV', '') != 'heroku':
+        #     app.run(host='localhost', port='8080')
 
-run_app()
+
+if __name__ == '__main__':
+    init_app()
