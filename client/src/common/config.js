@@ -3,7 +3,7 @@
 const config = {
   production: {
     client: {
-      server: 'http://ascee-recruit.herokuapp.com',
+      server: 'http://recruitment.ascendance.space',
     },
   },
   default: {
