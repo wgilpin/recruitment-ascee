@@ -27,3 +27,7 @@ server/tests/cassettes/*.json
 
 .env
 server/tests/data.sqlite
+
+postgres_data/*
+.postgres_data/*
+

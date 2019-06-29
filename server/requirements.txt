@@ -9,8 +9,9 @@ contextlib2
 SQLAlchemy==1.2.17
 Flask-SQLAlchemy==2.1
 asgiref
+psycopg2
 gunicorn
 Flask-Migrate
 flask-script
 boto3
-
+ast
