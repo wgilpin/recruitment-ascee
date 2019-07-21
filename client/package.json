@@ -24,6 +24,7 @@
   "scripts": {
     "start": "cross-env PORT=3003 DEV_ENV=1 react-scripts start",
     "build": "react-scripts build",
+    "build_heroku": "cross-env PUBLIC_URL=http://ascee-recruit.herokuapp.com/ react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prebuild": "rm -rf  ../server/public",
