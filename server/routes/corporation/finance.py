@@ -65,7 +65,7 @@ def api_corporation_market_history(corporation_id):
     return jsonify(get_corporation_market_history(corporation_id, current_user=current_user))
 
 
-@app.route('/api/corporation/<int:corporation_id>/wallet', methods=['GET'])
+@app.route('/api/corporation/<int:corporation_id>/journal', methods=['GET'])
 @login_required
 def api_corporation_wallet(corporation_id):
     """

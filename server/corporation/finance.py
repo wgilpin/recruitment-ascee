@@ -49,7 +49,7 @@ def get_corporation_transactions(corporation_id, highest_id=None, current_user=N
             division=division_id,
             **kwargs,
         )
-        entry.update(process_transactions(character.id, transaction_data))
+        entry.update(process_transactions(character, transaction_data))
         return_data.append(entry)
     return {'info': return_data}
 
