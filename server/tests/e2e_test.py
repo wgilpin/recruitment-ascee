@@ -16,6 +16,7 @@ def run_app():
     app.config['SQLALCHEMY_DATABASE_URI'] =\
         'sqlite:///' + sqlite_location
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['TESTING'] = True
     with app.app_context():
         db.init_app(app)
         db.create_all()
