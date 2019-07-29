@@ -18,14 +18,21 @@ def process_industry(character, industry_job_data):
     location_ids = set()
     for entry in industry_job_data:
         type_ids.add(entry['blueprint_type_id'])
-        location_ids.add(entry['station_id'])
+        if 'station_id' in entry:
+            location_ids.add(entry['station_id'])
+        if 'location_id' in entry:
+            location_ids.add(entry['location_id'])
 
     type_dict = Type.get_multi(list(type_ids))
     location_dict = get_location_multi(character, list(location_ids))
 
     for entry in industry_job_data:
         type = type_dict[entry['blueprint_type_id']]
-        location = location_dict[entry['station_id']]
+        if 'location_id' in entry:
+            location_id = entry['location_id']
+        else:
+            location_id = entry['station_id']
+        location = location_dict[location_id]
         entry['blueprint_type_name'] = type.name
         entry['station_name'] = location.name
         entry['redlisted'] = []

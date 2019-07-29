@@ -13,7 +13,7 @@ def get_corporation_assets(corporation_id, current_user=None):
         'get_corporations_corporation_id_assets',
         corporation_id=corporation_id,
     )
-    return process_assets(character, asset_list)
+    return process_assets(character, asset_list, corporation_id=corporation_id)
 
 
 def get_corporation_blueprints(corporation_id, current_user=None):
