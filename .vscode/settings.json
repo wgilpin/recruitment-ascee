@@ -6,5 +6,6 @@
     "pylint_flask"
   ],
   "python.linting.pylintEnabled": true,
-  "python.linting.enabled": true
+  "python.linting.enabled": true,
+  "workbench.colorCustomizations": {}
 }
