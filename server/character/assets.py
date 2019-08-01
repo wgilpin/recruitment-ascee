@@ -15,7 +15,9 @@ def get_character_assets(character_id, current_user=None):
     return process_assets(character, asset_list)
 
 
-def process_assets(character, asset_list):
+def process_assets(character, asset_list, corporation_id=None):
+    """If corporation_id is passed, will resolve asset names using corporation
+    asset names endpoint."""
     type_set = set()
     for entry in asset_list:
         type_set.add(entry['type_id'])
@@ -31,21 +33,24 @@ def process_assets(character, asset_list):
             entry['redlisted'].append('name')
     item_names = []
     item_ids = list(item_ids)
-    for i_start in range(0, len(item_ids), 1000):
-        item_names.extend(
-            character.get_op(
-                'post_characters_character_id_assets_names',
-                character_id=character.id,
-                item_ids=item_ids[i_start:i_start+1000],
-            )
-        )
-    item_names = {
-        entry['item_id']: entry['name'] for entry in item_names
-    }
-    for entry in asset_list:
-        item_id = entry['item_id']
-        if item_names[item_id] != 'None' and entry['name'] != item_names[item_id]:
-            entry['name'] += ' ({})'.format(item_names[item_id])
+    if corporation_id is None:
+        # Currently not resolving names for corp assets because we can only do
+        # so for ships and containers, others give an error
+        for i_start in range(0, len(item_ids), 1000):
+                item_names.extend(
+                    character.get_op(
+                        'post_characters_character_id_assets_names',
+                        corporation_id=character.id,
+                        item_ids=item_ids[i_start:i_start+1000],
+                    )
+                )
+        item_names = {
+            entry['item_id']: entry['name'] for entry in item_names
+        }
+        for entry in asset_list:
+            item_id = entry['item_id']
+            if item_names[item_id] != 'None' and entry['name'] != item_names[item_id]:
+                entry['name'] += ' ({})'.format(item_names[item_id])
     return organize_assets_by_location(character, asset_list)
 
 

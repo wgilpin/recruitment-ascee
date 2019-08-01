@@ -86,6 +86,7 @@ export default class AdminLists extends React.Component {
     corporation: 'Red Corporation',
     system: 'Red System',
     user: 'User Blocked From Applying',
+    region: 'Region',
   };
 
   titleise(text) {
