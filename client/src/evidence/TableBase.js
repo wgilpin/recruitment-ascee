@@ -118,7 +118,7 @@ export default class TableBase extends React.Component {
         }
         this.setState({ rawData: data.info });
         if (this.preProcessData) {
-          data = this.preProcessData(data);
+          data = this.preProcessData(data.info);
         }
         this.processData(data);
       });
