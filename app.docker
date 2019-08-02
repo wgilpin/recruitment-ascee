@@ -15,7 +15,7 @@ RUN pip3.6 install -r /root/ascee/requirements.txt
 RUN yum -y install gcc python3-devel postgresql-devel
 
 #RUN pip3.6 install postgresql-libs
-RUN pip3.6 install psycopg2-binary
+#RUN pip3.6 install psycopg2-binary
 
 EXPOSE 80
 EXPOSE 443
