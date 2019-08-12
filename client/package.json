@@ -2,7 +2,7 @@
   "name": "recruitment-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://recruitment.ascendance.space/",
+  "homepage": "http://ascee-recruit.herokuapp.com/",
   "dependencies": {
     "create-react-app": "^3.0.0",
     "cross-env": "^5.2.0",
