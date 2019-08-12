@@ -58,7 +58,7 @@ export default class TableWallet extends TableBase {
 
   preProcessData(data) {
     // filter by division if one is selected.
-    const signedData = { info: this.applySigns(data.info) };
+    const signedData = this.applySigns(data);
     if (this.state.rawData.length && this.state.rawData[0].division_name) {
       if (!this.state.division) {
         console.log('no state div');
