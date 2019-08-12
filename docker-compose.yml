@@ -17,9 +17,7 @@ services:
     app:
        build:
            context: ./
-           dockerfile: app.docker         
-       #image: lamonsta/ascee 
-       #command: wsgi --socket 0.0.0.0:8282 --protocol=http -w wsgi 
+           dockerfile: app.docker              
        working_dir: /root/ascee/
        ports:
            - 80:80
@@ -36,6 +34,7 @@ services:
            - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
            - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
            - APP_URL=${APP_URL}  
+           - DATABASE_URL=${DATABASE_URL}
 
        volumes:
            - ./server:/root/ascee/
