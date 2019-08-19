@@ -16,7 +16,7 @@ else:
     postgres_user = os.environ['POSTGRES_USER']
     postgres_password = os.environ['POSTGRES_PASSWORD']
     postgres_port = os.environ['POSTGRES_PORT']
-    database_url = os.environ['DATABAE_URL']
+    database_url = os.environ['DATABASE_URL']
     aws_bucket_name = 'ascendancerecruitment'
     aws_region_name='fra1'
     aws_endpoint_url='https://fra1.digitaloceanspaces.com'
