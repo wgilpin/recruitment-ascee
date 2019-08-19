@@ -1,0 +1,22 @@
+FROM centos:latest
+ 
+
+WORKDIR /root/ascee
+
+RUN yum -y install https://centos7.iuscommunity.org/ius-release.rpm
+RUN yum -y install python36u
+RUN yum -y install python36u-pip
+
+#RUN python3.6 -m pip3.6 install --upgrade pip3 setuptools wheel
+
+COPY requirements.txt /root/ascee/requirements.txt
+
+RUN pip3.6 install -r /root/ascee/requirements.txt
+RUN yum -y install gcc python3-devel postgresql-devel
+
+#RUN pip3.6 install postgresql-libs
+#RUN pip3.6 install psycopg2-binary
+
+EXPOSE 80
+EXPOSE 443
+EXPOSE 8080

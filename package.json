@@ -2,7 +2,7 @@
   "name": "recruitment-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ascee-recruit.herokuapp.com/",
+  "homepage": "http://recruitment.ascendance.space/",
   "engines": {
     "node": "10.12.0",
     "yarn": "1.13.0",

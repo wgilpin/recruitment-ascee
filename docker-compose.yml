@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+    db:
+        image: postgres:11.3
+        volumes:
+            - ./postgres_data:/var/lib/postgresql/data
+        container_name: db
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_HOST=${POSTGRES_HOST}
+            - POSTGRES_PORT=${POSTGRES_PORT}
+    
+    app:
+       build:
+           context: ./
+           dockerfile: app.docker              
+       working_dir: /root/ascee/
+       ports:
+           - 80:80
+           - 443:443
+       environment:
+           - DEBUG=1
+           - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+           - POSTGRES_USER=${POSTGRES_USER}
+           - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+           - POSTGRES_HOST=${POSTGRES_HOST}
+           - POSTGRES_PORT=${POSTGRES_PORT}
+           - CLIENT_ID=${CLIENT_ID}
+           - SECRET_ID=${SECRET_KEY}
+           - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+           - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+           - APP_URL=${APP_URL}  
+           - DATABASE_URL=${DATABASE_URL}
+
+       volumes:
+           - ./server:/root/ascee/
+       depends_on:
+           - db
+       #command: uwsgi --socket 0.0.0.0:8080 --protocol=http -w wsgi:app 
+       command: gunicorn --bind 0.0.0.0:80 --forwarded-allow-ips * --chdir /root/ascee/ wsgi:app
+volumes:
+    postgres-data:
+    server:
+
+
