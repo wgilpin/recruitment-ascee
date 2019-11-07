@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
+import os
 # [START create_app]
 app = Flask(__name__, static_folder="public/static", template_folder="public")
 # [END create_app]
