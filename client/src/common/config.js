@@ -1,9 +1,10 @@
 // var config = require('./config.js').get(process.env.NODE_ENV);
+require('dotenv').config()
 
 const config = {
   production: {
     client: {
-      server: 'http://recruitment.ascendance.space',
+      server: process.env.REACT_APP_APP_URL
     },
   },
   default: {
