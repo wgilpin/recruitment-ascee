@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head style="margin:0; height: 100%">
+<meta charset="utf-8">
+<script>
+//import React from 'react';
+//import PropTypes from 'prop-types';
+//import ReactModal from 'react-modal';
+//import Styles from '../common/Styles';
+//import sIE from '../common/tests/sIE';
+function isIE () {
+    var IEB = /*@cc_on!@*/false || !!document.documentMode;
+    if (IEB == true)  {
+        return alert("internet Explorer is not supported");
+    }
+}
+</script>
+<title>Testing Page</title>
+</head>
+<body onload="isIE()">
+    <div>
+        This is a test
+    </div>
+</body>
+</html>

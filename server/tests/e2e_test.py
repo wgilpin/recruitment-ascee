@@ -1,10 +1,11 @@
 # [START app]
 # [START imports]
+import os
+os.environ['CURRENT_ENV'] = 'localhost'
 from e2e_data import initDbForE2e
 import main
 from flask_app import app
 from models import db
-import os
 
 
 def run_app():

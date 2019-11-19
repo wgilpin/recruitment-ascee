@@ -8,6 +8,14 @@ if os.environ.get('CURRENT_ENV', '') == 'heroku':
     aws_bucket_name = 'ascee-recruit'
     aws_region_name='ams3'
     aws_endpoint_url='https://ams3.digitaloceanspaces.com'
+elif os.environ.get('CURRENT_ENV', '') == 'localhost':
+    client_id = 'd42741ceaf7140049db95ec65dda5742'
+    secret_key = 'XkkgTu89W1diw2OjrwGlav5T2koud7TPQoePbjoE'
+    app_url = 'http://localhost:8080/'
+    database_url = None
+    aws_bucket_name = 'ascee-recruit'
+    aws_region_name='ams3'
+    aws_endpoint_url='https://ams3.digitaloceanspaces.com'
 else:
     client_id = os.environ['CLIENT_ID']
     secret_key = os.environ['SECRET_KEY']
