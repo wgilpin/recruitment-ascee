@@ -3,7 +3,7 @@
 const config = {
   production: {
     client: {
-      server: 'http://recruitment.ascendance.space',
+      server: process.env.REACT_APP_APP_URL,
     },
   },
   default: {
