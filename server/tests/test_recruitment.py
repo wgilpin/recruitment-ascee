@@ -909,6 +909,10 @@ class ApplicationHistoryTests(AsceeTestCase):
         self.assertIsInstance(result['info'], dict)
         self.assertEqual(len(result['info']), 2)
 
+    def test_blocklist_test1(self):
+        start_application()
+        submit_application()
+        self.assertEqual()
 
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
