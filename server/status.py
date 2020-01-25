@@ -1,14 +1,15 @@
 from flask_app import app
-from flask_login import login_required, current_user
-from flask import jsonify
+from flask_login import login_required, current_user, logout_user
+from flask import jsonify, redirect
 from security import user_application_access_check, is_recruiter, \
     is_senior_recruiter, is_admin
 from models import User, Character, Application, db, Note
+from esi_config import rejection_url
 from models.database import db
 from security import has_applicant_access
 from exceptions import BadRequestException, ForbiddenException
 from mail import send_mail
-
+from login import block_user_from_applying
 
 def own_application_status(current_user):
     application = Application.get_for_user(current_user.id)
@@ -150,11 +151,37 @@ def invite_applicant(applicant_user_id, current_user=current_user):
                 application, 'Application invited by {}.'.format(current_user.name))
 
 
+def reject_applicant_automated(applicant_user_id, reason=""):
+    application = Application.get_submitted_for_user(applicant_user_id)
+    applicant = User.get(applicant_user_id)
+    send_mail(applicant.id, 'reject')
+    application.is_concluded = True
+    application.is_accepted = False
+    db.session.commit()
+    add_status_note(
+        application, 'Application Auto-rejected for {}.'.format(reason))
+
+
 def submit_application(current_user=None):
+    # TODO: https://github.com/wgilpin/recruitment-ascee/issues/461
     application = Application.get_for_user(current_user.id)
+
     if not application:
         raise BadRequestException(
             f'User {current_user.id} is not an applicant.')
+
+    for character in current_user.characters:
+        if character.blocked_from_applying:
+            block_user_from_applying(current_user.id)
+            application.is_concluded = True
+            application.is_accepted = False
+            db.session.commit()
+            add_status_note(
+                application, 'Application Auto-rejected for {}.'.format("User Blocked from applying"))
+
+            logout_user()
+            return redirect(rejection_url)
+
     application.is_submitted = True
     db.session.commit()
     add_status_note(application, 'Application submitted.')

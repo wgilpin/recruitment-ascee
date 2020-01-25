@@ -442,7 +442,7 @@ class MiscRecruitmentTests(AsceeTestCase):
         self.assertEqual(notes[0].title, None)
         augmented_notes = get_applicant_notes(self.applicant.id, current_user=self.recruiter)['info']
         self.assertEqual(augmented_notes[0]['can_edit'], True)
-        
+
         response = add_applicant_note(self.applicant.id, "Another note", current_user=self.recruiter)
         self.assertDictEqual(response, {'status': 'ok'})
         notes = self.application.notes

@@ -171,8 +171,45 @@ class AsceeTestCase(unittest.TestCase):#VCRTestCase):
             corporation_id=self.ascee_corp_id,
             redlisted=True,
         )
+
+        # Setup for Blacklist tests
+        self.known_spys_unknown_alt = Character(
+            id=5678,
+            user_id=5678,
+            name='Totally Not a Spy',
+            corporation_id=self.ascee_corp_id,
+            blocked_from_applying=False
+        )
+
+        self.known_spy = Character(
+            id=1532,
+            user_id=5678,
+            name="Totally a spy",
+            corporation_id=self.ascee_corp_id,
+            blocked_from_applying=True
+        )
+
+        self.known_spys_known_alt = Character(
+            id=1533,
+            user_id=5678,
+            name="Totally also a spy",
+            corporation_id=self.ascee_corp_id,
+            blocked_from_applying=True
+        )
+
+        self.SpyApplication = Application(
+            user_id=self.known_spys_unknown_alt.user_id,
+            recruiter_id=self.recruiter.id,
+            is_submitted=False
+        )
+
         db.session.add(self.redlisted_character_1)
         db.session.add(self.redlisted_character_2)
+
+        db.session.add(self.known_spys_unknown_alt)
+        db.session.add(self.known_spys_known_alt)
+        db.session.add(self.known_spy)
+
         db.session.commit()
 
     def clearDB(self):
