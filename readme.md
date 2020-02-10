@@ -100,7 +100,11 @@ This weill start the server with all the test accounts loaded, so you try the ro
  * ASCEE_RECRUIT_SERVER_DIR: /app/server
  * AWS_BUCKET, AWS_REGION, AWS_ENDPOINT_URL should contain boto3 info for image upload server
  * AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY should contain boto3 credentials for image upload
- 
+
+6. (Part 2) On the Settings page, make sure heroku/python and heroku/nodejs are
+   both enabled as buildpacks. Click the Add buildpack button to add either that
+   might be missing.
+
 7. For Postgres data, duplicate the heroku tab and go to Overview, click on "Heroku Postgres" under installed addons
 Click settings on the new window and then click View Credentials. Take the info to the right of the bolded word shown below
 
@@ -108,7 +112,6 @@ Click settings on the new window and then click View Credentials. Take the info 
  * POSTGRES_USER: User
  * POSTGRES_PASSWORD: Password
  * POSTGRES_PORT: Port
- 
  
 8. Click Open app and Auth
 
