@@ -6,7 +6,8 @@ from flask_app import app
 from flask import request
 import boto3
 from botocore.client import Config
-from . import esi_config as config
+from esi_config import aws_region_name, aws_endpoint_url, aws_access_key_id, \
+    aws_secret_access_key, aws_signature_version, aws_bucket_name
 
 
 def get_user_images(user_id, current_user=None):
@@ -54,11 +55,11 @@ def upload_image(current_user=None):
         else:
             s3 = boto3.client(
                 's3',
-                region_name=config.aws_region_name,
-                endpoint_url=config.aws_endpoint_url,
-                aws_access_key_id=config.aws_access_key_id,
-                aws_secret_access_key=config.aws_secret_access_key,
-                config=Config(signature_version=config.aws_signature_version),
+                region_name=aws_region_name,
+                endpoint_url=aws_endpoint_url,
+                aws_access_key_id=aws_access_key_id,
+                aws_secret_access_key=aws_secret_access_key,
+                config=Config(signature_version=aws_signature_version),
             )
             for key, file in request.files.items():
                 if file.filename == "":
@@ -71,7 +72,7 @@ def upload_image(current_user=None):
                         db.session.commit()
                         s3.upload_fileobj(
                             file,
-                            config.aws_bucket_name,
+                            aws_bucket_name,
                             image.filename,
                             ExtraArgs={
                                 "ACL": 'public-read',
