@@ -4,7 +4,7 @@ import esi
 
 
 class Group(db.Model):
-    __tablename__ = 'group'
+    __tablename__ = 'type_group'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
 
