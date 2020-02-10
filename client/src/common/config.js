@@ -3,7 +3,7 @@
 const config = {
   production: {
     client: {
-      server: process.env.REACT_APP_APP_URL,
+      server: process.env.REACT_APP_URL,
     },
   },
   default: {
