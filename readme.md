@@ -138,7 +138,6 @@ insert into recruiter (id, is_senior) values (ID, True);
 
 Replacing both ID's with the ID found on the Dataclip from before (It should have YOUR Eve character name)
 
-
 ## Wireframes
 
 ![Landing Wireframe](https://github.com/wgilpin/recruitment-ascee/blob/master/docs/Landing%20Wireframe.png)
