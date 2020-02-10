@@ -126,14 +126,14 @@ Add the line to the scratch pad:
 
 12. Open up a terminal and type "heroku login" and follow the prompt onscreen
 
-13. next type "heroku pg:psql -a <appname>" replacing <appname> with the heroku app name that you gave when you created the app
+13. next type "heroku pg:psql -a appname" replacing appname with the heroku app name that you gave when you created the app
 
 14. next type
-```insert into admin (id) values (<ID>);
-insert into recruiter (id, is_senior) values (<ID>, True);
+```insert into admin (id) values (ID);
+insert into recruiter (id, is_senior) values (ID, True);
 ```
 
-Replacing both \<ID\>'s with the ID found on the Dataclip from before (It should have YOUR Eve character name)
+Replacing both ID's with the ID found on the Dataclip from before (It should have YOUR Eve character name)
 
 
 ## Wireframes
