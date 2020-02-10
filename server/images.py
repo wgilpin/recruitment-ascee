@@ -2,11 +2,12 @@ import os
 from models import db, Application, User, Image
 from exceptions import ForbiddenException, BadRequestException, AppException
 from security import user_application_access_check, has_applicant_access
-from esi_config import aws_bucket_name, aws_endpoint_url, aws_region_name, aws_signature_version
 from flask_app import app
 from flask import request
 import boto3
 from botocore.client import Config
+from esi_config import aws_region_name, aws_endpoint_url, aws_access_key_id, \
+    aws_secret_access_key, aws_signature_version, aws_bucket_name
 
 
 def get_user_images(user_id, current_user=None):
@@ -56,6 +57,8 @@ def upload_image(current_user=None):
                 's3',
                 region_name=aws_region_name,
                 endpoint_url=aws_endpoint_url,
+                aws_access_key_id=aws_access_key_id,
+                aws_secret_access_key=aws_secret_access_key,
                 config=Config(signature_version=aws_signature_version),
             )
             for key, file in request.files.items():
