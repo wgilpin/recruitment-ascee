@@ -93,11 +93,13 @@ This weill start the server with all the test accounts loaded, so you try the ro
 5. Follow the bottom deploy instruction under "Deploy using Heroku Git" (Existing Git repository)
 
 6. Add Config vars:
+ * CLIENT_ID: Eve ESI application Client ID (https://developers.eveonline.com/)
+ * SECRET_KEY: Eve ESI application Secret Key (https://developers.eveonline.com/)
  * APP_URL: Should match your domain (E.G. https://recruit-ascee-test.herokuapp.com/)
  * REACT_APP_APP_URL:  Should match APP_URL
  * ASCEE_RECRUIT_SERVER_DIR: /app/server
- * CLIENT_ID: Eve ESI application Client ID (https://developers.eveonline.com/)
- * SECRET_KEY: Eve ESI application Secret Key (https://developers.eveonline.com/)
+ * AWS_BUCKET, AWS_REGION, AWS_ENDPOINT_URL should contain boto3 info for image upload server
+ * AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY should contain boto3 credentials for image upload
  
 7. For Postgres data, duplicate the heroku tab and go to Overview, click on "Heroku Postgres" under installed addons
 Click settings on the new window and then click View Credentials. Take the info to the right of the bolded word shown below
