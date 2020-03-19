@@ -127,7 +127,8 @@ Add the line to the scratch pad:
 13. next type "heroku pg:psql -a <appname>" replacing <appname> with the heroku app name that you gave when you created the app
 
 14. next type
-```insert into admin (id) values (<ID>);
+```
+insert into admin (id) values (<ID>);
 insert into recruiter (id, is_senior) values (<ID>, True);
 ```
 
